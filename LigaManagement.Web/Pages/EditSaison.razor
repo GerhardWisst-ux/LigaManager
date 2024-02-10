@@ -1,0 +1,94 @@
+﻿@page "/createsaison"
+@page "/editsaison/{Id}"
+@using LigaManagement.Web.Services.Contracts;
+@using LigaManagerManagement.Models;
+@inherits LigaManagerManagement.Web.Pages.SaisonenListBase
+@inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h2>@Titel Saison</h2>
+
+    <div class="col-10">
+        <EditForm Model="Saisonen" OnValidSubmit="UpsertSaison">
+            <div class="form-group">
+                <label>Saisonname</label>
+                <InputText required id="txtVereinsname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
+                <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Liganame</label>
+                <InputText required id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control"></InputText>
+                <ValidationMessage For="()=>Saison.Liganame"></ValidationMessage>
+            </div>           
+            <div class="form-group">
+                <label>Aktuell</label>
+                <InputNumber required id="txtVereinsname" @bind-Value="Saison.Aktuell" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Abgeschlossen</label>
+                <InputNumber required id="txtVereinsname" @bind-Value="Saison.Abgeschlossen" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
+            </div>
+            <div class="form-group py-2">
+                <button class="btn btn-primary">Speichern</button>
+                <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private Saison Saison { get; set; } = new Saison();
+    private string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    public IEnumerable<Saison> SaisonenMax { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                //Neuanlage
+                Titel = "Neuanlage";
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = "Bearbeiten";
+                await LoadSaison();
+            }
+        }
+    }
+
+    private async Task LoadSaison()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Saison = await _SaisonenService.GetSaison(Convert.ToInt32(Id));
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async Task UpsertSaison()
+    {
+        if (Id == "0")
+        {
+            //create
+            SaisonenMax = await _SaisonenService.GetSaisonen();
+            int iMax = SaisonenMax.Select(i => i.SaisonID).Max();
+            Saison.SaisonID = iMax + 1;            
+            await _SaisonenService.CreateSaison(Saison);
+        }
+        else
+        {
+            //update
+            await _SaisonenService.UpdateSaison(Saison);
+        }
+        _navigationManager.NavigateTo("saisonen");
+    }
+}

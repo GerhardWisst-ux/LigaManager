@@ -1,0 +1,58 @@
+﻿@page "/"
+@inherits EinstiegListBase
+
+@attribute [Authorize]
+
+@using LigaManagerManagement.Web.Pages;
+
+
+<div class="container">
+    <h3>Start Ligamanager</h3>
+    <div class="row">
+        <div class="col-sm mt-2">
+            <select id="cboLiga" style="margin-left:5px;" class="form-control dropdown" @onchange="LigaChange">
+                <option value="" selected required>Liga auswählen</option>
+                <option value="Bundesliga"> Bundesliga</option>
+                <option value="2. Bundesliga"> 2. Bundesliga</option>
+                <option value="3. Liga"> 3. Liga</option>
+            </select>
+            <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+        </div>
+        <div class="col-sm mt-2">
+            <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+                <option value="" selected required>Saison auswählen</option>
+                @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                {
+                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                }
+            </select>
+            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+        </div>
+        <div class="col-sm mt-2">
+            <linkbutton title="Liga und Saison auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
+                Auswählen
+            </linkbutton>
+        </div>
+        
+    </div>
+    <div>
+        <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label">Bitte CSV-Datei wählen</label>
+        <input class="form-control form-control-lg" id="ImportCSV" type="file">
+    
+        <linkbutton title="Datei importieren" style="margin-left:5px;" id="btnImportCSV" class="btn btn-primary" @onclick=OnClickHandlerImport>
+            Import CSV
+        </linkbutton>
+    </div>  
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.custom-file-input').on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next('.custom-file-label').html(fileName);
+        });
+    });
+</script>
+
+

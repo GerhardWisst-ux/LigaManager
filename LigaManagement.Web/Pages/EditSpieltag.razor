@@ -1,0 +1,159 @@
+﻿@page "/editspieltag/{id}"
+@page "/createspieltag/{SpieltagNr}"
+
+@inherits EditSpieltagBase
+@inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
+@inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h2>@Titel Spiel</h2>
+
+    <div class="col-10">
+        <EditForm Model="Spiel" OnValidSubmit="Upsert">
+            <div class="form-group">
+                <ValidationMessage For="()=>Spiel.Verein1"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                @* <label>Verein1_Nr</label> *@
+                <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control"></InputText>
+                <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="Verein1Change">
+                    
+                    @foreach (var verein in VereineList.OrderBy(x=> x.Vereinname1))
+                    {
+                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>                       
+                        
+                    }
+                    @if (Id is null)
+                    {
+                        <option value="" selected required>Verein wählen</option>
+                    }
+                    else
+                    {
+                        <option selected="selected">@Spiel.Verein1</option>
+                    }
+                </select>               
+                <ValidationMessage For="()=>Spiel.Verein1_Nr"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Tore 1</label>
+                <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Spiel.Tore1_Nr"></ValidationMessage>
+            </div>
+
+            <div class="form-group">
+                <label>Tore 2</label>
+                <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Spiel.Tore2_Nr"></ValidationMessage>
+            </div>
+            <div class="form-group">                               
+                <ValidationMessage For="()=>Spiel.Verein2"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Verein2_Nr</label>
+                <InputText required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control"></InputText>
+                <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="Verein2Change">                    
+                    @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                    {
+                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        
+                    }
+                    @if (Id is null)
+                    {
+                        <option value="" selected required>Verein wählen</option>
+                    }
+                    else
+                    {
+                        <option selected="selected">@Spiel.Verein2</option>
+                    }
+                </select>
+                <ValidationMessage For="()=>Spiel.Verein2_Nr"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Datum</label>
+                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control"></InputDate>
+                <ValidationMessage For="()=>Spiel.Datum"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Ort</label>
+                <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control"></InputText>
+                <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Schiedrichter</label>
+                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control"></InputText>
+                <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Zuschauer</label>
+                <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
+            </div>
+            <div class="form-group py-2">
+                <button class="btn btn-primary">Speichern</button>
+                <NavLink href="@($"spieltag/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    public IEnumerable<Verein> VereineMax { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                //Neuanlage
+                Titel = "Neuanlage";
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = "Bearbeiten";
+                await LoadSpiel();
+            }
+        }
+    }
+
+    private async Task LoadSpiel()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Spiel = await _SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async Task Upsert()
+    {
+        if (Id == "0")
+        {
+            if (Ligamanager.Components.Globals.currentLiga == "Bundesliga")
+                Spiel.LigaID = 1;
+            else if (Ligamanager.Components.Globals.currentLiga == "2. Bundesliga")
+                Spiel.LigaID = 2;
+            else if (Ligamanager.Components.Globals.currentLiga == "3. Liga")
+                Spiel.LigaID = 3;
+
+            Spiel.Saison = Globals.currentSaison;
+            Spiel.SaisonID = Globals.SaisonID;
+            Spiel.SpieltagNr = SpieltagNr;
+            
+            await _SpieltagService.CreateSpieltag(Spiel);
+        }
+        else
+        {
+            //update
+            await _SpieltagService.UpdateSpieltag(Spiel);
+        }
+        string url = "/spieltage/" + SpieltagNr;
+
+        _navigationManager.NavigateTo(url);
+    }
+}

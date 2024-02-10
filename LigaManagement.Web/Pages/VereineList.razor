@@ -1,0 +1,111 @@
+﻿@page "/vereine"
+@using LigaManagerManagement.Web.Pages;
+@inherits VereineListBase
+
+@attribute [Authorize]
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.04rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+</style>
+
+@if (VereineList == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="row mt-4">
+        <div class="col-2">
+            <h2>Vereine</h2>
+        </div>
+        <div class="col-3">
+            <a href="createverein" style="width:auto;" class="btn btn-primary form-control">Neu</a>
+        </div>
+        <div class="col-12 p-3">
+            @if (VereineList.Any())
+            {
+                @foreach (var verein in VereineList)
+                {
+                    <EditForm Model="@Vereine">
+                        <div class="table-responsive" style="max-width:90%;">
+                            <table class="table table-striped">
+                                @if (verein.VereinNr == 1)
+                                {
+                                    <thead class="bg-blue">
+                                        <tr>
+                                            <th class="priority-1" style="height:40px;max-width:8px;" scope="col">Verein Nr</th>
+                                            <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Verein</th>
+                                            <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Stadion</th>
+                                            <th class="priority-1" style="height:40px;max-width:100%;" scope="col">Erfolge</th>
+                                        </tr>
+                                    </thead>
+                                }
+                                <tbody style="border-width:1px;">
+                                    <tr>
+                                        <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:30px; max-width:100%; pointer-events:none;" tabindex="1" @bind-Value=verein.VereinNr /></td>
+                                        <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:30px; max-width:100%; pointer-events:none;" tabindex="2" @bind-Value=verein.Vereinsname1 /></td>
+                                        <td><InputText readonly id="txtStadion" class="TableElement priority-1" style="max-height:30px; max-width:100%; pointer-events:none;" tabindex="3" @bind-Value=verein.Stadion /></td>
+                                        <td><InputText readonly id="txtErfolge" class="TableElement priority-1" style="max-height:30px; max-width:100%; pointer-events:none;" tabindex="4" @bind-Value=verein.Erfolge /></td>
+                                        <td> <NavLink href="@($"editverein/{verein.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+                                        @*  <LigamanagerManagement.Web.Pages.Shared._EditDelete>
+                            </LigamanagerManagement.Web.Pages.Shared._EditDelete> *@
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </EditForm>
+                }
+            }
+            else
+            {
+                <p>keine Datensätze gefunden.</p>
+            }
+        </div>
+    </div>
+    <div class="col-1 offset-11">
+        <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
+    </div>
+
+
+}

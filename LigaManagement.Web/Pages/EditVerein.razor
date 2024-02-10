@@ -1,0 +1,96 @@
+﻿@page "/createverein"
+@page "/editverein/{Id}"
+@using LigaManagement.Web.Services.Contracts;
+@using LigaManagerManagement.Models;
+@inherits LigaManagerManagement.Web.Pages.VereineListBase
+@inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h2>@Titel Verein</h2>
+
+    <div class="col-10">
+        <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
+            <div class="form-group">
+                <label>Verein</label>
+                <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control"></InputText>
+                <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Stadion</label>
+                <InputText required id="txtVereinsname" @bind-Value="Verein.Stadion" class="form-control"></InputText>
+                <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Erfolge</label>
+                <InputText required id="txtVereinsname" @bind-Value="Verein.Erfolge" class="form-control"></InputText>
+                <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+            </div>
+            <div class="form-group">
+                <label>Gegründet</label>
+                <InputNumber required id="txtVereinsname" @bind-Value="Verein.Gegruendet" class="form-control"></InputNumber>
+                <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+            </div>
+            <div class="form-group py-2">
+                <button class="btn btn-primary">Speichern</button>
+                <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private Verein Verein { get; set; } = new Verein();
+    private string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    public IEnumerable<Verein> VereineMax { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                //Neuanlage
+                Titel = "Neuanlage";
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = "Bearbeiten";
+                await LoadVerein();
+            }
+        }
+    }
+
+    private async Task LoadVerein()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Verein = await _VereineService.GetVerein(Convert.ToInt32(Id));
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async Task UpsertVerein()
+    {
+        if (Id == "0")
+        {
+            //create            
+            
+            VereineMax = await VereineService.GetVereine();
+            int iMax = VereineMax.Select(i => i.VereinNr).Max();
+            Verein.VereinNr = iMax + 1;
+            Verein.Vereinsname2 = Verein.Vereinsname1;
+            await _VereineService.CreateVerein(Verein);
+        }
+        else
+        {
+            //update
+            await _VereineService.UpdateVerein(Verein);
+        }
+        _navigationManager.NavigateTo("vereine");
+    }
+}

@@ -1,0 +1,85 @@
+﻿@inherits DisplayErgebnisBase
+
+<style type="text/css">
+       
+    @@media screen and (max-width: 767px) {
+
+        .priority-2 {
+            display: none;
+        }
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.2rem 0.2rem !important;
+        margin-bottom: -1px;
+        pointer-events:none;
+        background-color: #dee2e6;
+        border: 0px solid #dee2e6; /*        rgba(0,0,0,.125); */
+    }
+
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.04rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+
+</style>
+
+
+@if (spielergebnis == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="table-responsive" style="max-width:80%;">
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <td><InputDate readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:120px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=spielergebnis.Datum /></td>
+                    <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="2" @bind-Value=spielergebnis.Verein1 /></td>
+                    <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=spielergebnis.Tore1_Nr /></td>
+                    <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=spielergebnis.Tore2_Nr /></td>
+                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="5" @bind-Value=spielergebnis.Verein2 /></td>
+                    <td><InputText readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:auto; pointer-events:none;word-wrap:break-word;" tabindex="6" @bind-Value=spielergebnis.Ort /></td>                                                           
+                </tr>
+            </tbody>
+        </table>
+    </div>  
+}
+
+
+
+

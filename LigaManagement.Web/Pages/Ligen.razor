@@ -1,0 +1,121 @@
+﻿@page "/ligen"
+@using LigaManagerManagement.Web.Pages;
+@inherits LigenListBase
+
+@attribute [Authorize]
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.04rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+</style>
+
+@if (LigenList == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="row mt-4">
+        <div class="col-2">
+            <h2 >Ligen</h2>
+        </div>
+        <div class="col-3">
+            <a href="createliga" style="width:auto;" class="btn btn-primary form-control">Neu</a>
+        </div>        
+        <div class="col-12 p-3">
+            @if (LigenList.Any())
+            {
+                @foreach (var liga in LigenList)
+                {
+                    <EditForm Model="@Ligen">
+                         <div class="table-responsive" style="max-width:90%;">
+                            <table class="table table-striped">
+                            @if (liga.Id == 1)
+                            {
+                                <thead class="bg-blue">
+                                    <tr>
+                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Liga Nr</th>
+                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Liga</th>
+                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Verband</th>
+                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Start</th>
+                                    </tr>
+                                </thead>
+                            }                            
+                            <tbody style="border-width:1px;">
+                                <tr>
+                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:20px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=liga.Id /></td>
+                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=liga.Liganame /></td>
+                                    <td><InputText readonly id="txtVerband" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="3" @bind-Value=liga.Verband /></td>
+                                    <td><InputDate readonly id="txtDatum" class="TableElement priority-1" style="max-height:20px; max-width:80%;pointer-events:none;" tabindex="4" @bind-Value=liga.Erstaustragung /></td>
+                                    <td> <NavLink href="@($"editliga/{liga.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+                                    @* <LigamanagerManagement.Web.Pages.Shared._EditDelete>
+                                    </LigamanagerManagement.Web.Pages.Shared._EditDelete>                                 *@
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </EditForm>
+                }
+            }
+            else
+            {             
+                <p>keine Datensätze gefunden.</p>
+            }
+        </div>
+    </div>
+    <div class="col-1 offset-11">
+        <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
+    </div>
+
+    <br />
+
+    @* <NavLink class="nav-link" href="/editverein" Match="NavLinkMatch.All">
+        <span class="oi oi-file" aria-hidden="true"></span>
+        Neu
+    </NavLink>
+    <NavLink class="nav-link" href="/editverein/1" Match="NavLinkMatch.All">
+        <span class="oi oi-pencil" aria-hidden="true"></span>
+        Bearbeiten
+    </NavLink> *@
+
+}

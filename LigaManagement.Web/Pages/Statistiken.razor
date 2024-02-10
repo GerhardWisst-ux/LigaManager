@@ -1,0 +1,64 @@
+﻿@page "/statistiken"
+@using LigaManagerManagement.Web.Pages;
+@inherits StatistikenListBase
+
+@attribute [Authorize]
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .columns-2 {
+        width: 100%;
+        display: flex;
+        margin: 1px;
+    }
+</style>
+
+<div>
+    <h2><b>Statistiken</b></h2>
+</div>
+<div>
+    <h3>Verein gegen Verein</h3>
+</div>
+<br />
+<div class="columns-2">
+    <div>
+        <select id="cboSaison" style="margin-left:5px; min-width:350px;" class="form-control dropdown" @onchange="Verein1Change">
+            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+            {
+                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+            }
+            <option selected="selected">Verein auswählen</option>
+
+        </select>
+    </div>
+    <div>
+        <select id="cboSaison" style="margin-left:5px;min-width:350px;" class="form-control dropdown" @onchange="Verein2Change">
+
+            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+            {
+                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+            }
+            <option selected="selected">Verein auswählen</option>
+        </select>
+    </div>
+</div>
+
+<label style="margin-left:15px;">Spielpaarungen: @Spielergebnisse.Count() </label>
+
+@foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
+{ 
+    <EditForm Model="@Spielergebnisse">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+        <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
+    </EditForm> 
+}
+<div class="col-1 offset-11">
+    <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
+</div>

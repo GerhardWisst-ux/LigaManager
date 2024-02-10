@@ -1,0 +1,118 @@
+﻿@inherits DisplayTabelleBase
+
+<style type="text/css">
+       
+    @@media screen and (max-width: 767px) {
+
+        .priority-2 {
+            display: none;
+        }
+    }
+
+    .list-group-item {
+        position: relative;
+        display: block;
+        padding: 0.2rem 0.2rem !important;
+        margin-bottom: -1px;
+        pointer-events:none;
+        background-color: #dee2e6;
+        border: 0px solid #dee2e6; /*        rgba(0,0,0,.125); */
+    }
+
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.04rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+
+</style>
+
+
+@if (Tabelle == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="table-responsive" style="max-width:80%;">
+        <table class="table table-striped">
+            @if (Tabelle.Platz == 1)
+            {
+                <thead>
+                    <tr>
+                        <th class="priority-1" style="height:40px;max-width:42px;" scope="col">P</th>
+                        <th class="priority-1" style="height:40px;max-width:100%;" scope="col">V</th>
+                        <th class="priority-1" style="height:40px;max-width:62px;text-align:right;" scope="col">S</th>
+                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">S</th>
+                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">U</th>
+                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">N</th>
+                        <th class="priority-2" style="min-height:40px;max-width:47px;" scope="col">TORE</th>
+                        <th class="priority-2" style="height:40px;max-width:50px;" scope="col">DIFF</th>
+                        <th class="priority-1" style="min-height:40px;max-width:42px;" scope="col">P</th>
+                    </tr>
+                </thead>
+            }
+            <tbody>
+                <tr>
+                    @{
+                        string dispTore = Tabelle.TorePlus + ":" + Tabelle.ToreMinus;
+                        int DispDiff = Tabelle.TorePlus - Tabelle.ToreMinus;
+                    }
+
+                    <td><InputNumber readonly  id="txtPlatz" class="TableElement priority-1" style="max-height:30px; max-width:42px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=Tabelle.Platz /></td>
+                    <td><InputText readonly id="txtVerein" class="TableElement priority-1" style="max-height:30px;max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=Tabelle.Verein /></td>
+                    <td><InputNumber readonly id="txtSpiele" class="TableElement priority-1" style="max-height:30px; max-width:62px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Tabelle.Spiele /></td>
+                    <td><InputNumber readonly id="txtGewonnen" class="TableElement priority-2" style="max-height:30px; max-width:62px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=Tabelle.Gewonnen /></td>
+                    <td><InputNumber readonly id="txtUntentschieden" class="TableElement priority-2" style="max-height:30px;max-width:62px; text-align:right;pointer-events:none;" tabindex="5" @bind-Value=Tabelle.Untentschieden /></td>
+                    <td><InputNumber readonly id="txtVerloren" class="TableElement priority-2" style="max-height:30px;max-width:62px; text-align:right;pointer-events:none;" tabindex="6" @bind-Value=Tabelle.Verloren /></td>
+                    <td><InputText readonly id="txtTore" class="TableElement priority-2" style="max-height:30px;max-width:47px; text-align:right;pointer-events:none;" tabindex="7" @bind-Value=dispTore /></td>
+                    <td><InputNumber readonly id="txtDiff" class="TableElement priority-2" style="max-height:30px;max-width:50px; text-align:right;pointer-events:none;" tabindex="8" @bind-Value=DispDiff /></td>
+                    <td><InputNumber readonly id="txtPunkte" class="TableElement priority-1" style="max-height:30px;max-width:42px;text-align:right;color:red;pointer-events:none;" tabindex="9" @bind-Value=Tabelle.Punkte /></td>
+                </tr>
+
+                @if (Tabelle.Platz == 4 || Tabelle.Platz == 5 || Tabelle.Platz == 6 || Tabelle.Platz == 15 || Tabelle.Platz == 16)
+                {
+                    <tr>
+                        <td colspan="9"><h4></h4></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>  
+}
+
+@* <Confirm ConfirmationChanged="ConfirmDelete_Click" @ref="DeleteConfirmation"
+         ConfirmationMessage=@($"Möchten Sie wirklich diese Tabelle löschen \"{Tabelle.Id}\"")></Confirm> *@
+
+
