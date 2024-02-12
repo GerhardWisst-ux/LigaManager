@@ -11,18 +11,14 @@
 
     <div class="col-10">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
-            <div class="form-group">
-                <ValidationMessage For="()=>Spiel.Verein1"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                @* <label>Verein1_Nr</label> *@
-                <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control"></InputText>
-                <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="Verein1Change">
-                    
-                    @foreach (var verein in VereineList.OrderBy(x=> x.Vereinname1))
+            <div class="form-group row">                       
+                <label class="col-sm-2">Verein 1</label>                
+                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
+
+                    @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                     {
-                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>                       
-                        
+                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+
                     }
                     @if (Id is null)
                     {
@@ -32,31 +28,27 @@
                     {
                         <option selected="selected">@Spiel.Verein1</option>
                     }
-                </select>               
-                <ValidationMessage For="()=>Spiel.Verein1_Nr"></ValidationMessage>
+                </select>
+               
+                <InputText style="display:block;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control"></InputText>
             </div>
-            <div class="form-group">
-                <label>Tore 1</label>
-                <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control"></InputNumber>
+            <div class="form-group row">
+                <label class="col-sm-2">Tore1</label>
+                <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
                 <ValidationMessage For="()=>Spiel.Tore1_Nr"></ValidationMessage>
             </div>
-
-            <div class="form-group">
-                <label>Tore 2</label>
-                <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control"></InputNumber>
+            <div class="form-group row">
+                <label class="col-sm-2">Tore 2</label>
+                <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
                 <ValidationMessage For="()=>Spiel.Tore2_Nr"></ValidationMessage>
             </div>
-            <div class="form-group">                               
-                <ValidationMessage For="()=>Spiel.Verein2"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                <label>Verein2_Nr</label>
-                <InputText required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control"></InputText>
-                <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="Verein2Change">                    
+            <div class="form-group row">                      
+                <label class="col-sm-2">Verein 2</label>                
+                <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                     {
                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                        
+
                     }
                     @if (Id is null)
                     {
@@ -66,32 +58,32 @@
                     {
                         <option selected="selected">@Spiel.Verein2</option>
                     }
-                </select>
-                <ValidationMessage For="()=>Spiel.Verein2_Nr"></ValidationMessage>
+                </select>   
+                <InputText style="display:block;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control"></InputText>
             </div>
-            <div class="form-group">
-                <label>Datum</label>
-                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control"></InputDate>
-                <ValidationMessage For="()=>Spiel.Datum"></ValidationMessage>
+            <div class="form-group row">
+                <label for="txtDatum" class="col-sm-2">Datum:</label>
+                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-5"></InputDate>
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Ort</label>
-                <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control"></InputText>
+            <div class="form-group row">
+                <label class="col-sm-2">Ort</label>
+                <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
                 <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Schiedrichter</label>
-                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control"></InputText>
+            <div class="form-group row">
+                <label class="col-sm-2">Schiedrichter</label>
+                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
                 <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Zuschauer</label>
-                <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control"></InputNumber>
+            <div class="form-group row">
+                <label class="col-sm-2">Zuschauer</label>
+                <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                 <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
             </div>
             <div class="form-group py-2">
                 <button class="btn btn-primary">Speichern</button>
-                <NavLink href="@($"spieltag/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
+                <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
             </div>
         </EditForm>
     </div>
@@ -144,7 +136,7 @@
             Spiel.Saison = Globals.currentSaison;
             Spiel.SaisonID = Globals.SaisonID;
             Spiel.SpieltagNr = SpieltagNr;
-            
+
             await _SpieltagService.CreateSpieltag(Spiel);
         }
         else

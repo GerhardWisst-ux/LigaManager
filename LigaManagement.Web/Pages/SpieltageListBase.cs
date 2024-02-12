@@ -16,6 +16,9 @@ namespace LigaManagerManagement.Web.Pages
     {
         [Parameter]
         public object SpieltagNr { get; set; }
+        public bool VisibleBtnNew { get; set; }
+
+        public bool VisibleVorZurueck { get; set; }
 
         public List<DisplaySpieltag> SpieltagList;
 
@@ -34,7 +37,7 @@ namespace LigaManagerManagement.Web.Pages
 
         protected async override Task OnInitializedAsync()
         {
-           
+
             try
             {
                 var authenticationState = await authenticationStateTask;
@@ -61,6 +64,17 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
+
+                if (Spieltage.Count() == 9)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+
+                if (Spieltage.Count() == 0)
+                    VisibleVorZurueck = false;
+                else
+                    VisibleVorZurueck = true;
+
             }
             catch (Exception ex)
             {
@@ -74,6 +88,8 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 SpieltagNr = Convert.ToInt32(e.Value);
+                int SpieltagNr2 = Convert.ToInt32(e.Value);
+                Globals.Spieltag = SpieltagNr2;
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
@@ -87,6 +103,18 @@ namespace LigaManagerManagement.Web.Pages
                 {
 
                 }
+
+                if (Spieltage.Count() == 9)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+
+
+                if (Spieltage.Count() == 0)
+                    VisibleVorZurueck = false;
+                else
+                    VisibleVorZurueck = true;
+                
             }
         }
         public async Task SpieltagZurueck()
@@ -96,6 +124,7 @@ namespace LigaManagerManagement.Web.Pages
             else
                 return;
 
+
             Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
             for (int i = 0; i < Spieltage.Count(); i++)
             {
@@ -103,6 +132,21 @@ namespace LigaManagerManagement.Web.Pages
                 columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                 columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
             }
+
+            int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
+            Globals.Spieltag = SpieltagNr2;
+
+            if (Spieltage.Count() == 9)
+                VisibleBtnNew = false;
+            else
+                VisibleBtnNew = true;
+
+            if (Spieltage.Count() == 0)
+                VisibleVorZurueck = false;
+            else
+                VisibleVorZurueck = true;
+
+          
         }
 
         public async Task SpieltagVor()
@@ -119,6 +163,22 @@ namespace LigaManagerManagement.Web.Pages
                 columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                 columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
             }
+
+            int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
+            Globals.Spieltag = SpieltagNr2;
+
+            if (Spieltage.Count() == 9)
+                VisibleBtnNew = false;
+            else
+                VisibleBtnNew = true;
+
+
+            if (Spieltage.Count() == 0)
+                VisibleVorZurueck = false;
+            else
+                VisibleVorZurueck = true;
+
+            StateHasChanged();
         }
         public class DisplaySpieltag
         {

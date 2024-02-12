@@ -5,10 +5,15 @@ using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using System.IO;
 
 namespace LigaManagement.Web
 {
@@ -80,6 +85,9 @@ namespace LigaManagement.Web
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+
+           
         }
+      
     }
 }

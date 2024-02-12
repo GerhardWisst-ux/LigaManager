@@ -16,7 +16,9 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LigaManagement.Web.Pages
 {
@@ -36,7 +38,7 @@ namespace LigaManagement.Web.Pages
         public ISaisonenService SaisonenService { get; set; }
 
         public List<DisplaySaison> SaisonenList;
-               
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -52,7 +54,7 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Spieltag> Spieltage { get; set; }
         protected override async Task OnInitializedAsync()
         {
-           
+
             SaisonenList = new List<DisplaySaison>();
             Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
@@ -73,7 +75,7 @@ namespace LigaManagement.Web.Pages
             //Globals.currentLiga = "Bundesliga";
             DisplayErrorLiga = "none";
             DisplayErrorSaison = "none";
-            
+
         }
 
         public void SaisonChange(ChangeEventArgs e)
@@ -135,7 +137,7 @@ namespace LigaManagement.Web.Pages
                 Console.WriteLine("Datei existiert");
             else
                 Console.WriteLine("Datei existiert nicht");
-                        
+
             try
             {
                 using (StreamReader sr = new StreamReader(sFilename, Encoding.GetEncoding("iso-8859-1")))
@@ -189,7 +191,7 @@ namespace LigaManagement.Web.Pages
             {
                 Vereine = await VereineService.GetVereine();
 
-                using (SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True"))
+                using (SqlConnection conn = new SqlConnection(Globals.connstring))
                 {
                     int i = 1;
                     int spieltag = 1;
@@ -205,14 +207,14 @@ namespace LigaManagement.Web.Pages
 
                         int iVerein1 = 0;
                         int iVerein2 = 0;
-                        string sStadion ="";
+                        string sStadion = "";
                         for (int j = 0; j < Vereine.Count(); j++)
                         {
                             var columns = Vereine.ElementAt(j);
 
                             iVerein1 = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).VereinNr;
                             iVerein2 = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString().Trim())).VereinNr;
-                            sStadion= Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
+                            sStadion = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
                             break;
                         }
 
@@ -224,17 +226,17 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Ort", sStadion);
                         cmd.Parameters.AddWithValue("@SaisonID", 98);
                         cmd.Parameters.AddWithValue("@LigaID", 1);
-                       
+
 
                         //DateTime time = Convert.ToDateTime(importRow["Time"]);
-                        DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)), 
-                                                Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)), 
+                        DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
+                                                Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
 
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
-                                                
+
                         int mod = i % 9;
 
                         if (mod == 0)
@@ -310,12 +312,46 @@ namespace LigaManagement.Web.Pages
                 Globals.maxSpieltag = 30;
             else if (Globals.currentSaison.StartsWith("1991"))
                 Globals.maxSpieltag = 38;
-            else 
+            else
                 Globals.maxSpieltag = 34;
 
             Globals.bVisibleNavMenuElements = true;
             NavigationManager.NavigateTo("spieltage/1", true);
+        }
 
+        public void GenerateDataBaseTables()
+        {
+            string script = string.Empty;
+
+            for (int i = 1; i <= 3; i++)
+            {
+                if (i == 1)
+                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
+                else if (i == 2)
+                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
+                else if (i == 3)
+                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
+
+                // split script on GO command
+                IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                using (SqlConnection conn = new SqlConnection(Globals.connstring))
+                {
+                    conn.Open();
+                    foreach (string commandString in commandStrings)
+                    {
+                        if (!string.IsNullOrWhiteSpace(commandString.Trim()))
+                        {
+                            using (var command = new SqlCommand(commandString, conn))
+                            {
+                             int j = command.ExecuteNonQuery();
+                          
+                            }
+                        }
+
+                    }
+                }
+            }
         }
     }
 }

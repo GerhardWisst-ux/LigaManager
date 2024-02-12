@@ -1,25 +1,23 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ligamanager.Components
 {
+
     public class ConfirmBase : ComponentBase
     {
         protected bool ShowConfirmation { get; set; }
 
         [Parameter]
-        public string ConfirmationTitle { get; set; } = "Löschen Bestätigung";
+        public string ConfirmationTitle { get; set; } = "Confirm Delete";
 
         [Parameter]
-        public string ConfirmationMessage { get; set; } = "Möchten Sie diesen Datensatz wirklich löschen.";
+        public string ConfirmationMessage { get; set; } = "Are you sure you want to delete";
 
         public void Show()
         {
             ShowConfirmation = true;
-            StateHasChanged();
+           // StateHasChanged();
         }
 
         [Parameter]
@@ -31,4 +29,5 @@ namespace Ligamanager.Components
             await ConfirmationChanged.InvokeAsync(value);
         }
     }
+
 }

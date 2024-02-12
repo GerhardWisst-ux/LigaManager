@@ -4,35 +4,8 @@
 @attribute [Authorize]
 
 <style type="text/css">
-    #Divtabelle {
-        display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto auto auto auto auto;
-        gap: 2px;
-    }
 
-        #Divtabelle div {
-            /* text-align: center; */
-        }
 
-    .tabelle {
-        grid-column-end: span 10;
-    }
-
-    .Vor {
-        grid-column-end: span 9;
-        justify-content: start;
-    }
-
-    .Naechst {
-        grid-column-end: span 1;
-        align-self: end;
-        justify-content: end;
-        margin-right: 0px !important;
-    }
-
-    .Combo {
-        justify-content: start;
-    }
 
     .NewBtn {
         gap: 1px;
@@ -51,44 +24,64 @@ else
 {
     <h2>@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
 
-    <div id="Divtabelle">
-        <div class="Combo">
-            <select id="cboSpieltage" style="min-height:38px;margin-left:5px;" class="form-control" @onchange="SpieltagChange">
+    <div class="container">
+        <div class="form-group row">
+            <select id="cboSpieltage" style="min-height:38px;margin-left:12px;" class="form-control col-sm-2" @onchange="SpieltagChange">
                 <option value="" selected>@SpieltagNr Spieltag</option>
                 @foreach (var spieltag in SpieltagList)
                 {
                     <option value="@spieltag.Nummer"> @spieltag.Name</option>
                 }
             </select>
+            <div class="col-sm-2">
+                @if (VisibleBtnNew)
+                {
+                    <NavLink href="@($"createspieltag/{SpieltagNr}")" style="width: 100px;" class="btn-primary btn">Neu</NavLink>
+                }
+                else
+                {
+                    <NavLink href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn-primary btn">Neu</NavLink>
+                }
+            </div>
         </div>
-        <div class="NewBtn">
-            &nbsp;<NavLink href="@($"createspieltag/{SpieltagNr}")" style="width: 100px;" class="btn-primary btn">Neu</NavLink>
+        <br />
+        <div class="form-group row">
+            <div class="tabelle col-sm-12">
+                <div style="width:100%;">
+                    <table class="table">
+                        <thead class="bg-blue">
+                        <th class="priority-1" style="margin-left:20px; height:40px;width:180px;" scope="col">Verein 1</th>
+                        <th class="priority-1" style="height:40px;width:40px;" scope="col">T 1</th>
+                        <th class="priority-1" style="height:40px;width:40px;" scope="col">T 2</th>
+                        <th class="priority-1" style="height:40px;width:180px;" scope="col">Verein 2</th>
+                        <th class="priority-2" style="height:40px;width:180px;" scope="col">Ort</th>
+                        <th class="priority-2" style="height:40px;width:400px;" scope="col">Datum</th>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            @foreach (var spieltag in Spieltage.OrderBy(o => o.Datum).ToList())
+            {
+                <EditForm Model="@Spieltage">
+                    <!-- This will validate the form -->
+                    <DataAnnotationsValidator />
+                    <!-- This will show any validation errors -->
+                    <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
+                </EditForm>
+            }
         </div>
     </div>
     <br />
-
-    <div class="wrapper">
-        <div class="header">
-            <div id="Divtabelle">
-                <div class="tabelle">
-                    @foreach (var spieltag in Spieltage.OrderBy(o => o.Datum).ToList())
-                    {
-                        <EditForm Model="@Spieltage">
-                            <!-- This will validate the form -->
-                            <DataAnnotationsValidator />
-                            <!-- This will show any validation errors -->
-                            <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
-                        </EditForm>
-                    }
-                </div>
-                <div class="Vor">
-                    <button type="button" @onclick="SpieltagZurueck" style="width: 100px;" class="btn btn-primary">Voriger</button>
-                </div>
-                <div class="Naechst">
-                    <button type="button" @onclick="SpieltagVor" style="width: 100px;" class="btn btn-primary">Nächster</button>
-                </div>
-            </div>
+    @if (VisibleVorZurueck)
+    {
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <button type="button" @onclick="SpieltagZurueck" style="width: 100px;" class="btn btn-primary">Voriger</button>
+        </div>
+        <div class="col-sm-2 justify-content-end">
+            <button type="button" @onclick="SpieltagVor" style="width: auto;" class="btn btn-primary">Nächster</button>
         </div>
     </div>
+    }
 
 }

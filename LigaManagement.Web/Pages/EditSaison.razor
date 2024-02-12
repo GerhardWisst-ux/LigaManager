@@ -11,9 +11,8 @@
 
     <div class="col-10">
         <EditForm Model="Saisonen" OnValidSubmit="UpsertSaison">
-            <div class="form-group">
-                <label>Saisonname</label>
-                <InputText required id="txtVereinsname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
+            <div class="form-group">                
+                <InputText required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
                 <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
             </div>
             <div class="form-group">
@@ -23,17 +22,17 @@
             </div>           
             <div class="form-group">
                 <label>Aktuell</label>
-                <InputNumber required id="txtVereinsname" @bind-Value="Saison.Aktuell" class="form-control"></InputNumber>
+                <InputCheckbox required id="txtAktuell" @bind-Value="Saison.Aktuell" class="form-control"></InputCheckbox>
                 <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
             </div>
             <div class="form-group">
                 <label>Abgeschlossen</label>
-                <InputNumber required id="txtVereinsname" @bind-Value="Saison.Abgeschlossen" class="form-control"></InputNumber>
+                <InputCheckbox required id="txtAbgeschlossen" @bind-Value="Saison.Abgeschlossen" class="form-control"></InputCheckbox>
                 <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
             </div>
             <div class="form-group py-2">
                 <button class="btn btn-primary">Speichern</button>
-                <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
+                <NavLink href="/saisonen" class="btn btn-secondary">Zurück</NavLink>
             </div>
         </EditForm>
     </div>

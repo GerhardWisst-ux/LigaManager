@@ -29,23 +29,29 @@ namespace LigamanagerManagement.Web.Pages
 
         protected ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
+        protected async Task Delete_Click()
         {
-            DeleteConfirmation.Show();
+            //DeleteConfirmation.Show();
+
+            if (1 == 1)
+            {
+                await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
+                await OnSpieltagDeleted.InvokeAsync(Spieltag.SpieltagId);
+            }
+
+            NavigationManager.NavigateTo(($"/spieltage/{Globals.Spieltag}"));
         }
-        
+
         protected async Task ConfirmDelete_Click(bool deleteConfirmed)
         {
             if (deleteConfirmed)
             {
                 await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
-                await OnSpieltagDeleted.InvokeAsync(Spieltag.SpieltagId);
+                await OnSpieltagDeleted.InvokeAsync(Spieltag.SpieltagId);                
             }
-        }
 
-        //protected async Task CheckBoxChanged(ChangeEventArgs e)
-        //{
-        //    await OnEmployeeSelection.InvokeAsync((bool)e.Value);
-        //}
+            NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
+        }
+        
     }
 }

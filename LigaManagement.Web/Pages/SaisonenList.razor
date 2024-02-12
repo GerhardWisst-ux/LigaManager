@@ -49,7 +49,7 @@
         }
 </style>
 
-@if (Saisonen == null)
+@if (SaisonenList == null)
 {
     <div class="spinner"></div>
 }
@@ -63,29 +63,29 @@ else
             <a href="createsaison" style="width:auto;" class="btn btn-primary form-control">Neu</a>
         </div>
         <div class="col-12 p-3">
-            @if (Saisonen.Any())
+            @if (SaisonenList.Any())
             {
-                @foreach (var saison in Saisonen)
+                <table class="table table-striped">
+                   
+                    <thead class="bg-blue">
+                        <tr>
+                            <th scope="col">Saison</th>
+                            <th scope="col">Liga</th>
+                        </tr>
+                    </thead>                   
+
+                </table>
+                @foreach (var saison in SaisonenList)
                 {
                     <EditForm Model="@Saisonen">
                         <div class="table-responsive" style="max-width:90%;">
                             <table class="table table-striped">
-                                @if (saison.Aktuell)
-                                {
-                                    <thead class="bg-blue">
-                                        <tr>
-                                            <th class="priority-1" style="height:32px;max-width:80px;" scope="col">Saison</th>
-                                            <th class="priority-1" style="height:32px;max-width:400px" scope="col">Liga</th>
-                                            <th class="priority-1" style="height:32px;max-width:100px" scope="col"></th>
-                                            <th class="priority-1" style="height:32px;max-width:100px" scope="col"></th>
-                                        </tr>
-                                    </thead>
-                                }
+
                                 <tbody style="border-width:1px;">
                                     <tr>
                                         <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:32px; max-width:80px;pointer-events:none;" tabindex="1" @bind-Value=saison.Saisonname /></td>
                                         <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:32px; max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=saison.Liganame /></td>
-                                        <td> <NavLink href="@($"editsaison/{saison.SaisonID}")" class="btn-primary btn">Bearbeiten</NavLink></td>                                 
+                                        <td> <NavLink href="@($"editsaison/{saison.SaisonID}")" class="btn-primary btn">Bearbeiten</NavLink></td>
                                     </tr>
                                 </tbody>
                             </table>

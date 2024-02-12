@@ -5,6 +5,10 @@
 
     @@media screen and (max-width: 767px) {
 
+        .priority-1 {
+            display: block;
+        }
+
         .priority-2 {
             display: none;
         }
@@ -33,7 +37,7 @@
     h4 {
         display: flex;
         flex-direction: row;
-        width: 94%;
+        width: 100%;
         height: 0.5px;
     }
 
@@ -45,56 +49,50 @@
             margin: -5.5px;
         }
 
-    table {
-        border-collapse: collapse;
-    }
+    /* table {
+                border-collapse: collapse;
+            }
 
-        table.sectioned tbody {
-            border: 1px solid darkgray;
-            border-collapse: separate;
-            border-spacing: 4px;
-            box-shadow: 3px 3px grey;
-        }
+                table.sectioned tbody {
+                    border: 1px solid darkgray;
+                    border-collapse: separate;
+                    border-spacing: 4px;
+                    box-shadow: 3px 3px grey;
+                } */
 </style>
 
-@if (Spieltag == null )
+
+
+@if (Spieltag == null)
 {
     <div class="spinner"></div>
 }
 else
-{
-    <div class="table-responsive" style="max-width:93.5%;">
+{   
+    <div style="width:100%;">
         <table class="table">
-            @if (Spieltag.Datum.ToString().IndexOf("20:30:00") > -1)
-            {
-                <thead class="bg-blue">
-                    <tr>
-                        <th class="priority-1" style="height:40px;max-width:180px;" scope="col">Verein 1</th>
-                        <th class="priority-1" style="height:40px;max-width:180px;" scope="col">Verein 2</th>
-                        <th class="priority-1" style="height:40px;max-width:40px;" scope="col">T 1</th>
-                        <th class="priority-1" style="height:40px;max-width:40px;" scope="col">T 2</th>
-                        <th class="priority-2" style="height:40px;max-width:180px;" scope="col">Ort</th>
-                        <th class="priority-2" style="height:40px;max-width:110px;" scope="col">Datum</th>
-                    </tr>
-                </thead>
-            }
+            <thead class="bg-blue">
+            
+            </thead>
 
             <tbody style="border-width:1px;">
                 <tr>
                     <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="1" @bind-Value=Spieltag.Verein1 /></td>
-                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="2" @bind-Value=Spieltag.Verein2 /></td>
-                    <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Spieltag.Tore1_Nr /></td>
-                    <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=Spieltag.Tore2_Nr /></td>
+                    <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="2" @bind-Value=Spieltag.Tore1_Nr /></td>
+                    <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Spieltag.Tore2_Nr /></td>
+                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="4" @bind-Value=Spieltag.Verein2 /></td>
                     <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="5" @bind-Value=Spieltag.Ort /></td>
-
-                    <td><InputDate readonly id="txtDatum"  class="TableElement priority-2" style="max-height:38px; max-width:110px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
+                    <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; max-width:400px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
 
                     <td> <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" style="width: 100px;" class="btn-primary btn">Bearbeiten</NavLink></td>
-                    @* <LigamanagerManagement.Web.Pages.Shared._EditDelete>
-                    </LigamanagerManagement.Web.Pages.Shared._EditDelete> *@
-                </tr>             
+                    
+                    <button class="btn btn-danger" type="button" @onclick="Delete_Click">
+                        Löschen
+                    </button>
+              
+                </tr>
             </tbody>
         </table>
-    </div>    
-    
+    </div>
+
 }
