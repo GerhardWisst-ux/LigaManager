@@ -14,6 +14,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
+using Radzen;
 
 namespace LigaManagement.Web
 {
@@ -32,6 +33,7 @@ namespace LigaManagement.Web
         {
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
+
             services.AddRazorPages();
             //services.AddBlazorBootstrap(); // Add this line
             services.AddServerSideBlazor();
@@ -57,6 +59,12 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+            services.AddHttpClient<IKaderService, KaderService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddScoped<ContextMenuService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

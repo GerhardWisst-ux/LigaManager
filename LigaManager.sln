@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigaManagement.Api", "LigaM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ligamanager.Components", "Ligamanager.Components\Ligamanager.Components.csproj", "{124728C8-8B31-4DA0-BBA9-7F6DC9B131A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LigaManager.Tests", "LigaManager.Tests\LigaManager.Tests.csproj", "{B7C40398-283A-457B-89C4-4EECA1CA4691}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LigaManager.Tests", "LigaManager.Tests\LigaManager.Tests.csproj", "{B7C40398-283A-457B-89C4-4EECA1CA4691}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

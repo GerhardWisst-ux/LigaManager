@@ -66,7 +66,7 @@ namespace LigaManagerManagement.Web.Services
         public async Task DeleteSpieltag(int id)
         {
             await httpClient.DeleteAsync($"api/spieltage/{id}");
-        }       
+        }        
     }
 
 

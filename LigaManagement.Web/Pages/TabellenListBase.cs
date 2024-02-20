@@ -46,6 +46,8 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
+
+        int iMaxSpieltag = 0;
         protected override async Task OnInitializedAsync()
         {
             int iSpieltage;
@@ -72,11 +74,12 @@ namespace LigamanagerManagement.Web.Pages
                     var columns = Saisonen.ElementAt(i);
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
-
+                                
                 saison = Globals.currentSaison;
                 currentspieltag = SpieltagList.Count;
                 Vereine = await VereineService.GetVereine();
-                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison,1);
+
+                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, 1);
 
                 DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
             }
@@ -86,7 +89,6 @@ namespace LigamanagerManagement.Web.Pages
                 Debug.Print(ex.Message);
             }
         }
-
 
         public async Task SaisonChange(ChangeEventArgs e)
         {
@@ -135,6 +137,23 @@ namespace LigamanagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
+
+        public async Task SpieltagZurueck()
+        {
+            if (currentspieltag > 1)
+                currentspieltag = currentspieltag - 1;
+            Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+            StateHasChanged();
+
+        }
+
+        public async Task SpieltagVor()
+        {
+            if (currentspieltag < Globals.maxSpieltag)
+                currentspieltag = currentspieltag + 1;
+            Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+            StateHasChanged();
+        }
         public async Task TabArtChange(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -152,7 +171,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (TabArt == 5)
                     Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Rückrunde);
                 else if (TabArt == 6)
-                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
                 StateHasChanged();
             }

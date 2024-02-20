@@ -30,6 +30,7 @@ namespace LigaManagement.Api
             services.AddScoped<ITabelleRepository, TabelleRepository>();
             services.AddScoped<ISaisonRepository, SaisonRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();
+            services.AddScoped<IKaderRepository, KaderRepository>();
 
             services.AddControllers();
         }

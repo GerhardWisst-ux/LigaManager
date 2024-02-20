@@ -11,8 +11,8 @@
 
     <div class="col-10">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
-            <div class="form-group row">                       
-                <label class="col-sm-2">Verein 1</label>                
+            <div class="form-group row">
+                <label class="col-sm-2">Verein 1</label>
                 <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
 
                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
@@ -29,8 +29,8 @@
                         <option selected="selected">@Spiel.Verein1</option>
                     }
                 </select>
-               
-                <InputText style="display:block;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control"></InputText>
+
+                <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2">Tore1</label>
@@ -42,8 +42,8 @@
                 <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
                 <ValidationMessage For="()=>Spiel.Tore2_Nr"></ValidationMessage>
             </div>
-            <div class="form-group row">                      
-                <label class="col-sm-2">Verein 2</label>                
+            <div class="form-group row">
+                <label class="col-sm-2">Verein 2</label>
                 <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                     {
@@ -58,13 +58,15 @@
                     {
                         <option selected="selected">@Spiel.Verein2</option>
                     }
-                </select>   
-                <InputText style="display:block;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control"></InputText>
+                </select>
+                 <InputText style="display:none;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
             </div>
             <div class="form-group row">
                 <label for="txtDatum" class="col-sm-2">Datum:</label>
-                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-5"></InputDate>
+                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                 <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
+                <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
+                <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Time)"></ValidationMessage>
             </div>
             <div class="form-group row">
                 <label class="col-sm-2">Ort</label>
@@ -124,6 +126,10 @@
     }
     private async Task Upsert()
     {
+        string[] subs = Time.Value.ToString().Split(':');
+        int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
+        DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
+
         if (Id == "0")
         {
             if (Ligamanager.Components.Globals.currentLiga == "Bundesliga")
@@ -137,11 +143,13 @@
             Spiel.SaisonID = Globals.SaisonID;
             Spiel.SpieltagNr = SpieltagNr;
 
+            Spiel.Datum = SpielDateTime;
             await _SpieltagService.CreateSpieltag(Spiel);
         }
         else
         {
             //update
+            Spiel.Datum = SpielDateTime;
             await _SpieltagService.UpdateSpieltag(Spiel);
         }
         string url = "/spieltage/" + SpieltagNr;

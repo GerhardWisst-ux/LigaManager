@@ -1,0 +1,152 @@
+﻿@page "/kader"
+@using LigaManagerManagement.Web.Pages;
+@inherits KaderBase
+
+@attribute [Authorize]
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .TableElement {
+        border: 0px solid #fff;
+        background-color: transparent;
+    }
+
+    .table td, .table th {
+        padding: 0.04rem !important;
+        vertical-align: top;
+        border-top: 0px solid #dee2e6;
+    }
+
+    h4 {
+        display: flex;
+        flex-direction: row;
+        width: 96%;
+        height: 0.5px;
+    }
+
+        h4:after {
+            content: "";
+            flex: 1 1;
+            border-bottom: 1px solid #000;
+            padding: 0px;
+            margin: -5.5px;
+        }
+
+    table {
+        border-collapse: collapse;
+    }
+
+        table.sectioned tbody {
+            border: 1px solid darkgray;
+            border-collapse: separate;
+            border-spacing: 4px;
+        }
+</style>
+
+<div class="row mt-4">
+    <div>
+        <h2><b>Kader </b></h2>
+    </div>
+    <div>
+        <h3>Verein wählen</h3>
+    </div>
+
+    <div class="col-3">
+        <a href="createkaderspieler" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-sm mt-2">
+        <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+            <option value="" selected>@saison</option>
+            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+            {
+                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+            }
+        </select>
+        <label title="Bitte Liga wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+    </div>
+    <div class="col-sm mt-2">
+        <select id="cboVerein" style="margin-left:5px;" class="form-control dropdown" @onchange="VereinChange">
+            @foreach (var verein in VereineList)
+            {
+                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+            }
+        </select>
+        <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+    </div>
+    <div class="col-sm mt-2">
+        <linkbutton title="Saison und Verein auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
+            Auswählen
+        </linkbutton>
+    </div>
+</div>
+
+
+
+
+@if (SpielerList == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <div class="row mt-4">
+
+        <div class="col-12 p-3">
+            @if (bShowSpieler)
+            {
+                @if (SpielerList.Any())
+                {
+                    <table class="table table-striped">
+                        <thead class="bg-blue">
+                            <tr>
+                                <th class="priority-1" style="height:40px;max-width:50px;" scope="col">Spieler Nr</th>
+                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Name</th>
+                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Vorname</th>
+                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Einsätze</th>
+                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Tore</th>
+                            </tr>
+                        </thead>
+                    </table>
+                    @foreach (var spieler in SpielerList.OrderByDescending(x => x.Tore))
+                    {
+                        <EditForm Model="@Spieler">
+                            <div class="table-responsive" style="max-width:90%;">
+                                <table class="table table-striped">
+
+                                    <tbody style="border-width:1px;">
+                                        <tr>
+                                            <td><InputNumber readonly id="txtRueckennummer" class="TableElement priority-1" style="max-height:30px; max-width:50px; pointer-events:none;" tabindex="1" @bind-Value=spieler.Rueckennummer /></td>
+                                            <td><InputText readonly id="txtName" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="2" @bind-Value=spieler.SpielerName /></td>
+                                            <td><InputText readonly id="txtVorname" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="3" @bind-Value=spieler.Vorname /></td>
+                                            <td><InputNumber readonly id="txtEinsaetze" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="4" @bind-Value=spieler.Einsaetze /></td>
+                                            <td><InputNumber readonly id="txtTore" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="5" @bind-Value=spieler.Tore /></td>
+                                            <td> <NavLink href="@($"editkaderspieler/{spieler.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </EditForm>
+                    }
+                }
+                else
+                {
+                    <p>keine Datensätze gefunden.</p>
+                }
+            }
+
+        </div>
+    </div>
+    @* <div class="col-1 offset-11">
+        <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
+    </div> *@
+
+
+}

@@ -1,0 +1,138 @@
+﻿@page "/createkaderspieler"
+@page "/editkaderspieler/{Id}"
+@using LigaManagement.Web.Services.Contracts;
+@using LigaManagerManagement.Models;
+@inherits LigaManagerManagement.Web.Pages.EditKaderSpielerBase
+@inject LigaManagement.Web.Services.Contracts.IKaderService _KaderService
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h2>@Titel Kader Spieler</h2>
+    <div class="col-10">
+        <EditForm Model="Kader" OnValidSubmit="UpsertKader">
+            <div class="form-group row">
+                <label class="col-sm-3">Verein</label>
+                <select id="cboVerein" style="margin-left:5px;" class="form-control dropdown" @onchange="VereinChange">
+                    @foreach (var verein in VereineList)
+                    {
+                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                    }
+                </select>
+                <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="@Verein1_Nr" class="form-control col-sm-9"></InputText>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Rückennummer</label>
+                <InputNumber required id="txtRueckennummer" @bind-Value="Kader.Rueckennummer" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Kader.Rueckennummer"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Spielername</label>
+                <InputText required id="txtSpielerName" @bind-Value="Kader.SpielerName" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="()=>Kader.SpielerName"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Vorname</label>
+                <InputText required id="txtVorname" @bind-Value="Kader.Vorname" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="()=>Kader.Vorname"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Geburtsdatum</label>
+                <InputDate required id="txtGeburtsdatum" @bind-Value="Kader.Geburtsdatum" class="form-control col-sm-9"></InputDate>
+                <ValidationMessage For="()=>Kader.Geburtsdatum"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Einsätze</label>
+                <InputNumber required id="txtEinsaetze" @bind-Value="Kader.Einsaetze" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Kader.Einsaetze"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Tore</label>
+                <InputNumber required id="txtTore" @bind-Value="Kader.Tore" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Kader.Tore"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Im Verein seit</label>
+                <InputDate required id="txtImVereinSeit" @bind-Value="Kader.ImVereinSeit" class="form-control col-sm-9"></InputDate>
+                <ValidationMessage For="()=>Kader.ImVereinSeit"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Abloesesumme</label>
+                <InputNumber required id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Kader.Abloesesumme"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-3">Aktiv</label>
+                <InputCheckbox required id="txtAbgeschlossen" @bind-Value="Kader.Aktiv" class="form-control col-sm-9"></InputCheckbox>
+                <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
+            </div>
+
+            <div class="form-group py-2">
+                <button class="btn btn-primary">Speichern</button>
+                <NavLink href="/Kader" class="btn btn-secondary">Zurück</NavLink>
+            </div>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == null)
+            {
+                //Neuanlage
+                Titel = "Neuanlage";
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = "Bearbeiten";
+                await LoadKader();
+            }
+        }
+    }
+
+    private async Task LoadKader()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Kader = await _KaderService.GetSpieler(Convert.ToInt32(Id));
+        IsLoading = false;
+        StateHasChanged();
+    }
+    private async Task UpsertKader()
+    {
+        Kader.SaisonId = Globals.SaisonID;
+        if (Globals.currentLiga == "Bundesliga")
+            Kader.LigaID = 1;
+        else if (Globals.currentLiga == "2. Bundesliga")
+            Kader.LigaID = 2;
+        else if (Globals.currentLiga == "3. Liga")
+            Kader.LigaID = 3;
+        else
+            Kader.LigaID = 1;
+
+        Kader.LandID = 57;
+        Kader.Spielminuten = 300;
+        Kader.VereinID = Convert.ToInt32(Verein1_Nr);
+
+        if (Id == "0")
+        {
+            // Create
+           
+            await _KaderService.CreateSpieler(Kader);
+        }
+        else
+        {
+            // Update
+            await _KaderService.UpdateSpieler(Kader);
+        }
+        _navigationManager.NavigateTo("Kader");
+    }
+}

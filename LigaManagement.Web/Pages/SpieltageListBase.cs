@@ -34,7 +34,6 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
-
         protected async override Task OnInitializedAsync()
         {
 
@@ -56,7 +55,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 Vereine = await VereineService.GetVereine();
 
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
@@ -65,7 +64,7 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
 
-                if (Spieltage.Count() == 9)
+                if (Spieltage.Count() >= 9)
                     VisibleBtnNew = false;
                 else
                     VisibleBtnNew = true;
@@ -104,7 +103,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 }
 
-                if (Spieltage.Count() == 9)
+                if (Spieltage.Count() >= 9)
                     VisibleBtnNew = false;
                 else
                     VisibleBtnNew = true;
@@ -136,7 +135,7 @@ namespace LigaManagerManagement.Web.Pages
             int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
             Globals.Spieltag = SpieltagNr2;
 
-            if (Spieltage.Count() == 9)
+            if (Spieltage.Count() >= 9)
                 VisibleBtnNew = false;
             else
                 VisibleBtnNew = true;
@@ -167,7 +166,7 @@ namespace LigaManagerManagement.Web.Pages
             int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
             Globals.Spieltag = SpieltagNr2;
 
-            if (Spieltage.Count() == 9)
+            if (Spieltage.Count() >= 9)
                 VisibleBtnNew = false;
             else
                 VisibleBtnNew = true;

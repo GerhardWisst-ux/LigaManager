@@ -50,15 +50,15 @@
         }
 
     /* table {
-                border-collapse: collapse;
-            }
+                    border-collapse: collapse;
+                }
 
-                table.sectioned tbody {
-                    border: 1px solid darkgray;
-                    border-collapse: separate;
-                    border-spacing: 4px;
-                    box-shadow: 3px 3px grey;
-                } */
+                    table.sectioned tbody {
+                        border: 1px solid darkgray;
+                        border-collapse: separate;
+                        border-spacing: 4px;
+                        box-shadow: 3px 3px grey;
+                    } */
 </style>
 
 
@@ -68,11 +68,10 @@
     <div class="spinner"></div>
 }
 else
-{   
+{
     <div style="width:100%;">
         <table class="table">
             <thead class="bg-blue">
-            
             </thead>
 
             <tbody style="border-width:1px;">
@@ -81,15 +80,15 @@ else
                     <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="2" @bind-Value=Spieltag.Tore1_Nr /></td>
                     <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Spieltag.Tore2_Nr /></td>
                     <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="4" @bind-Value=Spieltag.Verein2 /></td>
-                    <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="5" @bind-Value=Spieltag.Ort /></td>
+                    <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:280px;pointer-events:none;" tabindex="5" @bind-Value=Spieltag.Ort /></td>
                     <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; max-width:400px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
 
-                    <td> <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" style="width: 100px;" class="btn-primary btn">Bearbeiten</NavLink></td>
-                    
-                    <button class="btn btn-danger" type="button" @onclick="Delete_Click">
-                        Löschen
-                    </button>
-              
+                    <td>
+                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon">&#x270f;</span></NavLink>
+                    </td>
+                    <td>
+                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon">&#x270f;</span></NavLink>
+                    </td>
                 </tr>
             </tbody>
         </table>

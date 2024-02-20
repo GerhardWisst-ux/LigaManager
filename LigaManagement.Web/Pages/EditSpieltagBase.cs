@@ -24,6 +24,8 @@ namespace LigamanagerManagement.Web.Pages
 
         public int VereinNr2;
 
+        public DateTime? Time { get; set; }
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
@@ -74,7 +76,7 @@ namespace LigamanagerManagement.Web.Pages
 
 
             var spiele = await SpieltagService.GetSpieltage();
-            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison && x.SpieltagNr =="1").Take(9).ToList();
+            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison && x.SpieltagNr == "1").Take(9).ToList();
 
             Vereine = (await VereineService.GetVereine()).ToList();
             VereineList = new List<DisplayVerein>();
@@ -86,8 +88,13 @@ namespace LigamanagerManagement.Web.Pages
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
             }
-            
-             SpieltagNr = Globals.Spieltag.ToString();
+
+            SpieltagNr = Globals.Spieltag.ToString();
+
+            if (Id == null)
+                Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 15, 30, 0, DateTimeKind.Utc);
+            else
+                Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
         }
 
         public void Verein1Change(ChangeEventArgs e)
@@ -109,7 +116,7 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.Verein2 = VereineList[index].Vereinname1;
             }
         }
-      
+
         [Bind]
         public class DisplayVerein
         {

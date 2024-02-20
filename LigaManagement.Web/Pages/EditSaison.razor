@@ -10,7 +10,7 @@
     <h2>@Titel Saison</h2>
 
     <div class="col-10">
-        <EditForm Model="Saisonen" OnValidSubmit="UpsertSaison">
+        <EditForm Model="Saison" OnValidSubmit="UpsertSaison">
             <div class="form-group">                
                 <InputText required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
                 <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>

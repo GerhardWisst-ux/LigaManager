@@ -7,8 +7,34 @@
 <style type="text/css">
 
 
-</style>
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
 
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .previous {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white;
+    }
+
+    .next {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+
+</style>
 @if (Tabellen == null)
 {
     <div class="spinner"></div>
@@ -49,6 +75,14 @@ else
         </select>
         <br />
     </label>
+    <div class="form-group row">
+        <div class="col-sm-10">
+            <a type="button" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+        </div>
+        <div class="col-sm-2 justify-content-end">
+            <a type="button" @onclick="SpieltagVor" style="width: auto;" class="next round">&raquo;</a>
+        </div>
+    </div>
     <br>
     @foreach (var tabelle in Tabellen)
     {
@@ -58,5 +92,31 @@ else
             <DisplayTabelle Tabelle="tabelle"></DisplayTabelle>
         </EditForm>
     }
+
+    <div class="col-1 offset-11">
+        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'><i class='fas fa-arrow-alt-circle-up'></i></button>
+    </div>
+
+    <script>
+
+        let mybutton = document.getElementById("btnTop");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 }
 

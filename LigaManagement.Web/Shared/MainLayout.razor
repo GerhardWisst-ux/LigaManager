@@ -1,4 +1,10 @@
-﻿@inherits LayoutComponentBase
+﻿@using Microsoft.AspNetCore.Components
+@using Radzen.Blazor
+@inherits LayoutComponentBase
+@inject NavigationManager UriHelper
+@inject IJSRuntime JSRuntime
+
+<RadzenComponents/>
 
 <div class="sidebar">
     <NavMenu />

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -84,6 +85,28 @@ namespace LigaManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = 1;
+            }
+        }
+        public void OnSaisonChange(object value)
+        {
+            var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+
+            Globals.currentSaison = str.ToString();
+            Globals.SaisonID = 1;
+
+            //Console.WriteLine($"Value changed to {str}");
+        }
+
+        public void OnProgress(UploadProgressArgs args, string name)
+        {
+            Console.WriteLine($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
+
+            if (args.Progress == 100)
+            {
+                foreach (var file in args.Files)
+                {
+                    Console.WriteLine($"Uploaded: {file.Name} / {file.Size} bytes");
+                }
             }
         }
 
