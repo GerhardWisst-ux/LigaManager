@@ -4,6 +4,8 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace LigaManagerManagement.Web.Pages
 
         public Int32 currentspieltag = 1;
         public string saison;
+        public string VisibleAdd = "none";
         public List<DisplaySaison> SaisonenList = new List<DisplaySaison>();
 
         [Inject]
@@ -39,8 +42,18 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 
+        private bool bChangedSaison;
+        private bool bChangedVerein;
+
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
+
+        public RadzenDataGrid<Kader> grid;
+        IList<Tuple<Kader, RadzenDataGridColumn<Kader>>> selectedCellData = new List<Tuple<Kader, RadzenDataGridColumn<Kader>>>();
+
+        string type = "Click";
+        bool multiple = true;
+
         protected override async Task OnInitializedAsync()
         {            
             SaisonenList = new List<DisplaySaison>();
@@ -53,7 +66,6 @@ namespace LigaManagerManagement.Web.Pages
             }
             saison = Globals.currentSaison;
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == 23).ToList();
-
 
             var spiele = await SpieltagService.GetSpieltage();
             List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison && x.SpieltagNr == "1").Take(9).ToList();
@@ -69,6 +81,13 @@ namespace LigaManagerManagement.Web.Pages
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
             }
 
+            SpielerList = SpielerList.OrderByDescending(x => x.Tore);
+
+            DisplayErrorVerein = "none";
+            DisplayErrorSaison = "none";
+            VisibleAdd = "none";
+
+            bChangedVerein = false;
             bShowSpieler = false;
         }
 
@@ -78,6 +97,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = 23;
+                bChangedSaison = true;
             }
         }
 
@@ -86,25 +106,28 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.currentVereinID = Convert.ToInt32(e.Value);
+                bChangedVerein=true;
+                VisibleAdd = "block";
             }
         }
 
         public async void OnClickHandler()
         {
-            if (Globals.currentSaison == null & Globals.currentLiga == null)
+            if (bChangedSaison == false & bChangedVerein == false)
             {
+                DisplayErrorSaison = "block";
                 DisplayErrorVerein = "block";
-                DisplayErrorSaison = "block";
+                
                 return;
             }
 
-            if (Globals.currentSaison == null)
+            if (bChangedSaison == false)
             {
                 DisplayErrorSaison = "block";
                 return;
             }
 
-            if (Globals.currentLiga == null)
+            if (bChangedVerein == false)
             {
                 DisplayErrorVerein = "block";
                 return;
@@ -114,12 +137,66 @@ namespace LigaManagerManagement.Web.Pages
             DisplayErrorSaison = "none";
 
             bShowSpieler = true;
+            VisibleAdd = "block";
+
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Globals.currentVereinID).ToList();
             StateHasChanged();
+        }
 
+        public void Select(DataGridCellMouseEventArgs<Kader> args)
+        {
+            if (!multiple)
+            {
+                selectedCellData.Clear();
+            }
+
+            var cellData = selectedCellData.FirstOrDefault(i => i.Item1 == args.Data && i.Item2 == args.Column);
+            if (cellData != null)
+            {
+                selectedCellData.Remove(cellData);
+            }
+            else
+            {
+                selectedCellData.Add(new Tuple<Kader, RadzenDataGridColumn<Kader>>(args.Data, args.Column));
+            }
+        }
+        int index;
+        public void ResetIndex(bool shouldReset)
+        {
+            if (shouldReset)
+            {
+                index = 0;
+            }
+        }
+
+        public void OnCellClick(DataGridCellMouseEventArgs<Kader> args)
+        {
+            if (type == "Click")
+            {
+                Select(args);
+            }
+        }
+
+        public void OnCellDoubleClick(DataGridCellMouseEventArgs<Kader> args)
+        {
+            if (type != "Click")
+            {
+                Select(args);
+            }
+        }
+
+        public void OnCellRender(DataGridCellRenderEventArgs<Kader> args)
+        {
+            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
+            {
+                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
+            }
+        }
+        public void OnFilter(DataGridColumnFilterEventArgs<Kader> args)
+        {
+            //
         }
     }
-
 
 
     public class DisplaySaison

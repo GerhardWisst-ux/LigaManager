@@ -36,6 +36,7 @@ namespace LigaManagement.Web
 
             services.AddRazorPages();
             //services.AddBlazorBootstrap(); // Add this line
+            services.AddScoped<ContextMenuService>();
             services.AddServerSideBlazor();
             services.AddAutoMapper(typeof(Startup));          
            
@@ -63,8 +64,12 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+            services.AddHttpClient<ISpielerSpieltagService, SpielerSpieltagService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
 
-            services.AddScoped<ContextMenuService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

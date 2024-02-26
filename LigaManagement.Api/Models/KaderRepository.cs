@@ -99,7 +99,7 @@ namespace LigaManagement.Api.Models
                   
             }
             conn.Close();
-            return allspieler;  
+            return allspieler;
           
         }
 

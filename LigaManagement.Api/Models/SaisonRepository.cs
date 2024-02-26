@@ -1,4 +1,5 @@
-﻿using LigamanagerManagement.Api.Models.Repository;
+﻿using LigaManagement.Api.Migrations;
+using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -46,6 +47,12 @@ namespace LigaManagement.Api.Models
         public async Task<IEnumerable<Saison>> GetSaisonen()
         {
             return await appDbContext.Saisonen.ToListAsync();
+        }
+
+        public async Task<Saison> GetSaisonID(string saison)
+        {
+            return await appDbContext.Saisonen
+              .FirstOrDefaultAsync(d => d.Saisonname == saison);
         }
 
         public async Task<Saison> UpdateSaison(Saison Saison)

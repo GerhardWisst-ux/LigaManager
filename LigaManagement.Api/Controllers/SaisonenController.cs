@@ -3,6 +3,7 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
@@ -53,6 +54,27 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Saison>> GetSaisonID(string saison)
+        {
+            try
+            {
+                var result = await SaisonRepository.GetSaisonID(saison);
+
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return result;
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Fehler beim Lesen der Daten aus der Datenbank");
+            }
+        }
+        
         [HttpPost]
         public async Task<ActionResult<Saison>> CreateSaison(Saison Saison)
         {

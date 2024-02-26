@@ -51,7 +51,7 @@ else
 
     <div class="container">
         <div class="form-group row">
-            <select id="cboSpieltage" style="min-height:38px;margin-left:12px;" class="form-control col-sm-2" @onchange="SpieltagChange">
+            <select id="cboSpieltage" style="height:38px;" class="form-control col-sm-2" @onchange="SpieltagChange">
                 <option value="" selected>@SpieltagNr Spieltag</option>
                 @foreach (var spieltag in SpieltagList)
                 {
@@ -78,35 +78,26 @@ else
         </div>
         <br />
         <div class="form-group row">
-            <div class="tabelle col-sm-12">
-                <div style="width:100%;">
-                    <table class="table">
-                        <thead class="bg-blue">
-                        <th class="priority-1" style="margin-left:20px; height:40px;width:180px;" scope="col">Verein 1</th>
-                        <th class="priority-1" style="height:40px;width:40px;" scope="col">T 1</th>
-                        <th class="priority-1" style="height:40px;width:40px;" scope="col">T 2</th>
-                        <th class="priority-1" style="height:40px;width:180px;" scope="col">Verein 2</th>
-                        <th class="priority-2" style="height:40px;width:180px;" scope="col">Ort</th>
-                        <th class="priority-2" style="height:40px;width:400px;" scope="col">Datum</th>
-                        </thead>
-                    </table>
-                </div>
-            </div>
+
+            @{
+                int Zaehler = 1;
+            }
             @foreach (var spieltag in Spieltage.OrderBy(o => o.Datum).ToList())
             {
                 <EditForm Model="@Spieltage">
                     <!-- This will validate the form -->
                     <DataAnnotationsValidator />
                     <!-- This will show any validation errors -->
-                    <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
+                    <DisplaySpieltag Zaehler=Zaehler Spieltag="spieltag"></DisplaySpieltag>
                 </EditForm>
+
+                Zaehler = Zaehler + 1;
             }
         </div>
     </div>
     <br />
     @if (VisibleVorZurueck)
     {
-
         <div class="form-group row">
             <div class="col-sm-10">
                 <a type="button" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>

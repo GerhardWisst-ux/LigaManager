@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -31,11 +32,15 @@ namespace LigaManagerManagement.Web.Services
         public async Task<Verein> GetVerein(int Id)
         {
             return await httpClient.GetJsonAsync<Verein>($"api/vereine/{Id}");
-        }
+        }      
 
         public async Task<IEnumerable<Verein>> GetVereine()
         {
             return await httpClient.GetJsonAsync<Verein[]>("api/vereine");
+        }
+        public async Task<IEnumerable<Verein>> GetVereineSaison(string currentSaison)
+        {
+            return (IEnumerable<Verein>)await httpClient.GetJsonAsync<Verein>($"api/vereinesaison");
         }
 
         public async Task<Verein> UpdateVerein(Verein updatedVerein)
@@ -43,6 +48,6 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PutJsonAsync<Verein>("api/vereine", updatedVerein);
         }
 
-
+      
     }
 }

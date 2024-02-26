@@ -5,12 +5,15 @@
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject NavigationManager _navigationManager
+@using Radzen;
 
 <div class="row my-2">
-    <h2>@Titel Saison</h2>
+    
 
     <div class="col-10">
         <EditForm Model="Saison" OnValidSubmit="UpsertSaison">
+            <h2>@Titel Saison</h2>
+            <label>Saisonname</label>
             <div class="form-group">                
                 <InputText required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
                 <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
@@ -22,13 +25,16 @@
             </div>           
             <div class="form-group">
                 <label>Aktuell</label>
-                <InputCheckbox required id="txtAktuell" @bind-Value="Saison.Aktuell" class="form-control"></InputCheckbox>
+                <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAktiv" />
                 <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
             </div>
             <div class="form-group">
                 <label>Abgeschlossen</label>
-                <InputCheckbox required id="txtAbgeschlossen" @bind-Value="Saison.Abgeschlossen" class="form-control"></InputCheckbox>
+                <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px;" class="form-control col-sm-9" Name="Abgeschlossen" />
                 <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
+            </div>
+            <div class="form-group py-2">
+                <button onclick="Zuordnen" class="btn btn-primary">Vereine Zuordnen</button>                
             </div>
             <div class="form-group py-2">
                 <button class="btn btn-primary">Speichern</button>
@@ -52,14 +58,14 @@
             if (Id == "0" || Id is null)
             {
                 //Neuanlage
-                Titel = "Neuanlage";
+                Titel = "Saison Neuanlage";
                 Id = "0";
                 IsLoading = false;
             }
             else
             {
                 //Bearbeiten
-                Titel = "Bearbeiten";
+                Titel = "Saison Bearbeiten";
                 await LoadSaison();
             }
         }

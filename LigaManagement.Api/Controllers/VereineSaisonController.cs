@@ -10,30 +10,16 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VereineController : ControllerBase
+    public class VereineSaisonController : ControllerBase
     {
         private readonly IVereinRepository VereinRepository;
 
-        public VereineController(IVereinRepository VereinRepository)
+        public VereineSaisonController(IVereinRepository VereinRepository)
         {
             this.VereinRepository = VereinRepository;
-        }
+        }        
 
         [HttpGet]
-        public async Task<ActionResult> GetVereine()
-        {
-            try
-            {
-                return Ok(await VereinRepository.GetVereine());
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
-            }
-        }
-
-        [HttpGet("{saison}")]
         public async Task<ActionResult> GetVereineSaison()
         {
             try

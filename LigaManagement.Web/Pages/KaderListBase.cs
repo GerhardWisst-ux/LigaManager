@@ -1,10 +1,10 @@
 ﻿using LigaManagement.Models;
-using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
+using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,12 +31,15 @@ namespace LigaManagerManagement.Web.Pages
         public string Verein1_Nr;
         public IEnumerable<Verein> Vereine { get; set; }
 
+        protected string DisplayErrorVerein = "none";
+
         protected override async Task OnInitializedAsync()
         {
             if (Id != null)
             {
                 Kader = await KaderService.GetSpieler(Convert.ToInt32(Id));
                 Verein1_Nr = Kader.VereinID.ToString();
+                //VereinChange(new ChangeEventArgs { Value = Verein1_Nr });
             }
 
             var spiele = await SpieltagService.GetSpieltage();
@@ -51,16 +54,17 @@ namespace LigaManagerManagement.Web.Pages
             {
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
-            }
+            }            
         }
 
         public void VereinChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                Verein1_Nr = e.Value.ToString();
+                Verein1_Nr = e.Value.ToString();              
             }
         }
+        
     }
 }
 

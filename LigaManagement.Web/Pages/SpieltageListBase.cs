@@ -57,6 +57,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
+
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
@@ -64,10 +65,27 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
 
-                if (Spieltage.Count() >= 9)
-                    VisibleBtnNew = false;
+                if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                {
+                    if (Spieltage.Count() >= 8)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else if (Globals.currentSaison == "1991/92")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
                 else
-                    VisibleBtnNew = true;
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }                
 
                 if (Spieltage.Count() == 0)
                     VisibleVorZurueck = false;
@@ -87,6 +105,7 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 SpieltagNr = Convert.ToInt32(e.Value);
+
                 int SpieltagNr2 = Convert.ToInt32(e.Value);
                 Globals.Spieltag = SpieltagNr2;
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
@@ -103,10 +122,27 @@ namespace LigaManagerManagement.Web.Pages
 
                 }
 
-                if (Spieltage.Count() >= 9)
-                    VisibleBtnNew = false;
+                if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                {
+                    if (Spieltage.Count() >= 8)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else if (Globals.currentSaison == "1991/92")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
                 else
-                    VisibleBtnNew = true;
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
 
 
                 if (Spieltage.Count() == 0)
@@ -135,16 +171,32 @@ namespace LigaManagerManagement.Web.Pages
             int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
             Globals.Spieltag = SpieltagNr2;
 
-            if (Spieltage.Count() >= 9)
-                VisibleBtnNew = false;
+            if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+            {
+                if (Spieltage.Count() >= 8)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+            }
+            else if (Globals.currentSaison == "1991/92")
+            {
+                if (Spieltage.Count() >= 10)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+            }
             else
-                VisibleBtnNew = true;
+            {
+                if (Spieltage.Count() >= 9)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+            }
 
             if (Spieltage.Count() == 0)
                 VisibleVorZurueck = false;
             else
                 VisibleVorZurueck = true;
-
           
         }
 

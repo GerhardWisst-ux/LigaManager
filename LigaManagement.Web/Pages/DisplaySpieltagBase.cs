@@ -11,6 +11,9 @@ namespace LigamanagerManagement.Web.Pages
         [Parameter]
         public Spieltag Spieltag { get; set; }
 
+        [Parameter]
+        public int Zaehler { get; set; }
+
         string filterText = "";
        
         public int SpieltagNr { get; set; }
@@ -52,6 +55,9 @@ namespace LigamanagerManagement.Web.Pages
 
             NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
-        
-    }
+      
+
+     }
+
+    
 }

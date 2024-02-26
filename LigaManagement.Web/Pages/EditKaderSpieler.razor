@@ -12,13 +12,13 @@
         <EditForm Model="Kader" OnValidSubmit="UpsertKader">
             <div class="form-group row">
                 <label class="col-sm-3">Verein</label>
-                <select id="cboVerein" style="margin-left:5px;" class="form-control dropdown" @onchange="VereinChange">
+                <select id="cboVerein" class="form-control col-sm-9" @onchange="VereinChange">
                     @foreach (var verein in VereineList)
                     {
                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                     }
-                </select>
-                <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="@Verein1_Nr" class="form-control col-sm-9"></InputText>
+                </select>                
+                <label style="display:@DisplayErrorVerein;color:red;" class="form-control col-sm-9" id="lblErrorVerein">Verein auswählen</label>
             </div>
             <div class="form-group row">
                 <label class="col-sm-3">Rückennummer</label>
@@ -62,7 +62,7 @@
             </div>
             <div class="form-group row">
                 <label class="col-sm-3">Aktiv</label>
-                <InputCheckbox required id="txtAbgeschlossen" @bind-Value="Kader.Aktiv" class="form-control col-sm-9"></InputCheckbox>
+                <RadzenCheckBox @bind-Value="Kader.Aktiv" class="form-control col-sm-9"  Name="chkAktiv" />                
                 <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
             </div>
 

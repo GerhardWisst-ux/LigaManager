@@ -59,13 +59,13 @@ namespace LigaManagerManagement.Api.Models
                 .ToListAsync();
         }
 
-        public int MaxSpieltag(int SaisonID)
+        public int AktSpieltag(int SaisonID)
         {
             int iMaxSpieltag = 0;
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true;TrustServerCertificate=true");
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM[LigaDB].[dbo].[Spieltage] WHERE Datum<GETDATE() and Saison = '" +  SaisonID +  "2023/24", conn);
+            SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" +  SaisonID + "'", conn);
             
             using (SqlDataReader reader = command.ExecuteReader())
             {

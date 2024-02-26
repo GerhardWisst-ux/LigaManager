@@ -49,6 +49,13 @@
             margin: -5.5px;
         }
 
+    .crop {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 270px;
+    }
+
     /* table {
                     border-collapse: collapse;
                 }
@@ -69,28 +76,43 @@
 }
 else
 {
-    <div style="width:100%;">
-        <table class="table">
-            <thead class="bg-blue">
-            </thead>
+    <div style="width:100%;">     
 
-            <tbody style="border-width:1px;">
+        <table class="table table-striped">
+            @if (Spieltag.Datum.ToString().IndexOf("20:30:00") > -1)
+            {
+                <thead>
+                    <tr>
+                        <th class="TableElement priority-1">Verein 1</th>
+                        <th class="TableElement priority-1">T 1</th>
+                        <th class="TableElement priority-1">T 2</th>
+                        <th class="TableElement priority-1">Verein 2</th>
+                        <th class="TableElement priority-2">Ort</th>
+                        <th class="TableElement priority-2">Datum</th>
+                        <th class="TableElement priority-2">Zuschauer</th>
+                    </tr>
+                </thead>
+            }            
+            
+            <tbody style="height: 10px !important; overflow: scroll; ">
                 <tr>
-                    <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="1" @bind-Value=Spieltag.Verein1 /></td>
-                    <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="2" @bind-Value=Spieltag.Tore1_Nr /></td>
-                    <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; max-width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Spieltag.Tore2_Nr /></td>
-                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; max-width:180px;pointer-events:none;" tabindex="4" @bind-Value=Spieltag.Verein2 /></td>
-                    <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:280px;pointer-events:none;" tabindex="5" @bind-Value=Spieltag.Ort /></td>
-                    <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; max-width:400px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
+                    <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; width:180px;pointer-events:none;" tabindex="1" @bind-Value=Spieltag.Verein1 /></td>
+                    <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; width:40px; text-align:right;pointer-events:none;" tabindex="2" @bind-Value=Spieltag.Tore1_Nr /></td>
+                    <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Spieltag.Tore2_Nr /></td>
+                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; width:180px;pointer-events:none;" tabindex="4" @bind-Value=Spieltag.Verein2 /></td>
+                    <td><InputText readonly id="txtOrt" class="TableElement priority-2 crop" style="max-height:38px; width:280px;pointer-events:none;" tabindex="5" @bind-Value=Spieltag.Ort /></td>
+                    <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; width:120px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
+                    <td><InputNumber readonly id="txtZuschauer" class="TableElement priority-2" style="max-height:38px; width:100px;pointer-events:none;" tabindex="7" @bind-Value=Spieltag.Zuschauer /></td>
 
                     <td>
-                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon">&#x270f;</span></NavLink>
+                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon-pencil">&#x270f;</span></NavLink>
                     </td>
                     <td>
-                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon">&#x270f;</span></NavLink>
+                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon-remove">&#xe088;</span></NavLink>
                     </td>
                 </tr>
             </tbody>
+
         </table>
     </div>
 

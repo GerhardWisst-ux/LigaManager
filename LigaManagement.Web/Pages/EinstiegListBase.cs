@@ -1,10 +1,11 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Api.Models;
+using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Radzen;
@@ -12,14 +13,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace LigaManagement.Web.Pages
 {
@@ -39,6 +37,7 @@ namespace LigaManagement.Web.Pages
         public ISaisonenService SaisonenService { get; set; }
 
         public List<DisplaySaison> SaisonenList;
+        private readonly AppDbContext appDbContext;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -55,7 +54,6 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Spieltag> Spieltage { get; set; }
         protected override async Task OnInitializedAsync()
         {
-
             SaisonenList = new List<DisplaySaison>();
             Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
@@ -76,7 +74,6 @@ namespace LigaManagement.Web.Pages
             //Globals.currentLiga = "Bundesliga";
             DisplayErrorLiga = "none";
             DisplayErrorSaison = "none";
-
         }
 
         public void SaisonChange(ChangeEventArgs e)
@@ -84,7 +81,7 @@ namespace LigaManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.currentSaison = e.Value.ToString();
-                Globals.SaisonID = 1;
+                Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
             }
         }
         public void OnSaisonChange(object value)
@@ -92,7 +89,7 @@ namespace LigaManagement.Web.Pages
             var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
             Globals.currentSaison = str.ToString();
-            Globals.SaisonID = 1;
+            Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
             //Console.WriteLine($"Value changed to {str}");
         }
@@ -338,15 +335,27 @@ namespace LigaManagement.Web.Pages
             else
                 Globals.maxSpieltag = 34;
 
+            SpieltagRepository rep = new SpieltagRepository(appDbContext);
+
+            Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
+
+            bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            int iAktSpieltag;
+
+            if (bAbgeschlossen)
+                iAktSpieltag = Globals.maxSpieltag;            
+            else
+                iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
+
             Globals.bVisibleNavMenuElements = true;
-            NavigationManager.NavigateTo("spieltage/1", true);
+            NavigationManager.NavigateTo($"spieltage/{iAktSpieltag}", true);
         }
 
         public void GenerateDataBaseTables()
         {
             string script = string.Empty;
 
-            for (int i = 1; i <= 3; i++)
+            for (int i = 1; i <= 4; i++)
             {
                 if (i == 1)
                     script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
@@ -354,6 +363,8 @@ namespace LigaManagement.Web.Pages
                     script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
                 else if (i == 3)
                     script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
+                else if (i == 4)
+                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
 
                 // split script on GO command
                 IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -367,8 +378,8 @@ namespace LigaManagement.Web.Pages
                         {
                             using (var command = new SqlCommand(commandString, conn))
                             {
-                             int j = command.ExecuteNonQuery();
-                          
+                                int j = command.ExecuteNonQuery();
+
                             }
                         }
 

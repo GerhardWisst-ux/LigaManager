@@ -1,6 +1,9 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Api.Migrations;
+using LigaManagement.Api.Models;
+using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
@@ -21,6 +24,7 @@ namespace LigaManagerManagement.Web.Services
         public IEnumerable<Verein> Verein { get; set; }
 
         private readonly HttpClient httpClient;
+        private AppDbContext appDbContext;
 
         public TabelleService(HttpClient httpClient)
         {
@@ -61,7 +65,9 @@ namespace LigaManagerManagement.Web.Services
             return Spieltag[0].Datum;
         }
 
+
         public async Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService,
+                                                bool bAbgeschlossen,
                                                 IEnumerable<Verein> Vereine,
                                                 int Spieltag,
                                                 string sSaison,
@@ -69,11 +75,17 @@ namespace LigaManagerManagement.Web.Services
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
-
+            int BisSpieltag;
+            SpieltagRepository rep = new SpieltagRepository(appDbContext);
             var TabSaisonSorted = new List<Tabelle>();
             int paarung = 1;
             int VonSpieltag = 1;
-            int BisSpieltag = 34;  //Globals.MaxSpieltag(Globals.SaisonID);
+
+            if (bAbgeschlossen)
+                BisSpieltag =  Globals.maxSpieltag;
+            else
+                BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
+
             var alleSpieltage = (await spieltagService.GetSpieltage());
 
             if (Tabart == 4)
@@ -82,7 +94,9 @@ namespace LigaManagerManagement.Web.Services
             if (Tabart == 5)
             {
                 VonSpieltag = 18;
-                BisSpieltag = 34;
+
+                int iAktSpieltag = Globals.maxSpieltag;
+                BisSpieltag = iAktSpieltag;
             }
 
             for (int i = VonSpieltag; i <= BisSpieltag; i++)
@@ -113,10 +127,10 @@ namespace LigaManagerManagement.Web.Services
 
                             int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                            if (Saison > 1994)
-                                tabelleneintrag1.Punkte = 3;
-                            else
+                            if (item.SaisonID == 35 || item.SaisonID == 36)
                                 tabelleneintrag1.Punkte = 2;
+                            else
+                                tabelleneintrag1.Punkte = 3;
 
                             tabelleneintrag1.Gewonnen = 1;
                             tabelleneintrag1.Untentschieden = 0;
@@ -197,10 +211,10 @@ namespace LigaManagerManagement.Web.Services
 
                             int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                            if (Saison > 1994)
-                                tabelleneintrag2.Punkte = 3;
-                            else
+                            if (item.SaisonID == 35 || item.SaisonID == 36)
                                 tabelleneintrag2.Punkte = 2;
+                            else
+                                tabelleneintrag2.Punkte = 3;
 
                             tabelleneintrag2.Gewonnen = 1;
                             tabelleneintrag2.Untentschieden = 0;
@@ -256,7 +270,12 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag1.Gewonnen = tabelleneintragF.Gewonnen + 1;
                                 tabelleneintrag1.Untentschieden = tabelleneintragF.Untentschieden;
                                 tabelleneintrag1.Verloren = tabelleneintragF.Verloren;
-                                tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 3;
+
+                                if (item.SaisonID == 35 || item.SaisonID == 36)
+                                    tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 2;
+                                else
+                                    tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 3;
+
                                 tabelleneintrag1.Platz = 0;
                                 tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
                                 tabelleneintrag1.Liga = Globals.currentLiga;
@@ -326,7 +345,12 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag2.Gewonnen = tabelleneintragF2.Gewonnen + 1;
                                 tabelleneintrag2.Untentschieden = tabelleneintragF2.Untentschieden;
                                 tabelleneintrag2.Verloren = tabelleneintragF2.Verloren;
-                                tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 3;
+                                
+                                if (item.SaisonID == 35 || item.SaisonID == 36)
+                                    tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 2;
+                                else
+                                    tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 3;
+
                                 tabelleneintrag2.Platz = 0;
                                 tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
                                 tabelleneintrag2.Liga = Globals.currentLiga;
@@ -430,7 +454,7 @@ namespace LigaManagerManagement.Web.Services
 
                         if (tabelleneintragF == null)
                         {
-                            tabelleneintrag1 = new Tabelle();                            
+                            tabelleneintrag1 = new Tabelle();
 
                             if (item.Tore1_Nr > item.Tore2_Nr)
                             {
@@ -446,7 +470,7 @@ namespace LigaManagerManagement.Web.Services
 
                                 tabelleneintrag1.Platz = 0;
                                 tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag1.Liga = Globals.currentLiga;                                
+                                tabelleneintrag1.Liga = Globals.currentLiga;
 
                             }
                             else if (item.Tore1_Nr == item.Tore2_Nr)
@@ -462,7 +486,7 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag1.Verloren = 0;
                                 tabelleneintrag1.Platz = 0;
                                 tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag1.Liga = Globals.currentLiga;                             
+                                tabelleneintrag1.Liga = Globals.currentLiga;
                             }
                             else if (item.Tore1_Nr < item.Tore2_Nr)
                             {
@@ -479,20 +503,20 @@ namespace LigaManagerManagement.Web.Services
 
                                 tabelleneintrag1.Platz = 0;
                                 tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag1.Liga = Globals.currentLiga;                               
+                                tabelleneintrag1.Liga = Globals.currentLiga;
                             }
                             paarung++;
-                                                   
+
                             TabSaisonSorted.Add(tabelleneintrag1);
                         }
 
                         if (tabelleneintragF2 == null)
                         {
-                            
+
                             tabelleneintrag2 = new Tabelle();
 
                             if (item.Tore1_Nr > item.Tore2_Nr)
-                            {                              
+                            {
 
                                 tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                 tabelleneintrag2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(item.Verein2_Nr)).Vereinsname1;
@@ -511,7 +535,7 @@ namespace LigaManagerManagement.Web.Services
 
                             }
                             else if (item.Tore1_Nr == item.Tore2_Nr)
-                            {                               
+                            {
 
                                 tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                 tabelleneintrag2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(item.Verein2_Nr)).Vereinsname1;
@@ -529,7 +553,7 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag2.Liga = Globals.currentLiga;
                             }
                             else if (item.Tore1_Nr < item.Tore2_Nr)
-                            {                               
+                            {
 
                                 tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                 tabelleneintrag2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(item.Verein2_Nr)).Vereinsname1;
@@ -545,7 +569,7 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag2.Liga = Globals.currentLiga;
                             }
                             paarung++;
-                                                      
+
                             TabSaisonSorted.Add(tabelleneintrag2);
                         }
 

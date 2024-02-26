@@ -6,12 +6,6 @@
 
 @attribute [Authorize]
 
-<script>
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-</script>
-
 <style type="text/css">
 
     .TableElement {
@@ -59,7 +53,7 @@ else
 {
     <div class="row mt-4">
         <div class="col-2">
-            <h2>Saisonen</h2>
+            <h2 style="margin-left:6px;">Saisonen</h2>
         </div>
         <div class="col-3">
             <a href="createsaison" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
@@ -72,16 +66,16 @@ else
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
             <Columns>
-                <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID">
+                <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>
                     <FooterTemplate>
                         Saisonen: <b>@grid.View.Count()</b> von <b>@SaisonenList.Count()</b>
                     </FooterTemplate>
                 </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
-                <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="400px" Sortable=true Title="Liganame" />
-                <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="400px" Sortable=true Title="Saisonname" />
-                <RadzenDataGridColumn TItem="Saison" Property="Abgeschlossen" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Abgeschlossen" />
-                <RadzenDataGridColumn TItem="Saison" Property="Aktuell" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Aktuell" />
+                <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="400px" Reorderable Resizable Sortable=true Title="Liganame" />
+                <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="400px" Reorderable Resizable Sortable=true Title="Saisonname" />
+                <RadzenDataGridColumn TItem="Saison" Property="Abgeschlossen" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Abgeschlossen" />
+                <RadzenDataGridColumn TItem="Saison" Property="Aktuell"  Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Aktuell" />
 
             </Columns>
                         

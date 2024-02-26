@@ -1,6 +1,9 @@
-﻿using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Migrations;
+using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
+using LigaManagerManagement.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -51,6 +54,33 @@ namespace LigaManagerManagement.Api.Models
             return await appDbContext.Vereine.ToListAsync();
         }
 
+        public async Task<IEnumerable<Verein>> GetVereineSaison()
+        {
+            List<Verein> vereineSaison = new List<Verein>();
+
+            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            conn.Open();
+
+            SqlCommand command = new SqlCommand("SELECT Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    Verein verein = new Verein();
+                    verein.VereinNr = (int)reader["VereinNr"];
+                    verein.Vereinsname1 = (string)reader["Vereinsname1"];
+                    verein.Vereinsname2 = (string)reader["Vereinsname2"];
+                    verein.Stadion = "Stadion";
+
+                    vereineSaison.Add(verein);
+                }
+            }
+
+            conn.Close();
+            return vereineSaison;
+        }
+
         public async Task<Verein> UpdateVerein(Verein Verein)
         {
             try
@@ -79,6 +109,8 @@ namespace LigaManagerManagement.Api.Models
             }      
         
         }
+
+      
     }
 }
 

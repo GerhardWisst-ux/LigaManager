@@ -1,85 +1,43 @@
 ﻿@page "/kader"
 @using LigaManagerManagement.Web.Pages;
+@using LigaManagerManagement.Models;
 @inherits KaderBase
+@using Radzen;
+@using Radzen.Blazor;
 
 @attribute [Authorize]
 
-<script>
-    function scrollToTop() {
-        window.scrollTo(0, 0);
-    }
-</script>
-
-<style type="text/css">
-
-    .TableElement {
-        border: 0px solid #fff;
-        background-color: transparent;
-    }
-
-    .table td, .table th {
-        padding: 0.04rem !important;
-        vertical-align: top;
-        border-top: 0px solid #dee2e6;
-    }
-
-    h4 {
-        display: flex;
-        flex-direction: row;
-        width: 96%;
-        height: 0.5px;
-    }
-
-        h4:after {
-            content: "";
-            flex: 1 1;
-            border-bottom: 1px solid #000;
-            padding: 0px;
-            margin: -5.5px;
-        }
-
-    table {
-        border-collapse: collapse;
-    }
-
-        table.sectioned tbody {
-            border: 1px solid darkgray;
-            border-collapse: separate;
-            border-spacing: 4px;
-        }
-</style>
+<link rel="stylesheet" href="~/css/material-base.css" />
 
 <div class="row mt-4">
     <div>
-        <h2><b>Kader </b></h2>
+        @* <RadzenText TextStyle="TextStyle.H2" TagName="TagName.H2">Kader</RadzenText> *@
+        <h2 style="margin-left:8px;">Kader</h2>
     </div>
-    <div>
-        <h3>Verein wählen</h3>
-    </div>
-
     <div class="col-3">
-        <a href="createkaderspieler" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
+        <a href="createkaderspieler" style="display:@VisibleAdd;width:40px;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
     </div>
 </div>
-<div class="form-group row">
+<div class="row">
     <div class="col-sm mt-2">
-        <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
-            <option value="" selected>@saison</option>
+        <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+            <option value="" selected required>Saison auswählen</option>
             @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
             {
                 <option value="@saison.Saisonname"> @saison.Saisonname </option>
             }
+            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Saison auswählen</label>
         </select>
-        <label title="Bitte Liga wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
     </div>
     <div class="col-sm mt-2">
-        <select id="cboVerein" style="margin-left:5px;" class="form-control dropdown" @onchange="VereinChange">
-            @foreach (var verein in VereineList)
+        <select id="cboVerein" class="form-control dropdown" @onchange="VereinChange">
+            <option value="" selected required>Verein auswählen</option>
+            @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
             {
                 <option value="@verein.VereinID"> @verein.Vereinname1 </option>
             }
         </select>
-        <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+        <label style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Verein auswählen</label>
     </div>
     <div class="col-sm mt-2">
         <linkbutton title="Saison und Verein auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
@@ -87,8 +45,6 @@
         </linkbutton>
     </div>
 </div>
-
-
 
 
 @if (SpielerList == null)
@@ -102,51 +58,104 @@ else
         <div class="col-12 p-3">
             @if (bShowSpieler)
             {
-                @if (SpielerList.Any())
-                {
-                    <table class="table table-striped">
-                        <thead class="bg-blue">
-                            <tr>
-                                <th class="priority-1" style="height:40px;max-width:50px;" scope="col">Spieler Nr</th>
-                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Name</th>
-                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Vorname</th>
-                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Einsätze</th>
-                                <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Tore</th>
-                            </tr>
-                        </thead>
-                    </table>
-                    @foreach (var spieler in SpielerList.OrderByDescending(x => x.Tore))
-                    {
-                        <EditForm Model="@Spieler">
-                            <div class="table-responsive" style="max-width:90%;">
-                                <table class="table table-striped">
+                int i;
+        <RadzenDataGrid @ref="grid" Data="@SpielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                AllowPaging="true" AllowSorting="true" AllowMultiColumnSorting="true" AllowFiltering="true"
+                                TItem="Kader" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
+                            <FooterTemplate>
+                                Saisonen: <b>@grid.View.Count()</b> von <b>@SaisonenList.Count()</b>
+                            </FooterTemplate>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
+                        <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Width="400px" Sortable=true Title="Name" SortOrder="SortOrder.Ascending"
+                                              SortProperty="SpielerName" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="400px" Sortable=true Title="Vorname" SortOrder="SortOrder.Ascending"
+                                              SortProperty="Vorname" />
 
-                                    <tbody style="border-width:1px;">
-                                        <tr>
-                                            <td><InputNumber readonly id="txtRueckennummer" class="TableElement priority-1" style="max-height:30px; max-width:50px; pointer-events:none;" tabindex="1" @bind-Value=spieler.Rueckennummer /></td>
-                                            <td><InputText readonly id="txtName" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="2" @bind-Value=spieler.SpielerName /></td>
-                                            <td><InputText readonly id="txtVorname" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="3" @bind-Value=spieler.Vorname /></td>
-                                            <td><InputNumber readonly id="txtEinsaetze" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="4" @bind-Value=spieler.Einsaetze /></td>
-                                            <td><InputNumber readonly id="txtTore" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="5" @bind-Value=spieler.Tore /></td>
-                                            <td> <NavLink href="@($"editkaderspieler/{spieler.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </EditForm>
-                    }
-                }
-                else
-                {
-                    <p>keine Datensätze gefunden.</p>
-                }
+                      
+                        <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="80px" TextAlign="TextAlign.Center" Sortable=true Title="Einsätze" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="80px" TextAlign="TextAlign.Right" Title="Tore" Sortable=true SortOrder="SortOrder.Ascending"
+                                              SortProperty="Tore" />
+
+                        <RadzenDataGridColumn TItem="Kader" Property="ID" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editkaderspieler/{data.Id}")" class="btn-primary btn">Bearbeiten</NavLink>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+
+
+                </RadzenDataGrid>
+                @*   @if (SpielerList.Any())
+        {
+        <table class="table table-striped">
+        <thead class="bg-blue">
+        <tr>
+        <th class="priority-1" style="height:40px;max-width:50px;" scope="col">Spieler Nr</th>
+        <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Name</th>
+        <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Vorname</th>
+        <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Einsätze</th>
+        <th class="priority-1" style="height:40px;max-width:200px;" scope="col">Tore</th>
+        </tr>
+        </thead>
+        </table>
+        @foreach (var spieler in SpielerList.OrderByDescending(x => x.Tore))
+        {
+        <EditForm Model="@Spieler">
+        <div class="table-responsive" style="max-width:90%;">
+        <table class="table table-striped">
+
+        <tbody style="border-width:1px;">
+        <tr>
+        <td><InputNumber readonly id="txtRueckennummer" class="TableElement priority-1" style="max-height:30px; max-width:50px; pointer-events:none;" tabindex="1" @bind-Value=spieler.Rueckennummer /></td>
+        <td><InputText readonly id="txtName" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="2" @bind-Value=spieler.SpielerName /></td>
+        <td><InputText readonly id="txtVorname" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="3" @bind-Value=spieler.Vorname /></td>
+        <td><InputNumber readonly id="txtEinsaetze" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="4" @bind-Value=spieler.Einsaetze /></td>
+        <td><InputNumber readonly id="txtTore" class="TableElement priority-1" style="max-height:30px; max-width:200px;; pointer-events:none;" tabindex="5" @bind-Value=spieler.Tore /></td>
+        <td> <NavLink href="@($"editkaderspieler/{spieler.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
+        </tr>
+        </tbody>
+        </table>
+        </div>
+        </EditForm>
+        }
+        }
+        else
+        {
+        <p>keine Datensätze gefunden.</p>
+        } *@
             }
 
         </div>
     </div>
-    @* <div class="col-1 offset-11">
-        <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
-    </div> *@
+    <div class="col-1 offset-11">
+        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'>&#xf35b;</button>
+    </div>
 
+    <script>
+
+        let mybutton = document.getElementById("btnTop");
+
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
 
 }

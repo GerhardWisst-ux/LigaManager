@@ -1,10 +1,7 @@
-﻿using LigaManagement.Models;
-using LigaManagement.Web.Services.Contracts;
+﻿using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -24,14 +21,19 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PostJsonAsync<Saison>("api/saisonen", newSaison);
         }
 
-        public Task DeleteSaison(int id)
+        public async Task DeleteSaison(int id)
         {
-            throw new NotImplementedException();
+            await httpClient.DeleteAsync($"api/saisonen/{id}");
         }
 
         public async Task<Saison> GetSaison(int id)
         {
             return await httpClient.GetJsonAsync<Saison>($"api/saisonen/{id}");
+        }
+
+        public async Task<Saison> GetSaisonID(string saison)
+        {
+            return await httpClient.GetJsonAsync<Saison>($"api/saisonen/{saison}");
         }
 
         public async Task<IEnumerable<Saison>> GetSaisonen()

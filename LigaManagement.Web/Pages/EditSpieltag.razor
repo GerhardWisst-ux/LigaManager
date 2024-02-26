@@ -6,15 +6,20 @@
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject NavigationManager _navigationManager
 
-<div class="row my-2">
-    <h2>@Titel Spiel</h2>
+<style>
 
-    <div class="col-10">
+</style>
+
+<div class="row my-2">
+
+    <div class="col-12">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
+            <h2>@Titel Spiel</h2>
+            <h3>@SpieltagNr .Spieltag </h3>
             <div class="form-group row">
                 <label class="col-sm-2">Verein 1</label>
                 <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
-
+                    <option value="" selected>@Vereinsname1</option>
                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                     {
                         <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -45,6 +50,7 @@
             <div class="form-group row">
                 <label class="col-sm-2">Verein 2</label>
                 <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
+                    <option value="" selected>@Vereinsname2</option>
                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                     {
                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -59,7 +65,7 @@
                         <option selected="selected">@Spiel.Verein2</option>
                     }
                 </select>
-                 <InputText style="display:none;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
+                <InputText style="display:none;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
             </div>
             <div class="form-group row">
                 <label for="txtDatum" class="col-sm-2">Datum:</label>
@@ -86,6 +92,75 @@
             <div class="form-group py-2">
                 <button class="btn btn-primary">Speichern</button>
                 <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
+            </div>
+
+            <div class="tabs">
+                <details name="tab">
+                    <summary> Aufstellungen</summary>
+                    <div class="content card">
+                        <div class="form-group row">
+                            <label class="col-sm-2">Kader Verein 1</label>
+                            <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
+                                <option value="" selected>@Spielername</option>
+                                <option value="" selected required>Spieler wählen</option>
+                                @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
+                                {
+                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                }
+                            </select>
+                            <label class="col-sm-2">Kader Verein 2</label>
+                            <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
+                                <option value="" selected>@Spielername</option>
+                                <option value="" selected required>Spieler wählen</option>
+                                @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
+                                {
+                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                }
+                            </select>
+                            <InputText style="display:none;" required id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-2">Spieler Verein 1</label>
+                            <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
+                                <option value="" selected>@Spielername</option>
+                                <option value="" selected required>Spieler wählen</option>
+                                @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
+                                {
+                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                }
+                            </select>
+                            <label class="col-sm-2">Spieler Verein 2</label>
+                            <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
+                                <option value="" selected>@Spielername</option>
+                                <option value="" selected required>Spieler wählen</option>
+                                @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
+                                {
+                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                }
+                            </select>
+                            <InputText style="display:none;" required id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+
+                            <div class="form-group-row py-2">
+                                <button onclick="SpeichernSpieler" class="btn btn-primary">Speichern</button>
+                                <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+                <details name="tab">
+                    <summary> Tore</summary>
+                    <div class="content">
+                    </div>
+                </details>
+                <details name="tab" open>
+                    <summary> Spielverlauf </summary>
+                    <div class="content">
+                    </div>
+                </details>
             </div>
         </EditForm>
     </div>
@@ -157,3 +232,4 @@
         _navigationManager.NavigateTo(url);
     }
 }
+
