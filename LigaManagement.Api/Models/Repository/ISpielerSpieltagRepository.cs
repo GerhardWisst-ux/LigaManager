@@ -13,5 +13,6 @@ namespace LigamanagerManagement.Api.Models.Repository
         Task<SpielerSpieltag> AddSpieler(SpielerSpieltag Spieler);
         Task<SpielerSpieltag> UpdateSpieler(SpielerSpieltag Spieler);
         Task<SpielerSpieltag> DeleteSpieler(SpielerSpieltag SpielerId);
+        Task<SpielerSpieltag> DeleteSpielerSpieltag();
     }
 }

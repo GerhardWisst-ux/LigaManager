@@ -4,6 +4,13 @@
 
 @attribute [Authorize]
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
 <script>
     function scrollToTop() {
         window.scrollTo(0, 0);
@@ -19,46 +26,87 @@
     }
 </style>
 
-<div>
-    <h2><b>Statistiken</b></h2>
-</div>
-<div>
-    <h3>Verein gegen Verein</h3>
-</div>
-<br />
-<div class="columns-2">
-    <div>
-        <select id="cboSaison" style="margin-left:5px; min-width:350px;" class="form-control dropdown" @onchange="Verein1Change">
-            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-            {
-                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-            }
-            <option selected="selected">Verein auswählen</option>
-
-        </select>
+<div class="container">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2><b>Statistiken</b></h2>
+                    <h3>Verein gegen Verein</h3>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <select id="cboSaison" style="margin-left:5px;min-width:350px;" class="form-control dropdown" @onchange="Verein2Change">
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label class="col-sm-2">Verein</label>
+            <select id="cboSaison" style="max-width:350px;" class="form-control dropdown" @onchange="Verein1Change">
+                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                {
+                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                }
+                <option selected="selected">Verein auswählen</option>
+            </select>
+        </div>
+        <div class="col-sm-6">
+            <label class="col-sm-2">Verein</label>
+            <select id="cboSaison" style="max-width:350px;" class="form-control dropdown" @onchange="Verein2Change">
 
-            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                {
+                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                }
+                <option selected="selected">Verein auswählen</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
+            <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            @foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
             {
-                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                <EditForm Model="@Spielergebnisse">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
+                </EditForm>
             }
-            <option selected="selected">Verein auswählen</option>
-        </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <div class="col-1 offset-11">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:@DisplayElements;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </div>
+        </div>
     </div>
 </div>
 
-<label style="margin-left:15px;">Spielpaarungen: @Spielergebnisse.Count() </label>
+<script>
 
-@foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
-{ 
-    <EditForm Model="@Spielergebnisse">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-        <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
-    </EditForm> 
-}
-<div class="col-1 offset-11">
-    <button onclick="javascript:scrollToTop" class="btn btn-primary">Nach Oben</button>
-</div>
+    let mybutton = document.getElementById("btnTop");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>

@@ -82,6 +82,11 @@ namespace LigaManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
+
+                if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen)
+                    Globals.Spieltag = 34;
+                else
+                    Globals.Spieltag = 23;
             }
         }
         public void OnSaisonChange(object value)
@@ -343,7 +348,7 @@ namespace LigaManagement.Web.Pages
             int iAktSpieltag;
 
             if (bAbgeschlossen)
-                iAktSpieltag = Globals.maxSpieltag;            
+                iAktSpieltag = Globals.maxSpieltag;
             else
                 iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
 

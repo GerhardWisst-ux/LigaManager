@@ -157,35 +157,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public async void SpeichernSpieler()
         {
-            for (int i = 0; i < SpielerList1.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList1[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
-
-            for (int i = 0; i < SpielerList2.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList2[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
+            
         }
 
         public void Change(object value, string name, string action)

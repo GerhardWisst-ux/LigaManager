@@ -15,5 +15,7 @@ CREATE TABLE [dbo].SpielerSpieltag(
 	[AusgewechseltMin] [int] NOT NULL,
 	[GelbeKarten] [bit],
 	[RoteKarten] [bit],
+	[Position] [nchar](50) NULL,
+	[Sortierung] [nchar](50) NULL,
 ) 
 GO

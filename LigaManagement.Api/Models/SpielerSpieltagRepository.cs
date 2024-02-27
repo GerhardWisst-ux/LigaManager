@@ -30,14 +30,14 @@ namespace LigaManagement.Api.Models
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO [SpielerSpieltag](Tore, Einsatz, SaisonID, KaderID, SpieltagID, Eingewechselt,EingewechseltMin,Spielminuten,Ausgewechselt,AusgewechseltMin,GelbeKarten,RoteKarten,Spielminuten)" +
-                " VALUES(@SpielerName,@Einsatz,@SaisonID,@KaderID,@SpieltagID,@Eingewechselt,@EingewechseltMin,@Spielminuten,@Ausgewechselt,@AusgewechseltMin,@GelbeKarten,@RoteKarten,@Spielminuten)";
+            cmd.CommandText = "INSERT INTO [SpielerSpieltag] (Tore, Einsatz, SaisonID, KaderID, SpieltagNr, Eingewechselt,EingewechseltMin,Spielminuten,Ausgewechselt,AusgewechseltMin,GelbeKarten,RoteKarten)" +
+                " VALUES(@Tore,@Einsatz,@SaisonID,@KaderID,@SpieltagNr,@Eingewechselt,@EingewechseltMin,@Spielminuten,@Ausgewechselt,@AusgewechseltMin,@GelbeKarten,@RoteKarten)";
 
             cmd.Parameters.AddWithValue("@Tore", SpielerSpieltag.Tore);
             cmd.Parameters.AddWithValue("@Einsatz", SpielerSpieltag.Einsatz);
             cmd.Parameters.AddWithValue("@SaisonID", SpielerSpieltag.SaisonId);
             cmd.Parameters.AddWithValue("@KaderID", SpielerSpieltag.KaderId);
-            cmd.Parameters.AddWithValue("@SpieltagID", SpielerSpieltag.SpieltagId);
+            cmd.Parameters.AddWithValue("@SpieltagNr", SpielerSpieltag.SpieltagId);
             cmd.Parameters.AddWithValue("@Eingewechselt", SpielerSpieltag.Eingewechselt);
             cmd.Parameters.AddWithValue("@EingewechseltMin", SpielerSpieltag.EingewechseltMin);
             cmd.Parameters.AddWithValue("@Ausgewechselt", SpielerSpieltag.Ausgewechselt);
@@ -56,6 +56,22 @@ namespace LigaManagement.Api.Models
         public Task<SpielerSpieltag> DeleteSpieler(SpielerSpieltag SpielerId)
         {
             throw new NotImplementedException();
+        }
+
+        public Task<SpielerSpieltag> DeleteSpielerSpieltag()
+        {
+            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM [dbo].[SpielerSpieltag]  where saisonID = 1 and SpieltagNr = 23" +
+            
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+
+            return null;
         }
 
         public Task<IEnumerable<SpielerSpieltag>> GetAllSpieler()

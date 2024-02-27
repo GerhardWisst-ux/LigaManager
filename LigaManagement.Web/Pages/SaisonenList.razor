@@ -6,6 +6,13 @@
 
 @attribute [Authorize]
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
 <style type="text/css">
 
     .TableElement {
@@ -51,39 +58,47 @@
 }
 else
 {
-    <div class="row mt-4">
-        <div class="col-2">
-            <h2 style="margin-left:6px;">Saisonen</h2>
-        </div>
-        <div class="col-3">
-            <a href="createsaison" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
-        </div>
-        <br />
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 style="display:inline-block;" >@Ligamanager.Components.Globals.currentLiga Saisonen </h2>
 
-        <RadzenDataGrid @ref="grid" Data="@SaisonenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                        AllowPaging="true" AllowSorting="true" AllowFiltering="true"
-                        TItem="Saison" Visible="true" AllowColumnResize="true"
-                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
-            <Columns>
-                <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>
-                    <FooterTemplate>
-                        Saisonen: <b>@grid.View.Count()</b> von <b>@SaisonenList.Count()</b>
-                    </FooterTemplate>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
-                <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="400px" Reorderable Resizable Sortable=true Title="Liganame" />
-                <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="400px" Reorderable Resizable Sortable=true Title="Saisonname" />
-                <RadzenDataGridColumn TItem="Saison" Property="Abgeschlossen" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Abgeschlossen" />
-                <RadzenDataGridColumn TItem="Saison" Property="Aktuell"  Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Aktuell" />
+                        <span class="ml-3">                            
+                            <a href="createsaison" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenDataGrid @ref="grid" Data="@SaisonenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                TItem="Saison" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>
+                            <FooterTemplate>
+                                Saisonen: <b>@grid.View.Count()</b> von <b>@SaisonenList.Count()</b>
+                            </FooterTemplate>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="400px" Reorderable Resizable Sortable=true Title="Liganame" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="400px" Reorderable Resizable Sortable=true Title="Saisonname" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Abgeschlossen" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Abgeschlossen" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Aktuell" Width="200px" TextAlign="TextAlign.Center" Filterable="false" Reorderable Resizable Sortable=true Title="Aktuell" />
 
-            </Columns>
-                        
-                  
-        </RadzenDataGrid>
-    </div>
+                    </Columns>
+                </RadzenDataGrid>
+            </div>
+        </div>
+    </div>    
+    
     <div class="col-1 offset-11">
-        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'>&#xf35b;</button>
+        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px'><span class="glyphicon glyphicon-arrow-up"></span></button>
     </div>
 
     <script>
@@ -91,20 +106,20 @@ else
         let mybutton = document.getElementById("btnTop");
 
         // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function() {scrollFunction()};
+        window.onscroll = function () { scrollFunction() };
 
         function scrollFunction() {
-          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            mybutton.style.display = "block";
-          } else {
-            mybutton.style.display = "none";
-          }
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
         }
 
         // When the user clicks on the button, scroll to the top of the document
         function topFunction() {
-          document.body.scrollTop = 0;
-          document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
         }
     </script>
 }

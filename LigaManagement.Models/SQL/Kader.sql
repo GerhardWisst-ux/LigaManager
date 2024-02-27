@@ -15,6 +15,7 @@ CREATE TABLE [dbo].Kader(
 	[SaisonID] [int],	
 	[LigaID] [int],	
 	[Rueckennummer] [int],
+	[Position] [nvarchar](50) NOT NULL,
 	[Einsaetze] [int]  NOT NULL,	
 	[Spielminuten] [int],
 	[Tore] [int],

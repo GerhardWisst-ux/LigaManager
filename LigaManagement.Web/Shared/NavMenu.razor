@@ -1,4 +1,26 @@
-﻿<div class="top-row pl-4 navbar navbar-dark">
+﻿
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    body {
+        font-size: 18px !important;
+    }
+
+    .sidebar .nav-item a {
+        font-size: 18px !important;
+    }
+
+    .sidebar .navbar-brand {
+        font-size: 18px !important;
+    }
+</style>
+
+
+<div class="top-row pl-4 navbar navbar-dark">
     <a class="navbar-brand" href="">Ligamanager</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -9,82 +31,82 @@
     <ul class="nav flex-column">
         <AuthorizeView>
             <Authorized>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" style="display:block;" href="/" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Auswahl
+                <li class="nav-item px-4">
+                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                        <span  class="oi oi-home" aria-hidden="true"></span> Auswahl
                     </NavLink>
                 </li>
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/spieltage/1" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Spieltage
+                            <span  class="oi oi-list-rich" aria-hidden="true"></span> Spieltage
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" visble="@Ligamanager.Components.Globals.bVisibleNavMenuElements" href="/tabellen" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Tabellen
+                            <span  class="oi oi-list" aria-hidden="true"></span> Tabellen
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/vereine" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Vereine
+                            <span  class="oi oi-people" aria-hidden="true"></span> Vereine
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/saisonen" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Saisonen
+                            <span  class="oi oi-timer" aria-hidden="true"></span> Saisonen
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/ligen" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Ligen
+                            <span  class="oi oi-home" aria-hidden="true"></span> Ligen
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/kader" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Kader
+                            <span   class="oi oi-person" aria-hidden="true"></span> Kader
                         </NavLink>
                     </li>
                 }
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/statistiken" Match="NavLinkMatch.All">
-                            <span class="oi oi-home" aria-hidden="true"></span> Statistiken
+                            <span  class="oi oi-bar-chart" aria-hidden="true"></span> Statistiken
                         </NavLink>
                     </li>
 
-                    <li class="nav-item px-3">
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                            <span class="oi oi-power-standby" aria-hidden="true"></span>
-                            Logout @context.User.Identity.Name
+                            <span   class="oi oi-power-standby" aria-hidden="true"></span>
+                            Logout 
                         </NavLink>
                     </li>
                 }
             </Authorized>
             <NotAuthorized>
-                <li class="nav-item px-3">
-                    <NavLink class="nav-link" style="display:block;" href="/einstieg" Match="NavLinkMatch.All">
+                <li class="nav-item px-4">
+                    <NavLink class="nav-link" href="/einstieg" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> Auswahl
                     </NavLink>
                 </li>
-                <li class="nav-item px-3">
+                <li class="nav-item px-4">
                     <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
                         <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
                     </NavLink>

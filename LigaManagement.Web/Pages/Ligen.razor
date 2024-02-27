@@ -55,77 +55,47 @@
 }
 else
 {
-    <div class="row mt-4">
-        <div class="col-2">
-            <h2 style="margin-left:8px;">Ligen</h2>
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 style="display:inline-block;">@Ligamanager.Components.Globals.currentLiga Saisonen </h2>
+
+                        <span class="ml-3">
+                            <a href="createliga" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-3">
-            <a href="createliga" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon">&#x2b;</span></a>
-        </div>        
- @*        <div class="col-12 p-3">
-            @if (LigenList.Any())
-            {
-                @foreach (var liga in LigenList)
-                {
-                    <EditForm Model="@Ligen">
-                         <div class="table-responsive" style="max-width:90%;">
-                            <table class="table table-striped">
-                            @if (liga.Id == 1)
-                            {
-                                <thead class="bg-blue">
-                                    <tr>
-                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Liga Nr</th>
-                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Liga</th>
-                                        <th class="priority-1" style="height:40px;max-width:30%;" scope="col">Verband</th>
-                                        <th class="priority-1" style="height:40px;max-width:20%;" scope="col">Start</th>
-                                    </tr>
-                                </thead>
-                            }                            
-                            <tbody style="border-width:1px;">
-                                <tr>
-                                    <td><InputNumber readonly id="txtVerein1" class="TableElement priority-1" style="max-height:20px; max-width:20%;pointer-events:none;" tabindex="1" @bind-Value=liga.Id /></td>
-                                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="2" @bind-Value=liga.Liganame /></td>
-                                    <td><InputText readonly id="txtVerband" class="TableElement priority-1" style="max-height:30px; max-width:80%;pointer-events:none;" tabindex="3" @bind-Value=liga.Verband /></td>
-                                    <td><InputDate readonly id="txtDatum" class="TableElement priority-1" style="max-height:20px; max-width:80%;pointer-events:none;" tabindex="4" @bind-Value=liga.Erstaustragung /></td>
-                                    <td> <NavLink href="@($"editliga/{liga.Id}")" class="btn-primary btn">Bearbeiten</NavLink></td>
-                                    @* <LigamanagerManagement.Web.Pages.Shared._EditDelete>
-                                    </LigamanagerManagement.Web.Pages.Shared._EditDelete>                                 *@
-                            @*     </tr>
-                            </tbody>
-                        </table>
-                        </div>
-                    </EditForm>
-                }
-            }
-            else
-            {             
-                <p>keine Datensätze gefunden.</p>
-            }
-        </div> *@
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenDataGrid @ref="grid" Data="@LigenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                TItem="Liga" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>
+                            <FooterTemplate>
+                                Ligen: <b>@grid.View.Count()</b> von <b>@LigenList.Count()</b>
+                            </FooterTemplate>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="400px" Sortable=true Title="Liganame" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="400px" Sortable=true Title="Verband" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="200px" FormatString={0:dd.mm.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
 
-        <RadzenDataGrid @ref="grid" Data="@LigenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                        AllowPaging="true" AllowSorting="true" AllowFiltering="true"
-                        TItem="Liga" Visible="true" AllowColumnResize="true"
-                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
-            <Columns>
-                <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>
-                    <FooterTemplate>
-                        Ligen: <b>@grid.View.Count()</b> von <b>@LigenList.Count()</b>
-                    </FooterTemplate>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="400px" Sortable=true Title="Liganame" />
-                <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="400px" Sortable=true Title="Verband" />
-                <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="200px" FormatString={0:dd.mm.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
-                
-            </Columns>
+                    </Columns>
 
 
-        </RadzenDataGrid>
+                </RadzenDataGrid>
+            </div>
+        </div>
     </div>
     <div class="col-1 offset-11">
-        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'><i class='fas fa-arrow-alt-circle-up'></i></button>
+        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'><span class="glyphicon glyphicon-arrow-up"></span></button>
     </div>
 
     <script>
@@ -150,5 +120,5 @@ else
         }
     </script>
 
-   
+
 }

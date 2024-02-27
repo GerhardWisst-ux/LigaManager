@@ -19,6 +19,8 @@ namespace LigamanagerManagement.Web.Pages
         public Int32 currentspieltag;
         public string saison;
 
+        protected string DisplayElements = "none";
+
         public List<DisplaySpieltag> SpieltagList;
 
         [Inject]
@@ -95,6 +97,8 @@ namespace LigamanagerManagement.Web.Pages
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, 1);
 
                 DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
+
+                DisplayElements = "none";
             }
             catch (Exception ex)
             {
@@ -138,6 +142,8 @@ namespace LigamanagerManagement.Web.Pages
                 Vereine = await VereineService.GetVereine();
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+
+                DisplayElements = "block";
                 StateHasChanged();
 
             }
@@ -149,6 +155,7 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = Convert.ToInt32(e.Value);
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+                DisplayElements = "block";
                 StateHasChanged();
             }
         }
@@ -159,6 +166,7 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = currentspieltag - 1;
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
             Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+            DisplayElements = "block";
             StateHasChanged();
 
         }
@@ -169,6 +177,7 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = currentspieltag + 1;
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
             Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
+            DisplayElements = "block";
             StateHasChanged();
         }
         public async Task TabArtChange(ChangeEventArgs e)
@@ -190,6 +199,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (TabArt == 6)
                     Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
+                DisplayElements = "block";
                 StateHasChanged();
             }
         }

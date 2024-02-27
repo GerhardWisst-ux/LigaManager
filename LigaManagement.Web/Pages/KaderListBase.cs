@@ -19,6 +19,8 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Kader> KaderList { get; set; }
         public Kader Kader { get; set; } = new Kader();
 
+        public string DisplayElements = "none";
+
         [Parameter]
         public string Id { get; set; }
 
@@ -54,7 +56,8 @@ namespace LigaManagerManagement.Web.Pages
             {
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
-            }            
+            }
+            DisplayElements = "none";
         }
 
         public void VereinChange(ChangeEventArgs e)
@@ -63,6 +66,9 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Verein1_Nr = e.Value.ToString();              
             }
+
+            DisplayElements = "block";
+            StateHasChanged();
         }
         
     }

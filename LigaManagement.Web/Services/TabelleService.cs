@@ -1,6 +1,7 @@
 ﻿using LigaManagement.Api.Migrations;
 using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
@@ -415,7 +416,33 @@ namespace LigaManagerManagement.Web.Services
 
             return Spielergebnisse;
         }
+        public async Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel)
+        {
+            int Gewonnen = 0, Unentschieden = 0, Verloren = 0;
+            var TabSaisonSorted = new List<Spielergebnisse>();
 
+            var alleSpieltage = (await spieltagService.GetSpielergebnisse());
+            var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein2 || st.Verein1 == spiel.Verein2 && st.Verein2 == spiel.Verein1).ToList();
+
+            int GewonnenH = (Spielergebnisse).Where(st => st.Tore1_Nr > st.Tore2_Nr && st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein2).ToList().Count();
+            int UnentschiedenH = (Spielergebnisse).Where(st => st.Tore1_Nr == st.Tore2_Nr && st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein2).ToList().Count();
+            int VerlorenH = (Spielergebnisse).Where(st => st.Tore1_Nr < st.Tore2_Nr && st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein2).ToList().Count();
+
+            int GewonnenA = (Spielergebnisse).Where(st => st.Tore2_Nr > st.Tore1_Nr && st.Verein1 == spiel.Verein2 && st.Verein2 == spiel.Verein1).ToList().Count();
+            int UnentschiedenA = (Spielergebnisse).Where(st => st.Tore2_Nr == st.Tore1_Nr && st.Verein1 == spiel.Verein2 && st.Verein2 == spiel.Verein1).ToList().Count();
+            int VerlorenA = (Spielergebnisse).Where(st => st.Tore2_Nr < st.Tore1_Nr && st.Verein1 == spiel.Verein2 && st.Verein2 == spiel.Verein1).ToList().Count();
+
+            Gewonnen = GewonnenH + GewonnenA;
+            Unentschieden = UnentschiedenH + UnentschiedenA;
+            Verloren = VerlorenH + VerlorenA;
+
+            Spielstatistik stat = new Spielstatistik();
+            stat.Gewonnen = Gewonnen;
+            stat.Unentschieden = Unentschieden;
+            stat.Verloren = Verloren;
+
+            return stat;
+        }
 
         public async Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService,
                                                 IEnumerable<Verein> Vereine,
@@ -713,5 +740,7 @@ namespace LigaManagerManagement.Web.Services
 
             return TabSaisonSorted;
         }
+
+       
     }
 }

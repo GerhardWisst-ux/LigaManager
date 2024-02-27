@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Models;
 using Ligamanager.Components;
 using System;
 using System.Collections.Generic;
@@ -17,5 +18,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, bool Abgeschlossen, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison,int tabart);
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison, int ewigeTabelle);
+
+        Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
     }
 }

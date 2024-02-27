@@ -1,12 +1,17 @@
 ﻿@inherits DisplaySpieltagBase
 
-
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 <style type="text/css">
 
     @@media screen and (max-width: 767px) {
 
         .priority-1 {
-            display: block;
+            display: inline-block;
         }
 
         .priority-2 {
@@ -56,16 +61,10 @@
         width: 270px;
     }
 
-    /* table {
-                    border-collapse: collapse;
-                }
-
-                    table.sectioned tbody {
-                        border: 1px solid darkgray;
-                        border-collapse: separate;
-                        border-spacing: 4px;
-                        box-shadow: 3px 3px grey;
-                    } */
+    body {
+        font-size: 18px !important;
+    }
+    
 </style>
 
 
@@ -83,10 +82,10 @@ else
             {
                 <thead>
                     <tr>
-                        <th class="TableElement priority-1">Verein 1</th>
-                        <th class="TableElement priority-1">T 1</th>
-                        <th class="TableElement priority-1">T 2</th>
-                        <th class="TableElement priority-1">Verein 2</th>
+                        <th style="max-height:38px; max-width:180px;pointer-events:none;"  class="TableElement priority-1">V1</th>
+                        <th style="max-height:38px; max-width:40px; pointer-events:none;" class="TableElement priority-1">T1</th>
+                        <th style="max-height:38px; max-width:40px; pointer-events:none;" class="TableElement priority-1">T2</th>
+                        <th style="max-height:38px; max-width:180px;pointer-events:none;" class="TableElement priority-1">V2</th>
                         <th class="TableElement priority-2">Ort</th>
                         <th class="TableElement priority-2">Datum</th>
                         <th class="TableElement priority-2">Zuschauer</th>
@@ -105,10 +104,10 @@ else
                     <td><InputNumber readonly id="txtZuschauer" class="TableElement priority-2" style="max-height:38px; width:100px;pointer-events:none;" tabindex="7" @bind-Value=Spieltag.Zuschauer /></td>
 
                     <td>
-                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon-pencil">&#x270f;</span></NavLink>
+                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
                     </td>
                     <td>
-                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon-remove">&#xe088;</span></NavLink>
+                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon glyphicon-remove-sign"></span> Löschen</NavLink>
                     </td>
                 </tr>
             </tbody>

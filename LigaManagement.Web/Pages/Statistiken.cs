@@ -20,7 +20,10 @@ namespace LigaManagerManagement.Web.Pages
     public class StatistikenListBase : ComponentBase
     {
         public Int32 currentspieltag = Globals.Spieltag;
+                
+        protected string DisplayElements = "none";
 
+        protected string Statistik = "";
 
         public int VereinNr1;
 
@@ -68,11 +71,10 @@ namespace LigaManagerManagement.Web.Pages
             {
                 string returnUrl = WebUtility.UrlEncode($"/statistiken");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-            }
-                        
+            }                        
 
             var spiele = await SpieltagService.GetSpieltage();
-            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Take(9).ToList();
+            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
 
             Vereine = (await VereineService.GetVereine()).ToList();
             VereineList = new List<DisplayVerein>();
@@ -84,7 +86,8 @@ namespace LigaManagerManagement.Web.Pages
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
                 VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
             }
-                        
+
+            DisplayElements = "none";
         }
 
         [Bind]
@@ -110,7 +113,7 @@ namespace LigaManagerManagement.Web.Pages
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein1_Nr);
                 Spiel.Verein1 = VereineList[index].Vereinname1;
 
-                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);
+                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);               
                 StateHasChanged();
             }
         }
@@ -130,6 +133,11 @@ namespace LigaManagerManagement.Web.Pages
                     return;
 
                 Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);
+
+                var stat = await TabelleService.VereinGegenVereinSum(SpieltagService, Spiel);
+
+                Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
+                DisplayElements = "block";
                 StateHasChanged();
             }
         }

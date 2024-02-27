@@ -1,21 +1,28 @@
 ﻿@page "/editspieltag/{id}"
 @page "/createspieltag/{SpieltagNr}"
+@using LigaManagerManagement.Models
 
 @inherits EditSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject NavigationManager _navigationManager
 
-<style>
-
-</style>
+<head>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
 
 <div class="row my-2">
-
     <div class="col-12">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
-            <h2>@Titel Spiel</h2>
-            <h3>@SpieltagNr .Spieltag </h3>
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">@Titel Spiel</h2>
+                    <h3 class="card-title">@SpieltagNr .Spieltag</h3>
+                    <a href="@($"spieltage/{SpieltagNr}")" class="card-link">Zurück</a>
+                </div>
+            </div>
             <div class="form-group row">
                 <label class="col-sm-2">Verein 1</label>
                 <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
@@ -90,7 +97,7 @@
                 <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
             </div>
             <div class="form-group py-2">
-                <button class="btn btn-primary">Speichern</button>
+                <button data-toggle="Speichert Spieltag ab" class="btn btn-primary">Speichern</button>
                 <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
             </div>
 
@@ -145,8 +152,8 @@
                             <InputText style="display:none;" required id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
 
                             <div class="form-group-row py-2">
-                                <button onclick="SpeichernSpieler" class="btn btn-primary">Speichern</button>
-                                <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary">Zurück</NavLink>
+                                <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
+                                <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><i class="fa fa-arrow-left" aria-hidden="true"></i>Zurück</NavLink>
                             </div>
                         </div>
                     </div>
@@ -220,12 +227,73 @@
 
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.CreateSpieltag(Spiel);
+
+
+            for (int i = 0; i < SpielerList1.Count(); i++)
+            {
+                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+                spielerspieltag.KaderId = SpielerList1[i].SpielerID;
+                spielerspieltag.SaisonId = Globals.SaisonID;
+                spielerspieltag.SpieltagId = Globals.Spieltag;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Einsatz = 1;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Spielminuten = 90;
+                spielerspieltag.Eingewechselt = false;
+                spielerspieltag.Ausgewechselt = false;
+                var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            }
+
+            for (int i = 0; i < SpielerList2.Count(); i++)
+            {
+                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+                spielerspieltag.KaderId = SpielerList2[i].SpielerID;
+                spielerspieltag.SaisonId = Globals.SaisonID;
+                spielerspieltag.SpieltagId = Globals.Spieltag;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Einsatz = 1;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Spielminuten = 90;
+                spielerspieltag.Eingewechselt = false;
+                spielerspieltag.Ausgewechselt = false;
+                SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            }
         }
         else
         {
             //update
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.UpdateSpieltag(Spiel);
+
+            for (int i = 0; i < SpielerList1.Count(); i++)
+            {
+                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+                spielerspieltag.KaderId = SpielerList1[i].SpielerID;
+                spielerspieltag.SaisonId = Globals.SaisonID;
+                spielerspieltag.SpieltagId = Globals.Spieltag;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Einsatz = 1;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Spielminuten = 90;
+                spielerspieltag.Eingewechselt = false;
+                spielerspieltag.Ausgewechselt = false;
+                var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            }
+
+            for (int i = 0; i < SpielerList2.Count(); i++)
+            {
+                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+                spielerspieltag.KaderId = SpielerList2[i].SpielerID;
+                spielerspieltag.SaisonId = Globals.SaisonID;
+                spielerspieltag.SpieltagId = Globals.Spieltag;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Einsatz = 1;
+                spielerspieltag.Tore = 0;
+                spielerspieltag.Spielminuten = 90;
+                spielerspieltag.Eingewechselt = false;
+                spielerspieltag.Ausgewechselt = false;
+                SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            }
         }
         string url = "/spieltage/" + SpieltagNr;
 

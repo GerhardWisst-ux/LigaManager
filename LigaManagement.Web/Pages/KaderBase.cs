@@ -19,6 +19,8 @@ namespace LigaManagerManagement.Web.Pages
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
 
+        public string DisplayElements = "none";
+
         [Inject]
         public IKaderService KaderService { get; set; }
         public IEnumerable<Kader> SpielerList { get; set; }
@@ -89,6 +91,8 @@ namespace LigaManagerManagement.Web.Pages
 
             bChangedVerein = false;
             bShowSpieler = false;
+
+            DisplayElements = "none";
         }
 
         public void SaisonChange(ChangeEventArgs e)
@@ -96,8 +100,8 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.currentSaison = e.Value.ToString();
-                Globals.SaisonID = 23;
-                bChangedSaison = true;
+                Globals.SaisonID = 1;
+                bChangedSaison = true;             
             }
         }
 
@@ -139,6 +143,7 @@ namespace LigaManagerManagement.Web.Pages
             bShowSpieler = true;
             VisibleAdd = "block";
 
+            DisplayElements = "block";
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Globals.currentVereinID).ToList();
             StateHasChanged();
         }
