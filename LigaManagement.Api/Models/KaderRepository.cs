@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
@@ -30,8 +31,8 @@ namespace LigaManagement.Api.Models
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "INSERT INTO [Kader](SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Tore,Einsaetze,Spielminuten,LandID,LigaID,SaisonId,VereinNr,Aktiv)" +
-                " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Tore,@Einsaetze,@Spielminuten,@LandID,@LigaID,@SaisonId,@VereinNr,@Aktiv)";
+            cmd.CommandText = "INSERT INTO [Kader](SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Tore,Einsaetze,Spielminuten,LandID,LigaID,SaisonId,VereinNr,Aktiv,Position, PositionsNr)" +
+                " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Tore,@Einsaetze,@Spielminuten,@LandID,@LigaID,@SaisonId,@VereinNr,@Aktiv,@Position, @PositionsNr)";
 
             cmd.Parameters.AddWithValue("@SpielerName", Spieler.SpielerName);
             cmd.Parameters.AddWithValue("@Vorname", Spieler.Vorname);
@@ -46,7 +47,9 @@ namespace LigaManagement.Api.Models
             cmd.Parameters.AddWithValue("@SaisonId", Spieler.SaisonId);
             cmd.Parameters.AddWithValue("@VereinNr", Spieler.VereinID);
             cmd.Parameters.AddWithValue("@Aktiv", Spieler.Aktiv);
-                            
+            cmd.Parameters.AddWithValue("@Position", Spieler.Position);
+            cmd.Parameters.AddWithValue("@PositionsNr", Spieler.PositionsNr);
+
             cmd.ExecuteNonQuery();
 
             conn.Close();
@@ -81,20 +84,22 @@ namespace LigaManagement.Api.Models
             {
                 while (reader.Read())
                 {
-                    var spieler = new Kader();
-                    spieler.Id = (int)reader["Id"];
-                    spieler.SpielerName = reader["SpielerName"].ToString();                    
-                    spieler.Vorname = reader["Vorname"].ToString();
-                    spieler.Rueckennummer = (int)reader["Rueckennummer"];
-                    spieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
-                    spieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
-                    spieler.Einsaetze = (int)reader["Einsaetze"];
-                    spieler.Tore = (int)reader["Tore"];
-                    spieler.VereinID = (int)reader["VereinNr"];
-                    spieler.SaisonId = (int)reader["SaisonID"];
-                    spieler.Aktiv = (bool)reader["Aktiv"];
+                    var kaderspieler = new Kader();
+                    kaderspieler.Id = (int)reader["Id"];
+                    kaderspieler.SpielerName = reader["SpielerName"].ToString();                    
+                    kaderspieler.Vorname = reader["Vorname"].ToString();
+                    kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
+                    kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                    kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
+                    kaderspieler.Einsaetze = (int)reader["Einsaetze"];
+                    kaderspieler.Tore = (int)reader["Tore"];
+                    kaderspieler.VereinID = (int)reader["VereinNr"];
+                    kaderspieler.SaisonId = (int)reader["SaisonID"];
+                    kaderspieler.Aktiv = (bool)reader["Aktiv"];
+                    kaderspieler.Position = (string)reader["Position"].ToString();
+                    kaderspieler.PositionsNr = (int)reader["PositionsNr"];
 
-                    allspieler.Add(spieler);
+                    allspieler.Add(kaderspieler);
                 }
                   
             }
@@ -126,6 +131,8 @@ namespace LigaManagement.Api.Models
                     kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
                     kaderspieler.SaisonId = (int)reader["SaisonID"];
                     kaderspieler.Aktiv = (bool)reader["Aktiv"];
+                    kaderspieler.Position = (string)reader["Position"].ToString();
+                    kaderspieler.PositionsNr = (int)reader["PositionsNr"];
                 }
             }
             conn.Close();
@@ -141,8 +148,12 @@ namespace LigaManagement.Api.Models
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "UPDATE Kader(SpielerName, SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Tore,Einsaetze,Spielminuten,LandID,LigaID,SaisonId,VereinNr,Aktiv)" +
-                    " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Tore,@Einsaetze,@Spielminuten,@LandID,@LigaID,@SaisonId,@VereinNr,@Aktiv)";
+                //cmd.CommandText = "UPDATE Kader SET (SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Einsaetze,VereinNr)" +
+                //    " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Einsaetze,@VereinNr) WHERE ID=@ID" + Spieler.Id;
+
+                cmd.CommandText = "UPDATE Kader SET SpielerName= @SpielerName, Vorname= @Vorname, Rueckennummer= @Rueckennummer, Geburtstag= @Geburtstag," +
+                    "Tore= @Tore, Einsaetze= @Einsaetze, @Position = @Position, PositionsNr = @PositionsNr, @Spielminuten=@Spielminuten,LandID=@LandID, " +
+                    "LigaID =@LigaID,SaisonId=@SaisonId,VereinNr=@VereinNr,Aktiv=@Aktiv, ImVereinSeit= @ImVereinSeit WHERE ID=@ID";
 
                 cmd.Parameters.AddWithValue("@SpielerName", Spieler.SpielerName);
                 cmd.Parameters.AddWithValue("@Vorname", Spieler.Vorname);
@@ -157,6 +168,9 @@ namespace LigaManagement.Api.Models
                 cmd.Parameters.AddWithValue("@SaisonId", Spieler.SaisonId);
                 cmd.Parameters.AddWithValue("@VereinNr", Spieler.VereinID);
                 cmd.Parameters.AddWithValue("@Aktiv", Spieler.Aktiv);
+                cmd.Parameters.AddWithValue("@Position", Spieler.Position.ToString());                
+                cmd.Parameters.AddWithValue("@PositionsNr", Spieler.PositionsNr.ToString());
+                cmd.Parameters.AddWithValue("@ID", Spieler.Id);
 
                 cmd.ExecuteNonQuery();
 

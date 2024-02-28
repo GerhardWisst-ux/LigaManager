@@ -66,6 +66,7 @@ namespace LigaManagerManagement.Web.Pages
                 var columns = Saisonen.ElementAt(i);
                 SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
             }
+
             saison = Globals.currentSaison;
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == 23).ToList();
 
@@ -117,21 +118,20 @@ namespace LigaManagerManagement.Web.Pages
 
         public async void OnClickHandler()
         {
-            if (bChangedSaison == false & bChangedVerein == false)
+            if (Globals.currentSaison == null & Globals.currentLiga == null)
             {
-                DisplayErrorSaison = "block";
                 DisplayErrorVerein = "block";
-                
+                DisplayErrorSaison = "block";
                 return;
             }
 
-            if (bChangedSaison == false)
+            if (Globals.currentSaison == null)
             {
                 DisplayErrorSaison = "block";
                 return;
             }
 
-            if (bChangedVerein == false)
+            if (Globals.currentLiga == null)
             {
                 DisplayErrorVerein = "block";
                 return;
@@ -145,6 +145,7 @@ namespace LigaManagerManagement.Web.Pages
 
             DisplayElements = "block";
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Globals.currentVereinID).ToList();
+
             StateHasChanged();
         }
 

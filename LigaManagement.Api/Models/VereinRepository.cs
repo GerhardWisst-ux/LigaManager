@@ -46,7 +46,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<Verein> GetVerein(int VereinId)
         {
             return await appDbContext.Vereine
-                .FirstOrDefaultAsync(d => d.Id == VereinId);
+                .FirstOrDefaultAsync(d => d.VereinNr == VereinId);
         }
 
         public async Task<IEnumerable<Verein>> GetVereine()

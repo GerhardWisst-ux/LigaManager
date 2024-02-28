@@ -78,12 +78,12 @@ else
         <table class="table table-striped">
             <tbody>
                 <tr>
-                    <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; width:120px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=spielergebnis.Datum /></td>
+                    <td><InputDate readonly id="txtDatum" class="TableElement priority-2 crop" style="max-height:38px; width:120px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=spielergebnis.Datum /></td>
                     <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; width:280px;pointer-events:none;" tabindex="2" @bind-Value=spielergebnis.Verein1 /></td>
                     <td><InputNumber readonly id="txtTore1" class="TableElement priority-1" style="max-height:38px; width:40px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=spielergebnis.Tore1_Nr /></td>
                     <td><InputNumber readonly id="txtTore2" class="TableElement priority-1" style="max-height:38px; width:40px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=spielergebnis.Tore2_Nr /></td>
-                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1" style="max-height:38px; width:280px;pointer-events:none;" tabindex="5" @bind-Value=spielergebnis.Verein2 /></td>
-                    <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:300px; pointer-events:none;" tabindex="6" @bind-Value=spielergebnis.Ort /></td>
+                    <td><InputText readonly id="txtVerein2" class="TableElement priority-1 crop" style="max-height:38px; width:280px;pointer-events:none;" tabindex="5" @bind-Value=spielergebnis.Verein2 /></td>
+                    <td><InputText readonly id="txtOrt" class="TableElement priority-2" style="max-height:38px; max-width:auto; pointer-events:none;" tabindex="6" @bind-Value=spielergebnis.Ort /></td>
                 </tr>
             </tbody>
         </table>

@@ -63,7 +63,7 @@ else
                 <div class="card">
                     <div class="card-body">
                         <h2>@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
-                        <select id="cboSpieltage" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                        <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
                             <option value="" selected>@SpieltagNr Spieltag</option>
                             @foreach (var spieltag in SpieltagList)
                             {
@@ -115,10 +115,10 @@ else
     {
         <div class="form-group row">
             <div class="col-sm-10">
-                <a type="button" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                <a type="button" data-toggle="tooltip" title="Voriger Spieltag"  @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
             </div>
             <div class="col-sm-2 justify-content-end">
-                <a type="button" @onclick="SpieltagVor" style="width: auto;" class="next round">&raquo;</a>
+                <a type="button" data-toggle="tooltip" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto;" class="next round">&raquo;</a>
             </div>
         </div>
     }

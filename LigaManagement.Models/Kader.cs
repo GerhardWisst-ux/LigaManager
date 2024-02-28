@@ -13,9 +13,13 @@ namespace LigaManagerManagement.Models
 
         [Required(ErrorMessage = "Vorname erforderlich.")]
         public string Vorname { get; set; }
+                
 
         [Required(ErrorMessage = "Geburtsdatum erforderlich.")]
         public DateTime Geburtsdatum { get; set; }
+
+        public string Position { get; set; }
+        public int PositionsNr { get; set; }
 
         public int SaisonId { get; set; }
         

@@ -104,10 +104,10 @@ else
                     <td><InputNumber readonly id="txtZuschauer" class="TableElement priority-2" style="max-height:38px; width:100px;pointer-events:none;" tabindex="7" @bind-Value=Spieltag.Zuschauer /></td>
 
                     <td>
-                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
+                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")"  data-toggle="tooltip" title="Bearbeiten" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
                     </td>
                     <td>
-                        <NavLink @onclick="Delete_Click" class="btn-danger btn"><span class="glyphicon glyphicon-remove-sign"></span> Löschen</NavLink>
+                        <NavLink @onclick="Delete_Click" data-toggle="tooltip" title="Löschen" class="btn-danger btn"><span class="glyphicon glyphicon-remove-sign"></span> Löschen</NavLink>
                     </td>
                 </tr>
             </tbody>

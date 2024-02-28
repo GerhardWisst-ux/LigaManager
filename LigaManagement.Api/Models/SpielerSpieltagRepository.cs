@@ -117,7 +117,7 @@ namespace LigaManagement.Api.Models
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE SpielerSpieltag(Tore, Einsatz, SaisonID, KaderID, SpieltagID, Eingewechselt,EingewechseltMin,Spielminuten,Ausgewechselt,AusgewechseltMin,GelbeKarten,RoteKarten,Spielminuten)" +
-                " VALUES(@SpielerName,@Einsatz,@SaisonID,@KaderID,@SpieltagID,@Eingewechselt,@EingewechseltMin,@Spielminuten,@Ausgewechselt,@AusgewechseltMin,@GelbeKarten,@RoteKarten,@Spielminuten)";
+                " VALUES(@Tore,@Einsatz,@SaisonID,@KaderID,@SpieltagID,@Eingewechselt,@EingewechseltMin,@Spielminuten,@Ausgewechselt,@AusgewechseltMin,@GelbeKarten,@RoteKarten,@Spielminuten)";
 
             cmd.Parameters.AddWithValue("@Tore", SpielerSpieltag.Tore);
             cmd.Parameters.AddWithValue("@Einsatz", SpielerSpieltag.Einsatz);

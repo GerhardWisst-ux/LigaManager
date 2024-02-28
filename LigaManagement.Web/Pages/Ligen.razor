@@ -4,6 +4,13 @@
 
 @attribute [Authorize]
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
 <script>
     function scrollToTop() {
         window.scrollTo(0, 0);
@@ -83,13 +90,10 @@ else
                             </FooterTemplate>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="400px" Sortable=true Title="Liganame" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="500px" Sortable=true Title="Liganame" />
                         <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="400px" Sortable=true Title="Verband" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="200px" FormatString={0:dd.mm.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
-
                     </Columns>
-
-
                 </RadzenDataGrid>
             </div>
         </div>
