@@ -33,7 +33,7 @@ namespace LigamanagerManagement.Web.Pages
             if (deleteConfirmed)
             {
                 await TabelleService.DeleteTabelle(Tabelle.Id);
-                await OnTabelleDeleted.InvokeAsync(Tabelle.Id);
+                await OnTabelleDeleted.InvokeAsync((int)Tabelle.Id);
             }
         }
 

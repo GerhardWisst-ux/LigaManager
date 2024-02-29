@@ -9,3 +9,12 @@ CREATE TABLE [dbo].[VereineSaison](
 
 ) 
 GO
+
+CREATE TABLE [dbo].[StadionVerein](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[VereinNr] [int] NOT NULL,		
+	[STADION] [nchar](200) NULL,
+	[DatumVon] Datetime,
+	[DatumBis] Datetime,
+) 
+GO

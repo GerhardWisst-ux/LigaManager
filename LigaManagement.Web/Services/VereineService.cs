@@ -24,6 +24,11 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PostJsonAsync<Verein>("api/vereine", newVerein);
         }
 
+        public async Task<List<Verein>> CreateVereineSaison(List<Verein> vereine)
+        {
+            return await httpClient.PostJsonAsync<List<Verein>>("api/vereinesaison", vereine);
+        }
+
         public Task DeleteVerein(int id)
         {
             throw new NotImplementedException();
@@ -40,7 +45,7 @@ namespace LigaManagerManagement.Web.Services
         }
         public async Task<IEnumerable<Verein>> GetVereineSaison(string currentSaison)
         {
-            return (IEnumerable<Verein>)await httpClient.GetJsonAsync<Verein>($"api/vereinesaison");
+            return await httpClient.GetJsonAsync<List<Verein>>($"api/vereinesaison");
         }
 
         public async Task<Verein> UpdateVerein(Verein updatedVerein)

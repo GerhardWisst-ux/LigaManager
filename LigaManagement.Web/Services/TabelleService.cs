@@ -37,7 +37,7 @@ namespace LigaManagerManagement.Web.Services
             throw new NotImplementedException();
         }
 
-        public Task DeleteTabelle(int id)
+        public Task DeleteTabelle(int? id)
         {
             throw new NotImplementedException();
         }

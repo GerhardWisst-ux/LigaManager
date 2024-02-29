@@ -82,7 +82,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var VereinToUpdate = await SpieltagRepository.GetSpieltag(Spieltag.SpieltagId);
+                var VereinToUpdate = await SpieltagRepository.GetSpieltag((int)Spieltag.SpieltagId);
 
                 if (VereinToUpdate == null)
                 {

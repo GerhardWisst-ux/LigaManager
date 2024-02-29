@@ -5,12 +5,19 @@
 
 @using LigaManagerManagement.Web.Pages;
 
-
 <div class="container">
-    <h3>Start Ligamanager</h3>
-    <div class="row">
-        <div class="col-sm mt-2">
-            <select id="cboLiga" style="margin-left:5px;" class="form-control dropdown" @onchange="LigaChange">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 style="display:inline-block;">Start Ligamanager </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-5">
+            <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
                 <option value="" selected required>Liga auswählen</option>
                 <option value="Bundesliga"> Bundesliga</option>
                 <option value="2. Bundesliga"> 2. Bundesliga</option>
@@ -18,8 +25,8 @@
             </select>
             <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
         </div>
-        <div class="col-sm mt-2">
-            <select id="cboSaison" style="margin-left:5px;" class="form-control dropdown" @onchange="SaisonChange">
+        <div class="col-sm-5">
+            <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
                 <option value="" selected required>Saison auswählen</option>
                 @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                 {
@@ -28,27 +35,34 @@
             </select>
             <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
         </div>
-        <div class="col-sm mt-2">
+        <div class="col-sm-2 pull-right">
             <linkbutton title="Liga und Saison auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
                 Auswählen
             </linkbutton>
         </div>
-        
+    </div>    
+     <div class="form-group row">
+        <div class="col-sm-6">
+            <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
+                Tabellen anlegen
+            </linkbutton>
+        </div>
     </div>
-    <div>
-        <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label">Bitte CSV-Datei wählen</label>
-        <input class="form-control form-control-lg" id="ImportCSV" type="file">    
-        <linkbutton title="Saison importieren" style="margin-left:2px;" id="btnImportCSV" class="btn btn-primary" @onclick=OnClickHandlerImport>
-            Import Saison
-        </linkbutton>
-
-       
-        <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
-            Tabellen anlegen
-        </linkbutton>
-    </div>  
-
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <input class="form-control form-control-lg" id="ImportCSV" type="file">
+            <linkbutton title="Saison importieren" style="margin-left:2px;" id="btnImportCSV" class="btn btn-primary" @onclick=OnClickHandlerImport>
+                Import Saison
+            </linkbutton>
+        </div>
+    </div>
 </div>
+ 
 
 <script>
     $(document).ready(function () {

@@ -164,6 +164,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (currentspieltag > 1)
                 currentspieltag = currentspieltag - 1;
+
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
             Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
             DisplayElements = "block";
@@ -175,6 +176,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (currentspieltag < Globals.maxSpieltag)
                 currentspieltag = currentspieltag + 1;
+
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
             Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
             DisplayElements = "block";

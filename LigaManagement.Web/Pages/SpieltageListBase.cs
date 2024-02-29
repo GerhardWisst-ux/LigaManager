@@ -15,8 +15,11 @@ namespace LigaManagerManagement.Web.Pages
     public class SpieltagListBase : ComponentBase
     {
         [Parameter]
-        public object SpieltagNr { get; set; }
+        public string SpieltagNr { get; set; }
         public bool VisibleBtnNew { get; set; }
+
+
+        public Int32 currentspieltag;
 
         public bool VisibleVorZurueck { get; set; }
 
@@ -92,6 +95,8 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     VisibleVorZurueck = true;
 
+                SpieltagNr = Globals.Spieltag.ToString();
+
             }
             catch (Exception ex)
             {
@@ -104,7 +109,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                SpieltagNr = Convert.ToInt32(e.Value);
+                SpieltagNr = e.Value.ToString();
 
                 int SpieltagNr2 = Convert.ToInt32(e.Value);
                 Globals.Spieltag = SpieltagNr2;
@@ -115,12 +120,7 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
-
-                // ToDo
-                if (Spieltage.Count() == 0)
-                {
-
-                }
+                               
 
                 if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                 {
@@ -149,13 +149,14 @@ namespace LigaManagerManagement.Web.Pages
                     VisibleVorZurueck = false;
                 else
                     VisibleVorZurueck = true;
-                
+
+                StateHasChanged();
             }
         }
         public async Task SpieltagZurueck()
         {
             if (Convert.ToInt32(SpieltagNr) > 1)
-                SpieltagNr = Convert.ToInt32(SpieltagNr) - 1;
+                SpieltagNr = (Convert.ToInt32(SpieltagNr) - 1).ToString();
             else
                 return;
 
@@ -197,15 +198,15 @@ namespace LigaManagerManagement.Web.Pages
                 VisibleVorZurueck = false;
             else
                 VisibleVorZurueck = true;
-          
+
+            StateHasChanged();
         }
 
         public async Task SpieltagVor()
         {
             if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
-                SpieltagNr = Convert.ToInt32(SpieltagNr) + 1;
-            else
-                return;
+                SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
+
 
             Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
             for (int i = 0; i < Spieltage.Count(); i++)

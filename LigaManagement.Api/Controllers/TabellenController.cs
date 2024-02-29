@@ -81,7 +81,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var TabelleToUpdate = await TabellenRepository.GetTabelle(Tabelle.Id);
+                var TabelleToUpdate = await TabellenRepository.GetTabelle((int)Tabelle.Id);
 
                 if (TabelleToUpdate == null)
                 {

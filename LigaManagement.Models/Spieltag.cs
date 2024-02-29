@@ -5,7 +5,7 @@ namespace LigaManagement.Models
 {
     public class Spieltag
     {
-        public int SpieltagId { get; set; }
+        public int? SpieltagId { get; set; }
 
         [Required]
         public string SpieltagNr { get; set; }
@@ -13,9 +13,9 @@ namespace LigaManagement.Models
         [Required]
         public string Saison { get; set; }
 
-        public int SaisonID { get; set; }
+        public int? SaisonID { get; set; }
 
-        public int LigaID { get; set; }
+        public int? LigaID { get; set; }
 
         [Required]
         public string Verein1_Nr { get; set; }
@@ -30,10 +30,10 @@ namespace LigaManagement.Models
         public string Verein2 { get; set; }
 
         [Required]
-        public int Tore1_Nr { get; set; }
+        public int?  Tore1_Nr { get; set; }
 
         [Required]
-        public int Tore2_Nr { get; set; }
+        public int? Tore2_Nr { get; set; }
 
         [Required]
         public DateTime Datum { get; set; }
@@ -45,6 +45,6 @@ namespace LigaManagement.Models
 
         public bool Abgeschlossen { get; set; }
                 
-        public int Zuschauer { get; set; }        
+        public int? Zuschauer { get; set; }        
     }
 }

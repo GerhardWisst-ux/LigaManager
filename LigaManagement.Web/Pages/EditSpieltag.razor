@@ -19,7 +19,7 @@
             <div style="width:100%" class="card">
                 <div class="card-body">
                     <h2 class="card-title">@Titel Spiel</h2>
-                    <h3 class="card-title">@SpieltagNr .Spieltag</h3>
+                    <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
                     <a href="@($"spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                             <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
-                            <label class="col-sm-2">Tore1</label>
+                            <label class="col-sm-2">Tore 1</label>
                             <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
                             <ValidationMessage For="()=>Spiel.Tore1_Nr"></ValidationMessage>
                         </div>
@@ -87,7 +87,22 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Ort</label>
-                            <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
+                            <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
+                                
+                                @foreach (var verein in VereineList.OrderBy(x => x.Ort))
+                                {
+                                    <option selected value="@verein.VereinID"> @verein.Ort </option>
+
+                                }
+                                @if (Id is null)
+                                {
+                                    <option value="" selected required>Stadion wählen</option>
+                                }
+                                else
+                                {
+                                    <option selected="selected">@Spiel.Ort</option>
+                                }
+                            </select>
                             <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
                         </div>
                         <div class="form-group row">

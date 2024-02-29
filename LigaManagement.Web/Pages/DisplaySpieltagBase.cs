@@ -12,10 +12,13 @@ namespace LigamanagerManagement.Web.Pages
         public Spieltag Spieltag { get; set; }
 
         [Parameter]
+        public EventCallback<int> OnSpielDeleted { get; set; }
+
+        [Parameter]
         public int Zaehler { get; set; }
 
         string filterText = "";
-       
+
         public int SpieltagNr { get; set; }
 
         [Parameter]
@@ -30,34 +33,31 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        protected ConfirmBase DeleteConfirmation { get; set; }
+        public ConfirmBase DeleteConfirmation { get; set; }
 
         protected async Task Delete_Click()
         {
             //DeleteConfirmation.Show();
 
-            if (1 == 1)
-            {
-                await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
-                await OnSpieltagDeleted.InvokeAsync(Spieltag.SpieltagId);
-            }
+            await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
+            await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
 
-            NavigationManager.NavigateTo(($"/spieltage/{Globals.Spieltag}"));
+            NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
 
         protected async Task ConfirmDelete_Click(bool deleteConfirmed)
         {
-            if (deleteConfirmed)
-            {
-                await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
-                await OnSpieltagDeleted.InvokeAsync(Spieltag.SpieltagId);                
-            }
+            //if (deleteConfirmed)
+            //{
+            //    await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
+            //    await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
+            //}
 
-            NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
+            //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
-      
 
-     }
 
-    
+    }
+
+
 }

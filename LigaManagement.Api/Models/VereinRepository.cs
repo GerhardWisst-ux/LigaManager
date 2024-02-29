@@ -29,6 +29,30 @@ namespace LigaManagerManagement.Api.Models
             return result.Entity;
         }
 
+        public Task<List<Verein>> AddVereineSaison(List<Verein> Vereine)
+        {
+            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            conn.Open();
+
+
+            for (int i = 0; i < Vereine.Count; i++)
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT VereineSaison (VereinNr, SaisonID, LigaID)" +
+                    " VALUES(@VereinNr,@SaisonID,@LigaID)";
+
+                cmd.Parameters.AddWithValue("@VereinNr", Vereine[i].VereinNr);
+                cmd.Parameters.AddWithValue("@SaisonID", 37);
+                cmd.Parameters.AddWithValue("@LigaID", 1);
+                cmd.ExecuteNonQuery();
+            }         
+           
+            conn.Close();
+                        
+            return null;
+        }
+
         public async Task<Verein> DeleteVerein(int VereinId)
         {
             var result = await appDbContext.Vereine
@@ -61,7 +85,7 @@ namespace LigaManagerManagement.Api.Models
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
+            SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr WHERE SaisonID = 64", conn);
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
@@ -71,7 +95,7 @@ namespace LigaManagerManagement.Api.Models
                     verein.VereinNr = (int)reader["VereinNr"];
                     verein.Vereinsname1 = (string)reader["Vereinsname1"];
                     verein.Vereinsname2 = (string)reader["Vereinsname2"];
-                    verein.Stadion = "Stadion";
+                    verein.Stadion = (string)reader["Stadion"];
 
                     vereineSaison.Add(verein);
                 }

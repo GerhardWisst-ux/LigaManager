@@ -97,27 +97,47 @@ namespace LigamanagerManagement.Web.Pages
             {
                 var vereineSaison = await VereineService.GetVereineSaison(Globals.currentSaison);
 
-                spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
+                List<Verein> verList = vereineSaison.ToList();
+
+                for (int i = 0; i < verList.Count(); i++)
+                {
+                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));                    
+                }
+
+                //spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
             }
             else if (Globals.currentSaison == "1991/92")
             {
                 spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
+
+                Vereine = (await VereineService.GetVereine()).ToList();
+                VereineList = new List<DisplayVerein>();
+
+                int iAnzahl = spiele2.Count() * 2;
+
+                for (int i = 0; i < spiele2.Count(); i++)
+                {
+                    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
+                    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort)); 
+                }
             }
             else
             {
                 spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
+
+                Vereine = (await VereineService.GetVereine()).ToList();
+                VereineList = new List<DisplayVerein>();
+
+                int iAnzahl = spiele2.Count() * 2;
+
+                for (int i = 0; i < spiele2.Count(); i++)
+                {
+                    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
+                    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort));
+                }
             }
 
-            Vereine = (await VereineService.GetVereine()).ToList();
-            VereineList = new List<DisplayVerein>();
-
-            int iAnzahl = spiele2.Count() * 2;
-
-            for (int i = 0; i < spiele2.Count(); i++)
-            {
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
-            }
+           
 
             if (Id == null)
             {
@@ -183,7 +203,16 @@ namespace LigamanagerManagement.Web.Pages
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein2_Nr);
                 Spiel.Verein2 = VereineList[index].Vereinname1;
             }
-        }     
+        }
+        public void StadionChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {                
+                
+                int index = VereineList.FindIndex(x => x.VereinID == e.Value.ToString());
+                Spiel.Ort = VereineList[index].Ort;
+            }
+        }
 
         public async void KaderChange1(ChangeEventArgs e)
         {
@@ -212,13 +241,16 @@ namespace LigamanagerManagement.Web.Pages
         [Bind]
         public class DisplayVerein
         {
-            public DisplayVerein(string vereinID, string vereinname)
+            public DisplayVerein(string vereinID, string vereinname, string ort)
             {
                 VereinID = vereinID;
                 Vereinname1 = vereinname;
+                Ort = ort;
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
+
+            public string Ort { get; set; }
         }
 
         [Bind]

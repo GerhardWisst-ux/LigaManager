@@ -3,6 +3,7 @@ using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -68,6 +69,28 @@ namespace LigaManagement.Api.Controllers
 
                 return CreatedAtAction(nameof(GetVerein), new { id = createdVerein.Id },
                     createdVerein);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    ex.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<Verein>> CreateVereineSaison(List<Verein> Vereine)
+        {
+            try
+            {
+                if (Vereine == null)
+                {
+                    return BadRequest();
+                }
+
+                var createdVereine = await VereinRepository.AddVereineSaison(Vereine);
+
+                return CreatedAtAction(nameof(GetVerein), new { id = 87777 },
+                    createdVereine);
             }
             catch (Exception ex)
             {

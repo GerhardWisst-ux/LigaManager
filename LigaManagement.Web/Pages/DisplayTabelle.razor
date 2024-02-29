@@ -87,7 +87,7 @@ else
                 <tr>
                     @{
                         string dispTore = Tabelle.TorePlus + ":" + Tabelle.ToreMinus;
-                        int DispDiff = Tabelle.TorePlus - Tabelle.ToreMinus;
+                        int? DispDiff = Tabelle.TorePlus - Tabelle.ToreMinus;
                     }
                     <td><InputNumber readonly id="txtPlatz" class="TableElement priority-1" style="height:30px; width:42px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=Tabelle.Platz /></td>
                     <td><InputText readonly id="txtVerein" class="TableElement priority-1" style="height:30px;width:250px;pointer-events:none;" tabindex="2" @bind-Value=Tabelle.Verein /></td>

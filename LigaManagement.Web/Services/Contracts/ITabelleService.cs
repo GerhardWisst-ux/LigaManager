@@ -13,7 +13,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Tabelle> GetTabelle(int id);        
         Task<Tabelle> UpdateTabelle(Tabelle updatedTabelle);
         Task<Tabelle> CreateTabelle(Tabelle newTabelle);
-        Task DeleteTabelle(int id);
+        Task DeleteTabelle(int? id);
         Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);
         Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, bool Abgeschlossen, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison,int tabart);
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);

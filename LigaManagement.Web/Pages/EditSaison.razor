@@ -7,50 +7,153 @@
 @inject NavigationManager _navigationManager
 @using Radzen;
 
-<div class="row my-2">
-    
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+</head>
 
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+        .ul li {
+            border: 1px solid #ddd;
+            margin-top: -1px; /* Prevent double borders */
+            background-color: #f6f6f6;
+            padding: 5px;
+        }
+
+    .tab {
+        color: darkblue;
+    }
+
+</style>
+
+
+
+<div class="row my-2">
     <div class="col-10">
         <EditForm Model="Saison" OnValidSubmit="UpsertSaison">
-            <h2>@Titel Saison</h2>
-            <label>Saisonname</label>
-            <div class="form-group">                
-                <InputText required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control"></InputText>
-                <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
-            </div>
             <div class="form-group">
-                <label>Liganame</label>
-                <InputText required id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control"></InputText>
-                <ValidationMessage For="()=>Saison.Liganame"></ValidationMessage>
-            </div>           
-            <div class="form-group">
-                <label>Aktuell</label>
-                <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAktiv" />
-                <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
+                <div style="width:100%" class="card">
+                    <div class="card-body">
+                        <h2>@Titel</h2>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>Abgeschlossen</label>
-                <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px;" class="form-control col-sm-9" Name="Abgeschlossen" />
-                <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
-            </div>
-            <div class="form-group py-2">
-                <button onclick="Zuordnen" class="btn btn-primary">Vereine Zuordnen</button>                
-            </div>
-            <div class="form-group py-2">
-                <button class="btn btn-primary">Speichern</button>
-                <NavLink href="/saisonen" class="btn btn-secondary">Zurück</NavLink>
+            <div class="tabs">
+                <details open name="tab">
+                    <summary class="tab"> Überblick</summary>
+                    <div class="form-group">
+                        <label class="col-sm-3 pl-0">Saisonname</label>
+                        <InputText required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 pl-0">Liganame</label>
+                        <InputText required id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Saison.Liganame"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 pl-0">Aktuell</label>
+                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAktiv" />
+                        <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 pl-0">Abgeschlossen</label>
+                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                        <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
+                    </div>
+
+                    <div class="form-group py-2">
+                        <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
+                        <NavLink href="/saisonen" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                    </div>
+                </details>
             </div>
         </EditForm>
+        <div class="tabs">
+            <details name="tab">
+
+                <summary> Vereine zuordnen</summary>
+                <div class="form-group">
+                    <ul class="ul">
+                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                        {
+                            string Id = @verein.VereinID;
+                            <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }"  data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <ul class="ul">
+                        @foreach (var verein in VereineSaisonList.OrderBy(x => x.Vereinname1))
+                        {
+                            string Id = @verein.VereinID;
+                            <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
+                        }
+                    </ul>
+                </div>
+                               
+                <button onclick="Zuordnen" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button>
+               
+            </details>
+        </div>
+
+        <input type="button" id="btnModalPopup" value="Show Modal Popup" />
+        <div id="modal_dialog" style="display: none">
+            Nun kann mit dem Erfassen der Saisondaten begonnen werden.
+        </div>
+
+
+        <script type="text/javascript">
+            $("#btnModalPopup").on("click", function () {
+                $("#modal_dialog").dialog({
+                    title: "Saison angelegt",
+                    buttons: {
+                        Close: function () {
+                            $(this).dialog('close');
+                        }
+                    },
+                    modal: true
+                });
+            });
+        </script>
     </div>
 </div>
 
 @code {
     [Parameter]
     public string Id { get; set; }
-    private Saison Saison { get; set; } = new Saison();
     private string Titel { get; set; }
     public bool IsLoading { get; set; }
     public IEnumerable<Saison> SaisonenMax { get; set; }
+    protected override void OnParametersSet()
+    {
+        if (Id == "0" || Id is null)
+        {
+            //Neuanlage
+            Titel = "Saison Neuanlage";
+
+        }
+        else
+        {
+            //Bearbeiten
+            Titel = "Saison Bearbeiten";
+        }
+    }
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -58,14 +161,12 @@
             if (Id == "0" || Id is null)
             {
                 //Neuanlage
-                Titel = "Saison Neuanlage";
                 Id = "0";
                 IsLoading = false;
             }
             else
             {
                 //Bearbeiten
-                Titel = "Saison Bearbeiten";
                 await LoadSaison();
             }
         }
@@ -83,10 +184,8 @@
     {
         if (Id == "0")
         {
+            Saison.LigaID = Convert.ToInt32( Globals.currentLiga);
             //create
-            SaisonenMax = await _SaisonenService.GetSaisonen();
-            int iMax = SaisonenMax.Select(i => i.SaisonID).Max();
-            Saison.SaisonID = iMax + 1;            
             await _SaisonenService.CreateSaison(Saison);
         }
         else
