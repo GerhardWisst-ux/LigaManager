@@ -12,7 +12,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Verein> UpdateVerein(Verein updatedVerein);
         Task<Verein> CreateVerein(Verein newVerein);
         Task DeleteVerein(int id);
-        Task<IEnumerable<Verein>> GetVereineSaison(string currentSaison);
+        Task<IEnumerable<VereinAktSaison>> GetVereineSaison();
 
         Task<List<Verein>> CreateVereineSaison(List<Verein> vereine);
     }

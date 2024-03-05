@@ -27,4 +27,13 @@ namespace LigaManagement.Models
 
 
     }
+
+    public class VereinAktSaison: Verein
+    {
+        public int SaisonID { get; set; }
+
+       
+
+
+    }
 }

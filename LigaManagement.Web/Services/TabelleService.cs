@@ -83,9 +83,15 @@ namespace LigaManagerManagement.Web.Services
             int VonSpieltag = 1;
 
             if (bAbgeschlossen)
-                BisSpieltag =  Globals.maxSpieltag;
+                BisSpieltag = Spieltag;
             else
-                BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
+            {
+                if (Spieltag < rep.AktSpieltag(Globals.SaisonID))
+                    BisSpieltag = Spieltag;
+                else
+                    BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
+            }
+
 
             var alleSpieltage = (await spieltagService.GetSpieltage());
 
@@ -128,7 +134,7 @@ namespace LigaManagerManagement.Web.Services
 
                             int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                            if (item.SaisonID == 35 || item.SaisonID == 36)
+                            if (item.SaisonID > 28)
                                 tabelleneintrag1.Punkte = 2;
                             else
                                 tabelleneintrag1.Punkte = 3;
@@ -212,7 +218,7 @@ namespace LigaManagerManagement.Web.Services
 
                             int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                            if (item.SaisonID == 35 || item.SaisonID == 36)
+                            if (item.SaisonID > 28)
                                 tabelleneintrag2.Punkte = 2;
                             else
                                 tabelleneintrag2.Punkte = 3;
@@ -272,7 +278,7 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag1.Untentschieden = tabelleneintragF.Untentschieden;
                                 tabelleneintrag1.Verloren = tabelleneintragF.Verloren;
 
-                                if (item.SaisonID == 35 || item.SaisonID == 36)
+                                if (item.SaisonID > 28)
                                     tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 2;
                                 else
                                     tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 3;
@@ -346,8 +352,8 @@ namespace LigaManagerManagement.Web.Services
                                 tabelleneintrag2.Gewonnen = tabelleneintragF2.Gewonnen + 1;
                                 tabelleneintrag2.Untentschieden = tabelleneintragF2.Untentschieden;
                                 tabelleneintrag2.Verloren = tabelleneintragF2.Verloren;
-                                
-                                if (item.SaisonID == 35 || item.SaisonID == 36)
+
+                               if (item.SaisonID > 28)
                                     tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 2;
                                 else
                                     tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 3;
@@ -741,6 +747,6 @@ namespace LigaManagerManagement.Web.Services
             return TabSaisonSorted;
         }
 
-       
+
     }
 }

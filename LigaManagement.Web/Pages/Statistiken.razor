@@ -1,7 +1,6 @@
 ﻿@page "/statistiken"
 @using LigaManagerManagement.Web.Pages;
 @inherits StatistikenListBase
-
 @attribute [Authorize]
 
 <head>
@@ -32,53 +31,116 @@
             <div class="card">
                 <div class="card-body">
                     <h2><b>Statistiken</b></h2>
-                    <h3>Verein gegen Verein</h3>
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
-            <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="Verein1Change">
-                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                {
-                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                }
-                <option selected="selected">Verein auswählen</option>
-            </select>
-        </div>
-        <div class="col-sm-6">
-            <label style="display:inline-block;" class="col-sm-2">Verein</label>
-            <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
 
-                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                {
-                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                }
-                <option selected="selected">Verein auswählen</option>
-            </select>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
-            <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
+    <details open name="tab">
+        <summary> Verein gegen Verein</summary>
+        <div class="content">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
+                    <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="Verein1Change">
+                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                        {
+                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        }
+                        <option selected="selected">Verein auswählen</option>
+                    </select>
+                </div>
+                <div class="col-sm-6">
+                    <label style="display:inline-block;" class="col-sm-2">Verein</label>
+                    <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
+
+                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                        {
+                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        }
+                        <option selected="selected">Verein auswählen</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
+                    <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    @foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
+                    {
+                        <EditForm Model="@Spielergebnisse">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
+                        </EditForm>
+                    }
+                </div>
+            </div>
 
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-12">
-            @foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
-            {
-                <EditForm Model="@Spielergebnisse">
-                    <DataAnnotationsValidator />
-                    <ValidationSummary />
-                    <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
-                </EditForm>
-            }
+    </details>
+    <details name="tab">
+        <summary> Höchste Heimsiege</summary>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                @if (Spieltage != null)
+                {
+                    @foreach (var spieltag in Spieltage.OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(20).ToList())
+                    {
+                        <EditForm Model="@Spieltage">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
+                        </EditForm>
+                    }
+                }
+            </div>
         </div>
-    </div>
+    </details>
+    <details name="tab">
+        <summary> Höchste Auswärtssiege</summary>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                @if (Spieltage != null)
+                {
+                    @foreach (var spieltag in Spieltage.OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(20).ToList())
+                    {
+                        <EditForm Model="@Spieltage">
+                            <!-- This will validate the form -->
+                            <DataAnnotationsValidator />
+                            <!-- This will show any validation errors -->
+                            <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
+                        </EditForm>
+                    }
+                }
+            </div>
+        </div>
+    </details>
+    <details name="tab">
+        <summary> Torreichste Spiele</summary>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                @if (Spieltage != null)
+                {
+                    @foreach (var spieltag in Spieltage.OrderByDescending(x => x.Tore1_Nr + x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(20).ToList())
+                    {
+                        <EditForm Model="@Spieltage">
+                            <!-- This will validate the form -->
+                            <DataAnnotationsValidator />
+                            <!-- This will show any validation errors -->
+                            <DisplaySpieltag Spieltag="spieltag"></DisplaySpieltag>
+                        </EditForm>
+                    }
+                }
+            </div>
+        </div>
+    </details>
 
     <div class="form-group row">
         <div class="col-sm-12">

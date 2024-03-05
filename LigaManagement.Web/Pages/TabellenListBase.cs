@@ -125,6 +125,8 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     iSpieltage = 34;
 
+                Globals.maxSpieltag = iSpieltage;
+
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
                 for (int i = 1; i <= iSpieltage; i++)
                 {
@@ -155,7 +157,7 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = Convert.ToInt32(e.Value);
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
-                DisplayElements = "block";
+                DisplayElements = "block";               
                 StateHasChanged();
             }
         }

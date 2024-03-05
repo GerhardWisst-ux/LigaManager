@@ -59,6 +59,8 @@ namespace LigaManagerManagement.Web.Pages
 
         public IEnumerable<Spielergebnisse> Spielergebnisse = new List<Spielergebnisse>();
 
+        public IEnumerable<Spieltag> Spieltage { get; set; }
+
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -88,6 +90,8 @@ namespace LigaManagerManagement.Web.Pages
             }
 
             DisplayElements = "none";
+
+            Spieltage = (await SpieltagService.GetSpieltage());
         }
 
         [Bind]

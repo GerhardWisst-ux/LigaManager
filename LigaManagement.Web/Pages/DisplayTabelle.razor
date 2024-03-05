@@ -70,7 +70,7 @@ else
             {
                 <thead>
                     <tr>
-                        <th class="TableElement priority-1">Pos</th>
+                        <th  style="height:30px; width:42px; text-align:right;pointer-events:none;" class="TableElement priority-1">Pos</th>
                         <th class="TableElement priority-1">V</th>
                         <th class="TableElement priority-1">S</th>
                         <th class="TableElement priority-2">   G</th>
@@ -95,7 +95,7 @@ else
                     <td><InputNumber readonly id="txtGewonnen" class="TableElement priority-2" style="height:30px; width:62px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=Tabelle.Gewonnen /></td>
                     <td><InputNumber readonly id="txtUntentschieden" class="TableElement priority-2" style="height:30px;width:62px; text-align:right;pointer-events:none;" tabindex="5" @bind-Value=Tabelle.Untentschieden /></td>
                     <td><InputNumber readonly id="txtVerloren" class="TableElement priority-2" style="height:30px;width:62px; text-align:right;pointer-events:none;" tabindex="6" @bind-Value=Tabelle.Verloren /></td>
-                    <td><InputText readonly id="txtTore" class="TableElement priority-2" style="height:30px;width:57px; text-align:right;pointer-events:none;" tabindex="7" @bind-Value=dispTore /></td>
+                    <td><InputText readonly id="txtTore" class="TableElement priority-2" style="height:30px;width:62px; text-align:right;pointer-events:none;" tabindex="7" @bind-Value=dispTore /></td>
                     <td><InputNumber readonly id="txtDiff" class="TableElement priority-2" style="height:30px;width:50px; text-align:right;pointer-events:none;" tabindex="8" @bind-Value=DispDiff /></td>
                     <td><InputNumber readonly id="txtPunkte" class="TableElement priority-1" style="height:30px;max-width:42px;text-align:right;color:red;pointer-events:none;" tabindex="9" @bind-Value=Tabelle.Punkte /></td>
                 </tr>
@@ -109,50 +109,7 @@ else
             </tbody>
 
         </table>
-     @*    <table class="table table-striped">
-            @if (Tabelle.Platz == 1)
-            {
-                <thead>
-                    <tr>
-                        <th class="priority-1" style="height:40px;max-width:42px;" scope="col">P</th>
-                        <th class="priority-1" style="height:40px;max-width:100%;" scope="col">V</th>
-                        <th class="priority-1" style="height:40px;max-width:62px;text-align:right;" scope="col">S</th>
-                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">S</th>
-                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">U</th>
-                        <th class="priority-2" style="height:40px;max-width:62px;text-align:right;" scope="col">N</th>
-                        <th class="priority-2" style="min-height:40px;max-width:47px;" scope="col">TORE</th>
-                        <th class="priority-2" style="height:40px;max-width:50px;" scope="col">DIFF</th>
-                        <th class="priority-1" style="min-height:40px;max-width:42px;" scope="col">P</th>
-                    </tr>
-                </thead>
-            }
-            <tbody>
-                <tr>
-                    @{
-                        string dispTore = Tabelle.TorePlus + ":" + Tabelle.ToreMinus;
-                        int DispDiff = Tabelle.TorePlus - Tabelle.ToreMinus;
-                    }
-
-                    <td><InputNumber readonly  id="txtPlatz" class="TableElement priority-1" style="max-height:30px; max-width:42px; text-align:right;pointer-events:none;" tabindex="1" @bind-Value=Tabelle.Platz /></td>
-                    <td><InputText readonly id="txtVerein" class="TableElement priority-1" style="max-height:30px;max-width:100%;pointer-events:none;" tabindex="2" @bind-Value=Tabelle.Verein /></td>
-                    <td><InputNumber readonly id="txtSpiele" class="TableElement priority-1" style="max-height:30px; max-width:62px; text-align:right;pointer-events:none;" tabindex="3" @bind-Value=Tabelle.Spiele /></td>
-                    <td><InputNumber readonly id="txtGewonnen" class="TableElement priority-2" style="max-height:30px; max-width:62px; text-align:right;pointer-events:none;" tabindex="4" @bind-Value=Tabelle.Gewonnen /></td>
-                    <td><InputNumber readonly id="txtUntentschieden" class="TableElement priority-2" style="max-height:30px;max-width:62px; text-align:right;pointer-events:none;" tabindex="5" @bind-Value=Tabelle.Untentschieden /></td>
-                    <td><InputNumber readonly id="txtVerloren" class="TableElement priority-2" style="max-height:30px;max-width:62px; text-align:right;pointer-events:none;" tabindex="6" @bind-Value=Tabelle.Verloren /></td>
-                    <td><InputText readonly id="txtTore" class="TableElement priority-2" style="max-height:30px;max-width:47px; text-align:right;pointer-events:none;" tabindex="7" @bind-Value=dispTore /></td>
-                    <td><InputNumber readonly id="txtDiff" class="TableElement priority-2" style="max-height:30px;max-width:50px; text-align:right;pointer-events:none;" tabindex="8" @bind-Value=DispDiff /></td>
-                    <td><InputNumber readonly id="txtPunkte" class="TableElement priority-1" style="max-height:30px;max-width:42px;text-align:right;color:red;pointer-events:none;" tabindex="9" @bind-Value=Tabelle.Punkte /></td>
-                </tr>
-
-                @if (Tabelle.Platz == 4 || Tabelle.Platz == 5 || Tabelle.Platz == 6 || Tabelle.Platz == 15 || Tabelle.Platz == 16)
-                {
-                    <tr>
-                        <td colspan="9"><h4></h4></td>
-                    </tr>
-                }
-
-            </tbody>
-        </table> *@
+   
     </div>  
 }
 

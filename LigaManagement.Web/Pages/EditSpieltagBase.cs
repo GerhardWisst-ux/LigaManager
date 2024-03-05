@@ -9,6 +9,8 @@ using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,8 @@ namespace LigamanagerManagement.Web.Pages
 
         public string Vereinsname2;
 
+        public string Stadion;
+
         public string Spielername;
 
         public DateTime? Time { get; set; }
@@ -40,7 +44,7 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpielerSpieltagService SpielerSpieltagService { get; set; }
-        
+
 
         [Inject]
         public IKaderService KaderService { get; set; }
@@ -78,6 +82,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public bool Collapsed = true;
 
+
         protected async override Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
@@ -93,15 +98,19 @@ namespace LigamanagerManagement.Web.Pages
 
             var spiele = await SpieltagService.GetSpieltage();
 
+
+
             if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
             {
-                var vereineSaison = await VereineService.GetVereineSaison(Globals.currentSaison);
+                var vereineSaison = await VereineService.GetVereineSaison();
 
-                List<Verein> verList = vereineSaison.ToList();
+                List<VereinAktSaison> verList = vereineSaison.ToList();
+
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
-                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));                    
+                    if (verList[i].SaisonID == Globals.SaisonID)
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
                 }
 
                 //spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
@@ -110,44 +119,39 @@ namespace LigamanagerManagement.Web.Pages
             {
                 spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
 
-                Vereine = (await VereineService.GetVereine()).ToList();
+                Vereine = (await VereineService.GetVereine()).ToList().Where(x => x.Gegruendet == Globals.SaisonID);
                 VereineList = new List<DisplayVerein>();
 
                 int iAnzahl = spiele2.Count() * 2;
-
-                for (int i = 0; i < spiele2.Count(); i++)
-                {
-                    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
-                    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort)); 
-                }
-            }
-            else
-            {
-                spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
-
-                Vereine = (await VereineService.GetVereine()).ToList();
-                VereineList = new List<DisplayVerein>();
-
-                int iAnzahl = spiele2.Count() * 2;
-
                 for (int i = 0; i < spiele2.Count(); i++)
                 {
                     VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
                     VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort));
                 }
             }
-
-           
-
-            if (Id == null)
-            {
-                Vereinsname1 = Spiel.Verein1;
-                Vereinsname2 = Spiel.Verein2;
-            }
             else
             {
-                Vereinsname1 = null;
-                Vereinsname2 = null;
+                //spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
+
+                //Vereine = (await VereineService.GetVereine()).ToList();
+                //VereineList = new List<DisplayVerein>();
+
+                //int iAnzahl = spiele2.Count() * 2;
+
+                //for (int i = 0; i < spiele2.Count(); i++)
+                //{
+                //    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
+                //    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort));
+                //}
+                var vereineSaison = await VereineService.GetVereineSaison();
+
+                List<VereinAktSaison> verList = vereineSaison.ToList();
+
+                for (int i = 0; i < verList.Count(); i++)
+                {
+                    if (verList[i].SaisonID == Globals.SaisonID)
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
+                }
             }
 
             List<Kader> SpielerSpiel = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
@@ -173,11 +177,31 @@ namespace LigamanagerManagement.Web.Pages
                 Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 15, 30, 0, DateTimeKind.Utc);
             else
                 Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
-        }
 
-        public async void SpeichernSpieler()
+            Spiel.Saison = Globals.currentSaison;
+            Spiel.SaisonID = Globals.SaisonID;
+            Spiel.SpieltagNr = SpieltagNr;
+
+        }
+        protected async override void OnAfterRender(bool firstRender)
         {
-            
+
+
+
+
+            if (Id != null)
+            {
+                Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+                Vereinsname1 = Spiel.Verein1;
+                Vereinsname2 = Spiel.Verein2;
+                Stadion = Spiel.Ort;
+                VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
+            }
+            else
+            {
+                Vereinsname1 = null;
+                Vereinsname2 = null;
+            }
         }
 
         public void Change(object value, string name, string action)
@@ -207,8 +231,8 @@ namespace LigamanagerManagement.Web.Pages
         public void StadionChange(ChangeEventArgs e)
         {
             if (e.Value != null)
-            {                
-                
+            {
+
                 int index = VereineList.FindIndex(x => x.VereinID == e.Value.ToString());
                 Spiel.Ort = VereineList[index].Ort;
             }

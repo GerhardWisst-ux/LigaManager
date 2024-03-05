@@ -78,24 +78,25 @@ namespace LigaManagerManagement.Api.Models
             return await appDbContext.Vereine.ToListAsync();
         }
 
-        public async Task<IEnumerable<Verein>> GetVereineSaison()
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineSaison()
         {
-            List<Verein> vereineSaison = new List<Verein>();
+            List<VereinAktSaison> vereineSaison = new List<VereinAktSaison>();
 
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr WHERE SaisonID = 64", conn);
+            SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Verein verein = new Verein();
+                    VereinAktSaison verein = new VereinAktSaison();
                     verein.VereinNr = (int)reader["VereinNr"];
                     verein.Vereinsname1 = (string)reader["Vereinsname1"];
                     verein.Vereinsname2 = (string)reader["Vereinsname2"];
                     verein.Stadion = (string)reader["Stadion"];
+                    verein.SaisonID = (int)reader["SaisonID"]; //Gegruendet wird zweckentfremdet für SaisonID verwendet
 
                     vereineSaison.Add(verein);
                 }

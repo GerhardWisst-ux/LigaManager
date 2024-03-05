@@ -43,9 +43,9 @@ namespace LigaManagerManagement.Web.Services
         {
             return await httpClient.GetJsonAsync<Verein[]>("api/vereine");
         }
-        public async Task<IEnumerable<Verein>> GetVereineSaison(string currentSaison)
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineSaison()
         {
-            return await httpClient.GetJsonAsync<List<Verein>>($"api/vereinesaison");
+            return await httpClient.GetJsonAsync<List<VereinAktSaison>>($"api/vereinesaison");
         }
 
         public async Task<Verein> UpdateVerein(Verein updatedVerein)

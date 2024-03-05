@@ -16,6 +16,9 @@
 <div class="row my-2">
     <div class="col-12">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
+            <DataAnnotationsValidator />
+            <!-- This will show any validation errors -->
+            <ValidationSummary />
             <div style="width:100%" class="card">
                 <div class="card-body">
                     <h2 class="card-title">@Titel Spiel</h2>
@@ -50,13 +53,13 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 1</label>
-                            <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
-                            <ValidationMessage For="()=>Spiel.Tore1_Nr"></ValidationMessage>
+                            <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>  
+                            <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 2</label>
-                            <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
-                            <ValidationMessage For="()=>Spiel.Tore2_Nr"></ValidationMessage>
+                            <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>    
+                            <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Verein 2</label>
@@ -82,13 +85,12 @@
                             <label for="txtDatum" class="col-sm-2">Datum:</label>
                             <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                             <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
-                            <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
-                            <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Time)"></ValidationMessage>
+                            <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />                            
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Ort</label>
                             <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
-                                
+                                <option value="" selected>@Stadion</option>
                                 @foreach (var verein in VereineList.OrderBy(x => x.Ort))
                                 {
                                     <option selected value="@verein.VereinID"> @verein.Ort </option>
@@ -102,8 +104,7 @@
                                 {
                                     <option selected="selected">@Spiel.Ort</option>
                                 }
-                            </select>
-                            <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
+                            </select>                            
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Schiedrichter</label>
@@ -112,12 +113,10 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Zuschauer</label>
-                            <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
-                            <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
+                            <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>                           
                         </div>
                         <div class="form-group py-2">
-                            <button data-toggle="Speichert Spieltag ab" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                            <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                            <button data-toggle="Speichert Spieltag ab" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>                            
                         </div>
                     </div>
                 </details>
