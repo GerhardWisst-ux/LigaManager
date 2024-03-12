@@ -67,7 +67,7 @@ else
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2 style="display:inline-block;">@Ligamanager.Components.Globals.currentLiga Saisonen </h2>
+                        <h2 style="display:inline-block;">Vorhandene Ligen </h2>
 
                         <span class="ml-3">
                             <a href="createliga" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon glyphicon-plus-sign"></span></a>
@@ -93,13 +93,19 @@ else
                         <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="500px" Sortable=true Title="Liganame" />
                         <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="400px" Sortable=true Title="Verband" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="200px" FormatString={0:dd.mm.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
+
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editliga/{data.Id}")" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
+                            </Template>
+                        </RadzenDataGridColumn>
                     </Columns>
                 </RadzenDataGrid>
             </div>
         </div>
     </div>
     <div class="col-1 offset-11">
-        <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:24px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
     </div>
 
     <script>

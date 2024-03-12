@@ -18,6 +18,7 @@ namespace LigamanagerManagement.Web.Pages
     {
         public Int32 currentspieltag;
         public string saison;
+        public string Liganame;
 
         protected string DisplayElements = "none";
 
@@ -41,6 +42,9 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
+
+        [Inject]
+        public ILigaService LigaService { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
@@ -99,6 +103,10 @@ namespace LigamanagerManagement.Web.Pages
                 DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
 
                 DisplayElements = "none";
+
+                var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+
+                Liganame = liga.Liganame;
             }
             catch (Exception ex)
             {

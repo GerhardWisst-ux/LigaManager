@@ -1,8 +1,7 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
-using LigaManagerManagement.Models;
+using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -17,6 +16,7 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<Verein> grid;
         IList<Tuple<Verein, RadzenDataGridColumn<Verein>>> selectedCellData = new List<Tuple<Verein, RadzenDataGridColumn<Verein>>>();
 
+        public string Liganame = "";
         string type = "Click";
         bool multiple = true;
 
@@ -24,11 +24,18 @@ namespace LigaManagerManagement.Web.Pages
         public IVereineService VereineService { get; set; }              
         public IEnumerable<Verein> VereineList { get; set; }
 
+
+        [Inject]
+        public ILigaService LigaService { get; set; }
+
         public Verein Vereine { get; set; } = new Verein();
 
         protected override async Task OnInitializedAsync()
         {
             VereineList = (await VereineService.GetVereine()).ToList();
+
+            var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+            Liganame = liga.Liganame;
         }
 
         protected async Task VereinDeleted()

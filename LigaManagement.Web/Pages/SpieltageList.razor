@@ -77,7 +77,7 @@ else
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>@Ligamanager.Components.Globals.currentLiga @Ligamanager.Components.Globals.currentSaison </h2>
+                        <h2>@Liganame @Ligamanager.Components.Globals.currentSaison </h2>
                         <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
                             <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
                             @foreach (var spieltag in SpieltagList)

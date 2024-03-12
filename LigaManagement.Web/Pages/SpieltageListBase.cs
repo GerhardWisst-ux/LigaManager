@@ -14,6 +14,8 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class SpieltagListBase : ComponentBase
     {
+        public string Liganame;
+
         [Parameter]
         public string SpieltagNr { get; set; }
         public bool VisibleBtnNew { get; set; }
@@ -33,6 +35,11 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public IVereineService VereineService { get; set; }
+
+
+        [Inject]
+        public ILigaService LigaService { get; set; }
+
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
@@ -97,6 +104,9 @@ namespace LigaManagerManagement.Web.Pages
 
                 SpieltagNr = Globals.Spieltag.ToString();
 
+                var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+
+                Liganame = liga.Liganame;
             }
             catch (Exception ex)
             {

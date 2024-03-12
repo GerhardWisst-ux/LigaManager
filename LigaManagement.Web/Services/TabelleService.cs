@@ -747,6 +747,42 @@ namespace LigaManagerManagement.Web.Services
             return TabSaisonSorted;
         }
 
+        public async Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel)
+        {
+            var TabSaisonSorted = new List<Spielergebnisse>();
 
+            var alleSpieltage = (await spieltagService.GetSpielergebnisse());
+            var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 || st.Verein2 == spiel.Verein1).OrderByDescending(sais => sais.SaisonID).ThenBy(sais => sais.SpieltagNr).Take(340).ToList();
+
+            return Spielergebnisse;
+        }
+
+        public async Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel)
+        {
+            int Gewonnen = 0, Unentschieden = 0, Verloren = 0;
+            var TabSaisonSorted = new List<Spielergebnisse>();
+
+            var alleSpieltage = (await spieltagService.GetSpielergebnisse());
+            var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein1).ToList();
+
+            int GewonnenH = (Spielergebnisse).Where(st => st.Tore1_Nr > st.Tore2_Nr ).ToList().Count();
+            int UnentschiedenH = (Spielergebnisse).Where(st => st.Tore1_Nr == st.Tore2_Nr).ToList().Count();
+            int VerlorenH = (Spielergebnisse).Where(st => st.Tore1_Nr < st.Tore2_Nr && st.Verein2 == spiel.Verein2).ToList().Count();
+
+            int GewonnenA = (Spielergebnisse).Where(st => st.Tore2_Nr > st.Tore1_Nr).ToList().Count();
+            int UnentschiedenA = (Spielergebnisse).Where(st => st.Tore2_Nr == st.Tore1_Nr).ToList().Count();
+            int VerlorenA = (Spielergebnisse).Where(st => st.Tore2_Nr < st.Tore1_Nr).ToList().Count();
+
+            Gewonnen = GewonnenH + GewonnenA;
+            Unentschieden = UnentschiedenH + UnentschiedenA;
+            Verloren = VerlorenH + VerlorenA;
+
+            Spielstatistik stat = new Spielstatistik();
+            stat.Gewonnen = Gewonnen;
+            stat.Unentschieden = Unentschieden;
+            stat.Verloren = Verloren;
+
+            return stat;
+        }
     }
 }

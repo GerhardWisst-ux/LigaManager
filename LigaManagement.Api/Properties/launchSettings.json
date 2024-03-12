@@ -3,7 +3,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/spieltage",
+      "launchUrl": "api/vereine",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

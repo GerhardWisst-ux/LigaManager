@@ -145,5 +145,29 @@ namespace LigaManagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
+
+        public async void EinzelVereinChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                if (e.Value.ToString() == "Verein auswählen")
+                    return;
+
+                Spiel.Verein1_Nr = e.Value.ToString();
+                int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein1_Nr);
+                Spiel.Verein1 = VereineList[index].Vereinname1;
+
+                if (Spiel.Verein1_Nr.ToString() == "0")
+                    return;
+
+                Spielergebnisse = await TabelleService.StatistikVerein(SpieltagService, Spiel);
+
+                var stat = await TabelleService.VereinGegenVereinSum(SpieltagService, Spiel);
+
+                Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
+                DisplayElements = "block";
+                StateHasChanged();
+            }
+        }
     }
 }

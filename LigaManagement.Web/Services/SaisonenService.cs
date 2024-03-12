@@ -1,4 +1,5 @@
-﻿using LigaManagement.Web.Services.Contracts;
+﻿using LigaManagement.Models;
+using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
@@ -28,7 +29,15 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<Saison> GetSaison(int id)
         {
-            return await httpClient.GetJsonAsync<Saison>($"api/saisonen/{id}");
+            try
+            {
+                return await httpClient.GetJsonAsync<Saison>($"api/saisonen/{id}");
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public async Task<Saison> GetSaisonID(string saison)

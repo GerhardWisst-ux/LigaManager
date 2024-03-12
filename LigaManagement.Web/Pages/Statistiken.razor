@@ -82,7 +82,42 @@
                     }
                 </div>
             </div>
+        </div>
+    </details>
+    <details name="tab">
+        <summary>Statistik Verein</summary>
+        <div class="content">
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
+                    <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="EinzelVereinChange">
+                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                        {
+                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        }
+                        <option selected="selected">Verein auswählen</option>
+                    </select>
+                </div>                
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
+                    <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
 
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    @foreach (var spielergebnis in Spielergebnisse.OrderByDescending(x => x.Datum))
+                    {
+                        <EditForm Model="@Spielergebnisse">
+                            <DataAnnotationsValidator />
+                            <ValidationSummary />
+                            <DisplaySpielergebnis spielergebnis="spielergebnis"></DisplaySpielergebnis>
+                        </EditForm>
+                    }
+                </div>
+            </div>
         </div>
     </details>
     <details name="tab">

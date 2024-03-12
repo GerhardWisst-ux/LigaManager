@@ -1,4 +1,6 @@
-﻿using LigamanagerManagement.Api.Models.Repository;
+﻿using LigaManagement.Models;
+using LigamanagerManagement.Api.Models.Repository;
+using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -33,12 +35,12 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Saison>> GetSaison(int id)
+        [HttpGet("{Id:int}")]
+        public async Task<ActionResult<Saison>> GetSaison(int Id)
         {
             try
             {
-                var result = await SaisonRepository.GetSaison(id);
+                var result = await SaisonRepository.GetSaison(Id);
 
                 if (result == null)
                 {
@@ -47,33 +49,12 @@ namespace LigaManagement.Api.Controllers
 
                 return result;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank");
+                   ex.Message + "Fehler beim Lesen der Daten aus der Datenbank");
             }
-        }
-
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<Saison>> GetSaisonID(string saison)
-        {
-            try
-            {
-                var result = await SaisonRepository.GetSaisonID(saison);
-
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
-                return result;
-            }
-            catch (Exception)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank");
-            }
-        }
+        }               
         
         [HttpPost]
         public async Task<ActionResult<Saison>> CreateSaison(Saison Saison)

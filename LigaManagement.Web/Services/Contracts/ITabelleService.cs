@@ -17,8 +17,9 @@ namespace LigaManagement.Web.Services.Contracts
         Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);
         Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, bool Abgeschlossen, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison,int tabart);
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
+        Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison, int ewigeTabelle);
-
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
+        Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
     }
 }

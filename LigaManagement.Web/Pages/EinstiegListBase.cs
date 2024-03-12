@@ -1,4 +1,5 @@
-﻿using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Migrations;
+using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
@@ -37,6 +38,9 @@ namespace LigaManagement.Web.Pages
         public ISaisonenService SaisonenService { get; set; }
 
         public List<DisplaySaison> SaisonenList;
+
+        public List<DisplayLiga> LigenList;
+
         private readonly AppDbContext appDbContext;
 
         [Inject]
@@ -49,7 +53,13 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
+
+        [Inject]
+        public ILigaService LigaService { get; set; }
+
         public IEnumerable<Saison> Saisonen { get; set; }
+
+        public IEnumerable<Liga> Ligen { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
         protected override async Task OnInitializedAsync()
@@ -61,6 +71,15 @@ namespace LigaManagement.Web.Pages
             {
                 var columns = Saisonen.ElementAt(i);
                 SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+            }
+
+            LigenList = new List<DisplayLiga>();
+            Ligen = (await LigaService.GetLigen()).ToList();
+
+            for (int i = 0; i < Ligen.Count(); i++)
+            {
+                var columns = Ligen.ElementAt(i);
+                LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
             }
 
             //if (DateTime.Now.Month > 6)
@@ -83,10 +102,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
-                if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen)
-                    Globals.Spieltag = 34;
-                else
-                    Globals.Spieltag = 23;
+               
             }
         }
         public void OnSaisonChange(object value)
@@ -129,6 +145,17 @@ namespace LigaManagement.Web.Pages
             }
             public int SaisonID { get; set; }
             public string Saisonname { get; set; }
+        }
+
+        public class DisplayLiga
+        {
+            public DisplayLiga(int ligaID, string liganame)
+            {
+                LigaID = ligaID;
+                Liganame = liganame;
+            }
+            public int LigaID { get; set; }
+            public string Liganame { get; set; }
         }
 
         public void OnClickHandlerImport()
@@ -350,8 +377,11 @@ namespace LigaManagement.Web.Pages
             if (bAbgeschlossen)
                 iAktSpieltag = Globals.maxSpieltag;
             else
+            {
                 iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
-
+                Globals.Spieltag = iAktSpieltag;
+            }              
+            
             Globals.bVisibleNavMenuElements = true;
             NavigationManager.NavigateTo($"spieltage/{iAktSpieltag}", true);
         }

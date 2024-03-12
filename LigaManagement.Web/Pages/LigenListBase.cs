@@ -8,13 +8,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Ligamanager.Components;
 
 namespace LigaManagerManagement.Web.Pages
 {
     public class LigenListBase : ComponentBase
     {
+        public string Liganame = "";
         [Inject]
         public ILigaService LigaService { get; set; }
+
 
         protected string CssClass { get; set; } = null;
         public IEnumerable<Liga> LigenList { get; set; }
@@ -29,6 +32,9 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             LigenList = (await LigaService.GetLigen()).ToList();
+
+            var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
+            Liganame = liga.Liganame;
         }
 
         protected async Task VereinDeleted()

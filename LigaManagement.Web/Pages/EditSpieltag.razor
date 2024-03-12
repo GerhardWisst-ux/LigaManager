@@ -49,7 +49,7 @@
                                 }
                             </select>
 
-                            <InputText style="display:none;" required id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                            <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 1</label>
@@ -58,7 +58,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 2</label>
-                            <InputNumber required id="txTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>    
+                            <InputNumber required id="ttxTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>    
                             <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                         </div>
                         <div class="form-group row">
@@ -72,14 +72,14 @@
                                 }
                                 @if (Id is null)
                                 {
-                                    <option value="" selected required>Verein wählen</option>
+                                    <option value="" selected >Verein wählen</option>
                                 }
                                 else
                                 {
                                     <option selected="selected">@Spiel.Verein2</option>
                                 }
                             </select>
-                            <InputText style="display:none;" required id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
+                            <InputText style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
                             <label for="txtDatum" class="col-sm-2">Datum:</label>
@@ -98,7 +98,7 @@
                                 }
                                 @if (Id is null)
                                 {
-                                    <option value="" selected required>Stadion wählen</option>
+                                    <option value="" selected >Stadion wählen</option>
                                 }
                                 else
                                 {
@@ -128,7 +128,7 @@
                             <label class="col-sm-2">Kader Verein 1</label>
                             <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected required>Spieler wählen</option>
+                                <option value="" selected Spieler wählen</option>
                                 @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -138,20 +138,20 @@
                             <label class="col-sm-2">Kader Verein 2</label>
                             <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected required>Spieler wählen</option>
+                                <option value="" selected >Spieler wählen</option>
                                 @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                 }
                             </select>
-                            <InputText style="display:none;" required id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                            <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Spieler Verein 1</label>
                             <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected required>Spieler wählen</option>
+                                <option value="" selected >Spieler wählen</option>
                                 @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -161,14 +161,14 @@
                             <label class="col-sm-2">Spieler Verein 2</label>
                             <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected required>Spieler wählen</option>
+                                <option value="" selected >Spieler wählen</option>
                                 @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                 }
                             </select>
-                            <InputText style="display:none;" required id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                            <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
 
                             <div class="form-group-row py-2">
                                 <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
@@ -248,35 +248,35 @@
             await _SpieltagService.CreateSpieltag(Spiel);
 
 
-            for (int i = 0; i < SpielerList1.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList1[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
+            // for (int i = 0; i < SpielerList1.Count(); i++)
+            // {
+            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+            //     spielerspieltag.KaderId = SpielerList1[i].SpielerID;
+            //     spielerspieltag.SaisonId = Globals.SaisonID;
+            //     spielerspieltag.SpieltagId = Globals.Spieltag;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Einsatz = 1;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Spielminuten = 90;
+            //     spielerspieltag.Eingewechselt = false;
+            //     spielerspieltag.Ausgewechselt = false;
+            //     var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            // }
 
-            for (int i = 0; i < SpielerList2.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList2[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
+            // for (int i = 0; i < SpielerList2.Count(); i++)
+            // {
+            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+            //     spielerspieltag.KaderId = SpielerList2[i].SpielerID;
+            //     spielerspieltag.SaisonId = Globals.SaisonID;
+            //     spielerspieltag.SpieltagId = Globals.Spieltag;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Einsatz = 1;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Spielminuten = 90;
+            //     spielerspieltag.Eingewechselt = false;
+            //     spielerspieltag.Ausgewechselt = false;
+            //     SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            // }
         }
         else
         {
@@ -284,35 +284,35 @@
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.UpdateSpieltag(Spiel);
 
-            for (int i = 0; i < SpielerList1.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList1[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
+            // for (int i = 0; i < SpielerList1.Count(); i++)
+            // {
+            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+            //     spielerspieltag.KaderId = SpielerList1[i].SpielerID;
+            //     spielerspieltag.SaisonId = Globals.SaisonID;
+            //     spielerspieltag.SpieltagId = Globals.Spieltag;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Einsatz = 1;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Spielminuten = 90;
+            //     spielerspieltag.Eingewechselt = false;
+            //     spielerspieltag.Ausgewechselt = false;
+            //     var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            // }
 
-            for (int i = 0; i < SpielerList2.Count(); i++)
-            {
-                SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-                spielerspieltag.KaderId = SpielerList2[i].SpielerID;
-                spielerspieltag.SaisonId = Globals.SaisonID;
-                spielerspieltag.SpieltagId = Globals.Spieltag;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Einsatz = 1;
-                spielerspieltag.Tore = 0;
-                spielerspieltag.Spielminuten = 90;
-                spielerspieltag.Eingewechselt = false;
-                spielerspieltag.Ausgewechselt = false;
-                SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            }
+            // for (int i = 0; i < SpielerList2.Count(); i++)
+            // {
+            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
+            //     spielerspieltag.KaderId = SpielerList2[i].SpielerID;
+            //     spielerspieltag.SaisonId = Globals.SaisonID;
+            //     spielerspieltag.SpieltagId = Globals.Spieltag;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Einsatz = 1;
+            //     spielerspieltag.Tore = 0;
+            //     spielerspieltag.Spielminuten = 90;
+            //     spielerspieltag.Eingewechselt = false;
+            //     spielerspieltag.Ausgewechselt = false;
+            //     SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
+            // }
         }
         string url = "/spieltage/" + SpieltagNr;
 

@@ -1,7 +1,7 @@
 ﻿@inherits DisplayTabelleBase
 
 <style type="text/css">
-       
+
     @@media screen and (max-width: 767px) {
 
         .priority-2 {
@@ -14,7 +14,7 @@
         display: block;
         padding: 0.2rem 0.2rem !important;
         margin-bottom: -1px;
-        pointer-events:none;
+        pointer-events: none;
         background-color: #dee2e6;
         border: 0px solid #dee2e6; /*        rgba(0,0,0,.125); */
     }
@@ -70,14 +70,14 @@ else
             {
                 <thead>
                     <tr>
-                        <th  style="height:30px; width:42px; text-align:right;pointer-events:none;" class="TableElement priority-1">Pos</th>
+                        <th class="TableElement priority-1">Pos</th>
                         <th class="TableElement priority-1">V</th>
-                        <th class="TableElement priority-1">S</th>
-                        <th class="TableElement priority-2">   G</th>
-                        <th class="TableElement priority-2">   U</th>
-                        <th class="TableElement priority-2">   V</th>
-                        <th class="TableElement priority-2">   T</th>
-                        <th class="TableElement priority-2">DiffT</th>
+                        <th class="TableElement priority-1">&nbsp;&nbsp;&nbsp; S</th>
+                        <th class="TableElement priority-2">&nbsp;&nbsp;&nbsp; G</th>
+                        <th class="TableElement priority-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; U</th>
+                        <th class="TableElement priority-2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; V</th>
+                        <th class="TableElement priority-2">&nbsp;&nbsp; T</th>
+                        <th class="TableElement priority-2">Diff</th>
                         <th class="TableElement priority-1">Pu</th>
                     </tr>
                 </thead>
@@ -109,8 +109,8 @@ else
             </tbody>
 
         </table>
-   
-    </div>  
+
+    </div>
 }
 
 @* <Confirm ConfirmationChanged="ConfirmDelete_Click" @ref="DeleteConfirmation"

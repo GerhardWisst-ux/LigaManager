@@ -10,7 +10,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <h2 style="display:inline-block;">Start Ligamanager </h2>
+                    <h2 style="display:inline-block;">Start Ligamanager</h2>
                 </div>
             </div>
         </div>
@@ -19,18 +19,25 @@
         <div class="col-sm-5">
             <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
                 <option value="" selected required>Liga auswählen</option>
-                <option value="Bundesliga"> Bundesliga</option>
-                <option value="2. Bundesliga"> 2. Bundesliga</option>
-                <option value="3. Liga"> 3. Liga</option>
+                @if (LigenList != null)
+                {
+                    @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
+                    {
+                        <option value="@liga.LigaID"> @liga.Liganame </option>
+                    }
+                }
             </select>
             <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
         </div>
         <div class="col-sm-5">
             <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
                 <option value="" selected required>Saison auswählen</option>
-                @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                @if (SaisonenList != null)
                 {
-                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                    {
+                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                    }
                 }
             </select>
             <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
@@ -40,8 +47,8 @@
                 Auswählen
             </linkbutton>
         </div>
-    </div>    
-     <div class="form-group row">
+    </div>
+    <div class="form-group row">
         <div class="col-sm-6">
             <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
                 Tabellen anlegen
@@ -62,7 +69,7 @@
         </div>
     </div>
 </div>
- 
+
 
 <script>
     $(document).ready(function () {

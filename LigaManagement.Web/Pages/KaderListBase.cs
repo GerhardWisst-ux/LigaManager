@@ -29,7 +29,7 @@ namespace LigaManagerManagement.Web.Pages
         public IVereineService VereineService { get; set; }
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
-        public List<DisplayVerein> VereineList = new List<DisplayVerein>();
+        public List<DisplayKaderVerein> VereineList = new List<DisplayKaderVerein>();
 
         public string Verein1_Nr;
 
@@ -55,19 +55,16 @@ namespace LigaManagerManagement.Web.Pages
             List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison && x.SpieltagNr == "1").Take(9).ToList();
 
             Vereine = (await VereineService.GetVereine()).ToList();
-            VereineList = new List<DisplayVerein>();
+            var vereineSaison = await VereineService.GetVereineSaison();
 
-            int iAnzahl = spiele2.Count() * 2;
+            List<VereinAktSaison> verList = vereineSaison.ToList();
 
-            for (int i = 0; i < spiele2.Count(); i++)
+            for (int i = 0; i < verList.Count(); i++)
             {
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
+                if (verList[i].SaisonID == Globals.SaisonID)
+                    VereineList.Add(new DisplayKaderVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
             }
             DisplayElements = "none";
-
-            
-            
         }
 
         public void VereinChange(ChangeEventArgs e)
@@ -105,6 +102,19 @@ namespace LigaManagerManagement.Web.Pages
             StateHasChanged();
         }
 
-    }
+    }    
 }
 
+public class DisplayKaderVerein
+{
+    public DisplayKaderVerein(string vereinID, string vereinname, string ort)
+    {
+        VereinID = vereinID;
+        Vereinname1 = vereinname;
+        Ort = ort;
+    }
+    public string VereinID { get; set; }
+    public string Vereinname1 { get; set; }
+
+    public string Ort { get; set; }
+}

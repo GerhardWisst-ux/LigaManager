@@ -1,8 +1,7 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
+using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
@@ -10,13 +9,16 @@ using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
+using static LigaManagement.Web.Pages.EinstiegListBase;
 
 namespace LigaManagerManagement.Web.Pages
 {
     public class SaisonenListBase : ComponentBase
     {
+        protected string DisplayErrorLiga = "none";
+        public string Liganame = "Bundesliga";
+               
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
         public IEnumerable<Saison> SaisonenList { get; set; }
@@ -25,7 +27,16 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IVereineService VereineService { get; set; }
 
+        [Inject]
+        public ILigaService LigaService { get; set; }
+
+        public List<DisplayLiga> LigenList;
+
+       
         public List<Verein> Vereine { get; set; }
+
+        public IEnumerable<Liga> Ligen { get; set; }
+
         public Verein Verein { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
@@ -53,9 +64,21 @@ namespace LigaManagerManagement.Web.Pages
                 VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1));
             }
 
+            LigenList = new List<DisplayLiga>();
+            Ligen = (await LigaService.GetLigen()).ToList();
 
+            for (int i = 0; i < Ligen.Count(); i++)
+            {
+                var columns = Ligen.ElementAt(i);
+                LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
+            }
 
+            var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
+            Liganame = liga.Liganame;
+
+            DisplayErrorLiga = "none";
         }
+
         public void Select(DataGridCellMouseEventArgs<Saison> args)
         {
             if (!multiple)
@@ -161,6 +184,13 @@ namespace LigaManagerManagement.Web.Pages
             StateHasChanged();
         }
 
+        public void LigaChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                Globals.currentLiga = e.Value.ToString();
+            }
+        }
     }
 }
 
