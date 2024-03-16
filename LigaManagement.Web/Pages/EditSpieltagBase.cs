@@ -20,7 +20,7 @@ namespace LigamanagerManagement.Web.Pages
         public Int32 currentspieltag = Globals.Spieltag;
 
         public string Vereinsname1;
-
+                
         public string Vereinsname2;
 
         public string Stadion;
@@ -164,25 +164,25 @@ namespace LigamanagerManagement.Web.Pages
 
             Spiel.Saison = Globals.currentSaison;
             Spiel.SaisonID = Globals.SaisonID;
-            Spiel.SpieltagNr = SpieltagNr;
+            Spiel.SpieltagNr = SpieltagNr;          
 
         }
         protected async override void OnAfterRender(bool firstRender)
         {
 
-            if (Id != null)
-            {
-                SpielCombo = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-                Vereinsname1 = SpielCombo.Verein1;
-                Vereinsname2 = SpielCombo.Verein2;
-                Stadion = SpielCombo.Ort;
-                //VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
-            }
-            else
-            {
-                Vereinsname1 = null;
-                Vereinsname2 = null;
-            }
+            //if (Id != null)
+            //{
+            //    SpielCombo = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+            //    Vereinsname1 = SpielCombo.Verein1;
+            //    Vereinsname2 = SpielCombo.Verein2;
+            //    Stadion = SpielCombo.Ort;
+            //    //VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
+            //}
+            //else
+            //{
+            //    Vereinsname1 = null;
+            //    Vereinsname2 = null;
+            //}
         }
 
         public void Change(object value, string name, string action)
@@ -190,33 +190,35 @@ namespace LigamanagerManagement.Web.Pages
             Console.WriteLine($"{name} item with index {value} {action}");
         }
 
-        public void Verein1Change(ChangeEventArgs e)
+        public async void Verein1Change(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                Spiel.Verein1 = e.Value.ToString();
-                int index = VereineList.FindIndex(x => x.Vereinname1 == Spiel.Verein1);
-                Spiel.Verein1_Nr = VereineList[index].VereinID;
+                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                Spiel.Verein1 = verein.Vereinsname1;                
+                Spiel.Verein1_Nr = e.Value.ToString();
             }
+            StateHasChanged();
         }
 
-        public void Verein2Change(ChangeEventArgs e)
+        public async void Verein2Change(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                Spiel.Verein2 = e.Value.ToString();
-                int index = VereineList.FindIndex(x => x.Vereinname1 == Spiel.Verein2);
-                Spiel.Verein2_Nr = VereineList[index].VereinID;
+                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                Spiel.Verein2 = verein.Vereinsname1;
+                Spiel.Verein2_Nr = e.Value.ToString();
             }
+            StateHasChanged();
         }
         public void StadionChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-
                 int index = VereineList.FindIndex(x => x.VereinID == e.Value.ToString());
                 Spiel.Ort = VereineList[index].Ort;
             }
+            StateHasChanged();
         }
 
         public async void KaderChange1(ChangeEventArgs e)

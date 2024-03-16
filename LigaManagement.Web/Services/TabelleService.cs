@@ -156,7 +156,7 @@ namespace LigaManagerManagement.Web.Services
                             tabelleneintrag2.Punkte = 0;
                             tabelleneintrag2.Gewonnen = 0;
                             tabelleneintrag2.Untentschieden = 0;
-                            tabelleneintrag2.Verloren = 1;
+                            tabelleneintrag2.Verloren = 1;                              
 
                             tabelleneintrag2.Platz = 0;
                             tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
@@ -405,6 +405,8 @@ namespace LigaManagerManagement.Web.Services
                 for (int ii = 0; ii < TabSaisonSorted.Count; ii++)
                 {
                     TabSaisonSorted[ii].Platz = ii + 1;
+                    TabSaisonSorted[ii].Tore = TabSaisonSorted[ii].TorePlus + ":" + TabSaisonSorted[ii].ToreMinus;
+                    TabSaisonSorted[ii].Diff = TabSaisonSorted[ii].TorePlus - TabSaisonSorted[ii].ToreMinus;                    
                 }
             }
 

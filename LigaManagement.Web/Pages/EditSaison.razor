@@ -39,8 +39,6 @@
 
 </style>
 
-
-
 <div class="row my-2">
     <div class="col-10">
         <EditForm Model="Saison" OnValidSubmit="UpsertSaison">
@@ -101,7 +99,7 @@
                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                         {
                             string Id = @verein.VereinID;
-                            <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }"  data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
+                            <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" checked="@verein.VereinChecked"  data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
                         }
 
                     </ul>
@@ -115,13 +113,13 @@
                         }
                     </ul>
                 </div>                               
-                <button onclick="Zuordnen" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button>               
+                <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button>
             </details>
         </div>
 
         <input type="button" id="btnModalPopup" value="Show Modal Popup" />
         <div id="modal_dialog" style="display: none">
-            Nun kann mit dem Erfassen der Saisondaten begonnen werden.
+            Nun kann mit dem Erfassen der Saisondaten(Ergebnisse, Kader etc.) begonnen werden.
         </div>
 
 
@@ -142,14 +140,13 @@
 </div>
 
 @code {
-    [Parameter]
-    public string Id { get; set; }
-    private string Titel { get; set; }
+    [Parameter]   
+    public string Titel { get; set; }
     public bool IsLoading { get; set; }
     public IEnumerable<Saison> SaisonenMax { get; set; }
     protected override void OnParametersSet()
     {
-        if (Id == "0" || Id is null)
+        if (Id == 0)
         {
             //Neuanlage
             Titel = "Saison Neuanlage";
@@ -166,10 +163,10 @@
     {
         if (firstRender)
         {
-            if (Id == "0" || Id is null)
+            if (Id == 0 )
             {
                 //Neuanlage
-                Id = "0";
+                Id = 0;
                 IsLoading = false;
             }
             else
@@ -190,7 +187,7 @@
     }
     private async Task UpsertSaison()
     {
-        if (Id == "0")
+        if (Id == 0)
         {
             Saison.LigaID = Convert.ToInt32(Globals.currentLiga);
             Saison.Liganame = Liganame;

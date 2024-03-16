@@ -5,6 +5,8 @@ using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -19,6 +21,9 @@ namespace LigamanagerManagement.Web.Pages
         public Int32 currentspieltag;
         public string saison;
         public string Liganame;
+
+        public RadzenDataGrid<Tabelle> grid;
+        IList<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>> selectedCellData = new List<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>>();
 
         protected string DisplayElements = "none";
 
@@ -179,7 +184,6 @@ namespace LigamanagerManagement.Web.Pages
             Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
             DisplayElements = "block";
             StateHasChanged();
-
         }
 
         public async Task SpieltagVor()
@@ -215,7 +219,39 @@ namespace LigamanagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
+        public void HeaderFooterCellRender(DataGridCellRenderEventArgs<Tabelle> args)
+        {            
+            //args.Attributes.Add("style", $"font-weight: bold;");
+            
+        }
 
+        public void RowRender(RowRenderEventArgs<Tabelle> args)
+        {
+            //args.Attributes.Add("style", $"font-weight: {(args.Data.Platz == 5 || args.Data.Platz == 16 ? "bold" : "normal")};");
+
+        }
+
+        public void CellRender(DataGridCellRenderEventArgs<Tabelle> args)
+        {
+            //if (args.Column.Property == "Punkte")
+            //{
+            //    args.Attributes.Add("style", $"color: red;"); 
+                
+            //}
+
+            //if (args.Column.Property == "OrderID")
+            //{
+            //    if (args.Data.OrderID == 10248 && args.Data.ProductID == 11 || args.Data.OrderID == 10250 && args.Data.ProductID == 41)
+            //    {
+            //        args.Attributes.Add("rowspan", 3);
+            //    }
+
+            //    if (args.Data.OrderID == 10249 && args.Data.ProductID == 14 || args.Data.OrderID == 10251 && args.Data.ProductID == 22)
+            //    {
+            //        args.Attributes.Add("rowspan", 2);
+            //    }
+            //}
+        }
 
         public class DisplaySpieltag
         {

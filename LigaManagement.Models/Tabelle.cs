@@ -45,6 +45,8 @@ namespace LigaManagement.Models
         [Required]
         public int? ToreMinus { get; set; }
 
+        public string Tore { get; set; }
 
+        public int? Diff { get; set; }
     }
 }

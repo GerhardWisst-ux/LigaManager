@@ -15,6 +15,7 @@ namespace LigaManagerManagement.Web.Pages
     {
         public RadzenDataGrid<Verein> grid;
         IList<Tuple<Verein, RadzenDataGridColumn<Verein>>> selectedCellData = new List<Tuple<Verein, RadzenDataGridColumn<Verein>>>();
+        public Density Density = Density.Default;
 
         public string Liganame = "";
         string type = "Click";

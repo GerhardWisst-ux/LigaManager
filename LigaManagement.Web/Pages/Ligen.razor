@@ -68,9 +68,8 @@ else
                 <div class="card">
                     <div class="card-body">
                         <h2 style="display:inline-block;">Vorhandene Ligen </h2>
-
                         <span class="ml-3">
-                            <a href="createliga" style="width:auto;" class="btn btn-primary form-control"><span class="glyphicon glyphicon-plus-sign"></span></a>
+                            <a href="createliga" style="width:35px; height:28px;" title="Neuanlage" class="btn btn-primary btn-sm form-control"><span class="glyphicon glyphicon-plus-sign"></span></a>
                         </span>
                     </div>
                 </div>
@@ -90,24 +89,25 @@ else
                             </FooterTemplate>
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="500px" Sortable=true Title="Liganame" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="400px" Sortable=true Title="Verband" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="200px" FormatString={0:dd.mm.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="350px" Sortable=true Title="Liganame" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="350px" Sortable=true Title="Verband" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
 
-                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editliga/{data.Id}")" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
+                                <NavLink href="@($"editliga/{data.Id}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
                 </RadzenDataGrid>
+                <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
+                    <RadzenColumn Offset="11" Style="text-align:right;">
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                    </RadzenColumn>
+                </RadzenRow>
             </div>
         </div>
-    </div>
-    <div class="col-1 offset-11">
-        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
-    </div>
-
+    </div>   
     <script>
 
         let mybutton = document.getElementById("btnTop");

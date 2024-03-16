@@ -19,6 +19,8 @@ namespace LigaManagerManagement.Web.Pages
         public Kader Kader { get; set; } = new Kader();
 
         public string DisplayElements = "none";
+        public string DisplayErrorVerein = "none";
+        public string DisplayErrorSaison = "none";
 
         public string Vereinsname1;
       
@@ -36,8 +38,7 @@ namespace LigaManagerManagement.Web.Pages
         public string Position;
         public IEnumerable<Verein> Vereine { get; set; }
 
-        protected string DisplayErrorVerein = "none";
-
+        
         protected override async Task OnInitializedAsync()
         {
             if (Id != null)
@@ -65,13 +66,19 @@ namespace LigaManagerManagement.Web.Pages
                     VereineList.Add(new DisplayKaderVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
             }
             DisplayElements = "none";
+            DisplayErrorSaison = "none";     
         }
 
         public void VereinChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                Verein1_Nr = e.Value.ToString();              
+                Verein1_Nr = e.Value.ToString();
+            }
+            else
+            {
+                DisplayErrorVerein = "Block";
+                return;
             }
 
             DisplayElements = "block";

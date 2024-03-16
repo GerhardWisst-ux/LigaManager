@@ -7,6 +7,8 @@
 	<PropertyGroup>
 		<TargetFramework>netcoreapp3.1</TargetFramework>
 		 <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+		 <Nullable>warnings</Nullable>
+		 <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		
 	
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
@@ -38,13 +40,17 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.5" />
     <PackageReference Include="Microsoft.OData.Client" Version="7.20.0" />
-    <PackageReference Include="Radzen.Blazor" Version="3.20.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.26.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LigaManagement.Api\LigaManagement.Api.csproj" />
     <ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />
     <ProjectReference Include="..\Ligamanager.Components\Ligamanager.Components.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 
 </Project>

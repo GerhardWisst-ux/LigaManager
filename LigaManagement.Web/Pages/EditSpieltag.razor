@@ -33,10 +33,10 @@
                         <div class="form-group row">
                             <label class="col-sm-2">Verein 1</label>
                             <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
-                                <option value="" selected>@Vereinsname1</option>
+                                @* <option selected Value="Spiel.Verein1_Nr"></option> *@
                                 @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                 {
-                                    <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
 
                                 }
                                 @if (Id is null)
@@ -46,25 +46,24 @@
                                 else
                                 {
                                     <option selected="selected">@Spiel.Verein1</option>
-                                }
+                                }                                
                             </select>
-
                             <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 1</label>
-                            <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>  
+                            <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
                             <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Tore 2</label>
-                            <InputNumber required id="ttxTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>    
+                            <InputNumber required id="ttxTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
                             <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Verein 2</label>
                             <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
-                                <option value="" selected>@Vereinsname2</option>
+                                @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                 @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                 {
                                     <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -72,7 +71,7 @@
                                 }
                                 @if (Id is null)
                                 {
-                                    <option value="" selected >Verein wählen</option>
+                                    <option value="" selected>Verein wählen</option>
                                 }
                                 else
                                 {
@@ -85,26 +84,27 @@
                             <label for="txtDatum" class="col-sm-2">Datum:</label>
                             <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                             <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
-                            <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />                            
+                            <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Ort</label>
                             <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
-                                <option value="" selected>@Stadion</option>
+                                @* <option value="" selected>@Stadion</option> *@
                                 @foreach (var verein in VereineList.OrderBy(x => x.Ort))
                                 {
-                                    <option selected value="@verein.VereinID"> @verein.Ort </option>
+                                    <option value="@verein.VereinID"> @verein.Ort </option>
 
                                 }
                                 @if (Id is null)
                                 {
-                                    <option value="" selected >Stadion wählen</option>
+                                    <option value="" selected>Stadion wählen</option>
                                 }
                                 else
                                 {
                                     <option selected="selected">@Spiel.Ort</option>
                                 }
-                            </select>                            
+                            </select>
+                            <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Schiedrichter</label>
@@ -113,10 +113,14 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2">Zuschauer</label>
-                            <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>                           
+                            <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                         </div>
                         <div class="form-group py-2">
-                            <button data-toggle="Speichert Spieltag ab" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>                            
+                            <button data-toggle="Speichert Spieltag ab" title="Speichert Spieltag ab" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
+
+                            <RadzenButton Outlined="true" Class="btn-primary mdc-button--outlined" title="Speichert Spieltag ab">
+                                <span class="glyphicon glyphicon-save"></span>Speichern
+                            </RadzenButton>
                         </div>
                     </div>
                 </details>
@@ -138,7 +142,7 @@
                             <label class="col-sm-2">Kader Verein 2</label>
                             <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected >Spieler wählen</option>
+                                <option value="" selected>Spieler wählen</option>
                                 @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -151,7 +155,7 @@
                             <label class="col-sm-2">Spieler Verein 1</label>
                             <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected >Spieler wählen</option>
+                                <option value="" selected>Spieler wählen</option>
                                 @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -161,7 +165,7 @@
                             <label class="col-sm-2">Spieler Verein 2</label>
                             <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
                                 <option value="" selected>@Spielername</option>
-                                <option value="" selected >Spieler wählen</option>
+                                <option value="" selected>Spieler wählen</option>
                                 @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
                                 {
                                     <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -232,13 +236,8 @@
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
 
         if (Id == "0")
-        {
-            if (Ligamanager.Components.Globals.currentLiga == "Bundesliga")
-                Spiel.LigaID = 1;
-            else if (Ligamanager.Components.Globals.currentLiga == "2. Bundesliga")
-                Spiel.LigaID = 2;
-            else if (Ligamanager.Components.Globals.currentLiga == "3. Liga")
-                Spiel.LigaID = 3;
+        {            
+            Spiel.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
 
             Spiel.Saison = Globals.currentSaison;
             Spiel.SaisonID = Globals.SaisonID;

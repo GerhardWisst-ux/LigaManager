@@ -15,59 +15,74 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
-        <div class="col-sm-5">
-            <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
-                <option value="" selected required>Liga auswählen</option>
-                @if (LigenList != null)
-                {
-                    @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
-                    {
-                        <option value="@liga.LigaID"> @liga.Liganame </option>
-                    }
-                }
-            </select>
-            <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+       
+
+    <details open name="tab">
+        <summary> Auswahl</summary>
+        <div class="form-group row">
+            <div class="col-sm-12 ml-0">
+                <div class="col-sm-5 pl-0">
+                    <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
+                        <option value="" selected required>Liga auswählen</option>
+                        @if (LigenList != null)
+                        {
+                            @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
+                            {
+                                <option value="@liga.LigaID"> @liga.Liganame </option>
+                            }
+                        }
+                    </select>
+                    <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                </div>
+                <div class="col-sm-5">
+                    <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+                        <option value="" selected required>Saison auswählen</option>
+                        @if (SaisonenList != null)
+                        {
+                            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                            {
+                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
+                        }
+                    </select>
+                    <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                </div>
+                <div class="col-sm-2 pull-right">
+                    <linkbutton title="Liga und Saison auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
+                        Auswählen
+                    </linkbutton>
+                </div>
+            </div>
         </div>
-        <div class="col-sm-5">
-            <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                <option value="" selected required>Saison auswählen</option>
-                @if (SaisonenList != null)
-                {
-                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                    {
-                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                    }
-                }
-            </select>
-            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+    </details>
+
+    <details name="tab">
+        <summary> Import</summary>
+        <div class="form-group row">
+            <div class="col-sm-12 ml-0">
+                <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
+            </div>
         </div>
-        <div class="col-sm-2 pull-right">
-            <linkbutton title="Liga und Saison auswählen" style="margin-left:5px;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
-                Auswählen
-            </linkbutton>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <input class="form-control form-control-lg" id="ImportCSV" type="file">
+                <linkbutton title="Saison importieren" style="margin-left:2px;" id="btnImportCSV" class="btn btn-primary" @onclick=OnClickHandlerImport>
+                    Import Saison
+                </linkbutton>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
-                Tabellen anlegen
-            </linkbutton>
+
+    </details>
+    <details name="tab">
+        <summary> Tabellen anlegen</summary>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
+                    Tabellen anlegen
+                </linkbutton>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-6">
-            <input class="form-control form-control-lg" id="ImportCSV" type="file">
-            <linkbutton title="Saison importieren" style="margin-left:2px;" id="btnImportCSV" class="btn btn-primary" @onclick=OnClickHandlerImport>
-                Import Saison
-            </linkbutton>
-        </div>
-    </div>
+    </details>
 </div>
 
 

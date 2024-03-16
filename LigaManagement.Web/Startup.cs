@@ -38,6 +38,11 @@ namespace LigaManagement.Web
             //services.AddBlazorBootstrap(); // Add this line
             services.AddScoped<ContextMenuService>();
             services.AddServerSideBlazor();
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<TooltipService>();
+            //services.AddRadzenComponents();
+
             services.AddAutoMapper(typeof(Startup));          
            
             services.AddHttpClient<IVereineService, VereineService>(client =>

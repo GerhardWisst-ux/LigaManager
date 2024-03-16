@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +19,9 @@ namespace LigaManagerManagement.Web.Pages
     {
         protected string DisplayErrorLiga = "none";
         public string Liganame = "Bundesliga";
-               
+        public bool value = true;
+        public int Id { get; set; }
+
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
         public IEnumerable<Saison> SaisonenList { get; set; }
@@ -32,7 +35,6 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<DisplayLiga> LigenList;
 
-       
         public List<Verein> Vereine { get; set; }
 
         public IEnumerable<Liga> Ligen { get; set; }
@@ -59,9 +61,16 @@ namespace LigaManagerManagement.Web.Pages
 
             Vereine = (await VereineService.GetVereine()).ToList();
 
+            var VereineSaison = (await VereineService.GetVereineSaison()).Where(x => x.SaisonID == Id).ToList();
+
             for (int i = 0; i < Vereine.Count(); i++)
             {
-                VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1));
+                var result = VereineSaison.FindIndex(s => s.VereinNr == Vereine[i].VereinNr);
+
+                if (result == -1)
+                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
+                else
+                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
             }
 
             LigenList = new List<DisplayLiga>();
@@ -99,13 +108,17 @@ namespace LigaManagerManagement.Web.Pages
         [Bind]
         public class DisplayVerein
         {
-            public DisplayVerein(string vereinID, string vereinname)
+            public DisplayVerein(string vereinID, string vereinname, bool vereinchecked)
             {
                 VereinID = vereinID;
                 Vereinname1 = vereinname;
+                VereinChecked = vereinchecked;
+
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
+
+            public bool VereinChecked { get; set; }
         }
 
         int index;

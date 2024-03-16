@@ -1,7 +1,7 @@
 ﻿@page "/tabellen"
 @inherits TabellenListBase
-@attribute [Authorize]
 
+@attribute [Authorize]
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,6 +47,19 @@
             justify-content: flex-end;
         }
 
+        .ColorPunkte {
+            color: red;
+        }
+
+        tr.separated td {
+            /* set border style for separated rows */
+            border-bottom: 1px solid black;
+        }
+
+        table {
+            /* make the border continuous (without gaps between columns) */
+            border-collapse: collapse;
+        }
     </style>
 </head>
 @if (Tabellen == null)
@@ -55,12 +68,14 @@
 }
 else
 {
+    
+
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h2>@Liganame Tabelle</h2>
+                        <h2>@Liganame Tabelle @Globals.currentSaison</h2>
 
                     </div>
                 </div>
@@ -68,27 +83,25 @@ else
         </div>
         <div class="form-group row">
             <div class="col-sm-2 mt-1 ml-0">
-                <select id="cboSaison" style="display:inline" class="form-control dropdown" @onchange="SaisonChange">
+                <select id="cboSaison" style="display:inline;width:170px;" class="form-control dropdown" @onchange="SaisonChange">
                     <option value="" selected>@saison</option>
                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                     {
                         <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                    }                    
+                    }
                 </select>
             </div>
             <div class="col-sm-2 mt-1 ml-1">
-                <select id="cboSpieltage" style="display:inline" class="form-control dropdown" @onchange="SpieltagChange">
+                <select id="cboSpieltage" style="display:inline;width:170px;" class="form-control dropdown" @onchange="SpieltagChange">
                     <option value="" selected>@currentspieltag. Spieltag</option>
                     @foreach (var spieltag in SpieltagList)
                     {
                         <option value="@spieltag.Nummer"> @spieltag.Name </option>
                     }
-                    
                 </select>
-
             </div>
             <div class="col-sm-2 mt-1 ml-1">
-                <select id="cboTableArt" style="display:inline" class="form-control dropdown" @onchange="TabArtChange">
+                <select id="cboTableArt" style="display:inline; width:180px;" class="form-control dropdown"  @onchange="TabArtChange">
                     <option value="0">Tabellenart wählen</option>
                     <option value="1">Gesamttabelle</option>
                     <option value="2">Heimtabelle</option>
@@ -100,40 +113,42 @@ else
             </div>
         </div>
 
-        <div class="form-group row">
-            <div class="col-sm-12 mr-0">
-                <div class="form-group row">
-                    <div class="col-sm-11">
-                        <a type="button" data-toggle="tooltip" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
-                    </div>
-                    <div class="col-sm-1 end">
-                        <a type="button" data-toggle="tooltip" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto;" class="next round end">&raquo;</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-12">
-                @foreach (var tabelle in Tabellen)
-                {
-                    <EditForm Model="@Tabellen">
-                        <DataAnnotationsValidator />
-                        <ValidationSummary />
-                        <DisplayTabelle Tabelle="tabelle"></DisplayTabelle>
-                    </EditForm>
-                }
-            </div>
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <div class="col-1 offset-11">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:@DisplayElements;'><span class="glyphicon glyphicon-arrow-up"></span></button>
-            </div>
-        </div>
-    </div>
-
+        <RadzenCard style="flex:1;margin:0px;">
+            <RadzenRow class="rz-white">
+                <RadzenColumn Style="text-align:left;display:inline-block;margin-left:2px;margin-right:2px;">
+                    <a type="button" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                </RadzenColumn>
+                <RadzenColumn Offset="11" Style="text-align:right;display:inline-block;margin-left:2px;margin-right:2px;margin-bottom:10px;">
+                    <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto;" class="next round">&raquo;</a>
+                </RadzenColumn>
+            </RadzenRow>
+            @* RowRender="@RowRender" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" *@
+            <RadzenDataGrid @ref="grid" Data="Tabellen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                            AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                            TItem="Tabelle" Visible="true" AllowColumnResize="false"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            LogicalFilterOperator="LogicalFilterOperator.Or">
+                <Columns>
+                    <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>                    
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verein" Width="22%" Sortable=false Title="Verein" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="V" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="T" />
+                    <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="Diff" />
+                    <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="P" />
+                </Columns>
+            </RadzenDataGrid>
+            <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
+                <RadzenColumn Offset="11" Style="text-align:right;">
+                    <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenCard>   
+    </div>   
 
     <script>
 

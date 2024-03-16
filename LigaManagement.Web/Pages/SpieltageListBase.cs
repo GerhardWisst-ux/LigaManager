@@ -3,6 +3,8 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,10 +18,17 @@ namespace LigaManagerManagement.Web.Pages
     {
         public string Liganame;
 
+        public Density Density = Density.Default;
+
+        string type = "Click";
+        bool multiple = true;
+
         [Parameter]
         public string SpieltagNr { get; set; }
         public bool VisibleBtnNew { get; set; }
 
+        public RadzenDataGrid<Spieltag> grid;
+        IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
 
         public Int32 currentspieltag;
 
@@ -160,6 +169,8 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     VisibleVorZurueck = true;
 
+                currentspieltag = Convert.ToInt32(e.Value);
+
                 StateHasChanged();
             }
         }
@@ -253,5 +264,36 @@ namespace LigaManagerManagement.Web.Pages
             public string Name { get; set; }
 
         }
+
+        public void OnCellRender(DataGridCellRenderEventArgs<Spieltag> args)
+        {
+            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
+            {
+                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
+            }
+        }
+
+        protected async Task Delete_Click()
+        {
+            //DeleteConfirmation.Show();
+
+            //await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
+            //await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
+
+            //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
+        }
+
+        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        {
+            //if (deleteConfirmed)
+            //{
+            //    await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
+            //    await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
+            //}
+
+            //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
+        }
+
+
     }
 }
