@@ -400,7 +400,7 @@ namespace LigaManagerManagement.Web.Services
                     }
                 }
 
-                TabSaisonSorted = TabSaisonSorted.OrderByDescending(o => o.TorePlus - o.ToreMinus).OrderByDescending(o => o.Punkte).ToList();
+                TabSaisonSorted = TabSaisonSorted.OrderByDescending(o => o.Punkte).ThenByDescending(o => o.TorePlus - o.ToreMinus).ThenByDescending(o => o.TorePlus).ToList();
 
                 for (int ii = 0; ii < TabSaisonSorted.Count; ii++)
                 {

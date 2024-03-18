@@ -65,20 +65,28 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">Vorhandene Ligen </h2>
-                        <span class="ml-3">
-                            <a href="createliga" style="width:35px; height:28px;" title="Neuanlage" class="btn btn-primary btn-sm form-control"><span class="glyphicon glyphicon-plus-sign"></span></a>
-                        </span>
+                <RadzenCard class="m-0">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">Ligen</h2>
+                            <span class="ml-3">
+                                <a href="createliga" style="width:35px; height:30px;" title="Neuanlage Liga" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                </RadzenCard>
             </div>
         </div>
+
+         <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+                    </RadzenCard>
+
         <div class="form-group row">
             <div class="col-sm-12">
                 <RadzenDataGrid @ref="grid" Data="@LigenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
                                 TItem="Liga" Visible="true" AllowColumnResize="true"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">

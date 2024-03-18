@@ -15,6 +15,8 @@ namespace LigaManagerManagement.Web.Pages
     public class LigenListBase : ComponentBase
     {
         public string Liganame = "";
+        public Density Density = Density.Default;
+
         [Inject]
         public ILigaService LigaService { get; set; }
 

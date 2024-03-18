@@ -1,26 +1,24 @@
-﻿using AutoMapper;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Models;
-using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Radzen;
+using Radzen.Blazor;
 
 namespace LigaManagerManagement.Web.Pages
 {
-    public class StatistikenListBase : ComponentBase
+    public class ChartsListBase : ComponentBase
     {
         public Int32 currentspieltag = Globals.Spieltag;
-                
+
         protected string DisplayElements = "none";
 
         protected string Statistik = "";
@@ -53,7 +51,7 @@ namespace LigaManagerManagement.Web.Pages
         public Spielergebnisse Spiel { get; set; } = new Spielergebnisse();
 
         public IEnumerable<Verein> Vereine { get; set; }
-                
+
         [Parameter]
         public string SpieltagNr { get; set; }
 
@@ -64,7 +62,7 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        
+
         protected async override Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
@@ -73,7 +71,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 string returnUrl = WebUtility.UrlEncode($"/statistiken");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-            }                        
+            }
 
             var spiele = await SpieltagService.GetSpieltage();
             List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
@@ -117,7 +115,7 @@ namespace LigaManagerManagement.Web.Pages
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein1_Nr);
                 Spiel.Verein1 = VereineList[index].Vereinname1;
 
-                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);               
+                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);
                 StateHasChanged();
             }
         }
@@ -127,7 +125,7 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 if (e.Value.ToString() == "Verein auswählen")
-                    return;                
+                    return;
 
                 Spiel.Verein2_Nr = e.Value.ToString();
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein2_Nr);

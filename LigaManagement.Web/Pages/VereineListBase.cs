@@ -39,6 +39,12 @@ namespace LigaManagerManagement.Web.Pages
             Liganame = liga.Liganame;
         }
 
+
+       public void ClearSelection()
+        {
+            VereineList = null;
+        }
+
         protected async Task VereinDeleted()
         {
             VereineList = (await VereineService.GetVereine()).ToList();

@@ -55,7 +55,7 @@
 
 .rz-datatable td
 {
-    padding: 50px;
+    padding: 100px;
 }
 </style>
 
@@ -68,15 +68,16 @@ else
      <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;" >Vereine </h2>
-
-                        <span class="ml-3">                                                        
-                            <a href="createverein" style="width:35px; height:28px;" title="Neuanlage" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
-                        </span>
+                <RadzenCard class="m-0">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">Vereine</h2>
+                            <span class="ml-3">
+                                <a href="createverein" style="width:35px; height:30px;" title="Neuanlage Verein" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                </RadzenCard>
             </div>
         </div>
         <div class="form-group row">
@@ -91,12 +92,12 @@ else
                         AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
                         TItem="Verein" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" SelectionMode="DataGridSelectionMode.Single" CellRender="OnCellRender">
             <Columns>
                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
                 <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
                 <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
                 <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>
                     <FooterTemplate>
                         Saisonen: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>

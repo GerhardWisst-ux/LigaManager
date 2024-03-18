@@ -61,22 +61,29 @@ else
 {
     <div class="container">
         <div class="form-group row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">@Liganame Saisonen</h2>
-
-                        <span class="ml-3">
-                            <a href="createsaison" style="width:35px; height:30px;" title="Neuanlage" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
-                        </span>
+            <div class="col-sm-12">              
+                <RadzenCard class="m-0">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">@Liganame Saisonen</h2>
+                            <span class="ml-3">
+                                <a href="createsaison2" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                            </span>
+                        </div>
                     </div>
-                </div>
+                </RadzenCard>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
+
+                   <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+                    </RadzenCard>
+
                 <RadzenDataGrid @ref="grid" Data="@SaisonenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                AllowPaging="true" AllowSorting="true" AllowFiltering="true"
+                                AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
                                 TItem="Saison" Visible="true" AllowColumnResize="true"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">

@@ -62,7 +62,7 @@
             <Authorized>
                 <li class="nav-item px-4">
                     <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
-                        <span  class="oi oi-home" aria-hidden="true"></span> Start
+                        <span class="oi oi-home" aria-hidden="true"></span> Start
                     </NavLink>
                 </li>
                 @if (Ligamanager.Components.Globals.bVisibleNavMenuElements == true)
@@ -77,7 +77,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" visble="@Ligamanager.Components.Globals.bVisibleNavMenuElements" href="/tabellen" Match="NavLinkMatch.All">
-                            <span  class="oi oi-list" aria-hidden="true"></span> Tabellen
+                            <span class="oi oi-list" aria-hidden="true"></span> Tabellen
                         </NavLink>
                     </li>
                 }
@@ -93,7 +93,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/saisonen" Match="NavLinkMatch.All">
-                            <span  class="oi oi-timer" aria-hidden="true"></span> Saisonen
+                            <span class="oi oi-timer" aria-hidden="true"></span> Saisonen
                         </NavLink>
                     </li>
                 }
@@ -109,7 +109,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/kader" Match="NavLinkMatch.All">
-                            <span   class="oi oi-person" aria-hidden="true"></span> Kader
+                            <span class="oi oi-person" aria-hidden="true"></span> Kader
                         </NavLink>
                     </li>
                 }
@@ -117,17 +117,24 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/statistiken" Match="NavLinkMatch.All">
-                            <span  class="oi oi-bar-chart" aria-hidden="true"></span> Statistiken
+                            <span class="oi oi-bar-chart" aria-hidden="true"></span>Statistiken
+                        </NavLink>
+                    </li>
+                    
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href="/charts" Match="NavLinkMatch.All">
+                            <span class="bar-chart-outline" aria-hidden="true"></span>Charts
                         </NavLink>
                     </li>
 
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                            <span   class="oi oi-power-standby" aria-hidden="true"></span>
-                            Logout 
+                            <span class="oi oi-power-standby" aria-hidden="true"></span>
+                            Logout
                         </NavLink>
                     </li>
                 }
+
             </Authorized>
             <NotAuthorized>
                 <li class="nav-item px-4">

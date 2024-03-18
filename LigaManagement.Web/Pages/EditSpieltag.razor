@@ -19,179 +19,180 @@
             <DataAnnotationsValidator />
             <!-- This will show any validation errors -->
             <ValidationSummary />
-            <div style="width:100%" class="card">
-                <div class="card-body">
-                    <h2 class="card-title">@Titel Spiel</h2>
-                    <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
-                    <a href="@($"spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
-                </div>
-            </div>
-            <div class="tabs">
-                <details open name="tab">
-                    <summary> Spielinfo</summary>
-                    <div class="content">
-                        <div class="form-group row">
-                            <label class="col-sm-2">Verein 1</label>
-                            <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
-                                @* <option selected Value="Spiel.Verein1_Nr"></option> *@
-                                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                                {
-                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-
-                                }
-                                @if (Id is null)
-                                {
-                                    <option value="" selected required>Verein wählen</option>
-                                }
-                                else
-                                {
-                                    <option selected="selected">@Spiel.Verein1</option>
-                                }                                
-                            </select>
-                            <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Tore 1</label>
-                            <InputNumber required id="txTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
-                            <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Tore 2</label>
-                            <InputNumber required id="ttxTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
-                            <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Verein 2</label>
-                            <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
-                                @* <option selected Value="Spiel.Verein2_Nr"></option> *@
-                                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                                {
-                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-
-                                }
-                                @if (Id is null)
-                                {
-                                    <option value="" selected>Verein wählen</option>
-                                }
-                                else
-                                {
-                                    <option selected="selected">@Spiel.Verein2</option>
-                                }
-                            </select>
-                            <InputText style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
-                        </div>
-                        <div class="form-group row">
-                            <label for="txtDatum" class="col-sm-2">Datum:</label>
-                            <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
-                            <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
-                            <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Ort</label>
-                            <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
-                                @* <option value="" selected>@Stadion</option> *@
-                                @foreach (var verein in VereineList.OrderBy(x => x.Ort))
-                                {
-                                    <option value="@verein.VereinID"> @verein.Ort </option>
-
-                                }
-                                @if (Id is null)
-                                {
-                                    <option value="" selected>Stadion wählen</option>
-                                }
-                                else
-                                {
-                                    <option selected="selected">@Spiel.Ort</option>
-                                }
-                            </select>
-                            <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Schiedrichter</label>
-                            <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
-                            <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Zuschauer</label>
-                            <InputNumber required id="txtSchiedrichter" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
-                        </div>
-                        <div class="form-group py-2">
-                            <button data-toggle="Speichert Spieltag ab" title="Speichert Spieltag ab" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-
-                            <RadzenButton Outlined="true" Class="btn-primary mdc-button--outlined" title="Speichert Spieltag ab">
-                                <span class="glyphicon glyphicon-save"></span>Speichern
-                            </RadzenButton>
-                        </div>
+            <RadzenCard class="m-0 mb-3">
+                <div class="d-flex flex-row">
+                    <div class="card-body">
+                        <h2 class="card-title">@Titel Spiel</h2>
+                        <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
+                        <a href="@($"spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
                     </div>
-                </details>
+                </div>
+            </RadzenCard>
 
-                <details name="tab">
-                    <summary> Aufstellungen</summary>
-                    <div style="width:100%" class="content card">
-                        <div class="form-group row">
-                            <label class="col-sm-2">Kader Verein 1</label>
-                            <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
-                                <option value="" selected>@Spielername</option>
-                                <option value="" selected Spieler wählen</option>
-                                @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
-                                {
-                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+            <RadzenTabs>
+                <Tabs>
+                    <RadzenTabsItem Text="Spielinfo">
+                        <div class="content">
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein1">Verein1</RadzenLabel>
+                                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
+                                    @* <option selected Value="Spiel.Verein1_Nr"></option> *@
+                                    @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                    {
+                                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
 
-                                }
-                            </select>
-                            <label class="col-sm-2">Kader Verein 2</label>
-                            <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                <option value="" selected>@Spielername</option>
-                                <option value="" selected>Spieler wählen</option>
-                                @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
-                                {
-                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                    }
+                                    @if (Id is null)
+                                    {
+                                        <option value="" selected required>Verein wählen</option>
+                                    }
+                                    else
+                                    {
+                                        <option selected="selected">@Spiel.Verein1</option>
+                                    }
+                                </select>
+                                <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore1">Tore 1</RadzenLabel>
+                                <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
 
-                                }
-                            </select>
-                            <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-sm-2">Spieler Verein 1</label>
-                            <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
-                                <option value="" selected>@Spielername</option>
-                                <option value="" selected>Spieler wählen</option>
-                                @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
-                                {
-                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                @* <RadzenNumeric class="form-control col-sm-10" @bind-Value=@Spiel.Tore1_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" /> *@
+                                <ValidationMessage For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore2">Tore 2</RadzenLabel>
+                                <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
+                                @* <RadzenNumeric  class="form-control col-sm-10" @bind-Value=@Spiel.Tore2_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />                           *@
+                                <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein2</RadzenLabel>
+                                <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
+                                    @* <option selected Value="Spiel.Verein2_Nr"></option> *@
+                                    @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                    {
+                                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
 
-                                }
-                            </select>
-                            <label class="col-sm-2">Spieler Verein 2</label>
-                            <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                <option value="" selected>@Spielername</option>
-                                <option value="" selected>Spieler wählen</option>
-                                @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
-                                {
-                                    <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                    }
+                                    @if (Id is null)
+                                    {
+                                        <option value="" selected>Verein wählen</option>
+                                    }
+                                    else
+                                    {
+                                        <option selected="selected">@Spiel.Verein2</option>
+                                    }
+                                </select>
+                                <InputText style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="txtDatum">Datum</RadzenLabel>
+                                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
+                                <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
+                                <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboStadion">Ort</RadzenLabel>
+                                <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
+                                    @* <option value="" selected>@Stadion</option> *@
+                                    @foreach (var verein in VereineList.OrderBy(x => x.Ort))
+                                    {
+                                        <option value="@verein.VereinID"> @verein.Ort </option>
 
-                                }
-                            </select>
-                            <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                                    }
+                                    @if (Id is null)
+                                    {
+                                        <option value="" selected>Stadion wählen</option>
+                                    }
+                                    else
+                                    {
+                                        <option selected="selected">@Spiel.Ort</option>
+                                    }
+                                </select>
+                                <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Schiedrichter" class="col-sm-2" Component="txtSchiedrichter">Schiedrichter</RadzenLabel>
+                                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
 
-                            <div class="form-group-row py-2">
-                                <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                                <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                                @*  <RadzenText required id="txtSchiedrichter" class="form-control col-sm-10" @bind-Value="Spiel.Schiedrichter"></RadzenText> *@
+
+                                <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
+                            </div>
+                            <div class="form-group row">
+                                <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Schiedrichter</RadzenLabel>
+                                <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
+                            </div>
+                            <div class="form-group py-2">
+                                @* <button data-toggle="Speichert Spieltag ab" title="Speichert Spieltag ab" class="btn btn-primary">Speichern</button> *@
+                                <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
+                                    <span class="glyphicon glyphicon-save"></span>Speichern
+                                </RadzenButton>
                             </div>
                         </div>
-                    </div>
-                </details>
-                <details name="tab">
-                    <summary> Tore</summary>
-                    <div class="content">
-                    </div>
-                </details>
-                <details name="tab" open>
-                    <summary> Spielverlauf </summary>
-                    <div class="content">
-                    </div>
-                </details>
-            </div>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Aufstellungen">                      
+                        <div style="width:100%" class="content card">
+                            <div class="form-group row">
+                                <label class="col-sm-2">Kader Verein 1</label>
+                                <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
+                                    <option value="" selected>@Spielername</option>
+                                    <option value="" selected Spieler wählen</option>
+                                    @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
+                                    {
+                                        <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                    }
+                                </select>
+                                <label class="col-sm-2">Kader Verein 2</label>
+                                <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
+                                    <option value="" selected>@Spielername</option>
+                                    <option value="" selected>Spieler wählen</option>
+                                    @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
+                                    {
+                                        <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                    }
+                                </select>
+                                <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2">Spieler Verein 1</label>
+                                <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
+                                    <option value="" selected>@Spielername</option>
+                                    <option value="" selected>Spieler wählen</option>
+                                    @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
+                                    {
+                                        <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                    }
+                                </select>
+                                <label class="col-sm-2">Spieler Verein 2</label>
+                                <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
+                                    <option value="" selected>@Spielername</option>
+                                    <option value="" selected>Spieler wählen</option>
+                                    @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
+                                    {
+                                        <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                    }
+                                </select>
+                                <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
+
+                                <div class="form-group-row py-2">
+                                    <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
+                                    <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                                </div>
+                            </div>
+                        </div>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Tore">                        
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Spielverlauf">
+                    </RadzenTabsItem>
+                </Tabs>
+            </RadzenTabs>     
         </EditForm>
     </div>
 </div>
@@ -236,7 +237,7 @@
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
 
         if (Id == "0")
-        {            
+        {
             Spiel.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
 
             Spiel.Saison = Globals.currentSaison;

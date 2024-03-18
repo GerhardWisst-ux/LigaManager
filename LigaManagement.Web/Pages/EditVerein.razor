@@ -6,34 +6,49 @@
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject NavigationManager _navigationManager
 
+
 <div class="row my-2">
-    <h2>@Titel Verein</h2>
-    <div class="col-10">
-        <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
-            <div class="form-group">               
-                <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control"></InputText>
-                <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                <label>Stadion</label>
-                <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control"></InputText>
-                <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                <label>Erfolge</label>
-                <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control"></InputText>
-                <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
-            </div>
-            <div class="form-group">
-                <label>Gegründet</label>
-                <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control"></InputNumber>
-                <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
-            </div>
-            <div class="form-group py-2">
-                <button class="btn btn-primary">Speichern</button>
-                <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
-            </div>
-        </EditForm>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <RadzenCard class="m-0 mb-3">
+                <div class="d-flex flex-row">
+                    <div class="card-body">
+                        <h2 style="display:inline-block;">Titel Verein</h2>
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+        <div class="col-12">
+            <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
+                <div class="form-group">
+                    <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Stadion</label>
+                    <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Erfolge</label>
+                    <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <label>Gegründet</label>
+                    <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control"></InputNumber>
+                    <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+                </div>
+                <div class="form-group py-2">
+                    <button class="btn btn-primary">Speichern</button>
+                    <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" class="btn btn-primary" Text="Speichern">
+
+                    </RadzenButton>
+
+                    <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
+                </div>
+            </EditForm>
+        </div>
     </div>
 </div>
 
@@ -76,8 +91,8 @@
     {
         if (Id == "0")
         {
-            //create            
-            
+            //create
+
             VereineMax = await VereineService.GetVereine();
             int iMax = VereineMax.Select(i => i.VereinNr).Max();
             Verein.VereinNr = iMax + 1;

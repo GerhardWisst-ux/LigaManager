@@ -68,35 +68,33 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h2>@Liganame @Ligamanager.Components.Globals.currentSaison @SpieltagNr.ToString() .Spieltag</h2>
-                        <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
-                            <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
-                            @foreach (var spieltag in SpieltagList)
-                            {
-                                <option value="@spieltag.Nummer"> @spieltag.Name</option>
-                            }
-                        </select>
-                        <span class="ml-3">
-                            @if (VisibleBtnNew)
-                            {
-                                <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
+                <RadzenCard class="m-0">
+                    <h2>@Liganame @Ligamanager.Components.Globals.currentSaison @SpieltagNr.ToString() .Spieltag</h2>
+                    <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                        <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
+                        @foreach (var spieltag in SpieltagList)
+                        {
+                            <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                        }
+                    </select>
+                    <span class="ml-3">
+                        @if (VisibleBtnNew)
+                        {
+                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
 
-                                @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        </a> *@
-                            }
-                            else
-                            {
-                                <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
-                                @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        </a> *@
-                            }
-                        </span>
-                    </div>
-                </div>
+                            @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    </a> *@
+                        }
+                        else
+                        {
+                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
+                            @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
+                    <span class="glyphicon glyphicon-plus"></span>
+                    </a> *@
+                        }
+                    </span>
+                </RadzenCard>
             </div>
         </div>
         <div class="form-group row">
@@ -151,7 +149,7 @@ else
                                     Spieltage: <b>@grid.View.Count()</b> von <b>@Spieltage.Count()</b>
                                 </FooterTemplate>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />                           
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="20%" Sortable=false Title="Heim" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
                                 <Template Context="data">
@@ -166,7 +164,7 @@ else
                                 </Template>
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="20%" Sortable=false Title="" />
-                           
+
                             <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="25%" Sortable=false Title="Ort" />
                             <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="17%" Sortable=false Title="Datum" />
 
