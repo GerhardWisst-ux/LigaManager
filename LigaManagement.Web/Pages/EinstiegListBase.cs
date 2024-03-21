@@ -372,10 +372,13 @@ namespace LigaManagement.Web.Pages
             Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
             bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            
             int iAktSpieltag;
-
             if (bAbgeschlossen)
+            {
                 iAktSpieltag = Globals.maxSpieltag;
+                Globals.Spieltag = iAktSpieltag;
+            }                
             else
             {
                 iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);

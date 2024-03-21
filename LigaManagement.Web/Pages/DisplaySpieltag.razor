@@ -64,7 +64,6 @@
     body {
         font-size: 18px !important;
     }
-    
 </style>
 
 
@@ -75,10 +74,10 @@
 }
 else
 {
-    <div style="width:100%;">     
+    <div style="width:100%;">
 
-        <table class="table table-striped">          
-            
+        <table class="table table-striped">
+
             <tbody style="height: 10px !important; overflow: scroll; ">
                 <tr>
                     <td><InputText readonly id="txtVerein1" class="TableElement priority-1" style="max-height:38px; width:180px;pointer-events:none;" tabindex="1" @bind-Value=Spieltag.Verein1 /></td>
@@ -89,23 +88,25 @@ else
                     <td><InputDate readonly id="txtDatum" class="TableElement priority-2" style="max-height:38px; width:120px;pointer-events:none;" tabindex="6" @bind-Value=Spieltag.Datum /></td>
                     <td><InputNumber readonly id="txtZuschauer" class="TableElement priority-2" style="max-height:38px; width:100px;pointer-events:none;" tabindex="7" @bind-Value=Spieltag.Zuschauer /></td>
 
+                    @if (DisplayButtons)
+                    {
                     <td>
-                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")"  data-toggle="tooltip" title="Bearbeiten" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
+                        <NavLink href="@($"editspieltag/{Spieltag.SpieltagId}")" data-toggle="tooltip" title="Bearbeiten" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>
                     </td>
                     <td>
                         @* <NavLink @onclick="Delete_Click" data-toggle="tooltip" title="Löschen" class="btn-danger btn"><span class="glyphicon glyphicon-remove-sign"></span> Löschen</NavLink> *@
-
                         <button type="button" class="btn btn-danger m-1"
                                 @onclick="Delete_Click">
-                          <span class="glyphicon glyphicon-remove-sign"></span>Löschen
+                            <span class="glyphicon glyphicon-remove-sign"></span>Löschen
                         </button>
                     </td>
+                    }
                 </tr>
             </tbody>
 
         </table>
 
-       
+
     </div>
 
 }

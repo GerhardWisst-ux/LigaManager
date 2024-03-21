@@ -12,7 +12,6 @@
 <style type="text/css">
 
     body {
-        font-size: 18px !important;
     }
 
 
@@ -61,78 +60,50 @@
 </style>
 @if (Spieltage == null)
 {
-    <div class="spinner"></div>
+    <div class="d-flex justify-content-center">
+
+        <div class="spinner"></div>
+
+    </div>
+
 }
 else
 {
+
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
                 <RadzenCard class="m-0">
-                    <h2>@Liganame @Ligamanager.Components.Globals.currentSaison @SpieltagNr.ToString() .Spieltag</h2>
-                    <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
-                        <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
-                        @foreach (var spieltag in SpieltagList)
-                        {
-                            <option value="@spieltag.Nummer"> @spieltag.Name</option>
-                        }
-                    </select>
-                    <span class="ml-3">
-                        @if (VisibleBtnNew)
-                        {
-                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
-
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    </a> *@
-                        }
-                        else
-                        {
-                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    </a> *@
-                        }
-                    </span>
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2>@Liganame @Ligamanager.Components.Globals.currentSaison @SpieltagNr.ToString() .Spieltag</h2>
+                        </div>
+                    </div>
                 </RadzenCard>
             </div>
         </div>
         <div class="form-group row">
+            <div class="col-sm-2 mt-1 ml-0">
+                <select id="cboSaison" style="display:inline;width:170px;" class="form-control dropdown" @onchange="SaisonChange">
+                    <option value="" selected>@curentsaison</option>
+                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                    {
+                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                    }
+                </select>
+            </div>
+            <div class="col-sm-2 mt-1 ml-1">
+                <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                    <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
+                    @foreach (var spieltag in SpieltagList)
+                    {
+                        <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="form-group row">
             <div class="col-sm-12">
-                @*  @{
-            int Zaehler = 1;
-            }
-
-            @if (Spieltage.Count() > 0)
-            {
-            <table class="table table-striped">
-            <thead>
-            <tr>
-            <th style="max-height:38px; width:180px;pointer-events:none;" class="TableElement priority-1">V1</th>
-            <th style="max-height:38px; width:40px; pointer-events:none;" class="TableElement priority-1">T1</th>
-            <th style="max-height:38px; width:40px; pointer-events:none;" class="TableElement priority-1">T2</th>
-            <th style="max-height:38px; width:180px;pointer-events:none;" class="TableElement priority-1">V2</th>
-            <th style="max-height:38px; width:280px;pointer-events:none;" class="TableElement priority-1">Ort</th>
-            <th style="max-height:38px; width:120px;pointer-events:none;" class="TableElement priority-1">Datum</th>
-            <th style="max-height:38px; width:100px;pointer-events:none;" class="TableElement priority-1">Zuschauer</th>
-            </tr>
-            </thead>
-            </table>
-            }
-
-            @foreach (var spieltag in Spieltage.OrderBy(o => o.Datum).ToList())
-            {
-            <EditForm Model="@Spieltage">
-            <!-- This will validate the form -->
-            <DataAnnotationsValidator />
-            <!-- This will show any validation errors -->
-            <DisplaySpieltag Zaehler=Zaehler Spieltag="spieltag"></DisplaySpieltag>
-            </EditForm>
-
-            Zaehler = Zaehler + 1;
-            } *@
-
-                @* <div style="height: 100vh; display: flex; flex-direction: column;">    *@
                 <RadzenCard style="flex:1;margin:0px;">
                     <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
@@ -140,27 +111,27 @@ else
                     </RadzenCard>
                     <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
-                                    TItem="Spieltag" Visible="true" AllowColumnResize="true"
+                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                         <Columns>
-                            <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Id" Title="Id" Visible=false>
                                 <FooterTemplate>
                                     Spieltage: <b>@grid.View.Count()</b> von <b>@Spieltage.Count()</b>
                                 </FooterTemplate>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="20%" Sortable=false Title="Heim" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
                                 <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" AlternateText="@(data.Verein1)" />
+                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                 </Template>
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="5%" Sortable=false Title="T 1" />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="5%" Sortable=false Title="T 2" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="false" Width="74px" MinWidth="74px">
                                 <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" AlternateText="@(data.Verein2)" />
+                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                 </Template>
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="20%" Sortable=false Title="" />
@@ -193,5 +164,6 @@ else
             </div>
         </div>
     </div>
+
 
 }

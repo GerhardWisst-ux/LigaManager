@@ -1,6 +1,9 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Api.Migrations;
+using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
@@ -17,11 +20,17 @@ namespace LigaManagerManagement.Web.Pages
     public class SpieltagListBase : ComponentBase
     {
         public string Liganame;
-
+        public string curentsaison;
         public Density Density = Density.Default;
+        bool bAbgeschlossen;
 
         string type = "Click";
         bool multiple = true;
+        public int iSpieltage;
+        public List<DisplaySaison> SaisonenList;
+
+        [Inject]
+        public ISaisonenService SaisonenService { get; set; }
 
         [Parameter]
         public string SpieltagNr { get; set; }
@@ -31,13 +40,18 @@ namespace LigaManagerManagement.Web.Pages
         IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
 
         public Int32 currentspieltag;
-
+        public IEnumerable<Saison> Saisonen { get; set; }
         public bool VisibleVorZurueck { get; set; }
 
         public List<DisplaySpieltag> SpieltagList;
 
+        public IEnumerable<Tabelle> Tabellen { get; set; }
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        [Inject]
+        public ITabelleService TabelleService { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -104,7 +118,7 @@ namespace LigaManagerManagement.Web.Pages
                         VisibleBtnNew = false;
                     else
                         VisibleBtnNew = true;
-                }                
+                }
 
                 if (Spieltage.Count() == 0)
                     VisibleVorZurueck = false;
@@ -116,6 +130,29 @@ namespace LigaManagerManagement.Web.Pages
                 var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
 
                 Liganame = liga.Liganame;
+
+                SaisonenList = new List<DisplaySaison>();
+
+                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
+                    iSpieltage = 30;
+                else if (Globals.currentSaison.Substring(0, 4) == "1991")
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
+                for (int i = 1; i <= iSpieltage; i++)
+                {
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                }
+
+                for (int i = 0; i < Saisonen.Count(); i++)
+                {
+                    var columns = Saisonen.ElementAt(i);
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                }
+
+                curentsaison = Globals.currentSaison;
             }
             catch (Exception ex)
             {
@@ -139,7 +176,7 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
-                               
+
 
                 if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                 {
@@ -295,5 +332,49 @@ namespace LigaManagerManagement.Web.Pages
         }
 
 
+        public async Task SaisonChange(ChangeEventArgs e)
+        {
+            int iSpieltage;
+
+            if (e.Value != null)
+            {
+                curentsaison = e.Value.ToString();
+                Globals.currentSaison = curentsaison;
+
+                SpieltagList = new List<DisplaySpieltag>();
+                SaisonenList = new List<DisplaySaison>();
+
+                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
+                    iSpieltage = 30;
+                else if (Globals.currentSaison.Substring(0, 4) == "1991")
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+
+                Globals.maxSpieltag = iSpieltage;
+
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
+                for (int i = 1; i <= iSpieltage; i++)
+                {
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                }
+
+                for (int i = 0; i < Saisonen.Count(); i++)
+                {
+                    var columns = Saisonen.ElementAt(i);
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                }
+
+                curentsaison = Globals.currentSaison;
+                currentspieltag = SpieltagList.Count;               
+
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                StateHasChanged();
+
+            }
+        }
+      
     }
 }

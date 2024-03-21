@@ -1,0 +1,124 @@
+﻿@page "/info"
+@using LigaManagerManagement.Web.Pages;
+@using System.Globalization
+
+@attribute [Authorize]
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+    }
+
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    .column {
+        float: left;
+        width: 100.0%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 8px;
+    }
+
+    .about-section {
+        padding: 50px;
+        text-align: center;
+        background-color: #474e5d;
+        color: white;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+        .container::after, .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+    .title {
+        color: grey;
+    }
+
+
+
+    .button:hover {
+        background-color: #555;
+    }
+
+    @@media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .center-block {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="about-section">
+    <h1>Über Ligamanager</h1>
+    <p>Der Ligamanager wurde in den Jahren 2023/24 erstellt</p>
+    <p>Mit ihm lassen sich beliebige Ligen und Saisonen erstellen, Ergebnisse verwalten sowie Statistiken extrahieren.</p>
+</div>
+
+<h2 style="text-align:center">Programmierer</h2>
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <div class="container">
+                <div class="row">
+                    <div class="span4"></div>
+                    <div class="span4"><img class="center-block" src="/Images/Gerhard Wißt.jpg" alt="Gerhard Wißt" style="width:25%"></div>
+                    <div class="span4"></div>
+                </div>
+                <h2>Gerhard Wißt</h2>
+                <p class="title">Erstellt Webanwendungen in C#,ASP.Net/Blazor</p>
+                <p>Langjährige Programmiererfahrung unter .NET und SQL-Server</p>                
+                <a href="https://www.linkedin.com/in/gerhard-w-670a2169">LinkedIn Profil</a>
+                <br />
+                <a style="" href="https://www.xing.com/profile/Gerhard_Wisst/web_profiles">XING-Profil</a>
+                <p>Mailadresse:g.wisst@web.de</p>
+                <RadzenButton title="Mailkontkat" style="margin-left:5px;" id="btnSend" class="btn btn-primary" Text="Kontakt" Click="@OnClickHandler">
+                </RadzenButton>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    public async void OnClickHandler()
+    {
+    }
+}
+
+

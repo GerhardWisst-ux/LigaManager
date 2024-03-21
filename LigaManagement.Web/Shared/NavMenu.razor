@@ -46,6 +46,34 @@
         mask-size: 100% 100%;
     }
 
+
+    .oi--info {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23000' d='M5 0c-.55 0-1 .45-1 1s.45 1 1 1s1-.45 1-1s-.45-1-1-1M3.5 2.5C2.67 2.5 2 3.17 2 4h1c0-.28.22-.5.5-.5s.5.22.5.5s-1 1.64-1 2.5C3 7.36 3.67 8 4.5 8S6 7.33 6 6.5H5c0 .28-.22.5-.5.5S4 6.78 4 6.5C4 6.14 5 4.66 5 4c0-.81-.67-1.5-1.5-1.5'/%3E%3C/svg%3E");
+        background-color: currentColor;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
+
+    .entypo--line-graph {
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath fill='%23000' d='m.69 11.331l1.363.338l1.026-1.611l-1.95-.482a.904.904 0 1 0-.439 1.755m17.791.261l-4.463 4.016l-5.247-4.061a.905.905 0 0 0-.338-.162l-.698-.174l-1.027 1.611l1.1.273l5.697 4.408a.915.915 0 0 0 1.168-.043l5.028-4.527a.9.9 0 0 0 .064-1.277a.912.912 0 0 0-1.284-.064M8.684 7.18l4.887 3.129a.913.913 0 0 0 1.24-.246l5.027-7.242a.902.902 0 0 0-.231-1.26a.91.91 0 0 0-1.265.23l-4.528 6.521l-4.916-3.147a.915.915 0 0 0-.688-.123a.914.914 0 0 0-.571.4L.142 17.209A.903.903 0 0 0 .908 18.6a.908.908 0 0 0 .768-.42z'/%3E%3C/svg%3E");
+        background-color: currentColor;
+        -webkit-mask-image: var(--svg);
+        mask-image: var(--svg);
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        mask-size: 100% 100%;
+    }
 </style>
 
 
@@ -123,7 +151,19 @@
                     
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/charts" Match="NavLinkMatch.All">
-                            <span class="bar-chart-outline" aria-hidden="true"></span>Charts
+                            <span class="entypo--line-graph"></span>>&nbsp;&nbsp;Charts
+                        </NavLink>
+                    </li>
+
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href="/info" Match="NavLinkMatch.All">
+                            <span class="oi--info"></span>>&nbsp;&nbsp;Info
+                        </NavLink>
+                    </li>
+
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href="/impressum" Match="NavLinkMatch.All">
+                            <span class="oi oi-ellipses"></span>Impressum
                         </NavLink>
                     </li>
 

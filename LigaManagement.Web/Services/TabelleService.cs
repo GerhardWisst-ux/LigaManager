@@ -754,7 +754,7 @@ namespace LigaManagerManagement.Web.Services
             var TabSaisonSorted = new List<Spielergebnisse>();
 
             var alleSpieltage = (await spieltagService.GetSpielergebnisse());
-            var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 || st.Verein2 == spiel.Verein1).OrderByDescending(sais => sais.SaisonID).ThenBy(sais => sais.SpieltagNr).Take(340).ToList();
+            var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 || st.Verein2 == spiel.Verein1).OrderByDescending(sais => sais.SaisonID).ThenBy(sais => sais.SpieltagNr).ToList();
 
             return Spielergebnisse;
         }

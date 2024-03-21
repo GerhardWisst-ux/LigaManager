@@ -15,6 +15,7 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class StatistikenListBase : ComponentBase
     {
+        public  bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
         public int selectedIndex = 0;
 

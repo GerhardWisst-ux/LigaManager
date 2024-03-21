@@ -9,6 +9,9 @@ namespace LigamanagerManagement.Web.Pages
     public class DisplaySpieltagBase : ComponentBase
     {
         [Parameter]
+        public bool DisplayButtons { get; set; }
+                
+        [Parameter]
         public Spieltag Spieltag { get; set; }
 
         [Parameter]

@@ -41,7 +41,7 @@ namespace LigaManagement.Web
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
-            //services.AddRadzenComponents();
+            services.AddRadzenComponents();
 
             services.AddAutoMapper(typeof(Startup));          
            
@@ -73,7 +73,6 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
-
 
         }
 
