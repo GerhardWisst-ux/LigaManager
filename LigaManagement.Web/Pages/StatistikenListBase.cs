@@ -5,6 +5,7 @@ using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -151,7 +152,7 @@ namespace LigaManagerManagement.Web.Pages
                 DisplayElements = "block";
                 StateHasChanged();
             }
-        }
+        }       
 
         public async void EinzelVereinChange(ChangeEventArgs e)
         {

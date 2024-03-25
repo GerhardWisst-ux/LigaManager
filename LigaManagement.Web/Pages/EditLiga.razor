@@ -1,43 +1,61 @@
 ﻿@page "/createliga"
 @page "/editliga/{Id}"
-@using LigamanagerManagement.Web.Services.Contracts;
+@using LigaManagement.Web.Services.Contracts;
+
 @inherits LigaManagerManagement.Web.Pages.LigenListBase
 @inject ILigaService _Ligaservice
 @inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
 
-<div class="row my-2">
-    <h2>@Titel Liga</h2>
+<div class="container">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <RadzenCard class="m-0">
+                <div class="d-flex flex-row">
+                    <div class="card-body">
+                        <h2>@Titel Liga</h2>                        
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+    </div>    
 
-    <div class="col-10">
-        <EditForm Model="Liga" OnValidSubmit="UpsertVerein">
-            <div class="form-group">
-                <label>Liga</label>
-                <InputText required id="txtLiganame" @bind-Value="Liga.Liganame" class="form-control"></InputText>
-                <ValidationMessage For="()=>Liga.Liganame"></ValidationMessage>
+    <div class="col-12">
+        <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
+            <div class="form-group row">
+                <RadzenLabel Text="Liganame" class="col-sm-3" Component="txtLiganame">Liganame</RadzenLabel>
+                <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="(()=>Liga.Liganame)"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Verband</label>
-                <InputText required id="txtVerband" @bind-Value="Liga.Verband" class="form-control"></InputText>
-                <ValidationMessage For="()=>Liga.Verband"></ValidationMessage>
+            <div class="form-group row">
+                <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">Verband</RadzenLabel>
+                <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="(()=>Liga.Verband)"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Erstaustragung</label>
-                <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control"></InputDate>
+            <div class="form-group row">
+                <RadzenLabel Text="Erstaustragung" class="col-sm-3" Component="txtErstaustragung">Erstaustragung</RadzenLabel>
+                <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control col-sm-9"></InputDate>
                 <ValidationMessage For="()=>Liga.Erstaustragung"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Absteiger</label>
-                <InputNumber required id="txtAbsteiger" @bind-Value="Liga.Absteiger" class="form-control"></InputNumber>
+            <div class="form-group row">
+                <RadzenLabel Text="Absteiger" class="col-sm-3" Component="txtAbsteiger">Absteiger</RadzenLabel>
+                <InputNumber required id="txtAbsteiger" @bind-Value="Liga.Absteiger" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Absteiger"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <label>Aktiv</label>
-                <InputText required id="txtAktiv" @bind-Value="Liga.Aktiv" class="form-control"></InputText>
+            <div class="form-group row">
+                <RadzenLabel Text="Aktiv" class="col-sm-3" Component="chkAktiv">Aktiv</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Liga.Aktiv" class="form-control col-sm-9" Name="chkAktiv" />
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
-            </div>            
+            </div>
+            <br />
             <div class="form-group py-2">
-                <button class="btn btn-primary">Speichern</button>
-                <NavLink href="/ligen" class="btn btn-secondary">Zurück</NavLink>
+                <RadzenButton title="Speichert Liga ab" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="Speichern">
+                    <span class="glyphicon glyphicon-save"></span>Speichern
+                </RadzenButton>
+                
+                <RadzenButton title="Zurück zu Ligen" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+
+                </RadzenButton>
             </div>
         </EditForm>
     </div>
@@ -49,21 +67,18 @@
     private Liga Liga { get; set; } = new Liga();
     private string Titel { get; set; }
     public bool IsLoading { get; set; }
-    public IEnumerable<Liga> VereineMax { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
             if (Id == "0" || Id is null)
-            {
-                //Neuanlage
+            {               
                 Titel = "Neuanlage";
                 Id = "0";
                 IsLoading = false;
             }
             else
-            {
-                //Bearbeiten
+            {                
                 Titel = "Bearbeiten";
                 await LoadLiga();
             }
@@ -78,15 +93,11 @@
         IsLoading = false;
         StateHasChanged();
     }
-    private async Task UpsertVerein()
+    private async Task UpsertLiga()
     {
         if (Id == "0")
-        {                       
-            VereineMax = await _Ligaservice.GetLigen();            
-            Liga.Verband = "AFC";
-            Liga.Erstaustragung = new DateTime(1924, 7, 1);
-            Liga.Absteiger = 4;
-            Liga.Aktiv = "1";
+        {           
+            Liga.Aktiv = "-1";
             await _Ligaservice.CreateLiga(Liga);
         }
         else
@@ -94,6 +105,12 @@
             //update
             await _Ligaservice.UpdateLiga(Liga);
         }
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Liga", Detail = "Abgespeichert" });
+        // _navigationManager.NavigateTo("ligen");
+    }
+
+    private void Zurueck_Click()
+    {
         _navigationManager.NavigateTo("ligen");
     }
 }

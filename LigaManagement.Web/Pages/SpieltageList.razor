@@ -1,6 +1,6 @@
 ﻿@page "/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
-
+@inject DialogService DialogService
 @attribute [Authorize]
 
 <head>
@@ -84,7 +84,7 @@ else
         </div>
         <div class="form-group row">
             <div class="col-sm-2 mt-1 ml-0">
-                <select id="cboSaison" style="display:inline;width:170px;" class="form-control dropdown" @onchange="SaisonChange">
+                <select id="cboSaison" style="display:inline;width:170px; height:38px;" class="form-control dropdown" @onchange="SaisonChange">
                     <option value="" selected>@curentsaison</option>
                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                     {
@@ -104,7 +104,7 @@ else
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard style="flex:1;margin:0px;">
+                <RadzenCard style="flex:1;margin-right:0px;">
                     <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Small" />
@@ -127,8 +127,8 @@ else
                                     <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="5%" Sortable=false Title="T 1" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="5%" Sortable=false Title="T 2" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="7%" Sortable=false Title="T 1" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="7%" Sortable=false Title="T 2" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="false" Width="74px" MinWidth="74px">
                                 <Template Context="data">
                                     <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
@@ -149,14 +149,19 @@ else
                                     <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
+                            <RadzenDataGridColumn Width="160px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
+                                <Template Context="data">
+                                    <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
+                                </Template>
+                            </RadzenDataGridColumn>
                         </Columns>
                     </RadzenDataGrid>
                     <RadzenRow class="rz-white">
                         <RadzenColumn Style="text-align:left;display:inline-block;">
-                            <a type="button" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                            <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
                         </RadzenColumn>
                         <RadzenColumn Offset="11" Style="text-align:right;display:inline-block;">
-                            <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto;" class="next round">&raquo;</a>
+                            <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
                         </RadzenColumn>
                     </RadzenRow>
                 </RadzenCard>
@@ -165,5 +170,16 @@ else
         </div>
     </div>
 
+    @code {
+    
+    async Task OpenSpieltag(int? spieltagsid)
+    {
+        await DialogService.OpenAsync<DialogCardPage>($"Spieltag {spieltagsid}",
+              new Dictionary<string, object>() { { "SpieltagsID", spieltagsid } },
+              new DialogOptions() { Width = "700px", Height = "520px" });
+    }
+
+
+}
 
 }

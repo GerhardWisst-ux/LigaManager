@@ -5,47 +5,72 @@
 @inherits LigaManagerManagement.Web.Pages.VereineListBase
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
 
+<style>
+     .rz-button.rz-link {
+        background: none !important;       
+    }
+
+    
+     .rz-button.rz-link .rz-button-text {
+         color: var(--rz-link-color);        
+    }
+
+    
+     .rz-button.rz-link:hover .rz-button-text {
+         text-decoration: underline !important;        
+    }
+
+    </style>
 
 <div class="row my-2">
     <div class="form-group row">
         <div class="col-sm-12">
             <RadzenCard class="m-0 mb-3">
                 <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">Titel Verein</h2>
+                    <div class="card-body ">
+                        <h2 style="display:inline-block;">@Titel Verein</h2>
                     </div>
                 </div>
             </RadzenCard>
         </div>
-        <div class="col-12">
+        <div class="col-sm-12">
             <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
-                <div class="form-group">
-                    <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control"></InputText>
+                <div class="form-group row">
+                    <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
+                    <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
                     <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
                 </div>
-                <div class="form-group">
-                    <label>Stadion</label>
-                    <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control"></InputText>
+                <div class="form-group row">
+                    <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
+                    <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control col-sm-9"></InputText>
                     <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
                 </div>
-                <div class="form-group">
-                    <label>Erfolge</label>
-                    <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control"></InputText>
+                <div class="form-group row">
+                    <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
+                    @* <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control col-sm-9"></InputText> *@
+
+
+                    <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
+
+
                     <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
                 </div>
-                <div class="form-group">
-                    <label>Gegründet</label>
-                    <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control"></InputNumber>
+                <div class="form-group row">
+                    <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
+                    <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
                     <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
                 </div>
-                <div class="form-group py-2">
-                    <button class="btn btn-primary">Speichern</button>
-                    <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" class="btn btn-primary" Text="Speichern">
-
+                <div class="form-group row my-2">
+                    @* <button class="btn btn-primary">Speichern</button> *@
+                    <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
+                     
                     </RadzenButton>
 
-                    <NavLink href="/vereine" class="btn btn-secondary">Zurück</NavLink>
+                    <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                        
+                    </RadzenButton>
                 </div>
             </EditForm>
         </div>
@@ -79,6 +104,7 @@
         }
     }
 
+
     private async Task LoadVerein()
     {
         IsLoading = true;
@@ -104,6 +130,12 @@
             //update
             await _VereineService.UpdateVerein(Verein);
         }
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
+       // _navigationManager.NavigateTo("vereine");
+    }
+
+    private void Zurueck_Click()
+    {
         _navigationManager.NavigateTo("vereine");
     }
-}
+  }

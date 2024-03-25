@@ -1,0 +1,67 @@
+﻿@page "/dialogcard/{spieltagId}"
+
+@using LigaManagement.Web.Services.Contracts
+
+@inject Radzen.DialogService dialogService
+
+@if (Spieltage != null)
+{
+    <RadzenStack Gap="1rem" Orientation="Orientation.Vertical" JustifyContent="JustifyContent.SpaceBetween" Style="height: 100%;">
+        <RadzenStack>
+            @* <RadzenRow>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-bspieltag-radius-1" Style="bspieltag: var(--rz-grid-cell-bspieltag)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Spiel</RadzenText>
+                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center">                        
+                        <RadzenStack Gap="0" Class="rz-text-truncate">
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Verein 1</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Spieltage[0].Verein1)</b></RadzenText>
+                            <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-4 rz-mb-0" Style="color: var(--rz-text-tertiary-color);">Verein 2</RadzenText>
+                            <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(Spieltage[0].Verein2)</b></RadzenText>
+                        </RadzenStack>
+                    </RadzenStack>
+                </RadzenColumn>
+                <RadzenColumn Size="12" SizeMD="6" Class="rz-p-4 rz-bspieltag-radius-1" Style="bspieltag: var(--rz-grid-cell-bspieltag)">
+                    <RadzenText TextStyle="TextStyle.Subtitle1">Delivery Information</RadzenText>
+                <RadzenStack Gap="0" Class="rz-text-truncate">
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Address</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(spieltag..ShipAddress), @(spieltag.ShipCity), @(spieltag.ShipCountry)</b></RadzenText>
+                <RadzenText TextStyle="TextStyle.Overline" Class="rz-mt-2 rz-my-0" Style="color: var(--rz-text-tertiary-color);">Ship name</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body1" Class="rz-text-truncate"><b>@(spieltag.ShipName)</b></RadzenText>
+                </RadzenStack>
+                </RadzenColumn>
+            </RadzenRow> *@
+          @*   <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.SpaceBetween" AlignItems="AlignItems.Center">
+                <RadzenText TextStyle="TextStyle.Subtitle1" Class="rz-m-0">spieltag @SpieltagsID Details</RadzenText 
+                <RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text=@($"{String.Format(new System.Globalization.CultureInfo("en-US"), "{0:C}", spieltag.Datum)}") />
+            </RadzenStack> 
+            <@* RadzenDataGrid AllowFiltering="true" AllowPaging="true" AllowSorting="true" FilterPopupRenderMode="PopupRenderMode.OnDemand" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+        Data="@(spieltagDetails.Where(o => o.SpieltagsID == SpieltagsID))" TItem="spieltagDetail" ColumnWidth="200px" Density="Density.Compact" AllowAlternatingRows="false">
+        <Columns>
+        <RadzenDataGridColumn TItem="spieltagDetail" Property="Quantity" Title="Quantity" />
+        <RadzenDataGridColumn TItem="spieltagDetail" Property="spieltag.spieltagDate" Title="spieltag Date" />
+        <RadzenDataGridColumn TItem="spieltagDetail" Property="Discount" Title="Discount" FormatString="{0:P}" />
+        </Columns>
+        </RadzenDataGrid> *@
+        </RadzenStack>
+        <RadzenStack Orientation="Orientation.Horizontal" JustifyContent="JustifyContent.End" Gap="0.5rem">
+            <RadzenButton Click="@((args) => dialogService.Close(true))" Variant="Variant.Flat" Text="Close" Style="width: 120px" />
+        </RadzenStack>
+    </RadzenStack>
+}
+
+@code {
+    [Parameter] public int SpieltagsID { get; set; }
+
+    [Inject]
+    public ISpieltagService SpieltagService { get; set; }
+
+    public List<Spieltag> Spieltage { get; set; }
+
+    Spieltag spieltag = new Spieltag();
+    
+    protected override async Task OnInitializedAsync()
+    {       
+        Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagId == SpieltagsID).ToList();
+       
+    }
+}

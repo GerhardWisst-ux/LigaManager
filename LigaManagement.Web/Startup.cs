@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.IO;
 using Radzen;
+using Radzen.Blazor.Rendering;
+using Radzen.Blazor;
 
 namespace LigaManagement.Web
 {
@@ -35,13 +37,10 @@ namespace LigaManagement.Web
                 .AddCookie();
 
             services.AddRazorPages();
-            //services.AddBlazorBootstrap(); // Add this line
-            services.AddScoped<ContextMenuService>();
+            //services.AddBlazorBootstrap(); // Add this line                        
+            
             services.AddServerSideBlazor();
-            services.AddScoped<DialogService>();
-            services.AddScoped<NotificationService>();
-            services.AddScoped<TooltipService>();
-            services.AddRadzenComponents();
+          
 
             services.AddAutoMapper(typeof(Startup));          
            
@@ -73,6 +72,13 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+
+            services.AddScoped<DialogService>();
+            services.AddScoped<NotificationService>();
+            services.AddScoped<TooltipService>();
+            services.AddScoped<ChartTooltip>();
+            services.AddScoped<RadzenChart>();
+            services.AddScoped<ContextMenuService>();                        
 
         }
 

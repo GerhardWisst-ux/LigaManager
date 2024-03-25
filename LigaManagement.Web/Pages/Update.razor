@@ -1,0 +1,139 @@
+﻿@page "/update"
+@using LigaManagerManagement.Web.Pages;
+@using System.Reflection;  
+@using System.Globalization
+@using Radzen;
+
+@attribute [Authorize]
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+    }
+
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+    .column {
+        float: left;
+        width: 100.0%;
+        margin-bottom: 16px;
+        padding: 0 8px;
+    }
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        margin: 8px;
+    }
+
+    .about-section {
+        padding: 50px;
+        text-align: center;
+        background-color: #474e5d;
+        color: white;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+        .container::after, .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+    .title {
+        color: grey;
+    }
+
+
+
+    .button:hover {
+        background-color: #555;
+    }
+
+    @@media screen and (max-width: 650px) {
+        .column {
+            width: 100%;
+            display: block;
+        }
+    }
+
+    .center-block {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+<div class="container">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <RadzenCard class="m-0">
+                <div class="d-flex flex-row">
+                    <div class="card-body">
+                        <h2 style="display:inline-block;">Update Ligamanager</h2>                      
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <p Text="Tabellen anlegen">
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <RadzenLabel class="form-control col-sm-2"  Component="txtVersion" Text="aktuelle Version:"></RadzenLabel>
+                        <RadzenText class="form-control col-sm-10" Text="@version" id="txtVersion"></RadzenText>
+                        <RadzenLabel class="form-control col-sm-2" Component="txtVersion" Text="verfügbare Version:"></RadzenLabel>
+                        <RadzenText class="form-control col-sm-10" Text="@version" id="txtVersion"></RadzenText>
+                        <br />
+                        <linkbutton title="Update" style="margin-left:2px;" id="btnUpdate" class="btn btn-primary">
+                            Update
+                        </linkbutton>
+                    </div>
+                </div>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    public string version;
+    
+
+    // public async void OnClickHandler()
+    // {
+    // }
+
+    protected override async Task OnInitializedAsync()
+    {
+        System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+         System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+         version = fvi.FileVersion;
+    }
+}
+
+
+

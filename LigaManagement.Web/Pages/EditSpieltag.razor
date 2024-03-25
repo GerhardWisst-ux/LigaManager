@@ -6,6 +6,7 @@
 @inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
 
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -35,8 +36,7 @@
                         <div class="content">
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein1">Verein1</RadzenLabel>
-                                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
-                                    @* <option selected Value="Spiel.Verein1_Nr"></option> *@
+                                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">                                    
                                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                     {
                                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -64,7 +64,7 @@
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore2">Tore 2</RadzenLabel>
                                 <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
                                 @* <RadzenNumeric  class="form-control col-sm-10" @bind-Value=@Spiel.Tore2_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />                           *@
-                                <ValidationMessage class="col-sm-10" For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
+                                <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" />
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein2</RadzenLabel>
@@ -124,10 +124,13 @@
                                 <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Schiedrichter</RadzenLabel>
                                 <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                             </div>
-                            <div class="form-group py-2">
-                                @* <button data-toggle="Speichert Spieltag ab" title="Speichert Spieltag ab" class="btn btn-primary">Speichern</button> *@
+                            <div class="form-group py-2">                                
                                 <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
                                     <span class="glyphicon glyphicon-save"></span>Speichern
+                                </RadzenButton>
+
+                                <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+
                                 </RadzenButton>
                             </div>
                         </div>
@@ -316,7 +319,13 @@
         }
         string url = "/spieltage/" + SpieltagNr;
 
-        _navigationManager.NavigateTo(url);
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
+        /* navigationManager.NavigateTo(url); */
+    }
+
+    private void Zurueck_Click()
+    {
+        _navigationManager.NavigateTo("/spieltage/" + SpieltagNr);
     }
 }
 

@@ -9,6 +9,8 @@
 		 <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 		 <Nullable>warnings</Nullable>
 		 <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		 <RepositoryType>git</RepositoryType>
+		 <AssemblyVersion>1.0.0.0</AssemblyVersion>
 		
 	
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
@@ -19,10 +21,6 @@
     <Compile Remove="Migrations\20231106123348_Identity.Designer.cs" />
     <Compile Remove="Migrations\20231118082923_Identity.cs" />
     <Compile Remove="Migrations\20231118082923_Identity.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Pages\EditLiga.razor" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,7 +38,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
     <PackageReference Include="Microsoft.OData.Client" Version="7.20.0" />
-    <PackageReference Include="Radzen.Blazor" Version="4.27.0" />
+    <PackageReference Include="Radzen.Blazor" Version="4.28.4" />
   </ItemGroup>
 
   <ItemGroup>
