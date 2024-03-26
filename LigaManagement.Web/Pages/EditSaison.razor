@@ -59,9 +59,7 @@
                         <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 pl-0">Liganame</label>
-                        @* <InputText required id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control col-9"></InputText>
-                        <ValidationMessage For="()=>Saison.Liganame"></ValidationMessage> *@
+                        <label class="col-sm-3 pl-0">Liganame</label>                       
                         <select id="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
                             <option value="@Convert.ToInt32(Globals.currentLiga)"> @Liganame </option>
                             @if (LigenList != null)
@@ -88,7 +86,6 @@
                         </RadzenColumn>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
-
                     <div class="form-group py-2">
                         <RadzenButton title="Speichert Saison ab" style="margin-left:5px;" id="btnSpeichern" Click="UpsertSaison" class="btn btn-primary" Text="Speichern">
                             <span class="glyphicon glyphicon-save"></span>Speichern

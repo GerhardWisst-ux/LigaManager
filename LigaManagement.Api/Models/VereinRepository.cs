@@ -29,22 +29,21 @@ namespace LigaManagerManagement.Api.Models
             return result.Entity;
         }
 
-        public Task<List<Verein>> AddVereineSaison(List<Verein> Vereine)
+        public Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> vereineSaison)
         {
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
             conn.Open();
 
-
-            for (int i = 0; i < Vereine.Count; i++)
+            for (int i = 0; i < vereineSaison.Count; i++)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT VereineSaison (VereinNr, SaisonID, LigaID)" +
                     " VALUES(@VereinNr,@SaisonID,@LigaID)";
 
-                cmd.Parameters.AddWithValue("@VereinNr", Vereine[i].VereinNr);
-                cmd.Parameters.AddWithValue("@SaisonID", 37);
-                cmd.Parameters.AddWithValue("@LigaID", 1);
+                cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);
+                cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
                 cmd.ExecuteNonQuery();
             }         
            

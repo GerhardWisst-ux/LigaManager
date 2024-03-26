@@ -14,6 +14,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task DeleteVerein(int id);
         Task<IEnumerable<VereinAktSaison>> GetVereineSaison();
 
-        Task<List<Verein>> CreateVereineSaison(List<Verein> vereine);
+        Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine);
     }
 }

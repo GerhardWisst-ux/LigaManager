@@ -37,7 +37,7 @@
                 </div>
             </RadzenCard>
         </div>
-    </div>
+    </div>   
 
     <RadzenTabs>
         <Tabs>
@@ -105,45 +105,14 @@
             </RadzenTabsItem>
             <RadzenTabsItem Text="Tabellen anlegen">
                 <div class="form-group row">
-                    <ul id="ul">
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Ligen class="form-control col-sm-12" Name="chkLigen"></RadzenCheckBox>Ligen</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@SaisonenList class="form-control col-sm-12" Name="chkSaisonen"></RadzenCheckBox>Saisonenn</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Verein class="form-control col-sm-12" Name="chkVereine"></RadzenCheckBox>Vereine</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@KaderList class="form-control col-sm-12" Name="chkKader"></RadzenCheckBox>Kader</li>
-                         </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@KaderList class="form-control col-sm-12" Name="chkKaderVerein"></RadzenCheckBox>Kader Verein</li>
-                        </div>                        
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Tore class="form-control col-sm-12" Name="chkTore"></RadzenCheckBox><input type="checkbox">Tore</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Spieltag class="form-control col-sm-12" Name="chkSpieltage"></RadzenCheckBox>Spieltage</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@VereinAktSaison class="form-control col-sm-12" Name="chkVereinAktSaison"></RadzenCheckBox>Vereine Saison</li>
-                        </div>
-                    </ul>
+                    <div class="col-sm-6">
+                        <linkbutton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" @onclick=GenerateDataBaseTables>
+                            Tabellen anlegen
+                        </linkbutton>
+                    </div>
                 </div>
-                <div class="form-group row">
-                <div class="col-sm-12">
-                    <RadzenButton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" Text="Tabellen anlegen" Click="@GenerateDataBaseTables">
-                    </RadzenButton>
-                </div>
-    <div class="col-sm-12">
-        <RadzenButton title="Datenbank anlegen" style="margin-left:2px;" id="btnGenerateDataBase" class="btn btn-primary" Text="Datenbank anlegen" Click="@GenerateDataBase">
-        </RadzenButton>
-    </div>
-            </div>
-       </RadzenTabsItem>
-    </Tabs>
+            </RadzenTabsItem>
+        </Tabs>
     </RadzenTabs>
     </div>
 

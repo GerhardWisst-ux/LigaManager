@@ -1,8 +1,5 @@
 ﻿@page "/createsaison2"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
-@inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
-@* @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService *@
-
 @inject DialogService DialogService
 @inject NavigationManager _navigationManager
 
@@ -71,6 +68,10 @@
                         }
                     </ul>
                 </div>
+                @* <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button> *@
+                @* <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button> *@
+                @* <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button> *@
+                @* <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button> *@
             </RadzenStepsItem>
             <RadzenStepsItem>
                 <RadzenRow>
@@ -144,11 +145,11 @@
         address = savedAddress;
         aboutMe = savedAboutMe;
 
-    }
+        if (args.SelectedIndex == 0 && Liganame == null)
 
     private async Task CanChange(StepsCanChangeEventArgs args)
     {
-        if (args.SelectedIndex == 0 && Liganame == null)
+        if (args.SelectedIndex == 0 && savedName == name && savedAddress == address)
         {
             return;
         }
@@ -166,14 +167,14 @@
         //             CloseDialogOnEsc = false,
         //             CloseDialogOnOverlayClick = false,
         //             ShowClose = false,
-        //             CancelButtonText = "No",
-        //             OkButtonText = "Yes",
-        //         });
-
         // if (response == false)
         // {
         //     args.PreventDefault();
         // }
+    }
+        {
+            args.PreventDefault();
+        }
     }
 
     private void SaveNameAndAdress()
@@ -185,10 +186,6 @@
     private void SaveAboutMe()
     {
         savedAboutMe = aboutMe;
-    }
-
-    private async void SaveSaison()
-    {
         Saison.LigaID = Convert.ToInt32(Globals.currentLiga);
 
         var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
@@ -208,10 +205,19 @@
         //     item.LigaID = Convert.ToInt32(Globals.currentLiga);
         //     lstVereineSaison.Add(item);
         // }
-
-        // await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
-
+    private async void SaveSaison()
+    private class Hobby
+    {
+        public Hobby(string hobbyName)
+        {
+            HobbyName = hobbyName;
+        }
+        public Hobby(string hobbyName)
         _navigationManager.NavigateTo("saisonen");
+            HobbyName = hobbyName;
+        }
+
+        public string HobbyName { get; set; }
 
     }
 

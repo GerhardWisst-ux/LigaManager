@@ -178,23 +178,7 @@ namespace LigaManagerManagement.Web.Pages
 
             StateHasChanged();
         }
-
-        public async void Zuordnen()
-        {
-
-            //for (int i = 0; i < VereineSaisonList.Count(); i++)
-            //{
-            //    Verein ver = new Verein();
-            //    ver.VereinNr = Convert.ToInt32(VereineSaisonList[i].VereinID);
-            //    ver.Vereinsname1 = VereineSaisonList[i].Vereinname1;
-
-            //    vereinesaison.Add(ver);
-            //}
-
-            var vereine = await VereineService.CreateVereineSaison(vereinesaison);
-
-            StateHasChanged();
-        }
+       
 
         public void LigaChange(ChangeEventArgs e)
         {

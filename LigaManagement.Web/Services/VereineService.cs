@@ -25,11 +25,12 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PostJsonAsync<Verein>("api/vereine", newVerein);
         }
 
-        public async Task<List<Verein>> CreateVereineSaison(List<Verein> vereine)
+        
+        public async Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine)
         {
             try
             {
-                return await httpClient.PostJsonAsync<List<Verein>>("api/vereinesaison", vereine);
+                return await httpClient.PostJsonAsync<List<VereineSaison>>("api/vereinesaison", vereine);
             }
             catch (Exception ex)
             {

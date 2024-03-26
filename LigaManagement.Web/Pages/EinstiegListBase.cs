@@ -26,6 +26,8 @@ namespace LigaManagement.Web.Pages
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
+        public IEnumerable<RegexOptions> regexOptions = (RegexOptions[])Enum.GetValues(typeof(RegexOptions));
+        public IEnumerable<RegexOptions> selectedOptions = new List<RegexOptions>() { RegexOptions.IgnoreCase };
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -515,6 +517,8 @@ namespace LigaManagement.Web.Pages
             }
         }
     }
+
+
 }
 
 

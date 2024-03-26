@@ -78,16 +78,16 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Verein>> CreateVereineSaison(List<Verein> Vereine)
+        public async Task<ActionResult<VereineSaison>> CreateVereineSaison(List<VereineSaison> VereineSaison)
         {
             try
             {
-                if (Vereine == null)
+                if (VereineSaison == null)
                 {
                     return BadRequest();
                 }
 
-                var createdVereine = await VereinRepository.AddVereineSaison(Vereine);
+                var createdVereine = await VereinRepository.AddVereineSaison(VereineSaison);
 
                 return CreatedAtAction(nameof(GetVerein), new { id = 87777 },
                     createdVereine);
