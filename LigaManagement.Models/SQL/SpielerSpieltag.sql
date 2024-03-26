@@ -1,4 +1,4 @@
-﻿USE [LigaDB]
+﻿USE [LigaManager]
 --IF OBJECT_ID(N'dbo.SpielerSpieltag', N'U') IS NULL
 
 CREATE TABLE [dbo].SpielerSpieltag(

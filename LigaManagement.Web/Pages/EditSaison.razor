@@ -5,6 +5,7 @@
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
 @using Radzen;
 
 <head>
@@ -42,13 +43,13 @@
 <div class="row my-2">
     <div class="col-10">
         <EditForm Model="Saison" OnValidSubmit="UpsertSaison">
-            <div class="form-group">
-                <div style="width:100%" class="card">
+            <RadzenCard class="m-0 mb-3">
+                <div class="d-flex flex-row">
                     <div class="card-body">
-                        <h2>@Titel</h2>
+                        <h2 class="card-title">@Titel</h2>                        
                     </div>
                 </div>
-            </div>
+            </RadzenCard>
             <div class="tabs">
                 <details open name="tab">
                     <summary class="tab"> Grunddaten</summary>
@@ -74,19 +75,28 @@
                         <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 pl-0">Aktuell</label>
-                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAktiv" />
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Aktuell</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAktuell" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
                         <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 pl-0">Abgeschlossen</label>
-                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
 
                     <div class="form-group py-2">
-                        <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                        <NavLink href="/saisonen" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                        <RadzenButton title="Speichert Saison ab" style="margin-left:5px;" id="btnSpeichern" Click="UpsertSaison" class="btn btn-primary" Text="Speichern">
+                            <span class="glyphicon glyphicon-save"></span>Speichern
+                        </RadzenButton>
+                        
+                        <RadzenButton title="Zurück zu Saisonenübersicht" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+
+                        </RadzenButton>
                     </div>
                 </details>
             </div>
@@ -117,25 +127,9 @@
             </details>
         </div>
 
-        <input type="button" id="btnModalPopup" value="Show Modal Popup" />
-        <div id="modal_dialog" style="display: none">
-            Nun kann mit dem Erfassen der Saisondaten(Ergebnisse, Kader etc.) begonnen werden.
-        </div>
+        
 
-
-        <script type="text/javascript">
-            $("#btnModalPopup").on("click", function () {
-                $("#modal_dialog").dialog({
-                    title: "Saison angelegt",
-                    buttons: {
-                        Close: function () {
-                            $(this).dialog('close');
-                        }
-                    },
-                    modal: true
-                });
-            });
-        </script>
+        
     </div>
 </div>
 
@@ -146,7 +140,7 @@
     public IEnumerable<Saison> SaisonenMax { get; set; }
     protected override void OnParametersSet()
     {
-        if (Id == 0)
+        if (Id == "0")
         {
             //Neuanlage
             Titel = "Saison Neuanlage";
@@ -163,10 +157,10 @@
     {
         if (firstRender)
         {
-            if (Id == 0 )
+            if (Id == "0" )
             {
                 //Neuanlage
-                Id = 0;
+                Id = "0";
                 IsLoading = false;
             }
             else
@@ -187,7 +181,7 @@
     }
     private async Task UpsertSaison()
     {
-        if (Id == 0)
+        if (Id == "0")
         {
             Saison.LigaID = Convert.ToInt32(Globals.currentLiga);
             Saison.Liganame = Liganame;
@@ -199,6 +193,12 @@
             //update
             await _SaisonenService.UpdateSaison(Saison);
         }
-        _navigationManager.NavigateTo("saisonen");
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Saison", Detail = "Abgespeichert" });
+        // _navigationManager.NavigateTo("saisonen");
+    }
+
+    private void Zurueck_Click()
+    {
+        _navigationManager.NavigateTo("/saisonen");
     }
 }

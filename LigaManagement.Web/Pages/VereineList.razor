@@ -13,50 +13,16 @@
 
 <style type="text/css">
 
-    .TableElement {
-        border: 0px solid #fff;
-        background-color: transparent;
-    }
+ 
 
-    .table td, .table th {
-        padding: 0.04rem !important;
-        vertical-align: top;
-        border-top: 0px solid #dee2e6;
-    }
-
-    h4 {
-        display: flex;
-        flex-direction: row;
-        width: 96%;
-        height: 0.5px;
-    }
-
-        h4:after {
-            content: "";
-            flex: 1 1;
-            border-bottom: 1px solid #000;
-            padding: 0px;
-            margin: -5.5px;
-        }
-
-    table {
-        border-collapse: collapse;
-    }
-
-        table.sectioned tbody {
-            border: 1px solid darkgray;
-            border-collapse: separate;
-            border-spacing: 4px;
-        }
-
-        .table {
-    width: 100% !important;
-}
-
-.rz-datatable td
+/* .rz-datatable tr
 {
-    padding: 100px;
-}
+    min-height: 20%;
+    word-break: break-word;
+    
+} */
+
+
 </style>
 
 @if (VereineList == null)
@@ -82,43 +48,33 @@ else
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
-
-                 <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
-                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
-                    </RadzenCard>
-              
-            <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                        AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
+                 <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="20"
+                        AllowPaging="true" AllowSorting="true" Responsive=true AllowFiltering="true"
                         TItem="Verein" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" SelectionMode="DataGridSelectionMode.Single" CellRender="OnCellRender">
+                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
             <Columns>
-                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
-                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="30%" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="20%" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="50%" TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" >
+                     <span style="white-space: pre"></span>
+                </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="100px" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <NavLink href="@($"editverein/{data.VereinNr}")" class="btn-primary btn"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                    </Template>
+                </RadzenDataGridColumn>              
                 <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>
                     <FooterTemplate>
-                        Saisonen: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
                     </FooterTemplate>
                 </RadzenDataGridColumn Context="data" >
-
-                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Width="100px" Filterable="false" Sortable=false Property="ID">
-                    <Template Context="data">
-                        <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn-primary btn"></NavLink>
-                    </Template>
-                </RadzenDataGridColumn>
             </Columns>
-           
         </RadzenDataGrid>
-        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
-            <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
-            </RadzenColumn>
-        </RadzenRow>
             </div>
-        </div>       
+        </div>
     </div>
    
 

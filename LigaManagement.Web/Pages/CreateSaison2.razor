@@ -1,23 +1,27 @@
 ﻿@page "/createsaison2"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
+@inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
+@* @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService *@
+
 @inject DialogService DialogService
+@inject NavigationManager _navigationManager
 
 <EditForm Model="Saison">
     <RadzenSteps Change="@OnChange" CanChange="@CanChange">
         <Steps>
-            <RadzenStepsItem>               
+            <RadzenStepsItem>
                 <RadzenRow>
                     <RadzenText Text="Grunddaten" />
                 </RadzenRow>
-                <div class="form-group">                    
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
+                <div class="form-group">
+                    <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
                     <RadzenTextBox required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
                     <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
                 </div>
                 <div class="form-group">
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="cboLiga">Liganame</RadzenLabel>                   
+                    <RadzenLabel Text="Liganame" class="col-sm-3 pl-0" Component="cboLiga">Liganame</RadzenLabel>
                     <select id="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
-                        <option value="@Convert.ToInt32(Globals.currentLiga)"> @Liganame </option>
+                        <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option>
                         @if (LigenList != null)
                         {
                             @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
@@ -29,28 +33,28 @@
                     <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                 </div>
                 <div class="form-group">
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Aktuell</RadzenLabel>
-                    <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;" class="form-control" Name="chkAktiv" />
+                    <RadzenLabel Text="Aktuell" class="col-sm-3 pl-0" Component="chkAktiv">Aktuell</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;width:40px;max-width:40px;" class="form-control col-sm-1" Name="chkAktiv" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                    </RadzenColumn>
                     <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
                 </div>
+
                 <div class="form-group">
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
-                    <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px;" class="form-control"  Name="chkAbgeschlossen" />
+                    <RadzenLabel Text="Abgeschlossen" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                    </RadzenColumn>
                     <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                 </div>
-
-               @*  <div class="form-group py-2">
-                    <button class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                    <NavLink href="/saisonen" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
-                </div> *@
             </RadzenStepsItem>
-            <RadzenStepsItem>               
+            <RadzenStepsItem>
                 <RadzenRow>
                     <RadzenText Text="Vereine zuordnen" />
                 </RadzenRow>
                 <div class="form-group">
                     <ul class="ul">
-                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                        @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
                         {
                             string Id = @verein.VereinID;
                             <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
@@ -67,26 +71,58 @@
                         }
                     </ul>
                 </div>
-                @* <button onclick="Zuordnen" id="btnModalPopup" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Vereine zuordnen</button> *@
             </RadzenStepsItem>
             <RadzenStepsItem>
                 <RadzenRow>
                     <RadzenText Text="Zusammenfassung" />
                 </RadzenRow>
-                @*  <RadzenDataGrid TItem="Hobby"
-                Data="@AuthorList"
-                @bind-Value="@selectedHobbies"
-                SelectionMode="DataGridSelectionMode.Multiple"
-                AllowRowSelectOnRowClick="true">
-                <Columns>
-                <RadzenDataGridColumn TItem="Hobby" Context="hobby">
-                <Template>
-                <RadzenCheckBox Value="selectedHobbies.Contains(hobby)" TValue="bool" />
-                </Template>
-                </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Hobby" Title="Hobby" Property="@nameof(Hobby.HobbyName)" />
-                </Columns>
-                </RadzenDataGrid> *@
+                <RadzenRow>
+                    <RadzenText Text="Saison" />
+                </RadzenRow>
+                <div class="form-group">
+                    <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
+                    <RadzenTextBox required id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
+                    <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
+                </div>
+                <div class="form-group">
+                    <RadzenLabel Text="Liganame" class="col-sm-3 pl-0" Component="cboLiga">Liganame</RadzenLabel>
+                    <select id="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
+                        <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option>
+                        @if (LigenList != null)
+                        {
+                            @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
+                            {
+                                <option value="@liga.LigaID"> @liga.Liganame </option>
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <RadzenLabel Text="Aktuell" class="col-sm-3 pl-0" Component="chkAktiv">Aktuell</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;width:40px;max-width:40px;" class="form-control col-sm-1" Name="chkAktiv" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                    </RadzenColumn>
+                    <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
+                </div>
+
+                <div class="form-group">
+                    <RadzenLabel Text="Abgeschlossen" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                    </RadzenColumn>
+                    <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
+                </div>
+                <RadzenRow>
+                    <RadzenText Text="Vereine" />
+                </RadzenRow>
+                <div class="form-group">
+                    <ul class="ul">
+                        @foreach (var verein in vereinesaison.OrderBy(x => x.Vereinsname1))
+                        {
+                            <li><span>@verein.Vereinsname1</span></li>
+                        }
+                    </ul>
+                </div>
                 <RadzenButton Text="Speichern" Click="@SaveSaison" />
             </RadzenStepsItem>
         </Steps>
@@ -102,29 +138,17 @@
     private string aboutMe;
     private string savedAboutMe;
 
-    //     List<string> AuthorList = new List<string>();
-
-    //     // Add items using Add method
-    //     AuthorList.Add("Mahesh Chand");
-    // AuthorList.Add("Praveen Kumar");
-    // AuthorList.Add("Raj Kumar");
-    // AuthorList.Add("Nipun Tomar");
-    // AuthorList.Add("Dinesh Beniwal");
-
-    private IList<Hobby> selectedHobbies = new List<Hobby>();
-    private List<Hobby> savedHobbies = new List<Hobby>();
-
     private void OnChange()
     {
         name = savedName;
         address = savedAddress;
         aboutMe = savedAboutMe;
-        selectedHobbies = savedHobbies;
+
     }
 
     private async Task CanChange(StepsCanChangeEventArgs args)
     {
-        if (args.SelectedIndex == 0 && savedName == name && savedAddress == address)
+        if (args.SelectedIndex == 0 && Liganame == null)
         {
             return;
         }
@@ -134,27 +158,22 @@
             return;
         }
 
-        if (args.SelectedIndex == 2 && savedHobbies.SequenceEqual(selectedHobbies))
-        {
-            return;
-        }
+        // var response = await DialogService.Confirm(
+        //     "Are you sure you want to contine without saving?",
+        //     "Confirm",
+        //     new ConfirmOptions()
+        //         {
+        //             CloseDialogOnEsc = false,
+        //             CloseDialogOnOverlayClick = false,
+        //             ShowClose = false,
+        //             CancelButtonText = "No",
+        //             OkButtonText = "Yes",
+        //         });
 
-        var response = await DialogService.Confirm(
-            "Are you sure you want to contine without saving?",
-            "Confirm",
-            new ConfirmOptions()
-                {
-                    CloseDialogOnEsc = false,
-                    CloseDialogOnOverlayClick = false,
-                    ShowClose = false,
-                    CancelButtonText = "No",
-                    OkButtonText = "Yes",
-                });
-
-        if (response == false)
-        {
-            args.PreventDefault();
-        }
+        // if (response == false)
+        // {
+        //     args.PreventDefault();
+        // }
     }
 
     private void SaveNameAndAdress()
@@ -168,29 +187,33 @@
         savedAboutMe = aboutMe;
     }
 
-    private void SaveSaison()
+    private async void SaveSaison()
     {
-        savedHobbies = selectedHobbies.ToList();
+        Saison.LigaID = Convert.ToInt32(Globals.currentLiga);
+
+        var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+        Saison.Liganame = liga.Liganame;
+
+        var SaisonenServiceCreated = await _SaisonenService.CreateSaison(Saison);
+
+        // List<VereineSaison> lstVereineSaison = new List<VereineSaison>();
+
+        // for (int i = 0; i < vereinesaison.Count - 1; i++)
+        // {
+        //     VereineSaison item = new VereineSaison();
+
+        //     item.Id = i + 1;
+        //     item.VereinNr = vereinesaison[i].VereinNr;
+        //     item.SaisonID = 66; // SaisonenServiceCreated.SaisonID;
+        //     item.LigaID = Convert.ToInt32(Globals.currentLiga);
+        //     lstVereineSaison.Add(item);
+        // }
+
+        // await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
+
+        _navigationManager.NavigateTo("saisonen");
+
     }
 
-    private class Hobby
-    {
-        public Hobby(string hobbyName)
-        {
-            HobbyName = hobbyName;
-        }
-
-        public string HobbyName { get; set; }
-
-        public override bool Equals(object obj)
-        {
-            return obj is Hobby hobby && hobby.HobbyName == HobbyName;
-        }
-
-        public override int GetHashCode()
-        {
-            return HobbyName.GetHashCode();
-        }
-    }
 }
 

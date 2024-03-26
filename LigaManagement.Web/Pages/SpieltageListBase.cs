@@ -1,9 +1,8 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
@@ -19,6 +18,9 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class SpieltagListBase : ComponentBase
     {
+        public RadzenDataGrid<Spieltag> spieltageGrid;
+        public IList<Spieltag> orders;
+                
         public string Liganame;
         public string curentsaison;
         public Density Density = Density.Default;
@@ -59,13 +61,13 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IVereineService VereineService { get; set; }
 
-
         [Inject]
         public ILigaService LigaService { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -330,7 +332,7 @@ namespace LigaManagerManagement.Web.Pages
 
             //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
-
+              
 
         public async Task SaisonChange(ChangeEventArgs e)
         {
@@ -372,9 +374,7 @@ namespace LigaManagerManagement.Web.Pages
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
                 StateHasChanged();
-
             }
-        }
-      
+        }      
     }
 }

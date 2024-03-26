@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
@@ -102,7 +101,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
-               
+
             }
         }
         public void OnSaisonChange(object value)
@@ -372,22 +371,112 @@ namespace LigaManagement.Web.Pages
             Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
             bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-            
+
             int iAktSpieltag;
             if (bAbgeschlossen)
             {
                 iAktSpieltag = Globals.maxSpieltag;
                 Globals.Spieltag = iAktSpieltag;
-            }                
+            }
             else
             {
                 iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
                 Globals.Spieltag = iAktSpieltag;
-            }              
-            
+            }
+
             Globals.bVisibleNavMenuElements = true;
             NavigationManager.NavigateTo($"spieltage/{iAktSpieltag}", true);
         }
+
+        public void CreateDatabaseIfNotExists(string connectionString, string dbName)
+        {
+            SqlCommand cmd = null;
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (cmd = new SqlCommand($"If(db_id(N'{dbName}') IS NULL) CREATE DATABASE [{dbName}]", connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+        public void GenerateDataBase()
+        {
+            String str;
+            SqlConnection myConn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Integrated security=SSPI;database=master;TrustServerCertificate=true;");
+
+            str = "CREATE DATABASE LIGAMANAGER ON PRIMARY " +
+             "(NAME = LIGAMANAGER, " +
+             "FILENAME = 'C:\\TEMP\\LIGAMANAGER.mdf', " +
+             "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%)" +
+             "LOG ON (NAME = LIGAMANAGER_Log, " +
+             "FILENAME = 'C:\\TEMP\\LIGAMANAGER.ldf', " +
+             "SIZE = 1MB, " +
+             "MAXSIZE = 5MB, " +
+             "FILEGROWTH = 10%)";
+
+            SqlCommand myCommand = new SqlCommand(str, myConn);
+            try
+            {
+                myConn.Open();
+
+                if (!File.Exists("C:\\TEMP\\LIGAMANAGER.mdf"))
+                    myCommand.ExecuteNonQuery();
+
+                string script = string.Empty;
+
+                for (int i = 2; i <= 4; i++)
+                {
+                    if (i == 1)
+                        //script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
+                    else if (i == 2)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
+                    else if (i == 3)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
+                    else if (i == 4)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
+
+                    // split script on GO command
+                    IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+
+                    using (SqlConnection conn = new SqlConnection(myConn.ConnectionString))
+                    {
+                        conn.Open();
+                        foreach (string commandString in commandStrings)
+                        {
+                            if (!string.IsNullOrWhiteSpace(commandString.Trim()))
+                            {
+                                using (var command = new SqlCommand(commandString, conn))
+                                {
+                                    int j = command.ExecuteNonQuery();
+
+                                }
+                            }
+
+                        }
+                    }
+                }
+            }
+
+
+
+            catch (System.Exception ex)
+            {
+
+            }
+            finally
+            {
+                if (myConn.State == ConnectionState.Open)
+                {
+                    myConn.Close();
+                }
+            }
+        }
+
+
+
+
 
         public void GenerateDataBaseTables()
         {
@@ -427,3 +516,6 @@ namespace LigaManagement.Web.Pages
         }
     }
 }
+
+
+

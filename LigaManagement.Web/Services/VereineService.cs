@@ -4,6 +4,7 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -26,7 +27,16 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<List<Verein>> CreateVereineSaison(List<Verein> vereine)
         {
-            return await httpClient.PostJsonAsync<List<Verein>>("api/vereinesaison", vereine);
+            try
+            {
+                return await httpClient.PostJsonAsync<List<Verein>>("api/vereinesaison", vereine);
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+                return null;
+            }
         }
 
         public Task DeleteVerein(int id)

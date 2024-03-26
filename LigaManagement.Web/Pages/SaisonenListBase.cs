@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,7 +20,9 @@ namespace LigaManagerManagement.Web.Pages
         public string Liganame = "Bundesliga";
         public bool value = true;
         public Density Density = Density.Default;
-        public int Id { get; set; }
+
+        [Parameter]
+        public string Id { get; set; }
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
@@ -48,7 +49,7 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<Saison> grid;
         IList<Tuple<Saison, RadzenDataGridColumn<Saison>>> selectedCellData = new List<Tuple<Saison, RadzenDataGridColumn<Saison>>>();
 
-        List<Verein> vereinesaison = new List<Verein>();
+        public List<Verein> vereinesaison = new List<Verein>();
 
         string type = "Click";
         bool multiple = true;
@@ -62,7 +63,7 @@ namespace LigaManagerManagement.Web.Pages
 
             Vereine = (await VereineService.GetVereine()).ToList();
 
-            var VereineSaison = (await VereineService.GetVereineSaison()).Where(x => x.SaisonID == Id).ToList();
+            var VereineSaison = (await VereineService.GetVereineSaison()).Where(x => x.SaisonID == Convert.ToInt32(Id)).ToList();
 
             for (int i = 0; i < Vereine.Count(); i++)
             {
@@ -173,10 +174,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 if (vereinesaison.Contains(Verein))
                     vereinesaison.Remove(Verein);
-            }
-
-            if (vereinesaison.Count() == 5)
-                Zuordnen();
+            }          
 
             StateHasChanged();
         }

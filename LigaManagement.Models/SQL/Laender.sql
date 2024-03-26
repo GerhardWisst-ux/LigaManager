@@ -1,4 +1,4 @@
-﻿USE [LigaDB]
+﻿USE [LigaManager]
 GO
 /****** Object:  Table [dbo].[Laender]    Script Date: 12.02.2024 17:33:55 ******/
 SET ANSI_NULLS ON
