@@ -18,6 +18,8 @@ CREATE TABLE [dbo].[StadionVerein](
 	[DatumBis] Datetime,
 ) 
 GO
+SET IDENTITY_INSERT [dbo].[VereineSaison] ON;
+GO
 INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1, 30, 63, 1)
 GO
 INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (2, 44, 63, 1)

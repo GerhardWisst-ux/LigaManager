@@ -16,6 +16,8 @@ CREATE TABLE [dbo].[Vereine](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+SET IDENTITY_INSERT [dbo].[Vereine] ON; 
+GO
 INSERT [dbo].[Vereine] ([Id], [VereinNr], [Vereinsname1], [Vereinsname2], [Stadion], [Fassungsvermoegen], [Erfolge], [Gegruendet]) VALUES (2, 1, N'Bayern München', N'Bayern München', N'ALLIANZ-AERNA', N'66000', N'', 1900)
 GO
 INSERT [dbo].[Vereine] ([Id], [VereinNr], [Vereinsname1], [Vereinsname2], [Stadion], [Fassungsvermoegen], [Erfolge], [Gegruendet]) VALUES (59, 2, N'Borussia Dortmund', N'Borussia Dortmund', N'Signal Iduna Park', N'80000', N'', 1900)

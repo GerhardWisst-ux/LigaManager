@@ -1,44 +1,45 @@
 ﻿USE [LigaManager]
 --IF OBJECT_ID(N'dbo.Spieler', N'U') IS NULL
 
-CREATE TABLE [dbo].Kader(
+CREATE TABLE [dbo].[Kader](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[SpielerName] [nvarchar](100) NOT NULL,
 	[Vorname] [nvarchar](100) NOT NULL,
 	[Geburtstag] [date] NOT NULL,
-	[Position] [nvarchar](50) NOT NULL,
-	[PositionsNr] [int]  NOT NULL,
-	[Groesse] [decimal],
-	[Gewicht] [decimal],
-	[Laenderspiele] [int],	
-	[LaenderspieleTore] [int],	
-	[VereinNr] [int] NOT NULL,	
-	[LandID] [nvarchar](100),
-	[SaisonID] [int],	
-	[LigaID] [int],	
-	[Rueckennummer] [int],
-	[Position] [nvarchar](50) NOT NULL,
-	[Einsaetze] [int]  NOT NULL,
-	[Spielminuten] [int],
-	[Tore] [int],
-	[Abloesesumme] [decimal],
-	[Image] [image],
-	[ImVereinSeit] [date],
-	[Aktiv] [bit],
-) 
+	[Groesse] [decimal](18, 0) NULL,
+	[Gewicht] [decimal](18, 0) NULL,
+	[Laenderspiele] [int] NULL,
+	[LaenderspieleTore] [int] NULL,
+	[VereinNr] [int] NOT NULL,
+	[LandID] [nvarchar](100) NULL,
+	[SaisonID] [int] NULL,
+	[LigaID] [int] NULL,
+	[Rueckennummer] [int] NULL,
+	[Einsaetze] [int] NOT NULL,
+	[Spielminuten] [int] NULL,
+	[Tore] [int] NULL,
+	[Abloesesumme] [decimal](18, 0) NULL,
+	[Image] [image] NULL,
+	[ImVereinSeit] [date] NULL,
+	[Aktiv] [bit] NULL,
+	[Position] [nchar](50) NULL,
+	[PositionsNr] [int] NULL
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-
---IF OBJECT_ID(N'dbo.SpielerVerein', N'U') IS NULL
-CREATE TABLE [dbo].KaderVerein(
+/****** Object:  Table [dbo].[KaderVerein]    Script Date: 26.03.2024 15:02:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[KaderVerein](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[SpielerID] [int] NOT NULL,	
-	[VereinNr] [int] NOT NULL,	
-	[DateVon] [date],
-	[DateBis] [date],
-) 
+	[SpielerID] [int] NOT NULL,
+	[VereinNr] [int] NOT NULL,
+	[DateVon] [date] NULL,
+	[DateBis] [date] NULL
+) ON [PRIMARY]
 GO
-
-SET IDENTITY_INSERT [dbo].Kader ON 
+SET IDENTITY_INSERT [dbo].[Kader] ON 
 GO
 INSERT [dbo].[Kader] ([Id], [SpielerName], [Vorname], [Geburtstag], [Groesse], [Gewicht], [Laenderspiele], [LaenderspieleTore], [VereinNr], [LandID], [SaisonID], [LigaID], [Rueckennummer], [Einsaetze], [Spielminuten], [Tore], [Abloesesumme], [Image], [ImVereinSeit], [Aktiv], [Position], [PositionsNr]) VALUES (53, N'Goosens', N'Robin', CAST(N'1994-07-05' AS Date), NULL, NULL, NULL, NULL, 4, N'57', 1, 1, 6, 19, 300, 5, NULL, NULL, CAST(N'2023-07-01' AS Date), 1, NULL, 1)
 GO
@@ -285,6 +286,5 @@ GO
 INSERT [dbo].[Kader] ([Id], [SpielerName], [Vorname], [Geburtstag], [Groesse], [Gewicht], [Laenderspiele], [LaenderspieleTore], [VereinNr], [LandID], [SaisonID], [LigaID], [Rueckennummer], [Einsaetze], [Spielminuten], [Tore], [Abloesesumme], [Image], [ImVereinSeit], [Aktiv], [Position], [PositionsNr]) VALUES (129, N'Siersleben', N'Tim', CAST(N'2000-03-09' AS Date), NULL, NULL, NULL, NULL, 18, N'57', 1, 1, 4, 13, 300, 0, NULL, NULL, CAST(N'2021-07-01' AS Date), 1, N'Abwehr                                            ', 2)
 GO
 INSERT [dbo].[Kader] ([Id], [SpielerName], [Vorname], [Geburtstag], [Groesse], [Gewicht], [Laenderspiele], [LaenderspieleTore], [VereinNr], [LandID], [SaisonID], [LigaID], [Rueckennummer], [Einsaetze], [Spielminuten], [Tore], [Abloesesumme], [Image], [ImVereinSeit], [Aktiv], [Position], [PositionsNr]) VALUES (130, N'Traoré', N'Omar Haktab', CAST(N'1998-02-04' AS Date), NULL, NULL, NULL, NULL, 18, N'57', 1, 1, 23, 21, 300, 0, NULL, NULL, CAST(N'2023-07-01' AS Date), 1, N'Abwehr                                            ', 2)
-GO
-SET IDENTITY_INSERT [dbo].[Spieler] OFF
+
 GO

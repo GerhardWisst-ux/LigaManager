@@ -19,3 +19,4 @@ CREATE TABLE [dbo].SpielerSpieltag(
 	[Sortierung] [nchar](50) NULL,
 ) 
 GO
+SET IDENTITY_INSERT [dbo].[SpielerSpieltag] ON 

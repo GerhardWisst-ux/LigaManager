@@ -14,3 +14,4 @@ CREATE TABLE [dbo].Spieler(
 	[Image] [image] NOT NULL,
 ) 
 GO
+SET IDENTITY_INSERT [dbo].[Spieler] ON 

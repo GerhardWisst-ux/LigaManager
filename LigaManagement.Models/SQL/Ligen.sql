@@ -14,6 +14,9 @@ CREATE TABLE [dbo].[Ligen](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
+
+SET IDENTITY_INSERT [dbo].[Ligen] ON;  
+
 INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (1, N'Bundesliga', N'DFB', CAST(N'1963-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')
 GO
 INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (2, N'2. Bundesliga', N'DFB', CAST(N'1991-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')

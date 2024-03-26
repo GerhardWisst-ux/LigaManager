@@ -36,6 +36,8 @@ namespace LigaManagement.Web.Pages
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
 
+        NotificationService NotificationService;
+
         public List<DisplaySaison> SaisonenList;
 
         public List<DisplayLiga> LigenList;
@@ -426,16 +428,26 @@ namespace LigaManagement.Web.Pages
 
                 string script = string.Empty;
 
-                for (int i = 1; i <= 4; i++)
+                for (int i = 1; i <= 10; i++)
                 {
-                    if (i == 1)
+                    if (i == 109)
                         script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
                     else if (i == 2)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Saisonen.sql");                    
                     else if (i == 3)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Ligen.sql");                    
                     else if (i == 4)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");                    
+                    else if (i == 5)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Vereine.sql");
+                    else if (i == 6)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
+                    else if (i == 7)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieltage.sql");
+                    else if (i == 8)
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
+                    else if (i == 9)    
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Kader.sql");
 
                     // split script on GO command
                     IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
@@ -456,14 +468,14 @@ namespace LigaManagement.Web.Pages
 
                         }
                     }
+                    //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Anlage Datenbank und Erzeugen Tabellen", Detail = "Angelegt" });
                 }
+
+
             }
-
-
-
             catch (System.Exception ex)
             {
-
+                Debug.Print(ex.Message);
             }
             finally
             {
@@ -473,8 +485,6 @@ namespace LigaManagement.Web.Pages
                 }
             }
         }
-
-
 
 
 
