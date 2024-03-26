@@ -87,10 +87,12 @@ namespace LigaManagement.Api.Controllers
                     return BadRequest();
                 }
 
-                var createdVereine = await VereinRepository.AddVereineSaison(VereineSaison);
+                //ToDo 26.03.24
+                //var createdVereine = await VereinRepository.AddVereineSaison();
 
-                return CreatedAtAction(nameof(GetVerein), new { id = 87777 },
-                    createdVereine);
+                //return CreatedAtAction(nameof(GetVerein), new { id = 87777 },
+                //    createdVereine);
+                return null;
             }
             catch (Exception ex)
             {

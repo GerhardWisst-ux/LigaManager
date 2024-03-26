@@ -26,8 +26,6 @@ namespace LigaManagement.Web.Pages
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
-        public IEnumerable<RegexOptions> regexOptions = (RegexOptions[])Enum.GetValues(typeof(RegexOptions));
-        public IEnumerable<RegexOptions> selectedOptions = new List<RegexOptions>() { RegexOptions.IgnoreCase };
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -428,10 +426,10 @@ namespace LigaManagement.Web.Pages
 
                 string script = string.Empty;
 
-                for (int i = 2; i <= 4; i++)
+                for (int i = 1; i <= 4; i++)
                 {
                     if (i == 1)
-                        //script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
+                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
                     else if (i == 2)
                         script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
                     else if (i == 3)
@@ -517,8 +515,6 @@ namespace LigaManagement.Web.Pages
             }
         }
     }
-
-
 }
 
 

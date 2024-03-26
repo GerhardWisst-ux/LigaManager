@@ -40,6 +40,11 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
+        public Task<List<Verein>> CreateVereineSaison(List<Verein> vereine)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task DeleteVerein(int id)
         {
             throw new NotImplementedException();
