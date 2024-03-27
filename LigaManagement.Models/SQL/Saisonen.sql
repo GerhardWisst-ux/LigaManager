@@ -80,8 +80,6 @@ INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuel
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (31, N'1993/94', 1, N'Bundesliga', 1, 1)
 GO
-INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (32, N'1992/93', 1, N'Bundesliga', 1, 1)
-GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (33, N'1991/92', 1, N'Bundesliga', 1, 1)
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (35, N'1963/64', 1, N'Bundesliga', 1, 1)
@@ -145,3 +143,4 @@ GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (67, N'1991/92', 1, N'Bundesliga', 1, 1)
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (68, N'1992/93', 1, N'Bundesliga', 1, 1)
+GO

@@ -16,7 +16,7 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class StatistikenListBase : ComponentBase
     {
-        public  bool allowVirtualization;
+        public bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
         public int selectedIndex = 0;
 
@@ -52,7 +52,7 @@ namespace LigaManagerManagement.Web.Pages
         public Spielergebnisse Spiel { get; set; } = new Spielergebnisse();
 
         public IEnumerable<Verein> Vereine { get; set; }
-                
+
         [Parameter]
         public string SpieltagNr { get; set; }
 
@@ -71,20 +71,34 @@ namespace LigaManagerManagement.Web.Pages
                 //Spielergebnisse = null;
 
                 StateHasChanged();
-            }            
+            }
         }
         protected async override Task OnInitializedAsync()
         {
+            List<Spieltag> spiele2;
             var authenticationState = await authenticationStateTask;
 
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
                 string returnUrl = WebUtility.UrlEncode($"/statistiken");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-            }                        
+            }
 
             var spiele = await SpieltagService.GetSpieltage();
-            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
+
+            if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+            {
+                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
+            }
+            else if (Globals.currentSaison == "1991/92")
+            {
+                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
+            }
+            else
+            {
+                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
+            }            
+
 
             Vereine = (await VereineService.GetVereine()).ToList();
             VereineList = new List<DisplayVerein>();
@@ -125,7 +139,7 @@ namespace LigaManagerManagement.Web.Pages
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein1_Nr);
                 Spiel.Verein1 = VereineList[index].Vereinname1;
 
-                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);               
+                Spielergebnisse = await TabelleService.VereinGegenVerein(SpieltagService, Spiel);
                 StateHasChanged();
             }
         }
@@ -135,7 +149,7 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 if (e.Value.ToString() == "Verein auswählen")
-                    return;                
+                    return;
 
                 Spiel.Verein2_Nr = e.Value.ToString();
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein2_Nr);
@@ -152,7 +166,7 @@ namespace LigaManagerManagement.Web.Pages
                 DisplayElements = "block";
                 StateHasChanged();
             }
-        }       
+        }
 
         public async void EinzelVereinChange(ChangeEventArgs e)
         {

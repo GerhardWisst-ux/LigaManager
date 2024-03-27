@@ -57,7 +57,7 @@ namespace LigaManagerManagement.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            SaisonenList = (await SaisonenService.GetSaisonen()).ToList();
+            SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
 
             VereineList = new List<DisplayVerein>();
 
