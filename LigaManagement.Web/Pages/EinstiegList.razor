@@ -22,7 +22,7 @@
     #ul {
         list-style-type: none;
         /*  margin: 0;
-                padding: 0; */
+                        padding: 0; */
     }
 </style>
 
@@ -39,6 +39,7 @@
         </div>
     </div>
 
+    <RadzenCard Style="height:70%;" class="m-0">
     <RadzenTabs>
         <Tabs>
             <RadzenTabsItem Text="Auswahl">
@@ -82,7 +83,7 @@
             <RadzenTabsItem Text="Import">
                 <div class="form-group row">
                     <div class="col-sm-12 ml-0">
-                        <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
+                        <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>                        
                     </div>
                 </div>
                 <div class="form-group row">
@@ -99,53 +100,39 @@
                             <RadzenButton title="Saison importieren" id="btnImportCSV" class="btn btn-primary" Text="Saison importieren" Click="@OnClickHandlerImport">
                             </RadzenButton>
                         </div>
-
                     </div>
                 </div>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Tabellen anlegen">
                 <div class="form-group row">
-                    <ul id="ul">
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Ligen class="form-control col-sm-12" Name="chkLigen"></RadzenCheckBox>Ligen</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@SaisonenList class="form-control col-sm-12" Name="chkSaisonen"></RadzenCheckBox>Saisonenn</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Verein class="form-control col-sm-12" Name="chkVereine"></RadzenCheckBox>Vereine</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@KaderList class="form-control col-sm-12" Name="chkKader"></RadzenCheckBox>Kader</li>
-                         </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@KaderList class="form-control col-sm-12" Name="chkKaderVerein"></RadzenCheckBox>Kader Verein</li>
-                        </div>                        
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Tore class="form-control col-sm-12" Name="chkTore"></RadzenCheckBox><input type="checkbox">Tore</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@Spieltag class="form-control col-sm-12" Name="chkSpieltage"></RadzenCheckBox>Spieltage</li>
-                        </div>
-                        <div class="col-sm-12">
-                            <li><RadzenCheckBox Style="border-width:0px;width:40px;" TValue=@VereinAktSaison class="form-control col-sm-12" Name="chkVereinAktSaison"></RadzenCheckBox>Vereine Saison</li>
-                        </div>
-                    </ul>
+                    <div class="col-sm-12">
+                        <RadzenLabel Style="font-weight:bold;">Tabellen auswählen</RadzenLabel>
+                        <RadzenCheckBoxList Orientation="Orientation.Vertical" @bind-Value=@values Change="@(args => ValidateItems(args))" TValue="int">
+                            <Items>
+                                <RadzenCheckBoxListItem Disabled Text="Ligen" Value="1" />
+                                <RadzenCheckBoxListItem Disabled Text="Saisonen" Value="2" />
+                                <RadzenCheckBoxListItem Disabled Text="Vereine" Value="3" />
+                                <RadzenCheckBoxListItem Disabled Text="Vereine Saison" Value="4" />
+                                <RadzenCheckBoxListItem Disabled Text="Spieltage" Value="5" />
+                                <RadzenCheckBoxListItem id="chkKader" Text="Kader" Value="6" />                                
+                                <RadzenCheckBoxListItem id="Spieler" Text="Spieler" Value="7" />
+                                <RadzenCheckBoxListItem id="SpielerSpieltag" Text="Spieler Spieltag" Value="8" />
+                                <RadzenCheckBoxListItem id="chkTore" Text="Tore" Value="9" />                                
+                            </Items>                          
+                        </RadzenCheckBoxList>
+                    </div>
                 </div>
                 <div class="form-group row">
-                <div class="col-sm-12">
-                    <RadzenButton title="Tabellen anlegen" style="margin-left:2px;" id="btnGenerateDataBaseTables" class="btn btn-primary" Text="Tabellen anlegen" Click="@GenerateDataBaseTables">
-                    </RadzenButton>
+                    <div class="col-sm-12">
+                        <RadzenButton title="Datenbank mit ausgewählten Tabellen anlegen" id="btnGenerateDataBase" class="btn btn-primary" Text="Datenbank anlegen" Click="@GenerateDataBase">
+                        </RadzenButton>
+                    </div>
                 </div>
-    <div class="col-sm-12">
-        <RadzenButton title="Datenbank anlegen" style="margin-left:2px;" id="btnGenerateDataBase" class="btn btn-primary" Text="Datenbank anlegen" Click="@GenerateDataBase">
-        </RadzenButton>
-    </div>
-            </div>
-       </RadzenTabsItem>
-    </Tabs>
+            </RadzenTabsItem>
+        </Tabs>
     </RadzenTabs>
-    </div>
+    </RadzenCard>
+</div>
 
 <script>
     $(document).ready(function () {

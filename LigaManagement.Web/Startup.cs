@@ -1,33 +1,26 @@
 using AutoMapper;
-using LigaManagement.Web.Models;
-using LigaManagement.Web.Services;
 using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.IO;
 using Radzen;
-using Radzen.Blazor.Rendering;
 using Radzen.Blazor;
+using Radzen.Blazor.Rendering;
+using System;
 
 namespace LigaManagement.Web
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+        }        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940

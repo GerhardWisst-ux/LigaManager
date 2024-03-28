@@ -82,26 +82,38 @@ else
                 </RadzenCard>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-sm-2 mt-1 ml-0">
-                <select id="cboSaison" style="display:inline;width:170px; height:38px;" class="form-control dropdown" @onchange="SaisonChange">
-                    <option value="" selected>@curentsaison</option>
-                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                    {
-                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                    }
-                </select>
+        <RadzenCard style="margin-bottom:4px;">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <RadzenCard class="m-0">                        
+                        <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                            <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
+                            @foreach (var spieltag in SpieltagList)
+                            {
+                                <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                            }
+                        </select>
+                        <span class="ml-3">
+                            @if (VisibleBtnNew)
+                            {
+                                <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
+
+                                @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        </a> *@
+                            }
+                            else
+                            {
+                                <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
+                                @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        </a> *@
+                            }
+                        </span>
+                    </RadzenCard>
+                </div>
             </div>
-            <div class="col-sm-2 mt-1 ml-1">
-                <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
-                    <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
-                    @foreach (var spieltag in SpieltagList)
-                    {
-                        <option value="@spieltag.Nummer"> @spieltag.Name</option>
-                    }
-                </select>
-            </div>
-        </div>
+        </RadzenCard>
         <div class="form-group row">
             <div class="col-sm-12">
                 <RadzenCard style="flex:1;margin-right:0px;">

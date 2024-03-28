@@ -31,12 +31,6 @@ namespace LigaManagerManagement.Web.Pages
 
         public Verein Vereine { get; set; } = new Verein();
 
-        public void RowRender(RowRenderEventArgs<Verein> args)
-        {
-            
-                args.Attributes.Add("class", "cleared");   // css apply strike through
-            
-        }
         protected override async Task OnInitializedAsync()
         {
             VereineList = (await VereineService.GetVereine()).ToList();

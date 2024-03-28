@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Radzen;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -26,6 +27,8 @@ namespace LigaManagement.Web.Pages
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
+        public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5};
+        public List<int> TabellenList;
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -96,6 +99,12 @@ namespace LigaManagement.Web.Pages
             DisplayErrorSaison = "none";
         }
 
+        public void ValidateItems(IEnumerable args)
+        {
+            TabellenList = (List<int>)args;
+                                
+            
+        }
         public void SaisonChange(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -405,54 +414,56 @@ namespace LigaManagement.Web.Pages
         }
         public void GenerateDataBase()
         {
-            String str;
+            String connstr;
             SqlConnection myConn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Integrated security=SSPI;database=master;TrustServerCertificate=true;");
+            string SQLScript = string.Empty;
+            string path = "C:\\TEMP\\Ligamanager";
 
-            str = "CREATE DATABASE LIGAMANAGER ON PRIMARY " +
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
+
+            connstr = "CREATE DATABASE LIGAMANAGER ON PRIMARY " +
              "(NAME = LIGAMANAGER, " +
-             "FILENAME = 'C:\\TEMP\\LIGAMANAGER.mdf', " +
+             "FILENAME = '" + path + "\\LIGAMANAGER.mdf', " +
              "SIZE = 2MB, MAXSIZE = 10MB, FILEGROWTH = 10%)" +
              "LOG ON (NAME = LIGAMANAGER_Log, " +
-             "FILENAME = 'C:\\TEMP\\LIGAMANAGER.ldf', " +
+             "FILENAME = '" + path + "\\LIGAMANAGER.ldf', " +
              "SIZE = 1MB, " +
              "MAXSIZE = 5MB, " +
              "FILEGROWTH = 10%)";
 
-            SqlCommand myCommand = new SqlCommand(str, myConn);
+            SqlCommand myCommand = new SqlCommand(connstr, myConn);
+
             try
             {
                 myConn.Open();
 
-                if (!File.Exists("C:\\TEMP\\LIGAMANAGER.mdf"))
-                    myCommand.ExecuteNonQuery();
-
-                string script = string.Empty;
-
-                for (int i = 1; i <= 10; i++)
-                {
-                    if (i == 109)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
+                if (!File.Exists(path + "\\LIGAMANAGER.mdf"))
+                    myCommand.ExecuteNonQuery();               
+                              
+                for (int i = 1; i <= 9; i++)
+                {                   
+                    if (i == 1)
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Ligen.sql");                    
                     else if (i == 2)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Saisonen.sql");                    
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Saisonen.sql");
                     else if (i == 3)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Ligen.sql");                    
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Vereine.sql");
                     else if (i == 4)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");                    
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
                     else if (i == 5)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Vereine.sql");
-                    else if (i == 6)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
-                    else if (i == 7)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieltage.sql");
-                    else if (i == 8)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
-                    else if (i == 9)    
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Kader.sql");
-                    else if (i == 10)
-                        script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Tore.sql");
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieltage.sql");
+                    else if (i == 6 && TabellenList.Contains(6))
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Kader.sql");
+                    else if (i == 7 && TabellenList.Contains(7))
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
+                    else if (i == 8 && TabellenList.Contains(8))
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
+                    else if (i == 9 && TabellenList.Contains(9))
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Tore.sql");
 
                     // split script on GO command
-                    IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
+                    IEnumerable<string> commandStrings = Regex.Split(SQLScript, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
 
                     using (SqlConnection conn = new SqlConnection(myConn.ConnectionString))
                     {
@@ -464,10 +475,8 @@ namespace LigaManagement.Web.Pages
                                 using (var command = new SqlCommand(commandString, conn))
                                 {
                                     int j = command.ExecuteNonQuery();
-
                                 }
                             }
-
                         }
                     }
                     //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Anlage Datenbank und Erzeugen Tabellen", Detail = "Angelegt" });
@@ -487,8 +496,6 @@ namespace LigaManagement.Web.Pages
                 }
             }
         }
-
-
 
         public void GenerateDataBaseTables()
         {

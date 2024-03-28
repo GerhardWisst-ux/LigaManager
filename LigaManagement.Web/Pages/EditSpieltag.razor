@@ -62,9 +62,9 @@
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore2">Tore 2</RadzenLabel>
-                                <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
-                                @* <RadzenNumeric  class="form-control col-sm-10" @bind-Value=@Spiel.Tore2_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" />                           *@
-                                <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" />
+                                <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>                                
+                                @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
+                                <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein2</RadzenLabel>
@@ -89,6 +89,7 @@
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="txtDatum">Datum</RadzenLabel>
                                 <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
+                                @* <RadzenDatePicker class="form-control col-sm-2" @bind-Value=@Spiel.Datum Name="RadzenDatePickerBindValue" ShowCalendarWeek /> *@
                                 <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
                                 <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
                             </div>
@@ -114,10 +115,7 @@
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Schiedrichter" class="col-sm-2" Component="txtSchiedrichter">Schiedrichter</RadzenLabel>
-                                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
-
-                                @*  <RadzenText required id="txtSchiedrichter" class="form-control col-sm-10" @bind-Value="Spiel.Schiedrichter"></RadzenText> *@
-
+                                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>                                
                                 <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
                             </div>
                             <div class="form-group row">
@@ -182,7 +180,6 @@
                                     }
                                 </select>
                                 <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
-
                                 <div class="form-group-row py-2">
                                     <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
                                     <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
