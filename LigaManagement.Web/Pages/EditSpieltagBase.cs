@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LigaManagement.Api.Migrations;
 using LigaManagement.Models;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
@@ -17,10 +18,11 @@ namespace LigamanagerManagement.Web.Pages
 {
     public class EditSpieltagBase : ComponentBase
     {
+        public bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
 
         public string Vereinsname1;
-                
+
         public string Vereinsname2;
 
         public string Stadion;
@@ -34,6 +36,9 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
+
+        [Inject]
+        public IToreService ToreService { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
@@ -51,6 +56,8 @@ namespace LigamanagerManagement.Web.Pages
         public List<DisplaySpieler> KaderList2 = new List<DisplaySpieler>();
         public List<DisplaySpieler> SpielerList1 = new List<DisplaySpieler>();
         public List<DisplaySpieler> SpielerList2 = new List<DisplaySpieler>();
+
+        public List<DisplayTore> ToreList = new List<DisplayTore>();
 
         public string PageHeaderText { get; set; }
 
@@ -79,7 +86,6 @@ namespace LigamanagerManagement.Web.Pages
 
 
         public bool Collapsed = true;
-
 
         protected async override Task OnInitializedAsync()
         {
@@ -126,7 +132,7 @@ namespace LigamanagerManagement.Web.Pages
                 }
             }
             else
-            {              
+            {
                 var vereineSaison = await VereineService.GetVereineSaison();
 
                 List<VereinAktSaison> verList = vereineSaison.ToList();
@@ -164,7 +170,18 @@ namespace LigamanagerManagement.Web.Pages
 
             Spiel.Saison = Globals.currentSaison;
             Spiel.SaisonID = Globals.SaisonID;
-            Spiel.SpieltagNr = SpieltagNr;          
+            Spiel.SpieltagNr = SpieltagNr;
+
+            var tore = await ToreService.GetTore();
+
+            List<Tore> torlist = tore.ToList();
+
+            for (int i = 0; i < torlist.Count(); i++)
+            {
+                var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
+                if (Spiel.SpieltagId == torlist[i].SpieltagsID)
+                    ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute, torlist[i].SpieltagsID));
+            }
 
         }
         protected async override void OnAfterRender(bool firstRender)
@@ -195,7 +212,7 @@ namespace LigamanagerManagement.Web.Pages
             if (e.Value != null)
             {
                 var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
-                Spiel.Verein1 = verein.Vereinsname1;                
+                Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = e.Value.ToString();
             }
             StateHasChanged();
@@ -271,6 +288,25 @@ namespace LigamanagerManagement.Web.Pages
             public int SpielerID { get; set; }
             public string Spielername { get; set; }
         }
+
+        public class DisplayTore
+        {
+            public DisplayTore(int spielerid, string spieler, string spielstand, int spielminute, int spieltagId)
+            {
+                Spieler = spieler;
+                Spielstand = spielstand;
+                Spielerid = spielerid;
+                Spielminute = spielminute;
+                SpieltagId = spieltagId;
+            }
+            public int Spielerid { get; set; }
+            public int Spielminute { get; set; }
+            public string Spieler { get; set; }
+            public string Spielstand { get; set; }
+
+            public int SpieltagId { get; set; }
+        }
+
 
         protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
 

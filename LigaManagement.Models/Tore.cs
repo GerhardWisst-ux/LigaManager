@@ -15,17 +15,24 @@ namespace LigaManagement.Models
         [Required]
         public string Saison { get; set; }
 
+        [Required]
         public int? SaisonID { get; set; }
 
+        [Required]
         public int? LigaID { get; set; }
 
-        public int? TorVerein1 { get; set; }
-        public int? TorVerein2 { get; set; }
+        [Required]
+        public int Spielminute { get; set; }
 
-        public int? Spielminute { get; set; }
+        [Required]
+        public int SpielerID { get; set; }
 
-        public int? SpielerID { get; set; }
-        
+        [Required]
+        public int SpieltagsID { get; set; }
+
+        [Required]
+        public string Spielstand { get; set; }
+
 
 
     }

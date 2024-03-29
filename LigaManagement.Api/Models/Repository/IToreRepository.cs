@@ -10,6 +10,6 @@ namespace ToremanagerManagement.Api.Models.Repository
         Task<Tore> GetTor(int ToreId);
         Task<Tore> AddTore(Tore ToreId);
         Task<Tore> UpdateTore(Tore ToreId);
-        Task<Tore> DeleteTore(int ToreIdId);
+        Task<Tore> DeleteTor(int ToreIdId);
     }
 }

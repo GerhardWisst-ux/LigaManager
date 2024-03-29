@@ -119,7 +119,7 @@
                                 <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
                             </div>
                             <div class="form-group row">
-                                <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Schiedrichter</RadzenLabel>
+                                <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Zuschauer</RadzenLabel>
                                 <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                             </div>
                             <div class="form-group py-2">                                
@@ -187,7 +187,35 @@
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Tore">                        
+                    <RadzenTabsItem Text="Tore">                          
+                        @* <select id="cbo" class="form-control col-sm-4">                            
+                            @foreach (var tor in ToreList.OrderBy(x => x.Spielstand))
+                            {
+                                <option selected value="@tor.Spieler"> @tor.Spieler @tor.Spielstand @tor.Spielminute .Minute</option>
+                            }
+                        </select> *@
+                        <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
+                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                        Data="@ToreList" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                            <Template Context="Tor">
+                                <RadzenCard Style="width:100%; padding:0;">
+                                    <RadzenRow Gap="0">
+                                        <RadzenColumn Size="4" SizeXS="4">
+                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
+                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
+                                        </RadzenColumn>
+                                        <RadzenColumn Size="1" SizeXS="1">
+                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
+                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
+                                        </RadzenColumn>
+                                        <RadzenColumn Size="1" SizeXS="1">
+                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
+                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
+                                        </RadzenColumn>                                       
+                                    </RadzenRow>
+                                </RadzenCard>
+                            </Template>
+                        </RadzenDataList>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Spielverlauf">
                     </RadzenTabsItem>

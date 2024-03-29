@@ -21,6 +21,7 @@ namespace LigamanagerManagement.Web.Pages
         public Int32 currentspieltag;
         public string saison;
         public string Liganame;
+        public int TabArt;
 
         public RadzenDataGrid<Tabelle> grid;
         IList<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>> selectedCellData = new List<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>>();
@@ -213,7 +214,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (TabArt == 5)
                     Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen,Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Rückrunde);
                 else if (TabArt == 6)
-                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, false, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
                 DisplayElements = "block";
                 StateHasChanged();

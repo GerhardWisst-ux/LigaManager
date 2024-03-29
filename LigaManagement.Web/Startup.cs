@@ -10,6 +10,7 @@ using Radzen;
 using Radzen.Blazor;
 using Radzen.Blazor.Rendering;
 using System;
+using ToreManagerManagement.Web.Services;
 
 namespace LigaManagement.Web
 {
@@ -62,6 +63,10 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
             services.AddHttpClient<ISpielerSpieltagService, SpielerSpieltagService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+            services.AddHttpClient<IToreService, ToreService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });

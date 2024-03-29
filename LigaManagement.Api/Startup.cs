@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ToremanagerManagement.Api.Models.Repository;
+using ToreManagerManagement.Api.Models;
 
 namespace LigaManagement.Api
 {
@@ -31,6 +33,7 @@ namespace LigaManagement.Api
             services.AddScoped<ISaisonRepository, SaisonRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();
+            services.AddScoped<IToreRepository, ToreRepository>();            
             services.AddScoped<ISpielerSpieltagRepository, SpielerSpieltagRepository>();
 
             services.AddControllers();
