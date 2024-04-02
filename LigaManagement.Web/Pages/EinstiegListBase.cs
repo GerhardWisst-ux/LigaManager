@@ -111,7 +111,7 @@ namespace LigaManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
-
+                
 
             }
         }
@@ -194,7 +194,7 @@ namespace LigaManagement.Web.Pages
             DataTable importedData = new DataTable();
             //sFilename = "C:\\Users\\gwiss\\source\\repos\\Ligamanager\\Data\\2023.csv";
 
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1998.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1997.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -260,9 +260,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltage (Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltage(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID) " +
                                                           "VALUES (@Saison,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr, @Tore2_Nr,@Ort,@Datum, @Abgeschlossen,@SaisonID,@LigaID)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "1998/99"); /*String.Concat(sFilename.Substring(0, 4), "/", (Convert.ToInt32(sFilename.Substring(0, 4)) + 1).ToString())); ;*/
+                        cmd.Parameters.AddWithValue("@Saison", "1997/98"); /*String.Concat(sFilename.Substring(0, 4), "/", (Convert.ToInt32(sFilename.Substring(0, 4)) + 1).ToString())); ;*/
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -286,7 +286,9 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Tore1_Nr", Convert.ToInt32(importRow["FTHG"]));
                         cmd.Parameters.AddWithValue("@Tore2_Nr", Convert.ToInt32(importRow["FTAG"]));
                         cmd.Parameters.AddWithValue("@Ort", sStadion);
-                        cmd.Parameters.AddWithValue("@SaisonID", 98);
+                        //cmd.Parameters.AddWithValue("@Zuschauer", Convert.ToInt32(importRow["Attendance"].ToString()));
+                        //cmd.Parameters.AddWithValue("@Schiedrichter", importRow["Referee"].ToString());
+                        cmd.Parameters.AddWithValue("@SaisonID", 25);
                         cmd.Parameters.AddWithValue("@LigaID", 1);
 
 

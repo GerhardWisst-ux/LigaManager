@@ -1,7 +1,7 @@
 ﻿@page "/createsaison2"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
-@* @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService *@
+@inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService
 
 @inject DialogService DialogService
 @inject NavigationManager _navigationManager
@@ -194,7 +194,7 @@
         var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
         Saison.Liganame = liga.Liganame;
 
-        // var SaisonenServiceCreated = await _SaisonenService.CreateSaison(Saison);
+        var SaisonenServiceCreated = await _SaisonenService.CreateSaison(Saison);
 
         List<VereineSaison> lstVereineSaison = new List<VereineSaison>();
 
@@ -204,12 +204,12 @@
 
             item.Id = i + 1;
             item.VereinNr = vereinesaison[i].VereinNr;
-            item.SaisonID = 66; // SaisonenServiceCreated.SaisonID;
+            item.SaisonID = Saison.SaisonID; // SaisonenServiceCreated.SaisonID;
             item.LigaID = Convert.ToInt32(Globals.currentLiga);
             lstVereineSaison.Add(item);
         }
 
-        //await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
+        await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
 
         _navigationManager.NavigateTo("saisonen");
 

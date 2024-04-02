@@ -30,9 +30,7 @@ namespace LigaManagement.Web
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
 
-            services.AddRazorPages();
-            //services.AddBlazorBootstrap(); // Add this line                        
-            
+            services.AddRazorPages();                       
             services.AddServerSideBlazor();
           
 
@@ -70,11 +68,15 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+            services.AddHttpClient<IVereineSaisonService, VereineSaisonService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
 
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
-            services.AddScoped<ChartTooltip>();
+            services.AddScoped<ChartTooltip>();           
             services.AddScoped<RadzenChart>();
             services.AddScoped<ContextMenuService>();                        
 

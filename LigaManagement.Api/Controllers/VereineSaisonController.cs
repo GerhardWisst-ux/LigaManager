@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
@@ -13,19 +12,19 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class VereineSaisonController : ControllerBase
     {
-        private readonly IVereinRepository VereinRepository;
+        private readonly IVereineSaisonRepository VereineSaisonRepository;
 
-        public VereineSaisonController(IVereinRepository VereinRepository)
+        public VereineSaisonController(IVereineSaisonRepository VereineSaisonRepository)
         {
-            this.VereinRepository = VereinRepository;
-        }        
+            this.VereineSaisonRepository = VereineSaisonRepository;
+        }
 
         [HttpGet]
-        public async Task<ActionResult> GetVereineSaison()
+        public async Task<ActionResult> GetVereine()
         {
             try
             {
-                return Ok(await VereinRepository.GetVereineSaison());
+                return Ok(await VereineSaisonRepository.GetVereineSaison());
             }
             catch (Exception ex)
             {
@@ -34,114 +33,25 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpGet("{Id:int}")]
-        public async Task<ActionResult<Verein>> GetVerein(int Id)
-        {
-            try
-            {
-                var result = await VereinRepository.GetVerein(Id);
-
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
-                return result;
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    ex.Message);
-            }
-        }
-
         [HttpPost]
-        public async Task<ActionResult<Verein>> CreateVerein(Verein Verein)
+        public async Task<ActionResult<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereineSaison)
         {
             try
             {
-                if (Verein == null)
+                if (vereineSaison == null)
                 {
                     return BadRequest();
                 }
-               
-                var createdVerein = await VereinRepository.AddVerein(Verein);
+                               
+                var createdVereine = await VereineSaisonRepository.AddVereineSaison(vereineSaison);
 
-                return CreatedAtAction(nameof(GetVerein), new { id = createdVerein.Id },
-                    createdVerein);
+                return CreatedAtAction(nameof(CreateVereineSaison), new { id = 87777 },
+                   createdVereine);               
             }
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     ex.Message);
-            }
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<VereineSaison>> CreateVereineSaison(List<VereineSaison> VereineSaison)
-        {
-            try
-            {
-                if (VereineSaison == null)
-                {
-                    return BadRequest();
-                }
-
-                //ToDo 26.03.24
-                //var createdVereine = await VereinRepository.AddVereineSaison();
-
-                //return CreatedAtAction(nameof(GetVerein), new { id = 87777 },
-                //    createdVereine);
-                return null;
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    ex.Message);
-            }
-        }
-
-        [HttpPut()]
-        public async Task<ActionResult<Verein>> UpdateVerein(Verein Verein)
-        {
-            try
-            {
-                var VereinToUpdate = await VereinRepository.GetVerein(Verein.Id);
-
-                if (VereinToUpdate == null)
-                {
-                    return NotFound($"Verein mit der Id = {VereinToUpdate.Id} nicht gefunden");
-                }
-                
-                return await VereinRepository.UpdateVerein(Verein);
-            }
-            catch (Exception ex)
-            {
-                Debug.Print(ex.StackTrace);
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Update der Daten:" + ex.Message);
-            }
-        }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Verein>> DeleteVerein(int Id)
-        {
-            try
-            {
-                var VereinToDelete = await VereinRepository.GetVerein(Id);
-
-                if (VereinToDelete == null)
-                {
-                    return NotFound($"Verein mit der Id = {Id} nicht gefunden");
-                }
-
-                return await VereinRepository.DeleteVerein(Id);
-            }
-            catch (Exception ex)
-            {
-                Debug.Print(ex.StackTrace);
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Löschen der Daten:" + ex.Message);
             }
         }
     }

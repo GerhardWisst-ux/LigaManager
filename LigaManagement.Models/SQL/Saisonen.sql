@@ -11,13 +11,11 @@ CREATE TABLE [dbo].[Saisonen](
  CONSTRAINT [PK_Saisonen] PRIMARY KEY CLUSTERED 
 (
 	[SaisonID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON,  OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-
 GO
--- SET IDENTITY_INSERT to ON.  
-SET IDENTITY_INSERT [dbo].[Saisonen] ON;   
-
+SET IDENTITY_INSERT [dbo].[Saisonen] ON 
+GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (1, N'2023/24', 1, N'Bundesliga', 1, 0)
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (2, N'2022/23', 1, N'Bundesliga', 1, 1)
@@ -80,8 +78,6 @@ INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuel
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (31, N'1993/94', 1, N'Bundesliga', 1, 1)
 GO
-INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (33, N'1991/92', 1, N'Bundesliga', 1, 1)
-GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (35, N'1963/64', 1, N'Bundesliga', 1, 1)
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (36, N'1964/65', 1, N'Bundesliga', 1, 1)
@@ -143,4 +139,6 @@ GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (67, N'1991/92', 1, N'Bundesliga', 1, 1)
 GO
 INSERT [dbo].[Saisonen] ([SaisonID], [Saisonname], [LigaID], [Liganame], [Aktuell], [Abgeschlossen]) VALUES (68, N'1992/93', 1, N'Bundesliga', 1, 1)
+GO
+SET IDENTITY_INSERT [dbo].[Saisonen] OFF
 GO

@@ -90,7 +90,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 Vereine = await VereineService.GetVereine();
 
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.currentLiga)).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
                 for (int i = 0; i < Spieltage.Count(); i++)

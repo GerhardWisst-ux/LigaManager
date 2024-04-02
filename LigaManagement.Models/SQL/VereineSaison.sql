@@ -484,6 +484,148 @@ INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (75
 GO
 INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (751, 44, 51, 1)
 GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1547, 1, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1548, 2, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1549, 7, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1550, 10, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1551, 11, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1552, 13, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1553, 16, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1554, 19, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1555, 23, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1556, 24, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1557, 25, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1558, 26, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1559, 29, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1560, 30, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1561, 31, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1562, 44, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1563, 49, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1564, 50, 37, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1565, 1, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1566, 2, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1567, 6, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1568, 7, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1569, 10, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1570, 11, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1571, 13, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1572, 14, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1573, 16, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1574, 19, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1575, 24, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1576, 25, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1577, 26, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1578, 27, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1579, 29, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1580, 40, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1581, 43, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1582, 44, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1583, 47, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1584, 57, 33, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1585, 11, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1586, 13, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1587, 16, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1588, 19, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1589, 2, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1590, 20, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1591, 24, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1592, 25, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1593, 26, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1594, 29, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1595, 30, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1596, 31, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1597, 39, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1598, 44, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1599, 51, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1600, 7, 35, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1601, 1, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1602, 10, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1603, 11, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1604, 12, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1605, 13, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1606, 14, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1607, 15, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1608, 16, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1609, 17, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1610, 18, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1611, 19, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1612, 2, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1613, 20, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1614, 21, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1615, 22, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1616, 23, 0, 1)
+GO
+INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (1617, 24, 0, 1)
+GO
 INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (752, 1, 52, 1)
 GO
 INSERT [dbo].[VereineSaison] ([Id], [VereinNr], [SaisonID], [LigaID]) VALUES (753, 2, 52, 1)

@@ -35,6 +35,7 @@ namespace LigaManagement.Api
             services.AddScoped<IKaderRepository, KaderRepository>();
             services.AddScoped<IToreRepository, ToreRepository>();            
             services.AddScoped<ISpielerSpieltagRepository, SpielerSpieltagRepository>();
+            services.AddScoped<IVereineSaisonRepository, VereineSaisonRepository>();
 
             services.AddControllers();
         }

@@ -80,6 +80,9 @@ namespace LigaManagerManagement.Web.Services
             int paarung = 1;
             int VonSpieltag = 1;
 
+            DateTime dtGrenze_2_3 = DateTime.Parse("01/07/1995");
+
+
             try
             {
                 if (bAbgeschlossen)
@@ -134,7 +137,7 @@ namespace LigaManagerManagement.Web.Services
 
                                 int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                                if (item.SaisonID > 28)
+                                if (item.Datum < dtGrenze_2_3.Date)
                                     tabelleneintrag1.Punkte = 2;
                                 else
                                     tabelleneintrag1.Punkte = 3;
@@ -218,7 +221,7 @@ namespace LigaManagerManagement.Web.Services
 
                                 int.TryParse(item.Saison.Substring(0, 4), out Saison);
 
-                                if (item.SaisonID > 28)
+                                if (item.Datum < dtGrenze_2_3.Date)
                                     tabelleneintrag2.Punkte = 2;
                                 else
                                     tabelleneintrag2.Punkte = 3;
@@ -278,7 +281,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintrag1.Untentschieden = tabelleneintragF.Untentschieden;
                                     tabelleneintrag1.Verloren = tabelleneintragF.Verloren;
 
-                                    if (item.SaisonID > 28)
+                                    if (item.Datum < dtGrenze_2_3.Date)
                                         tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 2;
                                     else
                                         tabelleneintrag1.Punkte = tabelleneintragF.Punkte + 3;
@@ -353,7 +356,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintrag2.Untentschieden = tabelleneintragF2.Untentschieden;
                                     tabelleneintrag2.Verloren = tabelleneintragF2.Verloren;
 
-                                    if (item.SaisonID > 28)
+                                    if (item.Datum < dtGrenze_2_3.Date)
                                         tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 2;
                                     else
                                         tabelleneintrag2.Punkte = tabelleneintragF2.Punkte + 3;

@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using LigaManagement.Api.Migrations;
 using LigaManagement.Models;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -42,6 +42,12 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public IVereineService VereineService { get; set; }
+
+        [Inject]
+        public IVereineSaisonService VereineSaisonService { get; set; }
+
+        [Inject]
+        public ISaisonenService SaisonenService { get; set; }
 
         [Inject]
         public ISpielerSpieltagService SpielerSpieltagService { get; set; }
@@ -102,46 +108,15 @@ namespace LigamanagerManagement.Web.Pages
 
             var spiele = await SpieltagService.GetSpieltage();
 
-            if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+            var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
+                        
+            var vereineSaison = await VereineSaisonService.GetVereineSaison();
+            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == saison.SaisonID).ToList();
+
+            for (int i = 0; i < verList.Count(); i++)
             {
-                var vereineSaison = await VereineService.GetVereineSaison();
-
-                List<VereinAktSaison> verList = vereineSaison.ToList();
-
-
-                for (int i = 0; i < verList.Count(); i++)
-                {
-                    if (verList[i].SaisonID == Globals.SaisonID)
-                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
-                }
-
-                //spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
-            }
-            else if (Globals.currentSaison == "1991/92")
-            {
-                spiele2 = spiele.OrderBy(y => y.SpieltagNr).Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
-
-                Vereine = (await VereineService.GetVereine()).ToList().Where(x => x.Gegruendet == Globals.SaisonID);
-                VereineList = new List<DisplayVerein>();
-
-                int iAnzahl = spiele2.Count() * 2;
-                for (int i = 0; i < spiele2.Count(); i++)
-                {
-                    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1, spiele2[i].Ort));
-                    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2, spiele2[i].Ort));
-                }
-            }
-            else
-            {
-                var vereineSaison = await VereineService.GetVereineSaison();
-
-                List<VereinAktSaison> verList = vereineSaison.ToList();
-
-                for (int i = 0; i < verList.Count(); i++)
-                {
-                    if (verList[i].SaisonID == Globals.SaisonID)
-                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
-                }
+                var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
             }
 
             List<Kader> SpielerSpiel = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
