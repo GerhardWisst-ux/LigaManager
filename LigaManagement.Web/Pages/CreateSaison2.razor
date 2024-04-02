@@ -9,7 +9,7 @@
 <EditForm Model="Saison">
     <RadzenSteps Change="@OnChange" CanChange="@CanChange">
         <Steps>
-            <RadzenStepsItem>
+            <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
                 <RadzenRow>
                     <RadzenText Text="Grunddaten" />
                 </RadzenRow>
@@ -47,6 +47,7 @@
                     </RadzenColumn>
                     <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                 </div>
+                <RadzenButton Text="Speichern" Click="@SaveGrunddaten" />
             </RadzenStepsItem>
             <RadzenStepsItem>
                 <RadzenRow>
@@ -64,13 +65,13 @@
                 </div>
                 <div class="form-group">
                     <ul class="ul">
-                        @foreach (var verein in VereineSaisonList.OrderBy(x => x.Vereinname1))
+                        @foreach (var verein in VereineSaisonList.OrderBy(x => x.VereinID))
                         {
                             string Id = @verein.VereinID;
                             <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
                         }
                     </ul>
-                </div>
+                </div>             
             </RadzenStepsItem>
             <RadzenStepsItem>
                 <RadzenRow>
@@ -124,36 +125,44 @@
                     </ul>
                 </div>
                 <RadzenButton Text="Speichern" Click="@SaveSaison" />
-            </RadzenStepsItem>
+            </RadzenStepsItem >
         </Steps>
     </RadzenSteps>
 </EditForm>
-@code {
-    private string name;
-    private string savedName;
+@code {   
+    private string saison;
+    private string savedSaison;
 
-    private string address;
-    private string savedAddress;
+    private string liganame;
+    private string savedliganame;
 
     private string aboutMe;
     private string savedAboutMe;
 
     private void OnChange()
     {
-        name = savedName;
-        address = savedAddress;
-        aboutMe = savedAboutMe;
+        saison = savedSaison;
+        liganame = savedliganame;       
 
+    }
+    protected override async Task OnInitializedAsync()
+    {
+      
     }
 
     private async Task CanChange(StepsCanChangeEventArgs args)
     {
-        if (args.SelectedIndex == 0 && Liganame == null)
+        if (args.SelectedIndex == 0 && liganame == null)
         {
             return;
         }
 
-        if (args.SelectedIndex == 1 && savedAboutMe == aboutMe)
+        if (args.SelectedIndex == 1 && vereinesaison.Count() > 18)
+        {
+            return;
+        }
+
+        if (args.SelectedIndex == 1 && vereinesaison.Count() < 18)
         {
             return;
         }
@@ -176,10 +185,10 @@
         // }
     }
 
-    private void SaveNameAndAdress()
+    private void SaveGrunddaten()
     {
-        savedName = name;
-        savedAddress = address;
+        savedSaison = saison;
+        savedliganame = liganame;
     }
 
     private void SaveAboutMe()
@@ -204,7 +213,7 @@
 
             item.Id = i + 1;
             item.VereinNr = vereinesaison[i].VereinNr;
-            item.SaisonID = Saison.SaisonID; // SaisonenServiceCreated.SaisonID;
+            item.SaisonID = SaisonenServiceCreated.SaisonID;
             item.LigaID = Convert.ToInt32(Globals.currentLiga);
             lstVereineSaison.Add(item);
         }

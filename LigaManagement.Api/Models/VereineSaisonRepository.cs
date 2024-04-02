@@ -28,7 +28,7 @@ namespace LigaManagerManagement.Api.Models
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
             conn.Open();
 
-            for (int i = 0; i < vereineSaison.Count; i++)
+            for (int i = 0; i < vereineSaison.Count -1 ; i++)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;

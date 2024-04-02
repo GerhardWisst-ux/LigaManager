@@ -167,14 +167,22 @@ else
                             </RadzenDataGridColumn>
                         </Columns>
                     </RadzenDataGrid>
-                    <RadzenRow class="rz-white">
+                   @*  <RadzenRow class="rz-white">
                         <RadzenColumn Style="text-align:left;display:inline-block;">
                             <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
                         </RadzenColumn>
                         <RadzenColumn Offset="11" Style="text-align:right;display:inline-block;">
                             <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
                         </RadzenColumn>
-                    </RadzenRow>
+                    </RadzenRow> *@
+                    <div class="row">
+                        <div class="col-md-1">
+                            <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                        </div>
+                        <div class="col-md-11 text-right">
+                            <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                        </div>
+                    </div>
                 </RadzenCard>
                 @* </div> *@
             </div>

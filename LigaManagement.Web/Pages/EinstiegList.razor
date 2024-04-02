@@ -19,7 +19,7 @@
 </head>
 
 <style>
-    
+
 </style>
 
 <div class="container">
@@ -36,10 +36,10 @@
     </div>
 
     <RadzenCard Style="height:70%;" class="m-0">
-    <RadzenTabs>
-        <Tabs>
-            <RadzenTabsItem Text="Auswahl">
-                    <RadzenCard class="my-4 rz-shadow-0">
+        <RadzenTabs>
+            <Tabs>
+                <RadzenTabsItem class="p-0" Text="Auswahl">
+                    <RadzenCard class="my-4 p-0 rz-shadow-0">
                         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
                             <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
                                 <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
@@ -54,7 +54,7 @@
                                 </select>
                                 <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                             </RadzenStack>
-                            <RadzenStack Orientation="Orientation.Vertical"  Gap="4px">
+                            <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
                                 <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
                                     <option value="" selected required>Saison auswählen</option>
                                     @if (SaisonenList != null)
@@ -74,59 +74,59 @@
                                 </RadzenButton>
                             </RadzenStack>
                         </RadzenStack>
-                    </RadzenCard>                
-            </RadzenTabsItem>
-            <RadzenTabsItem Text="Import">
-                <div class="form-group row">
-                    <div class="col-sm-12 ml-0">
-                        <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>                        
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-6">
-                        <div class="custom-file mb-3">
-                            <input type="file" class="custom-file-input" id="customFile" name="filename">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
+                    </RadzenCard>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Import">
+                    <div class="form-group row">
+                        <div class="col-sm-12 ml-0">
+                            <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
                         </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-6">
+                            <div class="custom-file mb-3">
+                                <input type="file" class="custom-file-input" id="customFile" name="filename">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
 
-                        <p>Default file:</p>
-                        <input type="file" id="myFile" name="filename2">
+                            <p>Default file:</p>
+                            <input type="file" id="myFile" name="filename2">
 
-                        <div class="mt-3">
-                            <RadzenButton title="Saison importieren" id="btnImportCSV" class="btn btn-primary" Text="Saison importieren" Click="@OnClickHandlerImport">
+                            <div class="mt-3">
+                                <RadzenButton title="Saison importieren" id="btnImportCSV" class="btn btn-primary" Text="Saison importieren" Click="@OnClickHandlerImport">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </div>
+                </RadzenTabsItem>
+                <RadzenTabsItem Text="Tabellen anlegen">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <RadzenLabel Style="font-weight:bold;">Tabellen auswählen</RadzenLabel>
+                            <RadzenCheckBoxList Orientation="Orientation.Vertical" @bind-Value=@values Change="@(args => ValidateItems(args))" TValue="int">
+                                <Items>
+                                    <RadzenCheckBoxListItem Disabled Text="Ligen" Value="1" />
+                                    <RadzenCheckBoxListItem Disabled Text="Saisonen" Value="2" />
+                                    <RadzenCheckBoxListItem Disabled Text="Vereine" Value="3" />
+                                    <RadzenCheckBoxListItem Disabled Text="Vereine Saison" Value="4" />
+                                    <RadzenCheckBoxListItem Disabled Text="Spieltage" Value="5" />
+                                    <RadzenCheckBoxListItem id="chkKader" Text="Kader" Value="6" />
+                                    <RadzenCheckBoxListItem id="Spieler" Text="Spieler" Value="7" />
+                                    <RadzenCheckBoxListItem id="SpielerSpieltag" Text="Spieler Spieltag" Value="8" />
+                                    <RadzenCheckBoxListItem id="chkTore" Text="Tore" Value="9" />
+                                </Items>
+                            </RadzenCheckBoxList>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <RadzenButton title="Datenbank mit ausgewählten Tabellen anlegen" id="btnGenerateDataBase" class="btn btn-primary" Text="Datenbank anlegen" Click="@GenerateDataBase">
                             </RadzenButton>
                         </div>
                     </div>
-                </div>
-            </RadzenTabsItem>
-            <RadzenTabsItem Text="Tabellen anlegen">
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <RadzenLabel Style="font-weight:bold;">Tabellen auswählen</RadzenLabel>
-                        <RadzenCheckBoxList Orientation="Orientation.Vertical" @bind-Value=@values Change="@(args => ValidateItems(args))" TValue="int">
-                            <Items>
-                                <RadzenCheckBoxListItem Disabled Text="Ligen" Value="1" />
-                                <RadzenCheckBoxListItem Disabled Text="Saisonen" Value="2" />
-                                <RadzenCheckBoxListItem Disabled Text="Vereine" Value="3" />
-                                <RadzenCheckBoxListItem Disabled Text="Vereine Saison" Value="4" />
-                                <RadzenCheckBoxListItem Disabled Text="Spieltage" Value="5" />
-                                <RadzenCheckBoxListItem id="chkKader" Text="Kader" Value="6" />                                
-                                <RadzenCheckBoxListItem id="Spieler" Text="Spieler" Value="7" />
-                                <RadzenCheckBoxListItem id="SpielerSpieltag" Text="Spieler Spieltag" Value="8" />
-                                <RadzenCheckBoxListItem id="chkTore" Text="Tore" Value="9" />                                
-                            </Items>                          
-                        </RadzenCheckBoxList>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <RadzenButton title="Datenbank mit ausgewählten Tabellen anlegen" id="btnGenerateDataBase" class="btn btn-primary" Text="Datenbank anlegen" Click="@GenerateDataBase">
-                        </RadzenButton>
-                    </div>
-                </div>
-            </RadzenTabsItem>
-        </Tabs>
-    </RadzenTabs>
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
     </RadzenCard>
 </div>
 
