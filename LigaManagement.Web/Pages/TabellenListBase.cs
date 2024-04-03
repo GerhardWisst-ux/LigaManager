@@ -18,6 +18,7 @@ namespace LigamanagerManagement.Web.Pages
 {
     public class TabellenListBase : ComponentBase
     {
+        public string Display71 = "display:none;";
         public Int32 currentspieltag;
         public string saison;
         public string Liganame;
@@ -113,6 +114,11 @@ namespace LigamanagerManagement.Web.Pages
                 var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
 
                 Liganame = liga.Liganame;
+
+                if (Globals.currentSaison.Substring(0, 4) == "1971")
+                    Display71 = "display:block;";
+                else
+                    Display71 = "display:none;";
             }
             catch (Exception ex)
             {
@@ -160,6 +166,12 @@ namespace LigamanagerManagement.Web.Pages
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
 
                 DisplayElements = "block";
+
+                if (Globals.currentSaison.Substring(0, 4) == "1971")
+                    Display71 = "display:block;";
+                else
+                    Display71 = "display:none;";
+
                 StateHasChanged();
 
             }
@@ -214,7 +226,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (TabArt == 5)
                     Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen,Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Rückrunde);
                 else if (TabArt == 6)
-                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, false, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, SaisonenService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
                 DisplayElements = "block";
                 StateHasChanged();

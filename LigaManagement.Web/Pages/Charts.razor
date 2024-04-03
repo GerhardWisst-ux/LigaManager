@@ -8,12 +8,12 @@
 @inherits ChartsListBase
 @attribute [Authorize]
 
-<head>
-    <title>Charts</title>
-    <meta charset="utf-8">
+<head>    
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <div class="row my-2">
@@ -27,38 +27,7 @@
                 </div>
             </RadzenCard>
         </div>
-        <RadzenCard style="margin-bottom:4px;">
-            @* <div class="form-group row">
-                <div class="col-sm-2 mt-1 ml-0">
-                    <select id="cboSaison" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="" selected>@saison</option>
-                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                        {
-                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                        }
-                    </select>
-                </div>
-                <div class="col-sm-2 mt-1 ml-1">
-                    <select id="cboSpieltage" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SpieltagChange">
-                        <option value="" selected>@currentspieltag. Spieltag</option>
-                        @foreach (var spieltag in SpieltagList)
-                        {
-                            <option value="@spieltag.Nummer"> @spieltag.Name </option>
-                        }
-                    </select>
-                </div>
-                <div class="col-sm-2 mt-1 ml-1">
-                    <label style="display:inline-block;" class="col-sm-2">Verein</label>
-                    <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
-                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                        {
-                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                        }
-                        <option selected="selected">Verein auswählen</option>
-                    </select>
-                </div>
-            </div> *@
-
+        <RadzenCard style="margin-bottom:4px;">           
             <RadzenCard class="my-4 p-0 rz-shadow-0">
                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
                     <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
@@ -69,7 +38,7 @@
                                 <option value="@saison.Saisonname"> @saison.Saisonname </option>
                             }
                         </select>
-                        @* <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label> *@
+                        <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
                     </RadzenStack>
                     <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
                         <select id="cboSpieltage" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SpieltagChange">
@@ -79,84 +48,65 @@
                                 <option value="@spieltag.Nummer"> @spieltag.Name </option>
                             }
                         </select>
-                      @*   <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label> *@
+                        <label style="display:@DisplayErrorSpieltag;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
                     </RadzenStack>
-                    <RadzenStack Orientation="Orientation.Vertical" Gap="24px">
-
-                        <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
-                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                    <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+                        <select id="cboVereine" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="VereinChange">
+                            <option value="" selected>@Vereinname1</option>
+                            @foreach (var verein in VereineList.OrderBy(x => x.Ort))
                             {
                                 <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+
                             }
-                            <option selected="selected">Verein auswählen</option>
+                            @if (@Vereinname1 is null)
+                            {
+                                <option value="" selected>Verein wählen</option>
+                            }
+                            else
+                            {
+                                <option selected="selected">@Vereinname1</option>
+                            }
+                            <label style="display:@DisplayErrorVerein;color:red;" id="lblErrorSaison">Bitte Verein wählen</label>
                         </select>
                     </RadzenStack>
                 </RadzenStack>
             </RadzenCard>
         </RadzenCard>
         <div class="col-sm-12">
-            <canvas id="myChart" style="width:100%;max-width:700px"></canvas>
+            <div id="myChart" style="width:100%; max-width:100%; height:600px;"></div>
         </div>
     </div>
 </div>
 
-
-
 <script>
-    var xyValues = [
-        { x: 1, y: 3 },
-        { x: 2, y: 3 },
-        { x: 3, y: 6 },
-        { x: 4, y: 9 },
-        { x: 5, y: 12 },
-        { x: 6, y: 15 },
-        { x: 7, y: 18 },
-        { x: 8, y: 21 },
-        { x: 9, y: 21 },
-        { x: 10, y: 21 },
-        { x: 11, y: 24 },
-        { x: 12, y: 27 },
-        { x: 13, y: 30 },
-        { x: 14, y: 31 },
-        { x: 15, y: 31 },
-        { x: 16, y: 34 },
-        { x: 17, y: 34 },
-        { x: 18, y: 34 },
-        { x: 19, y: 37 },
-        { x: 20, y: 40 },
-        { x: 21, y: 43 },
-        { x: 22, y: 46 },
-        { x: 23, y: 47 },
-        { x: 24, y: 50 },
-        { x: 25, y: 53 },
-        { x: 26, y: 56 },
-        { x: 27, y: 57 },
-        { x: 28, y: 57 },
-        { x: 29, y: 60 },
-        { x: 30, y: 61 },
-        { x: 31, y: 62 },
-        { x: 32, y: 62 },
-        { x: 33, y: 65 },
-        { x: 34, y: 66 }
-    ];
+    window.onresize = function () { drawChart(); };
 
-    new Chart("myChart", {
-        type: "scatter",
-        data: {
-            datasets: [{
-                pointRadius: 4,
-                pointBackgroundColor: "rgb(0,0,255)",
-                data: xyValues
-            }]
-        },
-        options: {
-            legend: { display: false },
-            scales: {
-                xAxes: [{ ticks: { min: 1, max: 34 } }],
-                yAxes: [{ ticks: { min: 0, max: 70 } }],
-            }
-        }
-    });
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        // Set Data
+        const data = google.visualization.arrayToDataTable([
+            ['Spieltag', 'Punkte'],
+            [1, 3], [2, 3], [3, 6], [4, 9], [5, 12],
+            [6, 15], [7, 18], [8, 21],
+            [9, 24], [10, 24], [11, 24], [12, 27], [13, 30], [14, 31],
+            [15, 31], [16, 34], [17, 34], [18, 34], [19, 37], [20, 40],
+            [21, 43], [22, 46], [23, 47], [24, 50], [25, 53], [26, 56],
+            [27, 57], [28, 57], [29, 57], [30, 57], [31, 57], [32, 57],
+            [33, 60], [34, 63]
+        ]);
+
+// Set Options
+const options = {
+  title: 'VfB Stuttgart Saison 2023-24',
+  hAxis: {title: 'Spieltage'},
+  vAxis: {title: 'Punkte'},
+  legend: 'none'
+};
+// Draw
+const chart = new google.visualization.LineChart(document.getElementById('myChart'));
+chart.draw(data, options);
+}
 </script>
-
 

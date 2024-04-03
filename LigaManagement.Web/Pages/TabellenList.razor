@@ -67,11 +67,11 @@
     <div class="spinner"></div>
 }
 else
-{    
+{
 
     <div class="container">
         <div class="form-group row">
-            <div class="col-sm-12">               
+            <div class="col-sm-12">
                 <RadzenCard class="m-0">
                     <div class="d-flex flex-row">
                         <div class="card-body">
@@ -82,37 +82,37 @@ else
             </div>
         </div>
         <RadzenCard style="margin-bottom:4px;">
-        <div class="form-group row">
-            <div class="col-sm-2 mt-1 ml-0">
-                <select id="cboSaison" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SaisonChange">
-                    <option value="" selected>@saison</option>
-                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                    {
-                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                    }
-                </select>
+            <div class="form-group row">
+                <div class="col-sm-2 mt-1 ml-0">
+                    <select id="cboSaison" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SaisonChange">
+                        <option value="" selected>@saison</option>
+                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                        {
+                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2 mt-1 ml-1">
+                    <select id="cboSpieltage" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SpieltagChange">
+                        <option value="" selected>@currentspieltag. Spieltag</option>
+                        @foreach (var spieltag in SpieltagList)
+                        {
+                            <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2 mt-1 ml-1">
+                    <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="TabArtChange">
+                        <option value="0">Tabellenart wählen</option>
+                        <option value="1">Gesamttabelle</option>
+                        <option value="2">Heimtabelle</option>
+                        <option value="3">Auswärtstabelle</option>
+                        <option value="4">Vorrunde</option>
+                        <option value="5">Rückrunde</option>
+                        <option value="6">Ewige Tabelle</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-sm-2 mt-1 ml-1">
-                <select id="cboSpieltage" style="display:inline;width:170px;height:38px;" class="form-control dropdown" @onchange="SpieltagChange">
-                    <option value="" selected>@currentspieltag. Spieltag</option>
-                    @foreach (var spieltag in SpieltagList)
-                    {
-                        <option value="@spieltag.Nummer"> @spieltag.Name </option>
-                    }
-                </select>
-            </div>
-            <div class="col-sm-2 mt-1 ml-1">
-                <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="TabArtChange">
-                    <option value="0">Tabellenart wählen</option>
-                    <option value="1">Gesamttabelle</option>
-                    <option value="2">Heimtabelle</option>
-                    <option value="3">Auswärtstabelle</option>
-                    <option value="4">Vorrunde</option>
-                    <option value="5">Rückrunde</option>
-                    <option value="6">Ewige Tabelle</option>
-                </select>
-            </div>
-        </div>
         </RadzenCard>
         <RadzenCard style="flex:1;margin:0px;">
             <RadzenRow class="rz-white">
@@ -130,7 +130,7 @@ else
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             LogicalFilterOperator="LogicalFilterOperator.Or">
                 <Columns>
-                    <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>                    
+                    <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verein" Width="22%" Sortable=false Title="Verein" />
@@ -138,7 +138,7 @@ else
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="V" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="T" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Right" Width="10%" Sortable=true Title="T" />
                     <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="Diff" />
                     <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="P" />
                 </Columns>
@@ -148,8 +148,13 @@ else
                     <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
                 </RadzenColumn>
             </RadzenRow>
-        </RadzenCard>   
-    </div>   
+            <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
+                <RadzenColumn Style="text-align:center;">
+                <RadzenLabel class="col-12" Style="@Display71" Component="txtHinweis">In der Saison 1971/72 wurden alle Spiele von Arminia Bielefeld für den Gegner gewertet</RadzenLabel>
+                </RadzenColumn>
+            </RadzenRow>
+        </RadzenCard>
+    </div>
 
     <script>
 

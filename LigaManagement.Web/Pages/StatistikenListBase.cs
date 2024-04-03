@@ -179,12 +179,15 @@ namespace LigaManagerManagement.Web.Pages
                 int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein1_Nr);
                 Spiel.Verein1 = VereineList[index].Vereinname1;
 
+                if (Spiel.Verein1_Nr == null)
+                    return;
+
                 if (Spiel.Verein1_Nr.ToString() == "0")
                     return;
 
                 Spielergebnisse = await TabelleService.StatistikVerein(SpieltagService, Spiel);
 
-                var stat = await TabelleService.VereinGegenVereinSum(SpieltagService, Spiel);
+                var stat = await TabelleService.VereinSum(SpieltagService, Spiel);
 
                 Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
                 DisplayElements = "block";

@@ -1,4 +1,5 @@
 ﻿@page "/createsaison2"
+@page "/editsaison2/{Id}"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService
@@ -26,7 +27,7 @@
                         {
                             @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                             {
-                                <option value="@liga.LigaID"> @liga.Liganame </option>
+                                <option value="@liga.LigaID"> @liga.Liganame</option>
                             }
                         }
                     </select>
@@ -49,7 +50,7 @@
                 </div>
                 <RadzenButton Text="Speichern" Click="@SaveGrunddaten" />
             </RadzenStepsItem>
-            <RadzenStepsItem>
+            <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
                 <RadzenRow>
                     <RadzenText Text="Vereine zuordnen" />
                 </RadzenRow>
@@ -73,7 +74,7 @@
                     </ul>
                 </div>             
             </RadzenStepsItem>
-            <RadzenStepsItem>
+            <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
                 <RadzenRow>
                     <RadzenText Text="Zusammenfassung" />
                 </RadzenRow>
@@ -124,12 +125,14 @@
                         }
                     </ul>
                 </div>
-                <RadzenButton Text="Speichern" Click="@SaveSaison" />
+                <RadzenButton Text="Speichern" id="btnSaveSaison" Click="@SaveSaison" />
             </RadzenStepsItem >
         </Steps>
     </RadzenSteps>
 </EditForm>
 @code {   
+    public string Titel { get; set; }
+    public bool IsLoading { get; set; }
     private string saison;
     private string savedSaison;
 
@@ -145,9 +148,31 @@
         liganame = savedliganame;       
 
     }
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-      
+        if (firstRender)
+        {
+            if (Id == "0")
+            {
+                //Neuanlage
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                await LoadSaison();
+            }
+        }
+    }
+
+    private async Task LoadSaison()
+    {
+        IsLoading = true;
+        StateHasChanged();
+        Saison = await _SaisonenService.GetSaison(Convert.ToInt32(Id));
+        IsLoading = false;
+        StateHasChanged();
     }
 
     private async Task CanChange(StepsCanChangeEventArgs args)

@@ -6,6 +6,7 @@ using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -21,8 +22,11 @@ namespace LigaManagerManagement.Web.Pages
     {
         public Int32 currentspieltag;
         public string saison;
+        public string Vereinname1;
         public string Liganame;
-        public int TabArt;
+        protected string DisplayErrorSaison = "none";
+        protected string DisplayErrorSpieltag = "none";
+        protected string DisplayErrorVerein = "none";
 
         public RadzenDataGrid<Tabelle> grid;
         IList<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>> selectedCellData = new List<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>>();
@@ -53,6 +57,10 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public ILigaService LigaService { get; set; }
 
+        [Inject]
+        public IVereineSaisonService VereineSaisonService { get; set; }
+
+        [Inject]
         public IVereineService VereineService { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
@@ -68,13 +76,14 @@ namespace LigaManagerManagement.Web.Pages
 
         bool bAbgeschlossen;
 
-        public async void Verein2Change(ChangeEventArgs e)
+        public async void VereinChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 if (e.Value.ToString() == "Verein auswählen")
                     return;
 
+                StateHasChanged();
             }
         }
 
@@ -113,47 +122,24 @@ namespace LigaManagerManagement.Web.Pages
                 currentspieltag = rep.AktSpieltag(Globals.SaisonID);
 
                 saison = Globals.currentSaison;
-                                
-                //Vereine = await VereineService.GetVereine();
 
-                //bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+                var saison2 = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
 
-                //Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, 1);
+                var vereineSaison = await VereineSaisonService.GetVereineSaison();
+                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == saison2.SaisonID).ToList();
 
-                //DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
+                for (int i = 0; i < verList.Count(); i++)
+                {
+                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                }
+                Vereinname1 = "VfB Stuttgart";
 
-                //DisplayElements = "none";
 
-                //var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+                DisplayErrorSaison = "none";
+                DisplayErrorSpieltag = "none";
+                DisplayErrorVerein = "none";
 
-                //Liganame = liga.Liganame;
-                //var spiele = await SpieltagService.GetSpieltage();
-
-                //List<Spieltag> spiele2;
-
-                //if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-                //{
-                //    spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
-                //}
-                //else if (Globals.currentSaison == "1991/92")
-                //{
-                //    spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
-                //}
-                //else
-                //{
-                //    spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
-                //}
-
-                //Vereine = (await VereineService.GetVereine()).ToList();
-                //VereineList = new List<DisplayVerein>();
-
-                //int iAnzahl = spiele2.Count() * 2;
-
-                //for (int i = 0; i < spiele2.Count(); i++)
-                //{
-                //    VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
-                //    VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
-                //}
             }
             catch (Exception ex)
             {
@@ -200,6 +186,7 @@ namespace LigaManagerManagement.Web.Pages
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
                 Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Gesamt);
 
+                
                 DisplayElements = "block";
                 StateHasChanged();
 
@@ -255,7 +242,7 @@ namespace LigaManagerManagement.Web.Pages
                 else if (TabArt == 5)
                     Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.Rückrunde);
                 else if (TabArt == 6)
-                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, false, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, SaisonenService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
                 DisplayElements = "block";
                 StateHasChanged();
@@ -293,6 +280,20 @@ namespace LigaManagerManagement.Web.Pages
             //        args.Attributes.Add("rowspan", 2);
             //    }
             //}
+        }
+        [Bind]
+        public class DisplayVerein
+        {
+            public DisplayVerein(string vereinID, string vereinname, string ort)
+            {
+                VereinID = vereinID;
+                Vereinname1 = vereinname;
+                Ort = ort;
+            }
+            public string VereinID { get; set; }
+            public string Vereinname1 { get; set; }
+
+            public string Ort { get; set; }
         }
 
         public class DisplaySpieltag
