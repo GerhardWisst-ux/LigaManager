@@ -157,6 +157,7 @@ namespace LigamanagerManagement.Web.Pages
                 if (Spiel.SpieltagId == torlist[i].SpieltagsID)
                     ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute, torlist[i].SpieltagsID));
             }
+           
 
         }
         protected async override void OnAfterRender(bool firstRender)

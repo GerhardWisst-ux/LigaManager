@@ -573,11 +573,11 @@ namespace LigaManagerManagement.Web.Services
 
                             tabelleneintrag2 = TabSaisonEwigSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein2_Nr));
 
-                            if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag1.Verein == "Arminia Bielefeld")
-                                continue;
+                            //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag1.Verein == "Arminia Bielefeld")
+                            //    continue;
 
-                            if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag2.Verein == "Arminia Bielefeld")
-                                continue;
+                            //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag2.Verein == "Arminia Bielefeld")
+                            //    continue;
 
                             if (item.Tore1_Nr > item.Tore2_Nr)
                             {

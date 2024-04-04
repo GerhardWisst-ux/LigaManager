@@ -18,7 +18,7 @@ namespace LigamanagerManagement.Web.Pages
 {
     public class TabellenListBase : ComponentBase
     {
-        public string Display71 = "display:none;";
+        public string DisplayEwig = "display:none;";
         public Int32 currentspieltag;
         public string saison;
         public string Liganame;
@@ -115,10 +115,10 @@ namespace LigamanagerManagement.Web.Pages
 
                 Liganame = liga.Liganame;
 
-                if (Globals.currentSaison.Substring(0, 4) == "1971")
-                    Display71 = "display:block;";
+                if (TabArt == 6)
+                    DisplayEwig = "display:block;";
                 else
-                    Display71 = "display:none;";
+                    DisplayEwig = "display:none;";
             }
             catch (Exception ex)
             {
@@ -167,10 +167,10 @@ namespace LigamanagerManagement.Web.Pages
 
                 DisplayElements = "block";
 
-                if (Globals.currentSaison.Substring(0, 4) == "1971")
-                    Display71 = "display:block;";
+                if (TabArt == 6)
+                    DisplayEwig = "display:block;";
                 else
-                    Display71 = "display:none;";
+                    DisplayEwig = "display:none;";
 
                 StateHasChanged();
 
@@ -229,6 +229,12 @@ namespace LigamanagerManagement.Web.Pages
                     Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, SaisonenService, Vereine, currentspieltag, Ligamanager.Components.Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
 
                 DisplayElements = "block";
+
+                if (TabArt == 6)
+                    DisplayEwig = "display:block;";
+                else
+                    DisplayEwig = "display:none;";
+
                 StateHasChanged();
             }
         }

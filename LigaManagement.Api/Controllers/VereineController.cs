@@ -95,11 +95,11 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var VereinToUpdate = await VereinRepository.GetVerein(Verein.Id);
+                var VereinToUpdate = await VereinRepository.GetVerein(Verein.VereinNr);
 
                 if (VereinToUpdate == null)
                 {
-                    return NotFound($"Verein mit der Id = {VereinToUpdate.Id} nicht gefunden");
+                    return NotFound($"Verein mit der Id = {VereinToUpdate.VereinNr} nicht gefunden");
                 }
                 
                 return await VereinRepository.UpdateVerein(Verein);
