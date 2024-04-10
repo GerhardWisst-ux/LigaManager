@@ -9,22 +9,22 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ToreController : ControllerBase
+    public class PokalergebnisseController : ControllerBase
     {
-        private readonly IToreRepository toreRepository;
+        private readonly IPokalergebnisseRepository pokalergebnisseRepository;
 
-        public ToreController(IToreRepository toreRepository)
+        public PokalergebnisseController(IPokalergebnisseRepository pokalergebnisseRepository)
         {
-            this.toreRepository = toreRepository;
+            this.pokalergebnisseRepository = pokalergebnisseRepository;
         }
 
     
         [HttpGet]
-        public async Task<ActionResult> GetTore()
+        public async Task<ActionResult> GetPokalergebnisse()
         {
             try
             {
-                return Ok(await toreRepository.GetTore());
+                return Ok(await pokalergebnisseRepository.GetPokalergebnisse());
             }
             catch (Exception ex)
             {
@@ -34,11 +34,11 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Tore>> GetTor(int id)
+        public async Task<ActionResult<PokalergebnisSpieltag>> GetPokalergebnis(int id)
         {
             try
             {
-                var result = await toreRepository.GetTor(id);
+                var result = await pokalergebnisseRepository.GetPokalergebnis(id);
 
                 if (result == null)
                 {
@@ -55,18 +55,18 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Tore>> CreateTor(Tore tor)
+        public async Task<ActionResult<PokalergebnisSpieltag>> CreatePokalergebnis(PokalergebnisSpieltag pokalergebnis)
         {
             try
             {
-                if(tor == null)
+                if(pokalergebnis == null)
                 {
                     return BadRequest();
                 } 
               
-                var createdLiga = await toreRepository.CreateTor(tor);
+                var createdLiga = await pokalergebnisseRepository.CreatePokalergebnis(pokalergebnis);
 
-                return CreatedAtAction(nameof(CreateTor), new { id = createdLiga.Id },
+                return CreatedAtAction(nameof(CreatePokalergebnis), new { id = pokalergebnis.SpieltagId },
                     createdLiga);
             }
             catch (Exception ex)
@@ -76,40 +76,20 @@ namespace LigaManagement.Api.Controllers
             }           
         }
 
-        //[HttpPut()]
-        //public async Task<ActionResult<Tore> UpdateTor(Tore tor)
-        //{
-        //    try
-        //    {
-        //        var torToUpdate = await toreRepository.GetTor(tor.Id);
-
-        //        if(ligaToUpdate == null)
-        //        {
-        //            return NotFound($"Liga with Id = {liga.Id} not found");
-        //        }
-
-        //        return await ligaRepository.UpdateLiga(liga);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(StatusCodes.Status500InternalServerError,
-        //            "Error updating data:" + ex.Message);
-        //    }
-        //}
-
+      
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Tore>> DeleteTor(int id)
+        public async Task<ActionResult<PokalergebnisSpieltag>> DeletePokalergebnis(int id)
         {
             try
             {
-                var torToDelete = await toreRepository.GetTor(id);
+                var torToDelete = await pokalergebnisseRepository.DeletePokalergebnis(id);
 
                 if (torToDelete == null)
                 {
                     return NotFound($"Liga with Id = {id} not found");
                 }
 
-                return await toreRepository.DeleteTor(id);
+                return await pokalergebnisseRepository.DeletePokalergebnis(id);
             }
             catch (Exception ex)
             {

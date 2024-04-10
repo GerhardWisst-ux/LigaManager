@@ -74,6 +74,8 @@ namespace LigamanagerManagement.Web.Pages
 
         public Spieltag Spiel { get; set; } = new Spieltag();
 
+        public Tore Tor { get; set; } = new Tore();
+
         public Spieltag SpielCombo { get; set; } = new Spieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
@@ -119,7 +121,8 @@ namespace LigamanagerManagement.Web.Pages
                 VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
             }
 
-            List<Kader> SpielerSpiel = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
+            var allkader = (await KaderService.GetAllSpieler());
+            List<Kader> SpielerSpiel = allkader.Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
 
             KaderList1 = new List<DisplaySpieler>();
 
@@ -130,7 +133,7 @@ namespace LigamanagerManagement.Web.Pages
 
             KaderList2 = new List<DisplaySpieler>();
 
-            SpielerSpiel = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
+            SpielerSpiel = allkader.Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
             for (int i = 0; i < SpielerSpiel.Count(); i++)
             {
                 KaderList2.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
@@ -151,13 +154,28 @@ namespace LigamanagerManagement.Web.Pages
 
             List<Tore> torlist = tore.ToList();
 
-            for (int i = 0; i < torlist.Count(); i++)
+            try
             {
-                var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
-                if (Spiel.SpieltagId == torlist[i].SpieltagsID)
-                    ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute, torlist[i].SpieltagsID));
+                for (int i = 0; i < torlist.Count(); i++)
+                {
+                    var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
+                    if (Spiel.SpieltagId == torlist[i].SpieltagId)
+                    {
+                        if (kaderspieler.Vorname == "")
+                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
+                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor));
+                        else
+                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
+                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor));
+                    }
+                        
+                }
             }
-           
+            catch (Exception ex )
+            {
+
+                throw ex;
+            }
 
         }
         protected async override void OnAfterRender(bool firstRender)
@@ -227,6 +245,36 @@ namespace LigamanagerManagement.Web.Pages
             }
             StateHasChanged();
         }
+       
+        public async void ToreChange1(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                var Spieler = await KaderService.GetSpieler(Convert.ToInt32(e.Value));
+                Tor.SpielerID = Spieler.Id;
+            }
+            StateHasChanged();
+        }
+
+        public async void btnSpeichernTorV2_Click(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                var Spieler = await KaderService.GetSpieler(Convert.ToInt32(e.Value));
+                Tor.SpielerID = Spieler.Id;
+            }
+            StateHasChanged();
+        }
+
+        public async void ToreChange2(ChangeEventArgs e)
+        {
+            if (e.Value != null)            {
+                
+                var Spieler = await KaderService.GetSpieler(Convert.ToInt32(e.Value));
+                Tor.SpielerID = Spieler.Id;
+            }
+            StateHasChanged();
+        }
 
         public async void KaderChange2(ChangeEventArgs e)
         {
@@ -267,20 +315,21 @@ namespace LigamanagerManagement.Web.Pages
 
         public class DisplayTore
         {
-            public DisplayTore(int spielerid, string spieler, string spielstand, int spielminute, int spieltagId)
+            public DisplayTore(int spielerid, string spieler, string spielstand, int spielminute, int spieltagId, bool eigentor)
             {
                 Spieler = spieler;
                 Spielstand = spielstand;
                 Spielerid = spielerid;
                 Spielminute = spielminute;
                 SpieltagId = spieltagId;
+                Eigentor = eigentor;
             }
             public int Spielerid { get; set; }
             public int Spielminute { get; set; }
             public string Spieler { get; set; }
             public string Spielstand { get; set; }
-
             public int SpieltagId { get; set; }
+            public bool Eigentor { get; set; }
         }
 
 

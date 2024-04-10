@@ -105,7 +105,11 @@
                                                     @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
                                                     <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
                                                 </RadzenColumn>
-                                                <RadzenColumn Size="0" SizeXS="2">
+                                                <RadzenColumn Size="0" SizeXS="1">
+                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
+                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="0" SizeXS="1">
                                                     @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
                                                     <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
                                                 </RadzenColumn>
@@ -118,7 +122,6 @@
                     </div>
                 </div>
             </RadzenTabsItem>
-
             <RadzenTabsItem Text="Höchste Heimsiege">
                 <div class="form-group row">
                     <div class="col-sm-12">
@@ -483,6 +486,47 @@
                     </div>
                 </div>
             </RadzenTabsItem>
+            <RadzenTabsItem Text="Torjägerliste">
+                <div class="content">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
+                            <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            @if (TorjaegerList != null)
+                            {
+                                var TorjaegerList2 = TorjaegerList.OrderByDescending(x => x.Tore).ToList();
+                                <RadzenLabel Text="Torjägerliste "></RadzenLabel>
+                                <RadzenDataList Data="@TorjaegerList2" TItem="Torjaeger" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
+                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="10"
+                                                PagerHorizontalAlign="HorizontalAlign.Left" pagerText ShowPagingSummary="true">
+                                    <Template Context="Torjaeger">
+                                        <RadzenCard Style="width:100%; padding:0;">
+                                            <RadzenRow Gap="0">
+                                                <RadzenColumn Size="4" SizeXS="4">
+                                                    <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Spielername)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="4" SizeXS="4">
+                                                    <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Vereinsname)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="2" SizeXS="2">
+                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">@(Torjaeger.Tore)</RadzenText>
+                                                </RadzenColumn>
+                                            </RadzenRow>
+                                        </RadzenCard>
+                                    </Template>
+                                </RadzenDataList>
+                                <br />
+                            }
+                        </div>
+                    </div>
+                </div>
+            </RadzenTabsItem>
+
         </Tabs>
     </RadzenTabs>
 </div>

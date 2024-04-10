@@ -2,15 +2,18 @@
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using ToreManagerManagement.Web.Services;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -35,10 +38,16 @@ namespace LigaManagerManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
+        public IKaderService KaderService { get; set; }
+
+        [Inject]
         public ITabelleService TabelleService { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
+
+        [Inject]
+        public IToreService ToreService { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 
@@ -59,6 +68,8 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Spielergebnisse> Spielergebnisse = new List<Spielergebnisse>();
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
+
+        public List<Torjaeger> TorjaegerList = new List<Torjaeger>();
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -114,6 +125,65 @@ namespace LigaManagerManagement.Web.Pages
             DisplayElements = "none";
 
             Spieltage = (await SpieltagService.GetSpieltage());
+
+            var tore = await ToreService.GetTore();
+
+            List<Tore> torelist = tore.ToList();                        
+
+            try
+            {
+                TorjaegerList.Clear();
+                for (int i = 0; i < torelist.Count(); i++)
+                {
+                    var kaderspieler = await KaderService.GetSpieler(torelist[i].SpielerID);
+
+                    var verein = await VereineService.GetVerein(kaderspieler.VereinID);
+                    Torjaeger torjaeger = new Torjaeger();
+
+                    var result = TorjaegerList.FindIndex(x => x.Id == torelist[i].SpielerID);
+
+                    if (result == -1)
+                    {
+                        torjaeger.LigaID = Globals.currentLiga;
+                        torjaeger.Id = torelist[i].SpielerID;
+                        torjaeger.SaisonID = Globals.SaisonID;
+                        torjaeger.Tore = 1;
+                        torjaeger.Spielername = kaderspieler.SpielerName;
+                        torjaeger.Vereinsname = verein.Vereinsname1;
+                        TorjaegerList.Add(torjaeger);
+                    }
+                    else
+                    {
+                        var found = TorjaegerList.Find(x => x.Id == torelist[i].SpielerID);
+
+                        if (found != null)
+                        {
+                            found.Tore = found.Tore + 1;
+                        }                      
+                        
+                    }                    
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        [Bind]
+        public class DisplayTorjaeger
+        {
+            public DisplayTorjaeger(int spielerid, string spielername, int? tore)
+            {
+                Spielerid = spielerid;
+                Spielername = spielername;
+                Tore = tore;               
+            }
+            public int Spielerid { get; set; }            
+            public string Spielername { get; set; }
+            public int? Tore { get; set; }
+            
         }
 
         [Bind]

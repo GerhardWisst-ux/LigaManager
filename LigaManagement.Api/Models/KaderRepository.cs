@@ -73,38 +73,46 @@ namespace LigaManagement.Api.Models
 
         public async Task<IEnumerable<Kader>> GetAllSpieler()
         {
-            List<Kader> allspieler = new List<Kader>();
-
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT * FROM [Kader]", conn);                      
-            
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
-                {
-                    var kaderspieler = new Kader();
-                    kaderspieler.Id = (int)reader["Id"];
-                    kaderspieler.SpielerName = reader["SpielerName"].ToString();                    
-                    kaderspieler.Vorname = reader["Vorname"].ToString();
-                    kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
-                    kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
-                    kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
-                    kaderspieler.Einsaetze = (int)reader["Einsaetze"];
-                    kaderspieler.Tore = (int)reader["Tore"];
-                    kaderspieler.VereinID = (int)reader["VereinNr"];
-                    kaderspieler.SaisonId = (int)reader["SaisonID"];
-                    kaderspieler.Aktiv = (bool)reader["Aktiv"];
-                    kaderspieler.Position = (string)reader["Position"].ToString();
-                    kaderspieler.PositionsNr = (int)reader["PositionsNr"];
+                List<Kader> allspieler = new List<Kader>();
 
-                    allspieler.Add(kaderspieler);
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [Kader]", conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var kaderspieler = new Kader();
+                        kaderspieler.Id = (int)reader["Id"];
+                        kaderspieler.SpielerName = reader["SpielerName"].ToString();
+                        kaderspieler.Vorname = reader["Vorname"].ToString();
+                        kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
+                        kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                        kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
+                        kaderspieler.Einsaetze = (int)reader["Einsaetze"];
+                        kaderspieler.Tore = (int)reader["Tore"];
+                        kaderspieler.VereinID = (int)reader["VereinNr"];
+                        kaderspieler.SaisonId = (int)reader["SaisonID"];
+                        kaderspieler.Aktiv = (bool)reader["Aktiv"];
+                        kaderspieler.Position = (string)reader["Position"].ToString();
+                        kaderspieler.PositionsNr = (int)reader["PositionsNr"];
+
+                        allspieler.Add(kaderspieler);
+                    }
+
                 }
-                  
+                conn.Close();
+                return allspieler;
             }
-            conn.Close();
-            return allspieler;
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
           
         }
 

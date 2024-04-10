@@ -8,8 +8,8 @@ namespace ToremanagerManagement.Api.Models.Repository
     {
         Task<IEnumerable<Tore>> GetTore();
         Task<Tore> GetTor(int ToreId);
-        Task<Tore> AddTore(Tore ToreId);
-        Task<Tore> UpdateTore(Tore ToreId);
+        Task<Tore> CreateTor(Tore ToreId);
+        Task<Tore> UpdateTor(Tore ToreId);
         Task<Tore> DeleteTor(int ToreIdId);
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LigaManagement.Models
 {
-    public class Pokalergebnisse : Spieltag
+    public class Spielergebnisse:Spieltag
     {      
 
         public int Gewonnen { get; set; }

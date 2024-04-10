@@ -5,6 +5,7 @@
 @inherits EditSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
+@inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
@@ -14,6 +15,32 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
+<style type="text/css">
+
+    details {
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        padding: 0.5em 0.5em 0;
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    summary {
+        font-weight: bold;
+        margin: -0.5em -0.5em 0;
+        padding: 0.5em;
+    }
+
+    details[open] {
+        padding: 0.5em;
+    }
+
+    .CardTore {
+        padding: 0;
+        margin: 0;
+    }
+
+</style>
 <div class="row my-2">
     <div class="col-12">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
@@ -35,8 +62,8 @@
                     <RadzenTabsItem Text="Spielinfo">
                         <div class="content">
                             <div class="form-group row">
-                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein1">Verein1</RadzenLabel>
-                                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">                                    
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein1">Verein 1</RadzenLabel>
+                                <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
                                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                     {
                                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -62,12 +89,12 @@
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore2">Tore 2</RadzenLabel>
-                                <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>                                
+                                <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
                                 @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
                                 <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                             </div>
                             <div class="form-group row">
-                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein2</RadzenLabel>
+                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein 2</RadzenLabel>
                                 <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
                                     @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
@@ -87,13 +114,13 @@
                                 <InputText style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputText>
                             </div>
                             <div class="form-group row">
-                                <RadzenLabel Text="Label" class="col-sm-2" Component="txtDatum">Datum</RadzenLabel>
-                                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>                                
+                                <RadzenLabel Text="Datum" class="col-sm-2" Component="txtDatum">Datum</RadzenLabel>
+                                <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                                 <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
                                 <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
                             </div>
                             <div class="form-group row">
-                                <RadzenLabel Text="Label" class="col-sm-2" Component="cboStadion">Ort</RadzenLabel>
+                                <RadzenLabel Text="Ort" class="col-sm-2" Component="cboStadion">Ort</RadzenLabel>
                                 <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
                                     @* <option value="" selected>@Stadion</option> *@
                                     @foreach (var verein in VereineList.OrderBy(x => x.Ort))
@@ -114,14 +141,14 @@
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Schiedrichter" class="col-sm-2" Component="txtSchiedrichter">Schiedrichter</RadzenLabel>
-                                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>                                
+                                <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
                                 <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Zuschauer</RadzenLabel>
                                 <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                             </div>
-                            <div class="form-group py-2">                                
+                            <div class="form-group py-2">
                                 <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
                                     <span class="glyphicon glyphicon-save"></span>Speichern
                                 </RadzenButton>
@@ -132,13 +159,13 @@
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Aufstellungen">                      
+                    <RadzenTabsItem Text="Aufstellungen">
                         <div style="width:100%" class="content card">
                             <div class="form-group row">
                                 <label class="col-sm-2">Kader Verein 1</label>
                                 <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
                                     <option value="" selected>@Spielername</option>
-                                    <option value="" selected Spieler wählen</option>
+                                    <option value="" selected Spieler wählen></option>
                                     @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -147,36 +174,36 @@
                                 </select>
                                 <label class="col-sm-2">Kader Verein 2</label>
                                 <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                    <option value="" selected>@Spielername</option>
-                                    <option value="" selected>Spieler wählen</option>
+                                    <option value="" selected>@Spielername</option>                                    
                                     @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                     }
+                                    <option value="" selected>Spieler wählen</option>
                                 </select>
                                 <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2">Spieler Verein 1</label>
                                 <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
-                                    <option value="" selected>@Spielername</option>
-                                    <option value="" selected>Spieler wählen</option>
+                                    <option value="" selected>@Spielername</option>                                    
                                     @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                     }
+                                    <option value="" selected>Spieler wählen</option>
                                 </select>
                                 <label class="col-sm-2">Spieler Verein 2</label>
                                 <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                    <option value="" selected>@Spielername</option>
-                                    <option value="" selected>Spieler wählen</option>
+                                    <option value="" selected>@Spielername</option>                                    
                                     @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                     }
+                                    <option value="" selected>Spieler wählen</option>
                                 </select>
                                 <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputText>
                                 <div class="form-group-row py-2">
@@ -187,33 +214,92 @@
                         </div>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Tore">
-                        <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                        Data="@ToreList" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                            <Template Context="Tor">
-                                <RadzenCard Style="width:100%; padding:0;">
-                                    <RadzenRow Gap="0">
-                                        <RadzenColumn Size="4" SizeXS="4">
-                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="2">
-                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
-                                        </RadzenColumn>                                       
-                                    </RadzenRow>
-                                </RadzenCard>
-                            </Template>
-                        </RadzenDataList>
+                        <div class="form-group row">
+                            <details open>
+                                <summary>Übersicht Tore</summary>
+                                <p>
+                                    <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
+                                                    WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                                    Data="@ToreList" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                                        <Template Context="Tor">
+                                            <RadzenCard Style="width:100%; padding:0;">
+                                                <RadzenRow Gap="0">
+                                                    <RadzenColumn Size="4" SizeXS="4">                                                        
+                                                        <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
+                                                        <RadzenText Visible=@Tor.Eigentor TextStyle="TextStyle.Body2">(ET)</RadzenText>
+                                                    </RadzenColumn>                                                   
+                                                    <RadzenColumn Size="1" SizeXS="1">                                                        
+                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
+                                                    </RadzenColumn>
+                                                    <RadzenColumn Size="2" SizeXS="2">                                                        
+                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
+                                                    </RadzenColumn>                                                    
+                                                </RadzenRow>
+                                            </RadzenCard>
+                                        </Template>
+                                    </RadzenDataList>
+                                </p>
+                            </details>
+
+                            <details>
+                                <summary>Tor Verein 1</summary>
+                                <p>
+                                    <div class="card-body CardTore">
+                                        <label class="col-sm-3">Spieler Verein 1</label>
+                                        <select id="cboKader" class="form-control col-sm-9" @onchange="ToreChange1">
+                                            <option value="" selected>@Spielername</option>
+                                            <option value="" selected Spieler wählen></option>
+                                            @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
+                                            {
+                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                            }
+                                        </select>
+
+                                        <label class="col-sm-3">Spielminute</label>
+                                        <InputNumber id="txtSpielminuteV1" @bind-Value="Tor.Spielminute" class="form-control col-sm-9"></InputNumber>
+                                        <label class="col-sm-3">Spielstand</label>
+                                        <InputText id="txtSpielstandV1" @bind-Value="Tor.Spielstand" class="form-control col-sm-9"></InputText>
+                                        <br />
+                                        <RadzenButton title="Speichert Tor ab" id="btnSpeichernTorV1" Click="UpsertTor1" class="btn btn-primary" Text="Speichern">
+
+                                        </RadzenButton>
+                                    </div>
+                                </p>
+                            </details>
+                            <details>
+                                <summary>Tor Verein 2 </summary>
+                                <p>
+                                    <div class="card-body CardTore">
+                                        <label class="col-sm-3">Spieler Verein 2</label>
+                                        <select id="cboKader" class="form-control col-sm-9" @onchange="ToreChange2">
+                                            <option value="" selected>@Spielername</option>
+                                            <option value="" selected Spieler wählen></option>
+                                            @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
+                                            {
+                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+
+                                            }
+                                        </select>
+
+                                        <label class="col-sm-3">Spielminute</label>
+                                        <InputNumber id="txtSpielminuteV1" @bind-Value="Tor.Spielminute" class="form-control col-sm-9"></InputNumber>
+                                        <label class="col-sm-3">Spielstand</label>
+                                        <InputText id="txtSpielstandV1" @bind-Value="Tor.Spielstand" class="form-control col-sm-9"></InputText>
+                                        <br />
+                                        <RadzenButton title="Speichert Tor ab" id="btnSpeichernTorV2" Click="UpsertTor2" class="btn btn-primary" Text="Speichern">
+
+                                        </RadzenButton>
+                                    </div>
+                                </p>
+                            </details>
+                        </div>
                     </RadzenTabsItem>
                     <RadzenTabsItem Text="Spielverlauf">
                     </RadzenTabsItem>
+
                 </Tabs>
-            </RadzenTabs>     
+            </RadzenTabs>
         </EditForm>
     </div>
 </div>
@@ -339,6 +425,34 @@
 
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
         /* navigationManager.NavigateTo(url); */
+    }
+
+    private async Task UpsertTor1()
+    {
+        Tor.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
+        Tor.Saison = Globals.currentSaison;
+        Tor.SaisonID = Globals.SaisonID;
+        Tor.SpieltagNr = SpieltagNr;      
+        Tor.Eigentor = false;
+        Tor.SpieltagId = Convert.ToInt32(Spiel.SpieltagId);
+
+        await _ToreService.CreateTor(Tor);
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag-Tor", Detail = "Abgespeichert" });
+    }
+
+    private async Task UpsertTor2()
+    {
+        Tor.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
+        Tor.Saison = Globals.currentSaison;
+        Tor.SaisonID = Globals.SaisonID;
+        Tor.SpieltagNr = SpieltagNr;
+        Tor.Eigentor = false;        
+        Tor.SpieltagId = Convert.ToInt32(Spiel.SpieltagId);
+
+        await _ToreService.CreateTor(Tor);
+
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag-Tor", Detail = "Abgespeichert" });
     }
 
     private void Zurueck_Click()

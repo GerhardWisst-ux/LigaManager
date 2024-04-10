@@ -25,13 +25,12 @@ namespace LigaManagement.Models
         public int Spielminute { get; set; }
 
         [Required]
-        public int SpielerID { get; set; }
-
-        [Required]
-        public int SpieltagsID { get; set; }
+        public int SpielerID { get; set; }               
 
         [Required]
         public string Spielstand { get; set; }
+       
+        public bool Eigentor { get; set; }
 
 
 

@@ -73,6 +73,11 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
+            services.AddHttpClient<IPokalergebnisseService, PokalergebnisseService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();

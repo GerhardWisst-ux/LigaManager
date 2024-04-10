@@ -17,9 +17,9 @@ namespace ToreManagerManagement.Web.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<Tore> CreateTor(Tore newTore)
+        public async Task<Tore> CreateTor(Tore Tor)
         {
-            return await httpClient.PostJsonAsync<Tore>("api/tore", newTore); ;
+            return await httpClient.PostJsonAsync<Tore>("api/tore", Tor); ;
         }
 
         public Task DeleteTor(int id)
@@ -37,9 +37,9 @@ namespace ToreManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<Tore[]>("api/tore");
         }
 
-        public async Task<Tore> Update(Tore updatedTore)
+        public async Task<Tore> Update(Tore Tor)
         {
-            return await httpClient.PutJsonAsync<Tore>("api/tore", updatedTore);
+            return await httpClient.PutJsonAsync<Tore>("api/tore", Tor);
         }
     }
 }

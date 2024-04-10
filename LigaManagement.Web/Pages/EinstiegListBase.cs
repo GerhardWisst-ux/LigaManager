@@ -331,12 +331,14 @@ namespace LigaManagement.Web.Pages
             if (Globals.currentSaison == null)
             {
                 DisplayErrorSaison = "block";
+                DisplayErrorLiga = "none";
                 return;
             }
 
             if (Globals.currentLiga == null)
             {
                 DisplayErrorLiga = "block";
+                DisplayErrorSaison = "none";
                 return;
             }
 

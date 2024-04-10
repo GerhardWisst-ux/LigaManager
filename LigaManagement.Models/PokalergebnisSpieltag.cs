@@ -3,28 +3,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LigaManagement.Models
 {
-    public class Spieltag
+    public class PokalergebnisSpieltag
     {
         public int? SpieltagId { get; set; }
-
-        [Required]
-        public string SpieltagNr { get; set; }
-
-        [Required]
-        public string Saison { get; set; }
 
         public int? SaisonID { get; set; }
 
         public int? LigaID { get; set; }
 
         [Required]
-        public string Verein1_Nr { get; set; }
+        public int Verein1_Nr { get; set; }
 
         [Required(ErrorMessage = "Verein 1 muß angegeben werden")]
         public string Verein1 { get; set; }
 
         [Required]
-        public string Verein2_Nr { get; set; }
+        public int Verein2_Nr { get; set; }
 
         [Required(ErrorMessage = "Verein 2 muß angegeben werden")]
         public string Verein2 { get; set; }
@@ -49,5 +43,7 @@ namespace LigaManagement.Models
         public bool Abgeschlossen { get; set; }
 
         public int? Zuschauer { get; set; }
-    }  
+    
+        public string Runde { get; set; }              
+    }
 }
