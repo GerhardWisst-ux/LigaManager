@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using ToremanagerManagement.Api.Models.Repository;
 
@@ -51,6 +52,27 @@ namespace LigaManagement.Api.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database:" + ex.Message);
+            }
+        }
+        [HttpPut()]
+        public async Task<ActionResult<PokalergebnisSpieltag>> UpdatePokalergebnis(PokalergebnisSpieltag Spieltag)
+        {
+            try
+            {
+                var SpieltagToUpdate = await pokalergebnisseRepository.GetPokalergebnis((int)Spieltag.SpieltagId);
+
+                if (SpieltagToUpdate == null)
+                {
+                    return NotFound($"Pokalspieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
+                }
+
+                return await pokalergebnisseRepository.UpdatePokalergebnis(Spieltag);
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.StackTrace);
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Fehler beim Updaten der Daten:" + ex.Message);
             }
         }
 

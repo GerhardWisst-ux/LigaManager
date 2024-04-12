@@ -3,6 +3,7 @@ using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -35,8 +36,8 @@ namespace LigaManagerManagement.Web.Services
             }
             catch (System.Exception ex)
             {
-
-                throw ex;
+                Debug.Print(ex.StackTrace);
+                return null;
             }
         }
 

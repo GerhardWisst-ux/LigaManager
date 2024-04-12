@@ -121,7 +121,7 @@ else
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Small" />
                     </RadzenCard>
-                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="30"
                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
                                     TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -133,7 +133,8 @@ else
                                 </FooterTemplate>
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=false Title="Heim" />                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=false Title="Heim" />                            
+                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
                                 <Template Context="data">
                                     <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                 </Template>

@@ -22,11 +22,43 @@ namespace LigaManagerManagement.Api.Models
             this.appDbContext = appDbContext;
         }
 
-        public async Task<Verein> AddVerein(Verein Verein)
+        public async Task<Verein> AddVerein(Verein verein)
         {
-            var result = await appDbContext.Vereine.AddAsync(Verein);
-            await appDbContext.SaveChangesAsync();
-            return result.Entity;
+            try
+            {
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO [Vereine] (VereinNr,Vereinsname1, Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
+                    " VALUES(@VereinNr,@Vereinsname1,@Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
+
+                cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
+                cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
+                cmd.Parameters.AddWithValue("@Vereinsname2", verein.Vereinsname2);
+                cmd.Parameters.AddWithValue("@Stadion", verein.Stadion);
+                cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
+                cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
+                cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
+                cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
+                cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return verein;
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+
+            //var result = await appDbContext.Vereine.AddAsync(Verein);
+            //await appDbContext.SaveChangesAsync();
+            //return result.Entity;
         }
 
         public Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> vereineSaison)
@@ -52,29 +84,119 @@ namespace LigaManagerManagement.Api.Models
             return null;
         }
 
-        public async Task<Verein> DeleteVerein(int VereinId)
+        public async Task<Verein> DeleteVerein(int vereinId)
         {
-            var result = await appDbContext.Vereine
-               .FirstOrDefaultAsync(e => e.Id == VereinId);
-            if (result != null)
-            {
-                appDbContext.Vereine.Remove(result);
-                await appDbContext.SaveChangesAsync();
-                return result;
-            }
+            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM [dbo].[Vereine] Where Id= @Id";
+
+            cmd.Parameters.AddWithValue("@Id", vereinId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
 
             return null;
+
+            //var result = await appDbContext.Vereine
+            //   .FirstOrDefaultAsync(e => e.Id == VereinId);
+            //if (result != null)
+            //{
+            //    appDbContext.Vereine.Remove(result);
+            //    await appDbContext.SaveChangesAsync();
+            //    return result;
+            //}
+
+            //return null;
         }
 
-        public async Task<Verein> GetVerein(int VereinId)
+        public async Task<Verein> GetVerein(int vereinnr)
         {
-            return await appDbContext.Vereine
-                .FirstOrDefaultAsync(d => d.VereinNr == VereinId);
+            try
+            {
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [Vereine] Where VereinNr =" + vereinnr, conn);
+                Verein verein = null;
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new Verein();
+                                                
+                        verein.Id = int.Parse(reader["Id"].ToString());
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname2"].ToString();
+                        verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
+                        verein.Erfolge = reader["Erfolge"].ToString();
+                        verein.Stadion = reader["Stadion"].ToString();
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
+                        verein.Pokal = bool.Parse(reader["Pokal"].ToString());
+                        verein.Bundesliga = bool.Parse(reader["Bundesliga"].ToString());
+                    }
+                }
+                conn.Close();
+                return verein;
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+
+                return null;
+            }
+            //return await appDbContext.Vereine
+            //    .FirstOrDefaultAsync(d => d.VereinNr == VereinId);
         }
 
         public async Task<IEnumerable<Verein>> GetVereine()
         {
-            return await appDbContext.Vereine.ToListAsync();
+            try
+            {
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [Vereine]", conn);
+                Verein verein = null;
+                List<Verein> vereinelist = new List<Verein>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new Verein();
+
+                        verein.Id = int.Parse(reader["Id"].ToString());
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname2"].ToString();
+                        verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
+                        verein.Erfolge = reader["Erfolge"].ToString();
+                        verein.Stadion = reader["Stadion"].ToString();
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
+                        verein.Pokal = bool.Parse(reader["Pokal"].ToString());
+                        verein.Bundesliga = bool.Parse(reader["Bundesliga"].ToString());
+
+                        vereinelist.Add(verein);
+                    }
+                }
+                conn.Close();
+                return vereinelist;
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+
+                return null;
+            }
+
+            //return await appDbContext.Vereine.ToListAsync();
         }
 
         public async Task<IEnumerable<VereinAktSaison>> GetVereineSaison()
@@ -105,33 +227,65 @@ namespace LigaManagerManagement.Api.Models
             return vereineSaison;
         }
 
-        public async Task<Verein> UpdateVerein(Verein Verein)
+        public async Task<Verein> UpdateVerein(Verein verein)
         {
             try
             {
-                var result = await appDbContext.Vereine
-                .FirstOrDefaultAsync(e => e.Id == Verein.Id);
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
 
-                if (result != null)
-                {
-                    result.VereinNr = Verein.VereinNr;
-                    result.Vereinsname1 = Verein.Vereinsname1;
-                    result.Vereinsname2 = Verein.Vereinsname2;
-                    result.Stadion = Verein.Stadion;
-                    result.Erfolge = Verein.Erfolge;
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;              
+                cmd.CommandText = "UPDATE Vereine(VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
+               " VALUES(@VereinNr,@Vereinsname1, @Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
 
-                    await appDbContext.SaveChangesAsync();
+                cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
+                cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
+                cmd.Parameters.AddWithValue("@Vereinsname2", verein.Vereinsname2);
+                cmd.Parameters.AddWithValue("@Stadion", verein.Stadion);
+                cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
+                cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
+                cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
+                cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
+                cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
 
-                    return result;
-                }
-                return null;
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return verein;
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
-                Debug.Print(ex.StackTrace);
-                return null;
-            }      
-        
+
+                throw ex;
+            }
+
+            //try
+            //{
+            //    var result = await appDbContext.Vereine
+            //    .FirstOrDefaultAsync(e => e.Id == Verein.Id);
+
+            //    if (result != null)
+            //    {
+            //        result.VereinNr = Verein.VereinNr;
+            //        result.Vereinsname1 = Verein.Vereinsname1;
+            //        result.Vereinsname2 = Verein.Vereinsname2;
+            //        result.Stadion = Verein.Stadion;
+            //        result.Erfolge = Verein.Erfolge;
+
+            //        await appDbContext.SaveChangesAsync();
+
+            //        return result;
+            //    }
+            //    return null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    Debug.Print(ex.StackTrace);
+            //    return null;
+            //}      
+
         }
 
       

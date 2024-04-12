@@ -67,7 +67,7 @@ namespace LigaManagement.Api.Controllers
                
                 var createdSpieltag = await SpieltagRepository.AddSpieltag(spieltag);
 
-                return CreatedAtAction(nameof(GetSpieltag), new { id = createdSpieltag.SpieltagId },
+                return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
             }
             catch (Exception ex)

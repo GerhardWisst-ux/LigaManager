@@ -53,9 +53,18 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<Spieltag> CreateSpieltag(Spieltag newSpieltag)
+        public async Task<Spieltag> CreateSpieltag(Spieltag spieltag)
         {
-            return await httpClient.PostJsonAsync<Spieltag>("api/spieltage", newSpieltag);
+            try
+            {
+                return await httpClient.PostJsonAsync<Spieltag>("api/spieltage", spieltag);
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
         }
 
         public async Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag)

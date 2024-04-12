@@ -6,17 +6,13 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
 using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Pages
@@ -26,6 +22,7 @@ namespace LigaManagement.Web.Pages
         public RadzenDataGrid<PokalergebnisSpieltag> grid;
         public Density Density = Density.Default;
         public bool allowVirtualization;
+        public string Titel { get; set; }
 
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
@@ -45,11 +42,11 @@ namespace LigaManagement.Web.Pages
 
         NotificationService NotificationService;
 
-        public List<DisplaySaison> SaisonenList;
-
-        public List<DisplayLiga> LigenList;
+        public List<DisplaySaison> SaisonenList;        
 
         private readonly AppDbContext appDbContext;
+
+        public bool VisibleBtnNew { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -57,8 +54,7 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         [Inject]
-        public IVereineService VereineService { get; set; }
-             
+        public IVereineService VereineService { get; set; }             
        
         [Inject]
         public IPokalergebnisseService PokalergebnisseService { get; set; }
@@ -66,6 +62,8 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Saison> Saisonen { get; set; }
              
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltage { get; set; }
+
+        public IEnumerable<PokalergebnisSpieltag>  PokalergebnisseSpieltageAlle { get; set; }
         protected override async Task OnInitializedAsync()
         {
             SaisonenList = new List<DisplaySaison>();
@@ -76,56 +74,60 @@ namespace LigaManagement.Web.Pages
                 var columns = Saisonen.ElementAt(i);
                 SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
             }
-                             
+
+            PokalergebnisseSpieltageAlle = await PokalergebnisseService.GetPokalergebnisseSpieltag();
+
+            if (PokalergebnisseSpieltageAlle == null)
+                return;
+
+            PokalergebnisseSpieltageAlle = PokalergebnisseSpieltageAlle.ToList().Where(x => x.Runde == "F").OrderByDescending(x => x.Datum);
+            
             DisplayErrorRunde = "none";
             DisplayErrorSaison = "none";
+
+            VisibleBtnNew = false;
+
         }
 
         public void ValidateItems(IEnumerable args)
         {
-            TabellenList = (List<int>)args;
-                                
+            TabellenList = (List<int>)args;                                
             
         }
-        public void SaisonChange(ChangeEventArgs e)
+
+        public async void SaisonChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                SaisonChoosed = Convert.ToInt32(e.Value);
+                SaisonChoosed = Convert.ToInt32(e.Value);                             
+                
+                Globals.PokalSaisonID = SaisonChoosed;
+                
+                var saison = await SaisonenService.GetSaison(Convert.ToInt32(SaisonChoosed));
 
+                Globals.currentPokalSaison = saison.Saisonname;
             }
         }
         public async void RundeChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                RundeChoosed = e.Value.ToString();               
+                RundeChoosed = e.Value.ToString();                              
 
             }
         }
+
         public void OnSaisonChange(object value)
         {
             var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
 
-            Globals.currentSaison = str.ToString();
-            Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
+            Globals.currentPokalSaison = str.ToString();
+            Globals.PokalSaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentPokalSaison).SaisonID;
 
             //Console.WriteLine($"Value changed to {str}");
         }
 
-        public void OnProgress(UploadProgressArgs args, string name)
-        {
-            Console.WriteLine($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
-
-            if (args.Progress == 100)
-            {
-                foreach (var file in args.Files)
-                {
-                    Console.WriteLine($"Uploaded: {file.Name} / {file.Size} bytes");
-                }
-            }
-        }
-
+      
         public void LigaChange(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -143,29 +145,18 @@ namespace LigaManagement.Web.Pages
             }
             public int SaisonID { get; set; }
             public string Saisonname { get; set; }
-        }
-
-        public class DisplayLiga
-        {
-            public DisplayLiga(int ligaID, string liganame)
-            {
-                LigaID = ligaID;
-                Liganame = liganame;
-            }
-            public int LigaID { get; set; }
-            public string Liganame { get; set; }
-        }
+        }       
 
         public async void OnClickHandler()
         {
-            if (SaisonChoosed == null && RundeChoosed == null)
+            if (SaisonChoosed == 0 && RundeChoosed == null)
             {
                 DisplayErrorSaison = "block";
                 DisplayErrorRunde = "block";
                 return;
             }
 
-            if (SaisonChoosed == null)
+            if (SaisonChoosed == 0)
             {
                 DisplayErrorSaison = "block";
                 DisplayErrorRunde = "none";
@@ -189,11 +180,21 @@ namespace LigaManagement.Web.Pages
 
             PokalergebnisseSpieltage = PokalergebnisseSpieltage.ToList();
             PokalergebnisseSpieltage = PokalergebnisseSpieltage.Where(x => x.SaisonID == SaisonChoosed && x.Runde == RundeChoosed).OrderBy(x => x.Datum);
-                                    
+
+            if (RundeChoosed == "HF" && PokalergebnisseSpieltage.Count() == 2)
+                VisibleBtnNew = false;
+            else if (RundeChoosed == "VF" && PokalergebnisseSpieltage.Count() == 4)
+                VisibleBtnNew = false;
+            else if (RundeChoosed == "AF" && PokalergebnisseSpieltage.Count() == 8)
+                VisibleBtnNew = false;
+            else if (RundeChoosed == "2" && PokalergebnisseSpieltage.Count() == 16)
+                VisibleBtnNew = false;
+            else
+                VisibleBtnNew = true;
+
             Globals.bVisibleNavMenuElements = true;
             StateHasChanged();
-        }
-       
+        }       
     }
 }
 

@@ -1,19 +1,17 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Api.Migrations;
+using LigaManagement.Models;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using ToreManagerManagement.Web.Services;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -60,7 +58,7 @@ namespace LigaManagerManagement.Web.Pages
 
         public Spielergebnisse Spiel { get; set; } = new Spielergebnisse();
 
-        public IEnumerable<Verein> Vereine { get; set; }
+        public List<Verein> Vereine { get; set; }
 
         [Parameter]
         public string SpieltagNr { get; set; }
@@ -108,18 +106,17 @@ namespace LigaManagerManagement.Web.Pages
             else
             {
                 spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
-            }            
+            }
 
 
             Vereine = (await VereineService.GetVereine()).ToList();
+            
             VereineList = new List<DisplayVerein>();
 
-            int iAnzahl = spiele2.Count() * 2;
-
-            for (int i = 0; i < spiele2.Count(); i++)
+            
+            for (int i = 0; i < Vereine.Count() - 1; i++)
             {
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein1_Nr, spiele2[i].Verein1));
-                VereineList.Add(new DisplayVerein(spiele2[i].Verein2_Nr, spiele2[i].Verein2));
+                VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1));                
             }
 
             DisplayElements = "none";

@@ -50,7 +50,7 @@ else
          <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
-                    </RadzenCard>
+         </RadzenCard>
 
         <div class="form-group row">
             <div class="col-sm-12">

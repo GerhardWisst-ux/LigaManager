@@ -2,6 +2,7 @@
 using LigaManagement.Web.Services.Contracts;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -33,7 +34,16 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<IEnumerable<Liga>> GetLigen()
         {
-            return await httpClient.GetJsonAsync<Liga[]>("api/ligen");
+            try
+            {
+                return await httpClient.GetJsonAsync<Liga[]>("api/ligen");
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+                return null;
+            }
         }
 
         public async Task<Liga> UpdateLiga(Liga updatedLiga)

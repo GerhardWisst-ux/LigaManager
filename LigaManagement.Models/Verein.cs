@@ -24,7 +24,10 @@ namespace LigaManagement.Models
         public string Erfolge { get; set; }
 
         public int Gegruendet { get; set; }
+        
+        public bool Pokal { get; set; }
 
+        public bool Bundesliga { get; set; }
 
     }
 

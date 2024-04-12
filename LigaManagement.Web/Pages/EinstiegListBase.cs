@@ -110,8 +110,9 @@ namespace LigaManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.currentSaison = e.Value.ToString();
+                Globals.currentPokalSaison = Globals.currentSaison;
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
-                
+                Globals.PokalSaisonID = Globals.SaisonID;
 
             }
         }
@@ -346,7 +347,8 @@ namespace LigaManagement.Web.Pages
             DisplayErrorSaison = "none";
 
             Vereine = await VereineService.GetVereine();
-            //Ligamanager.Components.Globals.VereinAktSaison = (await _VereineService.GetVereine()).Take(18).OrderBy(v => v.Vereinsname1);
+            Spieltage = (await SpieltagService.GetSpieltage());
+
             Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.Saison == Globals.currentSaison).ToList();
             for (int j = 0; j < Spieltage.Count(); j++)
             {
@@ -381,7 +383,7 @@ namespace LigaManagement.Web.Pages
             else
                 Globals.maxSpieltag = 34;
 
-            SpieltagRepository rep = new SpieltagRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository(appDbContext);
 
             Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 

@@ -82,12 +82,14 @@ namespace ToreManagerManagement.Api.Models
                 {
                     tor = new Tore();
                     tor.Id = (int)reader["Id"];
-                    tor.SaisonID = (int)reader["saisonID"];
+                    tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                    tor.LigaID = int.Parse(reader["LigaID"].ToString());
                     tor.SpieltagNr = reader["SpieltagNr"].ToString();                    
-                    tor.Spielminute = (int)reader["Spielminute"];
-                    tor.SpielerID = (int)reader["SpielerID"];
+                    tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
+                    tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
                     tor.Spielstand = reader["Spielstand"].ToString();
-                    tor.Eigentor = (bool)reader["Eigentor"];
+                    tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                    tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
                 }
             }
             conn.Close();
@@ -108,14 +110,14 @@ namespace ToreManagerManagement.Api.Models
                 {
                     tor = new Tore();
                     tor.Id = (int)reader["Id"];
-                    tor.SaisonID = (int)reader["saisonID"];
-                    tor.LigaID = (int)reader["LigaID"];                    
-                    tor.SpieltagNr = reader["SpieltagNr"].ToString();                    
-                    tor.Spielminute = (int)reader["Spielminute"];
-                    tor.SpielerID = (int)reader["SpielerID"];
+                    tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                    tor.LigaID = int.Parse(reader["LigaID"].ToString());
+                    tor.SpieltagNr = reader["SpieltagNr"].ToString();
+                    tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
+                    tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
                     tor.Spielstand = reader["Spielstand"].ToString();
-                    tor.SpieltagId = (int)reader["SpieltagId"];
-                    tor.Eigentor = (bool)reader["Eigentor"];
+                    tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                    tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
 
                     tore.Add(tor);
                 }

@@ -75,7 +75,7 @@ namespace LigaManagerManagement.Web.Services
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
             int BisSpieltag;
-            SpieltagRepository rep = new SpieltagRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository(appDbContext);
             var TabSaisonSorted = new List<Tabelle>();
             int paarung = 1;
             int VonSpieltag = 1;
@@ -488,7 +488,7 @@ namespace LigaManagerManagement.Web.Services
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
-            SpieltagRepository rep = new SpieltagRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository(appDbContext);
             var TabSaisonEwigSorted = new List<Tabelle>();
             int VonSpieltag = 1;
             int BisSpieltag = 34;

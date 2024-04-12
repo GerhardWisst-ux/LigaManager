@@ -388,6 +388,8 @@
         else
         {
             //update
+            Spiel.Saison = Globals.currentSaison;
+            Spiel.SaisonID = Globals.SaisonID;           
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.UpdateSpieltag(Spiel);
 

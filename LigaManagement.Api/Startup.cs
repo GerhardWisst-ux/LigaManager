@@ -27,10 +27,10 @@ namespace LigaManagement.Api
             services.AddDbContext<AppDbContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
                        
-            services.AddScoped<ISpieltagRepository, SpieltagRepository>();
+            services.AddScoped<ISpieltagRepository, SpieltageRepository>();
             services.AddScoped<IVereinRepository, VereinRepository>();
             services.AddScoped<ITabelleRepository, TabelleRepository>();
-            services.AddScoped<ISaisonRepository, SaisonRepository>();
+            services.AddScoped<ISaisonRepository, SaisonenRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();
             services.AddScoped<IToreRepository, ToreRepository>();            

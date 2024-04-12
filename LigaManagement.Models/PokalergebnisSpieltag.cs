@@ -7,10 +7,11 @@ namespace LigaManagement.Models
     {
         public int? SpieltagId { get; set; }
 
+        [Required]
         public int? SaisonID { get; set; }
 
-        public int? LigaID { get; set; }
-
+        public string Saison { get; set; }
+               
         [Required]
         public int Verein1_Nr { get; set; }
 
@@ -39,8 +40,10 @@ namespace LigaManagement.Models
         public string Ort { get; set; }
 
         public string Schiedrichter { get; set; }
+        
+        public bool Verlängerung { get; set; }
 
-        public bool Abgeschlossen { get; set; }
+        public bool Elfmeterschiessen { get; set; }
 
         public int? Zuschauer { get; set; }
     

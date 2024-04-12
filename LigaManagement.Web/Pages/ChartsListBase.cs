@@ -115,7 +115,7 @@ namespace LigaManagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                SpieltagRepository rep = new SpieltagRepository(appDbContext);
+                SpieltageRepository rep = new SpieltageRepository(appDbContext);
 
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 

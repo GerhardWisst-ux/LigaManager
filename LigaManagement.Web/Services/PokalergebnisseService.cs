@@ -20,7 +20,15 @@ namespace ToreManagerManagement.Web.Services
 
         public async Task<PokalergebnisSpieltag> CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag)
         {
-            return await httpClient.PostJsonAsync<PokalergebnisSpieltag>("api/pokalergebnisse", pokalergebnisSpieltag); 
+            try
+            {
+                return await httpClient.PostJsonAsync<PokalergebnisSpieltag>("api/pokalergebnisse", pokalergebnisSpieltag);
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
         }
 
         public Task DeletePokalergebnis(int id)
@@ -56,14 +64,10 @@ namespace ToreManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<PokalergebnisSpieltag[]>("api/pokalergebnisse");
         }
 
-        public async Task<Tore> Update(PokalergebnisSpieltag pokalergebnisSpieltag)
+        public async Task<PokalergebnisSpieltag> UpdatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag)
         {
-            return await httpClient.PutJsonAsync<Tore>("api/pokalergebnisse", pokalergebnisSpieltag);
+            return await httpClient.PutJsonAsync<PokalergebnisSpieltag>("api/pokalergebnisse", pokalergebnisSpieltag);
         }
-
-        Task<PokalergebnisSpieltag> IPokalergebnisseService.Update(PokalergebnisSpieltag updatedTor)
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }
