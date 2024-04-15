@@ -83,7 +83,6 @@
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore1">Tore 1</RadzenLabel>
                                 <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
-
                                 @* <RadzenNumeric class="form-control col-sm-10" @bind-Value=@Spiel.Tore1_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" /> *@
                                 <ValidationMessage For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                             </div>
@@ -154,7 +153,6 @@
                                 </RadzenButton>
 
                                 <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
-
                                 </RadzenButton>
                             </div>
                         </div>
@@ -174,7 +172,7 @@
                                 </select>
                                 <label class="col-sm-2">Kader Verein 2</label>
                                 <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                    <option value="" selected>@Spielername</option>                                    
+                                    <option value="" selected>@Spielername</option>
                                     @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -187,7 +185,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2">Spieler Verein 1</label>
                                 <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
-                                    <option value="" selected>@Spielername</option>                                    
+                                    <option value="" selected>@Spielername</option>
                                     @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -197,7 +195,7 @@
                                 </select>
                                 <label class="col-sm-2">Spieler Verein 2</label>
                                 <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
-                                    <option value="" selected>@Spielername</option>                                    
+                                    <option value="" selected>@Spielername</option>
                                     @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
                                     {
                                         <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -218,26 +216,32 @@
                             <details open>
                                 <summary>Übersicht Tore</summary>
                                 <p>
-                                    <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
-                                                    WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                    Data="@ToreList" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                                        <Template Context="Tor">
-                                            <RadzenCard Style="width:100%; padding:0;">
-                                                <RadzenRow Gap="0">
-                                                    <RadzenColumn Size="4" SizeXS="4">                                                        
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
-                                                        <RadzenText Visible=@Tor.Eigentor TextStyle="TextStyle.Body2">(ET)</RadzenText>
-                                                    </RadzenColumn>                                                   
-                                                    <RadzenColumn Size="1" SizeXS="1">                                                        
-                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="2" SizeXS="2">                                                        
-                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
-                                                    </RadzenColumn>                                                    
-                                                </RadzenRow>
-                                            </RadzenCard>
-                                        </Template>
-                                    </RadzenDataList>
+                                    @if (ToreList != null)
+                                    {
+
+                                        var ToreList2 = ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
+
+                                        <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
+                                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                                        Data="@ToreList2" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                                            <Template Context="Tor">
+                                                <RadzenCard Style="width:100%; padding:0;">
+                                                    <RadzenRow Gap="0">
+                                                        <RadzenColumn Size="4" SizeXS="4">
+                                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
+                                                            <RadzenText Visible=@Tor.Eigentor TextStyle="TextStyle.Body2">(ET)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="1" SizeXS="1">
+                                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="2" SizeXS="2">
+                                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
+                                                        </RadzenColumn>
+                                                    </RadzenRow>
+                                                </RadzenCard>
+                                            </Template>
+                                        </RadzenDataList>
+                                    }
                                 </p>
                             </details>
 
@@ -353,75 +357,14 @@
 
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.CreateSpieltag(Spiel);
-
-
-            // for (int i = 0; i < SpielerList1.Count(); i++)
-            // {
-            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-            //     spielerspieltag.KaderId = SpielerList1[i].SpielerID;
-            //     spielerspieltag.SaisonId = Globals.SaisonID;
-            //     spielerspieltag.SpieltagId = Globals.Spieltag;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Einsatz = 1;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Spielminuten = 90;
-            //     spielerspieltag.Eingewechselt = false;
-            //     spielerspieltag.Ausgewechselt = false;
-            //     var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            // }
-
-            // for (int i = 0; i < SpielerList2.Count(); i++)
-            // {
-            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-            //     spielerspieltag.KaderId = SpielerList2[i].SpielerID;
-            //     spielerspieltag.SaisonId = Globals.SaisonID;
-            //     spielerspieltag.SpieltagId = Globals.Spieltag;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Einsatz = 1;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Spielminuten = 90;
-            //     spielerspieltag.Eingewechselt = false;
-            //     spielerspieltag.Ausgewechselt = false;
-            //     SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            // }
         }
         else
         {
             //update
             Spiel.Saison = Globals.currentSaison;
-            Spiel.SaisonID = Globals.SaisonID;           
+            Spiel.SaisonID = Globals.SaisonID;
             Spiel.Datum = SpielDateTime;
             await _SpieltagService.UpdateSpieltag(Spiel);
-
-            // for (int i = 0; i < SpielerList1.Count(); i++)
-            // {
-            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-            //     spielerspieltag.KaderId = SpielerList1[i].SpielerID;
-            //     spielerspieltag.SaisonId = Globals.SaisonID;
-            //     spielerspieltag.SpieltagId = Globals.Spieltag;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Einsatz = 1;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Spielminuten = 90;
-            //     spielerspieltag.Eingewechselt = false;
-            //     spielerspieltag.Ausgewechselt = false;
-            //     var erg = SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            // }
-
-            // for (int i = 0; i < SpielerList2.Count(); i++)
-            // {
-            //     SpielerSpieltag spielerspieltag = new SpielerSpieltag();
-            //     spielerspieltag.KaderId = SpielerList2[i].SpielerID;
-            //     spielerspieltag.SaisonId = Globals.SaisonID;
-            //     spielerspieltag.SpieltagId = Globals.Spieltag;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Einsatz = 1;
-            //     spielerspieltag.Tore = 0;
-            //     spielerspieltag.Spielminuten = 90;
-            //     spielerspieltag.Eingewechselt = false;
-            //     spielerspieltag.Ausgewechselt = false;
-            //     SpielerSpieltag spieler = await SpielerSpieltagService.CreateSpieler(spielerspieltag);
-            // }
         }
         string url = "/spieltage/" + SpieltagNr;
 
@@ -434,7 +377,7 @@
         Tor.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
         Tor.Saison = Globals.currentSaison;
         Tor.SaisonID = Globals.SaisonID;
-        Tor.SpieltagNr = SpieltagNr;      
+        Tor.SpieltagNr = SpieltagNr;
         Tor.Eigentor = false;
         Tor.SpieltagId = Convert.ToInt32(Spiel.SpieltagId);
 
@@ -449,7 +392,7 @@
         Tor.Saison = Globals.currentSaison;
         Tor.SaisonID = Globals.SaisonID;
         Tor.SpieltagNr = SpieltagNr;
-        Tor.Eigentor = false;        
+        Tor.Eigentor = false;
         Tor.SpieltagId = Convert.ToInt32(Spiel.SpieltagId);
 
         await _ToreService.CreateTor(Tor);

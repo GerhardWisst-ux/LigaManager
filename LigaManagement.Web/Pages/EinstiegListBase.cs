@@ -29,6 +29,8 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorSaison = "none";
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5};
         public List<int> TabellenList;
+        public int SaisonID;
+        public int LigaID;
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -86,15 +88,11 @@ namespace LigaManagement.Web.Pages
                 LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
             }
 
-            //if (DateTime.Now.Month > 6)
-            //{
-            //    Globals.currentSaison = DateTime.Now.Year + "/" + (DateTime.Now.Year + 1);
-            //}
-            //else
-            //{
-            //    Globals.currentSaison = (DateTime.Now.Year - 1) + "/" + DateTime.Now.Year;
-            //}
-            //Globals.currentLiga = "Bundesliga";
+            if (Globals.SaisonID == 0)
+                Globals.bVisibleNavMenuElements = false;
+            else
+                Globals.bVisibleNavMenuElements = true;
+
             DisplayErrorLiga = "none";
             DisplayErrorSaison = "none";
         }
@@ -113,7 +111,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentPokalSaison = Globals.currentSaison;
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
                 Globals.PokalSaisonID = Globals.SaisonID;
-
+                Globals.KaderSaisonID = Globals.SaisonID;
             }
         }
         public void OnSaisonChange(object value)
@@ -122,6 +120,7 @@ namespace LigaManagement.Web.Pages
 
             Globals.currentSaison = str.ToString();
             Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
+            Globals.KaderSaisonID = Globals.SaisonID;
 
             //Console.WriteLine($"Value changed to {str}");
         }
@@ -447,7 +446,7 @@ namespace LigaManagement.Web.Pages
                 if (!File.Exists(path + "\\LIGAMANAGER.mdf"))
                     myCommand.ExecuteNonQuery();               
                               
-                for (int i = 1; i <= 9; i++)
+                for (int i = 1; i <= 10; i++)
                 {                   
                     if (i == 1)
                         SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Ligen.sql");                    
@@ -467,6 +466,8 @@ namespace LigaManagement.Web.Pages
                         SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
                     else if (i == 9 && TabellenList.Contains(9))
                         SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Tore.sql");
+                    else if (i == 9 && TabellenList.Contains(10))
+                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Pokalergebnisse.sql");
 
                     // split script on GO command
                     IEnumerable<string> commandStrings = Regex.Split(SQLScript, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);

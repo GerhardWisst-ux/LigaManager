@@ -43,18 +43,15 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (Id != null)
             {
-                Kader = await KaderService.GetSpieler(Convert.ToInt32(Id));
-                
-                //VereinChange(new ChangeEventArgs { Value = Verein1_Nr });
+                Kader = await KaderService.GetSpieler(Convert.ToInt32(Id));               
+
             }
 
-            var verein = await VereineService.GetVerein(Globals.currentVereinID);
+            var verein = await VereineService.GetVerein(Globals.KaderVereinNr);
             Vereinsname1 = verein.Vereinsname1;
             Verein1_Nr = verein.VereinNr.ToString();
 
-            var spiele = await SpieltagService.GetSpieltage();
-            List<Spieltag> spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison && x.SpieltagNr == "1").Take(9).ToList();
-
+            
             Vereine = (await VereineService.GetVereine()).ToList();
             var vereineSaison = await VereineService.GetVereineSaison();
 

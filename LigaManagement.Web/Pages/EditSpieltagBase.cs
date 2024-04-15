@@ -4,7 +4,6 @@ using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -170,6 +169,8 @@ namespace LigamanagerManagement.Web.Pages
                     }
                         
                 }
+
+                ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
             }
             catch (Exception ex )
             {

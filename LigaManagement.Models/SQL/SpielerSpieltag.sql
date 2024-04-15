@@ -20,3 +20,27 @@ CREATE TABLE [dbo].SpielerSpieltag(
 ) 
 GO
 SET IDENTITY_INSERT [dbo].[SpielerSpieltag] ON 
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (21, 15, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (22, 16, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (23, 37, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (24, 32, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (25, 31, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (26, 34, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (27, 12, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (28, 10, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (29, 9, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (20, 27, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+INSERT [dbo].[SpielerSpieltag] ([Id], [KaderID], [SaisonID], [SpieltagNr], [Spielminuten], [Einsatz], [Tore], [Eingewechselt], [EingewechseltMin], [Ausgewechselt], [AusgewechseltMin], [GelbeKarten], [RoteKarten]) VALUES (19, 75, 1, 23, 90, 1, 0, 0, 0, 0, 0, 0, 0)
+GO
+SET IDENTITY_INSERT [dbo].[SpielerSpieltag] OFF

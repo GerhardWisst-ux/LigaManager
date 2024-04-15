@@ -57,6 +57,19 @@ else
                 <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
                 <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
                 <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkBundesliga" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
                 <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>
                     <FooterTemplate>
                         Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
@@ -67,7 +80,7 @@ else
                             <Template Context="data">
                                 <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
-                        </RadzenDataGridColumn>
+                </RadzenDataGridColumn>
             </Columns>
            
         </RadzenDataGrid>

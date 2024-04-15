@@ -42,7 +42,7 @@
                     <RadzenCard class="my-4 p-0 rz-shadow-0">
                         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
                             <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
-                                <select id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
+                                <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
                                     <option value="" selected required>Liga auswählen</option>
                                     @if (LigenList != null)
                                     {
@@ -55,7 +55,7 @@
                                 <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                             </RadzenStack>
                             <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
-                                <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+                                <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
                                     <option value="" selected required>Saison auswählen</option>
                                     @if (SaisonenList != null)
                                     {
@@ -112,6 +112,7 @@
                                     <RadzenCheckBoxListItem id="Spieler" Text="Spieler" Value="7" />
                                     <RadzenCheckBoxListItem id="SpielerSpieltag" Text="Spieler Spieltag" Value="8" />
                                     <RadzenCheckBoxListItem id="chkTore" Text="Tore" Value="9" />
+                                    <RadzenCheckBoxListItem id="chkPokalergebnisse" Text="Pokalergebnisse" Value="10" />
                                 </Items>
                             </RadzenCheckBoxList>
                         </div>

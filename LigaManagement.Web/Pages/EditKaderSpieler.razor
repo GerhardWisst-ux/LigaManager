@@ -82,9 +82,11 @@
                     <InputNumber required id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-sm-9"></InputNumber>
                     <ValidationMessage For="()=>Kader.Abloesesumme"></ValidationMessage>
                 </div>
-                <div class="form-group row">
-                    <label class="col-sm-3">Aktiv</label>
-                    <RadzenCheckBox @bind-Value="Kader.Aktiv" class="form-control col-sm-9" Name="chkAktiv" />
+                <div class="form-group">
+                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Aktiv</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Kader.Aktiv" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkElfmeterschiessen" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                    </RadzenColumn>
                     <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
                 </div>
 
@@ -142,7 +144,7 @@
             Kader.LigaID = 1;
 
         Kader.LandID = 57;
-        Kader.Spielminuten = 300;
+        Kader.Spielminuten = Kader.Spielminuten + 90;
         Kader.VereinID = Convert.ToInt32(Verein1_Nr);
 
         if (Id == "0")

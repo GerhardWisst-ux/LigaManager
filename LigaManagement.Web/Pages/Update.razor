@@ -2,6 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using System.Reflection;  
 @using System.Globalization
+@using System.IO;
 @using Radzen;
 
 @attribute [Authorize]
@@ -103,14 +104,25 @@
             <p Text="Tabellen anlegen">
                 <div class="form-group row">
                     <div class="col-sm-12">
+                        <RadzenLabel class="form-control col-sm-2" Component="txtDownloadURL" Text="Download-URL:"></RadzenLabel>
+                        <RadzenText class="form-control col-sm-10" Text="@DownloadURL" id="txtUrl"></RadzenText>
+
+                        <RadzenLabel class="form-control col-sm-2" Component="txtFilenameDownload" Text="Dateiname Download:"></RadzenLabel>
+                        <RadzenText class="form-control col-sm-10" Text="@FilenameDownload" id="txtVersion"></RadzenText>
+
                         <RadzenLabel class="form-control col-sm-2"  Component="txtVersion" Text="aktuelle Version:"></RadzenLabel>
-                        <RadzenText class="form-control col-sm-10" Text="@version" id="txtVersion"></RadzenText>
-                        <RadzenLabel class="form-control col-sm-2" Component="txtVersion" Text="verfügbare Version:"></RadzenLabel>
-                        <RadzenText class="form-control col-sm-10" Text="@version" id="txtVersion"></RadzenText>
+                        <RadzenText class="form-control col-sm-10" Text="@Aktversion" id="txtVersion"></RadzenText>
+                        
                         <br />
-                        <linkbutton title="Update" style="margin-left:2px;" id="btnUpdate" class="btn btn-primary">
-                            Update
+                        <linkbutton title="Updatecheck" style="margin-left:2px;" onclick="CheckUpdate" id="btnCheckUpdate" class="btn btn-primary">
+                           Update-Check
                         </linkbutton>
+                        <linkbutton title="Anwendung updaten" style="margin-left:2px;" onclick="Updater" id="btnUpdate" class="btn btn-primary">
+                            Anwendung updaten
+                        </linkbutton>
+
+                        <RadzenText class="form-control col-sm-10" style="margin-left:2px;" hidden="updateResult" Text="@ResultTest" id="txtVersion"></RadzenText>
+
                     </div>
                 </div>
             </p>
@@ -120,8 +132,25 @@
 
 
 @code {
-    public string version;
-    
+    protected string DisplayUpdater = "block";
+    protected string DisplayResultText = "none";
+    protected string ResultText = "block";
+    protected string ResultTest;
+    public string DownloadURL;
+    public string FilenameDownload;
+    public string Aktversion;
+    public const string updaterPrefix = "M1234_";
+    public static string StartupPath = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+    private static string processToEnd = "UpdateLigamanager";
+    private static string postProcess = StartupPath + @"\" + processToEnd + ".exe";
+    public static string updater = StartupPath + @"\update.exe";
+
+    public const string updateSuccess = "UpdateLigamanager wurde erfolgreich upgedated";
+    public const string updateCurrent = "keine Update für UpdateLigamanager verfügbar";
+    public const string updateInfoError = "Fehler beim Ermitteln der UpdateLigamanager Informationen";
+
+
+    public static List<string> info = new List<string>();
 
     // public async void OnClickHandler()
     // {
@@ -130,9 +159,55 @@
     protected override async Task OnInitializedAsync()
     {
         System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-         System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
-         version = fvi.FileVersion;
+        System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
+        FilenameDownload = fvi.FileName;
+        Aktversion = fvi.FileVersion;
+        DownloadURL = fvi.FileDescription;
+
     }
+
+    protected void Updater()
+    {
+
+        LigaManager.Update.update.installUpdateRestart(info[3], info[4], "\"" + StartupPath + "\\", processToEnd, postProcess, "updated", updater);
+
+    }
+
+    protected void CheckUpdate()
+    {
+
+
+        info = LigaManager.Update.update.getUpdateInfo(DownloadURL, FilenameDownload, StartupPath + @"\", 1);
+
+        if (info == null)
+        {
+
+            DisplayUpdater = "none";
+            // updateResult.Text = updateInfoError;
+            // updateResult.Visible = true;
+
+        }
+        else
+        {
+
+            if (decimal.Parse(info[1]) > decimal.Parse(Aktversion))
+            {
+
+                DisplayUpdater = "block";
+                DisplayResultText = "none";
+
+            }
+            else
+            {
+
+                DisplayUpdater = "none";
+                DisplayResultText = "block";
+                ResultTest = updateCurrent;
+
+            }
+        }
+    }
+   
 }
 
 

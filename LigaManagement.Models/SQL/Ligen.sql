@@ -16,12 +16,12 @@ CREATE TABLE [dbo].[Ligen](
 GO
 
 SET IDENTITY_INSERT [dbo].[Ligen] ON;  
-
+GO
 INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (1, N'Bundesliga', N'DFB', CAST(N'1963-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')
 GO
 INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (2, N'2. Bundesliga', N'DFB', CAST(N'1991-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')
 GO
 INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (3, N'3. Liga', N'DFB', CAST(N'2008-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')
 GO
-INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (4, N'Premier League', N'FA', CAST(N'1992-08-14T00:00:00.0000000' AS DateTime2), 3, N'True')
+INSERT [dbo].[Ligen] ([Id], [Liganame], [Verband], [Erstaustragung], [Absteiger], [Aktiv]) VALUES (4, N'Premier League', N'FA', CAST(N'1992-08-14T00:00:00.0000000' AS DateTime2), 3, N'1')
 GO

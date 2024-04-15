@@ -4,6 +4,7 @@ using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
@@ -199,24 +200,57 @@ namespace LigaManagement.Api.Models
 
         public async Task<Saison> UpdateSaison(Saison saison)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "UPDATE Saisonen(SaisonID,LigaID,Saisonname,Liganame,Aktuell,Abgeschlossen)" +
-                " VALUES(@SaisonID,@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
+            int bAktuell;
+            int bAbgeschlossen;
 
-            cmd.Parameters.AddWithValue("@SaisonID", saison.SaisonID);
-            cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
-            cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
-            cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
-            cmd.Parameters.AddWithValue("@Aktuell", saison.Aktuell);
-            cmd.Parameters.AddWithValue("@Abgeschlossen", saison.Abgeschlossen);
-            cmd.ExecuteNonQuery();
+            try
+            {
 
-            conn.Close();
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                //cmd.CommandText = "UPDATE Saisonen(SaisonID,LigaID,Saisonname,Liganame,Aktuell,Abgeschlossen)" +
+                //    " VALUES(@SaisonID,@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
 
-            return saison;
+                //cmd.Parameters.AddWithValue("@SaisonID", saison.SaisonID);
+                //cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
+                //cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
+                //cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
+                //cmd.Parameters.AddWithValue("@Aktuell", saison.Aktuell);
+                //cmd.Parameters.AddWithValue("@Abgeschlossen", saison.Abgeschlossen);
+
+                if (saison.Aktuell == false)
+                    bAktuell = 0;
+                else
+                    bAktuell = 1;
+
+                if (saison.Abgeschlossen == false)
+                    bAbgeschlossen = 0;
+                else
+                    bAbgeschlossen = 1;
+
+                cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +
+                          "[Saisonname] = '" + saison.Saisonname + "'" +
+                           "[Liganame] = '" + saison.Liganame + "'" +
+                          ",[LigaID] =" + saison.LigaID +
+                          ",[Aktuell] =" + bAktuell +
+                          ",[Abgeschlossen] =" + bAbgeschlossen +
+                          " WHERE  [Id] = " + saison.SaisonID;
+
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return saison;
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+
 
             //var result = await appDbContext.Saisonen.AddAsync(Saison);
             //await appDbContext.SaveChangesAsync();

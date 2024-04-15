@@ -24,6 +24,9 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Verein> AddVerein(Verein verein)
         {
+            int bPokal;
+            int bBundesliga;
+
             try
             {
                 SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
@@ -31,8 +34,18 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Vereine] (VereinNr,Vereinsname1, Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
+                cmd.CommandText = "INSERT INTO [Vereine] (VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
                     " VALUES(@VereinNr,@Vereinsname1,@Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
+
+                if (verein.Pokal == false)
+                    bPokal = 0;
+                else
+                    bPokal = 1;
+
+                if (verein.Bundesliga == false)
+                    bBundesliga = 0;
+                else
+                    bBundesliga = 1;
 
                 cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
                 cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
@@ -41,8 +54,8 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
                 cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
                 cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
-                cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
-                cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
+                cmd.Parameters.AddWithValue("@Pokal", bPokal);
+                cmd.Parameters.AddWithValue("@Bundesliga", bBundesliga);
 
                 cmd.ExecuteNonQuery();
 
@@ -229,25 +242,51 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Verein> UpdateVerein(Verein verein)
         {
+            int bPokal;
+            int bBundesliga;
+
             try
             {
                 SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;              
-                cmd.CommandText = "UPDATE Vereine(VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
-               " VALUES(@VereinNr,@Vereinsname1, @Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
+                cmd.Connection = conn;
+                // cmd.CommandText = "UPDATE Vereine(VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
+                //" VALUES(@VereinNr,@Vereinsname1, @Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
 
-                cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
-                cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
-                cmd.Parameters.AddWithValue("@Vereinsname2", verein.Vereinsname2);
-                cmd.Parameters.AddWithValue("@Stadion", verein.Stadion);
-                cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
-                cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
-                cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
-                cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
-                cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
+                // cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
+                // cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
+                // cmd.Parameters.AddWithValue("@Vereinsname2", verein.Vereinsname2);
+                // cmd.Parameters.AddWithValue("@Stadion", verein.Stadion);
+                // cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
+                // cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
+                // cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
+                // cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
+                // cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
+
+                if (verein.Pokal == false)
+                    bPokal = 0;
+                else
+                    bPokal = 1;
+
+                if (verein.Bundesliga == false)
+                    bBundesliga = 0;
+                else
+                    bBundesliga = 1;
+
+
+                cmd.CommandText = "UPDATE [dbo].[Vereine] SET " +                        
+                        "[VereinNr] = '" + verein.VereinNr + "'" +
+                        ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
+                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
+                        ",[Stadion] = '" + verein.Stadion + "'" +
+                        ",[Fassungsvermoegen] = '" + verein.Fassungsvermoegen + "'" +
+                        ",[Erfolge] = '" + verein.Erfolge + "'" +
+                        ",[Gegruendet] =" + verein.Gegruendet +
+                        ",[Pokal] =" + bPokal +
+                        ",[Bundesliga] =" + bBundesliga +
+                        " WHERE  [VereinNr] = " + verein.VereinNr;
 
                 cmd.ExecuteNonQuery();
 

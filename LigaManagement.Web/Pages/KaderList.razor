@@ -97,11 +97,8 @@ else
                                                   SortProperty="SpielerName" />
                             <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="35%" Sortable=true Title="Vorname" SortOrder="SortOrder.Ascending"
                                                   SortProperty="Vorname" />
-
-
                             <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="10%" TextAlign="TextAlign.Center" Title="Spiele" Sortable=true SortProperty="Einsaetze" />
                             <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="10%" TextAlign="TextAlign.Right" Title="Tore" Sortable=true SortProperty="Tore" />
-
                             <RadzenDataGridColumn TItem="Kader" Property="ID" Width="auto" Filterable="false" Sortable="false">
                                 <Template Context="data">
                                     <NavLink href="@($"editkaderspieler/{data.Id}")" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span> Bearbeiten</NavLink>

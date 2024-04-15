@@ -9,11 +9,12 @@ namespace Ligamanager.Components
 
         public static string currentSaison;
         public static string currentLiga;
-        public static string currentPokalSaison;
-        
+        public static string currentPokalSaison;        
         public static int Spieltag;
         public static int SaisonID;
+        public static int KaderSaisonID;
         public static int PokalSaisonID;
+        public static int KaderVereinNr;
         public static int maxSpieltag;
         public static bool bVisibleNavMenuElements = false;
 

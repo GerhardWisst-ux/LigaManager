@@ -168,7 +168,8 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Liga> UpdateLiga(Liga liga)
         {
-
+            int bAktiv;
+            
             try
             {
                 SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
@@ -176,14 +177,27 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "UPDATE Ligen(Liganame,Verband,Erstaustragung,Absteiger,Aktiv)" +
-               " VALUES(@Liganame,@Verband,@Erstaustragung,@Absteiger,@Aktiv)";
+               // cmd.CommandText = "UPDATE Ligen(Liganame,Verband,Erstaustragung,Absteiger,Aktiv)" +
+               //" VALUES(@Liganame,@Verband,@Erstaustragung,@Absteiger,@Aktiv)";
 
-                cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
-                cmd.Parameters.AddWithValue("@Verband", liga.Verband);
-                cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
-                cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
-                cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+               // cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
+               // cmd.Parameters.AddWithValue("@Verband", liga.Verband);
+               // cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
+               // cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
+               // cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+
+                if (liga.Aktiv == "false")
+                    bAktiv = 0;
+                else
+                    bAktiv = 1;
+
+                cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
+                      "[Liganame] = '" + liga.Liganame + "'" +
+                      ",[Verband] = '" + liga.Verband + "'" +                     
+                      ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
+                      ",[Absteiger] =" + liga.Absteiger +
+                      ",[Aktiv] =" + bAktiv +                      
+                      " WHERE  [Id] = " + liga.Id;
 
                 cmd.ExecuteNonQuery();
 
