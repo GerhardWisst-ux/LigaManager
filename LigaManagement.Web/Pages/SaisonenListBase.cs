@@ -101,6 +101,8 @@ namespace LigaManagerManagement.Web.Pages
             Liganame = liga.Liganame;
 
             DisplayErrorLiga = "none";
+
+            Globals.bVisibleNavMenuElements = true;
         }
 
         public void Select(DataGridCellMouseEventArgs<Saison> args)

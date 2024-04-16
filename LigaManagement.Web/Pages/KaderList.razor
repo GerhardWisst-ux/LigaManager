@@ -36,7 +36,8 @@ else
                         <div class="card-body">
                             <h2 style="display:inline-block;">Kader</h2>
                             <span class="ml-3">
-                                <a href="createkaderspieler" title="Neuer Spieler" style="width:40px;" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                @* <a href="createkaderspieler" title="Neuer Spieler" style="width:40px;" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                                <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink>
                             </span>
                         </div>
                     </div>
@@ -69,9 +70,13 @@ else
                 <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
             </div>
             <div class="col-sm-2 m-0 pull-right">
-                <linkbutton title="Saison und Verein auswählen" style="display:inline-block;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
+                @* <linkbutton title="Saison und Verein auswählen" style="display:inline-block;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
                     Auswählen
-                </linkbutton>
+                </linkbutton> *@
+
+                <RadzenButton title="Saison und Verein auswählen" style="margin-left:5px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="Auswählen">
+                  
+                </RadzenButton>
             </div>
         </div>
 

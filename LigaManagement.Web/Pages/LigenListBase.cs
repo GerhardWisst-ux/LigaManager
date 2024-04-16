@@ -50,6 +50,8 @@ namespace LigaManagerManagement.Web.Pages
 
             var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
             Liganame = liga.Liganame;
+
+            Globals.bVisibleNavMenuElements = true;
         }
 
         protected async Task VereinDeleted()

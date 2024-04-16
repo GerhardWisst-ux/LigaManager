@@ -16,6 +16,7 @@ namespace LigaManagerManagement.Web.Pages
     public class KaderBase : ComponentBase
     {
         protected bool bShowSpieler;
+
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
         public string DisplayTopButton = "none";
@@ -23,9 +24,9 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IKaderService KaderService { get; set; }
         public IEnumerable<Kader> SpielerList { get; set; }
-              
+
         public string saison;
-        public string VisibleAdd = "none";
+        public bool VisibleAdd;
         public List<DisplaySaison> SaisonenList = new List<DisplaySaison>();
 
         [Inject]
@@ -58,7 +59,7 @@ namespace LigaManagerManagement.Web.Pages
         bool multiple = true;
         private int VereinNr;
         protected override async Task OnInitializedAsync()
-        {            
+        {
             SaisonenList = new List<DisplaySaison>();
             Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
@@ -67,7 +68,7 @@ namespace LigaManagerManagement.Web.Pages
                 var columns = Saisonen.ElementAt(i);
                 SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
             }
-                        
+
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == Globals.KaderSaisonID).ToList();
 
             var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.SaisonID == Globals.KaderSaisonID).First();
@@ -85,7 +86,7 @@ namespace LigaManagerManagement.Web.Pages
 
             DisplayErrorVerein = "none";
             DisplayErrorSaison = "none";
-            VisibleAdd = "none";
+            VisibleAdd = false;
 
             bChangedVerein = false;
             bShowSpieler = false;
@@ -93,6 +94,8 @@ namespace LigaManagerManagement.Web.Pages
             DisplayTopButton = "none";
 
             VereinNr = Globals.KaderVereinNr;
+
+            Globals.bVisibleNavMenuElements = true;
         }
 
         public void SaisonChange(ChangeEventArgs e)
@@ -100,7 +103,7 @@ namespace LigaManagerManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.KaderSaisonID = Convert.ToInt32(e.Value);
-                bChangedSaison = true;             
+                bChangedSaison = true;
             }
         }
 
@@ -110,8 +113,10 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Globals.KaderVereinNr = Convert.ToInt32(e.Value);
                 VereinNr = Globals.KaderVereinNr;
-                bChangedVerein =true;
-                VisibleAdd = "block";
+                bChangedVerein = true;
+
+                if (VereinNr > 0)
+                    VisibleAdd = false;
             }
         }
 
@@ -140,7 +145,7 @@ namespace LigaManagerManagement.Web.Pages
             DisplayErrorSaison = "none";
 
             bShowSpieler = true;
-            VisibleAdd = "block";
+            VisibleAdd = true;
 
             DisplayTopButton = "block";
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Globals.KaderVereinNr).ToList();
