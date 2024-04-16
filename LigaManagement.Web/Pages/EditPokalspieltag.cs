@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using LigaManagement.Api.Migrations;
 using LigaManagement.Models;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;

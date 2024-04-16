@@ -20,7 +20,7 @@ namespace LigaManagement.Models
         [Required]
         public int Absteiger { get; set; }              
 
-        public string Aktiv { get; set; }
+        public bool Aktiv { get; set; }
 
 
     }

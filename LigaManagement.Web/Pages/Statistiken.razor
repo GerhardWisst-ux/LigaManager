@@ -47,7 +47,7 @@
                         <div class="col-sm-6">
                             <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
                             <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein1Change">
-                                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                 {
                                     <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                 }
@@ -57,7 +57,7 @@
                         <div class="col-sm-6">
                             <label style="display:inline-block;" class="col-sm-2">Verein</label>
                             <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
-                                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                 {
                                     <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                 }
@@ -69,7 +69,6 @@
                         <div class="col-sm-12">
                             <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
                             <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
-
                         </div>
                     </div>
                     <div class="form-group row">
@@ -288,7 +287,7 @@
                         <div class="col-sm-6">
                             <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
                             <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="EinzelVereinChange">
-                                @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                 {
                                     <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                 }
@@ -518,7 +517,6 @@
                                         <br />
                                     }
                                 }
-
                             }
                         </div>
                     </div>

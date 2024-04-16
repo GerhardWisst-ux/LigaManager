@@ -1,10 +1,6 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,13 +9,7 @@ using System.Threading.Tasks;
 namespace LigaManagerManagement.Api.Models
 {
     public class LigaRepository : ILigaRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public LigaRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
+    {       
 
         public async Task<Liga> AddLiga(Liga liga)
         {
@@ -108,7 +98,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Absteiger = (int)reader["Absteiger"];
-                        liga.Aktiv = reader["Aktiv"].ToString();
+                        liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
                     }
                 }
                 conn.Close();
@@ -148,7 +138,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Absteiger = int.Parse(reader["Absteiger"].ToString());
-                        liga.Aktiv = reader["Aktiv"].ToString();
+                        liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
 
                         peList.Add(liga);
                     }
@@ -186,7 +176,7 @@ namespace LigaManagerManagement.Api.Models
                // cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
                // cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
 
-                if (liga.Aktiv == "false")
+                if (liga.Aktiv == false)
                     bAktiv = 0;
                 else
                     bAktiv = 1;

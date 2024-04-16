@@ -5,6 +5,7 @@ using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -12,6 +13,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Web.Pages
@@ -36,13 +38,10 @@ namespace LigamanagerManagement.Web.Pages
 
         public List<DisplaySaison> SaisonenList;
 
-        protected string selectedspieltagID;
+              
 
-        protected string SelectedspieltagID
-        {
-            get => selectedspieltagID;
-            set { selectedspieltagID = value; }
-        }
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         [Inject]
         public ITabelleService TabelleService { get; set; }
@@ -61,16 +60,26 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
+        
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
 
         int iMaxSpieltag = 0;
-        private AppDbContext appDbContext;
-
+        
         bool bAbgeschlossen;
         protected override async Task OnInitializedAsync()
         {
             int iSpieltage;
             try
             {
+                var authenticationState = await authenticationStateTask;
+                if (!authenticationState.User.Identity.IsAuthenticated)
+                {
+                    string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                }
+
                 SpieltagList = new List<DisplaySpieltag>();
                 SaisonenList = new List<DisplaySaison>();
 
@@ -93,11 +102,11 @@ namespace LigamanagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                SpieltageRepository rep = new SpieltageRepository(appDbContext);
+                SpieltageRepository rep = new SpieltageRepository();
 
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
-                currentspieltag = rep.AktSpieltag(Globals.SaisonID);
+                currentspieltag = rep.AktSpieltag(Globals.SaisonID); 
 
                 saison = Globals.currentSaison;
                 

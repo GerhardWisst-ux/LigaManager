@@ -90,6 +90,8 @@ namespace LigaManagerManagement.Web.Pages
 
                 Vereine = await VereineService.GetVereine();
 
+                SpieltagNr = Globals.Spieltag.ToString();
+
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.currentLiga)).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
@@ -127,7 +129,7 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     VisibleVorZurueck = true;
 
-                SpieltagNr = Globals.Spieltag.ToString();
+           
 
                 var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
 

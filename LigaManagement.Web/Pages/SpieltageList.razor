@@ -161,11 +161,11 @@ else
                                     <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
+                            @* <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
                                 <Template Context="data">
                                     <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
                                 </Template>
-                            </RadzenDataGridColumn>
+                            </RadzenDataGridColumn> *@
                         </Columns>
                     </RadzenDataGrid>
                    @*  <RadzenRow class="rz-white">

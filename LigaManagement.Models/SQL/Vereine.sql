@@ -10,11 +10,15 @@ CREATE TABLE [dbo].[Vereine](
 	[Fassungsvermoegen] [nvarchar](max) NULL,
 	[Erfolge] [nvarchar](max) NULL,
 	[Gegruendet] [int] NOT NULL,
+	[Pokal] [bit] NOT NULL,
+	[Bundesliga] [bit] NULL,
  CONSTRAINT [PK_Vereine] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
 SET IDENTITY_INSERT [dbo].[Vereine] ON 
 GO
 INSERT [dbo].[Vereine] ([Id], [VereinNr], [Vereinsname1], [Vereinsname2], [Stadion], [Fassungsvermoegen], [Erfolge], [Gegruendet], [Pokal], [Bundesliga]) VALUES (2, 1, N'Bayern München', N'Bayern München', N'ALLIANZ-AERNA', N'66000', N'3X CHAMPIONS LEAGUE-SIEGER(19/20 ,  12/13 ,  00/01), 3X EUROPAPOKAL-DER-LANDESMEISTER-SIEGER(75/76 ,  74/75 ,  73/74), 20X DEUTSCHER POKALSIEGER(19/20 ,  18/19 ,  15/16 ,  13/14 ,  12/13 ,  09/10 ,  07/08 ,  05/06 ,  04/05 ,  02/03 ,  99/00 ,  97/98 ,  85/86 ,  83/84 ,  81/82 ,  70/71 ,  68/69 ,  66/67 ,  65/66 ,  56/57), 33X DEUTSCHER MEISTER(22/23 ,  21/22 ,  20/21 ,  19/20 ,  18/19 ,  17/18 ,  16/17 ,  15/16 ,  14/15 ,  13/14 ,  12/13 ,  09/10 ,  07/08 ,  05/06 ,  04/05 ,  02/03 ,  00/01 ,  99/00 ,  98/99 ,  96/97 ,  93/94 ,  89/90 ,  88/89 ,  86/87 ,  85/86 ,  84/85 ,  80/81 ,  79/80 ,  73/74 ,  72/73 ,  71/72 ,  68/69 ,  31/32)', 1900, 1, 1)

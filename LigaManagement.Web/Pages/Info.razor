@@ -87,7 +87,7 @@
 <div class="about-section">
     <h1>Über Ligamanager</h1>
     <p>Der Ligamanager wurde in den Jahren 2023/24 erstellt</p>
-    <p>Mit ihm lassen sich beliebige Ligen und Saisonen erstellen, Ergebnisse verwalten sowie Statistiken extrahieren.</p>
+    <p>Mit ihm lassen sich Bundesliga, 2. Liga und 3.Liga -Saisonen erstellen, Ergebnisse verwalten sowie Pokalergebnisse verwalten. Enthalten ist eine umfangreiche Statistikfunktion.</p>
 </div>
 
 <h2 style="text-align:center">Programmierer</h2>
@@ -115,9 +115,16 @@
 </div>
 
 
-@code {
+@code 
+{
+    protected override async Task OnInitializedAsync()    {      
+
+        Globals.bVisibleNavMenuElements = true;
+    }
+
     public async void OnClickHandler()
     {
+        
     }
 }
 

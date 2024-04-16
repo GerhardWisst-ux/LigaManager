@@ -18,13 +18,14 @@ CREATE TABLE [dbo].[Pokalergebnisse](
 	[Zuschauer] [int] NULL,
 	[Verlängerung] [bit] NULL,
 	[Elfmeterschiessen] [bit] NULL,
- CONSTRAINT [Pokalergebnisse] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [Pokalergebnisse2] PRIMARY KEY CLUSTERED 
 (
 	[SpieltagId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 SET IDENTITY_INSERT [dbo].[Pokalergebnisse] ON 
+GO
 INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (3, N'2023/24', 1, N'6', N'Bayer Leverkusen', N'27', N'Fortuna Düsseldorf', 4, 0, CAST(N'2024-04-03T20:45:00.0000000' AS DateTime2), N'BAY-ARENA', N'SR', N'HF', 29500, 0, 0)
 GO
 INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (4, N'2023/24', 1, N'39', N'1. FC Saarbrücken', N'24', N'FC Kaiserslautern', 0, 2, CAST(N'2024-04-02T20:45:00.0000000' AS DateTime2), N'LUDWIGSPARKSTADION', N'Marco Fritz', N'HF', 15903, 0, 0)
@@ -172,4 +173,13 @@ INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr]
 GO
 INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1084, N'2022/23', 2, N'12', N'TSG Hoffenheim', N'19', N'FC Schalke 04', 5, 1, CAST(N'2022-10-18T20:45:00.0000000' AS DateTime2), N'PREZERO-ARENA', N'SR', N'2', 18000, 0, 0)
 GO
-
+INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1085, N'2022/23', 2, N'3', N'RB Leipzig', N'26', N'Hamburger SV', 4, 0, CAST(N'2022-10-18T18:00:00.0000000' AS DateTime2), N'Red-Bull-Arena', N'Benjamin Cortus', N'2', 44787, 0, 0)
+GO
+INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1086, N'2022/23', 2, N'23', N'Hannover 96', N'2', N'Borussia Dortmund', 0, 2, CAST(N'2022-10-19T18:00:00.0000000' AS DateTime2), N'Niedersachsenstadion', N'Sven Jablonski', N'2', 49000, 0, 0)
+GO
+INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1087, N'2022/23', 2, N'62', N'VfB Lübeck', N'9', N'FSV Mainz 05', 0, 3, CAST(N'2022-10-18T18:00:00.0000000' AS DateTime2), N'Lohmühle', N'Dr. Robin Braun', N'2', 9974, 0, 0)
+GO
+INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1088, N'2022/23', 2, N'63', N'Jahn Regensburg', N'27', N'Fortuna Düsseldorf', 0, 2, CAST(N'2022-10-18T18:00:00.0000000' AS DateTime2), N'Jahn-Stadion', N'Timo Gerach', N'2', 7892, 0, 0)
+GO
+INSERT [dbo].[Pokalergebnisse] ([SpieltagId], [Saison], [SaisonID], [Verein1_Nr], [Verein1], [Verein2_Nr], [Verein2], [Tore1_Nr], [Tore2_Nr], [Datum], [Ort], [Schiedrichter], [Runde], [Zuschauer], [Verlängerung], [Elfmeterschiessen]) VALUES (1089, N'2022/23', 2, N'22', N'SC Paderborn 07', N'13', N'Werder Bremen', 5, 4, CAST(N'2022-10-19T18:00:00.0000000' AS DateTime2), N'HOME-DELUXE-ARENA', N'Frank Willenborg', N'2', 15000, 1, 1)
+GO

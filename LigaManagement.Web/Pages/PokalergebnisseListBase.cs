@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Pages
@@ -43,9 +44,7 @@ namespace LigaManagement.Web.Pages
         NotificationService NotificationService;
 
         public List<DisplaySaison> SaisonenList;        
-
-        private readonly AppDbContext appDbContext;
-
+                
         public bool VisibleBtnNew { get; set; }
 
         [Inject]
@@ -64,8 +63,16 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltage { get; set; }
 
         public IEnumerable<PokalergebnisSpieltag>  PokalergebnisseSpieltageAlle { get; set; }
+                
         protected override async Task OnInitializedAsync()
         {
+            var authenticationState = await authenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }           
+
             SaisonenList = new List<DisplaySaison>();
             Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
@@ -87,6 +94,7 @@ namespace LigaManagement.Web.Pages
 
             VisibleBtnNew = false;
 
+            Globals.bVisibleNavMenuElements = true;
         }
 
         public void ValidateItems(IEnumerable args)

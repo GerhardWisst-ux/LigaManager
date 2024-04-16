@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
@@ -14,14 +13,7 @@ using System.Xml;
 namespace LigaManagerManagement.Api.Models
 {
     public class SpieltageRepository : ISpieltagRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public SpieltageRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
+    {       
         public async Task<Spieltag> AddSpieltag(Spieltag spieltag)
         {
             try
@@ -70,14 +62,14 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
         {
-            var result = await appDbContext.Spieltage
-               .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
-            if (result != null)
-            {
-                appDbContext.Spieltage.Remove(result);
-                await appDbContext.SaveChangesAsync();
-                return result;
-            }
+            //var result = await appDbContext.Spieltage
+            //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
+            //if (result != null)
+            //{
+            //    appDbContext.Spieltage.Remove(result);
+            //    await appDbContext.SaveChangesAsync();
+            //    return result;
+            //}
 
             return null;
         }

@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
@@ -14,13 +13,7 @@ using System.Threading.Tasks;
 namespace LigaManagerManagement.Api.Models
 {
     public class VereinRepository : IVereinRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public VereinRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
+    {       
 
         public async Task<Verein> AddVerein(Verein verein)
         {

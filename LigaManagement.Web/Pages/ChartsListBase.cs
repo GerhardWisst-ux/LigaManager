@@ -72,8 +72,7 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Saison> Saisonen { get; set; }
 
         int iMaxSpieltag = 0;
-        private AppDbContext appDbContext;
-
+     
         bool bAbgeschlossen;
 
         public async void VereinChange(ChangeEventArgs e)
@@ -115,7 +114,7 @@ namespace LigaManagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                SpieltageRepository rep = new SpieltageRepository(appDbContext);
+                SpieltageRepository rep = new SpieltageRepository();
 
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 

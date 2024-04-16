@@ -15,14 +15,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 namespace LigaManagement.Api.Models
 {
     public class SpielerSpieltagRepository : ISpielerSpieltagRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public SpielerSpieltagRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
+    {       
         public async Task<SpielerSpieltag> AddSpieler(SpielerSpieltag SpielerSpieltag)
         {
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");

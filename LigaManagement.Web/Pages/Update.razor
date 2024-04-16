@@ -6,6 +6,7 @@
 @using Radzen;
 
 @attribute [Authorize]
+@inject NavigationManager _navigationManager
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -157,13 +158,14 @@
     // }
 
     protected override async Task OnInitializedAsync()
-    {
+    {        
         System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
         System.Diagnostics.FileVersionInfo fvi = System.Diagnostics.FileVersionInfo.GetVersionInfo(assembly.Location);
         FilenameDownload = fvi.FileName;
         Aktversion = fvi.FileVersion;
         DownloadURL = fvi.FileDescription;
 
+        Globals.bVisibleNavMenuElements = true;
     }
 
     protected void Updater()

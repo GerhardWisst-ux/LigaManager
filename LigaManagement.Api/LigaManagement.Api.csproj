@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20231105084056_InitCreate.cs" />
-    <Compile Remove="Migrations\20231105084056_InitCreate.Designer.cs" />
+    <Compile Remove="Models\AppDbContext.cs" />
     <Compile Remove="Models\Repository\ISpielerRepository.cs" />
     <Compile Remove="Models\SpielerRepository.cs" />
   </ItemGroup>

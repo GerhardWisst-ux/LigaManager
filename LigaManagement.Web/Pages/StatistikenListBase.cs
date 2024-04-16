@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
@@ -9,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -110,13 +110,18 @@ namespace LigaManagerManagement.Web.Pages
 
 
             Vereine = (await VereineService.GetVereine()).ToList();
-            
+
             VereineList = new List<DisplayVerein>();
 
-            
             for (int i = 0; i < Vereine.Count() - 1; i++)
             {
-                VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1));                
+
+                if (i == 55)
+                    Debug.Print("Bundesliga");
+
+                if (Vereine[i].Bundesliga == true)
+                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, Vereine[i].Bundesliga));
+                
             }
 
             DisplayElements = "none";
@@ -125,7 +130,7 @@ namespace LigaManagerManagement.Web.Pages
 
             var tore = await ToreService.GetTore();
 
-            List<Tore> torelist = tore.ToList();                        
+            List<Tore> torelist = tore.ToList();
 
             try
             {
@@ -156,9 +161,9 @@ namespace LigaManagerManagement.Web.Pages
                         if (found != null)
                         {
                             found.Tore = found.Tore + 1;
-                        }                      
-                        
-                    }                    
+                        }
+
+                    }
                 }
             }
             catch (Exception ex)
@@ -175,24 +180,26 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Spielerid = spielerid;
                 Spielername = spielername;
-                Tore = tore;               
+                Tore = tore;
             }
-            public int Spielerid { get; set; }            
+            public int Spielerid { get; set; }
             public string Spielername { get; set; }
             public int? Tore { get; set; }
-            
+
         }
 
         [Bind]
         public class DisplayVerein
         {
-            public DisplayVerein(string vereinID, string vereinname)
+            public DisplayVerein(string vereinID, string vereinname, bool bundesliga)
             {
                 VereinID = vereinID;
                 Vereinname1 = vereinname;
+                Bundesliga = bundesliga;
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
+            public bool Bundesliga { get; set; }
         }
 
         public async void Verein1Change(ChangeEventArgs e)

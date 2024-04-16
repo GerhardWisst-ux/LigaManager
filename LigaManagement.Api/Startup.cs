@@ -24,8 +24,8 @@ namespace LigaManagement.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>(options =>
-                        options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            //services.AddDbContext<AppDbContext>(options =>
+            //            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
                        
             services.AddScoped<ISpieltagRepository, SpieltageRepository>();
             services.AddScoped<IVereinRepository, VereinRepository>();

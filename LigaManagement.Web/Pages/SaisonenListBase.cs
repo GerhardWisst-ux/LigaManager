@@ -3,12 +3,14 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using static LigaManagement.Web.Pages.EinstiegListBase;
 
@@ -51,12 +53,23 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<Verein> vereinesaison = new List<Verein>();
 
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+        public NavigationManager NavigationManager { get; set; }
+
         string type = "Click";
         bool multiple = true;
 
 
         protected override async Task OnInitializedAsync()
         {
+            var authenticationState = await authenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }
+
             SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
 
             VereineList = new List<DisplayVerein>();

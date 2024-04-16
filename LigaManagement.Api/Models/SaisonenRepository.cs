@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
@@ -14,14 +13,7 @@ using System.Threading.Tasks;
 namespace LigaManagement.Api.Models
 {
     public class SaisonenRepository : ISaisonRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public SaisonenRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
+    {       
         public async Task<Saison> AddSaison(Saison Saison)
         {
             //var result = await appDbContext.Saisonen.AddAsync(Saison);

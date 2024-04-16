@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ligamanager.Components;
+using System.Net;
+using Microsoft.AspNetCore.Components.Authorization;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -29,10 +31,21 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<Liga> grid;
         IList<Tuple<Liga, RadzenDataGridColumn<Liga>>> selectedCellData = new List<Tuple<Liga, RadzenDataGridColumn<Liga>>>();
 
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+        public NavigationManager NavigationManager { get; set; }
+
         string type = "Click";
         bool multiple = true;
         protected override async Task OnInitializedAsync()
         {
+            var authenticationState = await authenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }
+
             LigenList = (await LigaService.GetLigen()).ToList();
 
             var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));

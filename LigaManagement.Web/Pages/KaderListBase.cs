@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
 
 namespace LigaManagerManagement.Web.Pages
@@ -38,9 +40,21 @@ namespace LigaManagerManagement.Web.Pages
         public string Position;
         public IEnumerable<Verein> Vereine { get; set; }
 
-        
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+        public NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
+
+            var authenticationState = await authenticationStateTask;
+            if (!authenticationState.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }
+
+
             if (Id != null)
             {
                 Kader = await KaderService.GetSpieler(Convert.ToInt32(Id));               

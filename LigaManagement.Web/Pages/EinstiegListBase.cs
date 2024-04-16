@@ -46,9 +46,7 @@ namespace LigaManagement.Web.Pages
         public List<DisplaySaison> SaisonenList;
 
         public List<DisplayLiga> LigenList;
-
-        private readonly AppDbContext appDbContext;
-
+                
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -382,7 +380,7 @@ namespace LigaManagement.Web.Pages
             else
                 Globals.maxSpieltag = 34;
 
-            SpieltageRepository rep = new SpieltageRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository();
 
             Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
@@ -396,8 +394,8 @@ namespace LigaManagement.Web.Pages
             }
             else
             {
-                iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
-                Globals.Spieltag = iAktSpieltag;
+                iAktSpieltag = rep.AktSpieltag(Globals.SaisonID); 
+                Globals.Spieltag =  iAktSpieltag;
             }
 
             Globals.bVisibleNavMenuElements = true;
@@ -466,8 +464,8 @@ namespace LigaManagement.Web.Pages
                         SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
                     else if (i == 9 && TabellenList.Contains(9))
                         SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Tore.sql");
-                    else if (i == 9 && TabellenList.Contains(10))
-                        SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Pokalergebnisse.sql");
+                    //else if (i == 10 && TabellenList.Contains(10))
+                    //    SQLScript = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Pokalergebnisse.sql");
 
                     // split script on GO command
                     IEnumerable<string> commandStrings = Regex.Split(SQLScript, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);

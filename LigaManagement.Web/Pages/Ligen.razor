@@ -70,6 +70,13 @@ else
                         <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="350px" Sortable=true Title="Verband" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
 
+
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" Title="Aktiv" Width="10%" Filterable="false">
+                            <Template Context="data">
+                              <RadzenCheckBox @bind-Value=@data.Aktiv TValue="bool" Name="chkBundesliga" /> 
+                            </Template>
+                        </RadzenDataGridColumn>
+
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 <NavLink href="@($"editliga/{data.Id}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>

@@ -23,8 +23,7 @@ namespace LigaManagerManagement.Web.Services
         public IEnumerable<Verein> Verein { get; set; }
 
         private readonly HttpClient httpClient;
-        private AppDbContext appDbContext;
-
+        
         public TabelleService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
@@ -75,7 +74,7 @@ namespace LigaManagerManagement.Web.Services
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
             int BisSpieltag;
-            SpieltageRepository rep = new SpieltageRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository();
             var TabSaisonSorted = new List<Tabelle>();
             int paarung = 1;
             int VonSpieltag = 1;
@@ -488,7 +487,7 @@ namespace LigaManagerManagement.Web.Services
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
-            SpieltageRepository rep = new SpieltageRepository(appDbContext);
+            SpieltageRepository rep = new SpieltageRepository();
             var TabSaisonEwigSorted = new List<Tabelle>();
             int VonSpieltag = 1;
             int BisSpieltag = 34;

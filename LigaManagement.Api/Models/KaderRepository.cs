@@ -17,14 +17,9 @@ namespace LigaManagement.Api.Models
 {
     public class KaderRepository : IKaderRepository
     {
-        private readonly AppDbContext appDbContext;
-
-        public KaderRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
-        public async Task<Kader> AddSpieler(Kader Spieler)
+        int bAktiv;
+                
+        public async Task<Kader> AddSpieler(Kader spieler)
         {
             SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
             conn.Open();
@@ -34,27 +29,32 @@ namespace LigaManagement.Api.Models
             cmd.CommandText = "INSERT INTO [Kader](SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Tore,Einsaetze,Spielminuten,LandID,LigaID,SaisonId,VereinNr,Aktiv,Position, PositionsNr)" +
                 " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Tore,@Einsaetze,@Spielminuten,@LandID,@LigaID,@SaisonId,@VereinNr,@Aktiv,@Position, @PositionsNr)";
 
-            cmd.Parameters.AddWithValue("@SpielerName", Spieler.SpielerName);
-            cmd.Parameters.AddWithValue("@Vorname", Spieler.Vorname);
-            cmd.Parameters.AddWithValue("@Rueckennummer", Spieler.Rueckennummer);
-            cmd.Parameters.AddWithValue("@Geburtstag", Spieler.Geburtsdatum);
-            cmd.Parameters.AddWithValue("@ImVereinSeit", Spieler.ImVereinSeit);
-            cmd.Parameters.AddWithValue("@Tore", Spieler.Tore);
-            cmd.Parameters.AddWithValue("@Einsaetze", Spieler.Einsaetze);
-            cmd.Parameters.AddWithValue("@Spielminuten", Spieler.Spielminuten);
-            cmd.Parameters.AddWithValue("@LandID", Spieler.LandID);
-            cmd.Parameters.AddWithValue("@LigaID", Spieler.LigaID);
-            cmd.Parameters.AddWithValue("@SaisonId", Spieler.SaisonId);
-            cmd.Parameters.AddWithValue("@VereinNr", Spieler.VereinID);
-            cmd.Parameters.AddWithValue("@Aktiv", Spieler.Aktiv);
-            cmd.Parameters.AddWithValue("@Position", Spieler.Position);
-            cmd.Parameters.AddWithValue("@PositionsNr", Spieler.PositionsNr);
+            if (spieler.Aktiv == false)
+                bAktiv = 0;
+            else
+                bAktiv = 1;
+
+            cmd.Parameters.AddWithValue("@SpielerName", spieler.SpielerName);
+            cmd.Parameters.AddWithValue("@Vorname", spieler.Vorname);
+            cmd.Parameters.AddWithValue("@Rueckennummer", spieler.Rueckennummer);
+            cmd.Parameters.AddWithValue("@Geburtstag", spieler.Geburtsdatum);
+            cmd.Parameters.AddWithValue("@ImVereinSeit", spieler.ImVereinSeit);
+            cmd.Parameters.AddWithValue("@Tore", spieler.Tore);
+            cmd.Parameters.AddWithValue("@Einsaetze", spieler.Einsaetze);
+            cmd.Parameters.AddWithValue("@Spielminuten", spieler.Spielminuten);
+            cmd.Parameters.AddWithValue("@LandID", spieler.LandID);
+            cmd.Parameters.AddWithValue("@LigaID", spieler.LigaID);
+            cmd.Parameters.AddWithValue("@SaisonId", spieler.SaisonId);
+            cmd.Parameters.AddWithValue("@VereinNr", spieler.VereinID);
+            cmd.Parameters.AddWithValue("@Aktiv", bAktiv);
+            cmd.Parameters.AddWithValue("@Position", spieler.Position);
+            cmd.Parameters.AddWithValue("@PositionsNr", spieler.PositionsNr);
 
             cmd.ExecuteNonQuery();
 
             conn.Close();
 
-            return Spieler;
+            return spieler;
         }
 
         public async Task<Kader> DeleteSpieler(int SpielerId)

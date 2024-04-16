@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Migrations;
-using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using Microsoft.Data.SqlClient;
 using System;
@@ -11,14 +10,7 @@ using ToremanagerManagement.Api.Models.Repository;
 namespace ToreManagerManagement.Api.Models
 {
     public class PokalergebnisseRepository : IPokalergebnisseRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public PokalergebnisseRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
+    {       
         public async Task<PokalergebnisSpieltag> CreatePokalergebnis(PokalergebnisSpieltag pokalspiel)
         {
             try

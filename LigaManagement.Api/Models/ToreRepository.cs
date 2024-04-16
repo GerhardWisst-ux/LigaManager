@@ -8,14 +8,7 @@ using ToremanagerManagement.Api.Models.Repository;
 namespace ToreManagerManagement.Api.Models
 {
     public class ToreRepository : IToreRepository
-    {
-        private readonly AppDbContext appDbContext;
-
-        public ToreRepository(AppDbContext appDbContext)
-        {
-            this.appDbContext = appDbContext;
-        }
-
+    {       
         public async Task<Tore> CreateTor(Tore Tore)
         {
             try
