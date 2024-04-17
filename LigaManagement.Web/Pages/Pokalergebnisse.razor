@@ -32,9 +32,9 @@
                     </div>
                 </div>
             </RadzenCard>
-            <RadzenCard class="my-4 z-shadow-0">
-                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
-                    <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+            <RadzenCard style="margin-bottom:4px;">
+                <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline">
                         <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
                             <option value="" selected required>Saison auswählen</option>
                             @if (SaisonenList != null)
@@ -46,8 +46,8 @@
                             }
                         </select>
                         <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
-                    </RadzenStack>
-                    <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
+                    </div>
+                    <div class="dropdown" style="display:inline">
                         <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
                             <option value="0">Runde wählen</option>
                             <option value="2">2. Runde</option>
@@ -57,32 +57,17 @@
                             <option value="F">Finale</option>
                         </select>
                         <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">Bitte Runde wählen</label>
-                    </RadzenStack>
-                    <span class="ml-3">
-                        @if (VisibleBtnNew)
-                        {
-                            <NavLink href="@($"createpokalspieltag/{RundeChoosed}")" title="Neuanlage Pokalspiel" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
-
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        </a> *@
-                        }
-                        else
-                        {
-                            <NavLink href="@($"createpokalspieltag/{RundeChoosed}")" title="Neuanlage Pokalspiel" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
-                        <span class="glyphicon glyphicon-plus"></span>
-                        </a> *@
-                        }
-                    </span>
-                    <RadzenStack Orientation="Orientation.Vertical" Gap="24px">
-
-                        <RadzenButton title="Saison und Runde auswählen" BusyText="Bitte warten..." style="margin-right:0px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                       <RadzenButton title="Saison und Runde auswählen" style="margin-right:0px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
 
                         </RadzenButton>
-                    </RadzenStack>
-                </RadzenStack>
+                    </div>
+
+                </div>
             </RadzenCard>
+
+           
         </div>
     </div>
 

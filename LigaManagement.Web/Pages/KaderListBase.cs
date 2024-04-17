@@ -76,8 +76,10 @@ namespace LigaManagerManagement.Web.Pages
                 if (verList[i].SaisonID == Globals.SaisonID)
                     VereineList.Add(new DisplayKaderVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
             }
+        
             DisplayElements = "none";
-            DisplayErrorSaison = "none";     
+            DisplayErrorSaison = "none";   
+            Globals.bVisibleNavMenuElements = true;
         }
 
         public void VereinChange(ChangeEventArgs e)

@@ -35,44 +35,42 @@
         </div>
     </div>
 
-    <RadzenCard Style="height:70%;" class="m-0">
+    <RadzenCard Style="height:70vh;" class="m-0">
         <RadzenTabs>
             <Tabs>
                 <RadzenTabsItem class="p-0" Text="Auswahl">
-                    <RadzenCard class="my-4 p-0 rz-shadow-0">
-                        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Start" Wrap="FlexWrap.Wrap">
-                            <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
-                                <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
-                                    <option value="" selected required>Liga auswählen</option>
-                                    @if (LigenList != null)
+                    <div class="form-group row">
+                        <div class="dropdown mr-2" style="display:inline">
+                            <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
+                                <option value="" selected required>Liga auswählen</option>
+                                @if (LigenList != null)
+                                {
+                                    @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                                     {
-                                        @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
-                                        {
-                                            <option value="@liga.LigaID"> @liga.Liganame </option>
-                                        }
+                                        <option value="@liga.LigaID"> @liga.Liganame </option>
                                     }
-                                </select>
-                                <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
-                            </RadzenStack>
-                            <RadzenStack Orientation="Orientation.Vertical" Gap="4px">
-                                <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                                    <option value="" selected required>Saison auswählen</option>
-                                    @if (SaisonenList != null)
+                                }
+                            </select>
+                            <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                        </div>
+                        <div class="dropdown" style="display:inline">
+                            <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+                                <option value="" selected required>Saison auswählen</option>
+                                @if (SaisonenList != null)
+                                {
+                                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                     {
-                                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                                        {
-                                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                                        }
+                                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
                                     }
-                                </select>
-                                <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
-                            </RadzenStack>
-                            <RadzenStack Orientation="Orientation.Vertical" Gap="24px">
-                                <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-right:0px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
-                                </RadzenButton>
-                            </RadzenStack>
-                        </RadzenStack>
-                    </RadzenCard>
+                                }
+                            </select>
+                            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                        </div>
+                        <div class="dropdown" style="display:inline">
+                            <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                            </RadzenButton>
+                        </div>
+                    </div>
                 </RadzenTabsItem>
                 <RadzenTabsItem Text="Import">
                     <div class="form-group row">

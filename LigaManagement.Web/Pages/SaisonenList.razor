@@ -63,15 +63,15 @@ else
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="10%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
                         <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="30%" Sortable=true Title="Liganame" />
-                        <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="40%" Sortable=true Title="Saisonname" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="30%" Sortable=true Title="Saisonname" />
                         @* <RadzenDataGridColumn TItem="Saison" Property="Abgeschlossen" Width="15%" TextAlign="TextAlign.Center" Filterable="false" Reorderable Sortable=true Title="Abgeschlossen" /> *@
                         @* <RadzenDataGridColumn TItem="Saison" Property="Aktuell" Width="15%" TextAlign="TextAlign.Center" Filterable="false" Reorderable Sortable=true Title="Aktuell" /> *@
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="Abgeschlossen" Title="Abgeschlossen" Width="100%" Filterable="false" Sortable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="Abgeschlossen" Title="Abgeschlossen" Width="15%" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 <RadzenCheckBox @bind-Value=@data.Abgeschlossen TValue="bool" Name="chkAbgeschlossen" />
                             </Template>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="Aktuell" Title="Aktuell" Width="10%" Filterable="false" Sortable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="Aktuell" Title="Aktuell" Width="15%" Filterable="false" Sortable="false">
                            <Template Context="data">
                                 <RadzenCheckBox @bind-Value=@data.Aktuell TValue="bool" Name="chkAktuell" />
                             </Template>

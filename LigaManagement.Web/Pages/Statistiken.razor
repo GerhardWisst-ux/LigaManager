@@ -42,6 +42,7 @@
     <RadzenTabs @bind-SelectedIndex=@selectedIndex Change=@OnChange>
         <Tabs>
             <RadzenTabsItem Text="Verein gegen Verein">
+                <RadzenCard Style="height:70vh;" class="m-0">
                 <div class="content">
                     <div class="form-group row">
                         <div class="col-sm-6">
@@ -120,8 +121,10 @@
                         </div>
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Höchste Heimsiege">
+                 <RadzenCard Style="height:85vh;" class="m-0">
                 <div class="form-group row">
                     <div class="col-sm-12">
 
@@ -172,8 +175,10 @@
 
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Höchste Auswärtssiege">
+                 <RadzenCard Style="height:85vh;" class="m-0">
                 <div class="form-group row">
                     <div class="col-sm-12">
 
@@ -224,8 +229,10 @@
                         }
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Torreichste Spiele">
+                 <RadzenCard Style="height:85vh;" class="m-0">
                 <div class="form-group row">
                     <div class="col-sm-12">
                         @if (Spieltage != null)
@@ -280,8 +287,10 @@
 
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Statistik Verein">
+                 <RadzenCard Style="height:75vh;" class="m-0">
                 <div class="content">
                     <div class="form-group row">
                         <div class="col-sm-6">
@@ -521,8 +530,10 @@
                         </div>
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
             <RadzenTabsItem Text="Torjägerliste">
+                 <RadzenCard Style="height:75vh;" class="m-0">
                 <div class="content">
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -561,6 +572,7 @@
                         </div>
                     </div>
                 </div>
+                </RadzenCard>
             </RadzenTabsItem>
 
         </Tabs>

@@ -6,6 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Radzen.Blazor" Version="4.28.4" />
+  </ItemGroup>
+
   <ItemGroup>    
     <ProjectReference Include="..\LigaManagement.Api\LigaManagement.Api.csproj" />    
     <ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />    

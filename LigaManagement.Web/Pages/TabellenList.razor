@@ -11,8 +11,6 @@
     <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css'
           rel='stylesheet'>
 
-
-
     <style type="text/css">
 
 
@@ -126,8 +124,8 @@ else
             </RadzenRow>
             @* RowRender="@RowRender" CellRender="@CellRender" HeaderCellRender="@HeaderFooterCellRender" *@
             <RadzenDataGrid @ref="grid" Data="Tabellen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                            AllowPaging="true" AllowSorting="true" AllowFiltering="false"
-                            TItem="Tabelle" Visible="true" AllowColumnResize="false"
+                            AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
+                            TItem="Tabelle" Visible="true" Responsive=true AllowColumnResize="false"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                             LogicalFilterOperator="LogicalFilterOperator.Or">
                 <Columns>
@@ -139,7 +137,7 @@ else
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="V" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Right" Width="10%" Sortable=true Title="T" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="T" />
                     <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="Diff" />
                     <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="P" />
                 </Columns>

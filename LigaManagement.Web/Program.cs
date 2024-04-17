@@ -15,7 +15,8 @@ namespace LigaManagement.Web
                 .ConfigureWebHostDefaults(webBuilder =>
                 {                    
                     webBuilder.UseStartup<Startup>();                    
-                    //webBuilder.UseStaticWebAssets();
+                    webBuilder.UseStaticWebAssets();
+
                 });
     }
 }
