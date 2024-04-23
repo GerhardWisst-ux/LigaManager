@@ -58,6 +58,7 @@
         min-width: 80px;
     }
 </style>
+
 @if (Spieltage == null)
 {
     <div class="d-flex justify-content-center">
@@ -69,7 +70,6 @@
 }
 else
 {
-
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
@@ -96,17 +96,12 @@ else
                         @if (VisibleBtnNew)
                         {
                             <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
-
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    </a> *@
+                          
                         }
                         else
                         {
                             <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
-                            @* <a href="@($"createspieltag/{SpieltagNr}")" style="display:none;" class="btn btn-info btn-sm">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    </a> *@
+                           
                         }
                     </span>
                 </div>
@@ -159,21 +154,13 @@ else
                                     <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
+                            @* <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
                                 <Template Context="data">
                                     <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
                                 </Template>
-                            </RadzenDataGridColumn>
+                            </RadzenDataGridColumn> *@
                         </Columns>
-                    </RadzenDataGrid>
-                    @*  <RadzenRow class="rz-white">
-                <RadzenColumn Style="text-align:left;display:inline-block;">
-                <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
-                </RadzenColumn>
-                <RadzenColumn Offset="11" Style="text-align:right;display:inline-block;">
-                <a type="button" data-toggle="Nächster Spieltag" title="Nächster Spieltag" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
-                </RadzenColumn>
-                </RadzenRow> *@
+                    </RadzenDataGrid>                 
                     <div class="row">
                         <div class="col-md-1">
                             <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>

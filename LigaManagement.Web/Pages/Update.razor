@@ -4,6 +4,7 @@
 @using System.Globalization
 @using System.IO;
 @using Radzen;
+@using LigaManagement.Web.Classes;
 
 @attribute [Authorize]
 @inject NavigationManager _navigationManager
@@ -171,7 +172,7 @@
     protected void Updater()
     {
 
-        LigaManager.Update.update.installUpdateRestart(info[3], info[4], "\"" + StartupPath + "\\", processToEnd, postProcess, "updated", updater);
+        update.installUpdateRestart(info[3], info[4], "\"" + StartupPath + "\\", processToEnd, postProcess, "updated", updater);
 
     }
 
@@ -179,7 +180,7 @@
     {
 
 
-        info = LigaManager.Update.update.getUpdateInfo(DownloadURL, FilenameDownload, StartupPath + @"\", 1);
+        info = update.getUpdateInfo(DownloadURL, FilenameDownload, StartupPath + @"\", 1);
 
         if (info == null)
         {

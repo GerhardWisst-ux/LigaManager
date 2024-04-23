@@ -1,5 +1,5 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
@@ -16,6 +16,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -68,31 +69,39 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Spieltag> Spieltage { get; set; }
         protected override async Task OnInitializedAsync()
         {
-            SaisonenList = new List<DisplaySaison>();
-            Saisonen = (await SaisonenService.GetSaisonen()).ToList();
-
-            for (int i = 0; i < Saisonen.Count(); i++)
+            try
             {
-                var columns = Saisonen.ElementAt(i);
-                SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                SaisonenList = new List<DisplaySaison>();
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
+
+                for (int i = 0; i < Saisonen.Count(); i++)
+                {
+                    var columns = Saisonen.ElementAt(i);
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                }
+
+                LigenList = new List<DisplayLiga>();
+                Ligen = (await LigaService.GetLigen()).ToList();
+
+                for (int i = 0; i < Ligen.Count(); i++)
+                {
+                    var columns = Ligen.ElementAt(i);
+                    LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
+                }
+
+                if (Globals.SaisonID == 0)
+                    Globals.bVisibleNavMenuElements = false;
+                else
+                    Globals.bVisibleNavMenuElements = true;
+
+                DisplayErrorLiga = "none";
+                DisplayErrorSaison = "none";
             }
-
-            LigenList = new List<DisplayLiga>();
-            Ligen = (await LigaService.GetLigen()).ToList();
-
-            for (int i = 0; i < Ligen.Count(); i++)
+            catch (Exception ex)
             {
-                var columns = Ligen.ElementAt(i);
-                LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
-
-            if (Globals.SaisonID == 0)
-                Globals.bVisibleNavMenuElements = false;
-            else
-                Globals.bVisibleNavMenuElements = true;
-
-            DisplayErrorLiga = "none";
-            DisplayErrorSaison = "none";
         }
 
         public void ValidateItems(IEnumerable args)
@@ -107,6 +116,9 @@ namespace LigaManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.currentPokalSaison = Globals.currentSaison;
+                if (Saisonen == null || Globals.currentSaison == null)
+                    throw new Exception("Saisonen null oder Globals.currentSaison");
+
                 Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
                 Globals.PokalSaisonID = Globals.SaisonID;
                 Globals.KaderSaisonID = Globals.SaisonID;
@@ -143,29 +155,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentLiga = e.Value.ToString();
             }
         }
-
-        public class DisplaySaison
-        {
-            public DisplaySaison(int saisonID, string saisonname)
-            {
-                SaisonID = saisonID;
-                Saisonname = saisonname;
-            }
-            public int SaisonID { get; set; }
-            public string Saisonname { get; set; }
-        }
-
-        public class DisplayLiga
-        {
-            public DisplayLiga(int ligaID, string liganame)
-            {
-                LigaID = ligaID;
-                Liganame = liganame;
-            }
-            public int LigaID { get; set; }
-            public string Liganame { get; set; }
-        }
-
+       
         public void OnClickHandlerImport()
         {
             try
@@ -500,44 +490,34 @@ namespace LigaManagement.Web.Pages
                     myConn.Close();
                 }
             }
-        }
+        }       
 
-        public void GenerateDataBaseTables()
+        [Bind]
+        public class DisplayLiga
         {
-            string script = string.Empty;
-
-            for (int i = 1; i <= 4; i++)
+            public DisplayLiga(int ligaID, string liganame)
             {
-                if (i == 1)
-                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Delete.sql");
-                else if (i == 2)
-                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\Spieler.sql");
-                else if (i == 3)
-                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\VereineSaison.sql");
-                else if (i == 4)
-                    script = File.ReadAllText(@"C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Models\SQL\SpielerSpieltag.sql");
-
-                // split script on GO command
-                IEnumerable<string> commandStrings = Regex.Split(script, @"^\s*GO\s*$", RegexOptions.Multiline | RegexOptions.IgnoreCase);
-
-                using (SqlConnection conn = new SqlConnection(Globals.connstring))
-                {
-                    conn.Open();
-                    foreach (string commandString in commandStrings)
-                    {
-                        if (!string.IsNullOrWhiteSpace(commandString.Trim()))
-                        {
-                            using (var command = new SqlCommand(commandString, conn))
-                            {
-                                int j = command.ExecuteNonQuery();
-
-                            }
-                        }
-
-                    }
-                }
+                LigaID = ligaID;
+                Liganame = liganame;
             }
+            public int LigaID { get; set; }
+            public string Liganame { get; set; }
         }
+
+        [Bind]
+        public class DisplaySaison
+        {
+            public DisplaySaison(int saisonID, string saisonname)
+            {
+                SaisonID = saisonID;
+                Saisonname = saisonname;
+            }
+            public int SaisonID { get; set; }
+            public string Saisonname { get; set; }
+        }
+
+       
+
     }
 }
 

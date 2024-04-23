@@ -1,14 +1,16 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 using ToremanagerManagement.Api.Models.Repository;
 
 namespace ToreManagerManagement.Api.Models
 {
     public class ToreRepository : IToreRepository
-    {       
+    {
         public async Task<Tore> CreateTor(Tore Tore)
         {
             try
@@ -18,17 +20,23 @@ namespace ToreManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Tore] (SaisonID, LigaID, SpieltagNr, Spielminute, SpielerID,Spielstand,SpieltagId,Eigentor)" +
-                    " VALUES(@SaisonID,@LigaID,@SpieltagNr, @Spielminute, @SpielerID,@Spielstand,@SpieltagId,@Eigentor)";
+                cmd.CommandText = "INSERT INTO [Tore] (SaisonID, LigaID, SpieltagNr, Spielminute, SpielerID,Spielstand,SpieltagId,Eigentor,Torart)" +
+                    " VALUES(@SaisonID,@LigaID,@SpieltagNr, @Spielminute, @SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart)";
 
                 cmd.Parameters.AddWithValue("@SaisonID", Tore.SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", Tore.LigaID);
                 cmd.Parameters.AddWithValue("@SpieltagNr", Tore.SpieltagNr);
                 cmd.Parameters.AddWithValue("@Spielminute", Tore.Spielminute);
                 cmd.Parameters.AddWithValue("@SpielerID", Tore.SpielerID);
-                cmd.Parameters.AddWithValue("@Spielstand", Tore.Spielstand);                
+                cmd.Parameters.AddWithValue("@Spielstand", Tore.Spielstand);
                 cmd.Parameters.AddWithValue("@SpieltagId", Tore.SpieltagId);
-                cmd.Parameters.AddWithValue("@Eigentor", Tore.Eigentor);
+                
+                if (Tore.Eigentor)
+                    cmd.Parameters.AddWithValue("@Eigentor", 1);
+                else
+                    cmd.Parameters.AddWithValue("@Eigentor", 0);
+
+                cmd.Parameters.AddWithValue("@Torart", "");
 
                 cmd.ExecuteNonQuery();
 
@@ -39,84 +47,114 @@ namespace ToreManagerManagement.Api.Models
             catch (System.Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
         }
 
         public async Task<Tore> DeleteTor(int ToreId)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
+            try
+            {
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[Tore]  where ID = @ID";
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM [dbo].[Tore]  where ID = @ID";
 
-            cmd.Parameters.AddWithValue("@SaisonID", ToreId);
+                cmd.Parameters.AddWithValue("@SaisonID", ToreId);
 
-            cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
 
-            conn.Close();
+                conn.Close();
 
-            return null;
+                return null;
+            }
+            catch (System.Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
 
         }
 
         public async Task<Tore> GetTor(int ToreId)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT * FROM [tore] where ID =" + ToreId, conn);
-            Tore tor = null;
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [tore] where ID =" + ToreId, conn);
+                Tore tor = null;
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    tor = new Tore();
-                    tor.Id = (int)reader["Id"];
-                    tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                    tor.LigaID = int.Parse(reader["LigaID"].ToString());
-                    tor.SpieltagNr = reader["SpieltagNr"].ToString();                    
-                    tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
-                    tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
-                    tor.Spielstand = reader["Spielstand"].ToString();
-                    tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                    tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                    while (reader.Read())
+                    {
+                        tor = new Tore();
+                        tor.Id = (int)reader["Id"];
+                        tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        tor.LigaID = int.Parse(reader["LigaID"].ToString());
+                        tor.SpieltagNr = reader["SpieltagNr"].ToString();
+                        tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
+                        tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
+                        tor.Spielstand = reader["Spielstand"].ToString();
+                        tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                        tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                        tor.Torart = ""; // reader["Torart"].ToString();
+                    }
                 }
+                conn.Close();
+                return tor;
             }
-            conn.Close();
-            return tor;
+            catch (System.Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+
+            }
         }
 
         public async Task<IEnumerable<Tore>> GetTore()
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT * FROM [tore]", conn);
-            List<Tore> tore = new List<Tore>();
-            Tore tor;
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
-                {
-                    tor = new Tore();
-                    tor.Id = (int)reader["Id"];
-                    tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                    tor.LigaID = int.Parse(reader["LigaID"].ToString());
-                    tor.SpieltagNr = reader["SpieltagNr"].ToString();
-                    tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
-                    tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
-                    tor.Spielstand = reader["Spielstand"].ToString();
-                    tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                    tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                conn.Open();
 
-                    tore.Add(tor);
+                SqlCommand command = new SqlCommand("SELECT * FROM [tore]", conn);
+                List<Tore> tore = new List<Tore>();
+                Tore tor;
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        tor = new Tore();
+                        tor.Id = (int)reader["Id"];
+                        tor.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        tor.LigaID = int.Parse(reader["LigaID"].ToString());
+                        tor.SpieltagNr = reader["SpieltagNr"].ToString();
+                        tor.Spielminute = int.Parse(reader["Spielminute"].ToString());
+                        tor.SpielerID = int.Parse(reader["SpielerID"].ToString());
+                        tor.Spielstand = reader["Spielstand"].ToString();
+                        tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                        tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                        tor.Torart = ""; //reader["Torart"].ToString();
+
+                        tore.Add(tor);
+                    }
                 }
+                conn.Close();
+                return tore;
             }
-            conn.Close();
-            return tore;
+            catch (System.Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+                
+            }
         }
 
         public async Task<Tore> UpdateTor(Tore Tore)
@@ -125,17 +163,22 @@ namespace ToreManagerManagement.Api.Models
             conn.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "UPDATE Tore(SaisonID,LigaID, SpieltagNr,Spielminute,SpielerID, Spielstand,SpieltagId,Eigentor)" +
-                " VALUES(@SaisonID,@SpieltagNr,@LigaID,@Spielminute,@SpielerID,@Spielstand,@SpieltagId,@Eigentor)";
+            cmd.CommandText = "UPDATE Tore(SaisonID,LigaID, SpieltagNr,Spielminute,SpielerID, Spielstand,SpieltagId,Eigentor,Torart)" +
+                " VALUES(@SaisonID,@SpieltagNr,@LigaID,@Spielminute,@SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart)";
 
             cmd.Parameters.AddWithValue("@SaisonID", Tore.SaisonID);
             cmd.Parameters.AddWithValue("@LigaID", Tore.LigaID);
             cmd.Parameters.AddWithValue("@SpieltagNr", Tore.SpieltagId);
             cmd.Parameters.AddWithValue("@Spielminute", Tore.Spielminute);
             cmd.Parameters.AddWithValue("@SpielerID", Tore.SpielerID);
-            cmd.Parameters.AddWithValue("@Spielstand", Tore.Spielstand);            
+            cmd.Parameters.AddWithValue("@Spielstand", Tore.Spielstand);
             cmd.Parameters.AddWithValue("@SpieltagId", Tore.SpieltagId);
-            cmd.Parameters.AddWithValue("@Eigentor", Tore.Eigentor);
+            if (Tore.Eigentor)
+                cmd.Parameters.AddWithValue("@Eigentor", 1);
+            else
+                cmd.Parameters.AddWithValue("@Eigentor", 0);
+
+            cmd.Parameters.AddWithValue("@Torart", "");
 
             cmd.ExecuteNonQuery();
 

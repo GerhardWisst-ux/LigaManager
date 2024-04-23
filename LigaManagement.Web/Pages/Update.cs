@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using teboweb;
 
-namespace LigaManager.Update
+namespace LigaManagement.Web.Pages
 {
 
     class update

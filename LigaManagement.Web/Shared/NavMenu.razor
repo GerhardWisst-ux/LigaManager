@@ -166,6 +166,14 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+                        <NavLink class="nav-link" href="/rssfeed" Match="NavLinkMatch.All">
+                            <RadzenIcon Icon="launch" />&nbsp; RSS Feed
+                        </NavLink>
+                    </li>
+                }
+                @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href="/charts" Match="NavLinkMatch.All">
                             <span class="oi oi-graph"></span> Charts
                         </NavLink>

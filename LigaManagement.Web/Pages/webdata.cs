@@ -4,7 +4,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 
-namespace teboweb
+namespace LigaManagement.Web.Pages
 {
 
     public delegate void BytesDownloadedEventHandler(ByteArgs e);

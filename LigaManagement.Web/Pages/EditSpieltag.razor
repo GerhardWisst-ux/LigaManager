@@ -228,14 +228,20 @@
                                                 <RadzenCard Style="width:100%; padding:0;">
                                                     <RadzenRow Gap="0">
                                                         <RadzenColumn Size="4" SizeXS="4">
-                                                            <RadzenText TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
-                                                            <RadzenText Visible=@Tor.Eigentor TextStyle="TextStyle.Body2">(ET)</RadzenText>
+                                                            <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
+                                                            @if (Tor.Eigentor)
+                                                            {
+                                                                <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">(ET)</RadzenText>
+                                                            }
                                                         </RadzenColumn>
                                                         <RadzenColumn Size="1" SizeXS="1">
                                                             <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
                                                         </RadzenColumn>
                                                         <RadzenColumn Size="2" SizeXS="2">
                                                             <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="3" SizeXS="3">
+                                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Torart)</RadzenText>
                                                         </RadzenColumn>
                                                     </RadzenRow>
                                                 </RadzenCard>
@@ -249,7 +255,7 @@
                                 <summary>Tor Verein 1</summary>
                                 <p>
                                     <div class="card-body CardTore">
-                                        <label class="col-sm-3">Spieler Verein 1</label>
+                                        <RadzenLabel Text="Spieler Verein 1" class="col-sm-3 pl-0" Component="chkSpielerVerein1">Spieler Verein 1</RadzenLabel>
                                         <select id="cboKader" class="form-control col-sm-9" @onchange="ToreChange1">
                                             <option value="" selected>@Spielername</option>
                                             <option value="" selected Spieler wählen></option>
@@ -260,13 +266,34 @@
                                             }
                                         </select>
 
-                                        <label class="col-sm-3">Spielminute</label>
+                                        <RadzenLabel Text="Spielminute" class="col-sm-3 pl-0" Component="txtSpielminuteV1">Spielminute</RadzenLabel>
                                         <InputNumber id="txtSpielminuteV1" @bind-Value="Tor.Spielminute" class="form-control col-sm-9"></InputNumber>
-                                        <label class="col-sm-3">Spielstand</label>
+                                        <RadzenLabel Text="Spielstand" class="col-sm-3 pl-0" Component="txtSpielstandV1">Spielstand</RadzenLabel>
                                         <InputText id="txtSpielstandV1" @bind-Value="Tor.Spielstand" class="form-control col-sm-9"></InputText>
                                         <br />
+                                        <div class="form-group">
+                                            <RadzenLabel Text="Eigentor" class="col-sm-3 pl-0" Component="chkEigentor1">Eigentor</RadzenLabel>
+                                            <RadzenCheckBox @bind-Value="Tor.Eigentor" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkEigentor1" />
+                                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                                            </RadzenColumn>
+                                            <ValidationMessage For="()=>Tor.Eigentor"></ValidationMessage>
+                                        </div>
+                                        <br />
+                                        @*  <br />
+                                        <div class="form-group row">
+                                        <RadzenLabel Text="Torart" col-sm-3 pl-0" Component="cboArt1">Torart</RadzenLabel>
+                                        <select id="cboArt1" style="display:inline-block;" class="form-control col-sm-9" @onchange="TorartChange">
+                                        <option value="" selected required>Art auswählen</option>
+                                        <option value="1">Linksschuß</option>
+                                        <option value="2">Rechtsschuß</option>
+                                        <option value="3">Kopfball</option>
+                                        <option value="4">Elfmeter</option>
+                                        </select>
+                                        <ValidationMessage For="()=>Tor.Torart"></ValidationMessage>
+                                        </div>
+                                        <br /> *@
+                                        <br />
                                         <RadzenButton title="Speichert Tor ab" id="btnSpeichernTorV1" Click="UpsertTor1" class="btn btn-primary" Text="Speichern">
-
                                         </RadzenButton>
                                     </div>
                                 </p>
@@ -275,7 +302,7 @@
                                 <summary>Tor Verein 2 </summary>
                                 <p>
                                     <div class="card-body CardTore">
-                                        <label class="col-sm-3">Spieler Verein 2</label>
+                                        <RadzenLabel Text="Spieler Verein 2" class="col-sm-3 pl-0" Component="chkSpielerVerein2">Spieler Verein 2</RadzenLabel>
                                         <select id="cboKader" class="form-control col-sm-9" @onchange="ToreChange2">
                                             <option value="" selected>@Spielername</option>
                                             <option value="" selected Spieler wählen></option>
@@ -285,11 +312,31 @@
 
                                             }
                                         </select>
-
-                                        <label class="col-sm-3">Spielminute</label>
+                                        <RadzenLabel Text="Spielminute" class="col-sm-3 pl-0" Component="txtSpielminuteV1">Spielminute</RadzenLabel>
                                         <InputNumber id="txtSpielminuteV1" @bind-Value="Tor.Spielminute" class="form-control col-sm-9"></InputNumber>
-                                        <label class="col-sm-3">Spielstand</label>
+                                        <RadzenLabel Text="Spielstand" class="col-sm-3 pl-0" Component="txtSpielstandV1">Spielstand</RadzenLabel>
                                         <InputText id="txtSpielstandV1" @bind-Value="Tor.Spielstand" class="form-control col-sm-9"></InputText>
+                                        <br />
+                                        <div class="form-group">
+                                            <RadzenLabel Text="Eigentor" class="col-sm-3 pl-0" Component="chkEigentor2">Eigentor</RadzenLabel>
+                                            <RadzenCheckBox @bind-Value="Tor.Eigentor" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkEigentor2" />
+                                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                                            </RadzenColumn>
+                                            <ValidationMessage For="()=>Tor.Eigentor"></ValidationMessage>
+                                        </div>
+                                        <br />
+                                        @*   <div class="form-group row">
+                                        <RadzenLabel Text="Torart" col-sm-3 pl-0" Component="cboArt2">Torart</RadzenLabel>
+                                        <select id="cboArt2" style="display:inline-block;" class="form-control col-sm-9" @onchange="TorartChange">
+                                        <option value="" selected required>Art auswählen</option>
+                                        <option value="1">Linksschuß</option>
+                                        <option value="2">Rechtsschuß</option>
+                                        <option value="3">Kopfball</option>
+                                        <option value="4">Elfmeter</option>
+                                        </select>
+                                        <ValidationMessage For="()=>Tor.Torart"></ValidationMessage>
+                                        </div>
+                                        <br /> *@
                                         <br />
                                         <RadzenButton title="Speichert Tor ab" id="btnSpeichernTorV2" Click="UpsertTor2" class="btn btn-primary" Text="Speichern">
 

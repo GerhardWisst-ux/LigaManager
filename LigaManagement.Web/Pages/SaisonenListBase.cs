@@ -64,28 +64,16 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
-            if (!authenticationState.User.Identity.IsAuthenticated)
+
+            if (authenticationState.User.Identity == null)
             {
-                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
-                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                return;
             }
 
-            SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
-
-            VereineList = new List<DisplayVerein>();
-
-            Vereine = (await VereineService.GetVereine()).ToList();
-
-            var VereineSaison = (await VereineService.GetVereineSaison()).Where(x => x.SaisonID == Convert.ToInt32(Id)).ToList();
-
-            for (int i = 0; i < Vereine.Count(); i++)
+            if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                var result = VereineSaison.FindIndex(s => s.VereinNr == Vereine[i].VereinNr);
-
-                if (result == -1)
-                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
-                else
-                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
+                string returnUrl = WebUtility.UrlEncode($"/saisonen");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
             LigenList = new List<DisplayLiga>();
@@ -100,28 +88,34 @@ namespace LigaManagerManagement.Web.Pages
             var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
             Liganame = liga.Liganame;
 
+            SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
+
+            VereineList = new List<DisplayVerein>();
+
+            Vereine = (await VereineService.GetVereine()).ToList();
+
+            var VereineSaison = (await VereineService.GetVereineSaison()).Where(x => x.SaisonID == Convert.ToInt32(Id)).ToList();
+
+            for (int i = 0; i < Vereine.Count(); i++)
+            {
+                var result = VereineSaison.FindIndex(s => s.VereinNr == Vereine[i].VereinNr);
+
+                if (Id != null)
+                {
+                    if (result == -1)
+                        VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
+                    else
+                        VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
+                }
+                else                   
+                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
+            }         
+
             DisplayErrorLiga = "none";
 
             Globals.bVisibleNavMenuElements = true;
         }
-
-        public void Select(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (!multiple)
-            {
-                selectedCellData.Clear();
-            }
-
-            var cellData = selectedCellData.FirstOrDefault(i => i.Item1 == args.Data && i.Item2 == args.Column);
-            if (cellData != null)
-            {
-                selectedCellData.Remove(cellData);
-            }
-            else
-            {
-                selectedCellData.Add(new Tuple<Saison, RadzenDataGridColumn<Saison>>(args.Data, args.Column));
-            }
-        }
+      
         [Bind]
         public class DisplayVerein
         {
@@ -137,44 +131,6 @@ namespace LigaManagerManagement.Web.Pages
 
             public bool VereinChecked { get; set; }
         }
-
-        int index;
-        public void ResetIndex(bool shouldReset)
-        {
-            if (shouldReset)
-            {
-                index = 0;
-            }
-        }
-
-        public void OnCellClick(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (type == "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellDoubleClick(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (type != "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellRender(DataGridCellRenderEventArgs<Saison> args)
-        {
-            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-            {
-                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-            }
-        }
-        public void OnFilter(DataGridColumnFilterEventArgs<Saison> args)
-        {
-            //
-        }
-
 
         public async void CheckboxClicked(string aSelectedId, object aChecked)
         {

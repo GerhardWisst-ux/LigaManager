@@ -8,6 +8,14 @@ namespace LigaManagerManagement.Models
         [Key]
         public int Id { get; set; }
 
+        public int SaisonId { get; set; }
+        public int LigaID { get; set; }
+        public int LandID { get; set; }
+
+        [Required(ErrorMessage = "Rückennummer erforderlich.")]
+        [Range(1, 99, ErrorMessage = "Rückennummer muß zwischen 1 und 99 liegen.")]
+        public int? Rueckennummer { get; set; }
+
         [Required(ErrorMessage = "Name erforderlich.")]
         public string SpielerName { get; set; }
 
@@ -16,21 +24,15 @@ namespace LigaManagerManagement.Models
                 
 
         [Required(ErrorMessage = "Geburtsdatum erforderlich.")]
-        public DateTime Geburtsdatum { get; set; }
-
+        public DateTime? Geburtsdatum { get; set; }
+                
         public string Position { get; set; }
-        public int PositionsNr { get; set; }
 
-        public int SaisonId { get; set; }
-        
-        public int Rueckennummer { get; set; }
-
+        [Required(ErrorMessage = "Position erforderlich.")]
+        public int? PositionsNr { get; set; }               
+              
         [Required]
-        public int VereinID { get; set; }
-
-        public int LigaID { get; set; }
-
-        public int LandID { get; set; }
+        public int VereinID { get; set; }             
 
         public int Einsaetze { get; set; }
 
@@ -41,8 +43,9 @@ namespace LigaManagerManagement.Models
         public decimal Abloesesumme { get; set; }
         
         int Vorlagen { get; set; }
-                
-        public DateTime ImVereinSeit { get; set; }
+
+        [Required(ErrorMessage = "Gültiges Datum erforderlich.")]
+        public DateTime? ImVereinSeit { get; set; }
 
         public bool Aktiv { get; set; }
 
