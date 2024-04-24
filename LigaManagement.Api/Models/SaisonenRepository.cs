@@ -1,4 +1,5 @@
-﻿using LigamanagerManagement.Api.Models.Repository;
+﻿using Ligamanager.Components;
+using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
@@ -27,15 +28,14 @@ namespace LigaManagement.Api.Models
                 else
                     bAbgeschlossen = 1;
 
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Saison] (SaisonID, LigaID, Saisonname, Liganame, Aktuell,Abgeschlossen)" +
-                    " VALUES(@SaisonID,@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
-
-                cmd.Parameters.AddWithValue("@SaisonID", saison.SaisonID);
+                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, Saisonname,Liganame,Aktuell,Abgeschlossen)" +
+                    " VALUES(@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
+                                
                 cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
                 cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
                 cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
@@ -57,12 +57,12 @@ namespace LigaManagement.Api.Models
 
         public Task<Saison> DeleteSaison(int SaisonId)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[Saison] Where SaisonID= = @SaisonId";
+            cmd.CommandText = "DELETE FROM [dbo].[Saisonen] Where SaisonID= = @SaisonId";
 
             cmd.Parameters.AddWithValue("@SaisonID", SaisonId);
 
@@ -88,7 +88,7 @@ namespace LigaManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where SaisonID= " + SaisonId, conn);
@@ -129,7 +129,7 @@ namespace LigaManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen]", conn);
@@ -168,7 +168,7 @@ namespace LigaManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where Saison= '" + saisonname + "'", conn);
@@ -202,7 +202,7 @@ namespace LigaManagement.Api.Models
             try
             {
 
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;

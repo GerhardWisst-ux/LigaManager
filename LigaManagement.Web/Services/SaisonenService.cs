@@ -18,9 +18,9 @@ namespace LigaManagerManagement.Web.Services
             this.httpClient = httpClient;
         }
               
-        public async Task<Saison> CreateSaison(Saison newSaison)
+        public async Task<Saison> CreateSaison(Saison newsaison)
         {
-            return await httpClient.PostJsonAsync<Saison>("api/saisonen", newSaison);
+            return await httpClient.PostJsonAsync<Saison>("api/saisonen", newsaison);
         }
 
         public async Task DeleteSaison(int id)
@@ -51,14 +51,10 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<Saison[]>("api/saisonen");
         }
 
-        public async Task<Saison> UpdateSaison(Saison updatedSaison)
+        public async Task<Saison> UpdateSaison(Saison updatedsaison)
         {
-            return await httpClient.PutJsonAsync<Saison>("api/saisonen", updatedSaison);
+            return await httpClient.PutJsonAsync<Saison>("api/saisonen", updatedsaison);
         }
-
-        
-
-
 
     }
 }

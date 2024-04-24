@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
@@ -13,12 +14,12 @@ using System.Xml;
 namespace LigaManagerManagement.Api.Models
 {
     public class SpieltageRepository : ISpieltagRepository
-    {       
+    {
         public async Task<Spieltag> AddSpieltag(Spieltag spieltag)
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -83,7 +84,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] WHERE SpieltagId =" + spieltagId, conn);
@@ -105,7 +106,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
                         spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());                        
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
@@ -133,7 +134,7 @@ namespace LigaManagerManagement.Api.Models
 
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage]", conn);
@@ -182,7 +183,7 @@ namespace LigaManagerManagement.Api.Models
         public int AktSpieltag(int SaisonID)
         {
             int iMaxSpieltag = 0;
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "'", conn);
@@ -191,7 +192,10 @@ namespace LigaManagerManagement.Api.Models
             {
                 while (reader.Read())
                 {
-                    iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                    if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                        iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                    else
+                        iMaxSpieltag = 1;
                 }
             }
             conn.Close();
@@ -203,7 +207,7 @@ namespace LigaManagerManagement.Api.Models
             int bAbgeschlossen;
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -234,7 +238,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Ort] = '" + spieltag.Ort + "'" +
                         ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
-                        ",[Zuschauer] =" + spieltag.Zuschauer + 
+                        ",[Zuschauer] =" + spieltag.Zuschauer +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
                 //cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);

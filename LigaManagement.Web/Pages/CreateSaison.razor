@@ -1,5 +1,4 @@
-﻿@page "/createsaison2"
-@page "/editsaison2/{Id}"
+﻿@page "/createsaison"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService
@@ -14,39 +13,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 
-<script type="text/javascript">
-    // $(document).ready(function () {
-    //     $("#previewDiv :input").attr("disabled", true);
-    // });
-</script>
-
-<style type="text/css">
-
-    input[name=checkverein] {
-        pointer-events: auto;
-    }
-
-    input[name=txtSaisonname] {
-        pointer-events: auto;
-    }
-
-    select[name=cboLiga] {
-        pointer-events: auto;
-    }
-
-    input[name=checkvereindisabled] {
-        pointer-events: none;
-    }
-
-    input[name=txtSaisonnameDisabled] {
-        pointer-events: none;
-    }
-
-    select[name=cboLigaDisabled] {
-        pointer-events: none;
-    }
-
-</style>
 <EditForm Model="Saison" OnValidSubmit="SaveSaison">
     <RadzenSteps Change="@OnChange" CanChange="@CanChange">
         <Steps>
@@ -98,7 +64,6 @@
                             }
                         </select>
                     }
-
                     <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                 </div>
                 <div class="form-group">
@@ -128,23 +93,11 @@
                 </RadzenRow>
                 <div class="form-group">
                     <ul class="ul">
-                        @if (Id == null)
+                        @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
                         {
-                            @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
-                            {
-                                string Id = @verein.VereinID;
-                                <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkverein" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
-                            }
+                            string Id = @verein.VereinID;
+                            <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkverein" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
                         }
-                        else
-                        {
-                            @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
-                            {
-                                string Id = @verein.VereinID;
-                                <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkvereindisabled" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
-                            }
-                        }
-
                     </ul>
                 </div>
                 <div class="form-group">
@@ -152,10 +105,11 @@
                         @foreach (var verein in VereineSaisonList.OrderBy(x => x.VereinID))
                         {
                             string Id = @verein.VereinID;
-                            <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
+                            <li><input data-bind="@verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
                         }
                     </ul>
                 </div>
+                <RadzenButton Text="Speichern" Click="@SaveVereine" />
             </RadzenStepsItem>
             <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
                 <RadzenRow>
@@ -164,46 +118,23 @@
                 <br />
                 <br />
                 <div class="form-group">
-                    @if (Id == null)
-                    {
-                        <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
-                        <RadzenTextBox required name="txtSaisonname" id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
-                    }
-                    else
-                    {
-                        <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonnameDisabled">Saisonname</RadzenLabel>
-                        <RadzenTextBox required name="txtSaisonnameDisabled" id="txtSaisonnameDisabled" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
-                    }
+                    <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
+                    <RadzenTextBox required name="txtSaisonname" id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
+
                     <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
                 </div>
                 <div class="form-group">
                     <RadzenLabel Text="Liganame" class="col-sm-3 pl-0" Component="cboLigaDisabled">Liganame</RadzenLabel>
-                    @if (Id == null)
-                    {
-                        <select id="cboLiga" name="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
-                            <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option>
-                            @if (LigenList != null)
+                    <select id="cboLiga" name="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
+                        <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option>
+                        @if (LigenList != null)
+                        {
+                            @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                             {
-                                @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
-                                {
-                                    <option value="@liga.LigaID"> @liga.Liganame</option>
-                                }
+                                <option value="@liga.LigaID"> @liga.Liganame</option>
                             }
-                        </select>
-                    }
-                    else
-                    {
-                        <select id="cboLigaDisabled" name="cboLigaDisabled" class="form-control col-9 dropdown" @onchange="LigaChange">
-                            <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option>
-                            @if (LigenList != null)
-                            {
-                                @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
-                                {
-                                    <option value="@liga.LigaID"> @liga.Liganame</option>
-                                }
-                            }
-                        </select>
-                    }
+                        }
+                    </select>
 
                     <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                 </div>
@@ -227,31 +158,10 @@
                 </RadzenRow>
                 <div class="form-group">
                     <ul class="ul">
-                        @if (Id == null)
+                        @foreach (var verein in vereinesaisonSelectedZus.OrderBy(x => x.Id))
                         {
-                            @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
-                            {
-                                string Id = @verein.VereinID;
-                                <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkverein" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
-                            }
-                        }
-                        else
-                        {
-                            @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
-                            {
-                                string Id = @verein.VereinID;
-                                <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkvereindisabled" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
-                            }
-                        }
-
-                    </ul>
-                </div>
-                <div class="form-group">
-                    <ul class="ul">
-                        @foreach (var verein in VereineSaisonList.OrderBy(x => x.VereinID))
-                        {
-                            string Id = @verein.VereinID;
-                            <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
+                            int Id = @verein.Id;
+                            <li><input data-bind=" @verein.Id" class="col-sm-12" checked="checked" type="checkbox"><span>@verein.Vereinsname1</span></li>
                         }
                     </ul>
                 </div>
@@ -272,6 +182,7 @@
     private string aboutMe;
     private string savedAboutMe;
 
+    public List<Verein> vereinesaisonSelectedZus = new List<Verein>();
 
     private void OnChange()
     {
@@ -308,18 +219,67 @@
 
     private async Task CanChange(StepsCanChangeEventArgs args)
     {
-        if (args.SelectedIndex == 0 && liganame == null)
+        if (args.SelectedIndex == 0 && liganame == null || saison == null)
         {
+            // var response = await DialogService.Confirm(
+            //     "Sie haben keinen Saisonnamen oder keinen Liganamen ausgewählt!",
+            //     "Trotzdem weitermachen",
+            //     new ConfirmOptions()
+            //         {
+            //             CloseDialogOnEsc = false,
+            //             CloseDialogOnOverlayClick = false,
+            //             ShowClose = false,
+            //             CancelButtonText = "Nein",
+            //             OkButtonText = "Ja",
+            //         });
+
+            // if (response == false)
+            // {
+            //     args.PreventDefault();
+            // }
+
             return;
         }
 
-        if (args.SelectedIndex == 1 && vereinesaison.Count() > 18)
+        if (args.SelectedIndex == 1 && vereinesaison.Count() != 18)
         {
+            // var response = await DialogService.Confirm(
+            //     "Sie haben keine 18 Vereine ausgewählt!",
+            //     "Trotzdem weitermachen",
+            //     new ConfirmOptions()
+            //         {
+            //             CloseDialogOnEsc = false,
+            //             CloseDialogOnOverlayClick = false,
+            //             ShowClose = false,
+            //             CancelButtonText = "Nein",
+            //             OkButtonText = "Ja",
+            //         });
+
+            // if (response == false)
+            // {
+            //     args.PreventDefault();
+            // }
             return;
         }
 
-        if (args.SelectedIndex == 1 && vereinesaison.Count() < 18)
+        if (args.SelectedIndex == 1 && vereinesaisonSelected.Count() != 18)
         {
+            // var response = await DialogService.Confirm(
+            //     "Sie haben keine 18 Vereine ausgewählt!",
+            //     "Trotzdem weitermachen",
+            //     new ConfirmOptions()
+            //         {
+            //             CloseDialogOnEsc = false,
+            //             CloseDialogOnOverlayClick = false,
+            //             ShowClose = false,
+            //             CancelButtonText = "Nein",
+            //             OkButtonText = "Ja",
+            //         });
+
+            // if (response == false)
+            // {
+            //     args.PreventDefault();
+            // }
             return;
         }
 
@@ -347,9 +307,10 @@
         savedliganame = liganame;
     }
 
-    private void SaveAboutMe()
+    private void SaveVereine()
     {
-        savedAboutMe = aboutMe;
+        vereinesaisonSelectedZus = vereinesaisonSelected;
+        vereinesaisonSelected = null;
     }
 
     private async void SaveSaison()
@@ -360,32 +321,29 @@
         var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
         Saison.Liganame = liga.Liganame;
 
-        if (Id == null)
+        SaisonenServiceCreated = await _SaisonenService.CreateSaison(Saison);
+
+        List<VereineSaison> lstVereineSaison = new List<VereineSaison>();
+
+        var Saisonen = await SaisonenService.GetSaisonen();
+
+        var Saison2 = Saisonen.Where(x => x.Saisonname == Saison.Saisonname).FirstOrDefault();
+
+        for (int i = 0; i < vereinesaisonSelectedZus.Count - 1; i++)
         {
-            SaisonenServiceCreated = await _SaisonenService.CreateSaison(Saison);
+            VereineSaison item = new VereineSaison();
 
-            List<VereineSaison> lstVereineSaison = new List<VereineSaison>();
-
-            for (int i = 0; i < vereinesaison.Count - 1; i++)
-            {
-                VereineSaison item = new VereineSaison();
-
-                item.Id = i + 1;
-                item.VereinNr = vereinesaison[i].VereinNr;
-                item.SaisonID = SaisonenServiceCreated.SaisonID;
-                item.LigaID = Convert.ToInt32(Globals.currentLiga);
-                lstVereineSaison.Add(item);
-            }
-
-            await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
+            item.Id = i + 1;
+            item.VereinNr = vereinesaisonSelectedZus[i].VereinNr;
+            item.SaisonID = Saison2.SaisonID;
+            item.LigaID = Convert.ToInt32(Globals.currentLiga);
+            lstVereineSaison.Add(item);
         }
 
-        else
-            SaisonenServiceCreated = await _SaisonenService.UpdateSaison(Saison);
+        await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
 
         _navigationManager.NavigateTo("saisonen");
-
     }
-
 }
+
 

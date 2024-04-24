@@ -32,6 +32,8 @@ namespace LigaManagement.Models
        
         public bool Eigentor { get; set; }
 
+        public bool Elfmeter { get; set; }
+
         public string Torart { get; set; }
 
 

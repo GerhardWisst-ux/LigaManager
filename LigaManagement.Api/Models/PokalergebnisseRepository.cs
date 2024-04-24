@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using Ligamanager.Components;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -55,7 +56,7 @@ namespace ToreManagerManagement.Api.Models
 
         public Task<PokalergebnisSpieltag> DeletePokalergebnis(int SpieltagID)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -73,7 +74,7 @@ namespace ToreManagerManagement.Api.Models
               
         public async Task<PokalergebnisSpieltag> GetPokalergebnis(int SpieltagID)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand command = new SqlCommand("SELECT * FROM [Pokalergebnisse] where SpieltagId =" + SpieltagID, conn);
@@ -110,7 +111,7 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Pokalergebnisse]", conn);
@@ -161,7 +162,7 @@ namespace ToreManagerManagement.Api.Models
             int bElfmeterschiessen;
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;

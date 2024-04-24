@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
@@ -15,7 +16,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -49,7 +50,7 @@ namespace LigaManagerManagement.Api.Models
         public Task<Liga> DeleteLiga(int LigaId)
         {
 
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -80,7 +81,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Ligen] WHERE ID =" + LigaId, conn);
@@ -120,7 +121,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Ligen]", conn);
@@ -162,7 +163,7 @@ namespace LigaManagerManagement.Api.Models
             
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();

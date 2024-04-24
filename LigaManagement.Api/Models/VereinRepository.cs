@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
@@ -22,7 +23,7 @@ namespace LigaManagerManagement.Api.Models
 
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -69,7 +70,7 @@ namespace LigaManagerManagement.Api.Models
 
         public Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> vereineSaison)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             for (int i = 0; i < vereineSaison.Count; i++)
@@ -92,7 +93,7 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Verein> DeleteVerein(int vereinId)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -123,7 +124,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Vereine] Where VereinNr =" + vereinnr, conn);
@@ -165,7 +166,7 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Vereine]", conn);
@@ -209,7 +210,7 @@ namespace LigaManagerManagement.Api.Models
         {
             List<VereinAktSaison> vereineSaison = new List<VereinAktSaison>();
 
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
@@ -240,7 +241,7 @@ namespace LigaManagerManagement.Api.Models
 
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();

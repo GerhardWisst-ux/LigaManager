@@ -44,10 +44,13 @@ namespace LigaManagement.Models
 
         public string Ort { get; set; }
 
+        [Required(ErrorMessage = "Schiedrichter muß angegeben werden")]
         public string Schiedrichter { get; set; }
 
         public bool Abgeschlossen { get; set; }
 
-        public int? Zuschauer { get; set; }
+        [Required(ErrorMessage = "Zuschauer müssen angegeben werden")]
+        [Range(500, 100000, ErrorMessage = "Zuschauer müssen zwischen 500 und 100000 liegen")]
+        public int Zuschauer { get; set; }
     }  
 }

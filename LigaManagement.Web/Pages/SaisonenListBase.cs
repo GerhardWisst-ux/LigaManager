@@ -53,6 +53,8 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<Verein> vereinesaison = new List<Verein>();
 
+        public List<Verein> vereinesaisonSelected = new List<Verein>();
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
@@ -138,13 +140,13 @@ namespace LigaManagerManagement.Web.Pages
 
             if ((bool)aChecked)
             {
-                if (!vereinesaison.Contains(Verein))
-                    vereinesaison.Add(Verein);
+                if (!vereinesaisonSelected.Contains(Verein))
+                    vereinesaisonSelected.Add(Verein);
             }
             else
             {
-                if (vereinesaison.Contains(Verein))
-                    vereinesaison.Remove(Verein);
+                if (vereinesaisonSelected.Contains(Verein))
+                    vereinesaisonSelected.Remove(Verein);
             }          
 
             StateHasChanged();

@@ -27,17 +27,15 @@
 </style>
 
 <div class="container">
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <RadzenCard class="m-0">
-                <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">Statistiken</h2>
-                    </div>
-                </div>
-            </RadzenCard>
+
+    <RadzenCard class="m-0">
+        <div class="d-flex flex-row rz-shadow-3">
+            <div class="card-body">
+                <h2 style="display:inline-block;">Statistiken</h2>
+            </div>
         </div>
-    </div>
+    </RadzenCard>
+
 
     <RadzenTabs @bind-SelectedIndex=@selectedIndex Change=@OnChange>
         <Tabs>
@@ -90,11 +88,9 @@
                                             <RadzenCard Style="width:100%; padding:0;">
                                                 <RadzenRow Gap="0">
                                                     <RadzenColumn Size="0" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
                                                         <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="3" SizeXS="3">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
@@ -103,11 +99,9 @@
                                                         </Template>
                                                     </RadzenDataGridColumn>
                                                     <RadzenColumn Size="1" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
                                                     </RadzenColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
+                                                    <RadzenColumn Size="1" SizeXS="1">                                                      
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
@@ -115,12 +109,15 @@
                                                             <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                                         </Template>
                                                     </RadzenDataGridColumn>
-                                                    <RadzenColumn Size="3" SizeXS="3">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
+                                                    <RadzenColumn Size="3" SizeXS="3">                                                      
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
                                                     </RadzenColumn>
-                                                    <RadzenColumn Size="0" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
+                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="240px" MinWidth="240px">
+                                                        <Template Context="data">
+                                                            <RadzenImage Path="@($"/editverein/{data.Verein2_Nr}")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenColumn Size="0" SizeXS="1">                                                        
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
                                                     </RadzenColumn>
                                                 </RadzenRow>

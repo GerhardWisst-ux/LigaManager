@@ -9,7 +9,6 @@ using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -152,12 +151,7 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     iSpieltage = 34;
 
-                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
-                for (int i = 1; i <= iSpieltage; i++)
-                {
-                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
-                }
-
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();               
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
                     var columns = Saisonen.ElementAt(i);

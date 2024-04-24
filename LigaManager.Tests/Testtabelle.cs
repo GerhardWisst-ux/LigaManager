@@ -5,16 +5,16 @@ namespace LigaManager.Tests
 {
     public class Testtabelle
     {
-        public ITabelleService TabelleService { get; set; }
-        public ISpieltagService SpieltagService { get; set; }
+        //public ITabelleService TabelleService { get; set; }
+        //public ISpieltagService SpieltagService { get; set; }
 
-        public IVereineService VereineService { get; set; }
+        //public IVereineService VereineService { get; set; }
 
-        Vereine = VereineService.GetVereine();
-        //Arrange
+        //Vereine = VereineService.GetVereine();
+        ////Arrange
 
-        //Act
-        Tabellen = TabelleService.BerechneTabelle(SpieltagService, True, Vereine, 34, Ligamanager.Components.Globals.currentSaison, 1);
-        //Assert
+        ////Act
+        //Tabellen = TabelleService.BerechneTabelle(SpieltagService, True, Vereine, 34, Ligamanager.Components.Globals.currentSaison, 1);
+        ////Assert
     }
 }

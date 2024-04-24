@@ -61,3 +61,21 @@ StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 132
 Date/Time: 22.04.2024 15:19:53
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SaisonenService.GetSaisonen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SaisonenService.cs:line 51
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EinstiegListBase.cs:line 75
+Date/Time: 24.04.2024 16:35:37
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SaisonenService.GetSaisonen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SaisonenService.cs:line 51
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EinstiegListBase.cs:line 75
+Date/Time: 24.04.2024 16:35:37
+============================================

@@ -29,6 +29,7 @@ namespace LigamanagerManagement.Web.Pages
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
+        public bool popup;
         public bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
 
@@ -166,10 +167,10 @@ namespace LigamanagerManagement.Web.Pages
                         {
                             if (kaderspieler.Vorname == "")
                                 ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
-                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Torart));
+                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
                             else
                                 ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
-                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Torart));
+                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
                         }
 
                     }
@@ -356,7 +357,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public class DisplayTore
         {
-            public DisplayTore(int spielerId, string spieler, string spielstand, int spielminute, int spieltagId, bool eigentor, string torart)
+            public DisplayTore(int spielerId, string spieler, string spielstand, int spielminute, int spieltagId, bool eigentor, bool elfmeter, string torart)
             {
                 Spieler = spieler;
                 Spielstand = spielstand;
@@ -364,6 +365,7 @@ namespace LigamanagerManagement.Web.Pages
                 Spielminute = spielminute;
                 SpieltagId = spieltagId;
                 Eigentor = eigentor;
+                Elfmeter = elfmeter;
                 Torart = torart;
             }
             public int SpielerId { get; set; }
@@ -372,6 +374,7 @@ namespace LigamanagerManagement.Web.Pages
             public string Spielstand { get; set; }
             public int SpieltagId { get; set; }
             public bool Eigentor { get; set; }
+            public bool Elfmeter { get; set; }
             public string Torart { get; set; }
         }
 

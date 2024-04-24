@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
@@ -18,7 +19,7 @@ namespace LigaManagement.Api.Models
     {       
         public async Task<SpielerSpieltag> AddSpieler(SpielerSpieltag SpielerSpieltag)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -53,7 +54,7 @@ namespace LigaManagement.Api.Models
 
         public Task<SpielerSpieltag> DeleteSpielerSpieltag()
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -74,7 +75,7 @@ namespace LigaManagement.Api.Models
 
         public async Task<SpielerSpieltag> GetSpieler(int Id)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand command = new SqlCommand("SELECT * FROM [SpielerSpieltag] where ID =" + Id, conn);
@@ -105,7 +106,7 @@ namespace LigaManagement.Api.Models
 
         public async Task<SpielerSpieltag> UpdateSpieler(SpielerSpieltag SpielerSpieltag)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;

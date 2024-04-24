@@ -1,6 +1,7 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using Ligamanager.Components;
 using Microsoft.Data.SqlClient;
 using System.Collections.Generic;
 using System.Reflection;
@@ -15,13 +16,13 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Tore] (SaisonID, LigaID, SpieltagNr, Spielminute, SpielerID,Spielstand,SpieltagId,Eigentor,Torart)" +
-                    " VALUES(@SaisonID,@LigaID,@SpieltagNr, @Spielminute, @SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart)";
+                cmd.CommandText = "INSERT INTO [Tore] (SaisonID, LigaID, SpieltagNr, Spielminute, SpielerID,Spielstand,SpieltagId,Eigentor,Torart,Elfmeter)" +
+                    " VALUES(@SaisonID,@LigaID,@SpieltagNr, @Spielminute, @SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart,@Elfmeter)";
 
                 cmd.Parameters.AddWithValue("@SaisonID", Tore.SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", Tore.LigaID);
@@ -35,6 +36,11 @@ namespace ToreManagerManagement.Api.Models
                     cmd.Parameters.AddWithValue("@Eigentor", 1);
                 else
                     cmd.Parameters.AddWithValue("@Eigentor", 0);
+
+                if (Tore.Elfmeter)
+                    cmd.Parameters.AddWithValue("@Elfmeter", 1);
+                else
+                    cmd.Parameters.AddWithValue("@Elfmeter", 0);
 
                 cmd.Parameters.AddWithValue("@Torart", "");
 
@@ -56,7 +62,7 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -84,7 +90,7 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [tore] where ID =" + ToreId, conn);
@@ -103,6 +109,7 @@ namespace ToreManagerManagement.Api.Models
                         tor.Spielstand = reader["Spielstand"].ToString();
                         tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                        tor.Elfmeter = bool.Parse(reader["Eigentor"].ToString());
                         tor.Torart = ""; // reader["Torart"].ToString();
                     }
                 }
@@ -121,7 +128,7 @@ namespace ToreManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [tore]", conn);
@@ -141,6 +148,7 @@ namespace ToreManagerManagement.Api.Models
                         tor.Spielstand = reader["Spielstand"].ToString();
                         tor.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         tor.Eigentor = bool.Parse(reader["Eigentor"].ToString());
+                        tor.Elfmeter = bool.Parse(reader["Elfmeter"].ToString());
                         tor.Torart = ""; //reader["Torart"].ToString();
 
                         tore.Add(tor);
@@ -159,12 +167,12 @@ namespace ToreManagerManagement.Api.Models
 
         public async Task<Tore> UpdateTor(Tore Tore)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "UPDATE Tore(SaisonID,LigaID, SpieltagNr,Spielminute,SpielerID, Spielstand,SpieltagId,Eigentor,Torart)" +
-                " VALUES(@SaisonID,@SpieltagNr,@LigaID,@Spielminute,@SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart)";
+            cmd.CommandText = "UPDATE Tore(SaisonID,LigaID, SpieltagNr,Spielminute,SpielerID, Spielstand,SpieltagId,Eigentor,Torart,Elfmeter)" +
+                " VALUES(@SaisonID,@SpieltagNr,@LigaID,@Spielminute,@SpielerID,@Spielstand,@SpieltagId,@Eigentor,@Torart,@Elfmeter)";
 
             cmd.Parameters.AddWithValue("@SaisonID", Tore.SaisonID);
             cmd.Parameters.AddWithValue("@LigaID", Tore.LigaID);
@@ -173,10 +181,16 @@ namespace ToreManagerManagement.Api.Models
             cmd.Parameters.AddWithValue("@SpielerID", Tore.SpielerID);
             cmd.Parameters.AddWithValue("@Spielstand", Tore.Spielstand);
             cmd.Parameters.AddWithValue("@SpieltagId", Tore.SpieltagId);
+            
             if (Tore.Eigentor)
                 cmd.Parameters.AddWithValue("@Eigentor", 1);
             else
                 cmd.Parameters.AddWithValue("@Eigentor", 0);
+
+            if (Tore.Elfmeter)
+                cmd.Parameters.AddWithValue("@Elfmeter", 1);
+            else
+                cmd.Parameters.AddWithValue("@Elfmeter", 0);
 
             cmd.Parameters.AddWithValue("@Torart", "");
 
