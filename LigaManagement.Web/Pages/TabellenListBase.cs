@@ -1,5 +1,4 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
@@ -11,7 +10,6 @@ using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -37,8 +35,7 @@ namespace LigamanagerManagement.Web.Pages
         public ISaisonenService SaisonenService { get; set; }
 
         public List<DisplaySaison> SaisonenList;
-
-              
+                     
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -124,10 +121,8 @@ namespace LigamanagerManagement.Web.Pages
 
                 Liganame = liga.Liganame;
 
-                if (TabArt == 6)
-                    DisplayEwig = "display:block;";
-                else
-                    DisplayEwig = "display:none;";
+                TabArt = 1;
+                
             }
             catch (Exception ex)
             {

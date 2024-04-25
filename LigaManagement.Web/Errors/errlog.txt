@@ -79,3 +79,11 @@ StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EinstiegListBase.cs:line 75
 Date/Time: 24.04.2024 16:35:37
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Input string was not in a correct format.
+StackTrace:    at System.Number.ThrowOverflowOrFormatException(ParsingStatus status, TypeCode type)
+   at System.String.System.IConvertible.ToInt32(IFormatProvider provider)
+   at System.Convert.ToInt32(Object value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SpieltagChange(ChangeEventArgs e)
+Date/Time: 25.04.2024 11:14:49
+============================================

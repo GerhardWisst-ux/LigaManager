@@ -41,7 +41,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public string Spielername;
 
-        public DateTime? Time { get; set; }              
+        public DateTime? Time { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -90,8 +90,7 @@ namespace LigamanagerManagement.Web.Pages
         public Spieltag SpielCombo { get; set; } = new Spieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
-        
-             
+
 
         protected async override Task OnInitializedAsync()
         {
@@ -103,7 +102,7 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     return;
                 }
-                
+
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/editSpieltag/{Id}");
@@ -112,13 +111,9 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Id != null)
                     Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-
-                var spiele = await SpieltagService.GetSpieltage();
-
-                var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
-
+                                
                 var vereineSaison = await VereineSaisonService.GetVereineSaison();
-                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == saison.SaisonID).ToList();
+                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -126,8 +121,8 @@ namespace LigamanagerManagement.Web.Pages
                     VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
                 }
 
-                var allkader = (await KaderService.GetAllSpieler());
-                List<Kader> SpielerSpiel = allkader.Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
+                var allkader = await KaderService.GetAllSpieler();
+                List<Kader> SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
 
                 KaderList1 = new List<DisplaySpieler>();
 
@@ -138,7 +133,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 KaderList2 = new List<DisplaySpieler>();
 
-                SpielerSpiel = allkader.Where(x => x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
+                SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
                 for (int i = 0; i < SpielerSpiel.Count(); i++)
                 {
                     KaderList2.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
@@ -156,38 +151,29 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.SpieltagNr = SpieltagNr;
 
                 var tore = await ToreService.GetTore();
-                List<Tore> torlist = tore.ToList();
+                List<Tore> torlist = tore.Where(x => x.SpieltagId == Spiel.SpieltagId).ToList();
 
-                try
+                for (int i = 0; i < torlist.Count; i++)
                 {
-                    for (int i = 0; i < torlist.Count() -1; i++)
+                    var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
+                    if (Spiel.SpieltagId == torlist[i].SpieltagId)
                     {
-                        var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
-                        if (Spiel.SpieltagId == torlist[i].SpieltagId)
-                        {
-                            if (kaderspieler.Vorname == "")
-                                ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
-                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
-                            else
-                                ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
-                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
-                        }
-
+                        if (kaderspieler.Vorname == "")
+                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
+                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
+                        else
+                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
+                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
                     }
 
-                    ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
                 }
-                catch (Exception ex)
-                {
-
-                    ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-                }
+                ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
             }
             catch (Exception ex)
             {
 
-              ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-            }            
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
 
         }
         protected async override void OnAfterRender(bool firstRender)
@@ -216,7 +202,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Torart == "1")
                 {
-                    Tor.Torart = "Linksschuß";                    
+                    Tor.Torart = "Linksschuß";
                 }
                 else if (Torart == "2")
                 {
@@ -287,7 +273,7 @@ namespace LigamanagerManagement.Web.Pages
             }
             StateHasChanged();
         }
-       
+
         public async void ToreChange1(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -310,8 +296,9 @@ namespace LigamanagerManagement.Web.Pages
 
         public async void ToreChange2(ChangeEventArgs e)
         {
-            if (e.Value != null)            {
-                
+            if (e.Value != null)
+            {
+
                 var Spieler = await KaderService.GetSpieler(Convert.ToInt32(e.Value));
                 Tor.SpielerID = Spieler.Id;
             }

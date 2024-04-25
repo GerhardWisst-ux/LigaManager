@@ -1,6 +1,5 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
-using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
@@ -11,11 +10,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
-using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace LigaManagerManagement.Web.Pages
 {

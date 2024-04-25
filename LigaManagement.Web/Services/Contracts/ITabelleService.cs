@@ -1,9 +1,11 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Models;
+using LigaManagement.Web.Pages;
 using Ligamanager.Components;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static LigaManagement.Web.Pages.ChartData;
 
 namespace LigaManagement.Web.Services.Contracts
 {
@@ -21,5 +23,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison, int ewigeTabelle);
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
+        Task<List<int?>> CreateChart(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
     }
 }

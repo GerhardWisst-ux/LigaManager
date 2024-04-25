@@ -110,7 +110,7 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        <NavLink class="nav-link" href="/spieltage/1" Match="NavLinkMatch.All">
+                        <NavLink class="nav-link" href=@($"spieltage/{Globals.Spieltag}") Match="NavLinkMatch.All">
                             <span class="oi oi-calendar"></span> Spieltage
                         </NavLink>
                     </li>
@@ -118,7 +118,7 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        <NavLink class="nav-link" visble="@Globals.bVisibleNavMenuElements" href="/tabellen" Match="NavLinkMatch.All">
+                        <NavLink class="nav-link"  href="/tabellen" Match="NavLinkMatch.All">
                             <span class="oi oi-list" aria-hidden="true"></span> Tabellen
                         </NavLink>
                     </li>
@@ -221,9 +221,6 @@
                         Logout
                     </NavLink>
                 </li>
-
-
-
 
             </Authorized>
             <NotAuthorized>

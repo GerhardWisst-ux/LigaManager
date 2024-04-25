@@ -82,26 +82,40 @@ else
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="" selected>@saison</option>
+                        <option value="0" selected required>Saison wählen</option>
                         @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                         {
-                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            @if (saison.SaisonID == Globals.SaisonID)
+                            {
+                                <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
+                            else
+                            {
+                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="dropdown" style="display:inline">
-                    <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
-                        <option value="" selected>@currentspieltag. Spieltag</option>
+                    <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">                        
+                        <option value="0" selected required>Spieltag wählen</option>
                         @foreach (var spieltag in SpieltagList)
                         {
-                            <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                            @if (spieltag.Nummer == currentspieltag.ToString())
+                            {
+                                <option selected value="@spieltag.Nummer"> @spieltag.Name </option>
+                            }
+                            else
+                            {
+                                <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="dropdown" style="display:inline">
                     <select id="cboTableArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="TabArtChange">
                         <option value="0">Tabellenart wählen</option>
-                        <option value="1">Gesamttabelle</option>
+                        <option selected value="1">Gesamttabelle</option>
                         <option value="2">Heimtabelle</option>
                         <option value="3">Auswärtstabelle</option>
                         <option value="4">Vorrunde</option>

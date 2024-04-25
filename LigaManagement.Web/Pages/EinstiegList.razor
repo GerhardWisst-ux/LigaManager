@@ -39,12 +39,19 @@
                     <div class="form-group row">
                         <div class="dropdown mr-2" style="display:inline">
                             <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
-                                <option value="" selected required>Liga auswählen</option>
+                                <option value="" required>Liga auswählen</option>
                                 @if (LigenList != null)
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                                     {
-                                        <option value="@liga.LigaID"> @liga.Liganame </option>
+                                        @if (liga.Liganame == Globals.currentLiga)
+                                        {
+                                            <option selected value="@liga.LigaID"> @liga.Liganame </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@liga.LigaID"> @liga.Liganame </option>
+                                        }
                                     }
                                 }
                             </select>
@@ -52,12 +59,20 @@
                         </div>
                         <div class="dropdown" style="display:inline">
                             <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                                <option value="" selected required>Saison auswählen</option>
+                                <option value="" required>Saison auswählen</option>
                                 @if (SaisonenList != null)
                                 {
                                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                     {
-                                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        @if (saison.SaisonID == Globals.SaisonID)
+                                        {
+                                            <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+                                        
                                     }
                                 }
                             </select>

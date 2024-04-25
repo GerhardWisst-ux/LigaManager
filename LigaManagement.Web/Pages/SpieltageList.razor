@@ -86,10 +86,17 @@ else
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                     <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
-                        <option value="" selected>@SpieltagNr.ToString() .Spieltag</option>
+                        <option value="0" selected="selected">Spieltag auswählen</option>
                         @foreach (var spieltag in SpieltagList)
                         {
-                            <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                            @if (spieltag.Nummer == @SpieltagNr)
+                            {
+                                <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
+                            } 
+                            else
+                            {
+                                <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                            }
                         }
                     </select>
                     <span class="ml-3">
