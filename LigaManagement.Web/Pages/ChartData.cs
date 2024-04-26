@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
+using LigaManagement.Models;
+using System.Reflection;
+using LigaManagement.Web.Classes;
 
 namespace LigaManagement.Web.Pages
 {
@@ -15,30 +18,80 @@ namespace LigaManagement.Web.Pages
         public int ChartValue { get; set; }
         public List<ChartData> GetChartData(int vereinsnr)
         {
-            chartDataList = new List<ChartData>();
-
-            SqlConnection conn = new SqlConnection(Globals.connstring);
-
-            string selectSQL = "SELECT [ChartDataId],[Spiele],[Punkte] FROM [dbo].[CHARTDATA] where saisonID = " + Globals.SaisonID 
-                                + " and VereinNr = " + vereinsnr;
-
-            conn.Open(); SqlCommand cmd = new SqlCommand(selectSQL, conn);
-            SqlDataReader dr = cmd.ExecuteReader();
-            if (dr != null)
+            try
             {
-                while (dr.Read())
+                chartDataList = new List<ChartData>();
+
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+
+                string selectSQL = "SELECT [ChartDataId],[Spiele],[Punkte] FROM [dbo].[CHARTDATA] where saisonID = " + Globals.SaisonID + "AND LigaID = " + Globals.LigaID
+                                    + " and VereinNr = " + vereinsnr;
+
+                conn.Open(); SqlCommand cmd = new SqlCommand(selectSQL, conn);
+                SqlDataReader dr = cmd.ExecuteReader();
+                if (dr != null)
                 {
-                    ChartData chartData = new ChartData();
-                    chartData.ChartDataId = Convert.ToInt32(dr["ChartDataId"]);
-                    chartData.ChartSpiele = Convert.ToInt32(dr["Spiele"]);
-                    chartData.ChartValue = Convert.ToInt32(dr["Punkte"]);
-                    chartData.chartDataList.Add(chartData);
+                    while (dr.Read())
+                    {
+                        ChartData chartData = new ChartData();
+                        chartData.ChartDataId = Convert.ToInt32(dr["ChartDataId"]);
+                        chartData.ChartSpiele = Convert.ToInt32(dr["Spiele"]);
+                        chartData.ChartValue = Convert.ToInt32(dr["Punkte"]);
+                        chartData.chartDataList.Add(chartData);
 
-                    chartDataList.Add(chartData);
+                        chartDataList.Add(chartData);
+                    }
                 }
-            }
 
-            return chartDataList;
+                return chartDataList;
+            }
+            catch (System.Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public bool InsertChartData(List<int?> chartarray, int vereinsnr)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                SqlCommand cmd = new SqlCommand();
+                conn.Open();
+
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM [dbo].[CHARTDATA]  where VereinNr = @ID";
+
+                cmd.Parameters.AddWithValue("@VereinNr", vereinsnr);
+
+                cmd.ExecuteNonQuery();                
+
+                for (int i = 0; i < chartarray.Count; i++)
+                {
+                    cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO [CHARTDATA] (SaisonID,LigaID,VereinNr,Spiele,Punkte)" +
+                    " VALUES(@SaisonID,@LigaID,@VereinNr,@Spiele,@Punkte)";
+
+                    cmd.Parameters.AddWithValue("@SaisonID", Globals.SaisonID);
+                    cmd.Parameters.AddWithValue("@LigaID", Globals.LigaID);
+                    cmd.Parameters.AddWithValue("@VereinNr", vereinsnr);
+                    cmd.Parameters.AddWithValue("@Spiele", i + 1);
+                    cmd.Parameters.AddWithValue("@Punkte", chartarray[i + 1].Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return false;
+            }
         }
 
         public class ChartPlaetze

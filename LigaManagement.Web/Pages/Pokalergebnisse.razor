@@ -41,7 +41,14 @@
                             {
                                 @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                 {
-                                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                    @if (saison.SaisonID == Globals.SaisonID)
+                                    {
+                                        <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                    }
                                 }
                             }
                         </select>
@@ -50,7 +57,7 @@
                     <div class="dropdown" style="display:inline">
                         <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
                             <option value="0">Runde wählen</option>
-                            <option value="2">2. Runde</option>
+                            <option selected value="2">2. Runde</option>
                             <option value="AF">Achtelfinale</option>
                             <option value="VF">Viertelfinale</option>
                             <option value="HF">Halbfinale</option>

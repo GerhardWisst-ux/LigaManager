@@ -116,6 +116,7 @@ namespace LigaManagement.Web.Pages
             {
                 Globals.currentSaison = e.Value.ToString();
                 Globals.currentPokalSaison = Globals.currentSaison;
+                
                 if (Saisonen == null || Globals.currentSaison == null)
                     throw new Exception("Saisonen null oder Globals.currentSaison");
 
@@ -153,6 +154,7 @@ namespace LigaManagement.Web.Pages
             if (e.Value != null)
             {
                 Globals.currentLiga = e.Value.ToString();
+
             }
         }
        

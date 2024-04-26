@@ -11,10 +11,10 @@ CREATE TABLE [dbo].[Kader](
 	[Laenderspiele] [int] NULL,
 	[LaenderspieleTore] [int] NULL,
 	[VereinNr] [int] NOT NULL,
-	[LandID] [nvarchar](100) NULL,
+	[LandID] [int] NOT NULL,
 	[SaisonID] [int] NULL,
 	[LigaID] [int] NULL,
-	[Rueckennummer] [int] NULL,
+	[Rueckennummer] [int] NOT NULL,
 	[Einsaetze] [int] NOT NULL,
 	[Spielminuten] [int] NULL,
 	[Tore] [int] NULL,
@@ -23,8 +23,19 @@ CREATE TABLE [dbo].[Kader](
 	[ImVereinSeit] [date] NULL,
 	[Aktiv] [bit] NULL,
 	[Position] [nchar](50) NULL,
-	[PositionsNr] [int] NULL
+	[PositionsNr] [int] NULL,
+ CONSTRAINT [PK_Kader] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Kader]  WITH CHECK ADD  CONSTRAINT [FK_Kader_Ligen] FOREIGN KEY([LigaID])
+REFERENCES [dbo].[Ligen] ([Id])
+GO
+
+ALTER TABLE [dbo].[Kader] CHECK CONSTRAINT [FK_Kader_Ligen]
 GO
 /****** Object:  Table [dbo].[KaderVerein]    Script Date: 26.03.2024 15:02:16 ******/
 SET ANSI_NULLS ON

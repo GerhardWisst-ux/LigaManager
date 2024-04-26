@@ -10,46 +10,7 @@
     string chartspiele = "Spiele";
     string chartpunkte = "Punkte";
 }
-@* <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() {
-        data.addColumn('int', 'Ounkte');
-        data.addColumn('number', 'Spiele');
-        data.addRows([
-            ['Work', 11],
-            ['Eat', 2],
-            ['Commute', 2],
-            ['Watch TV', 2],
-            ['Sleep', { v: 7, f: '7.000' }]
-        ]);
-    @foreach (var data in chartDataList)
-    {
-        <text>['@data.ChartSpiele, @data.ChartValue], </text>
-    }
-            ]);
-
-        var options =
-        {
-            title: '@chartTitle',
-            curveType: 'function',
-            pointsVisible: true,
-            lineWidth: 3,
-            legend: 'none',
-            hAxis: { title: '@chartspiele' },
-            vAxis: { title: '@chartpunkte' },
-            width: '100%',
-            height: '100%',
-            chartArea: { width: '85%', height: '75%' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
-        chart.draw(data, options);
-    }
-</script> *@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -93,10 +54,22 @@
                             <option value="0" selected="selected">Verein auswählen</option>
                             @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                             {
-                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                @if (Convert.ToInt32(verein.VereinID) == ChartVereinNr)
+                                {
+                                    <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
+                                else
+                                {
+                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
+                                
                             }
                         </select>
                         <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnChoose" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                        </RadzenButton>
                     </div>
                 </div>
             </RadzenCard>

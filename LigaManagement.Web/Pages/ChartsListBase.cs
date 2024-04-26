@@ -5,6 +5,7 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Data.SqlClient;
+using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +39,7 @@ namespace LigaManagerManagement.Web.Pages
 
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
-        
+
         public int ChartVereinNr;
         public Int32 currentspieltag;
         public int VereinNr;
@@ -76,15 +77,15 @@ namespace LigaManagerManagement.Web.Pages
             DisplayErrorSaison = "none";
             DisplayErrorVerein = "none";
             StateHasChanged();
-        }              
+        }
 
-      
+
         public async Task SaisonChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 saisonId = Convert.ToInt32(e.Value);
-                
+
                 var vereineSaison = await VereineSaisonService.GetVereineSaison();
                 List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == saisonId).ToList();
 
@@ -95,43 +96,55 @@ namespace LigaManagerManagement.Web.Pages
                     VereineList.Add(new DisplayChartVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1));
                 }
 
-                if (saisonId > 0)               
+                if (saisonId > 0)
                     DisplayErrorSaison = "block";
-               
-                
+
                 StateHasChanged();
             }
         }
 
         public async void VereinChange(ChangeEventArgs e)
         {
-            if (e.Value != null)
-            {
-                if (e.Value.ToString() == "0")
-                {
-                    DisplayErrorVerein = "block";
-                    return;
-                }
-
-                if (saisonId == 0)
-                {                    
-                    DisplayErrorSaison = "block";
-                    return;
-                }
+            if (e.Value != null)            {               
 
                 ChartVereinNr = Convert.ToInt32(e.Value);
-
-                currentspieltag = Globals.Spieltag;
-                Vereine = await VereineService.GetVereine();
-                List<int?> cd = await TabelleService.CreateChart(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
-
-                chartDataList = ChartData(ChartVereinNr);
 
                 StateHasChanged();
             }
         }
 
-          private List<ChartData> ChartData(int vereinnr)
+        public async void OnClickHandler()
+        {
+            if (saisonId == 0)
+            {
+                DisplayErrorSaison = "block";
+                return;
+            }
+
+            if (ChartVereinNr == 0)
+            {
+                DisplayErrorVerein = "block";
+                return;
+            }
+
+            currentspieltag = Globals.Spieltag;
+            Vereine = await VereineService.GetVereine();
+            List<int?> cd = await TabelleService.CreateChart(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
+
+            ChartData chartData = new ChartData();
+
+            bool ret = chartData.InsertChartData(cd, ChartVereinNr);
+
+            if (ret)
+            {
+                chartDataList = ChartData(ChartVereinNr);
+
+                StateHasChanged();
+            }
+            
+        }
+
+        private List<ChartData> ChartData(int vereinnr)
         {
             conn = new SqlConnection(Globals.connstring);
 
@@ -147,10 +160,10 @@ namespace LigaManagerManagement.Web.Pages
             public DisplayChartVerein(string vereinID, string vereinname)
             {
                 VereinID = vereinID;
-                Vereinname1 = vereinname;                
+                Vereinname1 = vereinname;
             }
             public string VereinID { get; set; }
-            public string Vereinname1 { get; set; }            
+            public string Vereinname1 { get; set; }
         }
     }
 

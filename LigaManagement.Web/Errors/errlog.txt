@@ -87,3 +87,22 @@ StackTrace:    at System.Number.ThrowOverflowOrFormatException(ParsingStatus sta
    at LigaManagerManagement.Web.Pages.SpieltagListBase.SpieltagChange(ChangeEventArgs e)
 Date/Time: 25.04.2024 11:14:49
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 66
+Date/Time: 26.04.2024 09:49:13
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Die @ID-Skalarvariable muss deklariert werden.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 60
+Date/Time: 26.04.2024 09:53:55
+============================================

@@ -44,7 +44,7 @@
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                                     {
-                                        @if (liga.Liganame == Globals.currentLiga)
+                                        @if (liga.LigaID == Convert.ToInt32(Globals.currentLiga))
                                         {
                                             <option selected value="@liga.LigaID"> @liga.Liganame </option>
                                         }
