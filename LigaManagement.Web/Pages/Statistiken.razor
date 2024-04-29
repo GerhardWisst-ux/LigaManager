@@ -138,7 +138,7 @@
 
                             @if (Spieltage != null)
                             {
-                                var SpieltageHH = Spieltage.OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
+                            var SpieltageHH = Spieltage.Where(x => x.Tore1_Nr > x.Tore2_Nr).OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
 
                                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                     <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
@@ -191,7 +191,7 @@
 
                             @if (Spieltage != null)
                             {
-                                var SpieltageHA = Spieltage.OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
+                                var SpieltageHA = Spieltage.Where(x => x.Tore1_Nr < x.Tore2_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
 
                                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                     <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
@@ -326,7 +326,7 @@
                                 {
                                     @if (DisplayElements == "block")
                                     {
-                                        var SpieltageVH = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList(); ; //Spielergebnisse.OrderByDescending(x => x.Datum);
+                                        var SpieltageVH = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).Where(x => x.Tore1_Nr > x.Tore2_Nr).OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList(); ; //Spielergebnisse.OrderByDescending(x => x.Datum);
 
                                         <RadzenLabel Text="Höchte Heimsiege"></RadzenLabel>
                                         <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
@@ -368,7 +368,7 @@
 
                                     @if (DisplayElements == "block")
                                     {
-                                        var SpieltageAS = Spieltage.Where(x => x.Verein2_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
+                                        var SpieltageAS = Spieltage.Where(x => x.Verein2_Nr == Spiel.Verein1_Nr).Where(x => x.Tore2_Nr > x.Tore1_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
                                         <RadzenLabel Text="Höchte Auswärtssiege"></RadzenLabel>
                                         <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
                                                         WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
@@ -408,7 +408,7 @@
                                     }
                                     @if (DisplayElements == "block")
                                     {
-                                        var SpieltageVA = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
+                                        var SpieltageVA = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).Where(x => x.Tore1_Nr < x.Tore2_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
                                         <RadzenLabel Text="Höchte Heimiederlagen"></RadzenLabel>
                                         <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
                                                         WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
@@ -490,7 +490,7 @@
 
                                     @if (DisplayElements == "block")
                                     {
-                                        var SpieltageTS = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore1_Nr + x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
+                                        var SpieltageTS = Spieltage.Where(x => x.Tore1_Nr + x.Tore2_Nr > 3).Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore1_Nr + x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
 
                                         @if (SpieltageTS != null)
                                         {
@@ -553,7 +553,7 @@
                             <div class="col-sm-12">
                                 @if (TorjaegerList != null)
                                 {
-                                    var TorjaegerList2 = TorjaegerList.Where(x => x.Tore > 1).OrderByDescending(x => x.Tore).ToList();
+                                    var TorjaegerList2 = TorjaegerList.Where(x => x.Tore > 4).OrderByDescending(x => x.Tore).ToList();
                                     <RadzenLabel Text="Torjägerliste "></RadzenLabel>
                                     <RadzenDataList Data="@TorjaegerList2" TItem="Torjaeger" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
                                                     WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="10"

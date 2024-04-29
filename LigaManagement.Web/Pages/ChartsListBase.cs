@@ -5,7 +5,6 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Data.SqlClient;
-using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +34,15 @@ namespace LigaManagerManagement.Web.Pages
         public List<DisplayChartVerein> VereineList = new List<DisplayChartVerein>();
         public IEnumerable<Verein> Vereine { get; set; }
 
+        public string arrSpielePunkte;
         public string multiDimensionalArray2 = "[1, 3], [2, 3], [3, 6], [4, 9], [5, 12], [6, 15], [7, 18], [8, 21],[9, 24], [10, 24], [11, 24], [12, 27], [13, 30], [14, 31],[15, 31], [16, 34], [17, 34], [18, 34], [19, 37], [20, 40],[21, 43], [22, 46], [23, 47], [24, 50], [25, 53], [26, 56],[27, 57], [28, 60], [29, 63], [30, 63], [31, 63], [32, 64],[33, 67], [34, 68]";
 
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
+        protected string DisplayErrorChartArt = "none";
 
         public int ChartVereinNr;
+        public int ChartArt;
         public Int32 currentspieltag;
         public int VereinNr;
         public int saisonId;
@@ -76,6 +78,8 @@ namespace LigaManagerManagement.Web.Pages
 
             DisplayErrorSaison = "none";
             DisplayErrorVerein = "none";
+            DisplayErrorChartArt = "none";
+
             StateHasChanged();
         }
 
@@ -103,9 +107,21 @@ namespace LigaManagerManagement.Web.Pages
             }
         }
 
+        public async void ChartArtChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                ChartArt = Convert.ToInt32(e.Value);
+
+                StateHasChanged();
+            }
+        }
+
+
         public async void VereinChange(ChangeEventArgs e)
         {
-            if (e.Value != null)            {               
+            if (e.Value != null)
+            {
 
                 ChartVereinNr = Convert.ToInt32(e.Value);
 
@@ -116,14 +132,22 @@ namespace LigaManagerManagement.Web.Pages
         public async void OnClickHandler()
         {
             if (saisonId == 0)
-            {
                 DisplayErrorSaison = "block";
-                return;
-            }
+            else
+                DisplayErrorSaison = "none";
 
             if (ChartVereinNr == 0)
-            {
                 DisplayErrorVerein = "block";
+            else
+                DisplayErrorVerein = "none";
+
+            if (ChartArt == 0)
+                DisplayErrorChartArt = "block";
+            else
+                DisplayErrorChartArt = "none";
+
+            if (saisonId == 0 || ChartVereinNr == 0 || ChartArt == 0)
+            {
                 return;
             }
 
@@ -133,15 +157,27 @@ namespace LigaManagerManagement.Web.Pages
 
             ChartData chartData = new ChartData();
 
-            bool ret = chartData.InsertChartData(cd, ChartVereinNr);
+            bool ret = chartData.InsertChartDataPunkte(cd, ChartVereinNr);
 
             if (ret)
             {
                 chartDataList = ChartData(ChartVereinNr);
 
+                arrSpielePunkte = string.Empty;
+
+                for (int i = 0; i < cd.Count; i++)
+                {                    
+                    arrSpielePunkte += String.Concat("[", (i + 1).ToString(), ", ", String.Concat(cd[i].Value), "] ",", ");                    
+                }
+                StateHasChanged();
+                arrSpielePunkte = arrSpielePunkte.Trim().Remove(arrSpielePunkte.Length - 2);
+
+                
+                System.Threading.Thread.Sleep(2000);
+
                 StateHasChanged();
             }
-            
+
         }
 
         private List<ChartData> ChartData(int vereinnr)

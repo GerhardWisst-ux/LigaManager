@@ -137,7 +137,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage]", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] ", conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())

@@ -10,7 +10,6 @@
     string chartspiele = "Spiele";
     string chartpunkte = "Punkte";
 }
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -45,9 +44,9 @@
                                 {
                                     <option value="@saison.SaisonID"> @saison.Saisonname </option>
                                 }
-                            }
-                            <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Saison wählen</label>
+                            }                          
                         </select>
+                        <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Saison wählen</label>
                     </div>
                     <div class="dropdown" style="display:inline">
                         <select id="cboVerein" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown col-sm-10" @onchange="VereinChange">
@@ -62,10 +61,18 @@
                                 {
                                     <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                 }
-                                
+
                             }
                         </select>
                         <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select id="cboChartArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="ChartArtChange">
+                            <option value="0">Chartart wählen</option>
+                            <option selected value="1">Punkte</option>
+                            <option value="2">Platz</option>
+                        </select>
+                        <label title="Bitte Chartart wählen" style="display:@DisplayErrorChartArt;color:red;" id="lblErrorLiga">Bitte Chartart wählen</label>
                     </div>
                     <div class="dropdown" style="display:inline">
                         <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnChoose" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
@@ -87,9 +94,10 @@
             data.addColumn('number', 'Spiele');
             data.addColumn('number', 'Punkte');
 
+
             data.addRows([
-                @multiDimensionalArray2
-            ]);
+        @multiDimensionalArray2
+                    ]);
 
             var options = {
                 hAxis: {
@@ -106,7 +114,7 @@
         }
     </script>
 
-    
+
 </body>
 </html>
 

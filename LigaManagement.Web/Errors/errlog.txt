@@ -106,3 +106,105 @@ StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException ex
    at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 60
 Date/Time: 26.04.2024 09:53:55
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Die @ID-Skalarvariable muss deklariert werden.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 68
+Date/Time: 26.04.2024 09:57:31
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 81
+Date/Time: 26.04.2024 09:59:15
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 81
+Date/Time: 26.04.2024 09:59:31
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 81
+Date/Time: 26.04.2024 10:32:10
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 81
+Date/Time: 26.04.2024 10:32:41
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartData(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 11:13:58
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 11:15:21
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 11:16:15
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:12:57
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:30:23
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:32:25
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:33:48
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:34:34
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:35:23
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagement.Web.Pages.ChartData.InsertChartDataPunkte(List`1 chartarray, Int32 vereinsnr) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\ChartData.cs:line 82
+Date/Time: 26.04.2024 12:35:46
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Index was outside the bounds of the array.
+StackTrace:    at LigaManagerManagement.Web.Services.TabelleService.GetAktSpieltag(ISpieltagService spieltagService) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\TabelleService.cs:line 71
+Date/Time: 28.04.2024 09:36:53
+============================================

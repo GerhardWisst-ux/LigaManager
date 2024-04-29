@@ -106,18 +106,6 @@ namespace LigaManagerManagement.Web.Pages
                 var tore = await ToreService.GetTore();
 
                 List<Tore> torelist = tore.ToList();
-                               
-                string text = "Grieb+Zolg+Klein+Harry++Schollenwalker waren komplette Walheimer ArschDeppen";
-
-                char[] charArray = text.ToCharArray();
-                string reversestring = String.Empty;
-                for (int i = charArray.Length - 1; i >= 0; i--)
-                {
-                    reversestring += charArray[i];
-                }
-
-                Debug.Print(reversestring);
-
 
                 try
                 {

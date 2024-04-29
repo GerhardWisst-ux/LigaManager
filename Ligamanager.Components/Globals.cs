@@ -12,7 +12,8 @@ namespace Ligamanager.Components
         public static string currentPokalSaison;        
         public static int Spieltag;
         public static int SaisonID;
-        public static int LigaID = 1; //ToDo
+        public static int LigaID;
+        
         public static int KaderSaisonID;
         public static int PokalSaisonID;
         public static int KaderVereinNr;

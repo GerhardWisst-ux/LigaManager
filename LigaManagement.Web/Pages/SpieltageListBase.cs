@@ -94,9 +94,8 @@ namespace LigaManagerManagement.Web.Pages
 
                 SpieltagNr = Globals.Spieltag.ToString();
 
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.currentLiga)).ToList();
-                Spieltage = Spieltage.OrderBy(o => o.Datum);
-                              
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);                             
 
                 for (int i = 0; i < Spieltage.Count() -1; i++)
                 {
@@ -109,27 +108,49 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                 }
 
-                if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                if (Globals.LigaID == 1)
                 {
-                    if (Spieltage.Count() >= 8)
-                        VisibleBtnNew = false;
+                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                    {
+                        if (Spieltage.Count() >= 8)
+                            VisibleBtnNew = false;
+                        else
+                            VisibleBtnNew = true;
+                    }
+                    else if (Globals.currentSaison == "1991/92")
+                    {
+                        if (Spieltage.Count() >= 10)
+                            VisibleBtnNew = false;
+                        else
+                            VisibleBtnNew = true;
+                    }
                     else
-                        VisibleBtnNew = true;
+                    {
+                        if (Spieltage.Count() >= 9)
+                            VisibleBtnNew = false;
+                        else
+                            VisibleBtnNew = true;
+                    }
                 }
-                else if (Globals.currentSaison == "1991/92")
+                else if (Globals.LigaID == 2)
                 {
-                    if (Spieltage.Count() >= 10)
-                        VisibleBtnNew = false;
+                    if (Globals.currentSaison == "1993/94")
+                    {
+                        if (Spieltage.Count() >= 10)
+                            VisibleBtnNew = false;
+                        else
+                            VisibleBtnNew = true;
+                    }
                     else
-                        VisibleBtnNew = true;
+                    {
+                        if (Spieltage.Count() >= 9)
+                            VisibleBtnNew = false;
+                        else
+                            VisibleBtnNew = true;
+                    }
                 }
                 else
-                {
-                    if (Spieltage.Count() >= 9)
-                        VisibleBtnNew = false;
-                    else
-                        VisibleBtnNew = true;
-                }
+                    VisibleBtnNew = true;
 
                 if (Spieltage.Count() == 0)
                     VisibleVorZurueck = false;
@@ -177,14 +198,13 @@ namespace LigaManagerManagement.Web.Pages
 
                     int SpieltagNr2 = Convert.ToInt32(e.Value);
                     Globals.Spieltag = SpieltagNr2;
-                    Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).ToList();
+                    Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
                     for (int i = 0; i < Spieltage.Count(); i++)
                     {
                         var columns = Spieltage.ElementAt(i);
                         columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
                         columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
                     }
-
 
                     if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                     {
@@ -207,7 +227,6 @@ namespace LigaManagerManagement.Web.Pages
                         else
                             VisibleBtnNew = true;
                     }
-
 
                     if (Spieltage.Count() == 0)
                         VisibleVorZurueck = false;
@@ -234,7 +253,7 @@ namespace LigaManagerManagement.Web.Pages
                 return;
 
 
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
+            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
             for (int i = 0; i < Spieltage.Count(); i++)
             {
                 var columns = Spieltage.ElementAt(i);
@@ -281,7 +300,7 @@ namespace LigaManagerManagement.Web.Pages
                 SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
 
 
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
+            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
             for (int i = 0; i < Spieltage.Count(); i++)
             {
                 var columns = Spieltage.ElementAt(i);

@@ -72,7 +72,18 @@ else
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2 style="display:inline-block;">Tabelle @Globals.currentSaison </h2>
+                            @if (@Globals.LigaID == 1)
+                            {
+                                <h2 style="display:inline-block;">Tabelle Bundesliga @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 2)
+                            {
+                                <h2 style="display:inline-block;">Tabelle 2. Bundesliga  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 3)
+                            {
+                                <h2 style="display:inline-block;">Tabelle 3. Liga  @Globals.currentSaison </h2>
+                            }
                         </div>
                     </div>
                 </RadzenCard>
@@ -83,7 +94,7 @@ else
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
                         <option value="0" selected required>Saison wählen</option>
-                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                        @foreach (var saison in SaisonenList.Where(x=> x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
                         {
                             @if (saison.SaisonID == Globals.SaisonID)
                             {
@@ -178,7 +189,8 @@ else
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () { scrollFunction() };
 
-        function scrollFunction() {
+        function scrollFunction() 
+        {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "block";
             } else {

@@ -52,22 +52,23 @@ namespace LigaManagement.Web.Pages
             }
         }
 
-        public bool InsertChartData(List<int?> chartarray, int vereinsnr)
+        public bool InsertChartDataPunkte(List<int?> chartarray, int vereinsnr)
         {
             try
             {
+                int punkte = 0;
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 SqlCommand cmd = new SqlCommand();
                 conn.Open();
 
                 cmd.Connection = conn;
-                cmd.CommandText = "DELETE FROM [dbo].[CHARTDATA]  where VereinNr = @ID";
+                cmd.CommandText = "DELETE FROM [dbo].[CHARTDATA]";
 
                 cmd.Parameters.AddWithValue("@VereinNr", vereinsnr);
 
                 cmd.ExecuteNonQuery();                
 
-                for (int i = 0; i < chartarray.Count; i++)
+                for (int i = 0; i < chartarray.Count - 1; i++)
                 {
                     cmd = new SqlCommand();
                     cmd.Connection = conn;
@@ -77,8 +78,8 @@ namespace LigaManagement.Web.Pages
                     cmd.Parameters.AddWithValue("@SaisonID", Globals.SaisonID);
                     cmd.Parameters.AddWithValue("@LigaID", Globals.LigaID);
                     cmd.Parameters.AddWithValue("@VereinNr", vereinsnr);
-                    cmd.Parameters.AddWithValue("@Spiele", i + 1);
-                    cmd.Parameters.AddWithValue("@Punkte", chartarray[i + 1].Value);
+                    cmd.Parameters.AddWithValue("@Spiele", i + 1);                    
+                    cmd.Parameters.AddWithValue("@Punkte", chartarray[i + 1]);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -90,12 +91,13 @@ namespace LigaManagement.Web.Pages
             catch (System.Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-                return false;
+                return true;
             }
         }
 
         public class ChartPlaetze
         {
+            public List<int?> punkte = new List<int?>();
             public List<int?> plaetze = new List<int?>();
         }
 
