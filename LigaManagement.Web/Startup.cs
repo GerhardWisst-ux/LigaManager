@@ -40,6 +40,12 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+
+            services.AddHttpClient<IVereineServicePL, VereineServicePL>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
             services.AddHttpClient<ISaisonenService, SaisonenService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -49,6 +55,10 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
             services.AddHttpClient<ISpieltagService, SpieltagService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+            services.AddHttpClient<ISpieltagPLService, SpieltagPLService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });

@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css'
-          rel='stylesheet'>
-
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css'    rel='stylesheet'>
+    
     <style type="text/css">
 
 
@@ -94,7 +93,7 @@ else
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
                         <option value="0" selected required>Saison wählen</option>
-                        @foreach (var saison in SaisonenList.Where(x=> x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
+                        @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
                         {
                             @if (saison.SaisonID == Globals.SaisonID)
                             {
@@ -108,7 +107,7 @@ else
                     </select>
                 </div>
                 <div class="dropdown" style="display:inline">
-                    <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">                        
+                    <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
                         <option value="0" selected required>Spieltag wählen</option>
                         @foreach (var spieltag in SpieltagList)
                         {
@@ -134,7 +133,7 @@ else
                         <option value="6">Ewige Tabelle</option>
                     </select>
                 </div>
-              
+
             </div>
         </RadzenCard>
         <RadzenCard style="flex:1;margin:0px;">
@@ -189,8 +188,7 @@ else
         // When the user scrolls down 20px from the top of the document, show the button
         window.onscroll = function () { scrollFunction() };
 
-        function scrollFunction() 
-        {
+        function scrollFunction() {
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "block";
             } else {

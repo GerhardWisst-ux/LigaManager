@@ -84,7 +84,7 @@ namespace LigaManagerManagement.Web.Pages
             for (int i = 0; i < Ligen.Count(); i++)
             {
                 var columns = Ligen.ElementAt(i);
-                LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
+                LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Liganame));
             }
 
             var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));

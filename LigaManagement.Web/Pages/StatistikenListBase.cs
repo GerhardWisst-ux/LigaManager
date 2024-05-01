@@ -201,7 +201,9 @@ namespace LigaManagerManagement.Web.Pages
                 var stat = await TabelleService.VereinGegenVereinSum(SpieltagService, Spiel);
 
                 Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
+                
                 DisplayElements = "block";
+
                 StateHasChanged();
             }
         }

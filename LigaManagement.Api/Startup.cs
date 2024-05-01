@@ -28,7 +28,9 @@ namespace LigaManagement.Api
             //            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
                        
             services.AddScoped<ISpieltagRepository, SpieltageRepository>();
+            services.AddScoped<ISpieltagPLRepository, SpieltagePLRepository>();
             services.AddScoped<IVereinRepository, VereinRepository>();
+            services.AddScoped<IVereinRepositoryPL, VereinPLRepository>();
             services.AddScoped<ITabelleRepository, TabelleRepository>();
             services.AddScoped<ISaisonRepository, SaisonenRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();

@@ -24,5 +24,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<List<int?>> CreateChart(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
+        Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltagPLService spieltagService, bool bAbgeschlossen, IEnumerable<VereinPL> vereine, int count, string currentSaison, int ligaID, int v);
     }
 }

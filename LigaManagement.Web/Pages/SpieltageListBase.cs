@@ -26,17 +26,17 @@ namespace LigaManagerManagement.Web.Pages
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
         public IList<Spieltag> orders;
-                
+
         public string Liganame;
         public string curentsaison;
         public Density Density = Density.Default;
-        
+
         public int iSpieltage;
         public List<DisplaySaison> SaisonenList;
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
-                
+
         public bool VisibleBtnNew { get; set; }
 
         public RadzenDataGrid<Spieltag> grid;
@@ -57,7 +57,15 @@ namespace LigaManagerManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
+        public ISpieltagPLService SpieltagPLService { get; set; }
+
+        public IEnumerable<VereinPL> VereinePL { get; set; }
+
+        [Inject]
         public IVereineService VereineService { get; set; }
+
+        [Inject]
+        public IVereineServicePL VereineServicePL { get; set; }
 
         [Inject]
         public ILigaService LigaService { get; set; }
@@ -90,23 +98,45 @@ namespace LigaManagerManagement.Web.Pages
                     SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
                 }
 
-                Vereine = await VereineService.GetVereine();
+                if (Globals.LigaID < 4)
+                {
+                    Vereine = await VereineService.GetVereine();
+
+                    Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                    Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                    for (int i = 0; i < Spieltage.Count() - 1; i++)
+                    {
+                        var columns = Spieltage.ElementAt(i);
+
+                        if (Vereine == null)
+                            throw new Exception("Vereine sind null");
+
+                        columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                        columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    }
+                }
+                else if (Globals.LigaID == 4)
+                {
+                    VereinePL = await VereineServicePL.GetVereine();
+
+                    Spieltage = (await SpieltagPLService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                    Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                    for (int i = 0; i < Spieltage.Count() - 1; i++)
+                    {
+                        var columns = Spieltage.ElementAt(i);
+
+                        if (VereinePL == null)
+                            throw new Exception("Vereine sind null");
+
+                        columns.Verein1 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                        columns.Verein2 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    }
+                }
 
                 SpieltagNr = Globals.Spieltag.ToString();
 
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
-                Spieltage = Spieltage.OrderBy(o => o.Datum);                             
-
-                for (int i = 0; i < Spieltage.Count() -1; i++)
-                {
-                    var columns = Spieltage.ElementAt(i);
-                    
-                    if (Vereine == null)
-                        throw new Exception("Vereine sind null");
-
-                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
-                }
 
                 if (Globals.LigaID == 1)
                 {
@@ -149,6 +179,15 @@ namespace LigaManagerManagement.Web.Pages
                             VisibleBtnNew = true;
                     }
                 }
+                else if (Globals.LigaID == 4)
+                {
+
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+
+                }
                 else
                     VisibleBtnNew = true;
 
@@ -157,22 +196,37 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     VisibleVorZurueck = true;
 
-           
 
                 var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
-
                 Liganame = liga.Liganame;
 
                 SaisonenList = new List<DisplaySaison>();
 
-                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
-                    iSpieltage = 30;
-                else if (Globals.currentSaison.Substring(0, 4) == "1991")
-                    iSpieltage = 38;
-                else
-                    iSpieltage = 34;
+                if (Globals.LigaID == 1)
+                {
+                    if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
+                        iSpieltage = 30;
+                    else if (Globals.currentSaison.Substring(0, 4) == "1991")
+                        iSpieltage = 38;
+                    else
+                        iSpieltage = 34;
+                }
+                else if (Globals.LigaID == 2)
+                {
+                    if (Globals.currentSaison.Substring(0, 4) == "1993")
+                        iSpieltage = 38;
+                    else
+                        iSpieltage = 34;
+                }                
+                else if (Globals.LigaID == 4)
+                {
+                    if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
+                        Globals.maxSpieltag = 42;
+                    else
+                        Globals.maxSpieltag = 38;
+                }
 
-                Saisonen = (await SaisonenService.GetSaisonen()).ToList();               
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
                     var columns = Saisonen.ElementAt(i);
@@ -184,7 +238,7 @@ namespace LigaManagerManagement.Web.Pages
             catch (Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-               
+
             }
         }
 
@@ -198,35 +252,86 @@ namespace LigaManagerManagement.Web.Pages
 
                     int SpieltagNr2 = Convert.ToInt32(e.Value);
                     Globals.Spieltag = SpieltagNr2;
-                    Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
-                    for (int i = 0; i < Spieltage.Count(); i++)
+
+                    if (Globals.LigaID < 3)
                     {
-                        var columns = Spieltage.ElementAt(i);
-                        columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                        columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                        Vereine = await VereineService.GetVereine();
+
+                        Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                        Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                        for (int i = 0; i < Spieltage.Count() - 1; i++)
+                        {
+                            var columns = Spieltage.ElementAt(i);
+
+                            if (Vereine == null)
+                                throw new Exception("Vereine sind null");
+
+                            columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                            columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                        }
                     }
 
-                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                    else if (Globals.LigaID == 4)
                     {
-                        if (Spieltage.Count() >= 8)
-                            VisibleBtnNew = false;
-                        else
-                            VisibleBtnNew = true;
+                        VereinePL = await VereineServicePL.GetVereine();
+
+                        Spieltage = (await SpieltagPLService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                        Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                        for (int i = 0; i < Spieltage.Count() - 1; i++)
+                        {
+                            var columns = Spieltage.ElementAt(i);
+
+                            if (VereinePL == null)
+                                throw new Exception("Vereine sind null");
+
+                            columns.Verein1 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                            columns.Verein2 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                        }
                     }
-                    else if (Globals.currentSaison == "1991/92")
+
+                    SpieltagNr = Globals.Spieltag.ToString();
+
+                    if (Globals.LigaID == 1)
                     {
-                        if (Spieltage.Count() >= 10)
-                            VisibleBtnNew = false;
+                        if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                        {
+                            if (Spieltage.Count() >= 8)
+                                VisibleBtnNew = false;
+                            else
+                                VisibleBtnNew = true;
+                        }
+                        else if (Globals.currentSaison == "1991/92")
+                        {
+                            if (Spieltage.Count() >= 10)
+                                VisibleBtnNew = false;
+                            else
+                                VisibleBtnNew = true;
+                        }
                         else
-                            VisibleBtnNew = true;
+                        {
+                            if (Spieltage.Count() >= 9)
+                                VisibleBtnNew = false;
+                            else
+                                VisibleBtnNew = true;
+                        }
+                    }
+                    else if (Globals.LigaID == 2)
+                    {
+                        if (Globals.currentSaison.Substring(0, 4) == "1993")
+                        {
+                            if (Spieltage.Count() >= 10)
+                                VisibleBtnNew = false;
+                        }
+                        else
+                        {
+                            if (Spieltage.Count() >= 9)
+                                VisibleBtnNew = false;
+                        }
                     }
                     else
-                    {
-                        if (Spieltage.Count() >= 9)
-                            VisibleBtnNew = false;
-                        else
-                            VisibleBtnNew = true;
-                    }
+                        VisibleBtnNew = true;
 
                     if (Spieltage.Count() == 0)
                         VisibleVorZurueck = false;
@@ -244,7 +349,7 @@ namespace LigaManagerManagement.Web.Pages
 
             }
         }
-        
+
         public async Task SpieltagZurueck()
         {
             if (Convert.ToInt32(SpieltagNr) > 1)
@@ -252,39 +357,100 @@ namespace LigaManagerManagement.Web.Pages
             else
                 return;
 
-
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
-            for (int i = 0; i < Spieltage.Count(); i++)
+            if (Globals.LigaID < 3)
             {
-                var columns = Spieltage.ElementAt(i);
-                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                Vereine = await VereineService.GetVereine();
+
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count() - 1; i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (VereinePL == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
             }
 
-            int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
-            Globals.Spieltag = SpieltagNr2;
-
-            if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+            else if (Globals.LigaID == 4)
             {
-                if (Spieltage.Count() >= 8)
-                    VisibleBtnNew = false;
+                VereinePL = await VereineServicePL.GetVereine();
+
+                Spieltage = (await SpieltagPLService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count() - 1; i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (Vereine == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
+            }
+
+
+            SpieltagNr = Globals.Spieltag.ToString();
+
+
+            if (Globals.LigaID == 1)
+            {
+                if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                {
+                    if (Spieltage.Count() >= 8)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else if (Globals.currentSaison == "1991/92")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
                 else
-                    VisibleBtnNew = true;
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
             }
-            else if (Globals.currentSaison == "1991/92")
+            else if (Globals.LigaID == 2)
             {
+                if (Globals.currentSaison == "1993/94")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+            }
+            else if (Globals.LigaID == 4)
+            {
+
                 if (Spieltage.Count() >= 10)
                     VisibleBtnNew = false;
                 else
                     VisibleBtnNew = true;
+
             }
             else
-            {
-                if (Spieltage.Count() >= 9)
-                    VisibleBtnNew = false;
-                else
-                    VisibleBtnNew = true;
-            }
+                VisibleBtnNew = true;
 
             if (Spieltage.Count() == 0)
                 VisibleVorZurueck = false;
@@ -299,23 +465,101 @@ namespace LigaManagerManagement.Web.Pages
             if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
                 SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
 
-
-            Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
-            for (int i = 0; i < Spieltage.Count(); i++)
+            if (Globals.LigaID < 3)
             {
-                var columns = Spieltage.ElementAt(i);
-                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                Vereine = await VereineService.GetVereine();
+
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count() - 1; i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (Vereine == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
             }
 
-            int SpieltagNr2 = Convert.ToInt32(SpieltagNr);
-            Globals.Spieltag = SpieltagNr2;
+            else if (Globals.LigaID == 4)
+            {
+                VereinePL = await VereineServicePL.GetVereine();
 
-            if (Spieltage.Count() >= 9)
-                VisibleBtnNew = false;
+                Spieltage = (await SpieltagPLService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.LigaID)).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count() - 1; i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (VereinePL == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereinePL.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
+            }
+
+
+            SpieltagNr = Globals.Spieltag.ToString();
+
+
+
+            if (Globals.LigaID == 1)
+            {
+                if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
+                {
+                    if (Spieltage.Count() >= 8)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else if (Globals.currentSaison == "1991/92")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+            }
+            else if (Globals.LigaID == 2)
+            {
+                if (Globals.currentSaison == "1993/94")
+                {
+                    if (Spieltage.Count() >= 10)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+                else
+                {
+                    if (Spieltage.Count() >= 9)
+                        VisibleBtnNew = false;
+                    else
+                        VisibleBtnNew = true;
+                }
+            }
+            else if (Globals.LigaID == 4)
+            {
+
+                if (Spieltage.Count() >= 10)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+
+            }
             else
                 VisibleBtnNew = true;
-
 
             if (Spieltage.Count() == 0)
                 VisibleVorZurueck = false;
@@ -364,7 +608,7 @@ namespace LigaManagerManagement.Web.Pages
 
             //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
-              
+
 
         public async Task SaisonChange(ChangeEventArgs e)
         {
@@ -400,13 +644,13 @@ namespace LigaManagerManagement.Web.Pages
                 }
 
                 curentsaison = Globals.currentSaison;
-                currentspieltag = SpieltagList.Count;               
+                currentspieltag = SpieltagList.Count;
 
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString()).Where(st => st.Saison == Globals.currentSaison).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
                 StateHasChanged();
             }
-        }      
+        }
     }
 }
