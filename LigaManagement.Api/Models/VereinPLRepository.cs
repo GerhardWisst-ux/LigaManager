@@ -16,7 +16,7 @@ namespace LigaManagerManagement.Api.Models
     public class VereinPLRepository : IVereinRepositoryPL
     {       
 
-        public async Task<VereinPL> AddVerein(VereinPL verein)
+        public async Task<VereinAUS> AddVerein(VereinAUS verein)
         {
             int bPokal;
             int bLiga1;
@@ -91,7 +91,7 @@ namespace LigaManagerManagement.Api.Models
             return null;
         }
 
-        public async Task<VereinPL> DeleteVerein(int vereinId)
+        public async Task<VereinAUS> DeleteVerein(int vereinId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
@@ -120,7 +120,7 @@ namespace LigaManagerManagement.Api.Models
             //return null;
         }
 
-        public async Task<VereinPL> GetVerein(int vereinnr)
+        public async Task<VereinAUS> GetVerein(int vereinnr)
         {
             try
             {
@@ -128,13 +128,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereinePL] Where VereinNr =" + vereinnr, conn);
-                VereinPL verein = null;
+                VereinAUS verein = null;
                 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        verein = new VereinPL();
+                        verein = new VereinAUS();
 
                         verein.Id = int.Parse(reader["Id"].ToString());
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
@@ -164,7 +164,7 @@ namespace LigaManagerManagement.Api.Models
             //    .FirstOrDefaultAsync(d => d.VereinNr == VereinId);
         }
 
-        public async Task<IEnumerable<VereinPL>> GetVereine()
+        public async Task<IEnumerable<VereinAUS>> GetVereine()
         {
             try
             {
@@ -172,13 +172,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereinePL]", conn);
-                VereinPL verein = null;
-                List<VereinPL> vereinelist = new List<VereinPL>();
+                VereinAUS verein = null;
+                List<VereinAUS> vereinelist = new List<VereinAUS>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        verein = new VereinPL();
+                        verein = new VereinAUS();
 
                         verein.Id = int.Parse(reader["Id"].ToString());
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
@@ -209,9 +209,9 @@ namespace LigaManagerManagement.Api.Models
             //return await appDbContext.Vereine.ToListAsync();
         }
 
-        public async Task<IEnumerable<VereinAktSaisonPL>> GetVereineSaison()
+        public async Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison()
         {
-            List<VereinAktSaisonPL> vereineSaison = new List<VereinAktSaisonPL>();
+            List<VereinAktSaisonAUS> vereineSaison = new List<VereinAktSaisonAUS>();
 
             SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
@@ -222,7 +222,7 @@ namespace LigaManagerManagement.Api.Models
             {
                 while (reader.Read())
                 {
-                    VereinAktSaisonPL verein = new VereinAktSaisonPL();
+                    VereinAktSaisonAUS verein = new VereinAktSaisonAUS();
                     verein.VereinNr = (int)reader["VereinNr"];
                     verein.Vereinsname1 = (string)reader["Vereinsname1"];
                     verein.Vereinsname2 = (string)reader["Vereinsname2"];
@@ -237,7 +237,7 @@ namespace LigaManagerManagement.Api.Models
             return vereineSaison;
         }
 
-        public async Task<VereinPL> UpdateVerein(VereinPL verein)
+        public async Task<VereinAUS> UpdateVerein(VereinAUS verein)
         {
             int bPokal;
             int bLiga1;

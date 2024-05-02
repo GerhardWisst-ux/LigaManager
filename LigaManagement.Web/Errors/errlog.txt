@@ -348,3 +348,19 @@ Message: Vereine sind null
 StackTrace:    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 131
 Date/Time: 30.04.2024 15:28:37
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.TabelleService.BerechneTabelleAus(ISpieltagAusService spieltagAusService, Boolean bAbgeschlossen, IEnumerable`1 Vereine, Int32 Spieltag, String sSaison, Int32 LigaId, Int32 Tabart) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\TabelleService.cs:line 1448
+Date/Time: 02.05.2024 12:15:16
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.TabelleService.BerechneTabelleAus(ISpieltagAusService spieltagAusService, Boolean bAbgeschlossen, IEnumerable`1 Vereine, Int32 Spieltag, String sSaison, Int32 LigaId, Int32 Tabart) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\TabelleService.cs:line 1513
+Date/Time: 02.05.2024 21:07:02
+============================================

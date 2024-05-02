@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Services.Contracts
 {
-    public interface IVereineServicePL
+    public interface IVereinePLService
     {
-        Task<IEnumerable<VereinPL>> GetVereine();
-        Task<VereinPL> GetVerein(int id);        
-        Task<VereinPL> UpdateVerein(VereinPL updatedVerein);
-        Task<VereinPL> CreateVerein(VereinPL newVerein);
+        Task<IEnumerable<VereinAUS>> GetVereine();
+        Task<VereinAUS> GetVerein(int id);        
+        Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein);
+        Task<VereinAUS> CreateVerein(VereinAUS newVerein);
         Task DeleteVerein(int id);
-        Task<IEnumerable<VereinAktSaisonPL>> GetVereineSaison();
+        Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison();
         Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine);        
     }
 }

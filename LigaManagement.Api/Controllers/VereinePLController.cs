@@ -48,7 +48,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpGet("{Id:int}")]
-        public async Task<ActionResult<VereinPL>> GetVerein(int Id)
+        public async Task<ActionResult<VereinAUS>> GetVerein(int Id)
         {
             try
             {
@@ -69,7 +69,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Verein>> CreateVerein(VereinPL Verein)
+        public async Task<ActionResult<Verein>> CreateVerein(VereinAUS Verein)
         {
             try
             {
@@ -91,7 +91,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<VereinPL>> UpdateVerein(VereinPL Verein)
+        public async Task<ActionResult<VereinAUS>> UpdateVerein(VereinAUS Verein)
         {
             try
             {
@@ -113,7 +113,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<VereinPL>> DeleteVerein(int Id)
+        public async Task<ActionResult<VereinAUS>> DeleteVerein(int Id)
         {
             try
             {

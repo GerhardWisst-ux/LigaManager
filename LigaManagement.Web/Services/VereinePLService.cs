@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class VereineServicePL : IVereineServicePL
+    public class VereineServicePL : IVereinePLService
 
     {
         private readonly HttpClient httpClient;
@@ -20,9 +20,9 @@ namespace LigaManagerManagement.Web.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<VereinPL> CreateVerein(VereinPL newVerein)
+        public async Task<VereinAUS> CreateVerein(VereinAUS newVerein)
         {
-            return await httpClient.PostJsonAsync<VereinPL>("api/vereine", newVerein);
+            return await httpClient.PostJsonAsync<VereinAUS>("api/vereine", newVerein);
         }
 
         
@@ -40,7 +40,7 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public Task<List<VereinPL>> CreateVereineSaison(List<VereinPL> vereine)
+        public Task<List<VereinAUS>> CreateVereineSaison(List<VereinAUS> vereine)
         {
             throw new NotImplementedException();
         }
@@ -50,24 +50,24 @@ namespace LigaManagerManagement.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<VereinPL> GetVerein(int Id)
+        public async Task<VereinAUS> GetVerein(int Id)
         {
-            return await httpClient.GetJsonAsync<VereinPL>($"api/vereine/{Id}");
+            return await httpClient.GetJsonAsync<VereinAUS>($"api/vereinePL/{Id}");
         }      
 
-        public async Task<IEnumerable<VereinPL>> GetVereine()
+        public async Task<IEnumerable<VereinAUS>> GetVereine()
         {
-            return await httpClient.GetJsonAsync<VereinPL[]>("api/vereinePL");
+            return await httpClient.GetJsonAsync<VereinAUS[]>("api/vereinePL");
         }              
 
-        public async Task<IEnumerable<VereinAktSaisonPL>> GetVereineSaison()
+        public async Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison()
         {
-            return await httpClient.GetJsonAsync<List<VereinAktSaisonPL>>($"api/vereinesaison");
+            return await httpClient.GetJsonAsync<List<VereinAktSaisonAUS>>($"api/vereinesaison");
         }
 
-        public async Task<VereinPL> UpdateVerein(VereinPL updatedVerein)
+        public async Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein)
         {
-            return await httpClient.PutJsonAsync<VereinPL>("api/vereine", updatedVerein);
+            return await httpClient.PutJsonAsync<VereinAUS>("api/vereinePL", updatedVerein);
         }
 
       

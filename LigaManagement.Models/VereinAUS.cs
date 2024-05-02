@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LigaManagement.Models
 {
-    public class VereinPL
+    public class VereinAUS
     {
         public int Id { get; set; }
         
@@ -32,7 +32,7 @@ namespace LigaManagement.Models
 
     }
 
-    public class VereinAktSaisonPL: VereinPL
+    public class VereinAktSaisonAUS: VereinAUS
     {
         public int SaisonID { get; set; }
 

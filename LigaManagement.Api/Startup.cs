@@ -29,8 +29,11 @@ namespace LigaManagement.Api
                        
             services.AddScoped<ISpieltagRepository, SpieltageRepository>();
             services.AddScoped<ISpieltagPLRepository, SpieltagePLRepository>();
+            services.AddScoped<ISpieltageAusRepository, SpieltageAusRepository>();
             services.AddScoped<IVereinRepository, VereinRepository>();
             services.AddScoped<IVereinRepositoryPL, VereinPLRepository>();
+            services.AddScoped<IVereinAusRepository, VereinAusRepository>();
+            services.AddScoped<IVereinFRRepository, VereinFRRepository>();
             services.AddScoped<ITabelleRepository, TabelleRepository>();
             services.AddScoped<ISaisonRepository, SaisonenRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();

@@ -53,13 +53,16 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<Verein> Vereine { get; set; }
 
-        public IEnumerable<VereinPL> VereinePL { get; set; }
+        public IEnumerable<VereinAUS> VereineAUS { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
 
         [Inject]
-        public IVereineServicePL VereineServicePL { get; set; }
+        public IVereinePLService VereineServicePL { get; set; }
+
+        [Inject]
+        public IVereineAusService VereineAusService { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -200,7 +203,7 @@ namespace LigaManagement.Web.Pages
         {
             DataTable importedData = new DataTable();
             
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1999_PL.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2010_FR.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -263,10 +266,19 @@ namespace LigaManagement.Web.Pages
 
                 else if (Globals.LigaID == 4)
                 {
-                    VereinePL = await VereineServicePL.GetVereine();
+                    VereineAUS = await VereineServicePL.GetVereine();
                 }
 
-              
+                else if (Globals.LigaID == 6)
+                {
+                    VereineAUS = await VereineAusService.GetVereineIT();
+                }
+                else if (Globals.LigaID == 7)
+                {
+                    VereineAUS = await VereineAusService.GetVereineFR();
+                }
+
+
                 using (SqlConnection conn = new SqlConnection(Globals.connstring))
                 {
                     int i = 1;
@@ -274,9 +286,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {                        
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltagePL(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
-                                                          "VALUES (@Saison,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr, @Tore2_Nr,@Ort,@Datum, @Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "1999/00");
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageFR(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                                                          "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
+                        cmd.Parameters.AddWithValue("@Saison", "2010/11");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -284,13 +296,13 @@ namespace LigaManagement.Web.Pages
                         int iVerein1 = 0;
                         int iVerein2 = 0;
                         string sStadion = "";
-                        for (int j = 0; j < VereinePL.Count(); j++)
+                        for (int j = 0; j < VereineAUS.Count(); j++)
                         {
-                            var columns = VereinePL.ElementAt(j);
+                            var columns = VereineAUS.ElementAt(j);
 
-                            iVerein1 = VereinePL.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).VereinNr;
-                            iVerein2 = VereinePL.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString().Trim())).VereinNr;
-                            sStadion = VereinePL.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
+                            iVerein1 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).VereinNr;
+                            iVerein2 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString().Trim())).VereinNr;
+                            sStadion = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
                             break;
                         }
 
@@ -304,15 +316,15 @@ namespace LigaManagement.Web.Pages
                         //if (!string.IsNullOrEmpty(importRow["Attendance"].ToString()))
                         //    cmd.Parameters.AddWithValue("@Zuschauer", int.Parse(importRow["Attendance"].ToString()));
                         //else
-                            cmd.Parameters.AddWithValue("@Zuschauer", 10000);
+                            cmd.Parameters.AddWithValue("@Zuschauer", 20000);
 
                         //if (importRow["Referee"] != null)
                         //    cmd.Parameters.AddWithValue("@Schiedrichter", importRow["Referee"].ToString());
                         //else
-                            cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
+                             cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 131);
-                        cmd.Parameters.AddWithValue("@LigaID", 4);
+                        cmd.Parameters.AddWithValue("@SaisonID", 183);
+                        cmd.Parameters.AddWithValue("@LigaID", 7);
 
                         DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
@@ -321,7 +333,6 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
-
 
                         int mod = i % 10;
 
