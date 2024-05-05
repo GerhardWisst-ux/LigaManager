@@ -54,6 +54,11 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineAus/{Id}");
         }
 
+        public async Task<IEnumerable<VereinAUS>> GetVereineES()
+        {
+            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineES");
+        }
+
         public async Task<IEnumerable<VereinAUS>> GetVereineFR()
         {
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineFR");

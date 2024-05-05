@@ -91,6 +91,14 @@ else
                             {
                                 <h2 style="display:inline-block;">Tabelle Serie A  @Globals.currentSaison </h2>
                             }
+                            else if (@Globals.LigaID == 7)
+                            {
+                                <h2 style="display:inline-block;">Tabelle Ligue 1  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 8)
+                            {
+                                <h2 style="display:inline-block;">Tabelle La Liga A  @Globals.currentSaison </h2>
+                            }
                         </div>
                     </div>
                 </RadzenCard>
@@ -98,6 +106,26 @@ else
         </div>
         <RadzenCard style="margin-bottom:4px;">
             <div class="form-group row">
+                <div class="dropdown mr-2" style="display:inline">
+                    <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
+                        <option value="0" required>Liga auswählen</option>
+                        @if (LigenList != null)
+                        {
+                            @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
+                            {
+                                @if (liga.LigaID == Convert.ToInt32(Globals.currentLiga))
+                                {
+                                    <option selected value="@liga.LigaID"> @liga.Liganame </option>
+                                }
+                                else
+                                {
+                                    <option value="@liga.LigaID"> @liga.Liganame </option>
+                                }
+                            }
+                        }
+                    </select>
+                    @* <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label> *@
+                </div>
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
                         <option value="0" selected required>Saison wählen</option>

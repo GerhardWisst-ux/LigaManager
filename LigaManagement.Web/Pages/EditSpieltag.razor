@@ -94,7 +94,7 @@
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein2">Verein 2</RadzenLabel>
-                                <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
+                                <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein2Change">
                                     <option value="" selected required>Verein wählen</option>
                                     @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                     {
@@ -376,7 +376,7 @@
 
         if (Id == "0")
         {
-            if ((Spiel.Verein1 == null) || (Spiel.Verein2 == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null) || (Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
+            if ((Spiel.Verein1_Nr == null) || (Spiel.Verein2_Nr == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null) || (Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Spieltag", Detail = "Fehler beim Abspeichern" });
             }
@@ -388,7 +388,7 @@
         }
         else
         {
-            if ((Spiel.Verein1 == null) || (Spiel.Verein2 == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null))
+            if ((Spiel.Verein1_Nr == null) || (Spiel.Verein2_Nr == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null) || (Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Fehler beim Abspeichern" });
             }

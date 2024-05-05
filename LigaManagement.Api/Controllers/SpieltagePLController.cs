@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
+using LigaManagerManagement.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;

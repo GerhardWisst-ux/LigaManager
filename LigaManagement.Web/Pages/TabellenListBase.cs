@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
@@ -13,16 +14,19 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using static LigaManagement.Web.Pages.EinstiegListBase;
 
 namespace LigamanagerManagement.Web.Pages
 {
     public class TabellenListBase : ComponentBase
     {
         public string DisplayEwig = "display:none;";
+        protected string DisplayErrorLiga = "none";
         public Int32 currentspieltag;
         public string saison;
         public string Liganame;
         public int TabArt;
+        public int LigaID;
 
         public RadzenDataGrid<Tabelle> grid;
         IList<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>> selectedCellData = new List<Tuple<Tabelle, RadzenDataGridColumn<Tabelle>>>();
@@ -30,6 +34,10 @@ namespace LigamanagerManagement.Web.Pages
         protected string DisplayElements = "none";
 
         public List<DisplaySpieltag> SpieltagList;
+
+        public List<DisplayLiga> LigenList;
+
+        public IEnumerable<Liga> Ligen { get; set; }
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
@@ -50,6 +58,15 @@ namespace LigamanagerManagement.Web.Pages
         public ISpieltagPLService SpieltagPLService { get; set; }
 
         [Inject]
+        public ISpieltagFRService SpieltagFRService { get; set; }
+
+        [Inject]
+        public ISpieltagAusService SpieltagITService { get; set; }
+
+        [Inject]
+        public ISpieltagESService SpieltagESService { get; set; }
+
+        [Inject]
         public ISpieltagAusService SpieltagAusService { get; set; }
 
         [Inject]
@@ -67,9 +84,7 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Tabelle> Tabellen { get; set; }
 
         public IEnumerable<Verein> Vereine { get; set; }
-
-        public IEnumerable<VereinAUS> VereinePL { get; set; }
-
+                
         public IEnumerable<VereinAUS> VereineAus { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
@@ -134,6 +149,15 @@ namespace LigamanagerManagement.Web.Pages
                     iSpieltage = 38;
                 }
 
+                LigenList = new List<DisplayLiga>();
+                Ligen = (await LigaService.GetLigen()).ToList();
+
+                for (int i = 0; i < Ligen.Count(); i++)
+                {
+                    var columns = Ligen.ElementAt(i);
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Liganame));
+                }
+
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
                 Saisonen = Saisonen.Where(x => x.LigaID == Globals.LigaID);
 
@@ -170,13 +194,25 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     VereineAus = await VereineServicePL.GetVereine();
 
-                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
                     DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
                 }
                 else if (Globals.LigaID == 6)
                 {
                     VereineAus = await VereineAusService.GetVereineIT();
                     Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
+                    DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
+                }
+                else if (Globals.LigaID == 7)
+                {
+                    VereineAus = await VereineAusService.GetVereineFR();
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
+                    DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
+                }
+                else if (Globals.LigaID == 8)
+                {
+                    VereineAus = await VereineAusService.GetVereineES();
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
                     DateTime dt = await TabelleService.GetAktSpieltag(SpieltagService);
                 }
 
@@ -258,9 +294,21 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);                    
                 }
-                else
+                if (Globals.LigaID == 4)
                 {
-                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);                    
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);                    
+                }
+                if (Globals.LigaID == 6)
+                {
+                    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
+                }
+                if (Globals.LigaID == 7)
+                {
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
+                }
+                if (Globals.LigaID == 8)
+                {
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, 1);
                 }
 
                 DisplayElements = "block";
@@ -269,6 +317,8 @@ namespace LigamanagerManagement.Web.Pages
                     DisplayEwig = "display:block;";
                 else
                     DisplayEwig = "display:none;";
+
+                DisplayErrorLiga = "display:none;";
 
                 StateHasChanged();
 
@@ -280,7 +330,10 @@ namespace LigamanagerManagement.Web.Pages
             {
                 currentspieltag = Convert.ToInt32(e.Value);
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+
+
+                await TabelleBerechnen(TabArt);
+
                 DisplayElements = "block";
                 StateHasChanged();
             }
@@ -292,23 +345,8 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = currentspieltag - 1;
 
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-            if (Globals.LigaID < 4)
-            {
-                Vereine = await VereineService.GetVereine();
-                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);
-            }
-            else if (Globals.LigaID == 4)
-            {
-                VereineAus = await VereineServicePL.GetVereine();
-
-                Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);
-
-            }
-            else if (Globals.LigaID == 6)
-            {
-                VereineAus = await VereineAusService.GetVereineIT();
-                Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);
-            }
+            
+            await TabelleBerechnen(TabArt);
 
             DisplayElements = "block";
             StateHasChanged();
@@ -321,79 +359,32 @@ namespace LigamanagerManagement.Web.Pages
 
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
-            if (Globals.LigaID < 4)
-            {
-                Vereine = await VereineService.GetVereine();
-                Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);            
-            }
-            else if (Globals.LigaID == 4)
-            {
-                VereineAus = await VereineServicePL.GetVereine();
-
-                Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);
-            
-            }
-            else if (Globals.LigaID == 6)
-            {
-                VereineAus = await VereineAusService.GetVereineIT();
-                Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, 1);            
-            }
+            await TabelleBerechnen(TabArt);
 
             DisplayElements = "block";
             StateHasChanged();
         }
+        public async Task LigaChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                Globals.currentLiga = e.Value.ToString();
+                Globals.LigaID = Convert.ToInt32(e.Value);
+
+                await TabelleBerechnen(TabArt);
+
+                StateHasChanged();
+            }
+        }
+
         public async Task TabArtChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 int TabArt = Convert.ToInt32(e.Value);
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-               
-                if (Globals.LigaID < 3)
-                {
-                    if (TabArt == 1)
-                        Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
-                    else if (TabArt == 2)
-                        Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
-                    else if (TabArt == 3)
-                        Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
-                    else if (TabArt == 4)
-                        Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
-                    else if (TabArt == 5)
-                        Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
-                    else if (TabArt == 6)
-                        Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, SaisonenService, Vereine, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
-                }
-                else if (Globals.LigaID ==4)
-                {
-                    if (TabArt == 1)
-                        Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
-                    else if (TabArt == 2)
-                        Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
-                    else if (TabArt == 3)
-                        Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
-                    else if (TabArt == 4)
-                        Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
-                    else if (TabArt == 5)
-                        Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereinePL, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
-                    //else if (TabArt == 6)
-                    //    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
-                }
-                else if (Globals.LigaID == 6)
-                {
-                    if (TabArt == 1)
-                        Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
-                    else if (TabArt == 2)
-                        Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
-                    else if (TabArt == 3)
-                        Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
-                    else if (TabArt == 4)
-                        Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
-                    else if (TabArt == 5)
-                        Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
-                    //else if (TabArt == 6)
-                    //    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
-                }
+
+                await TabelleBerechnen(TabArt);
 
                 DisplayElements = "block";
 
@@ -402,9 +393,90 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     DisplayEwig = "display:none;";
 
+                DisplayErrorLiga = "display:none;";
+
                 StateHasChanged();
             }
-        }       
+        }
+
+        private async Task TabelleBerechnen(int TabArt)
+        {
+            if (Globals.LigaID < 3)
+            {
+                if (TabArt == 1)
+                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+                else if (TabArt == 2)
+                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
+                else if (TabArt == 3)
+                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
+                else if (TabArt == 4)
+                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
+                else if (TabArt == 5)
+                    Tabellen = await TabelleService.BerechneTabelle(SpieltagService, bAbgeschlossen, Vereine, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
+                else if (TabArt == 6)
+                    Tabellen = await TabelleService.BerechneTabelleEwig(SpieltagService, SaisonenService, Vereine, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+            }
+            else if (Globals.LigaID == 4)
+            {
+                if (TabArt == 1)
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+                else if (TabArt == 2)
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
+                else if (TabArt == 3)
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
+                else if (TabArt == 4)
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
+                else if (TabArt == 5)
+                    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
+                //else if (TabArt == 6)
+                //    Tabellen = await TabelleService.BerechneTabellePL(SpieltagPLService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+            }
+            else if (Globals.LigaID == 6)
+            {
+                if (TabArt == 1)
+                    Tabellen = await TabelleService.BerechneTabelleAus(SpieltagAusService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+                else if (TabArt == 2)
+                    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
+                else if (TabArt == 3)
+                    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
+                else if (TabArt == 4)
+                    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, bAbgeschlossen, VereineAus, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
+                else if (TabArt == 5)
+                    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
+                //else if (TabArt == 6)
+                //    Tabellen = await TabelleService.BerechneTabelleIT(SpieltagITService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+            }
+            else if (Globals.LigaID == 7)
+            {
+                if (TabArt == 1)
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+                else if (TabArt == 2)
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
+                else if (TabArt == 3)
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
+                else if (TabArt == 4)
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
+                else if (TabArt == 5)
+                    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagFRService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
+                //else if (TabArt == 6)
+                //    Tabellen = await TabelleService.BerechneTabelleFR(SpieltagPLService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+            }
+            else if (Globals.LigaID == 8)
+            {
+                if (TabArt == 1)
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
+                else if (TabArt == 2)
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Heim);
+                else if (TabArt == 3)
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Auswärts);
+                else if (TabArt == 4)
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, 17, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Vorrunde);
+                else if (TabArt == 5)
+                    Tabellen = await TabelleService.BerechneTabelleES(SpieltagESService, bAbgeschlossen, VereineAus, currentspieltag, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Rückrunde);
+                //else if (TabArt == 6)
+                //    Tabellen = await TabelleService.BerechneTabellePL(SpieltagESService, SaisonenService, VereinePL, currentspieltag, Globals.currentSaison, (int)Globals.Tabart.EwigeTabelle);
+            }
+        }
 
         public class DisplaySpieltag
         {
