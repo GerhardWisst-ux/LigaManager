@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class VereinPLRepository : IVereinRepositoryPL
+    public class VereinPLRepository : IVereinePLRepository
     {       
 
         public async Task<VereinAUS> AddVerein(VereinAUS verein)
@@ -189,8 +189,8 @@ namespace LigaManagerManagement.Api.Models
                         verein.Stadion = reader["Stadion"].ToString();
                         verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
-                        verein.Liga1 = true; //bool.Parse(reader["Liga1"].ToString());
-                        verein.Liga2 = false; // bool.Parse(reader["Liga2"].ToString());
+                        verein.Liga1 = bool.Parse(reader["Liga1"].ToString());
+                        verein.Liga2 = bool.Parse(reader["Liga2"].ToString());
 
                         vereinelist.Add(verein);
                     }

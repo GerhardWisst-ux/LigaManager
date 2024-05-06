@@ -28,22 +28,26 @@ namespace LigaManagement.Api
             //            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
                        
             services.AddScoped<ISpieltagRepository, SpieltageRepository>();
-            services.AddScoped<ISpieltagPLRepository, SpieltagePLRepository>();
+            services.AddScoped<ISpieltageITRepository, SpieltageITRepository>();
+            services.AddScoped<ISpieltageITRepository, SpieltageITRepository>();
+            services.AddScoped<ISpieltageFRRepository, SpieltageFRRepository>();            
             services.AddScoped<ISpieltageESRepository, SpieltageESRepository>();
-            services.AddScoped<ISpieltageFRRepository, SpieltageFRRepository>();
-            services.AddScoped<ISpieltageAusRepository, SpieltageAusRepository>();
+
             services.AddScoped<IVereinRepository, VereinRepository>();
-            services.AddScoped<IVereinRepositoryPL, VereinPLRepository>();
-            services.AddScoped<IVereinAusRepository, VereinAusRepository>();
-            services.AddScoped<IVereinFRRepository, VereinFRRepository>();
-            services.AddScoped<IVereinESRepository, VereinESRepository>();
+            services.AddScoped<IVereineITRepository, VereinITRepository>();
+            services.AddScoped<IVereinePLRepository, VereinPLRepository>();            
+            services.AddScoped<IVereineFRRepository, VereinFRRepository>();
+            services.AddScoped<IVereineESRepository, VereinESRepository>();
+            
             services.AddScoped<ITabelleRepository, TabelleRepository>();
+            
             services.AddScoped<ISaisonRepository, SaisonenRepository>();
             services.AddScoped<ILigaRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();
             services.AddScoped<IToreRepository, ToreRepository>();            
             services.AddScoped<ISpielerSpieltagRepository, SpielerSpieltagRepository>();
             services.AddScoped<IVereineSaisonRepository, VereineSaisonRepository>();
+            services.AddScoped<IVereineSaisonAusRepository, VereineSaisonAusRepository>();
             services.AddScoped<IPokalergebnisseRepository, PokalergebnisseRepository>();
 
             services.AddControllers();

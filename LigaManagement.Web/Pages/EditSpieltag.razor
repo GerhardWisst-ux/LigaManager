@@ -4,6 +4,11 @@
 
 @inherits EditSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagPLService _SpieltagPLService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagITService _SpieltagITService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagFRService _SpieltagFRService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagESService _SpieltagESService
+
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
 @inject NavigationManager _navigationManager
@@ -75,7 +80,7 @@
                                         {
                                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                         }
-                                    }                                  
+                                    }
                                 </select>
                                 <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputText>
                             </div>
@@ -273,7 +278,7 @@
                                         <div style="display:block;" class="form-group row">
                                             <RadzenLabel Text="Spieler Verein 2" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkSpielerVerein2">Spieler Verein 2</RadzenLabel>
                                             <select id="cboKader" Style="margin-left:5px;" class="form-control col-sm-8" @onchange="ToreChange2">
-                                                <option selected="selected">Spieler auswählen</option>                                                
+                                                <option selected="selected">Spieler auswählen</option>
                                                 @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                                 {
                                                     <option value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -359,13 +364,25 @@
     private async Task LoadSpiel()
     {
         IsLoading = true;
-        StateHasChanged();
-        Spiel = await _SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+        
+        // if (Globals.LigaID < 4)
+        //     Spiel = await _SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+        // else if (Globals.LigaID == 4)
+        //     Spiel = await _SpieltagPLService.GetSpieltag(Convert.ToInt32(Id));
+        // else if (Globals.LigaID == 6)
+        //     Spiel = await _SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
+        // else if (Globals.LigaID == 7)
+        //     Spiel = await _SpieltagFRService.GetSpieltag(Convert.ToInt32(Id));
+        // else if (Globals.LigaID == 8)
+        //     Spiel = await _SpieltagESService.GetSpieltag(Convert.ToInt32(Id));
+
         IsLoading = false;
         StateHasChanged();
     }
     private async Task Upsert()
     {
+        Spieltag spieltag = new Spieltag();
+
         string[] subs = Time.Value.ToString().Split(':');
         int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
@@ -382,7 +399,18 @@
             }
 
             Spiel.Datum = SpielDateTime;
-            var spieltag = await _SpieltagService.CreateSpieltag(Spiel);
+
+            if (Globals.LigaID < 4)
+                spieltag = await _SpieltagService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 4)
+                spieltag = await _SpieltagPLService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 6)
+                spieltag = await _SpieltagITService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 7)
+                spieltag = await _SpieltagFRService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 8)
+                spieltag = await _SpieltagESService.CreateSpieltag(Spiel);
+            
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Spieltag", Detail = "Abgespeichert" });
         }
@@ -394,7 +422,17 @@
             }
 
             //update
-            var spieltag = await _SpieltagService.UpdateSpieltag(Spiel);
+            if (Globals.LigaID < 4)
+                spieltag = await _SpieltagService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 4)
+                spieltag = await _SpieltagPLService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 6)
+                spieltag = await _SpieltagITService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 7)
+                spieltag = await _SpieltagFRService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 8)
+                spieltag = await _SpieltagESService.UpdateSpieltag(Spiel);
+            
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
         }

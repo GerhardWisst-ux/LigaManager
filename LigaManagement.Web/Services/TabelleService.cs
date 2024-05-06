@@ -1390,8 +1390,8 @@ namespace LigaManagerManagement.Web.Services
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;            
-            SpieltageAusRepository rep = new SpieltageAusRepository();
-            rep = new SpieltageAusRepository();
+            SpieltageITRepository rep = new SpieltageITRepository();
+            rep = new SpieltageITRepository();
             var TabSaisonSorted = new List<Tabelle>();
             int paarung = 1;
             int BisSpieltag;
@@ -1726,8 +1726,8 @@ namespace LigaManagerManagement.Web.Services
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
-            SpieltageAusRepository rep = new SpieltageAusRepository();
-            rep = new SpieltageAusRepository();
+            SpieltageITRepository rep = new SpieltageITRepository();
+            rep = new SpieltageITRepository();
             var TabSaisonSorted = new List<Tabelle>();
             int paarung = 1;
             int BisSpieltag = 38;

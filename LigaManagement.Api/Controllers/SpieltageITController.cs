@@ -1,6 +1,5 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,13 +10,13 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpieltagePLController : ControllerBase
+    public class SpieltageITController : ControllerBase
     {
-        private readonly ISpieltagITRepository SpieltagPLRepository;
+        private readonly ISpieltageITRepository SpieltagITRepository;
 
-        public SpieltagePLController(ISpieltagITRepository SpieltagPLRepository)
+        public SpieltageITController(ISpieltageITRepository SpieltagITRepository)
         {
-            this.SpieltagPLRepository = SpieltagPLRepository;
+            this.SpieltagITRepository = SpieltagITRepository;
         }
 
         [HttpGet]
@@ -25,7 +24,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagPLRepository.GetSpieltage());
+                return Ok(await SpieltagITRepository.GetSpieltage());
             }
             catch (Exception ex)
             {
@@ -40,7 +39,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var result = await SpieltagPLRepository.GetSpieltag(id);
+                var result = await SpieltagITRepository.GetSpieltag(id);
 
                 if (result == null)
                 {
@@ -65,8 +64,8 @@ namespace LigaManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-               
-                var createdSpieltag = await SpieltagPLRepository.AddSpieltag(spieltag);
+
+                var createdSpieltag = await SpieltagITRepository.AddSpieltag(spieltag);
 
                 return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
@@ -78,19 +77,19 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpPut()]        
+        [HttpPut()]
         public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag Spieltag)
         {
             try
             {
-                var VereinToUpdate = await SpieltagPLRepository.GetSpieltag((int)Spieltag.SpieltagId);
+                var VereinToUpdate = await SpieltagITRepository.GetSpieltag((int)Spieltag.SpieltagId);
 
                 if (VereinToUpdate == null)
                 {
                     return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagPLRepository.UpdateSpieltag(Spieltag);
+                return await SpieltagITRepository.UpdateSpieltag(Spieltag);
             }
             catch (Exception ex)
             {
@@ -105,14 +104,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var spieltagToDelete = await SpieltagPLRepository.GetSpieltag(id);
+                var spieltagToDelete = await SpieltagITRepository.GetSpieltag(id);
 
                 if (spieltagToDelete == null)
                 {
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagPLRepository.DeleteSpieltag(id);
+                return await SpieltagITRepository.DeleteSpieltag(id);
             }
             catch (Exception ex)
             {

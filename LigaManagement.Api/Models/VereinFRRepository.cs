@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class VereinFRRepository : IVereinFRRepository
+    public class VereinFRRepository : IVereineFRRepository
     {       
 
         public async Task<VereinAUS> AddVerein(VereinAUS verein)

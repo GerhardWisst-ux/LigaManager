@@ -371,6 +371,15 @@ namespace LigamanagerManagement.Web.Pages
                 Globals.currentLiga = e.Value.ToString();
                 Globals.LigaID = Convert.ToInt32(e.Value);
 
+                SaisonenList = new List<DisplaySaison>();
+                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID).ToList();
+
+                for (int i = 0; i < Saisonen.Count(); i++)
+                {
+                    var columns = Saisonen.ElementAt(i);
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.LigaID, columns.Saisonname));
+                }
+
                 await TabelleBerechnen(TabArt);
 
                 StateHasChanged();
@@ -492,7 +501,6 @@ namespace LigamanagerManagement.Web.Pages
 
         public class DisplaySaison
         {
-
             public DisplaySaison(int saisonID, int ligaID, string saisonname)
             {
                 SaisonID = saisonID;
@@ -500,7 +508,6 @@ namespace LigamanagerManagement.Web.Pages
                 Saisonname = saisonname;
             }
             public int SaisonID { get; set; }
-
             public int LigaID { get; set; }
             public string Saisonname { get; set; }
         }

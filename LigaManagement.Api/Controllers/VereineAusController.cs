@@ -12,9 +12,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class VereineAusController : ControllerBase
     {
-        private readonly IVereinAusRepository VereinRepository;
+        private readonly IVereineITRepository VereinRepository;
 
-        public VereineAusController(IVereinAusRepository VereinRepository)
+        public VereineAusController(IVereineITRepository VereinRepository)
         {
             this.VereinRepository = VereinRepository;
         }

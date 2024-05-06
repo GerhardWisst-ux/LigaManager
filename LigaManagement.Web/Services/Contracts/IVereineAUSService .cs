@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagerManagement.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -9,11 +10,14 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<VereinAUS>> GetVereineIT();
         Task<IEnumerable<VereinAUS>> GetVereineFR();
         Task<IEnumerable<VereinAUS>> GetVereineES();
-        Task<VereinAUS> GetVerein(int id);        
+        Task<VereinAUS> GetVereinPL(int id);        
+        Task<VereinAUS> GetVereinFR(int id);
+        Task<VereinAUS> GetVereinES(int id);
+        Task<VereinAUS> GetVereinIT(int id);
         Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein);
         Task<VereinAUS> CreateVerein(VereinAUS newVerein);
         Task DeleteVerein(int id);
-        Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison();
+        Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison(int saisonid);
         Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine);
         
     }

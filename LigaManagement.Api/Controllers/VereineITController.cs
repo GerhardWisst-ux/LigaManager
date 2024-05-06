@@ -10,11 +10,11 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VereineFRController : ControllerBase
+    public class VereineITController : ControllerBase
     {
-        private readonly IVereineFRRepository VereinRepository;
+        private readonly IVereineITRepository VereinRepository;
 
-        public VereineFRController(IVereineFRRepository VereinRepository)
+        public VereineITController(IVereineITRepository VereinRepository)
         {
             this.VereinRepository = VereinRepository;
         }

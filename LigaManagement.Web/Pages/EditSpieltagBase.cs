@@ -47,10 +47,31 @@ namespace LigamanagerManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
+        public ISpieltagPLService SpieltagPLService { get; set; }
+
+        [Inject]
+        public ISpieltagITService SpieltagITService { get; set; }
+
+        [Inject]
+        public ISpieltagAusService SpieltagAusService { get; set; }
+
+        [Inject]
+        public ISpieltagESService SpieltagESService { get; set; }
+
+        [Inject]
+        public ISpieltagFRService SpieltagFRService { get; set; }
+
+        [Inject]
         public IToreService ToreService { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
+
+        [Inject]
+        public IVereinePLService VereinePLService { get; set; }
+
+        [Inject]
+        public IVereineAusService VereineAusService { get; set; }
 
         [Inject]
         public IVereineSaisonService VereineSaisonService { get; set; }
@@ -109,37 +130,104 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
-                if (Id != null)
-                    Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-                                
-                var vereineSaison = await VereineSaisonService.GetVereineSaison();
-                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
-
-                for (int i = 0; i < verList.Count(); i++)
+                if (Globals.LigaID < 4)
                 {
-                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    if (Id != null)
+                        Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+
+                    var vereineSaison = await VereineSaisonService.GetVereineSaison();
+                    List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+
+                    var allkader = await KaderService.GetAllSpieler();
+                    List<Kader> SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
+
+                    KaderList1 = new List<DisplaySpieler>();
+
+                    for (int i = 0; i < SpielerSpiel.Count(); i++)
+                    {
+                        KaderList1.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
+                    }
+
+                    KaderList2 = new List<DisplaySpieler>();
+
+                    SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
+                    for (int i = 0; i < SpielerSpiel.Count(); i++)
+                    {
+                        KaderList2.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
+                    }
+
+                    SpieltagNr = Globals.Spieltag.ToString();
+                }
+                else if (Globals.LigaID == 4)
+                {
+                    if (Id != null)
+                        Spiel = await SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
+
+                    var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
+                    List<VereinAktSaisonAUS> verList = vereineSaison.ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereinePLService.GetVerein(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+                    SpieltagNr = Globals.Spieltag.ToString();
+                }
+                else if (Globals.LigaID == 6)
+                {
+                    if (Id != null)
+                        Spiel = await SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
+
+                    var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
+                    List<VereinAktSaisonAUS> verList = vereineSaison.ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineAusService.GetVereinIT(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+                    SpieltagNr = Globals.Spieltag.ToString();
                 }
 
-                var allkader = await KaderService.GetAllSpieler();
-                List<Kader> SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein1_Nr)).ToList();
-
-                KaderList1 = new List<DisplaySpieler>();
-
-                for (int i = 0; i < SpielerSpiel.Count(); i++)
+                else if (Globals.LigaID == 7)
                 {
-                    KaderList1.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
+
+                    if (Id != null)
+                        Spiel = await SpieltagFRService.GetSpieltag(Convert.ToInt32(Id));
+
+                    var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
+                    List<VereinAktSaisonAUS> verList = vereineSaison.ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineAusService.GetVereinFR(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+
+                    SpieltagNr = Globals.Spieltag.ToString();
+                }
+                else if (Globals.LigaID ==8)
+                {
+                    if (Id != null)
+                        Spiel = await SpieltagESService.GetSpieltag(Convert.ToInt32(Id));
+
+                    var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
+                    List<VereinAktSaisonAUS> verList = vereineSaison.ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineAusService.GetVereinES(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+                    SpieltagNr = Globals.Spieltag.ToString();
                 }
 
-                KaderList2 = new List<DisplaySpieler>();
-
-                SpielerSpiel = allkader.Where(x => x.SaisonId == Globals.SaisonID && x.VereinID == Convert.ToInt32(Spiel.Verein2_Nr)).ToList();
-                for (int i = 0; i < SpielerSpiel.Count(); i++)
-                {
-                    KaderList2.Add(new DisplaySpieler(SpielerSpiel[i].Id, (SpielerSpiel[i].SpielerName + ", " + SpielerSpiel[i].Vorname)));
-                }
-
-                SpieltagNr = Globals.Spieltag.ToString();
 
                 if (Id == null)
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 15, 30, 0, DateTimeKind.Utc);
@@ -150,24 +238,27 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.SaisonID = Globals.SaisonID;
                 Spiel.SpieltagNr = SpieltagNr;
 
-                var tore = await ToreService.GetTore();
-                List<Tore> torlist = tore.Where(x => x.SpieltagId == Spiel.SpieltagId).ToList();
-
-                for (int i = 0; i < torlist.Count; i++)
+                if (Globals.LigaID == 1)
                 {
-                    var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
-                    if (Spiel.SpieltagId == torlist[i].SpieltagId)
-                    {
-                        if (kaderspieler.Vorname == "")
-                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
-                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
-                        else
-                            ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
-                            Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
-                    }
+                    var tore = await ToreService.GetTore();
+                    List<Tore> torlist = tore.Where(x => x.SpieltagId == Spiel.SpieltagId).ToList();
 
+                    for (int i = 0; i < torlist.Count; i++)
+                    {
+                        var kaderspieler = await KaderService.GetSpieler(torlist[i].SpielerID);
+                        if (Spiel.SpieltagId == torlist[i].SpieltagId)
+                        {
+                            if (kaderspieler.Vorname == "")
+                                ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName, torlist[i].Spielstand, torlist[i].Spielminute,
+                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
+                            else
+                                ToreList.Add(new DisplayTore(torlist[i].SpielerID, kaderspieler.SpielerName + ", " + kaderspieler.Vorname, torlist[i].Spielstand, torlist[i].Spielminute,
+                                Convert.ToInt32(torlist[i].SpieltagId), torlist[i].Eigentor, torlist[i].Elfmeter, torlist[i].Torart));
+                        }
+
+                    }
+                    ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
                 }
-                ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
             }
             catch (Exception ex)
             {
@@ -233,9 +324,41 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
-                Spiel.Verein1 = verein.Vereinsname1;
-                Spiel.Verein1_Nr = e.Value.ToString();
+                if (Globals.LigaID < 4)
+                {
+                    var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                }
+                else if (Globals.LigaID == 4)
+                {
+                    var verein = await VereinePLService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                }
+                else if (Globals.LigaID == 6)
+                {
+                    var verein = await VereineAusService.GetVereinIT(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                }
+                else if (Globals.LigaID == 7)
+                {
+                    var verein = await VereineAusService.GetVereinFR(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                }
+                else if (Globals.LigaID == 8)
+                {
+                    var verein = await VereineAusService.GetVereinES(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                }
             }
             StateHasChanged();
         }
@@ -244,9 +367,36 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
-                Spiel.Verein2 = verein.Vereinsname1;
-                Spiel.Verein2_Nr = e.Value.ToString();
+                if (Globals.LigaID < 4)
+                {
+                    var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();                   
+                }
+                else if (Globals.LigaID == 4)
+                {
+                    var verein = await VereinePLService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                }
+                else if (Globals.LigaID == 6)
+                {
+                    var verein = await VereineAusService.GetVereinIT(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();                  
+                }
+                else if (Globals.LigaID == 7)
+                {
+                    var verein = await VereineAusService.GetVereinFR(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                }
+                else if (Globals.LigaID == 8)
+                {
+                    var verein = await VereineAusService.GetVereinES(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                }
             }
             StateHasChanged();
         }
@@ -326,7 +476,6 @@ namespace LigamanagerManagement.Web.Pages
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
-
             public string Ort { get; set; }
         }
 

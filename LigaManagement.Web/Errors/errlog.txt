@@ -458,3 +458,313 @@ StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionAr
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 173
 Date/Time: 04.05.2024 10:03:23
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 72
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 10:58:12
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 72
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 10:58:19
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 72
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 10:59:11
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:18:40
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:19:06
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:19:52
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:24:48
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:48:33
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereineSaison(Int32 saisonid) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 71
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 172
+Date/Time: 06.05.2024 11:50:27
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 12:05:48
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 12:06:57
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 12:08:17
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 12:12:33
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 12:19:08
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 14:02:13
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinPL(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 92
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 14:03:11
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineAUSService.GetVereinFR(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineAUSService.cs:line 82
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 209
+Date/Time: 06.05.2024 14:18:49
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineServicePL.GetVerein(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereinePLService.cs:line 55
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 177
+Date/Time: 06.05.2024 14:22:08
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 14:49:48
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 14:49:51
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 14:49:51
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 15:16:06
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 15:20:42
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 15:20:43
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 15:29:30
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 15:42:20
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 15:50:26
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 16:12:57
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 500 (Internal Server Error).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpieltagITService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagITService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 185
+Date/Time: 06.05.2024 16:17:59
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:37:41
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:37:41
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:38:32
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:38:32
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:42:04
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 135
+Date/Time: 06.05.2024 16:42:04
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.TabelleService.BerechneTabelleFR(ISpieltagFRService spieltagFRService, Boolean bAbgeschlossen, IEnumerable`1 vereineAus, Int32 count, String currentSaison, Int32 ligaID, Int32 Tabart) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\TabelleService.cs:line 2186
+Date/Time: 06.05.2024 17:54:34
+============================================

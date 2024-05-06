@@ -12,9 +12,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class VereinePLController : ControllerBase
     {
-        private readonly IVereinRepositoryPL VereinRepository;
+        private readonly IVereinePLRepository VereinRepository;
 
-        public VereinePLController(IVereinRepositoryPL VereinRepository)
+        public VereinePLController(IVereinePLRepository VereinRepository)
         {
             this.VereinRepository = VereinRepository;
         }
@@ -80,7 +80,7 @@ namespace LigaManagement.Api.Controllers
                
                 var createdVerein = await VereinRepository.AddVerein(Verein);
 
-                return CreatedAtAction(nameof(GetVerein), new { id = createdVerein.Id },
+                return CreatedAtAction(nameof(CreateVerein), new { id = createdVerein.Id },
                     createdVerein);
             }
             catch (Exception ex)

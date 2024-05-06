@@ -302,6 +302,27 @@ namespace LigaManagerManagement.Web.Pages
                     else
                         Globals.maxSpieltag = 38;
                 }
+                else if (Globals.LigaID == 6)
+                {
+                    if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
+                        Globals.maxSpieltag = 38;
+                    else
+                        Globals.maxSpieltag = 38;
+                }
+                else if (Globals.LigaID == 7)
+                {
+                    if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
+                        Globals.maxSpieltag = 38;
+                    else
+                        Globals.maxSpieltag = 38;
+                }
+                else if (Globals.LigaID == 8)
+                {
+                    if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
+                        Globals.maxSpieltag = 38;
+                    else
+                        Globals.maxSpieltag = 38;
+                }
 
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
                 for (int i = 0; i < Saisonen.Count(); i++)

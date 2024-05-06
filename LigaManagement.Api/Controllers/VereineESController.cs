@@ -12,9 +12,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class VereineESController : ControllerBase
     {
-        private readonly IVereinESRepository VereinRepository;
+        private readonly IVereineESRepository VereinRepository;
 
-        public VereineESController(IVereinESRepository VereinRepository)
+        public VereineESController(IVereineESRepository VereinRepository)
         {
             this.VereinRepository = VereinRepository;
         }

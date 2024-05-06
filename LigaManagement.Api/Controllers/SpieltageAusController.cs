@@ -12,9 +12,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SpieltageAusController : ControllerBase
     {
-        private readonly ISpieltageAusRepository SpieltagPLRepository;
+        private readonly ISpieltageITRepository SpieltagPLRepository;
 
-        public SpieltageAusController(ISpieltageAusRepository SpieltagPLRepository)
+        public SpieltageAusController(ISpieltageITRepository SpieltagPLRepository)
         {
             this.SpieltagPLRepository = SpieltagPLRepository;
         }
