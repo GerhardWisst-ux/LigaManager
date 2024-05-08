@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Api.Models.Repository
 {
-    public interface ISaisonRepository
+    public interface ISaisonenRepository
     {
         Task<IEnumerable<Saison>> GetSaisonen();
         Task<Saison> GetSaison(int SaisonId);

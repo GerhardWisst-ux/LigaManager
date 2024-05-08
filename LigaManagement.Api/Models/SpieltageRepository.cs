@@ -180,26 +180,95 @@ namespace LigaManagerManagement.Api.Models
             //    .ToListAsync();
         }
 
-        public int AktSpieltag(int SaisonID)
+        public int AktSpieltag(int SaisonID, int LigaID )
         {
             int iMaxSpieltag = 0;
             SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "'", conn);
 
-            using (SqlDataReader reader = command.ExecuteReader())
+
+            try
             {
-                while (reader.Read())
+                if (LigaID < 4)
                 {
-                    if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
-                        iMaxSpieltag = (int)reader["MAXSPIELTAG"];
-                    else
-                        iMaxSpieltag = 1;
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
                 }
+                else if (LigaID == 4)
+                {
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
+                }
+                else if (LigaID == 6)
+                {
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageIT] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
+                }
+                else if (LigaID == 7)
+                {
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageFR] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
+                }
+                else if (LigaID == 8)
+                {
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageES] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
+                }
+
+                conn.Close();
+                return iMaxSpieltag;
             }
-            conn.Close();
-            return iMaxSpieltag;
+            catch (Exception)
+            {
+
+                return 1;
+            }
         }
 
         public async Task<Spieltag> UpdateSpieltag(Spieltag spieltag)

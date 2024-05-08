@@ -40,15 +40,21 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
+
+            if (authenticationState.User.Identity == null)
+            {
+                return;
+            }
+
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                string returnUrl = WebUtility.UrlEncode($"/");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
             LigenList = (await LigaService.GetLigen()).ToList();
 
-            var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
+            var liga = (await LigaService.GetLiga(Globals.LigaID));
             Liganame = liga.Liganame;
 
             Globals.bVisibleNavMenuElements = true;

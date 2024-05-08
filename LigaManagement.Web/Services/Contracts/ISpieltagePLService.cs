@@ -4,13 +4,13 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Services.Contracts
 {
-    public interface ISpieltagESService
+    public interface ISpieltagePLService
     {
         Task<IEnumerable<Spieltag>> GetSpieltage();
         Task<IEnumerable<Spielergebnisse>> GetSpielergebnisse();
         Task<Spieltag> GetSpieltag(int id);
         Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag);
         Task<Spieltag> CreateSpieltag(Spieltag newSpieltag);
-        Task DeleteSpieltag(int? id);        
+        Task DeleteSpieltag(int? id);
     }
 }

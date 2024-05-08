@@ -110,7 +110,7 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"spieltage/{Globals.Spieltag}") Match="NavLinkMatch.All">
+                        <NavLink class="nav-link" href=@($"Ligamanager/{Globals.currentLigaUrl}/spieltage//{Globals.Spieltag}") Match="NavLinkMatch.All">
                             <span class="oi oi-calendar"></span> Spieltage
                         </NavLink>
                     </li>
@@ -118,7 +118,7 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        <NavLink class="nav-link"  href="/tabellen" Match="NavLinkMatch.All">
+                        <NavLink class="nav-link" href=@($"Ligamanager/{Globals.currentLigaUrl}/tabellen") Match="NavLinkMatch.All">
                             <span class="oi oi-list" aria-hidden="true"></span> Tabellen
                         </NavLink>
                     </li>

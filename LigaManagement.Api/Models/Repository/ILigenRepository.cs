@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Api.Models.Repository
 {
-    public interface ILigaRepository
+    public interface ILigenRepository
     {
         Task<IEnumerable<Liga>> GetLigen();
         Task<Liga> GetLiga(int ligaIdId);

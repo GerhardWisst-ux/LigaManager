@@ -8,26 +8,26 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class SpieltagITService : ISpieltageITService
+    public class SpieltagENService : ISpieltageENService
 
     {
         private readonly HttpClient httpClient;
         public int TotalCount { get; set; }
-        public SpieltagITService(HttpClient httpClient)
+        public SpieltagENService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
         public async Task<Spieltag> GetSpieltag(int id)
         {
-            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltageIT/{id}");
+            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltageEN/{id}");
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spieltag[]>("api/SpieltageIT");
+                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltageEN");
             }
             catch (System.Exception ex)
             {
@@ -41,7 +41,7 @@ namespace LigaManagerManagement.Web.Services
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spielergebnisse[]>("api/SpieltageIT");
+                return await httpClient.GetJsonAsync<Spielergebnisse[]>("api/spieltageEN");
             }
             catch (System.Exception ex)
             {
@@ -55,7 +55,7 @@ namespace LigaManagerManagement.Web.Services
         {
             try
             {
-                return await httpClient.PostJsonAsync<Spieltag>("api/SpieltageIT", spieltag);
+                return await httpClient.PostJsonAsync<Spieltag>("api/spieltageEN", spieltag);
             }
             catch (System.Exception ex)
             {
@@ -67,12 +67,12 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag)
         {
-            return await httpClient.PutJsonAsync<Spieltag>("api/SpieltageIT", updatedSpieltag);
+            return await httpClient.PutJsonAsync<Spieltag>("api/spieltageEN", updatedSpieltag);
         }
 
         public async Task DeleteSpieltag(int? id)
         {
-            await httpClient.DeleteAsync($"api/SpieltageIT/{id}");
+            await httpClient.DeleteAsync($"api/spieltageEN/{id}");
         }
      
     }

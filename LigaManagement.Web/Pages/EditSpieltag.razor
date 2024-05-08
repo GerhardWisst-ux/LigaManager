@@ -4,10 +4,10 @@
 
 @inherits EditSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltagService _SpieltagService
-@inject LigaManagement.Web.Services.Contracts.ISpieltagPLService _SpieltagPLService
-@inject LigaManagement.Web.Services.Contracts.ISpieltagITService _SpieltagITService
-@inject LigaManagement.Web.Services.Contracts.ISpieltagFRService _SpieltagFRService
-@inject LigaManagement.Web.Services.Contracts.ISpieltagESService _SpieltagESService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagAusService _SpieltagPLService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageITService _SpieltagITService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageFRService _SpieltagFRService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageESService _SpieltagESService
 
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
@@ -158,7 +158,8 @@
                                     <span class="glyphicon glyphicon-save"></span>Speichern
                                 </RadzenButton>
 
-                                <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                                <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                                    <span class="glyphicon glyphicon-left"></span>Zurück
                                 </RadzenButton>
                             </div>
                         </div>
@@ -212,7 +213,9 @@
                                 <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputText>
                                 <div class="form-group-row py-2">
                                     <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                                    <NavLink href="@($"spieltage/{SpieltagNr}")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                                    <NavLink href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+
+                                    <button onclick="GoBack" class="btn btn-primary"><span class="glyphicon glyphicon-left"></span>Zurück</button>
                                 </div>
                             </div>
                         </div>
@@ -469,9 +472,9 @@
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag-Tor", Detail = "Abgespeichert" });
     }
 
-    private void Zurueck_Click()
+    private void GoBack()
     {
-        _navigationManager.NavigateTo("/spieltage/" + SpieltagNr);
+        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
     }
 }
 

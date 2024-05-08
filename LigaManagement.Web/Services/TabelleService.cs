@@ -1,13 +1,10 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
-using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
-using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
-using Microsoft.OData.UriParser;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,7 +13,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using static LigaManagement.Web.Pages.ChartData;
-using static Ligamanager.Components.Globals;
 
 namespace LigaManagerManagement.Web.Services
 {
@@ -104,10 +100,10 @@ namespace LigaManagerManagement.Web.Services
                     BisSpieltag = Spieltag;
                 else
                 {
-                    if (Spieltag < rep.AktSpieltag(Globals.SaisonID))
+                    if (Spieltag < rep.AktSpieltag(Globals.SaisonID, Globals.LigaID))
                         BisSpieltag = Spieltag;
                     else
-                        BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
+                        BisSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
                 }
 
 
@@ -1039,7 +1035,7 @@ namespace LigaManagerManagement.Web.Services
 
         }
 
-        public async Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltagPLService spieltagPLService,
+        public async Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltageENService spieltagPLService,
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
@@ -1722,7 +1718,7 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<IEnumerable<Tabelle>> BerechneTabelleIT(ISpieltagAusService spieltagAusService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
+        public async Task<IEnumerable<Tabelle>> BerechneTabelleIT(ISpieltageITService spieltagITService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
@@ -1747,7 +1743,7 @@ namespace LigaManagerManagement.Web.Services
                 }
 
 
-                var alleSpieltage = (await spieltagAusService.GetSpieltage());
+                var alleSpieltage = (await spieltagITService.GetSpieltage());
 
                 if (Tabart == 4)
                     BisSpieltag = 17;
@@ -2059,7 +2055,7 @@ namespace LigaManagerManagement.Web.Services
         }
    
 
-        public async Task<IEnumerable<Tabelle>> BerechneTabelleFR(ISpieltagFRService spieltagFRService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
+        public async Task<IEnumerable<Tabelle>> BerechneTabelleFR(ISpieltageFRService spieltagFRService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;
@@ -2395,7 +2391,7 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<IEnumerable<Tabelle>> BerechneTabelleES(ISpieltagESService spieltagESService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
+        public async Task<IEnumerable<Tabelle>> BerechneTabelleES(ISpieltageESService spieltagESService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int Tabart)
         {
             Tabelle tabelleneintrag1;
             Tabelle tabelleneintrag2;

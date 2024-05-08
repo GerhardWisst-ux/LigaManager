@@ -28,7 +28,7 @@ namespace LigaManagement.Web.Pages
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
-        public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5 };
+        public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
         public int SaisonID;
         public int LigaID;
@@ -62,7 +62,13 @@ namespace LigaManagement.Web.Pages
         public IVereinePLService VereineServicePL { get; set; }
 
         [Inject]
-        public IVereineAusService VereineAusService { get; set; }
+        public IVereineITService VereineServiceIT { get; set; }
+
+        [Inject]
+        public IVereineFRService VereineServiceFR { get; set; }
+
+        [Inject]
+        public IVereineFRService VereineServiceES { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -80,7 +86,7 @@ namespace LigaManagement.Web.Pages
             try
             {
                 SaisonenList = new List<DisplaySaison>();
-                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == 1).ToList();
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
@@ -102,6 +108,7 @@ namespace LigaManagement.Web.Pages
                 else
                     Globals.bVisibleNavMenuElements = true;
 
+                Globals.currentLiga = "";
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";
             }
@@ -131,20 +138,20 @@ namespace LigaManagement.Web.Pages
                 if (Saisonen == null || Globals.currentSaison == null)
                     throw new Exception("Saisonen null oder Globals.currentSaison");
 
-                Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
-                Globals.PokalSaisonID = Globals.SaisonID;
-                Globals.KaderSaisonID = Globals.SaisonID;
+                if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID) != null)
+                {
+                    Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID).SaisonID;
+                    Globals.PokalSaisonID = Globals.SaisonID;
+                    Globals.KaderSaisonID = Globals.SaisonID;
+                }
+                else
+                {
+                    Globals.SaisonID = 1;
+                    Globals.PokalSaisonID = 1;
+                    Globals.KaderSaisonID = 1;
+                }
+               
             }
-        }
-        public void OnSaisonChange(object value)
-        {
-            var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
-
-            Globals.currentSaison = str.ToString();
-            Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
-            Globals.KaderSaisonID = Globals.SaisonID;
-
-            //Console.WriteLine($"Value changed to {str}");
         }
 
         public void OnProgress(UploadProgressArgs args, string name)
@@ -162,17 +169,35 @@ namespace LigaManagement.Web.Pages
 
         public async Task LigaChangeAsync(ChangeEventArgs e)
         {
+            string sCurrentliga = "";
             if (e.Value != null)
             {
-                Globals.currentLiga = e.Value.ToString();
+
                 Globals.LigaID = Convert.ToInt32(e.Value);
 
                 SaisonenList = new List<DisplaySaison>();
                 Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID).ToList();
 
+                if (Globals.LigaID == 1)
+                    sCurrentliga = "Bundesliga";
+                else if (Globals.LigaID == 2)
+                    sCurrentliga = "2-Bundesliga";
+                else if (Globals.LigaID == 3)
+                    sCurrentliga = "3-Liga";
+                else if (Globals.LigaID == 4)
+                    sCurrentliga = "premier-league";
+                else if (Globals.LigaID == 6)
+                    sCurrentliga = "serie-a";
+                else if (Globals.LigaID == 7)
+                    sCurrentliga = "ligue-1";
+                else if (Globals.LigaID == 8)
+                    sCurrentliga = "la-liga";
+
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
                     var columns = Saisonen.ElementAt(i);
+                    Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
+                    Globals.currentLigaUrl = sCurrentliga;
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
@@ -204,8 +229,8 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2023_FR.csv";
+
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1994_FR.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -235,7 +260,7 @@ namespace LigaManagement.Web.Pages
                         string[] fields = line.Split(',');
                         DataRow importedRow = importedData.NewRow();
 
-                        for (int i = 0; i < 10; i++)
+                        for (int i = 0; i < 7; i++)
                         {
                             if (i == 160)
                                 Debug.Print(i + ": " + fields[i]);
@@ -271,15 +296,15 @@ namespace LigaManagement.Web.Pages
                 }
                 else if (Globals.LigaID == 6)
                 {
-                    VereineAUS = await VereineAusService.GetVereineIT();
+                    VereineAUS = await VereineServiceIT.GetVereine();
                 }
                 else if (Globals.LigaID == 7)
                 {
-                    VereineAUS = await VereineAusService.GetVereineFR();
+                    VereineAUS = await VereineServiceFR.GetVereine();
                 }
                 else if (Globals.LigaID == 8)
                 {
-                    VereineAUS = await VereineAusService.GetVereineES();
+                    VereineAUS = await VereineServiceES.GetVereine();
                 }
 
 
@@ -289,10 +314,10 @@ namespace LigaManagement.Web.Pages
                     int spieltag = 1;
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
-                    {                        
+                    {
                         SqlCommand cmd = new SqlCommand("INSERT INTO spieltageFR(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2023/24");
+                        cmd.Parameters.AddWithValue("@Saison", "1994/95");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -322,27 +347,27 @@ namespace LigaManagement.Web.Pages
                         //if (!string.IsNullOrEmpty(importRow["Attendance"].ToString()))
                         //    cmd.Parameters.AddWithValue("@Zuschauer", int.Parse(importRow["Attendance"].ToString()));
                         //else
-                            cmd.Parameters.AddWithValue("@Zuschauer", iFassungsvermoegen);
+                        cmd.Parameters.AddWithValue("@Zuschauer", iFassungsvermoegen);
 
                         //if (importRow["Referee"] != null)
                         //    cmd.Parameters.AddWithValue("@Schiedrichter", importRow["Referee"].ToString());
                         //else
-                             cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
+                        cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 170);
-                        cmd.Parameters.AddWithValue("@LigaID", 2);
+                        cmd.Parameters.AddWithValue("@SaisonID", 199);
+                        cmd.Parameters.AddWithValue("@LigaID", 7);
 
-                        string time = importRow["Time"].ToString();
+                        //string time = importRow["Time"].ToString();
 
                         DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
-                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(time.Substring(0,2)), Convert.ToInt32(time.Substring(3, 2)), 0);
+                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
 
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 9;
+                        int mod = i % 10;
 
                         if (mod == 0)
                             spieltag++;
@@ -380,7 +405,7 @@ namespace LigaManagement.Web.Pages
             Vereine = await VereineService.GetVereine();
             Spieltage = await SpieltagService.GetSpieltage();
 
-            Spieltage = Spieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Convert.ToInt32(Globals.currentLiga)).ToList();
+            Spieltage = Spieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
             for (int j = 0; j < Spieltage.Count(); j++)
             {
                 var columns = Spieltage.ElementAt(j);
@@ -427,21 +452,19 @@ namespace LigaManagement.Web.Pages
             else if (Globals.LigaID == 7)
             {
                 if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
-                    Globals.maxSpieltag = 42;
-                else
                     Globals.maxSpieltag = 38;
+                else
+                    Globals.maxSpieltag = 34;
             }
             else if (Globals.LigaID == 8)
             {
-                if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
+                if (Globals.currentSaison.StartsWith("1995") || Globals.currentSaison.StartsWith("1996"))
                     Globals.maxSpieltag = 42;
                 else
                     Globals.maxSpieltag = 38;
             }
 
             SpieltageRepository rep = new SpieltageRepository();
-
-            Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).SaisonID;
 
             bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
@@ -453,12 +476,13 @@ namespace LigaManagement.Web.Pages
             }
             else
             {
-                iAktSpieltag = rep.AktSpieltag(Globals.SaisonID);
+                iAktSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
                 Globals.Spieltag = iAktSpieltag;
             }
 
             Globals.bVisibleNavMenuElements = true;
-            NavigationManager.NavigateTo($"spieltage/{iAktSpieltag}", true);
+
+            NavigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{iAktSpieltag}", true);
         }
 
         public void CreateDatabaseIfNotExists(string connectionString, string dbName)

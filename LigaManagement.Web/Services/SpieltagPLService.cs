@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class SpieltagPLService : ISpieltagPLService
+    public class SpieltagPLService : ISpieltagePLService
 
     {
         private readonly HttpClient httpClient;
@@ -74,7 +74,7 @@ namespace LigaManagerManagement.Web.Services
         {
             await httpClient.DeleteAsync($"api/spieltagePL/{id}");
         }
-     
+
     }
 
 

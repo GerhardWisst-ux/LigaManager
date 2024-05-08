@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Services.Contracts
 {
-    public interface IVereineESService
+    public interface IVereineFRService
     {
         Task<IEnumerable<VereinAUS>> GetVereine();
         Task<VereinAUS> GetVerein(int id);        

@@ -87,7 +87,7 @@ namespace LigaManagerManagement.Web.Pages
                 LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Liganame));
             }
 
-            var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
+            var liga = (await LigaService.GetLiga(Globals.LigaID));
             Liganame = liga.Liganame;
 
             SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);

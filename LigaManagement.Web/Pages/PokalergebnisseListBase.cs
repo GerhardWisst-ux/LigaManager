@@ -69,9 +69,9 @@ namespace LigaManagement.Web.Pages
 
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
-                    string returnUrl = WebUtility.UrlEncode($"/pokalergebnisse");
+                    string returnUrl = WebUtility.UrlEncode($"/");
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-                }            
+                }
 
                 SaisonenList = new List<DisplaySaison>();
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();

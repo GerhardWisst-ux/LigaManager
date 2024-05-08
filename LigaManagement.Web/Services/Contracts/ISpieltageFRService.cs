@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Services.Contracts
 {
-    public interface ISpieltagFRService
+    public interface ISpieltageFRService
     {
         Task<IEnumerable<Spieltag>> GetSpieltage();
         Task<IEnumerable<Spielergebnisse>> GetSpielergebnisse();

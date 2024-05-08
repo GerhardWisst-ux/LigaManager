@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Models
 {
-    public class SaisonenRepository : ISaisonRepository
+    public class SaisonenRepository : ISaisonenRepository
     {       
         public async Task<Saison> AddSaison(Saison saison)
         {

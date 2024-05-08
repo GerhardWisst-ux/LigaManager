@@ -1,4 +1,4 @@
-﻿@page "/spieltage/{SpieltagNr}"
+﻿@page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
 @inject DialogService DialogService
 @attribute [Authorize]
@@ -76,7 +76,7 @@ else
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2>@Liganame @Ligamanager.Components.Globals.currentSaison @SpieltagNr.ToString() .Spieltag</h2>
+                            <h2>@Liganame @SpieltagNr.ToString() .Spieltag</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -87,15 +87,18 @@ else
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                     <select id="cboSpieltage" data-toggle="tooltip" title="Spieltag auswählen" style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
                         <option value="0" selected="selected">Spieltag auswählen</option>
-                        @foreach (var spieltag in SpieltagList)
+                        if (@SpieltagList != null)
                         {
-                            @if (spieltag.Nummer == @SpieltagNr)
+                            @foreach (var spieltag in SpieltagList)
                             {
-                                <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
-                            } 
-                            else
-                            {
-                                <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                                @if (spieltag.Nummer == @SpieltagNr)
+                                {
+                                    <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                                }
                             }
                         }
                     </select>
@@ -103,12 +106,12 @@ else
                         @if (VisibleBtnNew)
                         {
                             <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
-                          
+
                         }
                         else
                         {
                             <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
-                           
+
                         }
                     </span>
                 </div>
@@ -162,12 +165,12 @@ else
                                 </Template>
                             </RadzenDataGridColumn>
                             @* <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
-                                <Template Context="data">
-                                    <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
-                                </Template>
-                            </RadzenDataGridColumn> *@
+                        <Template Context="data">
+                        <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
+                        </Template>
+                        </RadzenDataGridColumn> *@
                         </Columns>
-                    </RadzenDataGrid>                 
+                    </RadzenDataGrid>
                     <div class="row">
                         <div class="col-md-1">
                             <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="Voriger Spieltag" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>

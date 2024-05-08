@@ -41,16 +41,31 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-            services.AddHttpClient<IVereinePLService, VereineServicePL>(client =>
+            services.AddHttpClient<IVereinePLService, VereinePLService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-          
+            services.AddHttpClient<IVereineITService, VereineITService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });           
+
+            services.AddHttpClient<IVereineFRService, VereineFRService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<IVereineESService, VereineESService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
             services.AddHttpClient<IVereineAusService, VereineAUSService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+
 
             services.AddHttpClient<ISaisonenService, SaisonenService>(client =>
             {
@@ -64,26 +79,33 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
-            services.AddHttpClient<ISpieltagPLService, SpieltagPLService>(client =>
+
+            services.AddHttpClient<ISpieltagePLService, SpieltagPLService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-            services.AddHttpClient<ISpieltagFRService, SpieltagFRService>(client =>
+            services.AddHttpClient<ISpieltageENService, SpieltagENService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<ISpieltageITService, SpieltagITService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<ISpieltageFRService, SpieltagFRService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<ISpieltageESService, SpieltagESService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
             services.AddHttpClient<ISpieltagAusService, SpieltagAusService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-            services.AddHttpClient<ISpieltagESService, SpieltagESService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
-            services.AddHttpClient<ISpieltagITService, SpieltagITService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });

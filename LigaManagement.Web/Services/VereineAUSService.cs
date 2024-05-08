@@ -49,7 +49,12 @@ namespace LigaManagerManagement.Web.Services
             throw new NotImplementedException();
         }
 
-      
+        public async Task<IEnumerable<VereinAUS>> GetVereinePL()
+        {
+            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereinePL");
+        }
+
+
         public async Task<IEnumerable<VereinAUS>> GetVereineES()
         {
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineES");
@@ -97,6 +102,6 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PutJsonAsync<VereinAUS>("api/VereineAus", updatedVerein);
         }
 
-      
+       
     }
 }

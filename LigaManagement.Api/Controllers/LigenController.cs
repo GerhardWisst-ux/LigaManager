@@ -11,9 +11,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class LigenController : ControllerBase
     {
-        private readonly ILigaRepository ligaRepository;
+        private readonly ILigenRepository ligaRepository;
 
-        public LigenController(ILigaRepository ligaRepository)
+        public LigenController(ILigenRepository ligaRepository)
         {
             this.ligaRepository = ligaRepository;
         }

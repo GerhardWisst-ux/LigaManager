@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class SpieltagePLRepository : ISpieltagITRepository
+    public class SpieltagePLRepository : ISpieltagPLRepository
     {
         public async Task<Spieltag> AddSpieltag(Spieltag spieltag)
         {

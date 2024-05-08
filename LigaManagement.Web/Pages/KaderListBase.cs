@@ -59,7 +59,7 @@ namespace LigaManagerManagement.Web.Pages
 
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/kader");
+                string returnUrl = WebUtility.UrlEncode($"/");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 

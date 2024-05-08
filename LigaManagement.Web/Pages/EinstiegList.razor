@@ -44,7 +44,7 @@
                                 {
                                     @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
                                     {
-                                        @if (liga.LigaID == Convert.ToInt32(Globals.currentLiga))
+                                        @if (liga.Liganame == Globals.currentLiga)
                                         {
                                             <option selected value="@liga.LigaID"> @liga.Liganame </option>
                                         }
@@ -55,7 +55,7 @@
                                     }
                                 }
                             </select>
-                            <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                            <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
                         </div>
                         <div class="dropdown" style="display:inline">
                             <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
@@ -76,7 +76,7 @@
                                     }
                                 }
                             </select>
-                            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                            <label for="cboSaison" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
                         </div>
                         <div class="dropdown" style="display:inline">
                             <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
@@ -94,7 +94,7 @@
                         <div class="col-sm-6">
                             <div class="custom-file mb-3">
                                 <input type="file" class="custom-file-input" id="customFile" name="filename">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <label class="custom-file-label" for="customFile">Datei wählen file</label>
                             </div>
 
                             <p>Default file:</p>

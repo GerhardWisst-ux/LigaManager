@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class SpieltagESService : ISpieltagESService
+    public class SpieltagESService : ISpieltageESService
 
     {
         private readonly HttpClient httpClient;

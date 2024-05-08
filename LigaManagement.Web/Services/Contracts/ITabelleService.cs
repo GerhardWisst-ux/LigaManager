@@ -24,10 +24,10 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<List<int?>> CreateChart(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
-        Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltagPLService spieltagService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereine, int count, string currentSaison, int ligaID, int tabart);
+        Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltageENService spieltagENService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereine, int count, string currentSaison, int ligaID, int tabart);
         Task<IEnumerable<Tabelle>> BerechneTabelleAus(ISpieltagAusService spieltagService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereine, int count, string currentSaison, int ligaID, int tabart);
-        Task<IEnumerable<Tabelle>> BerechneTabelleIT(ISpieltagAusService spieltagPLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
-        Task<IEnumerable<Tabelle>> BerechneTabelleFR(ISpieltagFRService spieltagPLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
-        Task<IEnumerable<Tabelle>> BerechneTabelleES(ISpieltagESService spieltagPLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+        Task<IEnumerable<Tabelle>> BerechneTabelleIT(ISpieltageITService spieltagITService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+        Task<IEnumerable<Tabelle>> BerechneTabelleFR(ISpieltageFRService spieltagFRService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+        Task<IEnumerable<Tabelle>> BerechneTabelleES(ISpieltageESService spieltagESService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
     }
 }

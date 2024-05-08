@@ -7,13 +7,14 @@ namespace LigaManagement.Web.Services.Contracts
 {
     public interface IVereineAusService
     {
+        Task<IEnumerable<VereinAUS>> GetVereinePL();
         Task<IEnumerable<VereinAUS>> GetVereineIT();
         Task<IEnumerable<VereinAUS>> GetVereineFR();
         Task<IEnumerable<VereinAUS>> GetVereineES();
         Task<VereinAUS> GetVereinPL(int id);        
-        Task<VereinAUS> GetVereinFR(int id);
-        Task<VereinAUS> GetVereinES(int id);
+        Task<VereinAUS> GetVereinFR(int id);        
         Task<VereinAUS> GetVereinIT(int id);
+        Task<VereinAUS> GetVereinES(int id);
         Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein);
         Task<VereinAUS> CreateVerein(VereinAUS newVerein);
         Task DeleteVerein(int id);

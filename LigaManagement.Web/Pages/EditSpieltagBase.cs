@@ -47,19 +47,19 @@ namespace LigamanagerManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
-        public ISpieltagPLService SpieltagPLService { get; set; }
+        public ISpieltagePLService SpieltagPLService { get; set; }
 
         [Inject]
-        public ISpieltagITService SpieltagITService { get; set; }
+        public ISpieltageITService SpieltagITService { get; set; }
 
         [Inject]
         public ISpieltagAusService SpieltagAusService { get; set; }
 
         [Inject]
-        public ISpieltagESService SpieltagESService { get; set; }
+        public ISpieltageESService SpieltagESService { get; set; }
 
         [Inject]
-        public ISpieltagFRService SpieltagFRService { get; set; }
+        public ISpieltageFRService SpieltagFRService { get; set; }
 
         [Inject]
         public IToreService ToreService { get; set; }
@@ -212,7 +212,7 @@ namespace LigamanagerManagement.Web.Pages
 
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID ==8)
+                else if (Globals.LigaID == 8)
                 {
                     if (Id != null)
                         Spiel = await SpieltagESService.GetSpieltag(Convert.ToInt32(Id));

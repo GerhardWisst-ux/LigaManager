@@ -10,19 +10,19 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class VereinePLService : IVereinePLService
+    public class VereineFRService : IVereineFRService
 
     {
         private readonly HttpClient httpClient;
 
-        public VereinePLService(HttpClient httpClient)
+        public VereineFRService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
         public async Task<VereinAUS> CreateVerein(VereinAUS newVerein)
         {
-            return await httpClient.PostJsonAsync<VereinAUS>("api/vereinePL", newVerein);
+            return await httpClient.PostJsonAsync<VereinAUS>("api/vereine", newVerein);
         }
 
         
@@ -52,21 +52,12 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<VereinAUS> GetVerein(int Id)
         {
-            return await httpClient.GetJsonAsync<VereinAUS>($"api/vereinePL/{Id}");
+            return await httpClient.GetJsonAsync<VereinAUS>($"api/vereineFR/{Id}");
         }      
 
         public async Task<IEnumerable<VereinAUS>> GetVereine()
         {
-            try
-            {
-                return await httpClient.GetJsonAsync<VereinAUS[]>("api/vereinePL");
-            }
-           catch (Exception ex)
-            {
-
-                Debug.Print(ex.Message);
-                return null;
-            }
+            return await httpClient.GetJsonAsync<VereinAUS[]>("api/vereineFR");
         }              
 
         public async Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison()
@@ -76,7 +67,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein)
         {
-            return await httpClient.PutJsonAsync<VereinAUS>("api/vereinePL", updatedVerein);
+            return await httpClient.PutJsonAsync<VereinAUS>("api/vereineFR", updatedVerein);
         }
 
       

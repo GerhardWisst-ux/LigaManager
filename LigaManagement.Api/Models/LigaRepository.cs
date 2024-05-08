@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class LigaRepository : ILigaRepository
+    public class LigaRepository : ILigenRepository
     {       
 
         public async Task<Liga> AddLiga(Liga liga)

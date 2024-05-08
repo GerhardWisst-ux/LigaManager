@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class SpieltageITRepository : ISpieltageITRepository
+    public class SpieltageENRepository : ISpieltageENRepository
     {
         public async Task<Spieltag> AddSpieltag(Spieltag spieltag)
         {
@@ -20,7 +20,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO SpieltageIT ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
+                cmd.CommandText = "INSERT INTO SpieltagePL ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
                     " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
 
                 cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);
@@ -83,7 +83,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltagIT] WHERE SpieltagId =" + spieltagId, conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltagePL] WHERE SpieltagId =" + spieltagId, conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -133,7 +133,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageIT] ", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltagePL] ", conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -182,7 +182,7 @@ namespace LigaManagerManagement.Api.Models
             SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
-            SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageIT] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "'", conn);
+            SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "'", conn);
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
@@ -219,7 +219,7 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bAbgeschlossen = -1;
 
-                cmd.CommandText = "UPDATE [dbo].[SpieltageIT] SET " +
+                cmd.CommandText = "UPDATE [dbo].[SpieltagePL] SET " +
                         " [SpieltagNr] = " + spieltag.SpieltagNr +
                         ",[Saison] = '" + spieltag.Saison + "'" +
                         ",[SaisonID] = " + spieltag.SaisonID +

@@ -1,6 +1,5 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Api.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +10,11 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpieltagePLController : ControllerBase
+    public class SpieltageENController : ControllerBase
     {
-        private readonly ISpieltagITRepository SpieltagPLRepository;
+        private readonly ISpieltageENRepository SpieltagPLRepository;
 
-        public SpieltagePLController(ISpieltagITRepository SpieltagPLRepository)
+        public SpieltageENController(ISpieltageENRepository SpieltagPLRepository)
         {
             this.SpieltagPLRepository = SpieltagPLRepository;
         }

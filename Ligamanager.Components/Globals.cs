@@ -5,6 +5,7 @@ namespace Ligamanager.Components
 {
     public class Globals
     {
+        public static string currentLigaUrl;
         public static string connstring = "Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true;";
 
         public static string currentSaison;
