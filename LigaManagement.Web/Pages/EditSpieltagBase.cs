@@ -47,7 +47,7 @@ namespace LigamanagerManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
-        public ISpieltagePLService SpieltagPLService { get; set; }
+        public ISpieltageENService SpieltagENService { get; set; }
 
         [Inject]
         public ISpieltageITService SpieltagITService { get; set; }

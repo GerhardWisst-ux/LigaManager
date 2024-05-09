@@ -39,7 +39,8 @@ namespace LigaManagement.Api
             services.AddScoped<IVereinePLRepository, VereinPLRepository>();            
             services.AddScoped<IVereineFRRepository, VereinFRRepository>();
             services.AddScoped<IVereineESRepository, VereinESRepository>();
-            
+            services.AddScoped<IVereineNLRepository, VereinNLRepository>();
+
             services.AddScoped<ITabelleRepository, TabelleRepository>();
             
             services.AddScoped<ISaisonenRepository, SaisonenRepository>();
