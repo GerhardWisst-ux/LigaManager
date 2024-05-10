@@ -866,3 +866,17 @@ StackTrace:    at System.Number.ThrowOverflowOrFormatException(ParsingStatus sta
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 355
 Date/Time: 08.05.2024 17:31:27
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 275
+Date/Time: 09.05.2024 20:51:04
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\SpieltageListBase.cs:line 275
+Date/Time: 09.05.2024 20:51:05
+============================================

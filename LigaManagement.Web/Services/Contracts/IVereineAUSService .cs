@@ -11,6 +11,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<VereinAUS>> GetVereineIT();
         Task<IEnumerable<VereinAUS>> GetVereineFR();
         Task<IEnumerable<VereinAUS>> GetVereineES();
+        Task<IEnumerable<VereinAUS>> GetVereineNL();
         Task<VereinAUS> GetVereinPL(int id);        
         Task<VereinAUS> GetVereinFR(int id);        
         Task<VereinAUS> GetVereinIT(int id);

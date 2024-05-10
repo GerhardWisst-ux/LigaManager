@@ -28,11 +28,11 @@ namespace LigaManagement.Api
             //            options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
                        
             services.AddScoped<ISpieltagRepository, SpieltageRepository>();
-            services.AddScoped<ISpieltageITRepository, SpieltageITRepository>();
-            services.AddScoped<ISpieltageITRepository, SpieltageITRepository>();
+            services.AddScoped<ISpieltageITRepository, SpieltageITRepository>();            
             services.AddScoped<ISpieltageFRRepository, SpieltageFRRepository>();            
             services.AddScoped<ISpieltageESRepository, SpieltageESRepository>();
             services.AddScoped<ISpieltageENRepository, SpieltageENRepository>();
+            services.AddScoped<ISpieltageNLRepository, SpieltageNLRepository>();
 
             services.AddScoped<IVereinRepository, VereinRepository>();
             services.AddScoped<IVereineITRepository, VereinITRepository>();
