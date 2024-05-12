@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -72,6 +73,8 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public IVereineNLService VereineServiceNL { get; set; }
+        [Inject]
+        public IVereinePTService VereineServicePT { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -199,13 +202,20 @@ namespace LigaManagement.Web.Pages
                     sCurrentliga = "la-liga";
                 else if (Globals.LigaID == 9)
                     sCurrentliga = "Eredivisie";
+                else if (Globals.LigaID == 10)
+                    sCurrentliga = "primeira-liga";
 
-                for (int i = 0; i < Saisonen.Count(); i++)
+                if (Globals.LigaID == 0)
+                    SaisonenList.Clear();
+                else
                 {
-                    var columns = Saisonen.ElementAt(i);
-                    Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
-                    Globals.currentLigaUrl = sCurrentliga;
-                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                    for (int i = 0; i < Saisonen.Count(); i++)
+                    {
+                        var columns = Saisonen.ElementAt(i);
+                        Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
+                        Globals.currentLigaUrl = sCurrentliga;
+                        SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                    }
                 }
 
                 StateHasChanged();
@@ -236,8 +246,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1993_NL.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1994_PT.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -317,6 +326,10 @@ namespace LigaManagement.Web.Pages
                 {
                     VereineAUS = await VereineServiceNL.GetVereine();
                 }
+                else if (Globals.LigaID == 10)
+                {
+                    VereineAUS = await VereineServicePT.GetVereine();
+                }
 
 
 
@@ -327,9 +340,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageNL(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltagePT(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "1993/94");
+                        cmd.Parameters.AddWithValue("@Saison", "1994/95");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -366,20 +379,26 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 262);
-                        cmd.Parameters.AddWithValue("@LigaID", 9);
+                        cmd.Parameters.AddWithValue("@SaisonID", 292);
+                        cmd.Parameters.AddWithValue("@LigaID", 10);
 
-                       // string time = importRow["Time"].ToString();
+                        // string time = importRow["Time"].ToString();
 
                         DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
 
+                        //string time = importRow["Time"].ToString();
+
+                        //DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
+                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
+                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)), 0);
+
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 9;
+                        int mod = i % 8;
 
                         if (mod == 0)
                             spieltag++;
@@ -478,6 +497,13 @@ namespace LigaManagement.Web.Pages
             else if (Globals.LigaID == 9)
             {
                 Globals.maxSpieltag = 34;
+            }
+            else if (Globals.LigaID == 10)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2013)
+                    Globals.maxSpieltag = 34;
+                else
+                    Globals.maxSpieltag = 30;
             }
 
             SpieltageRepository rep = new SpieltageRepository();
