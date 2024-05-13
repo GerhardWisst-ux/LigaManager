@@ -370,7 +370,7 @@
     private async Task LoadSpiel()
     {
         IsLoading = true;
-        
+
         // if (Globals.LigaID < 4)
         //     Spiel = await _SpieltagService.GetSpieltag(Convert.ToInt32(Id));
         // else if (Globals.LigaID == 4)
@@ -397,13 +397,44 @@
         Spiel.SpieltagNr = SpieltagNr;
         Spiel.LigaID = Convert.ToInt32(Globals.LigaID);
 
+
+        if ((Spiel.Verein1_Nr == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 1 nicht angegeben" });
+            return;
+        }
+
+        if ((Spiel.Tore1_Nr == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 1 nicht angegeben" });
+            return;
+        }
+
+        if ((Spiel.Tore2_Nr == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 2 nicht angegeben" });
+            return;
+        }
+
+        if ((Spiel.Verein2_Nr == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 2 nicht angegeben" });
+            return;
+        }
+
+        if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht angegeben" });
+            return;
+        }
+        if ((SpielDateTime.Hour.ToString() == "0"))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Zeit nicht angegeben" });
+            return;
+        }
+
         if (Id == "0")
         {
-            if ((Spiel.Verein1_Nr == null) || (Spiel.Verein2_Nr == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null) || (Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
-            {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Spieltag", Detail = "Fehler beim Abspeichern" });
-            }
-
             Spiel.Datum = SpielDateTime;
 
             if (Globals.LigaID < 4)
@@ -422,17 +453,12 @@
                 spieltag = await _SpieltagPTService.CreateSpieltag(Spiel);
             else if (Globals.LigaID == 11)
                 spieltag = await _SpieltagTUService.CreateSpieltag(Spiel);
-            
+
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Spieltag", Detail = "Abgespeichert" });
         }
         else
         {
-            if ((Spiel.Verein1_Nr == null) || (Spiel.Verein2_Nr == null) || (Spiel.Tore1_Nr == null) || (Spiel.Tore2_Nr == null) || (Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
-            {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Fehler beim Abspeichern" });
-            }
-
             //update
             if (Globals.LigaID < 4)
                 spieltag = await _SpieltagService.UpdateSpieltag(Spiel);
@@ -450,7 +476,7 @@
                 spieltag = await _SpieltagPTService.UpdateSpieltag(Spiel);
             else if (Globals.LigaID == 11)
                 spieltag = await _SpieltagTUService.UpdateSpieltag(Spiel);
-            
+
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
         }

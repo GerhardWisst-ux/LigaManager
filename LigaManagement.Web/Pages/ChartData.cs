@@ -24,7 +24,7 @@ namespace LigaManagement.Web.Pages
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
 
-                string selectSQL = "SELECT [ChartDataId],[Spiele],[Punkte] FROM [dbo].[CHARTDATA] where saisonID = " + Globals.SaisonID + "AND LigaID = " + Globals.LigaID
+                string selectSQL = "SELECT [ChartDataId],[Spiele],[Punkte] FROM [dbo].[CHARTDATA] where saisonID = " + Globals.SaisonID + " AND LigaID = " + Globals.LigaID
                                     + " and VereinNr = " + vereinsnr;
 
                 conn.Open(); SqlCommand cmd = new SqlCommand(selectSQL, conn);

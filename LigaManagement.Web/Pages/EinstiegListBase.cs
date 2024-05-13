@@ -29,6 +29,10 @@ namespace LigaManagement.Web.Pages
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
+        protected string DisplayErrorLand = "none";
+        protected bool isDropdownDisabledLiga = true;
+        protected bool isDropdownDisabledSaison = true;
+
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
 
@@ -123,8 +127,11 @@ namespace LigaManagement.Web.Pages
                 Globals.currentLiga = "";
                 Globals.LandID = 0;
                 Globals.LigaID = 0;
+                isDropdownDisabledLiga = true;
+                isDropdownDisabledLiga = true;
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";
+                DisplayErrorLand = "none";
             }
             catch (Exception ex)
             {
@@ -198,6 +205,8 @@ namespace LigaManagement.Web.Pages
                     LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
                 }
 
+                isDropdownDisabledLiga = false;
+                
                 StateHasChanged();
             }
         }
@@ -239,7 +248,10 @@ namespace LigaManagement.Web.Pages
                         sCurrentliga = "sueper-lig";
 
                     if (Globals.LigaID == 0)
+                    {
                         SaisonenList.Clear();
+                        isDropdownDisabledLiga = false;
+                    }                        
                     else
                     {
                         for (int i = 0; i < Saisonen.Count(); i++)
@@ -249,7 +261,9 @@ namespace LigaManagement.Web.Pages
                             Globals.currentLigaUrl = sCurrentliga;
                             SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                         }
-                    }
+
+                        isDropdownDisabledLiga = false;
+                    }                    
 
                     StateHasChanged();
                 }
@@ -285,7 +299,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2006_TU.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2009_TU.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -375,7 +389,6 @@ namespace LigaManagement.Web.Pages
                 }
 
 
-
                 using (SqlConnection conn = new SqlConnection(Globals.connstring))
                 {
                     int i = 1;
@@ -385,7 +398,7 @@ namespace LigaManagement.Web.Pages
                     {
                         SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2006/07");
+                        cmd.Parameters.AddWithValue("@Saison", "2009/10");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -422,7 +435,7 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 310);
+                        cmd.Parameters.AddWithValue("@SaisonID", 307);
                         cmd.Parameters.AddWithValue("@LigaID", 11);
 
                         // string time = importRow["Time"].ToString();
@@ -461,17 +474,23 @@ namespace LigaManagement.Web.Pages
 
         public async void OnClickHandler()
         {
-            if (Globals.currentSaison == null)
-                DisplayErrorSaison = "block";
+            if (Globals.LandID == 0)
+                DisplayErrorLand = "block";
             else
-                DisplayErrorSaison = "none";
+                DisplayErrorLand = "none";
 
-            if (Globals.currentLiga == null)
+            if (Globals.currentLiga == "")
                 DisplayErrorLiga = "block";
             else
                 DisplayErrorLiga = "none";
 
-            if (Globals.currentSaison == null || Globals.currentLiga == null)
+            if (Globals.currentSaison == null)
+                DisplayErrorSaison = "block";
+            else
+                DisplayErrorSaison = "none";
+         
+
+            if (Globals.currentSaison == null || Globals.currentLiga == null || Globals.LandID == 0)
             {
                 return;
             }
