@@ -17,7 +17,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Tabelle> CreateTabelle(Tabelle newTabelle);
         Task DeleteTabelle(int? id);
         Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);
-        Task<IEnumerable<Tabelle>> BerechneTabelle(ISpieltagService spieltagService, bool Abgeschlossen, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison,int LigaId, int tabart);
+        Task<IEnumerable<Tabelle>> BerechneTabelleDE(ISpieltagService spieltagService, bool Abgeschlossen, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison,int LigaId, int tabart);
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, string currentSaison, int ewigeTabelle);
@@ -31,5 +31,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelleES(ISpieltageESService spieltagESService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabelleNL(ISpieltageNLService spieltagNLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabellePT(ISpieltagePTService spieltagNLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+        Task<IEnumerable<Tabelle>> BerechneTabelleTU(ISpieltageTUService spieltagTUService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
     }
 }

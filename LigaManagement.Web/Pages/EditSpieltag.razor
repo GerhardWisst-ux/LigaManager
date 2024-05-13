@@ -8,6 +8,9 @@
 @inject LigaManagement.Web.Services.Contracts.ISpieltageITService _SpieltagITService
 @inject LigaManagement.Web.Services.Contracts.ISpieltageFRService _SpieltagFRService
 @inject LigaManagement.Web.Services.Contracts.ISpieltageESService _SpieltagESService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageNLService _SpieltagNLService
+@inject LigaManagement.Web.Services.Contracts.ISpieltagePTService _SpieltagPTService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageTUService _SpieltagTUService
 
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
@@ -392,7 +395,7 @@
         Spiel.Saison = Globals.currentSaison;
         Spiel.SaisonID = Globals.SaisonID;
         Spiel.SpieltagNr = SpieltagNr;
-        Spiel.LigaID = Convert.ToInt32(Ligamanager.Components.Globals.currentLiga);
+        Spiel.LigaID = Convert.ToInt32(Globals.LigaID);
 
         if (Id == "0")
         {
@@ -413,6 +416,12 @@
                 spieltag = await _SpieltagFRService.CreateSpieltag(Spiel);
             else if (Globals.LigaID == 8)
                 spieltag = await _SpieltagESService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 9)
+                spieltag = await _SpieltagNLService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 10)
+                spieltag = await _SpieltagPTService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 11)
+                spieltag = await _SpieltagTUService.CreateSpieltag(Spiel);
             
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Spieltag", Detail = "Abgespeichert" });
@@ -435,6 +444,12 @@
                 spieltag = await _SpieltagFRService.UpdateSpieltag(Spiel);
             else if (Globals.LigaID == 8)
                 spieltag = await _SpieltagESService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 9)
+                spieltag = await _SpieltagNLService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 10)
+                spieltag = await _SpieltagPTService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 11)
+                spieltag = await _SpieltagTUService.UpdateSpieltag(Spiel);
             
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });

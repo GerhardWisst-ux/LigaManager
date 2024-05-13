@@ -13,6 +13,8 @@ namespace LigaManagerManagement.Models
 
         [Required]
         public int LigaID { get; set; }
+                
+        public int LandID { get; set; }
 
         [Required]
         public string Liganame { get; set; }

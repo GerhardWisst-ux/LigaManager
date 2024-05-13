@@ -31,8 +31,10 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorSaison = "none";
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
-        public int SaisonID;
+
+        public int LandID;
         public int LigaID;
+        public int SaisonID;
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -48,6 +50,8 @@ namespace LigaManagement.Web.Pages
         public List<DisplaySaison> SaisonenList;
 
         public List<DisplayLiga> LigenList;
+
+        public List<DisplayLaender> LaenderList;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -73,8 +77,12 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public IVereineNLService VereineServiceNL { get; set; }
+
         [Inject]
         public IVereinePTService VereineServicePT { get; set; }
+
+        [Inject]
+        public IVereineTUService VereineServiceTU { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -82,39 +90,39 @@ namespace LigaManagement.Web.Pages
         [Inject]
         public ILigaService LigaService { get; set; }
 
+        [Inject]
+        public ILandService LaenderService { get; set; }
+
         public IEnumerable<Saison> Saisonen { get; set; }
 
         public IEnumerable<Liga> Ligen { get; set; }
+
+        public IEnumerable<Land> Laender { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
         protected override async Task OnInitializedAsync()
         {
             try
             {
-                SaisonenList = new List<DisplaySaison>();
-                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
 
-                for (int i = 0; i < Saisonen.Count(); i++)
+                LaenderList = new List<DisplayLaender>();
+                Laender = (await LaenderService.GetLaender()).ToList();
+
+                for (int i = 0; i < Laender.Count(); i++)
                 {
-                    var columns = Saisonen.ElementAt(i);
-                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                    var columns = Laender.ElementAt(i);
+                    LaenderList.Add(new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername));
                 }
 
-                LigenList = new List<DisplayLiga>();
-                Ligen = (await LigaService.GetLigen()).ToList();
-
-                for (int i = 0; i < Ligen.Count(); i++)
-                {
-                    var columns = Ligen.ElementAt(i);
-                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Liganame));
-                }
-
+             
                 if (Globals.SaisonID == 0)
                     Globals.bVisibleNavMenuElements = false;
                 else
                     Globals.bVisibleNavMenuElements = true;
 
                 Globals.currentLiga = "";
+                Globals.LandID = 0;
+                Globals.LigaID = 0;
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";
             }
@@ -173,52 +181,83 @@ namespace LigaManagement.Web.Pages
             }
         }
 
-        public async Task LigaChangeAsync(ChangeEventArgs e)
+        public async Task LandChangeAsync(ChangeEventArgs e)
         {
             string sCurrentliga = "";
             if (e.Value != null)
             {
 
-                Globals.LigaID = Convert.ToInt32(e.Value);
+                Globals.LandID = Convert.ToInt32(e.Value);
 
-                SaisonenList = new List<DisplaySaison>();
-                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID).ToList();
+                LigenList = new List<DisplayLiga>();
+                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID);
 
-                if (Globals.LigaID == 1)
-                    sCurrentliga = "Bundesliga";
-                else if (Globals.LigaID == 2)
-                    sCurrentliga = "2-Bundesliga";
-                else if (Globals.LigaID == 3)
-                    sCurrentliga = "3-Liga";
-                else if (Globals.LigaID == 4)
-                    sCurrentliga = "premier-league";
-                else if (Globals.LigaID == 6)
-                    sCurrentliga = "serie-a";
-                else if (Globals.LigaID == 7)
-                    sCurrentliga = "ligue-1";
-                else if (Globals.LigaID == 8)
-                    sCurrentliga = "la-liga";
-                else if (Globals.LigaID == 8)
-                    sCurrentliga = "la-liga";
-                else if (Globals.LigaID == 9)
-                    sCurrentliga = "Eredivisie";
-                else if (Globals.LigaID == 10)
-                    sCurrentliga = "primeira-liga";
-
-                if (Globals.LigaID == 0)
-                    SaisonenList.Clear();
-                else
+                for (int i = 0; i < Ligen.Count(); i++)
                 {
-                    for (int i = 0; i < Saisonen.Count(); i++)
-                    {
-                        var columns = Saisonen.ElementAt(i);
-                        Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
-                        Globals.currentLigaUrl = sCurrentliga;
-                        SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
-                    }
+                    var columns = Ligen.ElementAt(i);
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
                 }
 
                 StateHasChanged();
+            }
+        }
+
+        public async Task LigaChangeAsync(ChangeEventArgs e)
+        {
+            try
+            {
+                string sCurrentliga = "";
+                if (e.Value != null)
+                {
+
+                    Globals.LigaID = Convert.ToInt32(e.Value);
+
+                    SaisonenList = new List<DisplaySaison>();
+                    Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
+
+                    if (Globals.LigaID == 1)
+                        sCurrentliga = "Bundesliga";
+                    else if (Globals.LigaID == 2)
+                        sCurrentliga = "2-Bundesliga";
+                    else if (Globals.LigaID == 3)
+                        sCurrentliga = "3-Liga";
+                    else if (Globals.LigaID == 4)
+                        sCurrentliga = "premier-league";
+                    else if (Globals.LigaID == 6)
+                        sCurrentliga = "serie-a";
+                    else if (Globals.LigaID == 7)
+                        sCurrentliga = "ligue-1";
+                    else if (Globals.LigaID == 8)
+                        sCurrentliga = "la-liga";
+                    else if (Globals.LigaID == 8)
+                        sCurrentliga = "la-liga";
+                    else if (Globals.LigaID == 9)
+                        sCurrentliga = "Eredivisie";
+                    else if (Globals.LigaID == 10)
+                        sCurrentliga = "primeira-liga";
+                    else if (Globals.LigaID == 11)
+                        sCurrentliga = "sueper-lig";
+
+                    if (Globals.LigaID == 0)
+                        SaisonenList.Clear();
+                    else
+                    {
+                        for (int i = 0; i < Saisonen.Count(); i++)
+                        {
+                            var columns = Saisonen.ElementAt(i);
+                            Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
+                            Globals.currentLigaUrl = sCurrentliga;
+                            SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                        }
+                    }
+
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
             }
         }
 
@@ -246,7 +285,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1994_PT.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2006_TU.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -330,6 +369,10 @@ namespace LigaManagement.Web.Pages
                 {
                     VereineAUS = await VereineServicePT.GetVereine();
                 }
+                else if (Globals.LigaID == 11)
+                {
+                    VereineAUS = await VereineServiceTU.GetVereine();
+                }
 
 
 
@@ -340,9 +383,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltagePT(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "1994/95");
+                        cmd.Parameters.AddWithValue("@Saison", "2006/07");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -379,8 +422,8 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 292);
-                        cmd.Parameters.AddWithValue("@LigaID", 10);
+                        cmd.Parameters.AddWithValue("@SaisonID", 310);
+                        cmd.Parameters.AddWithValue("@LigaID", 11);
 
                         // string time = importRow["Time"].ToString();
 
@@ -388,17 +431,17 @@ namespace LigaManagement.Web.Pages
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
 
-                        //string time = importRow["Time"].ToString();
+                        ////string time = importRow["Time"].ToString();
 
                         //DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
                         //                        Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
-                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)), 0);
+                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
 
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 8;
+                        int mod = i % 9;
 
                         if (mod == 0)
                             spieltag++;
@@ -505,6 +548,13 @@ namespace LigaManagement.Web.Pages
                 else
                     Globals.maxSpieltag = 30;
             }
+            else if (Globals.LigaID == 11)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2019)
+                    Globals.maxSpieltag = 38;
+                else
+                    Globals.maxSpieltag = 34;
+            }
 
             SpieltageRepository rep = new SpieltageRepository();
 
@@ -609,7 +659,6 @@ namespace LigaManagement.Web.Pages
                             }
                         }
                     }
-                    //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Anlage Datenbank und Erzeugen Tabellen", Detail = "Angelegt" });
                 }
 
 
@@ -630,15 +679,31 @@ namespace LigaManagement.Web.Pages
         [Bind]
         public class DisplayLiga
         {
-            public DisplayLiga(bool aktiv, int ligaID, string liganame)
+            public DisplayLiga(bool aktiv, int ligaID, int landid, string liganame)
             {
                 Aktiv = aktiv;
                 LigaID = ligaID;
+                LandID = landid;
                 Liganame = liganame;
-            }
-            public bool Aktiv { get; set; }
+            }          
+            public int LandID { get; set; }
             public int LigaID { get; set; }
             public string Liganame { get; set; }
+            public bool Aktiv { get; set; }
+        }
+
+        [Bind]
+        public class DisplayLaender
+        {
+            public DisplayLaender(bool aktiv, int landID, string laendername)
+            {
+                Aktiv = aktiv;
+                LandID = landID;                
+                Laendername = laendername;
+            }
+            public bool Aktiv { get; set; }
+            public int LandID { get; set; }            
+            public string Laendername { get; set; }
         }
 
         [Bind]

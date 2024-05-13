@@ -33,10 +33,11 @@ namespace LigaManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, Saisonname,Liganame,Aktuell,Abgeschlossen)" +
-                    " VALUES(@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
+                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, LandID, Saisonname,Liganame,Aktuell,Abgeschlossen)" +
+                    " VALUES(@LigaID,@LandID, @Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
                                 
                 cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
+                cmd.Parameters.AddWithValue("@LandID", saison.LandID);
                 cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
                 cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
                 cmd.Parameters.AddWithValue("@Aktuell", bAktuell);
@@ -102,6 +103,7 @@ namespace LigaManagement.Api.Models
 
                         saison.SaisonID = (int)reader["saisonID"];
                         saison.LigaID = (int)reader["LigaID"];
+                        saison.LandID = (int)reader["landID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
@@ -143,6 +145,7 @@ namespace LigaManagement.Api.Models
                                                 
                         saison.SaisonID = (int)reader["saisonID"];                        
                         saison.LigaID = (int)reader["LigaID"];
+                        saison.LandID = (int)reader["LandID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
@@ -218,7 +221,7 @@ namespace LigaManagement.Api.Models
                     bAbgeschlossen = 1;
 
                 cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +                         
-                          " [Aktuell] =" + bAktuell +
+                          " [Aktuell] =" + bAktuell +                          
                           ",[Abgeschlossen] =" + bAbgeschlossen +
                           " WHERE  [SaisonID] = " + saison.SaisonID;
 

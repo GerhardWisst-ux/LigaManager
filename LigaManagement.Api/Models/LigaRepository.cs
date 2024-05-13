@@ -94,6 +94,7 @@ namespace LigaManagerManagement.Api.Models
                         liga = new Liga();
 
                         liga.Id = (int)reader["Id"];
+                        liga.LandID = (int)reader["LandID"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
@@ -134,6 +135,7 @@ namespace LigaManagerManagement.Api.Models
                         liga = new Liga();
 
                         liga.Id = int.Parse(reader["Id"].ToString());
+                        liga.LandID = (int)reader["LandID"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
@@ -183,7 +185,7 @@ namespace LigaManagerManagement.Api.Models
                     bAktiv = 1;
 
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
-                      "[Liganame] = '" + liga.Liganame + "'" +
+                       "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
                       ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
                       ",[Absteiger] =" + liga.Absteiger +

@@ -13,11 +13,13 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<VereinAUS>> GetVereineES();
         Task<IEnumerable<VereinAUS>> GetVereineNL();
         Task<IEnumerable<VereinAUS>> GetVereinePT();
+        Task<IEnumerable<VereinAUS>> GetVereineTU();
         Task<VereinAUS> GetVereinPL(int id);        
         Task<VereinAUS> GetVereinFR(int id);        
         Task<VereinAUS> GetVereinIT(int id);
         Task<VereinAUS> GetVereinES(int id);
         Task<VereinAUS> GetVereinNL(int id);
+        Task<VereinAUS> GetVereinTU(int id);
         Task<VereinAUS> GetVereinPT(int id);
         Task<VereinAUS> UpdateVerein(VereinAUS updatedVerein);
         Task<VereinAUS> CreateVerein(VereinAUS newVerein);

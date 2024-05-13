@@ -8,12 +8,16 @@ namespace Ligamanager.Components
         public static string currentLigaUrl;
         public static string connstring = "Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true;";
 
-        public static string currentSaison;
+        public static string currentLand;
         public static string currentLiga;
+        public static string currentSaison;
+        
         public static string currentPokalSaison;        
         public static int Spieltag;
-        public static int SaisonID;
+        public static int LandID;
         public static int LigaID;
+        public static int SaisonID;
+        
         
         public static int KaderSaisonID;
         public static int PokalSaisonID;

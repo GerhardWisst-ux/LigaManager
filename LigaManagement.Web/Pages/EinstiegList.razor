@@ -38,6 +38,26 @@
                 <RadzenTabsItem class="p-0" Text="Auswahl">
                     <div class="form-group row">
                         <div class="dropdown mr-2" style="display:inline">
+                            <select value="@LandID" id="cloLand" class="form-control dropdown" @onchange="LandChangeAsync">
+                                <option value="0" required>Land auswählen</option>
+                                @if (LaenderList != null)
+                                {
+                                    @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.LandID))
+                                    {
+                                        @if (land.Laendername == Globals.currentLand)
+                                        {
+                                            <option selected value="@land.LandID"> @land.Laendername </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@land.LandID"> @land.Laendername </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                        </div>
+                        <div class="dropdown mr-2" style="display:inline">
                             <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
                                 <option value="0" required>Liga auswählen</option>
                                 @if (LigenList != null)
