@@ -48,28 +48,29 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                List<VereineSaisonAus> vereineSaison = new List<VereineSaisonAus>();
+                SqlCommand command = new SqlCommand();
+                List<VereineSaisonAus> vereineSaisonAus = new List<VereineSaisonAus>();
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
-
-                SqlCommand command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] where saisonID =" + SaisonID, conn);
+                                
+                command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] where saisonID =" + SaisonID, conn);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        VereineSaisonAus verein = new VereineSaisonAus();
-                        verein.VereinNr = (int)reader["VereinNr"];
-                        verein.SaisonID = (int)reader["SaisonID"];
-                        verein.LigaID = (int)reader["LigaID"];
+                        VereineSaisonAus vereinAus = new VereineSaisonAus();
+                        vereinAus.VereinNr = (int)reader["VereinNr"];
+                        vereinAus.SaisonID = (int)reader["SaisonID"];
+                        vereinAus.LigaID = (int)reader["LigaID"];
 
-                        vereineSaison.Add(verein);
+                        vereineSaisonAus.Add(vereinAus);
                     }
                 }
 
                 conn.Close();
-                return vereineSaison;
+                return vereineSaisonAus;
             }
             catch (Exception ex)
             {
@@ -77,8 +78,6 @@ namespace LigaManagerManagement.Api.Models
                 Debug.Print(ex.Message);
                 return null;
             }
-
-
         }
 
     }

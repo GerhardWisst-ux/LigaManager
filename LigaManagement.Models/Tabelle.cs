@@ -19,7 +19,7 @@ namespace LigaManagement.Models
         [Required]
         public string Liga { get; set; }
 
-        public string Tab_Lig_Id { get; set; }
+        public int Tab_Lig_Id { get; set; }
 
         [Required]
         public int? Platz { get; set; }
