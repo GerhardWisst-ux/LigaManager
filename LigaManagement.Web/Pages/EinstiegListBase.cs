@@ -299,7 +299,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2009_TU.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1993_IT.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -396,9 +396,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageIT(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2009/10");
+                        cmd.Parameters.AddWithValue("@Saison", "1995/96");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -435,8 +435,8 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 307);
-                        cmd.Parameters.AddWithValue("@LigaID", 11);
+                        cmd.Parameters.AddWithValue("@SaisonID", 167);
+                        cmd.Parameters.AddWithValue("@LigaID", 6);
 
                         // string time = importRow["Time"].ToString();
 
@@ -541,6 +541,13 @@ namespace LigaManagement.Web.Pages
                     Globals.maxSpieltag = 42;
                 else
                     Globals.maxSpieltag = 38;
+            }
+            else if (Globals.LigaID == 6)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2003)
+                    Globals.maxSpieltag = 38;
+                else
+                    Globals.maxSpieltag = 34;
             }
             else if (Globals.LigaID == 7)
             {

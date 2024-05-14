@@ -512,7 +512,7 @@ namespace LigamanagerManagement.Web.Pages
             public bool Eigentor { get; set; }
             public bool Elfmeter { get; set; }
             public string Torart { get; set; }
-        }
+        }       
 
 
         protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }

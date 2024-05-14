@@ -566,7 +566,7 @@ namespace LigaManagerManagement.Web.Services
                 }
 
 
-                var alleSpieltage = (await spieltagService.GetSpieltage());
+                var alleSpieltage = (await spieltagService.GetSpieltage()).Where(x=> x.LigaID == Globals.LigaID);
                 var saisonnen = (await saisonenService.GetSaisonen()).OrderBy(x => x.Saisonname).ToList();
 
                 for (int j = 0; j < saisonnen.Count(); j++)

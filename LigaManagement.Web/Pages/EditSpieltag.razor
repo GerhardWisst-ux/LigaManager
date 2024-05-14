@@ -91,14 +91,14 @@
                                 <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore1">Tore 1</RadzenLabel>
                                 @* <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-9"></InputNumber> *@
                                 <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-sm-9" />
-                                <ValidationMessage For="@(() => Spiel.Tore1_Nr)" />
+                                <ValidationMessage class="form-control col-sm-9" For="@(() => Spiel.Tore1_Nr)" />
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore2">Tore 2</RadzenLabel>
                                 @* <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-9"></InputNumber> *@
                                 <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-sm-9" />
                                 @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
-                                <ValidationMessage For="@(() => Spiel.Tore2_Nr)" />
+                                <ValidationMessage class="form-control col-sm-9" For="@(() => Spiel.Tore2_Nr)" />
                             </div>
                             <div class="form-group row">
                                 <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein2">Verein 2</RadzenLabel>
@@ -121,7 +121,7 @@
                             <div class="form-group row">
                                 <RadzenLabel Text="Datum" class="col-sm-3" Component="txtDatum">Datum</RadzenLabel>
                                 <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-3"></InputDate>
-                                <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
+                                <ValidationMessage For="(()=>Spiel.Datum)"></ValidationMessage>
                                 <input id="txtZeit" type="time" class="form-control col-sm-3" required @bind-value="Time" />
                             </div>
                             <div class="form-group row">
@@ -230,7 +230,6 @@
                                 <p>
                                     @if (ToreList != null)
                                     {
-
                                         var ToreList2 = ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
 
                                         <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
@@ -400,38 +399,51 @@
 
         if ((Spiel.Verein1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 1 nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 1 nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 2 nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Verein2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 2 nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             return;
         }
+
         if ((SpielDateTime.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Zeit nicht angegeben" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
             return;
         }
+
+        if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            return;
+        }
+
+        if ((Spiel.Schiedrichter == null))
+        {
+            Spiel.Schiedrichter = "k.A.";
+        }
+
 
         if (Id == "0")
         {
