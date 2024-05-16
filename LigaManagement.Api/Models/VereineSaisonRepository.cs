@@ -1,13 +1,11 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 
@@ -18,25 +16,34 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> vereineSaison)
         {
-            SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
-
-            for (int i = 0; i < vereineSaison.Count -1 ; i++)
+            try
             {
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "INSERT VereineSaison (VereinNr, SaisonID, LigaID)" +
-                    " VALUES(@VereinNr,@SaisonID,@LigaID)";
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
 
-                cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);
-                cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
-                cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
-                cmd.ExecuteNonQuery();
-            }         
-           
-            conn.Close();
-                        
-            return vereineSaison;
+                for (int i = 0; i < vereineSaison.Count - 1; i++)
+                {
+                    SqlCommand cmd = new SqlCommand();
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT VereineSaison (VereinNr, SaisonID, LigaID)" +
+                        " VALUES(@VereinNr,@SaisonID,@LigaID)";
+
+                    cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);
+                    cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
+                    cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
+                    cmd.ExecuteNonQuery();
+                }
+
+                conn.Close();
+
+                return vereineSaison;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
         }
 
         public Task<IEnumerable<VereinAktSaison>> GetVereineAktSaison()
@@ -46,28 +53,37 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<IEnumerable<VereineSaison>> GetVereineSaison()
         {
-            List<VereineSaison> vereineSaison = new List<VereineSaison>();
-
-            SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison]", conn);
-
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                List<VereineSaison> vereineSaison = new List<VereineSaison>();
+
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison]", conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    VereineSaison verein = new VereineSaison();
-                    verein.VereinNr = (int)reader["VereinNr"];                  
-                    verein.SaisonID = (int)reader["SaisonID"];
-                    verein.LigaID = (int)reader["LigaID"];
+                    while (reader.Read())
+                    {
+                        VereineSaison verein = new VereineSaison();
+                        verein.VereinNr = (int)reader["VereinNr"];
+                        verein.SaisonID = (int)reader["SaisonID"];
+                        verein.LigaID = (int)reader["LigaID"];
 
-                    vereineSaison.Add(verein);
+                        vereineSaison.Add(verein);
+                    }
                 }
-            }
 
-            conn.Close();
-            return vereineSaison;
+                conn.Close();
+                return vereineSaison;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
         }       
 
     }

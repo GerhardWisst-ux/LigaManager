@@ -1,10 +1,12 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
@@ -36,15 +38,12 @@ namespace LigaManagerManagement.Api.Models
 
                 return liga;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-            //var result = await appDbContext.Ligen.AddAsync(Liga);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
         }
 
         public Task<Liga> DeleteLiga(int LigaId)
@@ -64,17 +63,7 @@ namespace LigaManagerManagement.Api.Models
             conn.Close();
 
             return null;
-
-            //var result = await appDbContext.Ligen
-            //   .FirstOrDefaultAsync(e => e.Id == LigaId);
-            //if (result != null)
-            //{
-            //    appDbContext.Ligen.Remove(result);
-            //    await appDbContext.SaveChangesAsync();
-            //    return result;
-            //}
-
-            //return null;
+          
         }
 
         public async Task<Liga> GetLiga(int LigaId)
@@ -114,8 +103,6 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
 
-            //return await appDbContext.Ligen
-            //    .FirstOrDefaultAsync(d => d.Id == LigaId);
         }
 
         public async Task<IEnumerable<Liga>> GetLigen()
@@ -149,14 +136,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return peList;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-           // return await appDbContext.Ligen.ToListAsync();
+
         }
 
         public async Task<Liga> UpdateLiga(Liga liga)
@@ -170,14 +156,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-               // cmd.CommandText = "UPDATE Ligen(Liganame,Verband,Erstaustragung,Absteiger,Aktiv)" +
-               //" VALUES(@Liganame,@Verband,@Erstaustragung,@Absteiger,@Aktiv)";
-
-               // cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
-               // cmd.Parameters.AddWithValue("@Verband", liga.Verband);
-               // cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
-               // cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
-               // cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+               
 
                 if (liga.Aktiv == false)
                     bAktiv = 0;
@@ -198,37 +177,12 @@ namespace LigaManagerManagement.Api.Models
 
                 return liga;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-
-            //try
-            //{
-            //    var result = await appDbContext.Ligen
-            //    .FirstOrDefaultAsync(e => e.Id == Liga.Id);
-
-            //    if (result != null)
-            //    {
-            //        result.Liganame = Liga.Liganame;
-            //        result.Verband = Liga.Verband;
-            //        result.Absteiger = Liga.Absteiger;
-            //        result.Aktiv = Liga.Aktiv;
-            //        result.Erstaustragung = Liga.Erstaustragung;
-
-            //        await appDbContext.SaveChangesAsync();
-
-            //        return result;
-            //    }
-            //    return null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.Print(ex.StackTrace);
-            //    return null;
-            //}
         }
     }
 }

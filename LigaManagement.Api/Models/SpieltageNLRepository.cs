@@ -1,10 +1,12 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
@@ -48,13 +50,9 @@ namespace LigaManagerManagement.Api.Models
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }
-
-            //var result = await appDbContext.Spieltage.AddAsync(spieltag);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
+            }            
         }
 
         public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
@@ -114,15 +112,12 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return spieltag;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            //return await appDbContext.Spieltage               
-            //    .FirstOrDefaultAsync(d => d.SpieltagId == SpieltagId);
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
@@ -171,9 +166,7 @@ namespace LigaManagerManagement.Api.Models
                 Debug.Print(ex.Message);
 
                 return null;
-            }
-            //return await appDbContext.Spieltage                
-            //    .ToListAsync();
+            }          
         }
 
         public int AktSpieltag(int SaisonID)
@@ -237,22 +230,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Zuschauer] =" + spieltag.Zuschauer +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
-                //cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);
-                //cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
-                //cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
-                //cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
-                //cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
-                //cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
-                //cmd.Parameters.AddWithValue("@Verein1", spieltag.Verein2);
-                //cmd.Parameters.AddWithValue("@Verein2", spieltag.Verein2);
-                //cmd.Parameters.AddWithValue("@Tore1_Nr", spieltag.Tore1_Nr);
-                //cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
-                //cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
-                //cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                //cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
-                //cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
-                //cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
-
+               
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -262,7 +240,7 @@ namespace LigaManagerManagement.Api.Models
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 

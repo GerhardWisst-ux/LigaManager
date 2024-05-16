@@ -1,10 +1,12 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
@@ -48,7 +50,7 @@ namespace LigaManagerManagement.Api.Models
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 
@@ -83,7 +85,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltagIT] WHERE SpieltagId =" + spieltagId, conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageIT] WHERE SpieltagId =" + spieltagId, conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -114,11 +116,10 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return spieltag;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
             //return await appDbContext.Spieltage               
@@ -165,15 +166,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return Spieltaglist;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            //return await appDbContext.Spieltage                
-            //    .ToListAsync();
+        ;
         }
 
         public int AktSpieltag(int SaisonID)
@@ -262,7 +261,7 @@ namespace LigaManagerManagement.Api.Models
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 

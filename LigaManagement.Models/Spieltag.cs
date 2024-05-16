@@ -22,6 +22,8 @@ namespace LigaManagement.Models
 
         [Required(ErrorMessage = "Verein 1 muß angegeben werden.")]
         public string Verein1 { get; set; }
+                
+        public string Verein1Anzeige { get; set; }
 
         [Required]
         public string Verein2_Nr { get; set; }
@@ -29,13 +31,15 @@ namespace LigaManagement.Models
         [Required(ErrorMessage = "Verein 2 muß angegeben werden.")]
         public string Verein2 { get; set; }
 
+        public string Verein2Anzeige { get; set; }
+
         [Required(ErrorMessage = "Tore 1 muß angegeben werden.")]
         [Range(0, 100, ErrorMessage = "Tore 1 darf nicht größer als 100 sein.")]
         public int? Tore1_Nr { get; set; }
 
-        //public string Doppelpunkt = ":";
+        public string Doppelpunkt  { get; set; }
 
-        [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
+    [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
         [Range(0, 100, ErrorMessage = "Tore 2 darf nicht größer als 100 sein.")]
         public int? Tore2_Nr { get; set; }
 

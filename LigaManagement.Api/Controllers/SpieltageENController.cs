@@ -12,11 +12,11 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SpieltageENController : ControllerBase
     {
-        private readonly ISpieltageENRepository SpieltagPLRepository;
+        private readonly ISpieltageENRepository SpieltagENRepository;
 
         public SpieltageENController(ISpieltageENRepository SpieltagPLRepository)
         {
-            this.SpieltagPLRepository = SpieltagPLRepository;
+            this.SpieltagENRepository = SpieltagPLRepository;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagPLRepository.GetSpieltage());
+                return Ok(await SpieltagENRepository.GetSpieltage());
             }
             catch (Exception ex)
             {
@@ -39,7 +39,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var result = await SpieltagPLRepository.GetSpieltag(id);
+                var result = await SpieltagENRepository.GetSpieltag(id);
 
                 if (result == null)
                 {
@@ -65,7 +65,7 @@ namespace LigaManagement.Api.Controllers
                     return BadRequest();
                 }
                
-                var createdSpieltag = await SpieltagPLRepository.AddSpieltag(spieltag);
+                var createdSpieltag = await SpieltagENRepository.AddSpieltag(spieltag);
 
                 return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
@@ -82,14 +82,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var VereinToUpdate = await SpieltagPLRepository.GetSpieltag((int)Spieltag.SpieltagId);
+                var VereinToUpdate = await SpieltagENRepository.GetSpieltag((int)Spieltag.SpieltagId);
 
                 if (VereinToUpdate == null)
                 {
                     return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagPLRepository.UpdateSpieltag(Spieltag);
+                return await SpieltagENRepository.UpdateSpieltag(Spieltag);
             }
             catch (Exception ex)
             {
@@ -104,14 +104,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var spieltagToDelete = await SpieltagPLRepository.GetSpieltag(id);
+                var spieltagToDelete = await SpieltagENRepository.GetSpieltag(id);
 
                 if (spieltagToDelete == null)
                 {
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagPLRepository.DeleteSpieltag(id);
+                return await SpieltagENRepository.DeleteSpieltag(id);
             }
             catch (Exception ex)
             {

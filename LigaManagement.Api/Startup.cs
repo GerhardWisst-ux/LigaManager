@@ -44,9 +44,7 @@ namespace LigaManagement.Api
             services.AddScoped<IVereineNLRepository, VereinNLRepository>();
             services.AddScoped<IVereinePTRepository, VereinPTRepository>();
             services.AddScoped<IVereineTURepository, VereinTURepository>();
-
-            services.AddScoped<ITabelleRepository, TabelleRepository>();
-            
+                                    
             services.AddScoped<ISaisonenRepository, SaisonenRepository>();
             services.AddScoped<ILigenRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();

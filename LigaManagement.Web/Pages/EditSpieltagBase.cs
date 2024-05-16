@@ -64,7 +64,6 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public ISpieltageNLService SpieltagNLService { get; set; }
 
-
         [Inject]
         public ISpieltagePTService SpieltagPTService { get; set; }
 
@@ -178,7 +177,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (Globals.LigaID == 4)
                 {
                     if (Id != null)
-                        Spiel = await SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
+                        Spiel = await SpieltagENService.GetSpieltag(Convert.ToInt32(Id));
 
                     var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
                     List<VereinAktSaisonAUS> verList = vereineSaison.ToList();

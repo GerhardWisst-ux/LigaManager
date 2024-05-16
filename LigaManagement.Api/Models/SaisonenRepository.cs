@@ -1,9 +1,12 @@
-﻿using Ligamanager.Components;
+﻿using LigaManagement.Web.Classes;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 
@@ -49,10 +52,11 @@ namespace LigaManagement.Api.Models
 
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
         }
 
@@ -108,23 +112,19 @@ namespace LigaManagement.Api.Models
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
-                        
+
                     }
                 }
                 conn.Close();
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            
 
-            //return await appDbContext.Saisonen
-            //    .FirstOrDefaultAsync(d => d.SaisonID == SaisonId);
         }
 
         public async Task<IEnumerable<Saison>> GetSaisonen()
@@ -157,14 +157,12 @@ namespace LigaManagement.Api.Models
                 conn.Close();
                 return saisonenList;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            //return await appDbContext.Saisonen.ToListAsync();
         }
 
         public async Task<Saison> GetSaisonID(string saisonname)
@@ -190,9 +188,10 @@ namespace LigaManagement.Api.Models
                 conn.Close();
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.Print(ex.Message);
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
         }
@@ -231,16 +230,12 @@ namespace LigaManagement.Api.Models
 
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-
-            //var result = await appDbContext.Saisonen.AddAsync(Saison);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
         }
     }
 }

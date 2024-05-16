@@ -52,6 +52,7 @@
 
   <ItemGroup>
     <Folder Include="Classes\" />
+    <Folder Include="Errors\" />
     <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
 

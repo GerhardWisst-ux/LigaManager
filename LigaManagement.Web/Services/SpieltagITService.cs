@@ -20,7 +20,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<Spieltag> GetSpieltag(int id)
         {
-            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltageIT/{id}");
+            return await httpClient.GetJsonAsync<Spieltag>($"api/SpieltageIT/{id}");
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()

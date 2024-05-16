@@ -188,7 +188,7 @@ else
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
                     <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
                         <Template Context="data">
-                            <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein" AlternateText="@(data.Verein)" />
+                            <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; width: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
                         </Template>
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" />

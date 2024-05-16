@@ -1,16 +1,19 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 
 namespace LigaManagerManagement.Api.Models
 {
     public class VereinFRRepository : IVereineFRRepository
-    {       
+    {
 
         public async Task<VereinAUS> AddVerein(VereinAUS verein)
         {
@@ -53,15 +56,12 @@ namespace LigaManagerManagement.Api.Models
 
                 return verein;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-            //var result = await appDbContext.Vereine.AddAsync(Verein);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
         }
 
         public Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> vereineSaison)
@@ -80,10 +80,10 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
                 cmd.ExecuteNonQuery();
-            }         
-           
+            }
+
             conn.Close();
-                        
+
             return null;
         }
 
@@ -104,16 +104,7 @@ namespace LigaManagerManagement.Api.Models
 
             return null;
 
-            //var result = await appDbContext.Vereine
-            //   .FirstOrDefaultAsync(e => e.Id == VereinId);
-            //if (result != null)
-            //{
-            //    appDbContext.Vereine.Remove(result);
-            //    await appDbContext.SaveChangesAsync();
-            //    return result;
-            //}
 
-            //return null;
         }
 
         public async Task<VereinAUS> GetVerein(int vereinnr)
@@ -125,7 +116,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereineFR] Where VereinNr =" + vereinnr, conn);
                 VereinAUS verein = null;
-                
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -149,15 +140,12 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return verein;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            //return await appDbContext.Vereine
-            //    .FirstOrDefaultAsync(d => d.VereinNr == VereinId);
         }
 
         public async Task<IEnumerable<VereinAUS>> GetVereine()
@@ -194,15 +182,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return vereinelist;
             }
-            catch (System.Exception ex)
+
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-
-            //return await appDbContext.Vereine.ToListAsync();
         }
 
         public async Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison()
@@ -245,19 +231,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                // cmd.CommandText = "UPDATE Vereine(VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Bundesliga)" +
-                //" VALUES(@VereinNr,@Vereinsname1, @Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Bundesliga)";
-
-                // cmd.Parameters.AddWithValue("@VereinNr", verein.VereinNr);
-                // cmd.Parameters.AddWithValue("@Vereinsname1", verein.Vereinsname1);
-                // cmd.Parameters.AddWithValue("@Vereinsname2", verein.Vereinsname2);
-                // cmd.Parameters.AddWithValue("@Stadion", verein.Stadion);
-                // cmd.Parameters.AddWithValue("@Fassungsvermoegen", verein.Fassungsvermoegen);
-                // cmd.Parameters.AddWithValue("@Erfolge", verein.Erfolge);
-                // cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
-                // cmd.Parameters.AddWithValue("@Pokal", verein.Pokal);
-                // cmd.Parameters.AddWithValue("@Bundesliga", verein.Bundesliga);
-
+              
                 if (verein.Pokal == false)
                     bPokal = 0;
                 else
@@ -269,10 +243,10 @@ namespace LigaManagerManagement.Api.Models
                     bLiga1 = 1;
 
 
-                cmd.CommandText = "UPDATE [dbo].[VereineFR] SET " +                        
+                cmd.CommandText = "UPDATE [dbo].[VereineFR] SET " +
                         "[VereinNr] = '" + verein.VereinNr + "'" +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
-                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
+                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +
                         ",[Stadion] = '" + verein.Stadion + "'" +
                         ",[Fassungsvermoegen] = '" + verein.Fassungsvermoegen + "'" +
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
@@ -287,40 +261,15 @@ namespace LigaManagerManagement.Api.Models
 
                 return verein;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-            //try
-            //{
-            //    var result = await appDbContext.Vereine
-            //    .FirstOrDefaultAsync(e => e.Id == Verein.Id);
-
-            //    if (result != null)
-            //    {
-            //        result.VereinNr = Verein.VereinNr;
-            //        result.Vereinsname1 = Verein.Vereinsname1;
-            //        result.Vereinsname2 = Verein.Vereinsname2;
-            //        result.Stadion = Verein.Stadion;
-            //        result.Erfolge = Verein.Erfolge;
-
-            //        await appDbContext.SaveChangesAsync();
-
-            //        return result;
-            //    }
-            //    return null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.Print(ex.StackTrace);
-            //    return null;
-            //}      
-
         }
 
-      
+
     }
 }
 

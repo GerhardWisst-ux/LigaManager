@@ -136,27 +136,26 @@ else
                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                         <Columns>                           
                             <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true  Title="Heim" >
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="Heim">
                                 
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
                                 <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                 </Template>                            
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=true Title="" />
-                            @* <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="5px" Sortable=true Title="" /> *@
-                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr"  TextAlign="TextAlign.Center" Width="10%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" /> 
+                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr"  TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="true" Width="74px" MinWidth="74px">
                                 <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="" />
 
                             <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title="Datum" />
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" />
-                            
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" /> 
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
