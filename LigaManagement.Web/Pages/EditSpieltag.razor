@@ -421,6 +421,12 @@
             return;
         }
 
+        if ((Spiel.Verein1 == Spiel.Verein2))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            return;
+        }
+
         if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });

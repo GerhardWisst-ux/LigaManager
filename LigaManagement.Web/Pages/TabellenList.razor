@@ -107,7 +107,7 @@ else
                             {
                                 <h2 style="display:inline-block;">Portugal - primeira-liga @Globals.currentSaison </h2>
                             }
-                            else if (@Globals.LigaID == 10)
+                            else if (@Globals.LigaID == 11)
                             {
                                 <h2 style="display:inline-block;">Türkei - Süper-Lig  @Globals.currentSaison </h2>
                             }
@@ -186,6 +186,11 @@ else
                     <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
+                    <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
+                        <Template Context="data">
+                            <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein" AlternateText="@(data.Verein)" />
+                        </Template>
+                    </RadzenDataGridColumn>
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verein" Width="22%" Sortable=false Title="Verein" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />

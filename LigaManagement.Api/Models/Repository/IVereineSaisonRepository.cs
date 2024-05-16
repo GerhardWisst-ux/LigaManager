@@ -7,12 +7,9 @@ namespace LigamanagerManagement.Api.Models.Repository
 {
     public interface IVereineSaisonAusRepository
     {
+        Task<List<VereineSaisonAus>> AddVereineSaison(int LigaID, int SaisonID);
         Task<IEnumerable<VereineSaisonAus>> GetVereineSaison(int saisonid);
-        Task<IEnumerable<VereinAktSaison>> GetVereineAktSaison();
-        //Task<Verein> GetVerein(int Id);
-        //Task<Verein> AddVerein(Verein Verein);
-        //Task<Verein> UpdateVerein(Verein Verein);
-        //Task<Verein> DeleteVerein(int VereinId);        
-        Task<List<VereineSaisonAus>> AddVereineSaison(List<VereineSaisonAus> Vereine);
+        Task<bool> DeleteVereineSaison(int LigaID, int SaisonID);
+        Task<bool> DeleteVereineAll();
     }
 }

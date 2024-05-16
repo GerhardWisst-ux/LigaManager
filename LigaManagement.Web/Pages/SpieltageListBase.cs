@@ -23,6 +23,7 @@ namespace LigaManagerManagement.Web.Pages
 
         [Parameter]
         public string SpieltagNr { get; set; }
+        public bool VisibleFooter;
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -33,6 +34,7 @@ namespace LigaManagerManagement.Web.Pages
         public string Liganame;
         public string curentsaison;
         public Density Density = Density.Default;
+        public List<string> DensityValues = new List<string> { "Standard", "Kompakt" };
 
         public int iSpieltage;
         public List<DisplaySaison> SaisonenList;
@@ -230,8 +232,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (Vereine == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
             else if (Globals.LigaID == 4)
@@ -248,8 +250,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
 
@@ -267,8 +269,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
 
@@ -286,8 +288,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
             else if (Globals.LigaID == 8)
@@ -304,8 +306,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
             else if (Globals.LigaID == 9)
@@ -323,8 +325,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
             else if (Globals.LigaID == 10)
@@ -342,8 +344,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
             else if (Globals.LigaID == 11)
@@ -361,8 +363,8 @@ namespace LigaManagerManagement.Web.Pages
                     if (VereineAus == null)
                         throw new Exception("Vereine sind null");
 
-                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
-                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
                 }
             }
 
@@ -477,9 +479,16 @@ namespace LigaManagerManagement.Web.Pages
                 VisibleBtnNew = true;
 
             if (Spieltage.Count() == 0)
+            {
                 VisibleVorZurueck = false;
+                VisibleFooter = false;
+            }   
             else
+            {
+                VisibleFooter = true;
                 VisibleVorZurueck = true;
+            }
+                
 
         }
         public async Task SpieltagChange(ChangeEventArgs e)

@@ -117,17 +117,46 @@ namespace LigaManagement.Web.Pages
                     LaenderList.Add(new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername));
                 }
 
-             
+                LigenList = new List<DisplayLiga>();
+                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID);
+
+                for (int i = 0; i < Ligen.Count(); i++)
+                {
+                    var columns = Ligen.ElementAt(i);
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
+                }
+
                 if (Globals.SaisonID == 0)
                     Globals.bVisibleNavMenuElements = false;
                 else
                     Globals.bVisibleNavMenuElements = true;
 
-                Globals.currentLiga = "";
-                Globals.LandID = 0;
-                Globals.LigaID = 0;
-                isDropdownDisabledLiga = true;
-                isDropdownDisabledLiga = true;
+                SaisonenList = new List<DisplaySaison>();
+                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
+                if (Globals.LigaID == 0)
+                {
+                    SaisonenList.Clear();
+                    isDropdownDisabledSaison = false;
+                }
+                else
+                {
+                    for (int i = 0; i < Saisonen.Count(); i++)
+                    {
+                        var columns = Saisonen.ElementAt(i);
+                        Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
+                        Globals.currentLigaUrl = Globals.currentLiga;
+                        SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                    }
+
+                    isDropdownDisabledLiga = false;
+                    isDropdownDisabledSaison = false;
+                }
+
+                if (Globals.SaisonID == 0)                                    
+                    isDropdownDisabledSaison = true;
+                else
+                    isDropdownDisabledSaison = false;
+
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";
                 DisplayErrorLand = "none";
@@ -142,9 +171,8 @@ namespace LigaManagement.Web.Pages
         public void ValidateItems(IEnumerable args)
         {
             TabellenList = (List<int>)args;
-
-
         }
+
         public void SaisonChange(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -171,30 +199,18 @@ namespace LigaManagement.Web.Pages
                     Globals.KaderSaisonID = 1;
                 }
 
-            }
-        }
 
-        public void OnProgress(UploadProgressArgs args, string name)
-        {
-            Console.WriteLine($"{args.Progress}% '{name}' / {args.Loaded} of {args.Total} bytes.");
-
-            if (args.Progress == 100)
-            {
-                foreach (var file in args.Files)
-                {
-                    Console.WriteLine($"Uploaded: {file.Name} / {file.Size} bytes");
-                }
+                StateHasChanged();
             }
-        }
+        }       
 
         public async Task LandChangeAsync(ChangeEventArgs e)
         {
-            string sCurrentliga = "";
             if (e.Value != null)
             {
                 Globals.LandID = Convert.ToInt32(e.Value);
-
                 Globals.currentLand = LaenderService.GetLand(Globals.LandID).ToString();
+
                 LigenList = new List<DisplayLiga>();
                 Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID);
 
@@ -205,7 +221,7 @@ namespace LigaManagement.Web.Pages
                 }
 
                 isDropdownDisabledLiga = false;
-                
+
                 StateHasChanged();
             }
         }
@@ -249,8 +265,8 @@ namespace LigaManagement.Web.Pages
                     if (Globals.LigaID == 0)
                     {
                         SaisonenList.Clear();
-                        isDropdownDisabledLiga = false;
-                    }                        
+                        isDropdownDisabledSaison = false;
+                    }
                     else
                     {
                         for (int i = 0; i < Saisonen.Count(); i++)
@@ -261,8 +277,8 @@ namespace LigaManagement.Web.Pages
                             SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                         }
 
-                        isDropdownDisabledLiga = false;
-                    }                    
+                        isDropdownDisabledSaison = false;
+                    }
 
                     StateHasChanged();
                 }
@@ -298,7 +314,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2022.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2023_PL.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -395,9 +411,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltage(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2022/23");
+                        cmd.Parameters.AddWithValue("@Saison", "2023/24");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -406,14 +422,14 @@ namespace LigaManagement.Web.Pages
                         int iVerein2 = 0;
                         int iFassungsvermoegen = 0;
                         string sStadion = "";
-                        for (int j = 0; j < Vereine.Count(); j++)
+                        for (int j = 0; j < VereineAUS.Count(); j++)
                         {
-                            var columns = Vereine.ElementAt(j);
+                            var columns = VereineAUS.ElementAt(j);
 
-                            iVerein1 = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).VereinNr;
-                            iVerein2 = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString().Trim())).VereinNr;
-                            sStadion = Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
-                            iFassungsvermoegen = Convert.ToInt32(Vereine.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Fassungsvermoegen);
+                            iVerein1 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).VereinNr;
+                            iVerein2 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString().Trim())).VereinNr;
+                            sStadion = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Stadion;
+                            iFassungsvermoegen = Convert.ToInt32(VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString().Trim())).Fassungsvermoegen);
                             break;
                         }
 
@@ -434,8 +450,8 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 2);
-                        cmd.Parameters.AddWithValue("@LigaID", 1);
+                        cmd.Parameters.AddWithValue("@SaisonID", 107);
+                        cmd.Parameters.AddWithValue("@LigaID", 4);
 
                         // string time = importRow["Time"].ToString();
 
@@ -453,7 +469,7 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 9;
+                        int mod = i % 10;
 
                         if (mod == 0)
                             spieltag++;
@@ -487,7 +503,7 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorSaison = "block";
             else
                 DisplayErrorSaison = "none";
-         
+
 
             if (Globals.currentSaison == null || Globals.currentLiga == null || Globals.LandID == 0)
             {
@@ -710,7 +726,7 @@ namespace LigaManagement.Web.Pages
                 LigaID = ligaID;
                 LandID = landid;
                 Liganame = liganame;
-            }          
+            }
             public int LandID { get; set; }
             public int LigaID { get; set; }
             public string Liganame { get; set; }
@@ -723,11 +739,11 @@ namespace LigaManagement.Web.Pages
             public DisplayLaender(bool aktiv, int landID, string laendername)
             {
                 Aktiv = aktiv;
-                LandID = landID;                
+                LandID = landID;
                 Laendername = laendername;
             }
             public bool Aktiv { get; set; }
-            public int LandID { get; set; }            
+            public int LandID { get; set; }
             public string Laendername { get; set; }
         }
 

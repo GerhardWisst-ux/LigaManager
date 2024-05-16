@@ -20,7 +20,7 @@ namespace LigaManagement.Web.Pages
     public class PokalergebnisseListBase : ComponentBase
     {
         public RadzenDataGrid<PokalergebnisSpieltag> grid;
-        public Density Density = Density.Default;
+        public Density Density = Density.Compact;
         public bool allowVirtualization;
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";

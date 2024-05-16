@@ -1,14 +1,12 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace LigaManagerManagement.Api.Models
@@ -16,27 +14,76 @@ namespace LigaManagerManagement.Api.Models
     public class VereineSaisonAusRepository : IVereineSaisonAusRepository
     {
 
-        public async Task<List<VereineSaisonAus>> AddVereineSaison(List<VereineSaisonAus> vereineSaison)
+        public async Task<List<VereineSaisonAus>> AddVereineSaison(int LigaId, int SaisonID)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
+            SqlCommand command = new SqlCommand();
+            List<VereineSaisonAus> vereineSaisonAus = new List<VereineSaisonAus>();
             conn.Open();
 
-            for (int i = 0; i < vereineSaison.Count - 1; i++)
+            SqlCommand cmd = new SqlCommand();
+            if (LigaId < 3)
             {
-                SqlCommand cmd = new SqlCommand();
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[Spieltage]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 4)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltagePL]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 6)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltageIT]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 7)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltageFR]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 8)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltageES]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 9)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltageNL]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 10)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltagePT]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+            else if (LigaId == 11)
+            {
+                command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltageTU]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
+            }
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    VereineSaisonAus vereinAus = new VereineSaisonAus();
+                    vereinAus.VereinNr = (int)reader["Verein1_Nr"];
+                    vereinAus.SaisonID = (int)reader["SaisonID"];
+                    vereinAus.LigaID = (int)reader["LigaID"];
+
+                    vereineSaisonAus.Add(vereinAus);
+                }
+            }
+
+            for (int i = 0; i <= vereineSaisonAus.Count - 1; i++)
+            {
+                cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT VereineSaisonAus (VereinNr, SaisonID, LigaID)" +
                     " VALUES(@VereinNr,@SaisonID,@LigaID)";
 
-                cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);
-                cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
-                cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
+                cmd.Parameters.AddWithValue("@VereinNr", vereineSaisonAus[i].VereinNr);
+                cmd.Parameters.AddWithValue("@SaisonID", vereineSaisonAus[i].SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", vereineSaisonAus[i].LigaID);
                 cmd.ExecuteNonQuery();
             }
 
             conn.Close();
 
-            return vereineSaison;
+            return vereineSaisonAus;
         }
 
         public Task<IEnumerable<VereinAktSaison>> GetVereineAktSaison()
@@ -53,7 +100,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
-                                
+
                 command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] where saisonID =" + SaisonID, conn);
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -77,6 +124,59 @@ namespace LigaManagerManagement.Api.Models
 
                 Debug.Print(ex.Message);
                 return null;
+            }
+        }
+
+        public async Task<bool> DeleteVereineSaison(int LigaID, int SaisonID)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "Delete from VereineSaisonAus WHERE LigaID =" + LigaID + " AND SaisonID=" + SaisonID;
+
+                cmd.Parameters.AddWithValue("@SaisonID", SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", LigaID);
+                cmd.ExecuteNonQuery();
+
+
+                conn.Close();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+                return false; ;
+            }
+        }
+        public async Task<bool> DeleteVereineAll()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "Delete from VereineSaisonAus";
+                
+                cmd.ExecuteNonQuery();
+                conn.Close();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+                return false; ;
             }
         }
 

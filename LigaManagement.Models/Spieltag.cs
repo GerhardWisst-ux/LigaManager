@@ -33,6 +33,8 @@ namespace LigaManagement.Models
         [Range(0, 100, ErrorMessage = "Tore 1 darf nicht größer als 100 sein.")]
         public int? Tore1_Nr { get; set; }
 
+        //public string Doppelpunkt = ":";
+
         [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
         [Range(0, 100, ErrorMessage = "Tore 2 darf nicht größer als 100 sein.")]
         public int? Tore2_Nr { get; set; }

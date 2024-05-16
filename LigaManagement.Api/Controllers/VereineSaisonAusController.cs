@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -43,7 +44,7 @@ namespace LigaManagement.Api.Controllers
                     return BadRequest();
                 }
                                
-                var createdVereine = await VereineSaisonAusRepository.AddVereineSaison(vereineSaison);
+                var createdVereine = await VereineSaisonAusRepository.AddVereineSaison(Globals.LigaID, Globals.SaisonID);
 
                 return CreatedAtAction(nameof(CreateVereineSaison), new { id = 87777 },
                    createdVereine);               

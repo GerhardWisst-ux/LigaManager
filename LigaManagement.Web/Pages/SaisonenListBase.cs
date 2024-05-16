@@ -21,7 +21,7 @@ namespace LigaManagerManagement.Web.Pages
         protected string DisplayErrorLiga = "none";
         public string Liganame = "Bundesliga";
         public bool value = true;
-        public Density Density = Density.Default;
+        public Density Density = Density.Compact;
 
         [Parameter]
         public string Id { get; set; }

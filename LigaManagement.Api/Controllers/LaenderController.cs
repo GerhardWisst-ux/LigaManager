@@ -11,11 +11,11 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class LaenderController : ControllerBase
     {
-        private readonly ILaenderRepository ligaRepository;
+        private readonly ILaenderRepository laenderRepository;
 
         public LaenderController(ILaenderRepository laenderRepository)
         {
-            this.ligaRepository = laenderRepository;
+            this.laenderRepository = laenderRepository;
         }
 
     
@@ -24,7 +24,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await ligaRepository.GetLaender());
+                return Ok(await laenderRepository.GetLaender());
             }
             catch (Exception ex)
             {
@@ -38,7 +38,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var result = await ligaRepository.GetLand(id);
+                var result = await laenderRepository.GetLand(id);
 
                 if (result == null)
                 {
@@ -64,7 +64,7 @@ namespace LigaManagement.Api.Controllers
                     return BadRequest();
                 } 
               
-                var createdLiga = await ligaRepository.AddLand(land);
+                var createdLiga = await laenderRepository.AddLand(land);
 
                 return CreatedAtAction(nameof(CreateLand), new { id = createdLiga.Id },
                     createdLiga);
@@ -81,14 +81,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var ligaToUpdate = await ligaRepository.GetLand(land.Id);
+                var ligaToUpdate = await laenderRepository.GetLand(land.Id);
 
                 if(ligaToUpdate == null)
                 {
                     return NotFound($"Land with Id = {land.Id} not found");
                 }
 
-                return await ligaRepository.UpdateLand(land);
+                return await laenderRepository.UpdateLand(land);
             }
             catch (Exception ex)
             {
@@ -102,14 +102,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var ligaToDelete = await ligaRepository.GetLand(id);
+                var ligaToDelete = await laenderRepository.GetLand(id);
 
                 if (ligaToDelete == null)
                 {
                     return NotFound($"Land with Id = {id} not found");
                 }
 
-                return await ligaRepository.DeleteLand(id);
+                return await laenderRepository.DeleteLand(id);
             }
             catch (Exception ex)
             {

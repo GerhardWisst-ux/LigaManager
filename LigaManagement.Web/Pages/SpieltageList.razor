@@ -52,10 +52,15 @@
 
     .VereinMinWidth {
         min-width: 80px;
+        font-weight:normal;
     }
 
     .ToreMinWidth {
         min-width: 80px;
+        /* font-weight: bold !important;         */
+        /* border-color: wheat !important ; */
+        /* background-color:black !important;
+        color: white !important;  */
     }
 </style>
 
@@ -122,54 +127,55 @@ else
                 <RadzenCard style="flex:1;margin-right:0px;">
                     <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Small" />
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
                     </RadzenCard>
-                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="30"
-                                    AllowPaging="true" AllowSorting="false" AllowFiltering="false"
+                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
                                     TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
-                        <Columns>
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Id" Title="Id" Visible=false>
-                                <FooterTemplate>
-                                    Spieltage: <b>@grid.View.Count()</b> von <b>@Spieltage.Count()</b>
-                                </FooterTemplate>
-                            </RadzenDataGridColumn>
+                        <Columns>                           
                             <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=false Title="Heim" />
-                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true  Title="Heim" >
+                                
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
                                 <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                </Template>                            
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=true Title="" />
+                            @* <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="5px" Sortable=true Title="" /> *@
+                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr"  TextAlign="TextAlign.Center" Width="10%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="true" Width="74px" MinWidth="74px">
+                                <Template Context="data">
+                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 1" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 2" />
-                            <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="false" Width="74px" MinWidth="74px">
-                                <Template Context="data">
-                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                </Template>
-                            </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="30%" Sortable=false Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="" />
 
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="25%" Sortable=false Title="Ort" />
-                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="Datum" />
+                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title="Datum" />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" />
+                            
 
-                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
                                     <NavLink href="@($"editspieltag/{data.SpieltagId}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
                                     <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
                                 </Template>
-                            </RadzenDataGridColumn>
-                            @* <RadzenDataGridColumn Width="80px" TItem="Spieltag" Property="SpieltagId" Title="Spieltags-Details">
-                        <Template Context="data">
-                        <RadzenButton ButtonStyle="ButtonStyle.Info" Variant="Variant.Flat" Shade="Shade.Default" Icon="info" class="m-1" Click=@(() => OpenSpieltag(data.SpieltagId)) />
-                        </Template>
-                        </RadzenDataGridColumn> *@
+                            </RadzenDataGridColumn>                           
                         </Columns>
+                        <FooterTemplate>                            
+                        </FooterTemplate>                       
+                        <FooterTemplate>
+                            Spiele: <b>@Spieltage.Count()</b>
+                            Tore: <b>@Spieltage.Sum(x => x.Tore1_Nr + x.Tore2_Nr)</b>
+                            Tore Durchschnitt: <b>@string.Format("{0:0.00}", @Spieltage.Average(x => x.Tore1_Nr + x.Tore2_Nr))</b>
+                        </FooterTemplate>
                     </RadzenDataGrid>
                     <div class="row">
                         <div class="col-md-1">

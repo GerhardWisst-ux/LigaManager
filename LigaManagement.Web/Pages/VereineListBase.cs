@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<VereinAUS> gridFR;
         public RadzenDataGrid<VereinAUS> gridES;
 
-        public Density Density = Density.Default;
+        public Density Density = Density.Compact;
 
         public string Liganame = "";
 
