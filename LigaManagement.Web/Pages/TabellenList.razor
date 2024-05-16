@@ -191,7 +191,7 @@ else
                             <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; border-radius: 8px; margin-right: 8px;" title="@data.Verein" AlternateText="@(data.Verein)" />
                         </Template>
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verein" Width="22%" Sortable=false Title="Verein" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />

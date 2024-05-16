@@ -12,6 +12,8 @@ namespace LigaManagement.Models
 
         [Required]
         public string Verein { get; set; }
+               
+        public string Anzeigename { get; set; }
 
         [Required]
         public int? Tab_Sai_Id { get; set; }
