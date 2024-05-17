@@ -35,5 +35,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelleNL(ISpieltageNLService spieltagNLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabellePT(ISpieltagePTService spieltagNLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabelleTU(ISpieltageTUService spieltagTUService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+        Task<IEnumerable<Tabelle>> BerechneTabelleBE(ISpieltageBEService spieltagTUService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
     }
 }

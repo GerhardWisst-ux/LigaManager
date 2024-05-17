@@ -79,6 +79,9 @@ namespace LigaManagerManagement.Web.Pages
         public ISpieltageTUService SpieltagTUService { get; set; }
 
         [Inject]
+        public ISpieltageBEService SpieltagBEService { get; set; }
+
+        [Inject]
         public ISpieltagePTService SpieltagPTService { get; set; }
 
         [Inject]
@@ -205,6 +208,13 @@ namespace LigaManagerManagement.Web.Pages
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2019)
                     iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaID == 14)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) < 2020)
+                    iSpieltage = 30;
                 else
                     iSpieltage = 34;
             }
@@ -390,6 +400,28 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Doppelpunkt = ":";
                 }
             }
+            else if (Globals.LigaID == 14)
+            {
+
+                VereineAus = await VereineAusService.GetVereineBE();
+
+                Spieltage = (await SpieltagBEService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count(); i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (VereineAus == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname1;
+                    columns.Verein1Anzeige = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname2;
+                    columns.Verein2Anzeige = VereineAus.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                    columns.Doppelpunkt = ":";
+                }
+            }
 
             SpieltagNr = Globals.Spieltag.ToString();
 
@@ -490,6 +522,15 @@ namespace LigaManagerManagement.Web.Pages
 
             }
             else if (Globals.LigaID == 11)
+            {
+
+                if (Spieltage.Count() >= 9)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+
+            }
+            else if (Globals.LigaID == 14)
             {
 
                 if (Spieltage.Count() >= 9)

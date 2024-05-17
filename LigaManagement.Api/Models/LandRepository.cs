@@ -106,7 +106,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Laender]", conn);
                 Land land = null;
-                List<Land> peList = new List<Land>();
+                List<Land> laenderList = new List<Land>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -117,11 +117,11 @@ namespace LigaManagerManagement.Api.Models
                         land.Code = reader["Code"].ToString();                        
                         land.Aktiv = bool.Parse(reader["Aktiv"].ToString());
 
-                        peList.Add(land);
+                        laenderList.Add(land);
                     }
                 }
                 conn.Close();
-                return peList;
+                return laenderList;
             }
             catch (Exception ex)
             {

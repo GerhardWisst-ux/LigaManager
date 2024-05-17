@@ -302,6 +302,20 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
+                else if (LigaID == 14)
+                {
+                    SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageBE] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                            else
+                                iMaxSpieltag = 1;
+                        }
+                    }
+                }
 
                 conn.Close();
                 return iMaxSpieltag;

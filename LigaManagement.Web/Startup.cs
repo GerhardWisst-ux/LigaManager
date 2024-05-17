@@ -73,6 +73,10 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+            services.AddHttpClient<IVereineBEService, VereineBEService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
 
             services.AddHttpClient<IVereineAusService, VereineAUSService>(client =>
             {
@@ -123,6 +127,11 @@ namespace LigaManagement.Web
             });
 
             services.AddHttpClient<ISpieltageTUService, SpieltagTUService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<ISpieltageBEService, SpieltagBEService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });

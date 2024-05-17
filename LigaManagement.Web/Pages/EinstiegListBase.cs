@@ -88,6 +88,9 @@ namespace LigaManagement.Web.Pages
         public IVereineTUService VereineServiceTU { get; set; }
 
         [Inject]
+        public IVereineBEService VereineServiceBE { get; set; }
+
+        [Inject]
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
@@ -261,6 +264,8 @@ namespace LigaManagement.Web.Pages
                         sCurrentliga = "primeira-liga";
                     else if (Globals.LigaID == 11)
                         sCurrentliga = "sueper-lig";
+                    else if (Globals.LigaID == 14)
+                        sCurrentliga = "Jupiler Pro League";
 
                     if (Globals.LigaID == 0)
                     {
@@ -314,7 +319,7 @@ namespace LigaManagement.Web.Pages
         private DataTable GetDataFromFile()
         {
             DataTable importedData = new DataTable();
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2023_PL.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\1995_BE.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -402,6 +407,10 @@ namespace LigaManagement.Web.Pages
                 {
                     VereineAUS = await VereineServiceTU.GetVereine();
                 }
+                else if (Globals.LigaID == 14)
+                {
+                    VereineAUS = await VereineServiceBE.GetVereine();
+                }
 
 
                 using (SqlConnection conn = new SqlConnection(Globals.connstring))
@@ -411,9 +420,9 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageBE(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2023/24");
+                        cmd.Parameters.AddWithValue("@Saison", "1995/96");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -450,26 +459,26 @@ namespace LigaManagement.Web.Pages
                         //else
                         cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 107);
-                        cmd.Parameters.AddWithValue("@LigaID", 4);
+                        cmd.Parameters.AddWithValue("@SaisonID", 354);
+                        cmd.Parameters.AddWithValue("@LigaID", 14);
 
                         // string time = importRow["Time"].ToString();
 
-                        //DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
-                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
-                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
-
-                        string time = importRow["Time"].ToString();
-
                         DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
                                                 Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
-                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
+                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), 15, 30, 0);
+
+                        //string time = importRow["Time"].ToString();
+
+                        //DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
+                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
+                        //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
 
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 10;
+                        int mod = i % 9;
 
                         if (mod == 0)
                             spieltag++;
@@ -593,6 +602,13 @@ namespace LigaManagement.Web.Pages
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2019)
                     Globals.maxSpieltag = 38;
+                else
+                    Globals.maxSpieltag = 34;
+            }
+            else if (Globals.LigaID == 14)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) < 2020 || Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2022)
+                    Globals.maxSpieltag = 30;
                 else
                     Globals.maxSpieltag = 34;
             }

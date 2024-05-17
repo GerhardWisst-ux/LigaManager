@@ -67,9 +67,11 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public ISpieltagePTService SpieltagPTService { get; set; }
 
-
         [Inject]
         public ISpieltageTUService SpieltagTUService { get; set; }
+
+        [Inject]
+        public ISpieltageBEService SpieltagBEService { get; set; }
 
         [Inject]
         public IToreService ToreService { get; set; }
@@ -282,7 +284,21 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
+                else if (Globals.LigaID == 14)
+                {
+                    if (Id != null)
+                        Spiel = await SpieltagBEService.GetSpieltag(Convert.ToInt32(Id));
 
+                    var vereineSaison = await VereineAusService.GetVereineSaison(Globals.SaisonID);
+                    List<VereinAktSaisonAUS> verList = vereineSaison.ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineAusService.GetVereinBE(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+                    SpieltagNr = Globals.Spieltag.ToString();
+                }
 
 
                 if (Id == null)
@@ -501,6 +517,12 @@ namespace LigamanagerManagement.Web.Pages
                     var verein = await VereineAusService.GetVereinTU(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
+                }
+                else if (Globals.LigaID == 14)
+                {
+                    var verein = await VereineAusService.GetVereinBE(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
             }
             StateHasChanged();
