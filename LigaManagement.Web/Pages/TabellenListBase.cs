@@ -225,6 +225,10 @@ namespace LigamanagerManagement.Web.Pages
                     else
                         iSpieltage = 30;
                 }
+                else if (Globals.LigaID == 15)
+                {
+                   iSpieltage = 46;
+                }
 
                 for (int i = 1; i <= iSpieltage; i++)
                 {
@@ -369,8 +373,7 @@ namespace LigamanagerManagement.Web.Pages
             if (e.Value != null)
             {
                 TabArt = Convert.ToInt32(e.Value);
-
-                TabArt = 1;
+                                
                 await TabelleBerechnen(TabArt);
 
                 DisplayElements = "block";
@@ -382,7 +385,7 @@ namespace LigamanagerManagement.Web.Pages
 
         private async Task TabelleBerechnen(int TabArt)
         {
-            int iSpieltag;
+            int iSpieltag = 1;
 
            
             if (Globals.LigaID < 3)
@@ -390,14 +393,7 @@ namespace LigamanagerManagement.Web.Pages
                 var vereineSaison = await VereineSaisonService.GetVereineSaison();
                 Vereine = await VereineService.GetVereine();
                 List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
-
-
-                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
-                    iSpieltag = 15;
-                else if (Globals.currentSaison.Substring(0, 4) == "1991")
-                    iSpieltag = 19;
-                else
-                    iSpieltag = 17;
+              
 
                 if (TabArt == 1)
                     Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, bAbgeschlossen, verList, Vereine, SpieltagList.Count, Globals.currentSaison, Globals.LigaID, (int)Globals.Tabart.Gesamt);
@@ -419,7 +415,7 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
             }
-            else if (Globals.LigaID == 4)
+            else if (Globals.LigaID == 4  || Globals.LigaID == 15)
             {
                 VereineAus = await VereineAusService.GetVereinePL();
 

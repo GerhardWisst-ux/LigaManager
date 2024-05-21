@@ -204,7 +204,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 4)
+                else if (LigaID == 4 || LigaID == 15)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())

@@ -30,7 +30,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[Spieltage]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
                 }
-                else if (LigaId == 4)
+                else if (LigaId == 4  || LigaId ==  15)
                 {
                     command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltagePL]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
                 }

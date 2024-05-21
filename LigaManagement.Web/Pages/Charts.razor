@@ -2,6 +2,8 @@
 @using LigaManagerManagement.Web.Pages;
 @using System.Globalization
 
+@inject IJSRuntime js
+
 @inherits ChartsListBase
 @attribute [Authorize]
 
@@ -11,7 +13,7 @@
     string chartpunkte = "Punkte";
 }
 
-<!DOCTYPE html>
+@* <!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <html>
 <body>
@@ -44,7 +46,7 @@
                                 {
                                     <option value="@saison.SaisonID"> @saison.Saisonname </option>
                                 }
-                            }                          
+                            }
                         </select>
                         <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Saison wählen</label>
                     </div>
@@ -116,5 +118,138 @@
 
 
 </body>
-</html>
+</html> *@
+
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Chart.js demo</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">@Globals.currentLand Saison @Globals.currentSaison Chart</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+        </div>
+        @if (SaisonenList != null)
+        {
+            <RadzenCard style="margin-bottom:4px;">
+                <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline">
+                        <div class="dropdown" style="display:inline;">
+                            <select value="@SaisonID" id="cboSaison" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="SaisonChange">
+                                <option value="0" required>Saison auswählen</option>
+                                @if (SaisonenList != null)
+                                {
+                                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                                    {
+                                        @if (saison.SaisonID == Globals.SaisonID)
+                                        {
+                                            <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+
+                                    }
+                                }
+                            </select>
+                            <label for="cboSaison" title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                        </div>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select value="@VereinID" id="cboVerein" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown col-sm-10" @onchange="VereinChange">
+                            <option value="0" selected="selected">Verein auswählen</option>
+                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                            {
+                                @if (Convert.ToInt32(verein.VereinID) == ChartVereinNr)
+                                {
+                                    <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
+                                else
+                                {
+                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
+
+                            }
+                        </select>
+                        <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select value="@ChartArt" id="cboChartArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="ChartArtChange">
+                            <option selected value="0">Chartart wählen</option>
+                            <option value="1">Punkte</option>
+                            <option value="2">Platz</option>
+                        </select>
+                        <label title="Bitte Chartart wählen" style="display:@DisplayErrorChartArt;color:red;" id="lblErrorLiga">Bitte Chartart wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnChoose" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                        </RadzenButton>
+                    </div>
+                </div>
+            </RadzenCard>
+            <div class="rz-m-12">
+                <RadzenProgressBar @bind-Value="@value" Style="width:100%;" Visible="@ProgressVisible"/>
+            </div>            
+        }
+    </div>
+
+    <canvas id="myChart" style="width:100%; height:400px;"></canvas>
+    <script>
+        var ctx = document.getElementById("myChart").getContext("2d");
+        var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: "line",
+
+            // The data for our dataset
+            data: {
+                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34],
+                datasets: [
+                    {
+                        label: "Punkteverlauf VfB Stuttgart",
+                        backgroundColor: "rgb(255, 99, 132)",
+                        borderColor: "rgb(255, 99, 132)",
+                        data: [3, 3, 6, 9, 12, 15, 18, 21, 21, 21, 24, 27, 30, 31, 31, 34, 34, 34, 37, 40, 43, 46, 47, 50, 53, 56, 57, 60, 63, 63, 64, 67, 70, 73],
+                        borderWidth: 3
+                    }
+                ]
+
+            },
+
+            // Configuration options go here
+            options: {
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });       
+       
+
+        // function showAlert(message)
+        // {
+        //     alert(message);
+        // }
+
+        // function InitArray()
+        // {
+        //     var myArray = [];
+        //     var myArrayPunkte = [];
+
+     
+        </script>
+    </body>
+    </html>
+
+
 

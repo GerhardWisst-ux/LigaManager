@@ -27,6 +27,8 @@ namespace LigaManagement.Models
         
         public bool Pokal { get; set; }
 
+        public string Hyperlink { get; set; }
+
         public bool Liga1 { get; set; }
         public bool Liga2 { get; set; }
 

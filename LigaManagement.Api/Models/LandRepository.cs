@@ -80,8 +80,8 @@ namespace LigaManagerManagement.Api.Models
                     {                        
                         land = new Land();
                         land.Id = int.Parse(reader["Id"].ToString());                        
-                        land.Laendername = reader["Laendername"].ToString();
-                        land.Code = reader["Code"].ToString();
+                        land.Laendername = reader["Laendername"].ToString().Trim();
+                        land.Code = reader["Code"].ToString().Trim();
                         land.Aktiv = bool.Parse(reader["Aktiv"].ToString());
                     }
                 }
@@ -113,8 +113,8 @@ namespace LigaManagerManagement.Api.Models
                     {
                         land = new Land();
                         land.Id = int.Parse(reader["Id"].ToString());
-                        land.Laendername = reader["Laendername"].ToString();
-                        land.Code = reader["Code"].ToString();                        
+                        land.Laendername = reader["Laendername"].ToString().Trim();
+                        land.Code = reader["Code"].ToString().Trim();
                         land.Aktiv = bool.Parse(reader["Aktiv"].ToString());
 
                         laenderList.Add(land);
