@@ -159,7 +159,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/statistiken") Match="NavLinkMatch.All">
-
+                        
                             <span class="oi oi-bar-chart" aria-hidden="true"></span>Statistiken
                         </NavLink>
                     </li>
@@ -175,13 +175,9 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        @if (Globals.LigaID < 4)
-                        {
-                            <NavLink class="nav-link" href=@($"Ligamanager/charts") Match="NavLinkMatch.All">
-                                <span class="oi oi-graph"></span> Charts(D)
-                            </NavLink>
-                        }
-
+                        <NavLink class="nav-link" href=@($"Ligamanager/charts") Match="NavLinkMatch.All">
+                            <span class="oi oi-graph"></span> Charts(D)
+                        </NavLink>
                     </li>
                 }
                 @if (Globals.bVisibleNavMenuElements == true)
@@ -197,26 +193,26 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/info") Match="NavLinkMatch.All">
-                            <span class="oi--info"></span>&nbsp;&nbsp;Info
-                        </NavLink>
-                    </li>
+                        <span class="oi--info"></span>&nbsp;&nbsp;Info
+                    </NavLink>
+                </li>
                 }
 
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/impressum") Match="NavLinkMatch.All">
-                            <span class="oi oi-ellipses"></span>Impressum
-                        </NavLink>
-                    </li>
+                        <span class="oi oi-ellipses"></span>Impressum
+                    </NavLink>
+                </li>
                 }
 
-                @*  @if (Globals.bVisibleNavMenuElements == true)
+               @*  @if (Globals.bVisibleNavMenuElements == true)
                 {
-                <li class="nav-item px-4">
-                <NavLink class="nav-link" href="/update" Match="NavLinkMatch.All">
-                <span class="wpf--repeat"></span>&nbsp;&nbsp;Update
-                </NavLink>
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href="/update" Match="NavLinkMatch.All">
+                        <span class="wpf--repeat"></span>&nbsp;&nbsp;Update
+                    </NavLink>
                 </li> *@
                 }
 

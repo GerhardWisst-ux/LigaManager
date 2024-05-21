@@ -4,7 +4,6 @@ using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,7 +12,6 @@ using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace LigaManagement.Api.Models

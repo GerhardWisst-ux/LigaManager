@@ -1005,7 +1005,7 @@ namespace LigaManagerManagement.Web.Services
                     tabelleneintragV1.VereinNr = verein.VereinNr;
                     tabelleneintragV1.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Vereinsname1;
                     tabelleneintragV1.Anzeigename = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Vereinsname2;
-                    tabelleneintragV1.Hyperlink = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Hyperlink;
+                    //tabelleneintragV1.Hyperlink = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Hyperlink;
                     tabelleneintragV1.TorePlus = 0;
                     tabelleneintragV1.ToreMinus = 0;
                     tabelleneintragV1.Spiele = 0;
