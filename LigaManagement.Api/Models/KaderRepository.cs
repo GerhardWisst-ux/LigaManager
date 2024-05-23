@@ -1,4 +1,6 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
@@ -8,6 +10,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
@@ -21,7 +24,7 @@ namespace LigaManagement.Api.Models
                 
         public async Task<Kader> AddSpieler(Kader spieler)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -77,7 +80,7 @@ namespace LigaManagement.Api.Models
             {
                 List<Kader> allspieler = new List<Kader>();
 
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Kader]", conn);
@@ -111,40 +114,50 @@ namespace LigaManagement.Api.Models
             catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-          
+
         }
 
         public async Task<Kader> GetSpieler(int SpielerId)
-        {            
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
-            conn.Open();
-
-            SqlCommand command = new SqlCommand("SELECT * FROM [Kader] where ID =" + SpielerId, conn);
-            Kader kaderspieler = null;
-            using (SqlDataReader reader = command.ExecuteReader())
+        {
+            try
             {
-                while (reader.Read())
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [Kader] where ID =" + SpielerId, conn);
+                Kader kaderspieler = null;
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    kaderspieler = new Kader();
-                    kaderspieler.Id = (int)reader["Id"];
-                    kaderspieler.SpielerName = reader["SpielerName"].ToString();
-                    kaderspieler.Vorname = reader["Vorname"].ToString();
-                    kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
-                    kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
-                    kaderspieler.Einsaetze = (int)reader["Einsaetze"];
-                    kaderspieler.Tore = (int)reader["Tore"];
-                    kaderspieler.VereinID = (int)reader["VereinNr"];
-                    kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
-                    kaderspieler.SaisonId = (int)reader["SaisonID"];
-                    kaderspieler.Aktiv = (bool)reader["Aktiv"];
-                    kaderspieler.Position = (string)reader["Position"].ToString();
-                    kaderspieler.PositionsNr = (int)reader["PositionsNr"];
+                    while (reader.Read())
+                    {
+                        kaderspieler = new Kader();
+                        kaderspieler.Id = (int)reader["Id"];
+                        kaderspieler.SpielerName = reader["SpielerName"].ToString();
+                        kaderspieler.Vorname = reader["Vorname"].ToString();
+                        kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
+                        kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                        kaderspieler.Einsaetze = (int)reader["Einsaetze"];
+                        kaderspieler.Tore = (int)reader["Tore"];
+                        kaderspieler.VereinID = (int)reader["VereinNr"];
+                        kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
+                        kaderspieler.SaisonId = (int)reader["SaisonID"];
+                        kaderspieler.Aktiv = (bool)reader["Aktiv"];
+                        kaderspieler.Position = (string)reader["Position"].ToString();
+                        kaderspieler.PositionsNr = (int)reader["PositionsNr"];
+                    }
                 }
+                conn.Close();
+                return kaderspieler;
             }
-            conn.Close();
-            return kaderspieler;            
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
         }
               
         public async Task<Kader> UpdateSpieler(Kader Spieler)
@@ -152,7 +165,7 @@ namespace LigaManagement.Api.Models
             try
             {                
 
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -188,7 +201,8 @@ namespace LigaManagement.Api.Models
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 

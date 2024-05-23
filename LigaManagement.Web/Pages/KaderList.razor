@@ -31,7 +31,7 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0">
+                <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2 style="display:inline-block;">Kader</h2>
@@ -87,8 +87,8 @@ else
                 {
                     var spielerList = SpielerList.OrderByDescending(x => x.Tore).ThenBy(x => x.PositionsNr);
 
-                    <RadzenDataGrid @ref="grid" Data="@spielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                    AllowPaging="true" Responsive=true AllowSorting="true" AllowMultiColumnSorting="true" AllowFiltering="true"
+                    <RadzenDataGrid @ref="grid" Data="@spielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="15"
+                                    AllowPaging="true" Responsive=true AllowSorting="true" AllowFiltering="true"
                                     TItem="Kader" Visible="true" AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
@@ -111,8 +111,8 @@ else
                                     <NavLink href="@($"editkaderspieler/{data.Id}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
-                        </Columns>
 
+                        </Columns>
 
                     </RadzenDataGrid>
                     <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">

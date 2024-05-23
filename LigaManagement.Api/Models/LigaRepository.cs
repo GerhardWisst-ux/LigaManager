@@ -1,21 +1,24 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class LigaRepository : ILigaRepository
+    public class LigaRepository : ILigenRepository
     {       
 
         public async Task<Liga> AddLiga(Liga liga)
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
@@ -35,21 +38,18 @@ namespace LigaManagerManagement.Api.Models
 
                 return liga;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-            //var result = await appDbContext.Ligen.AddAsync(Liga);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
         }
 
         public Task<Liga> DeleteLiga(int LigaId)
         {
 
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -63,24 +63,14 @@ namespace LigaManagerManagement.Api.Models
             conn.Close();
 
             return null;
-
-            //var result = await appDbContext.Ligen
-            //   .FirstOrDefaultAsync(e => e.Id == LigaId);
-            //if (result != null)
-            //{
-            //    appDbContext.Ligen.Remove(result);
-            //    await appDbContext.SaveChangesAsync();
-            //    return result;
-            //}
-
-            //return null;
+          
         }
 
         public async Task<Liga> GetLiga(int LigaId)
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Ligen] WHERE ID =" + LigaId, conn);
@@ -93,6 +83,7 @@ namespace LigaManagerManagement.Api.Models
                         liga = new Liga();
 
                         liga.Id = (int)reader["Id"];
+                        liga.LandID = (int)reader["LandID"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
@@ -112,15 +103,13 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
 
-            //return await appDbContext.Ligen
-            //    .FirstOrDefaultAsync(d => d.Id == LigaId);
         }
 
         public async Task<IEnumerable<Liga>> GetLigen()
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Ligen]", conn);
@@ -133,6 +122,7 @@ namespace LigaManagerManagement.Api.Models
                         liga = new Liga();
 
                         liga.Id = int.Parse(reader["Id"].ToString());
+                        liga.LandID = (int)reader["LandID"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
@@ -146,14 +136,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return peList;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-           // return await appDbContext.Ligen.ToListAsync();
+
         }
 
         public async Task<Liga> UpdateLiga(Liga liga)
@@ -162,19 +151,12 @@ namespace LigaManagerManagement.Api.Models
             
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-               // cmd.CommandText = "UPDATE Ligen(Liganame,Verband,Erstaustragung,Absteiger,Aktiv)" +
-               //" VALUES(@Liganame,@Verband,@Erstaustragung,@Absteiger,@Aktiv)";
-
-               // cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
-               // cmd.Parameters.AddWithValue("@Verband", liga.Verband);
-               // cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
-               // cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
-               // cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+               
 
                 if (liga.Aktiv == false)
                     bAktiv = 0;
@@ -182,7 +164,7 @@ namespace LigaManagerManagement.Api.Models
                     bAktiv = 1;
 
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
-                      "[Liganame] = '" + liga.Liganame + "'" +
+                       "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
                       ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
                       ",[Absteiger] =" + liga.Absteiger +
@@ -195,37 +177,12 @@ namespace LigaManagerManagement.Api.Models
 
                 return liga;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-
-            //try
-            //{
-            //    var result = await appDbContext.Ligen
-            //    .FirstOrDefaultAsync(e => e.Id == Liga.Id);
-
-            //    if (result != null)
-            //    {
-            //        result.Liganame = Liga.Liganame;
-            //        result.Verband = Liga.Verband;
-            //        result.Absteiger = Liga.Absteiger;
-            //        result.Aktiv = Liga.Aktiv;
-            //        result.Erstaustragung = Liga.Erstaustragung;
-
-            //        await appDbContext.SaveChangesAsync();
-
-            //        return result;
-            //    }
-            //    return null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    Debug.Print(ex.StackTrace);
-            //    return null;
-            //}
         }
     }
 }

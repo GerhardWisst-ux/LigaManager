@@ -1,24 +1,30 @@
 ﻿using LigaManagement.Models;
-using LigaManagement.Web.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Pages
 {
     public class StatistikenListBase : ComponentBase
     {
-        public bool allowVirtualization;
-        public Int32 currentspieltag = Globals.Spieltag;
+
+        [Parameter]
+        public string SpieltagNr { get; set; }
+
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+
+        public bool allowVirtualization;        
         public int selectedIndex = 0;
 
         protected string DisplayElements = "none";
@@ -26,11 +32,7 @@ namespace LigaManagerManagement.Web.Pages
         protected string Statistik = "";
 
         public int VereinNr1;
-
         public int VereinNr2;
-
-        [CascadingParameter]
-        public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -47,21 +49,11 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IToreService ToreService { get; set; }
 
-        public List<DisplayVerein> VereineList = new List<DisplayVerein>();
-
-        public string PageHeaderText { get; set; }
-
-        public IEnumerable<Spieltag> spieltage { get; set; }
-
-        public EditSpieltagModel EditSpieltagModel { get; set; } =
-            new EditSpieltagModel();
-
+        public List<DisplayVerein> VereineList = new List<DisplayVerein>();        
+       
         public Spielergebnisse Spiel { get; set; } = new Spielergebnisse();
 
         public List<Verein> Vereine { get; set; }
-
-        [Parameter]
-        public string SpieltagNr { get; set; }
 
         public IEnumerable<Spielergebnisse> Spielergebnisse = new List<Spielergebnisse>();
 
@@ -72,134 +64,106 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-
         public void OnChange(int index)
         {
             if (index > 0)
-            {
-                //Spielergebnisse = null;
-
+            {              
                 StateHasChanged();
             }
         }
         protected async override Task OnInitializedAsync()
         {
-            List<Spieltag> spiele2;
-            var authenticationState = await authenticationStateTask;
-
-            if (!authenticationState.User.Identity.IsAuthenticated)
-            {
-                string returnUrl = WebUtility.UrlEncode($"/statistiken");
-                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
-            }
-
-            var spiele = await SpieltagService.GetSpieltage();
-
-            if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-            {
-                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(8).ToList();
-            }
-            else if (Globals.currentSaison == "1991/92")
-            {
-                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(10).ToList();
-            }
-            else
-            {
-                spiele2 = spiele.Where(x => x.Saison == Globals.currentSaison).Where(y => y.SpieltagNr.ToString() == "1").Take(9).ToList();
-            }
-
-
-            Vereine = (await VereineService.GetVereine()).ToList();
-
-            VereineList = new List<DisplayVerein>();
-
-            for (int i = 0; i < Vereine.Count() - 1; i++)
-            {
-
-                if (i == 55)
-                    Debug.Print("Bundesliga");
-
-                if (Vereine[i].Bundesliga == true)
-                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, Vereine[i].Bundesliga));
-                
-            }
-
-            DisplayElements = "none";
-
-            Spieltage = (await SpieltagService.GetSpieltage());
-
-            var tore = await ToreService.GetTore();
-
-            List<Tore> torelist = tore.ToList();
-
             try
             {
-                TorjaegerList.Clear();
-                for (int i = 0; i < torelist.Count(); i++)
+                var authenticationState = await authenticationStateTask;
+
+                if (authenticationState.User.Identity == null)
                 {
-                    var kaderspieler = await KaderService.GetSpieler(torelist[i].SpielerID);
+                    return;
+                }
 
-                    var verein = await VereineService.GetVerein(kaderspieler.VereinID);
-                    Torjaeger torjaeger = new Torjaeger();
+                if (!authenticationState.User.Identity.IsAuthenticated)
+                {
+                    string returnUrl = WebUtility.UrlEncode($"/statistiken");
+                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                }
 
-                    var result = TorjaegerList.FindIndex(x => x.Id == torelist[i].SpielerID);
+                Vereine = (await VereineService.GetVereine()).ToList();
 
-                    if (result == -1)
+                VereineList = new List<DisplayVerein>();
+
+                for (int i = 0; i < Vereine.Count() - 1; i++)
+                {
+
+                    if (Vereine[i].Bundesliga == true)
+                        VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, Vereine[i].Bundesliga));
+                }
+
+                DisplayElements = "none";
+
+                Spieltage = (await SpieltagService.GetSpieltage());
+
+                var tore = await ToreService.GetTore();
+
+                List<Tore> torelist = tore.ToList();
+
+                try
+                {
+                    TorjaegerList.Clear();
+
+                    for (int i = 0; i < torelist.Count(); i++)
                     {
-                        torjaeger.LigaID = Globals.currentLiga;
-                        torjaeger.Id = torelist[i].SpielerID;
-                        torjaeger.SaisonID = Globals.SaisonID;
-                        torjaeger.Tore = 1;
-                        torjaeger.Spielername = kaderspieler.SpielerName;
-                        torjaeger.Vereinsname = verein.Vereinsname1;
-                        TorjaegerList.Add(torjaeger);
-                    }
-                    else
-                    {
-                        var found = TorjaegerList.Find(x => x.Id == torelist[i].SpielerID);
+                        var kaderspieler = await KaderService.GetSpieler(torelist[i].SpielerID);
 
-                        if (found != null)
+                        var verein = await VereineService.GetVerein(kaderspieler.VereinID);
+                        Torjaeger torjaeger = new Torjaeger();
+
+                        var result = TorjaegerList.FindIndex(x => x.Id == torelist[i].SpielerID);
+
+                        if (result == -1)
                         {
-                            found.Tore = found.Tore + 1;
+                            torjaeger.LigaID = Globals.currentLiga;
+                            torjaeger.Id = torelist[i].SpielerID;
+                            torjaeger.SaisonID = Globals.SaisonID;
+                            torjaeger.Tore = 1;
+                            torjaeger.Spielername = kaderspieler.SpielerName;
+                            torjaeger.Vereinsname = verein.Vereinsname1;
+                            TorjaegerList.Add(torjaeger);
                         }
+                        else
+                        {
+                            var found = TorjaegerList.Find(x => x.Id == torelist[i].SpielerID);
 
+                            if (found != null)
+                            {
+                                found.Tore = found.Tore + 1;
+                            }
+
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+
+                    ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 }
             }
             catch (Exception ex)
             {
 
-                throw ex;
+                Debug.Print(ex.Message);
             }
         }
-
-        [Bind]
-        public class DisplayTorjaeger
+                
+        public string Reverse(string text)
         {
-            public DisplayTorjaeger(int spielerid, string spielername, int? tore)
+            char[] cArray = text.ToCharArray();
+            string reverse = String.Empty;
+            for (int i = cArray.Length - 1; i > -1; i--)
             {
-                Spielerid = spielerid;
-                Spielername = spielername;
-                Tore = tore;
+                reverse += cArray[i];
             }
-            public int Spielerid { get; set; }
-            public string Spielername { get; set; }
-            public int? Tore { get; set; }
-
-        }
-
-        [Bind]
-        public class DisplayVerein
-        {
-            public DisplayVerein(string vereinID, string vereinname, bool bundesliga)
-            {
-                VereinID = vereinID;
-                Vereinname1 = vereinname;
-                Bundesliga = bundesliga;
-            }
-            public string VereinID { get; set; }
-            public string Vereinname1 { get; set; }
-            public bool Bundesliga { get; set; }
+            return reverse;
         }
 
         public async void Verein1Change(ChangeEventArgs e)
@@ -237,7 +201,9 @@ namespace LigaManagerManagement.Web.Pages
                 var stat = await TabelleService.VereinGegenVereinSum(SpieltagService, Spiel);
 
                 Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
+                
                 DisplayElements = "block";
+
                 StateHasChanged();
             }
         }
@@ -268,5 +234,49 @@ namespace LigaManagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
+
+        [Bind]
+        public class DisplayTorjaeger
+        {
+            public DisplayTorjaeger(int spielerid, string spielername, int? tore)
+            {
+                Spielerid = spielerid;
+                Spielername = spielername;
+                Tore = tore;
+            }
+            public int Spielerid { get; set; }
+            public string Spielername { get; set; }
+            public int? Tore { get; set; }
+
+        }
+
+        [Bind]
+        public class DisplayVerein
+        {
+            public DisplayVerein(string vereinID, string vereinname, bool bundesliga)
+            {
+                VereinID = vereinID;
+                Vereinname1 = vereinname;
+                Bundesliga = bundesliga;
+            }
+            public string VereinID { get; set; }
+            public string Vereinname1 { get; set; }
+            public bool Bundesliga { get; set; }
+        }
+    }
+
+    public class FeedItem
+    {
+        public string Title
+        {
+            get;
+            set;
+        }
+        public string Link
+        {
+            get;
+            set;
+        }
     }
 }
+

@@ -35,8 +35,5 @@ namespace LigaManagement.Models
     {
         public int SaisonID { get; set; }
 
-       
-
-
     }
 }

@@ -59,15 +59,14 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                if(tor == null)
+                if (tor == null)
                 {
                     return BadRequest();
                 } 
               
-                var createdLiga = await toreRepository.CreateTor(tor);
+                var createdTor = await toreRepository.CreateTor(tor);
 
-                return CreatedAtAction(nameof(CreateTor), new { id = createdLiga.Id },
-                    createdLiga);
+                return CreatedAtAction(nameof(CreateTor), new { id = createdTor.Id }, createdTor);
             }
             catch (Exception ex)
             {

@@ -21,7 +21,7 @@ namespace LigaManagerManagement.Web.Pages
         protected string DisplayErrorLiga = "none";
         public string Liganame = "Bundesliga";
         public bool value = true;
-        public Density Density = Density.Default;
+        public Density Density = Density.Compact;
 
         [Parameter]
         public string Id { get; set; }
@@ -53,6 +53,8 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<Verein> vereinesaison = new List<Verein>();
 
+        public List<Verein> vereinesaisonSelected = new List<Verein>();
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
@@ -64,11 +66,29 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
+
+            if (authenticationState.User.Identity == null)
+            {
+                return;
+            }
+
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                string returnUrl = WebUtility.UrlEncode($"/saisonen");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
+
+            LigenList = new List<DisplayLiga>();
+            Ligen = (await LigaService.GetLigen()).ToList();
+
+            for (int i = 0; i < Ligen.Count(); i++)
+            {
+                var columns = Ligen.ElementAt(i);
+                LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Id, columns.Liganame));
+            }
+
+            var liga = (await LigaService.GetLiga(Globals.LigaID));
+            Liganame = liga.Liganame;
 
             SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
 
@@ -82,46 +102,22 @@ namespace LigaManagerManagement.Web.Pages
             {
                 var result = VereineSaison.FindIndex(s => s.VereinNr == Vereine[i].VereinNr);
 
-                if (result == -1)
+                if (Id != null)
+                {
+                    if (result == -1)
+                        VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
+                    else
+                        VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
+                }
+                else                   
                     VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
-                else
-                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
-            }
-
-            LigenList = new List<DisplayLiga>();
-            Ligen = (await LigaService.GetLigen()).ToList();
-
-            for (int i = 0; i < Ligen.Count(); i++)
-            {
-                var columns = Ligen.ElementAt(i);
-                LigenList.Add(new DisplayLiga(columns.Id, columns.Liganame));
-            }
-
-            var liga = (await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga)));
-            Liganame = liga.Liganame;
+            }         
 
             DisplayErrorLiga = "none";
 
             Globals.bVisibleNavMenuElements = true;
         }
-
-        public void Select(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (!multiple)
-            {
-                selectedCellData.Clear();
-            }
-
-            var cellData = selectedCellData.FirstOrDefault(i => i.Item1 == args.Data && i.Item2 == args.Column);
-            if (cellData != null)
-            {
-                selectedCellData.Remove(cellData);
-            }
-            else
-            {
-                selectedCellData.Add(new Tuple<Saison, RadzenDataGridColumn<Saison>>(args.Data, args.Column));
-            }
-        }
+      
         [Bind]
         public class DisplayVerein
         {
@@ -138,57 +134,19 @@ namespace LigaManagerManagement.Web.Pages
             public bool VereinChecked { get; set; }
         }
 
-        int index;
-        public void ResetIndex(bool shouldReset)
-        {
-            if (shouldReset)
-            {
-                index = 0;
-            }
-        }
-
-        public void OnCellClick(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (type == "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellDoubleClick(DataGridCellMouseEventArgs<Saison> args)
-        {
-            if (type != "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellRender(DataGridCellRenderEventArgs<Saison> args)
-        {
-            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-            {
-                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-            }
-        }
-        public void OnFilter(DataGridColumnFilterEventArgs<Saison> args)
-        {
-            //
-        }
-
-
         public async void CheckboxClicked(string aSelectedId, object aChecked)
         {
             Verein = await VereineService.GetVerein(Convert.ToInt32(aSelectedId));
 
             if ((bool)aChecked)
             {
-                if (!vereinesaison.Contains(Verein))
-                    vereinesaison.Add(Verein);
+                if (!vereinesaisonSelected.Contains(Verein))
+                    vereinesaisonSelected.Add(Verein);
             }
             else
             {
-                if (vereinesaison.Contains(Verein))
-                    vereinesaison.Remove(Verein);
+                if (vereinesaisonSelected.Contains(Verein))
+                    vereinesaisonSelected.Remove(Verein);
             }          
 
             StateHasChanged();

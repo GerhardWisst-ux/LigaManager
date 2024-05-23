@@ -14,9 +14,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SaisonenController : ControllerBase
     {
-        private readonly ISaisonRepository SaisonRepository;
+        private readonly ISaisonenRepository SaisonRepository;
 
-        public SaisonenController(ISaisonRepository SaisonRepository)
+        public SaisonenController(ISaisonenRepository SaisonRepository)
         {
             this.SaisonRepository = SaisonRepository;
         }

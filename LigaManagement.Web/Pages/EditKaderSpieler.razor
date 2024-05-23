@@ -6,16 +6,14 @@
 @inject LigaManagement.Web.Services.Contracts.IKaderService _KaderService
 @inject NavigationManager _navigationManager
 
-<div class="container">
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body">
-                    <h2>@Titel Kader Spieler</h2>
-                </div>
+<div class="container">   
+    <RadzenCard class="m-0 mb-3 rz-shadow-3">
+        <div class="d-flex flex-row">
+            <div class="card-body">
+                <h2>@Titel Kader Spieler</h2>
             </div>
         </div>
-    </div>
+    </RadzenCard>
     <br />
     <div class="form-group row">
         <div class="col-12">
@@ -54,13 +52,13 @@
                 <div class="form-group row">
                     <label class="col-sm-3">Position</label>
                     <select id="cboPosition" style="display:inline-block;" class="form-control col-sm-9" @onchange="PositionChange">
-                        <option value="" selected required>Position auswählen</option>
-                        <option value="Torhüter"> Torhüter</option>
-                        <option value="Abwehr"> Abwehr</option>
-                        <option value="Mittelfeld">Mittelfeld</option>
-                        <option value="Sturm">Sturm</option>
+                        <option value="@PositionsNr" selected required>Position auswählen</option>
+                        <option value="1">Torhüter</option>
+                        <option value="2">Abwehr</option>
+                        <option value="3">Mittelfeld</option>
+                        <option value="4">Sturm</option>
                     </select>
-                    <ValidationMessage For="()=>Kader.Position"></ValidationMessage>
+                    <ValidationMessage For="()=>Kader.PositionsNr"></ValidationMessage>
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3">Einsätze</label>
@@ -79,7 +77,7 @@
                 </div>
                 <div class="form-group row">
                     <label class="col-sm-3">Abloesesumme</label>
-                    <InputNumber required id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-sm-9"></InputNumber>
+                    <InputNumber id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-sm-9"></InputNumber>
                     <ValidationMessage For="()=>Kader.Abloesesumme"></ValidationMessage>
                 </div>
                 <div class="form-group">
@@ -89,7 +87,6 @@
                     </RadzenColumn>
                     <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
                 </div>
-
                 <div class="form-group py-2">
                     <button class="btn btn-primary">Speichern</button>
                     <NavLink href="/Kader" class="btn btn-secondary">Zurück</NavLink>
@@ -128,7 +125,7 @@
         IsLoading = true;
         StateHasChanged();
         Kader = await _KaderService.GetSpieler(Convert.ToInt32(Id));
-        IsLoading = false;
+         IsLoading = false;
         StateHasChanged();
     }
     private async Task UpsertKader()
@@ -147,10 +144,15 @@
         Kader.Spielminuten = Kader.Spielminuten + 90;
         Kader.VereinID = Convert.ToInt32(Verein1_Nr);
 
+        if (Position == null)
+        {
+            Kader.Position = "";
+            Kader.PositionsNr = 0;
+        }
+
         if (Id == "0")
         {
             // Create
-
             await _KaderService.CreateSpieler(Kader);
         }
         else

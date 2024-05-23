@@ -7,6 +7,7 @@ using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Radzen;
@@ -25,7 +26,9 @@ namespace LigaManagerManagement.Web.Pages
         public string DisplayErrorSaison = "none";
 
         public string Vereinsname1;
-      
+
+        public int? PositionsNr;
+
         [Parameter]
         public string Id { get; set; }
 
@@ -48,24 +51,22 @@ namespace LigaManagerManagement.Web.Pages
         {
 
             var authenticationState = await authenticationStateTask;
-            if (!authenticationState.User.Identity.IsAuthenticated)
+
+            if (authenticationState.User.Identity == null)
             {
-                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
-                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                return;
             }
 
-
-            if (Id != null)
+            if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                Kader = await KaderService.GetSpieler(Convert.ToInt32(Id));               
-
+                string returnUrl = WebUtility.UrlEncode($"/");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
             var verein = await VereineService.GetVerein(Globals.KaderVereinNr);
             Vereinsname1 = verein.Vereinsname1;
             Verein1_Nr = verein.VereinNr.ToString();
-
-            
+                        
             Vereine = (await VereineService.GetVereine()).ToList();
             var vereineSaison = await VereineService.GetVereineSaison();
 
@@ -76,7 +77,11 @@ namespace LigaManagerManagement.Web.Pages
                 if (verList[i].SaisonID == Globals.SaisonID)
                     VereineList.Add(new DisplayKaderVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
             }
-        
+
+            //var kaderspieler = await KaderService.GetSpieler(Convert.ToInt32(Id));
+
+            //PositionsNr = kaderspieler.PositionsNr;
+
             DisplayElements = "none";
             DisplayErrorSaison = "none";   
             Globals.bVisibleNavMenuElements = true;
@@ -104,24 +109,37 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Position = e.Value.ToString();
 
-                if (Position == "Torhüter")
+                if (Position == "1")
+                {
                     Kader.PositionsNr = 1;
-                else if (Position == "Abwehr")
+                    Kader.Position = "Torhüter";
+                }                    
+                else if (Position == "2")
+                {
                     Kader.PositionsNr = 2;
-                else if (Position == "Mittelfeld")
-                    Kader.PositionsNr = 3;
-                else if (Position == "Sturm")
+                    Kader.Position = "Abwehr";
+                }
+                else if (Position == "3")
+                {
+                    Kader.PositionsNr = 2;
+                    Kader.Position = "Abwehr";
+                }
+                else if (Position == "4")
+                {
                     Kader.PositionsNr = 4;
-                else 
-                    Kader.PositionsNr = -999;
+                    Kader.Position = "Sturm";
+                }
+                else
+                {
+                    Kader.PositionsNr =null;
+                    Kader.Position = "";
+                }
+                
+                Kader.VereinID = Convert.ToInt32(Verein1_Nr);
 
-                Kader.Position = Position;
-                Kader.VereinID = Convert.ToInt32( Verein1_Nr);
+                StateHasChanged();
             }
-                        
-            StateHasChanged();
         }
-
     }    
 }
 
@@ -135,6 +153,5 @@ public class DisplayKaderVerein
     }
     public string VereinID { get; set; }
     public string Vereinname1 { get; set; }
-
     public string Ort { get; set; }
 }

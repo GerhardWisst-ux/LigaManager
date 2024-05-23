@@ -1,4 +1,4 @@
-﻿@page "/tabellen"
+﻿@page "/{CurrentligaUrl}/tabellen"
 @inherits TabellenListBase
 
 @attribute [Authorize]
@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css'
-          rel='stylesheet'>
-
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css'    rel='stylesheet'>
+    
     <style type="text/css">
 
 
@@ -66,51 +65,114 @@
 }
 else
 {
-
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0">
+                <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2 style="display:inline-block;">Tabelle @Globals.currentSaison </h2>
+                            @if (@Globals.LigaID == 1)
+                            {
+                                <h2 style="display:inline-block;">Deutschland - Tabelle Bundesliga @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 2)
+                            {
+                                <h2 style="display:inline-block;">Deutschland - Tabelle 2. Bundesliga @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 3)
+                            {
+                                <h2 style="display:inline-block;">Tabelle 3. Liga  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 4)
+                            {
+                                <h2 style="display:inline-block;">England - Tabelle Premier League @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 6)
+                            {
+                                <h2 style="display:inline-block;">Italien - Tabelle Serie A @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 7)
+                            {
+                                <h2 style="display:inline-block;">Frankreich - Tabelle Ligue 1 @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 8)
+                            {
+                                <h2 style="display:inline-block;">Spanien - Tabelle La Liga A @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 9)
+                            {
+                                <h2 style="display:inline-block;">Niederlande - Tabelle Eredivisie @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 10)
+                            {
+                                <h2 style="display:inline-block;">Portugal - Tabelle primeira-liga @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 11)
+                            {
+                                <h2 style="display:inline-block;">Türkei - Tabelle Süper-Lig  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 14)
+                            {
+                                <h2 style="display:inline-block;">Belgien - Tabelle Jupiler League  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 15)
+                            {
+                                <h2 style="display:inline-block;">England - Championship  @Globals.currentSaison </h2>
+                            }
                         </div>
                     </div>
                 </RadzenCard>
             </div>
         </div>
         <RadzenCard style="margin-bottom:4px;">
-            <div class="form-group row">
+            <div class="form-group row">                                
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="" selected>@saison</option>
-                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                        <option value="0" selected required>Saison wählen</option>
+                        @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
                         {
-                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            @if (saison.SaisonID == Globals.SaisonID)
+                            {
+                                <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
+                            else
+                            {
+                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="dropdown" style="display:inline">
                     <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
-                        <option value="" selected>@currentspieltag. Spieltag</option>
+                        <option value="0" selected required>Spieltag wählen</option>
                         @foreach (var spieltag in SpieltagList)
                         {
-                            <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                            @if (spieltag.Nummer == currentspieltag.ToString())
+                            {
+                                <option selected value="@spieltag.Nummer"> @spieltag.Name </option>
+                            }
+                            else
+                            {
+                                <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                            }
                         }
                     </select>
                 </div>
                 <div class="dropdown" style="display:inline">
                     <select id="cboTableArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="TabArtChange">
                         <option value="0">Tabellenart wählen</option>
-                        <option value="1">Gesamttabelle</option>
+                        <option selected value="1">Gesamttabelle</option>
                         <option value="2">Heimtabelle</option>
                         <option value="3">Auswärtstabelle</option>
                         <option value="4">Vorrunde</option>
                         <option value="5">Rückrunde</option>
-                        <option value="6">Ewige Tabelle</option>
+                        @if (Globals.LigaID < 4)
+                        {
+                            <option value="6">Ewige Tabelle</option>
+                        }                        
                     </select>
                 </div>
-              
+
             </div>
         </RadzenCard>
         <RadzenCard style="flex:1;margin:0px;">
@@ -132,7 +194,12 @@ else
                     <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verein" Width="22%" Sortable=false Title="Verein" />
+                    <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
+                        <Template Context="data">
+                            <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; width: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />

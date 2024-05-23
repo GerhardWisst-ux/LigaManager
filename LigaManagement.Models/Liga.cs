@@ -5,6 +5,7 @@ namespace LigaManagement.Models
 {
     public class Liga
     {
+
         [Key]
         public int Id { get; set; }
 
@@ -14,14 +15,14 @@ namespace LigaManagement.Models
         [Required]
         public string Verband { get; set; }
 
+        public int LandID { get; set; }
+
         [Required]
         public DateTime Erstaustragung { get; set; }
 
         [Required]
-        public int Absteiger { get; set; }              
+        public int Absteiger { get; set; }
 
         public bool Aktiv { get; set; }
-
-
     }
 }

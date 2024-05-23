@@ -4,6 +4,10 @@
 @using LigaManagerManagement.Models;
 @inherits LigaManagerManagement.Web.Pages.VereineListBase
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
+@inject LigaManagement.Web.Services.Contracts.IVereinePLService _VereinePLService
+@inject LigaManagement.Web.Services.Contracts.IVereineITService _VereineITService
+@inject LigaManagement.Web.Services.Contracts.IVereineFRService _VereineFRService
+@inject LigaManagement.Web.Services.Contracts.IVereineESService _VereineESService
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
@@ -37,56 +41,113 @@
         </div>
         <div class="col-sm-12">
             <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
-                <div class="form-group row">
-                    <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
-                    <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
-                    <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
-                </div>
-                <div class="form-group row">
-                    <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
-                    <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control col-sm-9"></InputText>
-                    <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
-                </div>
-                <div class="form-group row">
-                    <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
-                    @* <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control col-sm-9"></InputText> *@
-                    <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
-                    <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
-                </div>
-                <div class="form-group row">
-                    <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
-                    <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
-                    <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
-                </div>
-                <div class="form-group row">
-                    <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">Fassungsvermögen</RadzenLabel>
-                    <InputText required id="txtVereinsname" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-sm-9"></InputText>
-                    <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
-                </div>
-                <div class="form-group">
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
-                    <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
-                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                    </RadzenColumn>
-                    <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
-                </div>
-                <div class="form-group">
-                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
-                    <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkBundesliga" />
-                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                    </RadzenColumn>
-                    <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
-                </div>
+                @if (Globals.LigaID < 4)
+                {
+                    <div class="form-group row">
+                        <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
+                        <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
+                        <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
+                        @* <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control col-sm-9"></InputText> *@
+                        <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
+                        <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
+                        <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">Fassungsvermögen</RadzenLabel>
+                        <InputText required id="txtVereinsname" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
+                        <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkBundesliga" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
+                        <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
+                    </div>
 
-                <div class="form-group row my-2">                    
-                    <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
-                     
-                    </RadzenButton>
+                    <div class="form-group row my-2">
+                        <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
 
-                    <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
-                        
-                    </RadzenButton>
-                </div>
+                        </RadzenButton>
+
+                        <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+
+                        </RadzenButton>
+                    </div>
+                }
+                @if (Globals.LigaID > 3)
+                {
+                    <div class="form-group row">
+                        <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
+                        <InputText required id="txtVereinsname" @bind-Value="VereinAus.Vereinsname1" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>VereinAus.Vereinsname1"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
+                        <InputText required id="txtStadion" @bind-Value="VereinAus.Stadion" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>VereinAus.Stadion"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
+                        @* <InputText required Resizable id="txtErfolge" @bind-Value="VereinAus.Erfolge" class="form-control col-sm-9"></InputText> *@
+                        <RadzenTextArea @bind-Value=@VereinAus.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
+                        <ValidationMessage For="()=>VereinAus.Erfolge"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
+                        <InputNumber required id="txtGegründet" @bind-Value="VereinAus.Gegruendet" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>VereinAus.Gegruendet"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">Fassungsvermögen</RadzenLabel>
+                        <InputText required id="txtVereinsname" @bind-Value="VereinAus.Fassungsvermoegen" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>VereinAus.Fassungsvermoegen"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
+                        <ValidationMessage For="()=>VereinAus.Pokal"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkBundesliga" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                        </RadzenColumn>
+                        <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
+                    </div>
+
+                    <div class="form-group row my-2">
+                        <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
+
+                        </RadzenButton>
+
+                        <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+
+                        </RadzenButton>
+                    </div>
+                }
+               
             </EditForm>
         </div>
     </div>
@@ -96,6 +157,7 @@
     [Parameter]
     public string Id { get; set; }
     private Verein Verein { get; set; } = new Verein();
+    private VereinAUS VereinAus { get; set; } = new VereinAUS();    
     private string Titel { get; set; }
     public bool IsLoading { get; set; }
     public IEnumerable<Verein> VereineMax { get; set; }
@@ -124,7 +186,16 @@
     {
         IsLoading = true;
         StateHasChanged();
-        Verein = await _VereineService.GetVerein(Convert.ToInt32(Id));
+        if (Globals.LigaID < 4)
+            Verein = await _VereineService.GetVerein(Convert.ToInt32(Id));
+        else if (Globals.LigaID == 4)
+            VereinAus = await _VereinePLService.CreateVerein(VereinAus);
+        else if (Globals.LigaID == 6)
+            VereinAus = await _VereineITService.CreateVerein(VereinAus);
+        else if (Globals.LigaID == 7)
+            VereinAus = await _VereineFRService.CreateVerein(VereinAus);
+        else if (Globals.LigaID == 8)
+            VereinAus = await _VereineESService.CreateVerein(VereinAus);
         IsLoading = false;
         StateHasChanged();
     }
@@ -138,12 +209,36 @@
             int iMax = VereineMax.Select(i => i.VereinNr).Max();
             Verein.VereinNr = iMax + 1;
             Verein.Vereinsname2 = Verein.Vereinsname1;
-            await _VereineService.CreateVerein(Verein);
+
+            VereinAus.VereinNr = iMax + 1;
+            VereinAus.Vereinsname2 = Verein.Vereinsname1;
+
+            if (Globals.LigaID < 4)
+                await _VereineService.CreateVerein(Verein);
+            else if (Globals.LigaID == 4)
+                await _VereinePLService.CreateVerein(VereinAus);
+            else if (Globals.LigaID == 6)
+                await _VereineITService.CreateVerein(VereinAus);
+            else if (Globals.LigaID == 7)
+                await _VereineFRService.CreateVerein(VereinAus);
+            else if (Globals.LigaID == 8)
+                await _VereineESService.CreateVerein(VereinAus);
+
+
         }
         else
         {
             //update
-            await _VereineService.UpdateVerein(Verein);
+            if (Globals.LigaID < 4)
+                await _VereineService.UpdateVerein(Verein);
+            else if (Globals.LigaID == 4)
+                await _VereinePLService.UpdateVerein(VereinAus);
+            else if (Globals.LigaID == 6)
+                await _VereineITService.UpdateVerein(VereinAus);
+            else if (Globals.LigaID == 7)
+                await _VereineFRService.UpdateVerein(VereinAus);
+            else if (Globals.LigaID == 8)
+                await _VereineESService.UpdateVerein(VereinAus);
         }
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
        // _navigationManager.NavigateTo("vereine");

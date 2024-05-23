@@ -12,6 +12,8 @@ namespace LigaManagement.Models
 
         [Required]
         public string Verein { get; set; }
+               
+        public string Anzeigename { get; set; }
 
         [Required]
         public int? Tab_Sai_Id { get; set; }
@@ -19,7 +21,7 @@ namespace LigaManagement.Models
         [Required]
         public string Liga { get; set; }
 
-        public string Tab_Lig_Id { get; set; }
+        public int Tab_Lig_Id { get; set; }
 
         [Required]
         public int? Platz { get; set; }

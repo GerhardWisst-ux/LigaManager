@@ -8,6 +8,7 @@
     <Compile Remove="Models\AppDbContext.cs" />
     <Compile Remove="Models\Repository\ISpielerRepository.cs" />
     <Compile Remove="Models\SpielerRepository.cs" />
+    <Compile Remove="Models\TabelleRepository.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />
+    <ProjectReference Include="..\Ligamanager.Components\Ligamanager.Components.csproj" />
   </ItemGroup>
 
 

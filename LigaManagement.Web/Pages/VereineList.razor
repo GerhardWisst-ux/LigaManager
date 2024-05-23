@@ -24,10 +24,8 @@
 }
 else
 {
-     <div class="container">
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <RadzenCard class="m-0">
+     <div class="container">        
+               <RadzenCard class="m-0 mb-3 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2 style="display:inline-block;">Vereine</h2>
@@ -37,8 +35,7 @@ else
                         </div>
                     </div>
                 </RadzenCard>
-            </div>
-        </div>
+        
         <div class="form-group row">
             <div class="col-sm-12">
 
@@ -46,12 +43,15 @@ else
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
                     </RadzenCard>
-              
-            <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                        AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
+            
+                      <RadzenTabs>
+                <Tabs>
+                    <RadzenTabsItem Text="Vereine Deutschland">
+                      <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                         TItem="Verein" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                        LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" SelectionMode="DataGridSelectionMode.Single" CellRender="OnCellRender">
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
                 <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
@@ -89,6 +89,189 @@ else
                 <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Vereine Premier League">
+                    <RadzenDataGrid @ref="gridPL" Data="@VereineListPL" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
+                    <FooterTemplate>
+                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Vereine Serie A">
+                 <RadzenDataGrid @ref="gridIT" Data="@VereineListIT" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Density="@Density" Responsive=true AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
+                    <FooterTemplate>
+                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Vereine Ligue 1">
+                          <RadzenDataGrid @ref="gridFR" Data="@VereineListFR" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
+                    <FooterTemplate>
+                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+
+                     <RadzenTabsItem Text="Vereine La Liga">
+
+                          <RadzenDataGrid @ref="gridES" Data="@VereineListES" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Liga1 TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
+                    <FooterTemplate>
+                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+
+                </Tabs>
+            </RadzenTabs>
+            
             </div>
         </div>       
     </div>

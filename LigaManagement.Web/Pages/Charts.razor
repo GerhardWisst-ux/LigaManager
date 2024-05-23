@@ -6,78 +6,115 @@
 @attribute [Authorize]
 
 @{
-    string chartTitle = "Chart Vfb Stuttgart"; 
+    string chartTitle = "Chart Vfb Stuttgart";
     string chartspiele = "Spiele";
     string chartpunkte = "Punkte";
 }
+
+<!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">   
-    
-    google.charts.load('current', { 'packages': ['corechart'] });
-    google.charts.setOnLoadCallback(drawChart);
-
-    function drawChart() 
-    {
-        var data = google.visualization.arrayToDataTable([['int', 'Data'],
-        @foreach (var data in chartDataList)
+<html>
+<body>
+    <div class="container-fluid">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">Chart</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+        </div>
+        @if (SaisonenList != null)
         {
-            <text>['@data.ChartSpiele, @data.ChartValue], </text>
-        } 
-        ]);
+            <RadzenCard style="margin-bottom:4px;">
+                <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline">
+                        <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
+                            <option value="0" selected="selected">Saison auswählen</option>
+                            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                            {
+                                @if (saison.SaisonID == Globals.SaisonID)
+                                {
+                                    <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                                }
+                                else
+                                {
+                                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                }
+                            }                          
+                        </select>
+                        <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Saison wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select id="cboVerein" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown col-sm-10" @onchange="VereinChange">
+                            <option value="0" selected="selected">Verein auswählen</option>
+                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                            {
+                                @if (Convert.ToInt32(verein.VereinID) == ChartVereinNr)
+                                {
+                                    <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
+                                else
+                                {
+                                    <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                }
 
-        var options =
-        {
-            title: '@chartTitle',
-            curveType: 'function',
-            pointsVisible: true,
-            lineWidth: 3,
-            legend: 'none',
-            hAxis: { title: '@chartspiele' },
-            vAxis: { title: '@chartpunkte' },
-            width: '100%',
-            height: '100%',
-            chartArea: { width: '85%', height: '75%' }
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('line_chart'));
-        chart.draw(data, options);
-    }
-</script>
-
-
-
-<div class="container-fluid">
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <RadzenCard class="m-0">
-                <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">Chart</h2>
+                            }
+                        </select>
+                        <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select id="cboChartArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="ChartArtChange">
+                            <option value="0">Chartart wählen</option>
+                            <option selected value="1">Punkte</option>
+                            <option value="2">Platz</option>
+                        </select>
+                        <label title="Bitte Chartart wählen" style="display:@DisplayErrorChartArt;color:red;" id="lblErrorLiga">Bitte Chartart wählen</label>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnChoose" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                        </RadzenButton>
                     </div>
                 </div>
             </RadzenCard>
-        </div>
+        }
     </div>
-    @if (SaisonenList != null)
-    {
-        <RadzenCard style="margin-bottom:4px;">
-            <div class="form-group row">
-                <div class="dropdown mr-2" style="display:inline">
-                    <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="" selected>@saison</option>
-                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                        {
-                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                        }
-                    </select>
-                </div>
-                <div class="dropdown" style="display:inline">
-                </div>
+    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
 
-            </div>
-        </RadzenCard>
-    }
-    <div id="line_chart" style="width: 800px; height: 600px;">
+    <script>
+        google.charts.load('current', { packages: ['corechart', 'line'] });
+        google.charts.setOnLoadCallback(drawBasic);
 
-    </div>
-</div>
+        function drawBasic() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('number', 'Spiele');
+            data.addColumn('number', 'Punkte');
+
+
+            data.addRows([
+        @multiDimensionalArray2
+                    ]);
+
+            var options = {
+                hAxis: {
+                    title: 'Spiele'
+                },
+                vAxis: {
+                    title: 'Punkte'
+                }
+            };
+
+            var chart = new google.visualization.LineChart(document.getElementById('myChart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+
+</body>
+</html>
+

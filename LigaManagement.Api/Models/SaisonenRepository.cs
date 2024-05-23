@@ -1,64 +1,73 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Web.Classes;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading;
+using System.Reflection;
 using System.Threading.Tasks;
 
 
 namespace LigaManagement.Api.Models
 {
-    public class SaisonenRepository : ISaisonRepository
+    public class SaisonenRepository : ISaisonenRepository
     {       
-        public async Task<Saison> AddSaison(Saison Saison)
+        public async Task<Saison> AddSaison(Saison saison)
         {
-            //var result = await appDbContext.Saisonen.AddAsync(Saison);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
+            int bAktuell;
+            int bAbgeschlossen;
 
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                if (saison.Aktuell == false)
+                    bAktuell = 0;
+                else
+                    bAktuell = 1;
+
+                if (saison.Abgeschlossen == false)
+                    bAbgeschlossen = 0;
+                else
+                    bAbgeschlossen = 1;
+
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Saison] (SaisonID, LigaID, Saisonname, Liganame, Aktuell,Abgeschlossen)" +
-                    " VALUES(@SaisonID,@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
-
-                cmd.Parameters.AddWithValue("@SaisonID", Saison.SaisonID);
-                cmd.Parameters.AddWithValue("@LigaID", Saison.LigaID);
-                cmd.Parameters.AddWithValue("@Saisonname", Saison.Saisonname);
-                cmd.Parameters.AddWithValue("@Liganame", Saison.Liganame);
-                cmd.Parameters.AddWithValue("@Aktuell", Saison.Aktuell);
-                cmd.Parameters.AddWithValue("@Abgeschlossen", Saison.Abgeschlossen);
+                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, LandID, Saisonname,Liganame,Aktuell,Abgeschlossen)" +
+                    " VALUES(@LigaID,@LandID, @Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
+                                
+                cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
+                cmd.Parameters.AddWithValue("@LandID", saison.LandID);
+                cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
+                cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
+                cmd.Parameters.AddWithValue("@Aktuell", bAktuell);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", bAbgeschlossen);
                 
-
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
 
-                return Saison;
+                return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
         }
 
         public Task<Saison> DeleteSaison(int SaisonId)
         {
-            SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+            SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[Saison]  Where SaisonID= = @SaisonId";
+            cmd.CommandText = "DELETE FROM [dbo].[Saisonen] Where SaisonID= = @SaisonId";
 
             cmd.Parameters.AddWithValue("@SaisonID", SaisonId);
 
@@ -84,7 +93,7 @@ namespace LigaManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where SaisonID= " + SaisonId, conn);
@@ -98,34 +107,31 @@ namespace LigaManagement.Api.Models
 
                         saison.SaisonID = (int)reader["saisonID"];
                         saison.LigaID = (int)reader["LigaID"];
+                        saison.LandID = (int)reader["landID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
-                        
+
                     }
                 }
                 conn.Close();
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            
 
-            //return await appDbContext.Saisonen
-            //    .FirstOrDefaultAsync(d => d.SaisonID == SaisonId);
         }
 
         public async Task<IEnumerable<Saison>> GetSaisonen()
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen]", conn);
@@ -139,6 +145,7 @@ namespace LigaManagement.Api.Models
                                                 
                         saison.SaisonID = (int)reader["saisonID"];                        
                         saison.LigaID = (int)reader["LigaID"];
+                        saison.LandID = (int)reader["LandID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
@@ -150,21 +157,19 @@ namespace LigaManagement.Api.Models
                 conn.Close();
                 return saisonenList;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            //return await appDbContext.Saisonen.ToListAsync();
         }
 
         public async Task<Saison> GetSaisonID(string saisonname)
         {
             try
             {
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where Saison= '" + saisonname + "'", conn);
@@ -183,9 +188,10 @@ namespace LigaManagement.Api.Models
                 conn.Close();
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.Print(ex.Message);
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
         }
@@ -198,20 +204,11 @@ namespace LigaManagement.Api.Models
             try
             {
 
-                SqlConnection conn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true");
+                SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                //cmd.CommandText = "UPDATE Saisonen(SaisonID,LigaID,Saisonname,Liganame,Aktuell,Abgeschlossen)" +
-                //    " VALUES(@SaisonID,@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
-
-                //cmd.Parameters.AddWithValue("@SaisonID", saison.SaisonID);
-                //cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
-                //cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
-                //cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
-                //cmd.Parameters.AddWithValue("@Aktuell", saison.Aktuell);
-                //cmd.Parameters.AddWithValue("@Abgeschlossen", saison.Abgeschlossen);
-
+                
                 if (saison.Aktuell == false)
                     bAktuell = 0;
                 else
@@ -222,14 +219,10 @@ namespace LigaManagement.Api.Models
                 else
                     bAbgeschlossen = 1;
 
-                cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +
-                          "[Saisonname] = '" + saison.Saisonname + "'" +
-                           "[Liganame] = '" + saison.Liganame + "'" +
-                          ",[LigaID] =" + saison.LigaID +
-                          ",[Aktuell] =" + bAktuell +
+                cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +                         
+                          " [Aktuell] =" + bAktuell +                          
                           ",[Abgeschlossen] =" + bAbgeschlossen +
-                          " WHERE  [Id] = " + saison.SaisonID;
-
+                          " WHERE  [SaisonID] = " + saison.SaisonID;
 
                 cmd.ExecuteNonQuery();
 
@@ -237,16 +230,12 @@ namespace LigaManagement.Api.Models
 
                 return saison;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                throw ex;
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
             }
-
-
-            //var result = await appDbContext.Saisonen.AddAsync(Saison);
-            //await appDbContext.SaveChangesAsync();
-            //return result.Entity;
         }
     }
 }

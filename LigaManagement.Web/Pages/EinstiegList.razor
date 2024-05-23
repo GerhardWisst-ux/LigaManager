@@ -23,51 +23,83 @@
 </style>
 
 <div class="container">
-    <div class="form-group row">
-        <div class="col-sm-12">
-            <RadzenCard class="m-0">
-                <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <h2 style="display:inline-block;">Start Ligamanager</h2>
-                    </div>
-                </div>
-            </RadzenCard>
+    
+    <RadzenCard class="m-0 rz-shadow-3">
+        <div class="d-flex flex-row">
+            <div class="card-body">
+                <h2 style="display:inline-block;">Start Ligamanager</h2>
+            </div>
         </div>
-    </div>
+    </RadzenCard>    
 
     <RadzenCard Style="height:70vh;" class="m-0">
         <RadzenTabs>
             <Tabs>
                 <RadzenTabsItem class="p-0" Text="Auswahl">
                     <div class="form-group row">
-                        <div class="dropdown mr-2" style="display:inline">
-                            <select value="@LigaID" id="cboLiga" class="form-control dropdown" @onchange="LigaChange">
-                                <option value="" selected required>Liga auswählen</option>
-                                @if (LigenList != null)
+                        <div class="dropdown mr-2" style="display:inline;">
+                            <select value="@LandID" id="cboLand" class="form-control dropdown" @onchange="LandChangeAsync">
+                                <option value="0" required>Land auswählen</option>
+                                @if (LaenderList != null)
                                 {
-                                    @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
+                                    @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
                                     {
-                                        <option value="@liga.LigaID"> @liga.Liganame </option>
+                                        @if (land.LandID == Globals.LandID)
+                                        {
+                                            <option selected value="@land.LandID"> @land.Laendername </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@land.LandID"> @land.Laendername </option>
+                                        }
                                     }
                                 }
                             </select>
-                            <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                            <label for="cboLand" title="Bitte Land wählen" style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">Bitte Land wählen</label>
                         </div>
-                        <div class="dropdown" style="display:inline">
-                            <select value="@SaisonID" id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                                <option value="" selected required>Saison auswählen</option>
+                        <div class="dropdown mr-2" style="display:inline;">
+                            <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
+                                <option value="0" required>Liga auswählen</option>
+                                @if (LigenList != null)
+                                {
+                                    @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
+                                    {
+                                        @if (liga.LigaID == Globals.LigaID)
+                                        {
+                                            <option selected value="@liga.LigaID"> @liga.Liganame </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@liga.LigaID"> @liga.Liganame </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                            <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                        </div>
+                        <div class="dropdown" style="display:inline;">
+                            <select value="@SaisonID" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown" @onchange="SaisonChange">
+                                <option value="0" required>Saison auswählen</option>
                                 @if (SaisonenList != null)
                                 {
                                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                     {
-                                        <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        @if (saison.SaisonID == Globals.SaisonID)
+                                        {
+                                            <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                        }
+                                        
                                     }
                                 }
                             </select>
-                            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                            <label for="cboSaison" title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
                         </div>
                         <div class="dropdown" style="display:inline">
-                            <RadzenButton title="Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
+                            <RadzenButton title="Land, Liga und Saison auswählen" BusyText="Bitte warten..." style="margin-left:4px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
                             </RadzenButton>
                         </div>
                     </div>
@@ -82,7 +114,7 @@
                         <div class="col-sm-6">
                             <div class="custom-file mb-3">
                                 <input type="file" class="custom-file-input" id="customFile" name="filename">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                <label class="custom-file-label" for="customFile">Datei wählen file</label>
                             </div>
 
                             <p>Default file:</p>

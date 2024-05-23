@@ -29,17 +29,17 @@ else
 {
     <div class="container">
         <div class="form-group row">
-            <div class="col-sm-12">              
-                <RadzenCard class="m-0">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0 mb-3 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Liganame Saisonen</h2>
                             <span class="ml-3">
-                                <a href="createsaison2" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                <a href="createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
                             </span>
                         </div>
                     </div>
-                </RadzenCard>
+                </RadzenCard>                
             </div>
         </div>
         <div class="form-group row">
@@ -54,7 +54,7 @@ else
                                 AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                                 TItem="Saison" Visible="true" AllowColumnResize="true"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                                LogicalFilterOperator="LogicalFilterOperator.Or">
                     <Columns>
                         <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>
                             <FooterTemplate>
@@ -79,7 +79,7 @@ else
 
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="SaisonID" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editsaison2/{data.SaisonID}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editsaison/{data.SaisonID}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

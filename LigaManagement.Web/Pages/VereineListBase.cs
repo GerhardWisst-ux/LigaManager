@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
@@ -16,16 +17,38 @@ namespace LigaManagerManagement.Web.Pages
     public class VereineListBase : ComponentBase
     {
         public RadzenDataGrid<Verein> grid;
-        IList<Tuple<Verein, RadzenDataGridColumn<Verein>>> selectedCellData = new List<Tuple<Verein, RadzenDataGridColumn<Verein>>>();
-        public Density Density = Density.Default;
+        public RadzenDataGrid<VereinAUS> gridPL;
+        public RadzenDataGrid<VereinAUS> gridIT;
+        public RadzenDataGrid<VereinAUS> gridFR;
+        public RadzenDataGrid<VereinAUS> gridES;
+
+        public Density Density = Density.Compact;
 
         public string Liganame = "";
-        string type = "Click";
-        bool multiple = true;
 
         [Inject]
         public IVereineService VereineService { get; set; }
+
+        [Inject]
+        public IVereinePLService VereinePLService { get; set; }
+
+        [Inject]
+        public IVereineESService VereineESService { get; set; }
+        [Inject]
+        public IVereineFRService VereineFRService { get; set; }
+
+        [Inject]
+        public IVereineITService VereineITService { get; set; }
+
         public IEnumerable<Verein> VereineList { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListPL { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListIT { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListFR { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListES { get; set; }
 
         [Inject]
         public ILigaService LigaService { get; set; }
@@ -41,80 +64,38 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
+
+            if (authenticationState.User.Identity == null)
+            {
+                return;
+            }
+
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/spieltage/1");
+                string returnUrl = WebUtility.UrlEncode($"/");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
             VereineList = (await VereineService.GetVereine()).ToList();
 
-            var liga = await LigaService.GetLiga(Convert.ToInt32(Globals.currentLiga));
+            VereineListPL = (await VereinePLService.GetVereine()).ToList();
+
+            VereineListIT = (await VereineITService.GetVereine()).ToList();
+
+            VereineListFR = (await VereineFRService.GetVereine()).ToList();
+
+            VereineListES = (await VereineESService.GetVereine()).ToList();
+
+
+            var liga = await LigaService.GetLiga(Globals.LigaID);
             Liganame = liga.Liganame;
         }
 
-        public void ClearSelection()
-        {
-            VereineList = null;
-        }
 
         protected async Task VereinDeleted()
         {
             VereineList = (await VereineService.GetVereine()).ToList();
         }
-        public void Select(DataGridCellMouseEventArgs<Verein> args)
-        {
-            if (!multiple)
-            {
-                selectedCellData.Clear();
-            }
 
-            var cellData = selectedCellData.FirstOrDefault(i => i.Item1 == args.Data && i.Item2 == args.Column);
-            if (cellData != null)
-            {
-                selectedCellData.Remove(cellData);
-            }
-            else
-            {
-                selectedCellData.Add(new Tuple<Verein, RadzenDataGridColumn<Verein>>(args.Data, args.Column));
-            }
-        }
-
-        int index;
-        public void ResetIndex(bool shouldReset)
-        {
-            if (shouldReset)
-            {
-                index = 0;
-            }
-        }
-
-        public void OnCellClick(DataGridCellMouseEventArgs<Verein> args)
-        {
-            if (type == "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellDoubleClick(DataGridCellMouseEventArgs<Verein> args)
-        {
-            if (type != "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellRender(DataGridCellRenderEventArgs<Verein> args)
-        {
-            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-            {
-                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-            }
-        }
-        public void OnFilter(DataGridColumnFilterEventArgs<Verein> args)
-        {
-            //
-        }
     }
 }
