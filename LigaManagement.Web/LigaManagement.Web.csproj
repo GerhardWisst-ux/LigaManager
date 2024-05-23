@@ -11,6 +11,7 @@
 		 <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
 		 <RepositoryType>git</RepositoryType>
 		 <AssemblyVersion>1.0.0.0</AssemblyVersion>
+		 <StartupObject>LigaManagement.Web.Program</StartupObject>
 		
 	
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
@@ -51,7 +52,26 @@
 
   <ItemGroup>
     <Folder Include="Classes\" />
+<<<<<<< HEAD
+=======
+    <Folder Include="Errors\" />
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
     <Folder Include="wwwroot\fonts\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

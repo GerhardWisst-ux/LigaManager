@@ -3,33 +3,52 @@ Message: Response status code does not indicate success: 404 (Not Found).
 StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
    at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+<<<<<<< HEAD
    at LigaManagerManagement.Web.Services.KaderService.GetSpieler(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\KaderService.cs:line 37
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 133
 Date/Time: 20.04.2024 09:45:47
+=======
+   at LigaManagerManagement.Web.Services.SpieltagTUService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagTUService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 290
+Date/Time: 17.05.2024 09:46:45
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Response status code does not indicate success: 404 (Not Found).
 StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
    at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+<<<<<<< HEAD
    at LigaManagerManagement.Web.Services.KaderService.GetSpieler(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\KaderService.cs:line 37
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 132
 Date/Time: 20.04.2024 12:13:02
+=======
+   at LigaManagerManagement.Web.Services.SpieltagTUService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagTUService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 290
+Date/Time: 17.05.2024 09:46:48
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Response status code does not indicate success: 404 (Not Found).
 StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
    at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+<<<<<<< HEAD
    at LigaManagerManagement.Web.Services.KaderService.GetSpieler(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\KaderService.cs:line 37
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 132
 Date/Time: 20.04.2024 22:49:31
+=======
+   at LigaManagerManagement.Web.Services.SpieltagTUService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagTUService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 290
+Date/Time: 17.05.2024 09:46:48
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Response status code does not indicate success: 404 (Not Found).
 StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
    at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+<<<<<<< HEAD
    at LigaManagerManagement.Web.Services.KaderService.GetSpieler(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\KaderService.cs:line 37
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 132
 Date/Time: 20.04.2024 22:50:14
@@ -60,82 +79,142 @@ StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at LigaManagerManagement.Web.Services.KaderService.GetSpieler(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\KaderService.cs:line 37
    at LigaManagerManagement.Web.Pages.StatistikenListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\StatistikenListBase.cs:line 132
 Date/Time: 22.04.2024 15:19:53
+=======
+   at LigaManagerManagement.Web.Services.SpieltagBEService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\SpieltagBEService.cs:line 23
+   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 290
+Date/Time: 17.05.2024 09:47:57
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:20:20
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:48:35
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:20:20
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:48:39
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:21:42
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:51:27
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:21:42
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:51:32
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:21:49
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:55:11
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:21:49
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:55:16
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:46:58
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:55:57
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 504
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 126
 Date/Time: 22.05.2024 11:46:58
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:56:03
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 532
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 132
 Date/Time: 22.05.2024 12:00:18
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:56:38
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================
 Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Value cannot be null. (Parameter 'source')
 StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+<<<<<<< HEAD
    at System.Linq.Enumerable.Count[TSource](IEnumerable`1 source)
    at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 532
    at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\SpieltageListBase.cs:line 132
@@ -24622,4 +24701,30 @@ Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Message: Fehler
 StackTrace: Fehler
 Date/Time: 23.05.2024 09:30:57
+=======
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:56:43
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 12:58:27
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 13:00:50
+============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager2\LigaManagement.Web\Pages\EinstiegListBase.cs:line 115
+Date/Time: 21.05.2024 13:00:54
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 ============================================

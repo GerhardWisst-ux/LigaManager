@@ -12,11 +12,9 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SpieltageBEController : ControllerBase
     {
-        private readonly ISpieltageBERepository SpieltagBERepository;
 
         public SpieltageBEController(ISpieltageBERepository SpieltagBERepository)
         {
-            this.SpieltagBERepository = SpieltagBERepository;
         }
 
         [HttpGet]
@@ -24,7 +22,6 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagBERepository.GetSpieltage());
             }
             catch (Exception ex)
             {
@@ -39,7 +36,6 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var result = await SpieltagBERepository.GetSpieltag(id);
 
                 if (result == null)
                 {
@@ -64,8 +60,7 @@ namespace LigaManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-               
-                var createdSpieltag = await SpieltagBERepository.AddSpieltag(spieltag);
+
 
                 return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
@@ -77,19 +72,17 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpPut()]        
+        [HttpPut()]
         public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag Spieltag)
         {
             try
             {
-                var VereinToUpdate = await SpieltagBERepository.GetSpieltag((int)Spieltag.SpieltagId);
 
                 if (VereinToUpdate == null)
                 {
                     return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagBERepository.UpdateSpieltag(Spieltag);
             }
             catch (Exception ex)
             {
@@ -104,14 +97,12 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var spieltagToDelete = await SpieltagBERepository.GetSpieltag(id);
 
                 if (spieltagToDelete == null)
                 {
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagBERepository.DeleteSpieltag(id);
             }
             catch (Exception ex)
             {

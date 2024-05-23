@@ -103,14 +103,18 @@
         <AuthorizeView>
             <Authorized>
                 <li class="nav-item px-4">
-                    <NavLink class="nav-link" href="/" Match="NavLinkMatch.All">
+                    <NavLink class="nav-link" href="/Ligamanager" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> Start
                     </NavLink>
                 </li>
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"{Globals.currentLigaUrl}/spieltage/{Globals.Spieltag}") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{Globals.Spieltag}") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi oi-calendar"></span> Spieltage
                         </NavLink>
                     </li>
@@ -118,7 +122,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"{Globals.currentLigaUrl}/tabellen") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/{Globals.currentLigaUrl}/tabellen") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi oi-list" aria-hidden="true"></span> Tabellen
                         </NavLink>
                     </li>
@@ -126,7 +134,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"vereine") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/vereine") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi--grid-three-up"></span>&nbsp;&nbsp; Vereine
                         </NavLink>
                     </li>
@@ -134,7 +146,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"saisonen") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/saisonen") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi oi-timer" aria-hidden="true"></span> Saisonen
                         </NavLink>
                     </li>
@@ -142,7 +158,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"ligen") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/ligen") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi oi-signal" aria-hidden="true"></span> Ligen
                         </NavLink>
                     </li>
@@ -150,7 +170,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"kader") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/kader") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             <span class="oi oi-person" aria-hidden="true"></span> Kader
                         </NavLink>
                     </li>
@@ -158,7 +182,11 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"/statistiken") Match="NavLinkMatch.All">
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/statistiken") Match="NavLinkMatch.All">
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                         
                             <span class="oi oi-bar-chart" aria-hidden="true"></span>Statistiken
                         </NavLink>
@@ -167,6 +195,7 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"rssfeed") Match="NavLinkMatch.All">
                             <RadzenIcon Icon="launch" />&nbsp; RSS Feed
                         </NavLink>
@@ -177,14 +206,31 @@
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"charts") Match="NavLinkMatch.All">
                             <span class="oi oi-graph"></span> Charts
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/rssfeed") Match="NavLinkMatch.All">
+                            <RadzenIcon Icon="launch" />&nbsp; RSS Feed
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                         </NavLink>
                     </li>
                 }
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
+<<<<<<< HEAD
                         <NavLink class="nav-link" href=@($"pokalergebnisse") Match="NavLinkMatch.All">
                             <span class="oi oi-aperture"></span> Pokal
+=======
+                        <NavLink class="nav-link" href=@($"Ligamanager/charts") Match="NavLinkMatch.All">
+                            <span class="oi oi-graph"></span> Charts(D)
+                        </NavLink>
+                    </li>
+                }
+                @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"Ligamanager/pokalergebnisse") Match="NavLinkMatch.All">
+                            <span class="oi oi-aperture"></span> Pokal(D)
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                         </NavLink>
                     </li>
                 }

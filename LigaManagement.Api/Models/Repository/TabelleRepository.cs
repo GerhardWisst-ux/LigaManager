@@ -1,7 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

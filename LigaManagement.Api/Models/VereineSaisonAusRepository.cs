@@ -5,10 +5,9 @@ using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 
 namespace LigaManagerManagement.Api.Models
@@ -30,7 +29,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[Spieltage]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
                 }
-                else if (LigaId == 4 | LigaId == 15)
+                else if (LigaId == 4  || LigaId ==  15)
                 {
                     command = new SqlCommand("SELECT DISTINCT [LigaID], [SaisonID], [Verein1_Nr] FROM [dbo].[SpieltagePL]  WHERE SaisonID = " + SaisonID + " and LIGAID =" + LigaId, conn);
                 }
@@ -116,7 +115,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] AND saisonID =" + SaisonID, conn);
+                command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] where saisonID =" + SaisonID, conn);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {

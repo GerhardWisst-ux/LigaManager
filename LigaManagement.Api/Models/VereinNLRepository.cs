@@ -73,7 +73,8 @@ namespace LigaManagerManagement.Api.Models
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT VereineSaisonES (VereinNr, SaisonID, LigaID)" +
+                cmd.CommandText = "INSERT VereineSaisonNL (VereinNr, SaisonID, LigaID)" +
+
                     " VALUES(@VereinNr,@SaisonID,@LigaID)";
 
                 cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);

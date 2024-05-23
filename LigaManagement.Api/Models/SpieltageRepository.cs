@@ -4,7 +4,6 @@ using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -203,6 +202,7 @@ namespace LigaManagerManagement.Api.Models
                                 iMaxSpieltag = 1;
                         }
                     }
+
                 } 
                 else if (LigaID == 4 || LigaID == 15)
                 {
@@ -217,7 +217,8 @@ namespace LigaManagerManagement.Api.Models
                                 iMaxSpieltag = 1;
                         }
                     }
-                }
+                }                             
+
                 else if (LigaID == 6)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageIT] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);

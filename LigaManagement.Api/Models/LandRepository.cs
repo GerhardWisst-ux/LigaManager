@@ -82,6 +82,8 @@ namespace LigaManagerManagement.Api.Models
                         land.Id = int.Parse(reader["Id"].ToString());                        
                         land.Laendername = reader["Laendername"].ToString();
                         land.Code = reader["Code"].ToString();
+                        land.Laendername = reader["Laendername"].ToString().Trim();
+                        land.Code = reader["Code"].ToString().Trim();
                         land.Aktiv = bool.Parse(reader["Aktiv"].ToString());
                     }
                 }
@@ -106,13 +108,18 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Laender]", conn);
                 Land land = null;
+
                 List<Land> peList = new List<Land>();
+
+                List<Land> laenderList = new List<Land>();
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         land = new Land();
                         land.Id = int.Parse(reader["Id"].ToString());
+
                         land.Laendername = reader["Laendername"].ToString();
                         land.Code = reader["Code"].ToString();                        
                         land.Aktiv = bool.Parse(reader["Aktiv"].ToString());
@@ -122,6 +129,8 @@ namespace LigaManagerManagement.Api.Models
                 }
                 conn.Close();
                 return peList;
+
+                
             }
             catch (Exception ex)
             {

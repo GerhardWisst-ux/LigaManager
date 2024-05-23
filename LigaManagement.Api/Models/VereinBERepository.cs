@@ -13,7 +13,9 @@ using System.Threading.Tasks;
 namespace LigaManagerManagement.Api.Models
 {
     public class VereinBERepository : IVereineBERepository
+
     {
+
 
         public async Task<VereinAUS> AddVerein(VereinAUS verein)
         {
@@ -27,7 +29,8 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [vereineBE] (VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Liga1)" +
+
+                cmd.CommandText = "INSERT INTO [VereineBE] (VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Liga1)" +
                     " VALUES(@VereinNr,@Vereinsname1,@Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Liga1)";
 
                 if (verein.Pokal == false)
@@ -80,10 +83,11 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
                 cmd.ExecuteNonQuery();
-            }
 
+            }         
+           
             conn.Close();
-
+                        
             return null;
         }
 
@@ -94,7 +98,8 @@ namespace LigaManagerManagement.Api.Models
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[vereineBE] Where Id= @Id";
+            cmd.CommandText = "DELETE FROM [dbo].[VereineBE] Where Id= @Id";
+
 
             cmd.Parameters.AddWithValue("@Id", vereinId);
 
@@ -113,8 +118,10 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [vereineBE] Where VereinNr =" + vereinnr, conn);
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [VereineBE] Where VereinNr =" + vereinnr, conn);
                 VereinAUS verein = null;
+               
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
@@ -154,7 +161,8 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [vereineBE]", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [VereineBE]", conn);
+
                 VereinAUS verein = null;
                 List<VereinAUS> vereinelist = new List<VereinAUS>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -241,10 +249,11 @@ namespace LigaManagerManagement.Api.Models
                     bLiga1 = 1;
 
 
-                cmd.CommandText = "UPDATE [dbo].[vereineBE] SET " +
+
+                cmd.CommandText = "UPDATE [dbo].[VereineBE] SET " +                        
                         "[VereinNr] = '" + verein.VereinNr + "'" +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
-                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +
+                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
                         ",[Stadion] = '" + verein.Stadion + "'" +
                         ",[Fassungsvermoegen] = '" + verein.Fassungsvermoegen + "'" +
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
@@ -265,8 +274,8 @@ namespace LigaManagerManagement.Api.Models
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
+        }      
 
-        }
     }
 }
 

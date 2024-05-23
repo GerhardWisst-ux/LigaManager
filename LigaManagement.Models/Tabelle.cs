@@ -15,6 +15,8 @@ namespace LigaManagement.Models
                
         public string Anzeigename { get; set; }
 
+        public string Hyperlink { get; set; }
+
         [Required]
         public int? Tab_Sai_Id { get; set; }
 

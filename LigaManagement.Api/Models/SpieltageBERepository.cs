@@ -5,6 +5,7 @@ using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -51,7 +52,7 @@ namespace LigaManagerManagement.Api.Models
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }
+            }            
 
             //var result = await appDbContext.Spieltage.AddAsync(spieltag);
             //await appDbContext.SaveChangesAsync();
@@ -165,12 +166,10 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return Spieltaglist;
             }
-            catch (Exception ex)
             {
 
-                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }
+            }          
             //return await appDbContext.Spieltage                
             //    .ToListAsync();
         }
@@ -206,7 +205,7 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
+                cmd.Connection = conn;             
                 //cmd.CommandText = "UPDATE Spieltage (SpieltagNr,Saison,SaisonID,LigaID,Verein1_Nr,Verein1,Verein2_Nr,Verein2,Tore1_Nr,Tore2_Nr,Datum,Ort,Schiedrichter,Abgeschlossen,Zuschauer)" +
                 //" VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
 
@@ -251,7 +250,7 @@ namespace LigaManagerManagement.Api.Models
                 //cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 //cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 //cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
-
+               
                 cmd.ExecuteNonQuery();
 
                 conn.Close();

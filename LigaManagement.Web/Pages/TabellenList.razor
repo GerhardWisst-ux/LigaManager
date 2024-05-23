@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 ﻿@page "/{CurrentligaUrl}/tabellen"
+=======
+﻿@page "/Ligamanager/{CurrentligaUrl}/tabellen"
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 @inherits TabellenListBase
 
+@using System.Diagnostics;
 @attribute [Authorize]
 
 <head>
@@ -101,6 +106,7 @@ else
                             }
                             else if (@Globals.LigaID == 9)
                             {
+<<<<<<< HEAD
                                 <h2 style="display:inline-block;">Niederlande - Tabelle Eredivisie @Globals.currentSaison </h2>
                             }
                             else if (@Globals.LigaID == 10)
@@ -114,6 +120,21 @@ else
                             else if (@Globals.LigaID == 14)
                             {
                                 <h2 style="display:inline-block;">Belgien - Tabelle Jupiler League  @Globals.currentSaison </h2>
+=======
+                                <h2 style="display:inline-block;">Niederlande - Eredivisie @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 10)
+                            {
+                                <h2 style="display:inline-block;">Portugal - primeira-liga @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 11)
+                            {
+                                <h2 style="display:inline-block;">Türkei - Süper-Lig  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 14)
+                            {
+                                <h2 style="display:inline-block;">Belgien - Jupiler League  @Globals.currentSaison </h2>
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                             }
                             else if (@Globals.LigaID == 15)
                             {
@@ -199,7 +220,16 @@ else
                             <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; width: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
                         </Template>
                     </RadzenDataGridColumn>
+<<<<<<< HEAD
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" />
+=======
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" >
+                        <Template Context="Tabelle">
+                            <a @onclick="@(() => OnLinkClick(Tabelle))">@Tabelle.Anzeigename</a>
+                        </Template>
+                    </RadzenDataGridColumn>
+                    ]
+>>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
                     <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />
@@ -225,6 +255,14 @@ else
         </RadzenCard>
     </div>
 
+    @code {
+    protected void OnLinkClick(Tabelle tabelle)
+    {
+        Process.Start("http://www.google.com");
+
+        // Process.Start("https://de.wikipedia.org/wiki/OGC_Nizza");
+    }
+}
     <script>
 
         let mybutton = document.getElementById("btnTop");
