@@ -36,9 +36,8 @@ namespace LigaManagerManagement.Web.Services
         {
             try
             {
-<<<<<<< HEAD
-                return await httpClient.GetJsonAsync<Land[]>("api/laender");
-=======
+
+                
                 try
                 {
                     return await httpClient.GetJsonAsync<Land[]>("api/laender");
@@ -48,7 +47,7 @@ namespace LigaManagerManagement.Web.Services
 
                     throw ex;
                 }
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
+
             }
             catch (System.Exception ex)
             {

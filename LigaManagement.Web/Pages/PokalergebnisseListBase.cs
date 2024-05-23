@@ -74,11 +74,10 @@ namespace LigaManagement.Web.Pages
                 }
 
                 SaisonenList = new List<DisplaySaison>();
-<<<<<<< HEAD
-                Saisonen = (await SaisonenService.GetSaisonen()).ToList();
-=======
+
+
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.LigaID == 1);
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
+
 
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {

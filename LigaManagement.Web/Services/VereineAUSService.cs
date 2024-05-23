@@ -24,7 +24,7 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PostJsonAsync<VereinAUS>("api/VereineAus", newVerein);
         }
 
-        
+
         public async Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine)
         {
             try
@@ -60,14 +60,6 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineES");
         }
 
-<<<<<<< HEAD
-        public async Task<IEnumerable<VereinAUS>> GetVereineBE()
-        {
-            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineBE");
-        }
-
-=======
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
         public async Task<IEnumerable<VereinAUS>> GetVereineNL()
         {
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineNL");
@@ -77,12 +69,8 @@ namespace LigaManagerManagement.Web.Services
         {
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereinePT");
         }
-<<<<<<< HEAD
-                
-=======
 
 
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
         public async Task<IEnumerable<VereinAUS>> GetVereineTU()
         {
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineTU");
@@ -95,17 +83,9 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<IEnumerable<VereinAUS>> GetVereineIT()
         {
-<<<<<<< HEAD
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineAus");
-        }      
-=======
-            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineIT");
         }
-        public async Task<IEnumerable<VereinAUS>> GetVereineBE()
-        {
-            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineBE");
-        }
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
+
 
         public async Task<IEnumerable<VereinAktSaisonAUS>> GetVereineSaison(int saisonid)
         {
@@ -153,9 +133,14 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineTU/{id}");
         }
 
-        public async Task<VereinAUS> GetVereinBE(int id)
+        public Task<IEnumerable<VereinAUS>> GetVereineBE()
         {
-            return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineBE/{id}");
+            throw new NotImplementedException();
+        }
+
+        public Task<VereinAUS> GetVereinBE(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

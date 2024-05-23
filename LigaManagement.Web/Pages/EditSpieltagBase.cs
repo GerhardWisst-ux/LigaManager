@@ -71,33 +71,7 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpieltageTUService SpieltagTUService { get; set; }
-
-        [Inject]
-        public ISpieltageENService SpieltagENService { get; set; }
-
-        [Inject]
-        public ISpieltageITService SpieltagITService { get; set; }
-
-        [Inject]
-        public ISpieltagAusService SpieltagAusService { get; set; }
-
-        [Inject]
-        public ISpieltageESService SpieltagESService { get; set; }
-
-        [Inject]
-        public ISpieltageFRService SpieltagFRService { get; set; }
-
-        [Inject]
-        public ISpieltageNLService SpieltagNLService { get; set; }
-
-        [Inject]
-        public ISpieltagePTService SpieltagPTService { get; set; }
-
-        [Inject]
-        public ISpieltageTUService SpieltagTUService { get; set; }
-
-        [Inject]
-        public ISpieltageBEService SpieltagBEService { get; set; }
+               
 
         [Inject]
         public IToreService ToreService { get; set; }
@@ -202,11 +176,7 @@ namespace LigamanagerManagement.Web.Pages
 
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-<<<<<<< HEAD
-                else if (Globals.LigaID == 4 || Globals.LigaID == 15)
-=======
                 else if (Globals.LigaID == 4)
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                 {
                     if (Id != null)
                         Spiel = await SpieltagENService.GetSpieltag(Convert.ToInt32(Id));
@@ -314,10 +284,9 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-<<<<<<< HEAD
-=======
+
                 else if (Globals.LigaID == 14)
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
+
                 {
                     if (Id != null)
                         Spiel = await SpieltagBEService.GetSpieltag(Convert.ToInt32(Id));
@@ -334,10 +303,6 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
                 if (Id == null)
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 15, 30, 0, DateTimeKind.Utc);
                 else
@@ -372,7 +337,7 @@ namespace LigamanagerManagement.Web.Pages
             catch (Exception ex)
             {
 
-                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+               // ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
 
         }
@@ -555,15 +520,12 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-<<<<<<< HEAD
-=======
                 else if (Globals.LigaID == 14)
                 {
                     var verein = await VereineAusService.GetVereinBE(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();
                 }
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
             }
             StateHasChanged();
         }

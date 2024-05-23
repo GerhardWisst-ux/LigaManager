@@ -21,7 +21,7 @@ namespace LigaManagement.Web
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-        }        
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -30,25 +30,22 @@ namespace LigaManagement.Web
             services.AddAuthentication("Identity.Application")
                 .AddCookie();
 
-            services.AddRazorPages();                       
+            services.AddRazorPages();
             services.AddServerSideBlazor();
-          
 
-            services.AddAutoMapper(typeof(Startup));          
-           
+
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddHttpClient<IVereineService, VereineService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-<<<<<<< HEAD
             services.AddHttpClient<IVereineBEService, VereineBEService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-=======
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
             services.AddHttpClient<IVereinePLService, VereinePLService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -57,7 +54,7 @@ namespace LigaManagement.Web
             services.AddHttpClient<IVereineITService, VereineITService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
-            });           
+            });
 
             services.AddHttpClient<IVereineFRService, VereineFRService>(client =>
             {
@@ -81,13 +78,6 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
-<<<<<<< HEAD
-=======
-            services.AddHttpClient<IVereineBEService, VereineBEService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
 
             services.AddHttpClient<IVereineAusService, VereineAUSService>(client =>
             {
@@ -105,31 +95,14 @@ namespace LigaManagement.Web
             services.AddHttpClient<ISpieltagService, SpieltagService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
-            });            
+            });
+
 
             services.AddHttpClient<ISpieltageENService, SpieltagENService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-<<<<<<< HEAD
-            services.AddHttpClient<ISpieltageBEService, SpieltagBEService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
-            services.AddHttpClient<ISpieltageENService, SpieltagENService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
-            services.AddHttpClient<IVereineBEService, VereineBEService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
-=======
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
             services.AddHttpClient<ISpieltageITService, SpieltagITService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -160,14 +133,6 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
-<<<<<<< HEAD
-=======
-            services.AddHttpClient<ISpieltageBEService, SpieltagBEService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
             services.AddHttpClient<ISpieltagAusService, SpieltagAusService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -211,9 +176,9 @@ namespace LigaManagement.Web
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
-            services.AddScoped<ChartTooltip>();           
-            
-            services.AddScoped<ContextMenuService>();                        
+            services.AddScoped<ChartTooltip>();
+
+            services.AddScoped<ContextMenuService>();
 
         }
 
@@ -244,8 +209,8 @@ namespace LigaManagement.Web
                 endpoints.MapFallbackToPage("/_Host");
             });
 
-           
+
         }
-      
+
     }
 }

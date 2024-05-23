@@ -166,10 +166,14 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return Spieltaglist;
             }
+            catch (Exception)
             {
 
-                return null;
-            }          
+                throw;
+            }
+               
+            
+            
             //return await appDbContext.Spieltage                
             //    .ToListAsync();
         }

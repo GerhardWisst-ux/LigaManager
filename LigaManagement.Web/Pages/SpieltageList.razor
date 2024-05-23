@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-﻿@page "/{CurrentligaUrl}/spieltage/{SpieltagNr}"
-=======
-﻿@page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
->>>>>>> 8a0e2d787e04b40732ddec05cdd3d89845d288fc
+@page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
 @inject DialogService DialogService
 @attribute [Authorize]
@@ -56,7 +52,7 @@
 
     .VereinMinWidth {
         min-width: 80px;
-        font-weight:normal;
+        font-weight: normal;
     }
 
     .ToreMinWidth {
@@ -64,7 +60,7 @@
         /* font-weight: bold !important;         */
         /* border-color: wheat !important ; */
         /* background-color:black !important;
-        color: white !important;  */
+            color: white !important;  */
     }
 </style>
 
@@ -98,17 +94,17 @@ else
                         <option value="0" selected="selected">Spieltag auswählen</option>
                         if (@SpieltagList != null)
                         {
-                            @foreach (var spieltag in SpieltagList)
+                        @foreach (var spieltag in SpieltagList)
+                        {
+                            @if (spieltag.Nummer == @SpieltagNr)
                             {
-                                @if (spieltag.Nummer == @SpieltagNr)
-                                {
-                                    <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
-                                }
-                                else
-                                {
-                                    <option value="@spieltag.Nummer"> @spieltag.Name</option>
-                                }
+                                <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
                             }
+                            else
+                            {
+                                <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                            }
+                        }
                         }
                     </select>
                     <span class="ml-3">
@@ -138,19 +134,19 @@ else
                                     TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
-                        <Columns>                           
+                        <Columns>
                             <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="Heim">
-                                
+
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
                                 <Template Context="data">
                                     <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                </Template>                            
+                                </Template>
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" /> 
-                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr"  TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
                             <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="true" Width="74px" MinWidth="74px">
                                 <Template Context="data">
                                     <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
@@ -159,7 +155,7 @@ else
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="" />
 
                             <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title="Datum" />
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" /> 
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" />
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
@@ -170,10 +166,10 @@ else
                                 <Template Context="data">
                                     <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
                                 </Template>
-                            </RadzenDataGridColumn>                           
+                            </RadzenDataGridColumn>
                         </Columns>
-                        <FooterTemplate>                            
-                        </FooterTemplate>                       
+                        <FooterTemplate>
+                        </FooterTemplate>
                         <FooterTemplate>
                             Spiele: <b>@Spieltage.Count()</b>
                             Tore: <b>@Spieltage.Sum(x => x.Tore1_Nr + x.Tore2_Nr)</b>
