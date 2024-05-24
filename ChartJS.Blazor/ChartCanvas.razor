@@ -1,0 +1,13 @@
+﻿@inject ChartJSInterop  ChartJSInterop
+
+<canvas id="@ChartId"></canvas>
+@code {
+
+    [Parameter]
+    public ChartConfig Configs { get; set; } 
+    public string ChartId { get; set; } = Guid.NewGuid().ToString();
+    protected override async Task OnInitializedAsync()
+    {
+        await ChartJSInterop.CreateChart(ChartId, Configs);
+    }
+}

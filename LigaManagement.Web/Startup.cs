@@ -31,8 +31,8 @@ namespace LigaManagement.Web
                 .AddCookie();
 
             services.AddRazorPages();
-            services.AddServerSideBlazor();
-
+            services.AddServerSideBlazor();                     
+            
 
             services.AddAutoMapper(typeof(Startup));
 
@@ -179,9 +179,10 @@ namespace LigaManagement.Web
             services.AddScoped<DialogService>();
             services.AddScoped<NotificationService>();
             services.AddScoped<TooltipService>();
-            services.AddScoped<ChartTooltip>();
-
+            services.AddScoped<ChartTooltip>();            
             services.AddScoped<ContextMenuService>();
+                        
+            services.AddRadzenComponents();
 
         }
 
