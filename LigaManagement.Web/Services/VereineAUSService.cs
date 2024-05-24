@@ -54,6 +54,10 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereinePL");
         }
 
+        public async Task<IEnumerable<VereinAUS>> GetVereineBE()
+        {
+            return await httpClient.GetJsonAsync<VereinAUS[]>("api/VereineBE");
+        }
 
         public async Task<IEnumerable<VereinAUS>> GetVereineES()
         {
@@ -92,11 +96,15 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<List<VereinAktSaisonAUS>>($"api/VereineSaisonAus/{saisonid}");
         }
 
+        public async Task<VereinAUS> GetVereinBE(int Id)
+        {
+            return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineBE/{Id}");
+        }
+
         public async Task<VereinAUS> GetVereinES(int Id)
         {
             return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineES/{Id}");
         }
-
 
         public async Task<VereinAUS> GetVereinFR(int Id)
         {
@@ -132,15 +140,7 @@ namespace LigaManagerManagement.Web.Services
         {
             return await httpClient.GetJsonAsync<VereinAUS>($"api/VereineTU/{id}");
         }
-
-        public Task<IEnumerable<VereinAUS>> GetVereineBE()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<VereinAUS> GetVereinBE(int id)
-        {
-            throw new NotImplementedException();
-        }
+       
+       
     }
 }

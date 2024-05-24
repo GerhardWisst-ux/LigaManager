@@ -60,7 +60,6 @@ namespace LigaManagement.Api
             services.AddScoped<IVereineTURepository, VereinTURepository>();
             services.AddScoped<IVereineBERepository, VereinBERepository>();
 
-
             services.AddScoped<ISaisonenRepository, SaisonenRepository>();
             services.AddScoped<ILigenRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();

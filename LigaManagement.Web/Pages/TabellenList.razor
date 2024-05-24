@@ -1,4 +1,4 @@
-@page "/Ligamanager/{CurrentligaUrl}/tabellen"
+@page "/{CurrentligaUrl}/tabellen"
 @inherits TabellenListBase
 
 @attribute [Authorize]
@@ -110,6 +110,14 @@ else
                             else if (@Globals.LigaID == 11)
                             {
                                 <h2 style="display:inline-block;">Türkei - Süper-Lig  @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 14)
+                            {
+                                <h2 style="display:inline-block;">Belgien - Tabelle Jupiler League @Globals.currentSaison </h2>
+                            }
+                            else if (@Globals.LigaID == 15)
+                            {
+                                <h2 style="display:inline-block;">England - Tabelle Champiobship @Globals.currentSaison </h2>
                             }
                         </div>
                     </div>
