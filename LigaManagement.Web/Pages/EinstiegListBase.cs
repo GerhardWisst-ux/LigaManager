@@ -804,7 +804,5 @@ namespace LigaManagement.Web.Pages
             public string Saisonname { get; set; }
         }
 
-
-
     }
 }

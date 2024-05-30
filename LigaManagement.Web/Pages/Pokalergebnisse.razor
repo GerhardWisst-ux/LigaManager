@@ -24,14 +24,21 @@
 
 <div class="container">
     <div class="form-group row">
-        <div class="col-sm-12"> 
-            <RadzenCard class="m-0">
-                <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <h2>Pokalergebnisse @Ligamanager.Components.Globals.currentPokalSaison</h2>                    
-                    </div>
+        <div class="col-sm-12">                       
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <RadzenCard class="m-0 mb-3 rz-shadow-3">
+                        <div class="d-flex flex-row">
+                            <div class="card-body">
+                                <h2 style="display:inline-block;">Pokalergebnisse @Ligamanager.Components.Globals.currentPokalSaison</h2>
+                                <span class="ml-3">
+                                    <a href="@($"createpokalspieltag/{@RundeChoosed}")" style="width:35px; height:30px;" title="Neuanlage Pokal-Spieltag" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                </span>
+                            </div>
+                        </div>
+                    </RadzenCard>
                 </div>
-            </RadzenCard>
+            </div>
             <RadzenCard style="margin-bottom:4px;">
                 <div class="form-group row">
                     <div class="dropdown mr-2" style="display:inline">
@@ -41,7 +48,7 @@
                             {
                                 @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                 {
-                                    @if (saison.SaisonID == Globals.SaisonID)
+                                    @if (saison.SaisonID == Globals.PokalSaisonID)
                                     {
                                         <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
                                     }
@@ -56,12 +63,62 @@
                     </div>
                     <div class="dropdown" style="display:inline">
                         <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
-                            <option value="0">Runde wählen</option>
-                            <option selected value="2">2. Runde</option>
-                            <option value="AF">Achtelfinale</option>
-                            <option value="VF">Viertelfinale</option>
-                            <option value="HF">Halbfinale</option>
-                            <option value="F">Finale</option>
+                            @if (RundeChoosed == "2")
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option selected value="2">2. Runde</option>
+                                <option value="AF">Achtelfinale</option>
+                                <option value="VF">Viertelfinale</option>
+                                <option value="HF">Halbfinale</option>
+                                <option value="F">Finale</option>
+                            }
+                            @if (RundeChoosed == "AF")
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option value="2">2. Runde</option>
+                                <option selected value="AF">Achtelfinale</option>
+                                <option value="VF">Viertelfinale</option>
+                                <option value="HF">Halbfinale</option>
+                                <option value="F">Finale</option>
+                            }
+                            @if (RundeChoosed == "VF")
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option value="2">2. Runde</option>
+                                <option value="AF">Achtelfinale</option>
+                                <option selected value="VF">Viertelfinale</option>
+                                <option value="HF">Halbfinale</option>
+                                <option value="F">Finale</option>
+                            }
+                            @if (RundeChoosed == "HF")
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option value="2">2. Runde</option>
+                                <option value="AF">Achtelfinale</option>
+                                <option value="VF">Viertelfinale</option>
+                                <option selected value="HF">Halbfinale</option>
+                                <option value="F">Finale</option>
+                            }
+                            @if (RundeChoosed == "F")
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option value="2">2. Runde</option>
+                                <option value="AF">Achtelfinale</option>
+                                <option value="VF">Viertelfinale</option>
+                                <option value="HF">Halbfinale</option>
+                                <option selected value="F">Finale</option>
+                            }
+
+                            @if (RundeChoosed == null)
+                            {
+                                <option value="0">Runde wählen</option>
+                                <option value="2">2. Runde</option>
+                                <option value="AF">Achtelfinale</option>
+                                <option value="VF">Viertelfinale</option>
+                                <option value="HF">Halbfinale</option>
+                                <option value="F">Finale</option>
+                            }
+                            }
                         </select>
                         <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">Bitte Runde wählen</label>
                     </div>

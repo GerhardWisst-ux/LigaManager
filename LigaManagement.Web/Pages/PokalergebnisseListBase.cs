@@ -25,18 +25,18 @@ namespace LigaManagement.Web.Pages
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
-        
+
         public int SaisonChoosed = 0;
         public string RundeChoosed;
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
-                
+
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
-                
-        public List<DisplaySaison> SaisonenList;        
-                
+
+        public List<DisplaySaison> SaisonenList;
+
         public bool VisibleBtnNew { get; set; }
 
         [Inject]
@@ -45,17 +45,17 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         [Inject]
-        public IVereineService VereineService { get; set; }             
-       
+        public IVereineService VereineService { get; set; }
+
         [Inject]
         public IPokalergebnisseService PokalergebnisseService { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
-             
+
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltage { get; set; }
 
-        public IEnumerable<PokalergebnisSpieltag>  PokalergebnisseSpieltageFinale { get; set; }
-                
+        public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltageFinale { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             try
@@ -95,7 +95,18 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
 
+
                 VisibleBtnNew = false;
+
+                if (Globals.currentPokalRunde == null)
+                    RundeChoosed = null;
+                else
+                    RundeChoosed = Globals.currentPokalRunde;
+
+                SaisonChoosed = Globals.PokalSaisonID;
+
+                if (Globals.currentPokalRunde != null)
+                    OnClickHandler();
 
                 Globals.bVisibleNavMenuElements = true;
             }
@@ -105,16 +116,16 @@ namespace LigaManagement.Web.Pages
                 Debug.Print(ex.Message);
             }
         }
-                
+
 
         public async void SaisonChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                SaisonChoosed = Convert.ToInt32(e.Value);                             
-                
+                SaisonChoosed = Convert.ToInt32(e.Value);
+
                 Globals.PokalSaisonID = SaisonChoosed;
-                
+
                 var saison = await SaisonenService.GetSaison(Convert.ToInt32(SaisonChoosed));
 
                 Globals.currentPokalSaison = saison.Saisonname;
@@ -124,7 +135,8 @@ namespace LigaManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                RundeChoosed = e.Value.ToString();                              
+                RundeChoosed = e.Value.ToString();
+                Globals.currentPokalRunde = RundeChoosed;
 
             }
         }

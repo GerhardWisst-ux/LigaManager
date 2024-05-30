@@ -1,11 +1,13 @@
 ﻿
+using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Microsoft.AspNetCore.Components;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
-using LigaManagement.Models;
-using System.Diagnostics;
 
 namespace ToreManagerManagement.Web.Services
 {
@@ -24,10 +26,12 @@ namespace ToreManagerManagement.Web.Services
             {
                 return await httpClient.PostJsonAsync<PokalergebnisSpieltag>("api/pokalergebnisse", pokalergebnisSpieltag);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
+                
             }
         }
 
@@ -47,10 +51,12 @@ namespace ToreManagerManagement.Web.Services
             {
                 return await httpClient.GetJsonAsync<PokalergebnisSpieltag[]>("api/pokalergebnisse");
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
+
             }
         }
 

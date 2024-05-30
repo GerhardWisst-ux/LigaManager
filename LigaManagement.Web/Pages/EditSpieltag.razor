@@ -11,6 +11,7 @@
 @inject LigaManagement.Web.Services.Contracts.ISpieltageNLService _SpieltagNLService
 @inject LigaManagement.Web.Services.Contracts.ISpieltagePTService _SpieltagPTService
 @inject LigaManagement.Web.Services.Contracts.ISpieltageTUService _SpieltagTUService
+@inject LigaManagement.Web.Services.Contracts.ISpieltageBEService _SpieltagBEService
 
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
@@ -471,6 +472,10 @@
                 spieltag = await _SpieltagPTService.CreateSpieltag(Spiel);
             else if (Globals.LigaID == 11)
                 spieltag = await _SpieltagTUService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 14)
+                spieltag = await _SpieltagBEService.CreateSpieltag(Spiel);
+            else if (Globals.LigaID == 15)
+                spieltag = await _SpieltagPLService.CreateSpieltag(Spiel);
 
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Spieltag", Detail = "Abgespeichert" });
@@ -494,6 +499,10 @@
                 spieltag = await _SpieltagPTService.UpdateSpieltag(Spiel);
             else if (Globals.LigaID == 11)
                 spieltag = await _SpieltagTUService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 14)
+                spieltag = await _SpieltagBEService.UpdateSpieltag(Spiel);
+            else if (Globals.LigaID == 15)
+                spieltag = await _SpieltagPLService.UpdateSpieltag(Spiel);
 
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
