@@ -16,6 +16,9 @@ namespace LigaManagement.Models
         [Required]
         public int LigaID { get; set; }
 
+        [Required]
+        public int LandID { get; set; }
+
     }
 
     public class VereineSaisonAus

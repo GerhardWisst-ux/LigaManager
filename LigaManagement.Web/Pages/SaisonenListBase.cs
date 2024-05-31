@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using static LigaManagement.Web.Pages.EinstiegListBase;
 
@@ -21,6 +23,7 @@ namespace LigaManagerManagement.Web.Pages
         protected string DisplayErrorLiga = "none";
         public string Liganame = "Bundesliga";
         public bool value = true;
+        protected int LigaID;
         public Density Density = Density.Compact;
 
         [Parameter]
@@ -36,6 +39,12 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ILigaService LigaService { get; set; }
+
+        [Inject]
+        public ILandService LaenderService { get; set; }
+
+        [Inject]
+        public ILigaService LigenService { get; set; }
 
         public List<DisplayLiga> LigenList;
 
@@ -114,7 +123,7 @@ namespace LigaManagerManagement.Web.Pages
             }         
 
             DisplayErrorLiga = "none";
-
+            LigaID = 0;
             Globals.bVisibleNavMenuElements = true;
         }
       
@@ -126,38 +135,52 @@ namespace LigaManagerManagement.Web.Pages
                 VereinID = vereinID;
                 Vereinname1 = vereinname;
                 VereinChecked = vereinchecked;
-
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
-
             public bool VereinChecked { get; set; }
         }
 
         public async void CheckboxClicked(string aSelectedId, object aChecked)
         {
-            Verein = await VereineService.GetVerein(Convert.ToInt32(aSelectedId));
-
-            if ((bool)aChecked)
+            try
             {
-                if (!vereinesaisonSelected.Contains(Verein))
-                    vereinesaisonSelected.Add(Verein);
+                Verein = await VereineService.GetVerein(Convert.ToInt32(aSelectedId));
+
+                var isVereinInList = vereinesaisonSelected.FirstOrDefault(x => x.Vereinsname1 == Verein.Vereinsname1);                                                
+
+                if (vereinesaisonSelected == null)
+                    throw new Exception("vereinesaisonSelected null");
+
+                if ((bool)aChecked)
+                {
+                    if (isVereinInList == null)
+                        vereinesaisonSelected.Add(Verein);
+                }
+                else
+                {
+                    if (isVereinInList != null)
+                        vereinesaisonSelected.Remove(isVereinInList);
+                }
+
+                StateHasChanged();
             }
-            else
+            catch (Exception ex)
             {
-                if (vereinesaisonSelected.Contains(Verein))
-                    vereinesaisonSelected.Remove(Verein);
-            }          
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
 
-            StateHasChanged();
+            }
         }
        
 
-        public void LigaChange(ChangeEventArgs e)
+        public async void LigaChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
-                Globals.currentLiga = e.Value.ToString();
+                LigaID = Convert.ToInt32(e.Value);
+
+                var liga = await LigaService.GetLiga(LigaID);
+                Liganame = liga.Liganame;
             }
         }
     }

@@ -23,7 +23,9 @@
 
 @if (SaisonenList == null)
 {
-    <div class="spinner"></div>
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {
@@ -56,10 +58,7 @@ else
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 LogicalFilterOperator="LogicalFilterOperator.Or">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>
-                            <FooterTemplate>
-                                Saisonen: <b>@grid.View.Count()</b> von <b>@SaisonenList.Count()</b>
-                            </FooterTemplate>
+                        <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>                        
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="10%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
                         <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="30%" Sortable=true Title="Liganame" />
@@ -83,6 +82,11 @@ else
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
+                    <FooterTemplate>
+                    </FooterTemplate>
+                    <FooterTemplate>
+                        Anzahl Saisonen: <b>@SaisonenList.Count()</b>
+                    </FooterTemplate>
                 </RadzenDataGrid>
                 <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
                     <RadzenColumn Offset="11" Style="text-align:right;">

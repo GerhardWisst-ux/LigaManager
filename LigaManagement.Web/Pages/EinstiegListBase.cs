@@ -47,9 +47,7 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
-
-        NotificationService NotificationService;
-
+                
         public List<DisplaySaison> SaisonenList;
 
         public List<DisplayLiga> LigenList;

@@ -21,7 +21,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                for (int i = 0; i < vereineSaison.Count - 1; i++)
+                for (int i = 0; i <= vereineSaison.Count - 1; i++)
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = conn;

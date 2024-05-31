@@ -22,6 +22,15 @@
 
 </style>
 
+@if (SaisonenList == null)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+
 <div class="container">
     
     <RadzenCard class="m-0 rz-shadow-3">
@@ -158,7 +167,7 @@
         </RadzenTabs>
     </RadzenCard>
 </div>
-
+}
 <script>
     $(document).ready(function () {
         $('.custom-file-input').on("change", function () {

@@ -20,7 +20,9 @@
 
 @if (VereineList == null)
 {
-    <div class="spinner"></div>
+     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {
@@ -54,9 +56,10 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                @* <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -70,10 +73,7 @@ else
                     </Template>
                  </RadzenDataGridColumn>
                 
-                <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>
-                    <FooterTemplate>
-                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
-                    </FooterTemplate>
+                <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>                   
                 </RadzenDataGridColumn Context="data" >
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
@@ -82,6 +82,11 @@ else
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    Anzahl Vereine: <b>@VereineList.Count()</b>
+             </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
@@ -98,9 +103,10 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga" Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -114,10 +120,7 @@ else
                     </Template>
                  </RadzenDataGridColumn>
                 
-                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
-                    <FooterTemplate>
-                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
-                    </FooterTemplate>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                   
                 </RadzenDataGridColumn Context="data" >
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
@@ -126,6 +129,11 @@ else
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    Anzahl Vereine: <b>@VereineListPL.Count()</b>
+             </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
@@ -142,9 +150,10 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -158,10 +167,7 @@ else
                     </Template>
                  </RadzenDataGridColumn>
                 
-                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
-                    <FooterTemplate>
-                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
-                    </FooterTemplate>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>               
                 </RadzenDataGridColumn Context="data" >
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
@@ -170,6 +176,11 @@ else
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    Anzahl Vereine: <b>@VereineListIT.Count()</b>
+             </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
@@ -186,9 +197,10 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -202,10 +214,7 @@ else
                     </Template>
                  </RadzenDataGridColumn>
                 
-                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
-                    <FooterTemplate>
-                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
-                    </FooterTemplate>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                    
                 </RadzenDataGridColumn Context="data" >
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
@@ -214,6 +223,13 @@ else
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
+              <FooterTemplate>
+             </FooterTemplate>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    Anzahl Vereine: <b>@VereineListFR.Count()</b>
+             </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
@@ -232,9 +248,10 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Vereinsname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" />
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -250,7 +267,7 @@ else
                 
                 <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>
                     <FooterTemplate>
-                        Vereine: <b>@grid.View.Count()</b> von <b>@VereineList.Count()</b>
+                
                     </FooterTemplate>
                 </RadzenDataGridColumn Context="data" >
 
@@ -260,6 +277,11 @@ else
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
+             <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    Anzahl Vereine: <b>@VereineListES.Count()</b>
+             </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                

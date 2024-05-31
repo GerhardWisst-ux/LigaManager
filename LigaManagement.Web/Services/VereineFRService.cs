@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<VereinAUS> CreateVerein(VereinAUS newVerein)
         {
-            return await httpClient.PostJsonAsync<VereinAUS>("api/vereine", newVerein);
+            return await httpClient.PostJsonAsync<VereinAUS>("api/vereineFR", newVerein);
         }
 
         

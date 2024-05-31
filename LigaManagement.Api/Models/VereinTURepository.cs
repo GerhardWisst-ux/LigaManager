@@ -26,8 +26,8 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [VereineTU] (VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Liga1)" +
-                    " VALUES(@VereinNr,@Vereinsname1,@Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Liga1)";
+                cmd.CommandText = "INSERT INTO [VereinePL] (VereinNr,Vereinsname1,Vereinsname2,Stadion,Fassungsvermoegen,Erfolge,Gegruendet,Pokal,Liga1,Liga2,Hyperlink)" +
+                    " VALUES(@VereinNr,@Vereinsname1,@Vereinsname2,@Stadion,@Fassungsvermoegen,@Erfolge,@Gegruendet,@Pokal,@Liga1,@Liga2,@Hyperlink)";
 
                 if (verein.Pokal == false)
                     bPokal = 0;
@@ -48,6 +48,8 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Gegruendet", verein.Gegruendet);
                 cmd.Parameters.AddWithValue("@Pokal", bPokal);
                 cmd.Parameters.AddWithValue("@Liga1", bLiga1);
+                cmd.Parameters.AddWithValue("@Liga2", false);
+                cmd.Parameters.AddWithValue("@Hyperlink", "");
 
                 cmd.ExecuteNonQuery();
 
@@ -128,6 +130,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
                         verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();
+                        verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
                         verein.Liga1 = bool.Parse(reader["Liga1"].ToString());
@@ -169,6 +172,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
                         verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();
+                        verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
                         verein.Liga1 = bool.Parse(reader["Liga1"].ToString());

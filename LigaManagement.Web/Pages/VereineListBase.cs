@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using static LigaManagement.Web.Pages.EinstiegListBase;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -23,8 +24,12 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<VereinAUS> gridES;
 
         public Density Density = Density.Compact;
-
+        public int LandID;
+        public int LigaID;
         public string Liganame = "";
+           
+
+        public List<DisplayLaender> LaenderList;
 
         [Inject]
         public IVereineService VereineService { get; set; }
@@ -50,10 +55,15 @@ namespace LigaManagerManagement.Web.Pages
 
         public IEnumerable<VereinAUS> VereineListES { get; set; }
 
+        public IEnumerable<Land> Laender { get; set; }
+
         [Inject]
         public ILigaService LigaService { get; set; }
 
         public Verein Vereine { get; set; } = new Verein();
+
+        [Inject]
+        public ILandService LaenderService { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -86,12 +96,51 @@ namespace LigaManagerManagement.Web.Pages
 
             VereineListES = (await VereineESService.GetVereine()).ToList();
 
+            LaenderList = new List<DisplayLaender>();
+            Laender = (await LaenderService.GetLaender()).ToList();
+
+            for (int i = 0; i < Laender.Count(); i++)
+            {
+                var columns = Laender.ElementAt(i);
+                LaenderList.Add(new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername));
+            }
 
             var liga = await LigaService.GetLiga(Globals.LigaID);
             Liganame = liga.Liganame;
+
+            LigaID = (Globals.LigaID);
         }
 
+        public async Task LandChangeAsync(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                var LandID = Convert.ToInt32(e.Value);
 
+                var land = await LaenderService.GetLand(LandID);
+
+                if (land.Laendername == "Deutschland")
+                    LigaID = 1;
+                else if (land.Laendername == "England")
+                    LigaID = 4;
+                else if (land.Laendername == "Italien")
+                    LigaID = 6;                
+                else if (land.Laendername == "Frankreich")
+                    LigaID = 7;
+                else if (land.Laendername == "Spanien")
+                    LigaID = 8;
+                else if (land.Laendername == "Niederlande")
+                    LigaID = 9;
+                else if (land.Laendername == "Portugal")
+                    LigaID = 10;
+                else if (land.Laendername == "Türkei")
+                    LigaID = 11;
+                else if (land.Laendername == "Belgien")
+                    LigaID = 14;
+
+                StateHasChanged();
+            }
+        }
         protected async Task VereinDeleted()
         {
             VereineList = (await VereineService.GetVereine()).ToList();

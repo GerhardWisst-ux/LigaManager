@@ -1,4 +1,4 @@
-﻿@page "/Ligamanager/kader"
+﻿@page "/kader"
 @using LigaManagerManagement.Web.Pages;
 @using LigaManagerManagement.Models;
 @inherits KaderBase
@@ -23,7 +23,9 @@
 
 @if (SpielerList == null)
 {
-    <div class="spinner"></div>
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {
@@ -93,10 +95,7 @@ else
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
                         <Columns>
-                            <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
-                                <FooterTemplate>
-                                    Spieler: <b>@grid.View.Count()</b> von <b>@spielerList.Count()</b>
-                                </FooterTemplate>
+                            <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">                             
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Kader" Property="PositionsNr" Width="8%" TextAlign="TextAlign.Right" SortOrder="SortOrder.Ascending" Sortable=true Title="Pos" />
                             <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
@@ -113,7 +112,11 @@ else
                             </RadzenDataGridColumn>
 
                         </Columns>
-
+                        <FooterTemplate>
+                        </FooterTemplate>
+                        <FooterTemplate>
+                            Anzahl Spieler: <b>@spielerList.Count()</b>
+                        </FooterTemplate>
                     </RadzenDataGrid>
                     <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                         <RadzenColumn Offset="11" Style="text-align:right;">

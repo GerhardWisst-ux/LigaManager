@@ -66,12 +66,9 @@
 
 @if (Spieltage == null)
 {
-    <div class="d-flex justify-content-center">
-
-        <div class="spinner"></div>
-
-    </div>
-
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {

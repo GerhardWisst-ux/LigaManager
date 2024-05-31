@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
@@ -10,9 +11,9 @@ using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Pages
@@ -25,7 +26,7 @@ namespace LigaManagement.Web.Pages
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
-
+                
         public int SaisonChoosed = 0;
         public string RundeChoosed;
 
@@ -37,7 +38,7 @@ namespace LigaManagement.Web.Pages
 
         public List<DisplaySaison> SaisonenList;
 
-        public bool VisibleBtnNew { get; set; }
+        public string VisibleBtnNew { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -96,7 +97,7 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorSaison = "none";
 
 
-                VisibleBtnNew = false;
+                VisibleBtnNew = "hidden";
 
                 if (Globals.currentPokalRunde == null)
                     RundeChoosed = null;
@@ -113,7 +114,7 @@ namespace LigaManagement.Web.Pages
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
 
@@ -138,6 +139,17 @@ namespace LigaManagement.Web.Pages
                 RundeChoosed = e.Value.ToString();
                 Globals.currentPokalRunde = RundeChoosed;
 
+                PokalergebnisseSpieltage = await PokalergebnisseService.GetPokalergebnisseSpieltag();
+
+                if (PokalergebnisseSpieltage == null)
+                    return;
+
+                PokalergebnisseSpieltage = PokalergebnisseSpieltage.ToList();
+                PokalergebnisseSpieltage = PokalergebnisseSpieltage.Where(x => x.SaisonID == SaisonChoosed && x.Runde == RundeChoosed).OrderBy(x => x.Datum);
+
+                VisibleBtnNew = NewButtonVisible();
+
+                StateHasChanged();
             }
         }
 
@@ -177,16 +189,7 @@ namespace LigaManagement.Web.Pages
                 PokalergebnisseSpieltage = PokalergebnisseSpieltage.ToList();
                 PokalergebnisseSpieltage = PokalergebnisseSpieltage.Where(x => x.SaisonID == SaisonChoosed && x.Runde == RundeChoosed).OrderBy(x => x.Datum);
 
-                if (RundeChoosed == "HF" && PokalergebnisseSpieltage.Count() == 2)
-                    VisibleBtnNew = false;
-                else if (RundeChoosed == "VF" && PokalergebnisseSpieltage.Count() == 4)
-                    VisibleBtnNew = false;
-                else if (RundeChoosed == "AF" && PokalergebnisseSpieltage.Count() == 8)
-                    VisibleBtnNew = false;
-                else if (RundeChoosed == "2" && PokalergebnisseSpieltage.Count() == 16)
-                    VisibleBtnNew = false;
-                else
-                    VisibleBtnNew = true;
+                VisibleBtnNew = NewButtonVisible();
 
                 Globals.bVisibleNavMenuElements = true;
                 StateHasChanged();
@@ -194,8 +197,29 @@ namespace LigaManagement.Web.Pages
             catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
+        }
+
+        private string NewButtonVisible()
+        {
+            string sButtonVisible = "hidden";
+
+            if (RundeChoosed == "F" && PokalergebnisseSpieltage.Count() >= 1)
+                sButtonVisible = "hidden";
+            else if (RundeChoosed == "HF" && PokalergebnisseSpieltage.Count() >= 2)
+                sButtonVisible = "hidden";
+            else if (RundeChoosed == "VF" && PokalergebnisseSpieltage.Count() >= 4)
+                sButtonVisible = "hidden";
+            else if (RundeChoosed == "AF" && PokalergebnisseSpieltage.Count() >= 8)
+                sButtonVisible = "hidden";
+            else if (RundeChoosed == "2" && PokalergebnisseSpieltage.Count() >= 16)
+                sButtonVisible = "hidden";
+            else
+                sButtonVisible = "visible";
+
+            return sButtonVisible;
+
         }
 
         [Bind]

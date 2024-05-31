@@ -67,7 +67,6 @@
                 </RadzenCard>
                 <RadzenCard class="m-0 mb-3">
                     <select id="cboRunde" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
-
                         <option value="0" required>Runde auswählen</option>
                         @if (RundeList != null)
                         {
@@ -84,7 +83,6 @@
                             }
                         }                       
                     </select>
-
                 </RadzenCard>
                 <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">Bitte Runde wählen</label>
                 <RadzenTabs>
@@ -252,6 +250,15 @@
     }
     private async Task Upsert()
     {
+        Spieltag spieltag = new Spieltag();
+
+        string[] subs = Time.Value.ToString().Split(':');
+        int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
+        DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
+        Spiel.Saison = Globals.currentPokalSaison;
+        Spiel.SaisonID = Globals.PokalSaisonID;
+        Spiel.Runde = RundeChoosed;
+        Spiel.Datum = SpielDateTime;
 
         if ((Spiel.Verein1_Nr == 0))
         {
@@ -307,15 +314,7 @@
         }
 
 
-        Spieltag spieltag = new Spieltag();
-
-        string[] subs = Time.Value.ToString().Split(':');
-        int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
-        DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
-        Spiel.Saison = Globals.currentPokalSaison;
-        Spiel.SaisonID = Globals.PokalSaisonID;
-        Spiel.Runde = RundeChoosed;
-        Spiel.Datum = SpielDateTime;
+        
 
         if (Id == "0")
         {

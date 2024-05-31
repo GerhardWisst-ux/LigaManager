@@ -50,6 +50,15 @@
     }
 
 </style>
+
+@if (Spiel == null)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
 <div class="row my-2">
     <div class="col-12">
         <EditForm Model="Spiel" OnValidSubmit="Upsert">
@@ -341,7 +350,7 @@
         </EditForm>
     </div>
 </div>
-
+}
 @code {
 
     private string Titel { get; set; }
@@ -542,7 +551,7 @@
 
     private void GoBack()
     {
-        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
+        _navigationManager.NavigateTo($"{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
     }
 }
 

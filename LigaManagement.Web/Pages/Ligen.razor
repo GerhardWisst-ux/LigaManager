@@ -27,7 +27,9 @@
 
 @if (LigenList == null)
 {
-    <div class="spinner"></div>
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {
@@ -58,10 +60,7 @@ else
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>
-                            <FooterTemplate>
-                                Ligen: <b>@grid.View.Count()</b> von <b>@LigenList.Count()</b>
-                            </FooterTemplate>
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>                         
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
                         <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="350px" Sortable=true Title="Liganame" />
@@ -81,6 +80,11 @@ else
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
+                    <FooterTemplate>
+                    </FooterTemplate>
+                    <FooterTemplate>
+                        Anzahl Ligen: <b>@LigenList.Count()</b>
+                    </FooterTemplate>
                 </RadzenDataGrid>
                 <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
                     <RadzenColumn Offset="11" Style="text-align:right;">
