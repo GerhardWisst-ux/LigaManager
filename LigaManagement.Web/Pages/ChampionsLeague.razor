@@ -1,5 +1,5 @@
-﻿@page "/pokalergebnisse"
-@inherits PokalergebnisseListBase
+﻿@page "/ChampionsLeague"
+@inherits ChampionsLeagueListBase
 @attribute [Authorize]
 @inject DialogService DialogService
 
@@ -40,9 +40,9 @@ else
                         <RadzenCard class="m-0 mb-3 rz-shadow-3">
                             <div class="d-flex flex-row">
                                 <div class="card-body">
-                                    <h2 style="display:inline-block;">Pokalergebnisse @Ligamanager.Components.Globals.currentPokalSaison</h2>
+                                    <h2 style="display:inline-block;">Champions League @Ligamanager.Components.Globals.currentPokalSaison</h2>
                                     <span class="ml-3">
-                                        <a href="@($"createpokalspieltag/{@RundeChoosed}")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="Neuanlage Pokal-Spiel" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                        <a href="@($"createChampionsLeague/{@RundeChoosed}")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="Neuanlage CL-Spiel" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
                                     </span>
                                 </div>
                             </div>
@@ -93,76 +93,77 @@ else
                         </div>
                         <div class="dropdown" style="display:inline">
                             <RadzenButton title="Saison und Runde auswählen" style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
-
                             </RadzenButton>
                         </div>
-
                     </div>
                 </RadzenCard>
-
-
-            </div>
+                </div>
         </div>
 
         <RadzenCard Style="height:70%;" class="m-0">
             <RadzenTabs>
                 <Tabs>
-                    <RadzenTabsItem class="p-0" Text="Begegnungen">
+                    <RadzenTabsItem class="p-0" Text="Begegnungen">                      
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <RadzenCard style="flex:1;margin:0px;">
-                                    <RadzenDataGrid @ref="grid" Data="@PokalergebnisseSpieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                    <RadzenDataGrid @ref="grid" Data="@PokalergebnisseCLSpieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
-                                                    TItem="PokalergebnisSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                    TItem="PokalergebnisCLSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                                         <Columns>
 
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein1" Width="30%" Sortable=false Title="Heim">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="30%" Sortable=false Title="Heim">
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 1" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 2" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein2" Width="30%" Sortable=false Title="Gast" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title="Ort" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="Datum" />
-                                            <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 1" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 2" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="30%" Sortable=false Title="Gast" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title="Ort" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="Datum" />
+                                            <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                                 <Template Context="data">
                                                     <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                                 </Template>
                                             </RadzenDataGridColumn>
                                         </Columns>
+                                        <FooterTemplate>
+                                        </FooterTemplate>                                        
                                     </RadzenDataGrid>
                                 </RadzenCard>
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem class="p-0" Text="Alle Pokalendspiele">
-                        <div class="form-group row">
-                            <div class="col-sm-12">
+                    <RadzenTabsItem class="p-0" Text="Alle Champions League-Endspiele">
+                        @if (PokalergebnisseCLSpieltageFinale != null)
+                        {
+                            var PokalergebnisseCLSpieltageFinaleSort = PokalergebnisseCLSpieltageFinale.OrderByDescending(x => x.Datum);
+                            <div class="form-group row">
+                                <div class="col-sm-12">
                                 <RadzenCard style="flex:1;margin:0px;">
-                                    <RadzenDataList Data="@PokalergebnisseSpieltageFinale" TItem="PokalergebnisSpieltag" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
+                                    <RadzenDataList Data="@PokalergebnisseCLSpieltageFinaleSort" TItem="PokalergebnisCLSpieltag" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
                                                     WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="16"
                                                     PagerHorizontalAlign="HorizontalAlign.Left" pagerText PageSizeText="16 Datensätze" ShowPagingSummary="true">
-                                        <Template Context="PokalergebnisSpieltag">
+                                        <Template Context="PokalergebnisCLSpieltag">
                                             <RadzenCard Style="width:100%; padding:0;">
                                                 <RadzenRow Gap="0">
                                                     <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Saison)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Saison)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="3" SizeXS="3">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein1)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Verein1)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore1_Nr)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Tore1_Nr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore2_Nr)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Tore2_Nr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="3" SizeXS="3">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein2)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Verein2)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="2" SizeXS="2">
-                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Datum)</RadzenText>
+                                                        <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisCLSpieltag.Datum)</RadzenText>
                                                     </RadzenColumn>
                                                 </RadzenRow>
                                             </RadzenCard>
@@ -171,6 +172,7 @@ else
                                 </RadzenCard>
                             </div>
                         </div>
+                        }
                     </RadzenTabsItem>
                 </Tabs>
             </RadzenTabs>

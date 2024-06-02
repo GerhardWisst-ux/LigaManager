@@ -16,6 +16,8 @@ namespace LigaManagerManagement.Models
                 
         public int LandID { get; set; }
 
+        public int AnzahlVereine { get; set; }
+
         [Required]
         public string Liganame { get; set; }
 

@@ -52,8 +52,6 @@ else
                     </div>
                 </RadzenCard>
             </div>
-
-
             <div class="col-sm-12">
                 <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
                     <div class="form-group row">
@@ -74,9 +72,7 @@ else
                                     }
                                 }
                             }
-                        </select>
-
-                        @* <ValidationMessage For="()=>VereinAus.Vereinsname1"></ValidationMessage> *@
+                        </select>                        
                     </div>
                     @if (LigaID < 4)
                     {

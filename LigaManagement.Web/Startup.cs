@@ -88,6 +88,10 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
+            services.AddHttpClient<ISaisonenCLService, SaisonenCLService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
             services.AddHttpClient<ILigaService, LigaService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -135,12 +139,7 @@ namespace LigaManagement.Web
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
-
-            services.AddHttpClient<ISpieltagAusService, SpieltagAusService>(client =>
-            {
-                client.BaseAddress = new Uri("https://localhost:44355/");
-            });
-
+          
             services.AddHttpClient<ITabelleService, TabelleService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
@@ -166,6 +165,11 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
             services.AddHttpClient<IPokalergebnisseService, PokalergebnisseService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
+            services.AddHttpClient<ISpieltageCLService, SpieltagCLService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });

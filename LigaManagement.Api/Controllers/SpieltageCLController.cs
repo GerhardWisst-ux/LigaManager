@@ -10,13 +10,13 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpieltageFRController : ControllerBase
+    public class SpieltageCLController : ControllerBase
     {
-        private readonly ISpieltageFRRepository SpieltagFRRepository;
+        private readonly ISpieltageCLRepository PokalergebnisCLSpieltagRepository;
 
-        public SpieltageFRController(ISpieltageFRRepository SpieltagFRRepository)
+        public SpieltageCLController(ISpieltageCLRepository PokalergebnisCLSpieltagRepository)
         {
-            this.SpieltagFRRepository = SpieltagFRRepository;
+            this.PokalergebnisCLSpieltagRepository = PokalergebnisCLSpieltagRepository;
         }
 
         [HttpGet]
@@ -24,7 +24,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagFRRepository.GetSpieltage());
+                return Ok(await PokalergebnisCLSpieltagRepository.GetSpieltage());
             }
             catch (Exception ex)
             {
@@ -35,11 +35,11 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Spieltag>> GetSpieltag(int id)
+        public async Task<ActionResult<PokalergebnisCLSpieltag>> GetSpieltag(int id)
         {
             try
             {
-                var result = await SpieltagFRRepository.GetSpieltag(id);
+                var result = await PokalergebnisCLSpieltagRepository.GetSpieltag(id);
 
                 if (result == null)
                 {
@@ -56,7 +56,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Spieltag>> CreateSpieltag(Spieltag spieltag)
+        public async Task<ActionResult<Spieltag>> CreateSpieltag(PokalergebnisCLSpieltag spieltag)
         {
             try
             {
@@ -64,8 +64,8 @@ namespace LigaManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-
-                var createdSpieltag = await SpieltagFRRepository.AddSpieltag(spieltag);
+               
+                var createdSpieltag = await PokalergebnisCLSpieltagRepository.AddSpieltag(spieltag);
 
                 return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
@@ -77,19 +77,19 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpPut()]
-        public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag Spieltag)
+        [HttpPut()]        
+        public async Task<ActionResult<PokalergebnisCLSpieltag>> UpdateSpieltag(PokalergebnisCLSpieltag Spieltag)
         {
             try
             {
-                var VereinToUpdate = await SpieltagFRRepository.GetSpieltag((int)Spieltag.SpieltagId);
+                var VereinToUpdate = await PokalergebnisCLSpieltagRepository.GetSpieltag((int)Spieltag.SpieltagId);
 
                 if (VereinToUpdate == null)
                 {
                     return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagFRRepository.UpdateSpieltag(Spieltag);
+                return await PokalergebnisCLSpieltagRepository.UpdateSpieltag(Spieltag);
             }
             catch (Exception ex)
             {
@@ -100,18 +100,18 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Spieltag>> DeleteSpieltag(int id)
+        public async Task<ActionResult<PokalergebnisCLSpieltag>> DeleteSpieltag(int id)
         {
             try
             {
-                var spieltagToDelete = await SpieltagFRRepository.GetSpieltag(id);
+                var spieltagToDelete = await PokalergebnisCLSpieltagRepository.GetSpieltag(id);
 
                 if (spieltagToDelete == null)
                 {
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagFRRepository.DeleteSpieltag(id);
+                return await PokalergebnisCLSpieltagRepository.DeleteSpieltag(id);
             }
             catch (Exception ex)
             {

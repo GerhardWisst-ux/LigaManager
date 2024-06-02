@@ -36,13 +36,9 @@ namespace LigaManagement.Api
             services.AddScoped<ISpieltageENRepository, SpieltageENRepository>();
             services.AddScoped<ISpieltageNLRepository, SpieltageNLRepository>();
             services.AddScoped<ISpieltagePTRepository, SpieltagePTRepository>();
-            services.AddScoped<ISpieltageTURepository, SpieltageTURepository>();
-
-
-            services.AddScoped<IVereinRepository, VereinRepository>();
-            services.AddScoped<IVereineBERepository, VereinBERepository>();
-
+            services.AddScoped<ISpieltageTURepository, SpieltageTURepository>();            
             services.AddScoped<ISpieltageBERepository, SpieltageBERepository>();
+            services.AddScoped<ISpieltageCLRepository, SpieltageCLRepository>();
 
             services.AddScoped<IVereinRepository, VereinRepository>();
 
@@ -53,14 +49,16 @@ namespace LigaManagement.Api
             services.AddScoped<IVereineNLRepository, VereinNLRepository>();
 
             services.AddScoped<IVereinePTRepository, VereinPTRepository>();            
-            services.AddScoped<IVereineTURepository, VereinTURepository>();
-                                    
+            services.AddScoped<IVereineTURepository, VereinTURepository>();                                   
 
             services.AddScoped<IVereinePTRepository, VereinPTRepository>();
             services.AddScoped<IVereineTURepository, VereinTURepository>();
             services.AddScoped<IVereineBERepository, VereinBERepository>();
+            services.AddScoped<IVereinRepository, VereinRepository>();
+            services.AddScoped<IVereineBERepository, VereinBERepository>();
 
             services.AddScoped<ISaisonenRepository, SaisonenRepository>();
+            services.AddScoped<ISaisonenCLRepository, SaisonenCLRepository>();
             services.AddScoped<ILigenRepository, LigaRepository>();
             services.AddScoped<IKaderRepository, KaderRepository>();
             services.AddScoped<IToreRepository, ToreRepository>();            

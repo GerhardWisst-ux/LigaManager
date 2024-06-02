@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Web.Services.Contracts
 {
-    public interface ISaisonenCLService
+    public interface ISaisonenService
     {
         Task<IEnumerable<Saison>> GetSaisonen();
         Task<Saison> GetSaison(int id);

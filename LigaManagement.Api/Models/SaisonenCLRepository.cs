@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Models
 {
-    public class SaisonenRepository : ISaisonenRepository
+    public class SaisonenCLRepository : ISaisonenCLRepository
     {       
         public async Task<Saison> AddSaison(Saison saison)
         {
@@ -35,16 +35,14 @@ namespace LigaManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, LandID, Saisonname,Liganame,Aktuell,Abgeschlossen,AnzahlVereine)" +
-                    " VALUES(@LigaID,@LandID, @Saisonname,@Liganame,@Aktuell,@Abgeschlossen,@AnzahlVereine)";
+                cmd.CommandText = "INSERT INTO [SaisonenCL] (LigaID, Saisonname,Liganame,Aktuell,Abgeschlossen)" +
+                    " VALUES(@LigaID,@Saisonname,@Liganame,@Aktuell,@Abgeschlossen)";
                                 
-                cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
-                cmd.Parameters.AddWithValue("@LandID", saison.LandID);
+                cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);                
                 cmd.Parameters.AddWithValue("@Saisonname", saison.Saisonname);
                 cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
                 cmd.Parameters.AddWithValue("@Aktuell", bAktuell);
-                cmd.Parameters.AddWithValue("@Abgeschlossen", bAbgeschlossen);
-                cmd.Parameters.AddWithValue("@AnzahlVereine", saison.AnzahlVereine);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", bAbgeschlossen);                
                 
                 cmd.ExecuteNonQuery();
 
@@ -67,7 +65,7 @@ namespace LigaManagement.Api.Models
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[Saisonen] Where SaisonID= = @SaisonId";
+            cmd.CommandText = "DELETE FROM [dbo].[SaisonenCL] Where SaisonID= = @SaisonId";
 
             cmd.Parameters.AddWithValue("@SaisonID", SaisonId);
 
@@ -86,7 +84,7 @@ namespace LigaManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where SaisonID= " + SaisonId, conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SaisonenCL] Where SaisonID= " + SaisonId, conn);
                 Saison saison = null;
                 List<Saison> peList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -97,13 +95,10 @@ namespace LigaManagement.Api.Models
 
                         saison.SaisonID = (int)reader["saisonID"];
                         saison.LigaID = (int)reader["LigaID"];
-                        saison.LandID = (int)reader["landID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
                         saison.Aktuell = (bool)reader["Aktuell"];
-                        saison.AnzahlVereine = (int)reader["AnzahlVereine"];
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
-
                     }
                 }
                 conn.Close();
@@ -125,7 +120,7 @@ namespace LigaManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen]", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SaisonenCL]", conn);
                 Saison saison = null;
                 List<Saison> saisonenList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -135,12 +130,10 @@ namespace LigaManagement.Api.Models
                         saison = new Saison();
                                                 
                         saison.SaisonID = (int)reader["saisonID"];                        
-                        saison.LigaID = (int)reader["LigaID"];
-                        saison.LandID = (int)reader["LandID"];
+                        saison.LigaID = (int)reader["LigaID"];                        
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
-                        saison.Aktuell = (bool)reader["Aktuell"];
-                        saison.AnzahlVereine = (int)reader["AnzahlVereine"];
+                        saison.Aktuell = (bool)reader["Aktuell"];                        
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
 
                         saisonenList.Add(saison);
@@ -164,7 +157,7 @@ namespace LigaManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where Saison= '" + saisonname + "'", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [SaisonenCL] Where Saison= '" + saisonname + "'", conn);
                 Saison saison = null;
                 List<Saison> peList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -211,7 +204,7 @@ namespace LigaManagement.Api.Models
                 else
                     bAbgeschlossen = 1;
 
-                cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +                         
+                cmd.CommandText = "UPDATE [dbo].[SaisonenCL] SET " +                         
                           " [Aktuell] =" + bAktuell +                          
                           ",[Abgeschlossen] =" + bAbgeschlossen +
                           " WHERE  [SaisonID] = " + saison.SaisonID;
