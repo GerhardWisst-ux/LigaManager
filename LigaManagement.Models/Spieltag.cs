@@ -64,6 +64,9 @@ namespace LigaManagement.Models
     {
         public int? Land1_Nr { get; set; }
         public int? Land2_Nr { get; set; }
+        public int? GroupID { get; set; }
+        public string TeamIconUrl1 { get; set; }
+        public string TeamIconUrl2 { get; set; }
     }
    
     }

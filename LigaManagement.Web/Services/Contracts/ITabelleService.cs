@@ -16,9 +16,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Tabelle> UpdateTabelle(Tabelle updatedTabelle);
         Task<Tabelle> CreateTabelle(Tabelle newTabelle);
         Task DeleteTabelle(int? id);
-        Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);
-        
-        
+        Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);               
 
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
@@ -36,6 +34,8 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabellePT(ISpieltagePTService spieltagNLService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabelleTU(ISpieltageTUService spieltagTUService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
         Task<IEnumerable<Tabelle>> BerechneTabelleBE(ISpieltageBEService spieltagTUService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, string currentSaison, int ligaID, int v);
+
+        Task<IEnumerable<Tabelle>> BerechneTabelleCL(ISpieltageCLService spieltagService, int GroupID, int BisSpieltag);
 
     }
 }

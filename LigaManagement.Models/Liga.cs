@@ -21,7 +21,7 @@ namespace LigaManagement.Models
         public DateTime Erstaustragung { get; set; }
 
         [Required]
-        public int Absteiger { get; set; }
+        public int Saisonen { get; set; }
 
         public bool Aktiv { get; set; }
     }

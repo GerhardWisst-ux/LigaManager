@@ -7,6 +7,8 @@ namespace LigaManagement.Models
     {      
         public int? Id { get; set; }
 
+        public int? Nummer { get; set; }
+
         [Required]
         public int? VereinNr { get; set; }
 

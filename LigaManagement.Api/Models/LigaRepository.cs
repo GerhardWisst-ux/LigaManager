@@ -23,13 +23,13 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Absteiger, Aktiv)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Absteiger,@Aktiv)";
+                cmd.CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen, Aktiv)" +
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv)";
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
                 cmd.Parameters.AddWithValue("@Verband", liga.Verband);
                 cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
-                cmd.Parameters.AddWithValue("@Absteiger", liga.Absteiger);
+                cmd.Parameters.AddWithValue("@Saisonen", liga.Saisonen);
                 cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
 
                 cmd.ExecuteNonQuery();
@@ -88,7 +88,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
                         liga.Liganame = reader["Liganame"].ToString();
-                        liga.Absteiger = (int)reader["Absteiger"];
+                        liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
                     }
                 }
@@ -127,7 +127,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
                         liga.Liganame = reader["Liganame"].ToString();
-                        liga.Absteiger = int.Parse(reader["Absteiger"].ToString());
+                        liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
 
                         peList.Add(liga);
@@ -167,7 +167,7 @@ namespace LigaManagerManagement.Api.Models
                        "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
                       ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
-                      ",[Absteiger] =" + liga.Absteiger +
+                      ",[Saisonen] =" + liga.Saisonen +
                       ",[Aktiv] =" + bAktiv +                      
                       " WHERE  [Id] = " + liga.Id;
 

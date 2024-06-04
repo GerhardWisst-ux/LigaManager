@@ -174,6 +174,11 @@ namespace LigaManagement.Web
                 client.BaseAddress = new Uri("https://localhost:44355/");
             });
 
+            services.AddHttpClient<ISpieltagAusService, SpieltagAusService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44355/");
+            });
+
             services.AddHttpClient<ILandService, LandService>(client =>
             {
                 client.BaseAddress = new Uri("https://localhost:44355/");

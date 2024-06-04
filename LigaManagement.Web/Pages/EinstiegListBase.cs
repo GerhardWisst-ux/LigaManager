@@ -192,12 +192,13 @@ namespace LigaManagement.Web.Pages
                 {
                     Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID).SaisonID;
                     Globals.PokalSaisonID = Globals.SaisonID;
+                    Globals.CLPokalSaisonID = Globals.SaisonID;
                     Globals.KaderSaisonID = Globals.SaisonID;
-
                 }
                 else
                 {
                     Globals.SaisonID = 1;
+                    Globals.CLPokalSaisonID = 1;
                     Globals.PokalSaisonID = 1;
                     Globals.KaderSaisonID = 1;
                 }
@@ -324,7 +325,7 @@ namespace LigaManagement.Web.Pages
         {
             DataTable importedData = new DataTable();
 
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2004_PL2.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2023_IT.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -428,9 +429,9 @@ namespace LigaManagement.Web.Pages
                     foreach (DataRow importRow in imported_data.Rows)
                     {
 
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltagePL(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageIT(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
-                        cmd.Parameters.AddWithValue("@Saison", "2004/05");
+                        cmd.Parameters.AddWithValue("@Saison", "2023/24");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString().Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString().Trim());
@@ -477,14 +478,8 @@ namespace LigaManagement.Web.Pages
 
                         string time = importRow["Time"].ToString();
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 375);
-                        cmd.Parameters.AddWithValue("@LigaID", 15);
-
-                        //string time = importRow["Time"].ToString();
-
-                        DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
-                                                Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
-                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
+                        cmd.Parameters.AddWithValue("@SaisonID", 138);
+                        cmd.Parameters.AddWithValue("@LigaID", 6);
 
                         //string time = importRow["Time"].ToString();
 
@@ -492,12 +487,18 @@ namespace LigaManagement.Web.Pages
                         //                        Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
                         //                        Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
 
+                        //string time = importRow["Time"].ToString();
+
+                        DateTime dt = new DateTime(Convert.ToInt32(importRow["Date"].ToString().Substring(6, 4)),
+                                                Convert.ToInt32(importRow["Date"].ToString().Substring(3, 2)),
+                                                Convert.ToInt32(importRow["Date"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(0, 2)), Convert.ToInt32(importRow["Time"].ToString().Substring(3, 2)), 0);
+
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                         cmd.ExecuteNonQuery();
 
 
-                        int mod = i % 8;
+                        int mod = i % 10;
 
                         if (mod == 0)
                             spieltag++;

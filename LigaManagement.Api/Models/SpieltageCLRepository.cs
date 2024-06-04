@@ -22,9 +22,8 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO SpieltageCL ([Saison],[SaisonID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr], [Land1_Nr])" +
+                cmd.CommandText = "INSERT INTO SpieltageCL ([Saison],[SaisonID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr])" +
                     " VALUES(@Saison,@SaisonID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr)";
-
                 
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
                 cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);                
@@ -102,11 +101,14 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
+                        spieltag.Runde = reader["Runde"].ToString();
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();                        
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-
+                        spieltag.Land1_Nr = int.Parse(reader["Land1_Nr"].ToString());
+                        spieltag.GroupID = int.Parse(reader["GroupID"].ToString());
+                        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
                     }
                 }
                 conn.Close();
@@ -149,10 +151,14 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
+                        spieltag.Runde = reader["Runde"].ToString();
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
+                        spieltag.GroupID = int.Parse(reader["GroupID"].ToString());
+                        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
+                        spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
 
                         Spieltaglist.Add(spieltag);
                     }
@@ -243,6 +249,39 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
 
+        }
+
+        public async Task<List<Verein>> GetVereine(int iGroupID)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where groupID = " + iGroupID, conn);
+
+                Verein verein = null;
+                List<Verein> vereineList = new List<Verein>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new Verein();                        
+                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                        verein.Vereinsname1 = reader["Verein1"].ToString();
+
+                        vereineList.Add(verein);
+                    }
+                }
+                conn.Close();
+                return vereineList;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
         }
     }
 }
