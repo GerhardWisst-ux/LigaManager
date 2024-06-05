@@ -7,6 +7,7 @@ namespace LigaManagement.Web.Services.Contracts
     public interface ISpieltagService
     {
         Task<IEnumerable<Spieltag>> GetSpieltage();
+        Task<IEnumerable<Spieltag>> GetSpieltageL3();
         Task<IEnumerable<Spielergebnisse>> GetSpielergebnisse();
         Task<Spieltag> GetSpieltag(int id);
         Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag);

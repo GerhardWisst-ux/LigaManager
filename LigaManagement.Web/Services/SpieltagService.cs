@@ -76,7 +76,21 @@ namespace LigaManagerManagement.Web.Services
         {
             await httpClient.DeleteAsync($"api/spieltage/{id}");
         }
-     
+
+        public async Task<IEnumerable<Spieltag>> GetSpieltageL3()
+        {
+            try
+            {
+                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltageL3");
+                
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
+        }
     }
 
 

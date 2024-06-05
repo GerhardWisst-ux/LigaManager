@@ -20,7 +20,7 @@
 
             }
 
-            FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog.txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt" , FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
             StreamWriter s = new StreamWriter(fs);
 
@@ -28,7 +28,7 @@
 
             fs.Close();
 
-            FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog.txt", FileMode.Append, FileAccess.Write);
+            FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.Append, FileAccess.Write);
 
             StreamWriter s1 = new StreamWriter(fs1);
 

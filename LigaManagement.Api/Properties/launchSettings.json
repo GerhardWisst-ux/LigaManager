@@ -11,7 +11,7 @@
     "LigaManagement.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "weatherforecast",
+      "launchUrl": "Ligamanager",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

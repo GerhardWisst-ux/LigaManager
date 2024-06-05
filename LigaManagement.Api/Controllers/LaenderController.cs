@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class LaenderController : ControllerBase
@@ -17,9 +19,7 @@ namespace LigaManagement.Api.Controllers
         {
             this.laenderRepository = laenderRepository;
         }
-
-    
-        [HttpGet]
+                
         public async Task<ActionResult> GetLaender()
         {
             try
@@ -32,7 +32,7 @@ namespace LigaManagement.Api.Controllers
                     "Error retrieving data from the database:" + ex.Message);
             }
         }
-
+                
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Land>> GetLand(int id)
         {

@@ -168,6 +168,11 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     iSpieltage = 34;
             }
+            else if (Globals.LigaID == 3)
+            {            
+               iSpieltage = 38;
+             
+            }
             else if (Globals.LigaID == 4)
             {
                 if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
@@ -234,7 +239,7 @@ namespace LigaManagerManagement.Web.Pages
                 SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
             }
 
-            if (Globals.LigaID < 4)
+            if (Globals.LigaID < 3)
             {
                 Vereine = await VereineService.GetVereine();
 
@@ -252,6 +257,27 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
                     columns.Verein1Anzeige = columns.Verein1;
                     columns.Verein2Anzeige = columns.Verein2;
+                    columns.Doppelpunkt = ":";
+                }
+            }
+            else if (Globals.LigaID == 3)
+            {
+                Vereine = await VereineService.GetVereine();
+
+                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count(); i++)
+                {
+                    Spieltag columns = Spieltage.ElementAt(i);
+
+                    if (Vereine == null)
+                        throw new Exception("Vereine sind null");
+
+                    //columns.Verein1 = columns
+                    //columns.Verein2 = Vereine.FirstOrDefault(a => a.Vereinsname2 == columns.Verein2).Vereinsname1;
+                    //columns.Verein1Anzeige = columns.Verein1;
+                    //columns.Verein2Anzeige = columns.Verein2;
                     columns.Doppelpunkt = ":";
                 }
             }

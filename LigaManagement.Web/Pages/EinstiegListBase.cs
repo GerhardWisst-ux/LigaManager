@@ -7,7 +7,9 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using Radzen;
 using System;
 using System.Collections;
@@ -16,15 +18,22 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
+using Microsoft.Identity.Client;
+using Microsoft.AspNetCore.Cors;
 
 namespace LigaManagement.Web.Pages
 {
+    [EnableCors]
     public class EinstiegListBase : ComponentBase
     {
+        static HttpClient client = new HttpClient();
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
@@ -47,7 +56,7 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
-                
+
         public List<DisplaySaison> SaisonenList;
 
         public List<DisplayLiga> LigenList;
@@ -104,10 +113,41 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Land> Laender { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
+
+        public bool TestSQLServer()
+        {
+            try
+            {
+                Console.WriteLine("Connecting to: {0}", Globals.connstring);
+                using (var connection = new SqlConnection(Globals.connstring))
+                {
+                    var query = "select 1";
+                    Console.WriteLine("Executing: {0}", query);
+
+                    var command = new SqlCommand(query, connection);
+
+                    connection.Open();
+                    Console.WriteLine("SQL Connection successful.");
+
+                    command.ExecuteScalar();
+                    Console.WriteLine("SQL Query execution successful.");
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Failure: {0}", ex.Message);
+                return false;
+            }
+        }
+    
         protected override async Task OnInitializedAsync()
         {
             try
             {
+                if (TestSQLServer() == false)
+                    return;
 
                 LaenderList = new List<DisplayLaender>();
                 Laender = (await LaenderService.GetLaender()).ToList();
@@ -540,15 +580,24 @@ namespace LigaManagement.Web.Pages
             }
 
             Vereine = await VereineService.GetVereine();
-            Spieltage = await SpieltagService.GetSpieltage();
+            if (Globals.LigaID != 3)
+                Spieltage = await SpieltagService.GetSpieltage();
+            else
+                Spieltage = await SpieltagService.GetSpieltageL3();
 
             Spieltage = Spieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
-            for (int j = 0; j < Spieltage.Count(); j++)
+
+            if (Globals.LigaID != 3)
             {
-                var columns = Spieltage.ElementAt(j);
-                columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
-                columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                for (int j = 0; j < Spieltage.Count(); j++)
+                {
+                    var columns = Spieltage.ElementAt(j);
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr)).Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr)).Vereinsname2;
+                }
             }
+           
+                            
 
             int i = 1;
             foreach (var spieltag in Spieltage)
@@ -569,7 +618,7 @@ namespace LigaManagement.Web.Pages
                 i++;
             }
 
-            if (Globals.LigaID < 4)
+            if (Globals.LigaID < 3)
             {
                 if (Globals.currentSaison.StartsWith("1963") || Globals.currentSaison.StartsWith("1964"))
                     Globals.maxSpieltag = 30;
@@ -579,7 +628,10 @@ namespace LigaManagement.Web.Pages
                     Globals.maxSpieltag = 34;
 
             }
-
+            else if (Globals.LigaID == 3)            {               
+                
+                Globals.maxSpieltag = 38;
+            }
 
             else if (Globals.LigaID == 4)   
             {
@@ -758,6 +810,140 @@ namespace LigaManagement.Web.Pages
                 {
                     myConn.Close();
                 }
+            }
+        }
+
+        protected async Task<int> GetDataFromOpenLgaDB()
+        {
+            int ret = 0;
+            int i = 0;
+            int spieltag = 0;
+            client.BaseAddress = new Uri("https://api.openligadb.de/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            do
+            {
+                try
+                {                  
+                    var matches = await GetMatchesAsync("getmatchdata/regiosw/2023");
+
+                    foreach (var match in matches)
+                    {
+                        Debug.Print(string.Concat(match.MatchDateTime, ": ", match.Team1.TeamName, " : ", match.Team2.TeamName, match.Team2.TeamName));
+
+                        var matchDetail = await GetMatchAsync("getmatchdata/" + match.MatchID + "");
+
+                        //Debug.Print(string.Concat(matchDetail.LeagueName, ": ", matchDetail.matchResults[1].PointsTeam1, " : ", matchDetail.matchResults[1].PointsTeam2));
+
+                        if (matches.Count() <= 380)
+                        {
+                            int mod = i % 10;
+
+                            if (mod == 0)
+                                spieltag++;
+
+                            SaveImportDataToDatabase(match, matchDetail, spieltag);
+                        }
+
+                        i++;
+                            
+                    }
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return ret;
+
+                }
+
+            } while (true);
+        }
+        static async Task<List<LigaManagement.Models.Match>> GetMatchesAsync(string path)
+        {
+            try
+            {
+                List<LigaManagement.Models.Match> matches = null;
+                HttpResponseMessage response = await client.GetAsync(path);
+                if (response.IsSuccessStatusCode)
+                {
+
+                    string matchstring = await response.Content.ReadAsStringAsync();
+                    matches = JsonConvert.DeserializeObject<List<LigaManagement.Models.Match>>(matchstring);
+
+                    //matches = await response.Content.ReadFromJsonAsync<List<LigaManagement.Models.Match>>();
+                }
+                return matches;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        static async Task<MatchDetail> GetMatchAsync(string path)
+        {
+            try
+            {
+                MatchDetail match = null;
+                HttpResponseMessage response = await client.GetAsync(path);
+                if (response.IsSuccessStatusCode)
+                {
+                    string matchstring = await response.Content.ReadAsStringAsync();
+                    match = JsonConvert.DeserializeObject<MatchDetail>(matchstring);
+
+                    //match = await response.Content.ReadFromJsonAsync<MatchDetail>();
+                }
+                return match;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+        private void SaveImportDataToDatabase(LigaManagement.Models.Match match, MatchDetail matchdetail, int spieltag)
+        {
+
+            try
+            {
+
+                using (SqlConnection conn = new SqlConnection(Globals.connstring))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("INSERT INTO spieltageL3(Saison,SaisonID,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr,Tore2_Nr, Ort,Datum,LigaID,Zuschauer,Schiedrichter,Abgeschlossen,TeamIconUrl1,TeamIconUrl2) " +
+                                                      "VALUES (@Saison,@SaisonID,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@LigaID,@Zuschauer,@Schiedrichter,@Abgeschlossen,@TeamIconUrl1,@TeamIconUrl2)", conn);
+
+                    cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason + "/" + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
+                    cmd.Parameters.AddWithValue("@SaisonID", Globals.SaisonID);
+                    cmd.Parameters.AddWithValue("@LigaID", 3);
+                    cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
+
+                    cmd.Parameters.AddWithValue("@Verein1", match.Team1.TeamName);
+                    cmd.Parameters.AddWithValue("@Verein2", match.Team2.TeamName);
+                    cmd.Parameters.AddWithValue("@Verein1_Nr", match.Team1.TeamId);
+                    cmd.Parameters.AddWithValue("@Verein2_Nr", match.Team2.TeamId);                                       
+
+                    //cmd.Parameters.AddWithValue("@Tore1_Nr", matchdetail.matchResults[1].PointsTeam1);
+                    //cmd.Parameters.AddWithValue("@Tore2_Nr", matchdetail.matchResults[1].PointsTeam2);
+                    cmd.Parameters.AddWithValue("@Ort", "k.A.");
+                    cmd.Parameters.AddWithValue("@Zuschauer", 0);
+                    cmd.Parameters.AddWithValue("@TeamIconUrl1", match.Team1.TeamIconUrl);
+                    cmd.Parameters.AddWithValue("@TeamIconUrl2", match.Team2.TeamIconUrl);
+                    cmd.Parameters.AddWithValue("@Schiedrichter", "k.A.");
+
+                    cmd.Parameters.AddWithValue("@Datum", match.MatchDateTime);
+                    cmd.Parameters.AddWithValue("@Abgeschlossen", true);
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
 

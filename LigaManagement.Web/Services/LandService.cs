@@ -1,13 +1,19 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
+   
     public class LandService : ILandService
     {
         private readonly HttpClient httpClient;
@@ -31,28 +37,18 @@ namespace LigaManagerManagement.Web.Services
         {
             return await httpClient.GetJsonAsync<Land>($"api/laender/{id}");
         }
-
+        
         public async Task<IEnumerable<Land>> GetLaender()
         {
             try
-            {
-
-                
-                try
-                {
-                    return await httpClient.GetJsonAsync<Land[]>("api/laender");
-                }
-                catch (System.Exception ex)
-                {
-
-                    throw ex;
-                }
-
+            {   
+                 return await httpClient.GetJsonAsync<Land[]>("api/laender");
+             
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
         }

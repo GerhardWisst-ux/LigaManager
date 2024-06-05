@@ -58,6 +58,9 @@ namespace LigaManagement.Models
         [Required(ErrorMessage = "Zuschauer müssen angegeben werden.")]
         [Range(0, 150000, ErrorMessage = "Zuschauer müssen zwischen 0 und 150000 liegen.")]
         public int Zuschauer { get; set; }
+
+        public string TeamIconUrl1 { get; set; }
+        public string TeamIconUrl2 { get; set; }
     }
 
     public class PokalergebnisCLSpieltag : PokalergebnisSpieltag

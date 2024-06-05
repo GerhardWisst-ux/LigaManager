@@ -92,8 +92,8 @@ else
                             <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">Bitte Runde wählen</label>
                         </div>
                         <div class="dropdown" style="display:inline">
-                            @*  <RadzenButton title="Einlesen" style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Einlesen" Click="@GetDateFromOpenLgaDB">
-                        </RadzenButton> *@
+                            <RadzenButton title="Einlesen" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="Einlesen" Click="@GetDataFromOpenLgaDB">
+                        </RadzenButton>
                             <RadzenButton title="Saison und Runde auswählen" style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
                             </RadzenButton>
                         </div>
@@ -381,8 +381,7 @@ else
                                         </RadzenDataList>
                                     </RadzenCard>
                                 </div>
-                            </div>
-                        }
+                            </div>                        }
                     </RadzenTabsItem>
                 </Tabs>
             </RadzenTabs>

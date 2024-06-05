@@ -10,11 +10,11 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SpieltageController : ControllerBase
+    public class SpieltageL3Controller : ControllerBase
     {
         private readonly ISpieltagRepository SpieltagRepository;
 
-        public SpieltageController(ISpieltagRepository SpieltagRepository)
+        public SpieltageL3Controller(ISpieltagRepository SpieltagRepository)
         {
             this.SpieltagRepository = SpieltagRepository;
         }
@@ -24,7 +24,8 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagRepository.GetSpieltage());
+                return Ok(await SpieltagRepository.GetSpieltageL3());
+                return null;
             }
             catch (Exception ex)
             {
@@ -33,7 +34,7 @@ namespace LigaManagement.Api.Controllers
                     "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
             }
         }
-               
+       
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Spieltag>> GetSpieltag(int id)
