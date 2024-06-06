@@ -8,6 +8,7 @@ namespace LigamanagerManagement.Api.Models.Repository
     {
         Task<IEnumerable<Spieltag>> GetSpieltage();        
         Task<IEnumerable<Spieltag>> GetSpieltageL3();
+               
         Task<Spieltag> GetSpieltag(int spieltagId);        
         Task<Spieltag> AddSpieltag(Spieltag Spieltag);
         Task<Spieltag> UpdateSpieltag(Spieltag Spieltag);

@@ -12,6 +12,8 @@ namespace LigaManagement.Models
         [Required]
         public string Liganame { get; set; }
 
+        public int Liganummer { get; set; }
+
         [Required]
         public string Verband { get; set; }
 
@@ -24,5 +26,8 @@ namespace LigaManagement.Models
         public int Saisonen { get; set; }
 
         public bool Aktiv { get; set; }
+        public string Rekordspieler { get; set; }
+
+        public int Spiele_Rekordspieler { get; set; }
     }
 }

@@ -83,7 +83,7 @@ namespace LigaManagement.Api.Controllers
             {
                 var ligaToUpdate = await ligaRepository.GetLiga(liga.Id);
 
-                if(ligaToUpdate == null)
+                if(liga == null)
                 {
                     return NotFound($"Liga with Id = {liga.Id} not found");
                 }

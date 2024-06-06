@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace LigaManagement.Models
 {
@@ -14,7 +13,7 @@ namespace LigaManagement.Models
         public Team Team2 { get; set; }
         public string LeagueName { get; set; }
         public Group Group { get; set; }
-        public List<MatchResults> matchResults { get; set; }
-        public List<Goals> goals { get; set; }
+        //public List<MatchResults> matchResults { get; set; }
+        //public List<Goals> goals { get; set; }
     }
 }

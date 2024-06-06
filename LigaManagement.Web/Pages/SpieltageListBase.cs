@@ -169,9 +169,9 @@ namespace LigaManagerManagement.Web.Pages
                     iSpieltage = 34;
             }
             else if (Globals.LigaID == 3)
-            {            
-               iSpieltage = 38;
-             
+            {
+                iSpieltage = 38;
+
             }
             else if (Globals.LigaID == 4)
             {
@@ -215,6 +215,11 @@ namespace LigaManagerManagement.Web.Pages
                     iSpieltage = 38;
                 else
                     iSpieltage = 34;
+            }        
+            else if (Globals.LigaID == 20)
+            {
+                iSpieltage = 34;
+
             }
             else if (Globals.LigaID == 14)
             {
@@ -228,8 +233,8 @@ namespace LigaManagerManagement.Web.Pages
                     iSpieltage = 34;
             }
             else if (Globals.LigaID == 15)
-            {              
-              iSpieltage = 46;
+            {
+                iSpieltage = 46;
             }
 
             SpieltagList = new List<DisplaySpieltag>();
@@ -260,11 +265,11 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Doppelpunkt = ":";
                 }
             }
-            else if (Globals.LigaID == 3)
+            else if (Globals.LigaID == 3 || Globals.LigaID == 20)
             {
                 Vereine = await VereineService.GetVereine();
 
-                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.LigaID == Globals.LigaID).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
                 for (int i = 0; i < Spieltage.Count(); i++)
@@ -500,6 +505,14 @@ namespace LigaManagerManagement.Web.Pages
                         VisibleBtnNew = true;
                 }
             }
+            else if (Globals.LigaID == 3)
+            {
+                if (Spieltage.Count() >= 10)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
+            }
+
             else if (Globals.LigaID == 4)
             {
 
@@ -561,7 +574,13 @@ namespace LigaManagerManagement.Web.Pages
                     VisibleBtnNew = false;
                 else
                     VisibleBtnNew = true;
-
+            }
+            else if (Globals.LigaID == 20)
+            {
+                if (Spieltage.Count() >= 9)
+                    VisibleBtnNew = false;
+                else
+                    VisibleBtnNew = true;
             }
             else
                 VisibleBtnNew = true;

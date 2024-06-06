@@ -28,6 +28,11 @@
                 <ValidationMessage For="(()=>Liga.Liganame)"></ValidationMessage>
             </div>
             <div class="form-group row">
+                <RadzenLabel Text="Liganummer" class="col-sm-3" Component="txtSaisonen">Liganummer</RadzenLabel>
+                <InputNumber required id="txtSaisonen" @bind-Value="Liga.Liganummer" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Liga.Liganummer"></ValidationMessage>
+            </div>
+            <div class="form-group row">
                 <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">Verband</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="(()=>Liga.Verband)"></ValidationMessage>
@@ -41,7 +46,17 @@
                 <RadzenLabel Text="Saisonen" class="col-sm-3" Component="txtSaisonen">Saisonen</RadzenLabel>
                 <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Saisonen"></ValidationMessage>
-            </div>          
+            </div>
+            <div class="form-group row">
+                <RadzenLabel Text="Rekordspieler" class="col-sm-3" Component="txtRekordspieler">Rekordspieler</RadzenLabel>
+                <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="()=>Liga.Rekordspieler"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <RadzenLabel Text="Spiele Rekordspieler" class="col-sm-3" Component="txtSaisonen">Spiele Rekordspieler</RadzenLabel>
+                <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control col-sm-9"></InputNumber>
+                <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
+            </div>
             <div class="form-group">
                 <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Aktiv</RadzenLabel>
                 <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAktiv" />

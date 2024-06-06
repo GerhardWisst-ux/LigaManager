@@ -23,14 +23,18 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen, Aktiv)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv)";
+                cmd.CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler)" +
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler)";
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
                 cmd.Parameters.AddWithValue("@Verband", liga.Verband);
                 cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
                 cmd.Parameters.AddWithValue("@Saisonen", liga.Saisonen);
+                cmd.Parameters.AddWithValue("@Liganummer", liga.Liganummer);
                 cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+                cmd.Parameters.AddWithValue("@LandID", liga.LandID);
+                cmd.Parameters.AddWithValue("@Rekordspieler", liga.Rekordspieler);
+                cmd.Parameters.AddWithValue("@Spiele_Rekordspieler", liga.Spiele_Rekordspieler);
 
                 cmd.ExecuteNonQuery();
 
@@ -83,13 +87,16 @@ namespace LigaManagerManagement.Api.Models
                         liga = new Liga();
 
                         liga.Id = (int)reader["Id"];
-                        liga.LandID = (int)reader["LandID"];
+                        liga.Liganummer = int.Parse(reader["Liganummer"].ToString());
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
+                        liga.LandID = int.Parse(reader["LandID"].ToString());
+                        liga.Rekordspieler = reader["Rekordspieler"].ToString();
+                        liga.Spiele_Rekordspieler = int.TryParse(reader["Spiele_Rekordspieler"].ToString(), out var f) ? f : 0;
                     }
                 }
                 conn.Close();
@@ -121,14 +128,17 @@ namespace LigaManagerManagement.Api.Models
                     {
                         liga = new Liga();
 
-                        liga.Id = int.Parse(reader["Id"].ToString());
-                        liga.LandID = (int)reader["LandID"];
+                        liga.Id = int.Parse(reader["Id"].ToString());                        
+                        liga.Liganummer = int.Parse(reader["Liganummer"].ToString());
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
+                        liga.LandID = int.Parse(reader["LandID"].ToString());
+                        liga.Rekordspieler = reader["Rekordspieler"].ToString();
+                        liga.Spiele_Rekordspieler = int.TryParse(reader["Spiele_Rekordspieler"].ToString(), out var f) ? f : 0;
 
                         peList.Add(liga);
                     }
@@ -142,12 +152,12 @@ namespace LigaManagerManagement.Api.Models
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-
         }
+     
 
         public async Task<Liga> UpdateLiga(Liga liga)
         {
-            int bAktiv;
+            string sAktiv;
             
             try
             {
@@ -155,21 +165,24 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-               
+                cmd.Connection = conn;               
 
-                if (liga.Aktiv == false)
-                    bAktiv = 0;
+                if (liga.Aktiv == true)
+                    sAktiv = "true";
                 else
-                    bAktiv = 1;
+                    sAktiv = "false";
 
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
                        "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
                       ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
                       ",[Saisonen] =" + liga.Saisonen +
-                      ",[Aktiv] =" + bAktiv +                      
-                      " WHERE  [Id] = " + liga.Id;
+                      ",[LandID] =" + liga.LandID +
+                      ",[Liganummer] =" + liga.Liganummer +
+                      ",[Rekordspieler] ='" + liga.Rekordspieler + "'" +
+                      ",[Spiele_Rekordspieler] =" + liga.Spiele_Rekordspieler +
+                      ",[Aktiv] = '" + sAktiv + "'" +
+                      " WHERE [Id] = " + liga.Id;
 
                 cmd.ExecuteNonQuery();
 

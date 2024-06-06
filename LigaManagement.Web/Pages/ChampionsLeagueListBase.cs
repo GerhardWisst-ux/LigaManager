@@ -129,9 +129,10 @@ namespace LigaManagement.Web.Pages
 
                 //if (PokalergebnisseCLSpieltage.Count() == 0)
                 //{
-                //    var result = await GetDataFromOpenLgaDB();
+
                 //    System.Threading.Thread.Sleep(2000);
                 //}
+                var result = await GetDataFromOpenLgaDB();
 
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
@@ -194,12 +195,15 @@ namespace LigaManagement.Web.Pages
             {
                 try
                 {
-                    PokalergebnisseCLSpieltage = PokalergebnisseCLSpieltage.ToList().Where(x => x.SaisonID == Globals.CLPokalSaisonID).Where(x => x.Runde == RundeChoosed);
+                    //PokalergebnisseCLSpieltage = PokalergebnisseCLSpieltage.ToList().Where(x => x.SaisonID == Globals.CLPokalSaisonID).Where(x => x.Runde == RundeChoosed);
 
-                    if (PokalergebnisseCLSpieltage.Count() > 0)
+                    //if (PokalergebnisseCLSpieltage.Count() > 0)
+                    //    return ret;
+
+                    var matches = await GetMatchesAsync("getmatchdata/uefacl22/2022");
+
+                    if (matches == null)
                         return ret;
-
-                    var matches = await GetMatchesAsync("getmatchdata/champion1/2023");
 
                     foreach (var match in matches)
                     {
