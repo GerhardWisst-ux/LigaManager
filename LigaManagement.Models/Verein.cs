@@ -19,7 +19,7 @@ namespace LigaManagement.Models
         [Required(ErrorMessage = "Stadion erforderlich.")]
         public string Stadion { get; set; }
 
-        public string Fassungsvermoegen { get; set; }
+        public int? Fassungsvermoegen { get; set; }
 
         public string Erfolge { get; set; }
 

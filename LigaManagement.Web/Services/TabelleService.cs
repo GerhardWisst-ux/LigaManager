@@ -83,8 +83,6 @@ namespace LigaManagerManagement.Web.Services
                                              List<VereineSaison> VereineSaison,
                                              IEnumerable<Verein> Vereine,
                                              int Spieltag,
-                                             string sSaison,
-                                             int LigaId,
                                              int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -112,9 +110,9 @@ namespace LigaManagerManagement.Web.Services
 
                 if (Tabart == (int)Globals.Tabart.Vorrunde)
                 {
-                    if (sSaison == "1963/64" || sSaison == "1964/65")
+                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                         BisSpieltag = 15;
-                    else if (sSaison == "1991/92")
+                    else if (Globals.currentSaison == "1991/92")
                         BisSpieltag = 19;
                     else
                         BisSpieltag = 17;
@@ -122,9 +120,9 @@ namespace LigaManagerManagement.Web.Services
 
                 if (Tabart == (int)Globals.Tabart.Rückrunde)
                 {
-                    if (sSaison == "1963/64" || sSaison == "1964/65")
+                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                         VonSpieltag = 16;
-                    else if (sSaison == "1991/92")
+                    else if (Globals.currentSaison == "1991/92")
                         VonSpieltag = 20;
                     else
                         VonSpieltag = 18;
@@ -171,7 +169,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -192,7 +190,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Anzeigename = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname2;
                                     tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
-                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
+                                    tabelleneintragF.Spiele++;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen + 1;
                                     tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
@@ -237,9 +235,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
-                                    tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
+                                    tabelleneintragF.Punkte++;
                                     tabelleneintragF.Platz = 0;
                                     tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
@@ -256,7 +254,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -277,7 +275,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
                                     tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
-                                    tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;
+                                    tabelleneintragF.Verloren++;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte;
                                     tabelleneintragF.Platz = 0;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
@@ -292,7 +290,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.TorePlus = tabelleneintragF2.TorePlus + item.Tore2_Nr;
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
-                                    tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen + 1;
+                                    tabelleneintragF2.Gewonnen++;
                                     tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
 
@@ -386,217 +384,6 @@ namespace LigaManagerManagement.Web.Services
             catch (Exception ex)
             {
 
-                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-                return null;
-            }
-        }
-
-        public async Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenService,
-                                                IEnumerable<Verein> Vereine,
-                                                int iSpieltag,
-                                                string sSaison,
-                                                int Tabart)
-        {
-            Tabelle tabelleneintrag1;
-            Tabelle tabelleneintrag2;
-            SpieltageRepository rep = new SpieltageRepository();
-            var TabSaisonEwigSorted = new List<Tabelle>();
-            int VonSpieltag = 1;
-            int BisSpieltag = 34;
-
-            try
-            {
-
-                foreach (var item in Vereine)
-                {
-                    tabelleneintrag1 = new Tabelle();
-
-                    tabelleneintrag1.VereinNr = item.VereinNr;
-                    tabelleneintrag1.Verein = item.Vereinsname1;
-                    tabelleneintrag1.TorePlus = 0;
-                    tabelleneintrag1.ToreMinus = 0;
-                    tabelleneintrag1.Spiele = 0;
-
-                    tabelleneintrag1.Punkte = 0;
-
-                    tabelleneintrag1.Gewonnen = 0;
-                    tabelleneintrag1.Untentschieden = 0;
-                    tabelleneintrag1.Verloren = 0;
-
-                    tabelleneintrag1.Platz = 0;
-                    tabelleneintrag1.Tab_Sai_Id = 999; //saisonnen[j].SaisonID;
-                    tabelleneintrag1.Liga = Globals.currentLiga;
-
-                    TabSaisonEwigSorted.Add(tabelleneintrag1);
-
-                    tabelleneintrag2 = new Tabelle();
-
-                    tabelleneintrag2.VereinNr = item.VereinNr;
-                    tabelleneintrag2.Verein = item.Vereinsname1;
-                    tabelleneintrag2.TorePlus = 0;
-                    tabelleneintrag2.ToreMinus = 0;
-                    tabelleneintrag2.Spiele = 0;
-
-                    tabelleneintrag2.Punkte = 0;
-
-                    tabelleneintrag2.Gewonnen = 0;
-                    tabelleneintrag2.Untentschieden = 0;
-                    tabelleneintrag2.Verloren = 0;
-
-                    tabelleneintrag2.Platz = 0;
-                    tabelleneintrag2.Tab_Sai_Id = 999; //saisonnen[j].SaisonID;
-                    tabelleneintrag2.Liga = Globals.currentLiga;
-                }
-
-
-                var alleSpieltage = (await spieltagService.GetSpieltage()).Where(x => x.LigaID == Globals.LigaID);
-                var saisonnen = (await saisonenService.GetSaisonen()).OrderBy(x => x.Saisonname).ToList();
-
-                for (int j = 0; j < saisonnen.Count(); j++)
-                {
-                    if (saisonnen[j].Saisonname == "1963/64" || saisonnen[j].Saisonname == "1964/65")
-                        BisSpieltag = 30;
-                    else if (saisonnen[j].Saisonname == "1991/92")
-                        BisSpieltag = 38;
-                    else
-                        BisSpieltag = 34;
-
-
-
-                    if (saisonnen[j].Aktuell)
-                    {
-                        //if (Spieltag < rep.AktSpieltag(Globals.SaisonID))
-                        //    BisSpieltag = Spieltag;
-                        //else
-                        //    BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
-                        BisSpieltag = iSpieltag;
-                    }
-
-
-                    for (int i = VonSpieltag; i <= BisSpieltag; i++)
-                    {
-
-                        this.Spieltag = (alleSpieltage).Where(st => st.Saison == saisonnen[j].Saisonname && st.SpieltagNr == i.ToString()).ToList();
-
-                        foreach (var item in this.Spieltag)
-                        {
-                            tabelleneintrag1 = TabSaisonEwigSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein1_Nr));
-
-                            tabelleneintrag2 = TabSaisonEwigSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein2_Nr));
-
-                            //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag1.Verein == "Arminia Bielefeld")
-                            //    continue;
-
-                            //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag2.Verein == "Arminia Bielefeld")
-                            //    continue;
-
-                            if (item.Tore1_Nr > item.Tore2_Nr)
-                            {
-                                tabelleneintrag1.VereinNr = Convert.ToInt32(item.Verein1_Nr);
-                                tabelleneintrag1.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintrag1.VereinNr)).Vereinsname1;
-                                tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
-                                tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
-                                tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
-                                tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen + 1;
-                                tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden;
-                                tabelleneintrag1.Verloren = tabelleneintrag1.Verloren;
-
-
-                                tabelleneintrag1.Punkte = tabelleneintrag1.Punkte + 3;
-
-                                tabelleneintrag1.Platz = 0;
-                                tabelleneintrag1.Tab_Sai_Id = 99;
-                                tabelleneintrag1.Liga = Globals.currentLiga;
-
-                                tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
-                                tabelleneintrag2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintrag2.VereinNr)).Vereinsname1;
-                                tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
-                                tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
-                                tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
-                                tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen;
-                                tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden;
-                                tabelleneintrag2.Verloren = tabelleneintrag2.Verloren + 1;
-                                tabelleneintrag2.Punkte = tabelleneintrag2.Punkte;
-                                tabelleneintrag2.Platz = 0;
-                                tabelleneintrag2.Tab_Sai_Id = 99;
-                                tabelleneintrag2.Liga = Globals.currentLiga;
-
-                            }
-                            else if (item.Tore1_Nr == item.Tore2_Nr)
-                            {
-                                tabelleneintrag1.VereinNr = tabelleneintrag1.VereinNr;
-                                tabelleneintrag1.Verein = tabelleneintrag1.Verein;
-                                tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
-                                tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
-                                tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
-                                tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen;
-                                tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden + 1;
-                                tabelleneintrag1.Verloren = tabelleneintrag1.Verloren;
-                                tabelleneintrag1.Punkte = tabelleneintrag1.Punkte + 1;
-                                tabelleneintrag1.Platz = 0;
-                                tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag1.Liga = Globals.currentLiga;
-
-                                tabelleneintrag2.VereinNr = tabelleneintrag2.VereinNr;
-                                tabelleneintrag2.Verein = tabelleneintrag2.Verein;
-
-                                tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
-                                tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
-                                tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
-                                tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen;
-                                tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden + 1;
-                                tabelleneintrag2.Verloren = tabelleneintrag2.Verloren;
-                                tabelleneintrag2.Punkte = tabelleneintrag2.Punkte + 1;
-                                tabelleneintrag2.Platz = 0;
-                                tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag2.Liga = Globals.currentLiga;
-                            }
-                            else if (item.Tore1_Nr < item.Tore2_Nr)
-                            {
-                                tabelleneintrag1.VereinNr = Convert.ToInt32(item.Verein1_Nr);
-                                tabelleneintrag1.Verein = tabelleneintrag1.Verein;
-                                tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
-                                tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
-                                tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
-                                tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen;
-                                tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden;
-                                tabelleneintrag1.Verloren = tabelleneintrag1.Verloren + 1;
-                                tabelleneintrag1.Punkte = tabelleneintrag1.Punkte;
-                                tabelleneintrag1.Platz = 0;
-                                tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag1.Liga = Globals.currentLiga;
-
-                                tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
-                                tabelleneintrag2.Verein = tabelleneintrag2.Verein;
-                                tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
-                                tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
-                                tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
-                                tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen + 1;
-                                tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden;
-                                tabelleneintrag2.Verloren = tabelleneintrag2.Verloren;
-
-                                tabelleneintrag2.Punkte = tabelleneintrag2.Punkte + 3;
-
-                                tabelleneintrag2.Platz = 0;
-                                tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
-                                tabelleneintrag2.Liga = Globals.currentLiga;
-                            }
-                        }
-                    }
-
-                    TabSaisonEwigSorted = TabSaisonEwigSorted.OrderByDescending(o => o.Punkte).ThenByDescending(o => o.TorePlus - o.ToreMinus).ThenByDescending(o => o.TorePlus).ToList();
-
-                    for (int ii = 0; ii < TabSaisonEwigSorted.Count; ii++)
-                    {
-                        TabSaisonEwigSorted[ii].Platz = ii + 1;
-                        TabSaisonEwigSorted[ii].Tore = TabSaisonEwigSorted[ii].TorePlus + ":" + TabSaisonEwigSorted[ii].ToreMinus;
-                        TabSaisonEwigSorted[ii].Diff = TabSaisonEwigSorted[ii].TorePlus - TabSaisonEwigSorted[ii].ToreMinus;
-                    }
-                }
-                return TabSaisonEwigSorted;
-            }
-            catch (Exception ex)
-            {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
@@ -929,8 +716,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -1018,7 +803,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -1079,7 +864,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -1097,7 +882,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -1185,8 +970,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -1274,7 +1057,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -1338,7 +1121,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -1356,7 +1139,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -1444,8 +1227,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -1533,7 +1314,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -1594,7 +1375,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -1612,7 +1393,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -1699,8 +1480,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -1790,7 +1569,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -1854,7 +1633,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -1872,7 +1651,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -1959,8 +1738,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -2042,7 +1819,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -2106,7 +1883,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -2124,7 +1901,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -2211,8 +1988,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -2300,7 +2075,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -2364,7 +2139,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -2382,7 +2157,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -2469,8 +2244,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -2559,7 +2332,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -2623,7 +2396,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -2641,7 +2414,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -2728,8 +2501,6 @@ namespace LigaManagerManagement.Web.Services
                                                 bool bAbgeschlossen,
                                                 IEnumerable<VereinAUS> Vereine,
                                                 int Spieltag,
-                                                string sSaison,
-                                                int LigaId,
                                                 int Tabart)
         {
             Tabelle tabelleneintragV1;
@@ -2811,7 +2582,7 @@ namespace LigaManagerManagement.Web.Services
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
 
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == sSaison && st.LigaID == LigaId && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -2875,7 +2646,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -2893,7 +2664,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -2983,11 +2754,11 @@ namespace LigaManagerManagement.Web.Services
                 Tabelle tabelleneintragV1;
                 Tabelle tabelleneintragV2;
 
-                
+
                 SpieltageCLRepository rep = new SpieltageCLRepository();
                 var TabSaisonSorted = new List<Tabelle>();
                 int VonSpieltag = 1;
-                
+
                 try
                 {
                     var alleSpieltage = (await spieltagService.GetSpieltage()).Where(st => st.SaisonID == Globals.CLPokalSaisonID).Where(x => x.GroupID == GroupID);
@@ -3085,7 +2856,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
                                     tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen + 0;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 1;
+                                    tabelleneintragF.Untentschieden++; ;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 0;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
@@ -3101,7 +2872,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
                                     tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen + 0;
-                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden + 1;
+                                    tabelleneintragF2.Untentschieden++;
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 0;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
@@ -3167,6 +2938,457 @@ namespace LigaManagerManagement.Web.Services
 
 
                     return TabSaisonSorted;
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                    return null;
+                }
+            }
+        }
+
+        public async Task<IEnumerable<Tabelle>> BerechneTabelleDEL3(ISpieltagService spieltagService,
+                                             bool bAbgeschlossen,
+                                             List<VereinAktSaison> VereineSaison,
+                                             int Spieltag,
+                                             int Tabart)
+        {
+            Tabelle tabelleneintragV1;
+            Tabelle tabelleneintragV2;
+
+            int BisSpieltag;
+            SpieltageRepository rep = new SpieltageRepository();
+            var TabSaisonSorted = new List<Tabelle>();
+            int VonSpieltag = 1;
+
+            try
+            {
+                if (bAbgeschlossen)
+                    BisSpieltag = Spieltag;
+                else
+                {
+                    if (Spieltag < rep.AktSpieltag(Globals.SaisonID, Globals.LigaID))
+                        BisSpieltag = Spieltag;
+                    else
+                        BisSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+                }
+
+                var alleSpieltage = (await spieltagService.GetSpieltageL3());
+
+                if (Tabart == (int)Globals.Tabart.Vorrunde)
+                    BisSpieltag = 19;
+
+                if (Tabart == (int)Globals.Tabart.Rückrunde)
+                {
+                    VonSpieltag = 20;
+
+                    int iAktSpieltag = 0;
+                    if (bAbgeschlossen)
+                    {
+                        iAktSpieltag = Globals.maxSpieltag;
+                    }
+                    else
+                    {
+                        iAktSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+                    }
+                    BisSpieltag = iAktSpieltag;
+                }
+
+                // Grundtabelle erzeugen
+                foreach (VereinAktSaison verein in VereineSaison)
+                {
+
+                    tabelleneintragV1 = new Tabelle();
+
+                    tabelleneintragV1.VereinNr = verein.VereinNr;
+                    tabelleneintragV1.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Vereinsname1;
+                    tabelleneintragV1.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Vereinsname2;
+                    tabelleneintragV1.TorePlus = 0;
+                    tabelleneintragV1.ToreMinus = 0;
+                    tabelleneintragV1.Spiele = 0;
+                    tabelleneintragV1.Punkte = 0;
+                    tabelleneintragV1.Gewonnen = 0;
+                    tabelleneintragV1.Untentschieden = 0;
+                    tabelleneintragV1.Verloren = 0;
+                    tabelleneintragV1.Platz = 0;
+                    tabelleneintragV1.Tore = "0";
+                    tabelleneintragV1.Diff = 0;
+                    tabelleneintragV1.Tab_Sai_Id = Globals.SaisonID;
+                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
+                    tabelleneintragV1.Liga = Globals.currentLiga;
+
+                    TabSaisonSorted.Add(tabelleneintragV1);
+                }
+
+
+                for (int i = VonSpieltag; i <= BisSpieltag; i++)
+                {
+
+                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
+
+                    foreach (var item in this.Spieltag)
+                    {
+                        Tabelle tabelleneintragF = TabSaisonSorted.FirstOrDefault(element => element.VereinNr == Convert.ToInt32(item.Verein1_Nr));
+                        Tabelle tabelleneintragF2 = TabSaisonSorted.FirstOrDefault(element => element.VereinNr == Convert.ToInt32(item.Verein2_Nr));
+
+                        tabelleneintragV1 = new Tabelle();
+                        tabelleneintragV2 = new Tabelle();
+
+                        if ((tabelleneintragF != null) && (tabelleneintragF2 != null))
+                        {
+                            if (item.Tore1_Nr > item.Tore2_Nr)
+                            {
+                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                {
+                                    tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
+                                    tabelleneintragF.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
+                                    tabelleneintragF.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname2;
+                                    tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
+                                    tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
+                                    tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen + 1;
+                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
+                                    tabelleneintragF.Verloren = tabelleneintragF.Verloren;
+
+
+                                    tabelleneintragF.Punkte = tabelleneintragF.Punkte + 3;
+
+                                    tabelleneintragF.Platz = 0;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Liga = Globals.currentLiga;
+                                }
+
+                                if (Tabart != (int)Globals.Tabart.Heim)
+                                {
+                                    tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
+                                    tabelleneintragF2.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
+                                    tabelleneintragF2.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname2;
+                                    tabelleneintragF2.TorePlus = tabelleneintragF2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
+                                    tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
+                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden;
+                                    tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 1;
+                                    tabelleneintragF2.Punkte = tabelleneintragF2.Punkte;
+                                    tabelleneintragF2.Platz = 0;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF2.Liga = Globals.currentLiga;
+                                }
+                            }
+                            else if (item.Tore1_Nr == item.Tore2_Nr)
+                            {
+                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                {
+                                    tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
+                                    tabelleneintragF.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
+                                    tabelleneintragF.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname2;
+                                    tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
+                                    tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
+                                    tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
+                                    tabelleneintragF.Untentschieden++; ;
+                                    tabelleneintragF.Verloren = tabelleneintragF.Verloren;
+                                    tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
+                                    tabelleneintragF.Platz = 0;
+                                    tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Liga = Globals.currentLiga;
+
+                                }
+
+                                if (Tabart != (int)Globals.Tabart.Heim)
+                                {
+                                    tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
+                                    tabelleneintragF2.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
+                                    tabelleneintragF2.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname2;
+                                    tabelleneintragF2.TorePlus = tabelleneintragF2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
+                                    tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen;
+                                    tabelleneintragF2.Untentschieden++;
+                                    tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
+                                    tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
+                                    tabelleneintragF2.Platz = 0;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF2.Liga = Globals.currentLiga;
+                                }
+                            }
+                            else if (item.Tore1_Nr < item.Tore2_Nr)
+                            {
+                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                {
+                                    tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
+                                    tabelleneintragF.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
+                                    tabelleneintragF.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname2;
+                                    tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
+                                    tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
+                                    tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
+                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
+                                    tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;
+                                    tabelleneintragF.Punkte = tabelleneintragF.Punkte;
+                                    tabelleneintragF.Platz = 0;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Liga = Globals.currentLiga;
+                                }
+                                if (Tabart != (int)Globals.Tabart.Heim)
+                                {
+                                    tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
+                                    tabelleneintragF2.Verein = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
+                                    tabelleneintragF2.Anzeigename = VereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname2;
+                                    tabelleneintragF2.TorePlus = tabelleneintragF2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;
+                                    tabelleneintragF2.Gewonnen = tabelleneintragF2.Gewonnen + 1;
+                                    tabelleneintragF2.Untentschieden = tabelleneintragF2.Untentschieden;
+                                    tabelleneintragF2.Verloren = tabelleneintragF2.Verloren;
+                                    tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 3;
+                                }
+
+                                tabelleneintragF2.Platz = 0;
+                                tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                tabelleneintragF2.Liga = Globals.currentLiga;
+                            }
+
+                            if (Globals.SaisonID == 44 && tabelleneintragV2.Verein == "Arminia Bielefeld")
+                            {
+                                tabelleneintragF2.TorePlus = 0;
+                                tabelleneintragF2.Platz = 18;
+                                tabelleneintragF2.Punkte = 0;
+                                tabelleneintragF2.TorePlus = 0;
+                                tabelleneintragF2.ToreMinus = 0;
+                            }
+                        }
+                        else
+                        {
+                            ErrorLogger.WriteToErrorLog("Fehler", "Fehler", Assembly.GetExecutingAssembly().FullName);
+                        }
+                    }
+
+                    TabSaisonSorted = TabSaisonSorted.OrderByDescending(o => o.Punkte).ThenByDescending(o => o.TorePlus - o.ToreMinus).ThenByDescending(o => o.TorePlus).ToList();
+
+                    for (int ii = 0; ii < TabSaisonSorted.Count; ii++)
+                    {
+                        TabSaisonSorted[ii].Platz = ii + 1;
+                        TabSaisonSorted[ii].Tore = TabSaisonSorted[ii].TorePlus + ":" + TabSaisonSorted[ii].ToreMinus;
+                        TabSaisonSorted[ii].Diff = TabSaisonSorted[ii].TorePlus - TabSaisonSorted[ii].ToreMinus;
+                    }
+                }
+
+                return TabSaisonSorted;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, int ewigeTabelle)
+        {
+            {
+                Tabelle tabelleneintrag1;
+                Tabelle tabelleneintrag2;
+                SpieltageRepository rep = new SpieltageRepository();
+                var TabSaisonEwigSorted = new List<Tabelle>();
+                int VonSpieltag = 1;
+                int BisSpieltag = 34;
+
+                try
+                {
+
+                    foreach (var item in vereine)
+                    {
+                        tabelleneintrag1 = new Tabelle();
+
+                        tabelleneintrag1.VereinNr = item.VereinNr;
+                        tabelleneintrag1.Verein = item.Vereinsname1;
+                        tabelleneintrag1.TorePlus = 0;
+                        tabelleneintrag1.ToreMinus = 0;
+                        tabelleneintrag1.Spiele = 0;
+
+                        tabelleneintrag1.Punkte = 0;
+
+                        tabelleneintrag1.Gewonnen = 0;
+                        tabelleneintrag1.Untentschieden = 0;
+                        tabelleneintrag1.Verloren = 0;
+
+                        tabelleneintrag1.Platz = 0;
+                        tabelleneintrag1.Tab_Sai_Id = 999; //saisonnen[j].SaisonID;
+                        tabelleneintrag1.Liga = Globals.currentLiga;
+
+                        TabSaisonEwigSorted.Add(tabelleneintrag1);
+
+                        tabelleneintrag2 = new Tabelle();
+
+                        tabelleneintrag2.VereinNr = item.VereinNr;
+                        tabelleneintrag2.Verein = item.Vereinsname1;
+                        tabelleneintrag2.TorePlus = 0;
+                        tabelleneintrag2.ToreMinus = 0;
+                        tabelleneintrag2.Spiele = 0;
+
+                        tabelleneintrag2.Punkte = 0;
+
+                        tabelleneintrag2.Gewonnen = 0;
+                        tabelleneintrag2.Untentschieden = 0;
+                        tabelleneintrag2.Verloren = 0;
+
+                        tabelleneintrag2.Platz = 0;
+                        tabelleneintrag2.Tab_Sai_Id = 999; //saisonnen[j].SaisonID;
+                        tabelleneintrag2.Liga = Globals.currentLiga;
+                    }
+
+
+                    var alleSpieltage = (await spieltagService.GetSpieltage()).Where(x => x.LigaID == Globals.LigaID);
+                    var saisonnen = (await saisonenservice.GetSaisonen()).OrderBy(x => x.Saisonname).ToList();
+
+                    for (int j = 0; j < saisonnen.Count(); j++)
+                    {
+                        if (saisonnen[j].Saisonname == "1963/64" || saisonnen[j].Saisonname == "1964/65")
+                            BisSpieltag = 30;
+                        else if (saisonnen[j].Saisonname == "1991/92")
+                            BisSpieltag = 38;
+                        else
+                            BisSpieltag = 34;
+
+
+
+                        if (saisonnen[j].Aktuell)
+                        {
+                            //if (Spieltag < rep.AktSpieltag(Globals.SaisonID))
+                            //    BisSpieltag = Spieltag;
+                            //else
+                            //    BisSpieltag = rep.AktSpieltag(Globals.SaisonID);
+                            BisSpieltag = currentspieltag;
+                        }
+
+
+                        for (int i = VonSpieltag; i <= BisSpieltag; i++)
+                        {
+
+                            this.Spieltag = (alleSpieltage).Where(st => st.Saison == saisonnen[j].Saisonname && st.SpieltagNr == i.ToString()).ToList();
+
+                            foreach (var item in this.Spieltag)
+                            {
+                                tabelleneintrag1 = TabSaisonEwigSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein1_Nr));
+
+                                tabelleneintrag2 = TabSaisonEwigSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein2_Nr));
+
+                                //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag1.Verein == "Arminia Bielefeld")
+                                //    continue;
+
+                                //if (saisonnen[j].Saisonname == "1971/72" && tabelleneintrag2.Verein == "Arminia Bielefeld")
+                                //    continue;
+
+                                if (item.Tore1_Nr > item.Tore2_Nr)
+                                {
+                                    tabelleneintrag1.VereinNr = Convert.ToInt32(item.Verein1_Nr);
+                                    tabelleneintrag1.Verein = vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintrag1.VereinNr)).Vereinsname1;
+                                    tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
+                                    tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
+                                    tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen + 1;
+                                    tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden;
+                                    tabelleneintrag1.Verloren = tabelleneintrag1.Verloren;
+
+
+                                    tabelleneintrag1.Punkte = tabelleneintrag1.Punkte + 3;
+
+                                    tabelleneintrag1.Platz = 0;
+                                    tabelleneintrag1.Tab_Sai_Id = 99;
+                                    tabelleneintrag1.Liga = Globals.currentLiga;
+
+                                    tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
+                                    tabelleneintrag2.Verein = vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintrag2.VereinNr)).Vereinsname1;
+                                    tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
+                                    tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen;
+                                    tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden;
+                                    tabelleneintrag2.Verloren = tabelleneintrag2.Verloren + 1;
+                                    tabelleneintrag2.Punkte = tabelleneintrag2.Punkte;
+                                    tabelleneintrag2.Platz = 0;
+                                    tabelleneintrag2.Tab_Sai_Id = 99;
+                                    tabelleneintrag2.Liga = Globals.currentLiga;
+
+                                }
+                                else if (item.Tore1_Nr == item.Tore2_Nr)
+                                {
+                                    tabelleneintrag1.VereinNr = tabelleneintrag1.VereinNr;
+                                    tabelleneintrag1.Verein = tabelleneintrag1.Verein;
+                                    tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
+                                    tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
+                                    tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen;
+                                    tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden + 1;
+                                    tabelleneintrag1.Verloren = tabelleneintrag1.Verloren;
+                                    tabelleneintrag1.Punkte = tabelleneintrag1.Punkte + 1;
+                                    tabelleneintrag1.Platz = 0;
+                                    tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintrag1.Liga = Globals.currentLiga;
+
+                                    tabelleneintrag2.VereinNr = tabelleneintrag2.VereinNr;
+                                    tabelleneintrag2.Verein = tabelleneintrag2.Verein;
+
+                                    tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
+                                    tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen;
+                                    tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden + 1;
+                                    tabelleneintrag2.Verloren = tabelleneintrag2.Verloren;
+                                    tabelleneintrag2.Punkte = tabelleneintrag2.Punkte + 1;
+                                    tabelleneintrag2.Platz = 0;
+                                    tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintrag2.Liga = Globals.currentLiga;
+                                }
+                                else if (item.Tore1_Nr < item.Tore2_Nr)
+                                {
+                                    tabelleneintrag1.VereinNr = Convert.ToInt32(item.Verein1_Nr);
+                                    tabelleneintrag1.Verein = tabelleneintrag1.Verein;
+                                    tabelleneintrag1.TorePlus = tabelleneintrag1.TorePlus + item.Tore1_Nr;
+                                    tabelleneintrag1.ToreMinus = tabelleneintrag1.ToreMinus + item.Tore2_Nr;
+                                    tabelleneintrag1.Spiele = tabelleneintrag1.Spiele + 1;
+                                    tabelleneintrag1.Gewonnen = tabelleneintrag1.Gewonnen;
+                                    tabelleneintrag1.Untentschieden = tabelleneintrag1.Untentschieden;
+                                    tabelleneintrag1.Verloren = tabelleneintrag1.Verloren + 1;
+                                    tabelleneintrag1.Punkte = tabelleneintrag1.Punkte;
+                                    tabelleneintrag1.Platz = 0;
+                                    tabelleneintrag1.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintrag1.Liga = Globals.currentLiga;
+
+                                    tabelleneintrag2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
+                                    tabelleneintrag2.Verein = tabelleneintrag2.Verein;
+                                    tabelleneintrag2.TorePlus = tabelleneintrag2.TorePlus + item.Tore2_Nr;
+                                    tabelleneintrag2.ToreMinus = tabelleneintrag2.ToreMinus + item.Tore1_Nr;
+                                    tabelleneintrag2.Spiele = tabelleneintrag2.Spiele + 1;
+                                    tabelleneintrag2.Gewonnen = tabelleneintrag2.Gewonnen + 1;
+                                    tabelleneintrag2.Untentschieden = tabelleneintrag2.Untentschieden;
+                                    tabelleneintrag2.Verloren = tabelleneintrag2.Verloren;
+
+                                    tabelleneintrag2.Punkte = tabelleneintrag2.Punkte + 3;
+
+                                    tabelleneintrag2.Platz = 0;
+                                    tabelleneintrag2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintrag2.Liga = Globals.currentLiga;
+                                }
+                            }
+                        }
+
+                        TabSaisonEwigSorted = TabSaisonEwigSorted.OrderByDescending(o => o.Punkte).ThenByDescending(o => o.TorePlus - o.ToreMinus).ThenByDescending(o => o.TorePlus).ToList();
+
+                        for (int ii = 0; ii < TabSaisonEwigSorted.Count; ii++)
+                        {
+                            TabSaisonEwigSorted[ii].Platz = ii + 1;
+                            TabSaisonEwigSorted[ii].Tore = TabSaisonEwigSorted[ii].TorePlus + ":" + TabSaisonEwigSorted[ii].ToreMinus;
+                            TabSaisonEwigSorted[ii].Diff = TabSaisonEwigSorted[ii].TorePlus - TabSaisonEwigSorted[ii].ToreMinus;
+                        }
+                    }
+                    return TabSaisonEwigSorted;
                 }
                 catch (Exception ex)
                 {

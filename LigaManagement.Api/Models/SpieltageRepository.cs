@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
@@ -7,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
 
@@ -50,8 +52,7 @@ namespace LigaManagerManagement.Api.Models
             }
             catch (Exception ex)
             {
-
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 
@@ -117,15 +118,11 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return spieltag;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }
-            //return await appDbContext.Spieltage               
-            //    .FirstOrDefaultAsync(d => d.SpieltagId == SpieltagId);
+            }            
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
@@ -170,41 +167,35 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return Spieltaglist;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }            
+            }
         }
 
-        public int AktSpieltag(int SaisonID, int LigaID )
+        public int AktSpieltag(int SaisonID, int LigaID)
         {
             int iMaxSpieltag = 0;
             SqlConnection conn = new SqlConnection(Globals.connstring);
             conn.Open();
 
-
-
             try
             {
-                if (LigaID < 4)
+                if (Globals.LigaNummer < 2)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    using SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
                     {
-                        while (reader.Read())
-                        {
-                            if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
-                                iMaxSpieltag = (int)reader["MAXSPIELTAG"];
-                            else
-                                iMaxSpieltag = 1;
-                        }
+                        if (!string.IsNullOrEmpty(reader["MAXSPIELTAG"].ToString()))
+                            iMaxSpieltag = (int)reader["MAXSPIELTAG"];
+                        else
+                            iMaxSpieltag = 1;
                     }
 
                 } 
-                else if (LigaID == 4 || LigaID == 15)
+                else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 15)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -219,7 +210,7 @@ namespace LigaManagerManagement.Api.Models
                     }
                 }                             
 
-                else if (LigaID == 6)
+                else if (Globals.LigaNummer == 5)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageIT] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -233,7 +224,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 7)
+                else if (Globals.LigaNummer == 6)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageFR] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -247,7 +238,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 8)
+                else if (Globals.LigaNummer == 7)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageES] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -261,7 +252,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 9)
+                else if (Globals.LigaNummer == 8)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageNL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -275,7 +266,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 10)
+                else if (Globals.LigaNummer == 9)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePT] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -289,7 +280,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 11)
+                else if (Globals.LigaNummer == 10)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageTU] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -303,7 +294,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 14)
+                else if (Globals.LigaNummer == 11)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageBE] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -317,7 +308,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                else if (LigaID == 3 || LigaID == 19)
+                else if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltageL3] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -336,9 +327,9 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return iMaxSpieltag;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return 1;
             }
         }
@@ -406,8 +397,7 @@ namespace LigaManagerManagement.Api.Models
             }
             catch (Exception ex)
             {
-
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 
@@ -454,13 +444,57 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return Spieltaglist;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
+        }
+
+        public async Task<Spieltag> GetSpieltagL3(int spieltagId)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageL3] WHERE SpieltagId =" + spieltagId, conn);
+                Spieltag spieltag = null;
+                List<Spieltag> Spieltaglist = new List<Spieltag>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        spieltag = new Spieltag();
+
+                        spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
+                        spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
+                        spieltag.Saison = reader["Saison"].ToString();
+                        spieltag.Verein1 = reader["Verein1"].ToString();
+                        spieltag.Verein2 = reader["Verein2"].ToString();
+                        spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
+                        spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
+                        spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
+                        spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
+                        spieltag.Ort = reader["Ort"].ToString();
+                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
+
+                    }
+                }
+                conn.Close();
+                return spieltag;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+            
         }
     }
 }

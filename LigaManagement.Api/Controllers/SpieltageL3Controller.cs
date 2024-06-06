@@ -24,8 +24,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagRepository.GetSpieltageL3());
-                return null;
+                return Ok(await SpieltagRepository.GetSpieltageL3());                
             }
             catch (Exception ex)
             {
@@ -41,7 +40,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                var result = await SpieltagRepository.GetSpieltag(id);
+                var result = await SpieltagRepository.GetSpieltagL3(id);
 
                 if (result == null)
                 {

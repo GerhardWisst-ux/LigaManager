@@ -72,55 +72,8 @@ else
             <div class="col-sm-12">
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
-                        <div class="card-body">
-                            @if (@Globals.LigaID == 1)
-                            {
-                                <h2 style="display:inline-block;">Deutschland - Tabelle Bundesliga @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 2)
-                            {
-                                <h2 style="display:inline-block;">Deutschland - Tabelle 2. Bundesliga @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 3)
-                            {
-                                <h2 style="display:inline-block;">Tabelle 3. Liga  @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 4)
-                            {
-                                <h2 style="display:inline-block;">England - Tabelle Premier League @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 6)
-                            {
-                                <h2 style="display:inline-block;">Italien - Tabelle Serie A @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 7)
-                            {
-                                <h2 style="display:inline-block;">Frankreich - Tabelle Ligue 1 @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 8)
-                            {
-                                <h2 style="display:inline-block;">Spanien - Tabelle La Liga A @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 9)
-                            {
-                                <h2 style="display:inline-block;">Niederlande - Eredivisie @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 10)
-                            {
-                                <h2 style="display:inline-block;">Portugal - primeira-liga @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 11)
-                            {
-                                <h2 style="display:inline-block;">Türkei - Süper-Lig  @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 14)
-                            {
-                                <h2 style="display:inline-block;">Belgien - Tabelle Jupiler League @Globals.currentSaison </h2>
-                            }
-                            else if (@Globals.LigaID == 15)
-                            {
-                                <h2 style="display:inline-block;">England - Tabelle Champiobship @Globals.currentSaison </h2>
-                            }
+                        <div class="card-body">                            
+                          <h2 style="display:inline-block;">Tabelle @Globals.currentLiganame @Globals.currentSaison </h2>                            
                         </div>
                     </div>
                 </RadzenCard>

@@ -15,9 +15,10 @@ namespace LigaManagement.Models
 
         public string LeagueName { get; set; }
 
-        public string Location { get; set; }
+        //public string Location { get; set; }
         
         public int? NumberOfViewers { get; set; }
+
         public Group Group { get; set; }
 
         public List<MatchResults> MatchResults { get; set; }

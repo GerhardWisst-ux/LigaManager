@@ -8,11 +8,13 @@ namespace LigaManagement.Web.Services.Contracts
     public interface IVereineService
     {
         Task<IEnumerable<Verein>> GetVereine();
-        Task<Verein> GetVerein(int id);        
+        Task<Verein> GetVerein(int id);
+        Task<VereinAktSaison> GetVereinL3(int id);
         Task<Verein> UpdateVerein(Verein updatedVerein);
         Task<Verein> CreateVerein(Verein newVerein);
         Task DeleteVerein(int id);
         Task<IEnumerable<VereinAktSaison>> GetVereineSaison();
-        Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine);        
+        Task<List<VereineSaison>> CreateVereineSaison(List<VereineSaison> vereine);
+     
     }
 }

@@ -21,10 +21,12 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler)";
+                SqlCommand cmd = new SqlCommand
+                {
+                    Connection = conn,
+                    CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler)" +
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler)"
+                };
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
                 cmd.Parameters.AddWithValue("@Verband", liga.Verband);
@@ -168,9 +170,9 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Connection = conn;               
 
                 if (liga.Aktiv == true)
-                    sAktiv = "true";
+                    sAktiv = "TRUE";
                 else
-                    sAktiv = "false";
+                    sAktiv = "FALSE";
 
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
                        "[Liganame] = '" + liga.Liganame + "'" +

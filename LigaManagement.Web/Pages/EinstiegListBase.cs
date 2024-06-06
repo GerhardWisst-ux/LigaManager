@@ -171,7 +171,7 @@ namespace LigaManagement.Web.Pages
 
                 SaisonenList = new List<DisplaySaison>();
                 Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
-                if (Globals.LigaID == 0)
+                if (Globals.LigaNummer == 0)
                 {
                     SaisonenList.Clear();
                     isDropdownDisabledSaison = false;
@@ -287,6 +287,7 @@ namespace LigaManagement.Web.Pages
                     var liga = await LigaService.GetLiga(Globals.LigaID);
 
                     Globals.LigaNummer = liga.Liganummer;
+                    Globals.currentLiganame = liga.Liganame;
 
                     sCurrentliga = liga.Liganame;
 
@@ -399,40 +400,40 @@ namespace LigaManagement.Web.Pages
 
             try
             {
-                if (Globals.LigaID == 1 || Globals.LigaID == 2 || Globals.LigaID == 3)
+                if (Globals.LigaNummer == 1 || Globals.LigaNummer == 2 || Globals.LigaNummer == 3)
                 {
                     Vereine = await VereineService.GetVereine();
                 }
 
-                else if (Globals.LigaID == 4 | Globals.LigaID == 15)
+                else if (Globals.LigaNummer == 4 | Globals.LigaNummer == 12)
                 {
                     VereineAUS = await VereineServicePL.GetVereine();
                 }
-                else if (Globals.LigaID == 6)
+                else if (Globals.LigaNummer == 5)
                 {
                     VereineAUS = await VereineServiceIT.GetVereine();
                 }
-                else if (Globals.LigaID == 7)
+                else if (Globals.LigaNummer == 6)
                 {
                     VereineAUS = await VereineServiceFR.GetVereine();
                 }
-                else if (Globals.LigaID == 8)
+                else if (Globals.LigaNummer == 7)
                 {
                     VereineAUS = await VereineServiceES.GetVereine();
                 }
-                else if (Globals.LigaID == 9)
+                else if (Globals.LigaNummer == 8)
                 {
                     VereineAUS = await VereineServiceNL.GetVereine();
                 }
-                else if (Globals.LigaID == 10)
+                else if (Globals.LigaNummer == 9)
                 {
                     VereineAUS = await VereineServicePT.GetVereine();
                 }
-                else if (Globals.LigaID == 11)
+                else if (Globals.LigaNummer == 10)
                 {
                     VereineAUS = await VereineServiceTU.GetVereine();
                 }
-                else if (Globals.LigaID == 14)
+                else if (Globals.LigaNummer == 11)
                 {
                     VereineAUS = await VereineServiceBE.GetVereine();
                 }
@@ -552,7 +553,7 @@ namespace LigaManagement.Web.Pages
             }
 
             Vereine = await VereineService.GetVereine();
-            if (Globals.LigaID != 3)
+            if (Globals.LigaNummer != 3)
                 Spieltage = await SpieltagService.GetSpieltage();
             else
                 Spieltage = await SpieltagService.GetSpieltageL3();
@@ -589,7 +590,7 @@ namespace LigaManagement.Web.Pages
                 i++;
             }
 
-            if (Globals.LigaID < 3)
+            if (Globals.LigaNummer < 3)
             {
                 if (Globals.currentSaison.StartsWith("1963") || Globals.currentSaison.StartsWith("1964"))
                     Globals.maxSpieltag = 30;
@@ -599,70 +600,66 @@ namespace LigaManagement.Web.Pages
                     Globals.maxSpieltag = 34;
 
             }
-            else if (Globals.LigaID == 3)
+            else if (Globals.LigaNummer == 3)
                 Globals.maxSpieltag = 38;
-            else if (Globals.LigaID == 4)
+            else if (Globals.LigaNummer == 4)
             {
                 if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
                     Globals.maxSpieltag = 42;
                 else
                     Globals.maxSpieltag = 38;
             }
-            else if (Globals.LigaID == 6)
+            else if (Globals.LigaNummer == 5)
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2003)
                     Globals.maxSpieltag = 38;
                 else
                     Globals.maxSpieltag = 34;
             }
-            else if (Globals.LigaID == 7)
+            else if (Globals.LigaNummer == 6)
             {
                 if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
                     Globals.maxSpieltag = 38;
                 else
                     Globals.maxSpieltag = 34;
             }
-            else if (Globals.LigaID == 8)
+            else if (Globals.LigaNummer == 7)
             {
                 if (Globals.currentSaison.StartsWith("1995") || Globals.currentSaison.StartsWith("1996"))
                     Globals.maxSpieltag = 42;
                 else
                     Globals.maxSpieltag = 38;
             }
-            else if (Globals.LigaID == 9)
+            else if (Globals.LigaNummer == 8)
             {
                 Globals.maxSpieltag = 34;
             }
-            else if (Globals.LigaID == 10)
+            else if (Globals.LigaNummer == 9)
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2013)
                     Globals.maxSpieltag = 34;
                 else
                     Globals.maxSpieltag = 30;
             }
-            else if (Globals.LigaID == 11)
+            else if (Globals.LigaNummer == 10)
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2019)
                     Globals.maxSpieltag = 38;
                 else
                     Globals.maxSpieltag = 34;
             }
-            else if (Globals.LigaID == 14)
+            else if (Globals.LigaNummer == 11)
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) < 2020 || Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2022)
                     Globals.maxSpieltag = 30;
                 else
                     Globals.maxSpieltag = 34;
             }
-            else if (Globals.LigaID == 15)
-            {
-                Globals.maxSpieltag = 46;
-            }
-            else if (Globals.LigaID == 20)
-            {
+            else if (Globals.LigaNummer == 12)            
+                Globals.maxSpieltag = 46;            
+            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)            
                 Globals.maxSpieltag = 34;
-
-            }
+            
 
             SpieltageRepository rep = new SpieltageRepository();
 
@@ -688,7 +685,7 @@ namespace LigaManagement.Web.Pages
 
         public void CreateDatabaseIfNotExists(string connectionString, string dbName)
         {
-            SqlCommand cmd = null;
+            SqlCommand cmd;
             using (var connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -772,9 +769,9 @@ namespace LigaManagement.Web.Pages
 
 
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                Debug.Print(ex.Message);
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);                
             }
             finally
             {
@@ -798,7 +795,7 @@ namespace LigaManagement.Web.Pages
             {
                 try
                 {
-                    var matches = await GetMatchesAsync("getmatchdata/bl3/2022");
+                    var matches = await GetMatchesAsync("getmatchdata/rlno/2019");
 
                     foreach (var match in matches)
                     {
@@ -825,9 +822,9 @@ namespace LigaManagement.Web.Pages
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex);
+                    ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                     return ret;
-
+                    
                 }
 
             } while (true);
@@ -853,10 +850,6 @@ namespace LigaManagement.Web.Pages
                         ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                         return null;
                     }
-
-
-
-                    //matches = await response.Content.ReadFromJsonAsync<List<LigaManagement.Models.Match>>();
                 }
                 return matches;
             }
@@ -876,9 +869,7 @@ namespace LigaManagement.Web.Pages
                 if (response.IsSuccessStatusCode)
                 {
                     string matchstring = await response.Content.ReadAsStringAsync();
-                    match = JsonConvert.DeserializeObject<MatchDetail>(matchstring);
-
-                    //match = await response.Content.ReadFromJsonAsync<MatchDetail>();
+                    match = JsonConvert.DeserializeObject<MatchDetail>(matchstring);                  
                 }
                 return match;
             }
@@ -901,8 +892,8 @@ namespace LigaManagement.Web.Pages
                                                       "VALUES (@Saison,@SaisonID,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@LigaID,@Zuschauer,@Schiedrichter,@Abgeschlossen,@TeamIconUrl1,@TeamIconUrl2)", conn);
 
                     cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason + "/" + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
-                    cmd.Parameters.AddWithValue("@SaisonID", 386);
-                    cmd.Parameters.AddWithValue("@LigaID", 20);
+                    cmd.Parameters.AddWithValue("@SaisonID", 391);
+                    cmd.Parameters.AddWithValue("@LigaID", 23);
                     cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
 
                     cmd.Parameters.AddWithValue("@Verein1", match.Team1.TeamName);
@@ -910,17 +901,14 @@ namespace LigaManagement.Web.Pages
                     cmd.Parameters.AddWithValue("@Verein1_Nr", match.Team1.TeamId);
                     cmd.Parameters.AddWithValue("@Verein2_Nr", match.Team2.TeamId);
 
-                    //cmd.Parameters.AddWithValue("@Tore1_Nr", matchdetail.matchResults[1].PointsTeam1);
-                    //cmd.Parameters.AddWithValue("@Tore2_Nr", matchdetail.matchResults[1].PointsTeam2);
-                    if (match.Location == null)
-                        cmd.Parameters.AddWithValue("@Ort", "k.A.");
-                    else
-                        cmd.Parameters.AddWithValue("@Ort", match.Location);
+                    cmd.Parameters.AddWithValue("@Tore1_Nr", matchdetail.MatchResults[1].PointsTeam1);
+                    cmd.Parameters.AddWithValue("@Tore2_Nr", matchdetail.MatchResults[1].PointsTeam2);
+                    
+                    cmd.Parameters.AddWithValue("@Ort", "k.A.");                    
                     cmd.Parameters.AddWithValue("@Zuschauer", 0);
                     cmd.Parameters.AddWithValue("@TeamIconUrl1", match.Team1.TeamIconUrl);
                     cmd.Parameters.AddWithValue("@TeamIconUrl2", match.Team2.TeamIconUrl);
                     cmd.Parameters.AddWithValue("@Schiedrichter", "k.A.");
-
                     cmd.Parameters.AddWithValue("@Datum", match.MatchDateTime);
                     cmd.Parameters.AddWithValue("@Abgeschlossen", true);
 

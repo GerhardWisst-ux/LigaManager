@@ -70,11 +70,16 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<List<VereinAktSaison>>($"api/vereinesaison");
         }
 
+        public async Task<VereinAktSaison> GetVereinL3(int Id)
+        {
+            return await httpClient.GetJsonAsync<VereinAktSaison>($"api/vereineL3/{Id}");
+        }
+
         public async Task<Verein> UpdateVerein(Verein updatedVerein)
         {
             return await httpClient.PutJsonAsync<Verein>("api/vereine", updatedVerein);
         }
 
-      
+       
     }
 }

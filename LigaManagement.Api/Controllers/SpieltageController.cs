@@ -56,6 +56,7 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
+       
         [HttpPost]
         public async Task<ActionResult<Spieltag>> CreateSpieltag(Spieltag spieltag)
         {

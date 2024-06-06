@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace LigaManagerManagement.Api.Models
 {
     public class VereinRepository : IVereinRepository
-    {       
+    {
 
         public async Task<Verein> AddVerein(Verein verein)
         {
@@ -79,10 +79,10 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
                 cmd.ExecuteNonQuery();
-            }         
-           
+            }
+
             conn.Close();
-                        
+
             return null;
         }
 
@@ -103,7 +103,7 @@ namespace LigaManagerManagement.Api.Models
 
             return null;
 
-           
+
         }
 
         public async Task<Verein> GetVerein(int vereinnr)
@@ -115,18 +115,18 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Vereine] Where VereinNr =" + vereinnr, conn);
                 Verein verein = null;
-                
+
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         verein = new Verein();
-                                                
+
                         verein.Id = int.Parse(reader["Id"].ToString());
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
                         verein.Vereinsname1 = reader["Vereinsname1"].ToString();
                         verein.Vereinsname2 = reader["Vereinsname2"].ToString();
-                        verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
+                        verein.Fassungsvermoegen = int.Parse(reader["Fassungsvermoegen"].ToString());
                         verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();
                         verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
@@ -165,7 +165,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
                         verein.Vereinsname1 = reader["Vereinsname1"].ToString();
                         verein.Vereinsname2 = reader["Vereinsname2"].ToString();
-                        verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
+                        verein.Fassungsvermoegen = int.Parse(reader["Fassungsvermoegen"].ToString());
                         verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();
                         verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
@@ -173,6 +173,50 @@ namespace LigaManagerManagement.Api.Models
                         verein.Bundesliga = bool.Parse(reader["Bundesliga"].ToString());
 
                         vereinelist.Add(verein);
+                    }
+                }
+                conn.Close();
+                return vereinelist;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
+        {
+            int i = 1;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3", conn);
+                VereinAktSaison verein = null;
+                List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new VereinAktSaison();
+                        verein.Id = i;
+                        verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                        verein.Vereinsname1 = reader["Verein1"].ToString();
+                        verein.Vereinsname2 = reader["Verein1"].ToString();
+                        verein.Fassungsvermoegen = 0;
+                        verein.Erfolge = "";
+                        verein.Stadion = "";
+                        verein.Gegruendet = 0;
+                        verein.Pokal = true;
+                        verein.Bundesliga = true;
+
+                        vereinelist.Add(verein);
+
+                        i++;
                     }
                 }
                 conn.Close();
@@ -214,6 +258,47 @@ namespace LigaManagerManagement.Api.Models
             return vereineSaison;
         }
 
+        public async Task<Verein> GetVereinL3(int intvereinnr)
+        {
+
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3 Where Verein1_Nr =" + intvereinnr, conn);
+                Verein verein = null;
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new Verein();
+                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                        verein.Vereinsname1 = reader["Verein1"].ToString();
+                        verein.Vereinsname2 = reader["Verein1"].ToString();
+                        verein.Fassungsvermoegen = 0;
+                        verein.Erfolge = "";
+                        verein.Stadion = "";
+                        verein.Gegruendet = 0;
+                        verein.Pokal = true;
+                        verein.Bundesliga = true;
+
+                      
+                    }
+                }
+                conn.Close();
+                return verein;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+
         public async Task<Verein> UpdateVerein(Verein verein)
         {
             int bPokal;
@@ -225,7 +310,7 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;               
+                cmd.Connection = conn;
 
                 if (verein.Pokal == false)
                     bPokal = 0;
@@ -238,12 +323,12 @@ namespace LigaManagerManagement.Api.Models
                     bBundesliga = 1;
 
 
-                cmd.CommandText = "UPDATE [dbo].[Vereine] SET " +                        
+                cmd.CommandText = "UPDATE [dbo].[Vereine] SET " +
                         "[VereinNr] = '" + verein.VereinNr + "'" +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
-                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
+                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +
                         ",[Stadion] = '" + verein.Stadion + "'" +
-                        ",[Fassungsvermoegen] = '" + verein.Fassungsvermoegen + "'" +
+                        ",[Fassungsvermoegen] = " + verein.Fassungsvermoegen +
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
                         ",[Gegruendet] =" + verein.Gegruendet +
                         ",[Pokal] =" + bPokal +
@@ -265,7 +350,7 @@ namespace LigaManagerManagement.Api.Models
 
         }
 
-      
     }
 }
+
 

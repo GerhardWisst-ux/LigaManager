@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace LigaManagerManagement.Web.Services
 {
     public class SpieltagService : ISpieltagService
-
     {
         private string URL => "https://services.odata.org/Northwind/Northwind.svc/";
 
@@ -23,6 +22,11 @@ namespace LigaManagerManagement.Web.Services
         public async Task<Spieltag> GetSpieltag(int id)
         {
             return await httpClient.GetJsonAsync<Spieltag>($"api/spieltage/{id}");
+        }
+
+        public async Task<Spieltag> GetSpieltagL3(int id)
+        {
+            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltageL3/{id}");
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
@@ -83,6 +87,21 @@ namespace LigaManagerManagement.Web.Services
             {
                 return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltageL3");
                 
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
+        {
+            try
+            {
+                return await httpClient.GetJsonAsync<VereinAktSaison[]>("api/VereineL3");
+
             }
             catch (System.Exception ex)
             {

@@ -142,7 +142,7 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
-                if (Globals.LigaID < 4)
+                if (Globals.LigaNummer < 3)
                 {
                     if (Id != null)
                         Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
@@ -176,7 +176,23 @@ namespace LigamanagerManagement.Web.Pages
 
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 4)
+                if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                {
+                    if (Id != null)
+                        Spiel = await SpieltagService.GetSpieltagL3(Convert.ToInt32(Id));
+
+                    var vereineSaison = await SpieltagService.GetVereineL3();
+                    List<VereinAktSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
+
+                    for (int i = 0; i < verList.Count(); i++)
+                    {
+                        var verein = await VereineService.GetVereinL3(verList[i].VereinNr);
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }                   
+
+                    SpieltagNr = Globals.Spieltag.ToString();
+                }
+                else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 12)
                 {
                     if (Id != null)
                         Spiel = await SpieltagENService.GetSpieltag(Convert.ToInt32(Id));
@@ -191,7 +207,7 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 6)
+                else if (Globals.LigaNummer == 5)
                 {
                     if (Id != null)
                         Spiel = await SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
@@ -207,7 +223,7 @@ namespace LigamanagerManagement.Web.Pages
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
 
-                else if (Globals.LigaID == 7)
+                else if (Globals.LigaNummer == 6)
                 {
 
                     if (Id != null)
@@ -224,7 +240,7 @@ namespace LigamanagerManagement.Web.Pages
 
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 8)
+                else if (Globals.LigaNummer == 7)
                 {
                     if (Id != null)
                         Spiel = await SpieltagESService.GetSpieltag(Convert.ToInt32(Id));
@@ -239,7 +255,7 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 9)
+                else if (Globals.LigaNummer == 8)
                 {
                     if (Id != null)
                         Spiel = await SpieltagNLService.GetSpieltag(Convert.ToInt32(Id));
@@ -254,7 +270,7 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 10)
+                else if (Globals.LigaNummer == 9)
                 {
                     if (Id != null)
                         Spiel = await SpieltagPTService.GetSpieltag(Convert.ToInt32(Id));
@@ -269,7 +285,7 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
-                else if (Globals.LigaID == 11)
+                else if (Globals.LigaNummer == 10)
                 {
                     if (Id != null)
                         Spiel = await SpieltagTUService.GetSpieltag(Convert.ToInt32(Id));
@@ -285,7 +301,7 @@ namespace LigamanagerManagement.Web.Pages
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
 
-                else if (Globals.LigaID == 14)
+                else if (Globals.LigaNummer == 11)
 
                 {
                     if (Id != null)
@@ -312,7 +328,7 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.SaisonID = Globals.SaisonID;
                 Spiel.SpieltagNr = SpieltagNr;
 
-                if (Globals.LigaID == 1)
+                if (Globals.LigaNummer == 1)
                 {
                     var tore = await ToreService.GetTore();
                     List<Tore> torlist = tore.Where(x => x.SpieltagId == Spiel.SpieltagId).ToList();
@@ -398,7 +414,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (Globals.LigaID < 4)
+                if (Globals.LigaID < 3)
                 {
                     var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -406,7 +422,15 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 4)
+                if (Globals.LigaID == 3)
+                {
+                    var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein1 = verein.Vereinsname1;
+                    Spiel.Verein1_Nr = e.Value.ToString();
+                    Spiel.Ort = verein.Stadion;
+                    Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
+                }
+                else if (Globals.LigaNummer == 4)
                 {
                     var verein = await VereinePLService.GetVerein(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -414,7 +438,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 6)
+                else if (Globals.LigaNummer == 5)
                 {
                     var verein = await VereineAusService.GetVereinIT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -422,7 +446,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 7)
+                else if (Globals.LigaNummer == 6)
                 {
                     var verein = await VereineAusService.GetVereinFR(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -430,7 +454,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 8)
+                else if (Globals.LigaNummer == 7)
                 {
                     var verein = await VereineAusService.GetVereinES(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -438,7 +462,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 9)
+                else if (Globals.LigaNummer == 8)
                 {
                     var verein = await VereineAusService.GetVereinNL(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -446,7 +470,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 10)
+                else if (Globals.LigaNummer == 9)
                 {
                     var verein = await VereineAusService.GetVereinPT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -454,7 +478,7 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
                 }
-                else if (Globals.LigaID == 11)
+                else if (Globals.LigaNummer == 10)
                 {
                     var verein = await VereineAusService.GetVereinTU(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
@@ -477,50 +501,50 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Verein2_Nr = e.Value.ToString();
 
                 }
-                else if (Globals.LigaID == 4)
+                else if (Globals.LigaNummer == 4)
                 {
                     var verein = await VereinePLService.GetVerein(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-                else if (Globals.LigaID == 6)
+                else if (Globals.LigaNummer == 5)
                 {
                     var verein = await VereineAusService.GetVereinIT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();
                     
                 }
-                else if (Globals.LigaID == 7)
+                else if (Globals.LigaNummer == 6)
                 {
                     var verein = await VereineAusService.GetVereinFR(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                   
                 }
-                else if (Globals.LigaID == 8)
+                else if (Globals.LigaNummer == 7)
                 {
                     var verein = await VereineAusService.GetVereinES(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-                else if (Globals.LigaID == 9)
+                else if (Globals.LigaNummer == 8)
                 {
                     var verein = await VereineAusService.GetVereinNL(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-                else if (Globals.LigaID == 10)
+                else if (Globals.LigaNummer == 9)
                 {
                     var verein = await VereineAusService.GetVereinPT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-                else if (Globals.LigaID == 11)
+                else if (Globals.LigaNummer == 10)
                 {
                     var verein = await VereineAusService.GetVereinTU(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();                    
                 }
-                else if (Globals.LigaID == 14)
+                else if (Globals.LigaNummer == 11)
                 {
                     var verein = await VereineAusService.GetVereinBE(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
@@ -642,7 +666,6 @@ namespace LigamanagerManagement.Web.Pages
             public bool Elfmeter { get; set; }
             public string Torart { get; set; }
         }
-
 
         protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
 
