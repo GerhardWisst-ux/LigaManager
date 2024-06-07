@@ -221,8 +221,9 @@ namespace LigaManagement.Web.Pages
                 if (e.Value.ToString() == "0")
                     return;
 
-                Globals.currentSaison = e.Value.ToString();
+                Globals.currentSaison = e.Value.ToString();                
                 Globals.currentPokalSaison = Globals.currentSaison;
+                Globals.currentCLSaison = Globals.currentSaison;
 
                 if (Saisonen == null || Globals.currentSaison == null)
                     throw new Exception("Saisonen null oder Globals.currentSaison");
@@ -230,7 +231,7 @@ namespace LigaManagement.Web.Pages
                 if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID) != null)
                 {
                     Globals.SaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID).SaisonID;
-                    Globals.PokalSaisonID = Globals.SaisonID;
+                    Globals.CLSaisonID = Globals.SaisonID;
                     Globals.CLPokalSaisonID = Globals.SaisonID;
                     Globals.KaderSaisonID = Globals.SaisonID;
                 }
@@ -238,7 +239,7 @@ namespace LigaManagement.Web.Pages
                 {
                     Globals.SaisonID = 1;
                     Globals.CLPokalSaisonID = 1;
-                    Globals.PokalSaisonID = 1;
+                    Globals.CLSaisonID = 1;
                     Globals.KaderSaisonID = 1;
                 }
 

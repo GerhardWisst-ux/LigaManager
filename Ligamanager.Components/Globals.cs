@@ -24,7 +24,7 @@ namespace Ligamanager.Components
         public static int SaisonID;
 
         public static int KaderSaisonID;
-        public static int PokalSaisonID;
+        public static int CLSaisonID;
         public static int CLPokalSaisonID;
         public static int KaderVereinNr;
         public static int maxSpieltag;

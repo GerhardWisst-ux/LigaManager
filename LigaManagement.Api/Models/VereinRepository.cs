@@ -145,6 +145,49 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
+        public async Task<Verein> GetVereinCL(int Id)
+        {            
+            try
+            {
+                int i = 1;
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageCL Where Verein1_Nr = " + Id, conn);
+                VereinAktSaison verein = null;
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new VereinAktSaison();
+                        verein.Id = i;
+                        verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                        verein.Vereinsname1 = reader["Verein1"].ToString();
+                        verein.Vereinsname2 = reader["Verein1"].ToString();
+                        verein.Fassungsvermoegen = 0;
+                        verein.Erfolge = "";
+                        verein.Stadion = "";
+                        verein.Gegruendet = 0;
+                        verein.Pokal = true;
+                        verein.Bundesliga = true;
+                                                
+
+                        i++;
+                    }
+                }
+                conn.Close();
+                return verein;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<Verein>> GetVereine()
         {
             try
@@ -185,6 +228,52 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
         }
+
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineCL()
+        {
+            
+                int i = 1;
+                try
+                {
+                    SqlConnection conn = new SqlConnection(Globals.connstring);
+                    conn.Open();
+
+                    SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageCL", conn);
+                    VereinAktSaison verein = null;
+                    List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            verein = new VereinAktSaison();
+                            verein.Id = i;
+                            verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                            verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                            verein.Vereinsname1 = reader["Verein1"].ToString();
+                            verein.Vereinsname2 = reader["Verein1"].ToString();
+                            verein.Fassungsvermoegen = 0;
+                            verein.Erfolge = "";
+                            verein.Stadion = "";
+                            verein.Gegruendet = 0;
+                            verein.Pokal = true;
+                            verein.Bundesliga = true;
+
+                            vereinelist.Add(verein);
+
+                            i++;
+                        }
+                    }
+                    conn.Close();
+                    return vereinelist;
+                }
+                catch (Exception ex)
+                {
+
+                    ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                    return null;
+                }
+            }
+        
 
         public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
         {

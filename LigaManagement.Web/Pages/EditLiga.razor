@@ -112,6 +112,32 @@
     }
     private async Task UpsertLiga()
     {
+
+        if ((Liga.Liganame == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganame nicht angegeben.Speichern nicht möglich." });
+            return;
+        }
+
+        if ((Liga.Liganummer == 0))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganummer nicht angegeben.Speichern nicht möglich." });
+            return;
+        }
+
+        if ((Liga.Verband == null))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Verband nicht angegeben.Speichern nicht möglich." });
+            return;
+        }
+
+        if ((Liga.Erstaustragung.ToString() == "01.01.0001 00:00:00"))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Erstaustragung nicht angegeben.Speichern nicht möglich." });
+            return;
+        }
+
+
         if (Id == "0")
         {           
             Liga.Aktiv = true;

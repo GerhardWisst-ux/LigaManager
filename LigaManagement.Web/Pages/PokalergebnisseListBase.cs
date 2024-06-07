@@ -106,7 +106,7 @@ namespace LigaManagement.Web.Pages
                 else
                     RundeChoosed = Globals.currentPokalRunde;
 
-                SaisonChoosed = Globals.PokalSaisonID;
+                SaisonChoosed = Globals.CLSaisonID;
 
                 if (Globals.currentPokalRunde != null)
                     OnClickHandler();
@@ -136,7 +136,7 @@ namespace LigaManagement.Web.Pages
             {
                 SaisonChoosed = Convert.ToInt32(e.Value);
 
-                Globals.PokalSaisonID = SaisonChoosed;
+                Globals.CLSaisonID = SaisonChoosed;
 
                 var saison = await SaisonenService.GetSaison(Convert.ToInt32(SaisonChoosed));
 

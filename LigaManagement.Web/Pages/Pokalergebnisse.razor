@@ -58,7 +58,7 @@ else
                                 {
                                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                     {
-                                        @if (saison.SaisonID == Globals.PokalSaisonID)
+                                        @if (saison.SaisonID == Globals.CLSaisonID)
                                         {
                                             <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
                                         }
@@ -78,13 +78,13 @@ else
                                 {
                                     @foreach (var runde in RundeList)
                                     {
-                                        @if (runde.RundeID == RundeChoosed)
+                                        @if (runde.RundeKurzbezeichung == RundeChoosed)
                                         {
-                                            <option selected value="@runde.RundeID"> @runde.Rundename </option>
+                                            <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
                                         }
                                         else
                                         {
-                                            <option value="@runde.RundeID"> @runde.Rundename </option>
+                                            <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
                                         }
                                     }
                                 }
@@ -99,8 +99,6 @@ else
 
                     </div>
                 </RadzenCard>
-
-
             </div>
         </div>
 

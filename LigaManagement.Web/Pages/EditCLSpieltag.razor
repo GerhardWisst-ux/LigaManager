@@ -1,11 +1,11 @@
-﻿@page "/editpokalspieltag/{id}"
-@page "/createpokalspieltag/{Runde}"
+﻿@page "/editclspieltag/{id}"
+@page "/createclspieltag/{Runde}"
 @using LigaManagerManagement.Models
 
-@inherits EditPokalspieltagBase
-@inject LigaManagement.Web.Services.Contracts.IPokalergebnisseService _PokalergebnisseService
-@inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
-@inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
+@inherits EditCLSpieltagBase
+@inject LigaManagement.Web.Services.Contracts.ISpieltageCLService _CLErgebnisseService
+@inject LigaManagement.Web.Services.Contracts.IVereineService _VereineCLService
+@* @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService *@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
@@ -41,9 +41,9 @@
     }
 
     /* #cboRunde:read-only {
-        background-color: lightgrey;
-        pointer-events: none;
-    } */
+            background-color: lightgrey;
+            pointer-events: none;
+        } */
 </style>
 <div class="row my-2">
     <div class="col-12">
@@ -61,7 +61,7 @@
                 <RadzenCard class="m-0 mb-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2>Pokalergebnisse @Ligamanager.Components.Globals.currentPokalSaison</h2>
+                            <h2>CL Ergebnisse @Ligamanager.Components.Globals.currentCLSaison</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -72,13 +72,13 @@
                         {
                             @foreach (var runde in RundeList)
                             {
-                                @if (runde.RundeKurzbezeichung == RundeChoosed)
+                                @if (runde.RundeID == RundeChoosed)
                                 {
-                                    <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                    <option selected value="@runde.RundeID"> @runde.Rundename </option>
                                 }
                                 else
                                 {
-                                    <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                    <option value="@runde.RundeID"> @runde.Rundename </option>
                                 }
                             }
                         }
@@ -194,15 +194,11 @@
                                     <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
                                         <span class="glyphicon glyphicon-save"></span>Speichern
                                     </RadzenButton>
-                                    <RadzenButton title="Zurück zur Übersicht Pokalergebnisse" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                                    <RadzenButton title="Zurück zur Übersicht Champions League" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
                                     </RadzenButton>
                                 </div>
                             </div>
                         </RadzenTabsItem>
-                        @*   <RadzenTabsItem Text="Tore">
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Spielverlauf">
-                    </RadzenTabsItem> *@
                     </Tabs>
                 </RadzenTabs>
             }
@@ -219,20 +215,29 @@
         {
             if (Id == "0" || Id is null)
             {
-                //Neuanlage
-                Titel = "Pokal Neuanlage";
+                //Neuanlage                
                 Id = "0";
                 RundeChoosed = Runde;
-                if (Runde == "2")
-                    Titel = "Pokalspiel Neuanlage 2. Runde";
+                if (Runde == "Gruppenphase Spieltag 1")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 1";
+                else if (Runde == "Gruppenphase Spieltag 2")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 2";
+                else if (Runde == "Gruppenphase Spieltag 3")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 3";
+                else if (Runde == "Gruppenphase Spieltag 4")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 4";
+                else if (Runde == "Gruppenphase Spieltag 5")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 5";
+                else if (Runde == "Gruppenphase Spieltag 6")
+                    Titel = "CL-Spiel Neuanlage Gruppenphase Spieltag 6";
                 else if (Runde == "AF")
-                    Titel = "Pokalspiel Neuanlage Achtelfinale";
+                    Titel = "CL-Spiel Neuanlage Achtelfinale";
                 else if (Runde == "VF")
-                    Titel = "Pokalspiel Neuanlage Viertelfinale";
+                    Titel = "CL-Spiel Neuanlage Viertelfinale";
                 else if (Runde == "HF")
-                    Titel = "Pokalspiel Neuanlage Halbfinale";
+                    Titel = "CL-Spiel Neuanlage Halbfinale";
                 else
-                    Titel = "Pokalspiel Neuanlage Finale";
+                    Titel = "CL-Spiel Neuanlage Finale";
             }
             else
             {
@@ -245,7 +250,7 @@
 
     private async Task LoadSpiel()
     {
-        Spiel = await _PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
+        Spiel = await _CLErgebnisseService.GetSpieltag(Convert.ToInt32(Id));
         StateHasChanged();
     }
     private async Task Upsert()
@@ -255,56 +260,56 @@
         string[] subs = Time.Value.ToString().Split(':');
         int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
-        Spiel.Saison = Globals.currentPokalSaison;
+        Spiel.Saison = Globals.currentCLSaison;
         Spiel.SaisonID = Globals.CLSaisonID;
         Spiel.Runde = RundeChoosed;
         Spiel.Datum = SpielDateTime;
 
         if ((Spiel.Verein1_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Verein2_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Verein1 == Spiel.Verein2))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             return;
         }
 
         if ((Spiel.Datum.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
             return;
         }
 
         if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
             return;
         }
 
@@ -312,11 +317,11 @@
         {
             Spiel.Schiedrichter = "k.A.";
         }
-        
+
 
         if (Id == "0")
         {
-            await _PokalergebnisseService.CreatePokalergebnisSpieltag(Spiel);
+            await _CLErgebnisseService.CreateSpieltag(Spiel);
 
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Pokal-Spieltag", Detail = "Abgespeichert" });
@@ -324,10 +329,10 @@
         else
         {
 
-            await _PokalergebnisseService.UpdatePokalergebnisSpieltag(Spiel);
+            await _CLErgebnisseService.UpdateSpieltag(Spiel);
 
             if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Abgespeichert" });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten CL-Spieltag", Detail = "Abgespeichert" });
         }
 
 
@@ -337,7 +342,7 @@
 
     private void Zurueck_Click()
     {
-        _navigationManager.NavigateTo("/pokalergebnisse");
+        _navigationManager.NavigateTo("/ChampionsLeague");
     }
 }
 

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
-using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
@@ -16,19 +14,16 @@ using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Web.Pages
 {
-    public class EditPokalspieltagBase : ComponentBase
+    public class EditCLSpieltagBase : ComponentBase
     {
-        public bool allowVirtualization;
+        [Parameter]
+        public string Id { get; set; }
+
+        [Parameter]
+        public string Runde { get; set; }
+
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
-        public string Vereinsname1;
-
-        public string Vereinsname2;
-
-        public string Stadion;
-
-        public string Spielername;
-
         public string RundeChoosed;
 
         public List<DisplayRunde> RundeList;
@@ -39,48 +34,21 @@ namespace LigamanagerManagement.Web.Pages
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         [Inject]
-        public IPokalergebnisseService PokalergebnisseService { get; set; }
+        public ISpieltageCLService SpieltagService { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
 
         [Inject]
-        public IVereineSaisonService VereineSaisonService { get; set; }
-
-        [Inject]
-        public ISaisonenService SaisonenService { get; set; }
-
-        [Inject]
-        public ISpielerSpieltagService SpielerSpieltagService { get; set; }
-
+        public ISaisonenCLService SaisonenCLService { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 
-
-        public List<DisplaySpieler> SpielerList1 = new List<DisplaySpieler>();
-        public List<DisplaySpieler> SpielerList2 = new List<DisplaySpieler>();
-
         public IEnumerable<Spieltag> spieltage { get; set; }
 
-        public EditSpieltagModel EditSpieltagModel { get; set; } =
-            new EditSpieltagModel();
-
-        public PokalergebnisSpieltag Spiel { get; set; } = new PokalergebnisSpieltag();
-
-        public Tore Tor { get; set; } = new Tore();
-
-        public PokalergebnisSpieltag SpielCombo { get; set; } = new PokalergebnisSpieltag();
+        public PokalergebnisCLSpieltag Spiel { get; set; } = new PokalergebnisCLSpieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
-
-        [Parameter]
-        public string Id { get; set; }
-
-        [Parameter]
-        public string Runde { get; set; }
-
-        [Inject]
-        public IMapper Mapper { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -105,28 +73,25 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
+                var saison = (await SaisonenCLService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentCLSaison).First();
 
-                var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
-
-                var vereineSaison = await VereineService.GetVereine();
-                List<Verein> verList = vereineSaison.ToList();
-
+                var vereineSaison = await VereineService.GetVereineCL();
+                var verList = vereineSaison.Where(x => x.SaisonID == Globals.CLSaisonID).ToList();
+                
                 for (int i = 0; i < verList.Count(); i++)
                 {
-                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    var verein = await VereineService.GetVereinCL(verList[i].VereinNr);
+
+                    if (!VereineList.Contains(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion)))
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
                 }
 
                 if (Convert.ToInt32(Id) > 0)
                 {
-                    Spiel = await PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
+                    Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
                     Spiel.Saison = Globals.currentPokalSaison;
-                    Spiel.SaisonID = Globals.PokalSaisonID;
-                    //Spiel.SpieltagNr = SpieltagNr;
+                    Spiel.SaisonID = Globals.CLSaisonID;
                 }
-
-                // var spiele = await PokalergebnisseService.GetPokalergebnisseSpieltag();
-
 
                 if (Convert.ToInt32(Id) == 0)
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 0, 0, 0, DateTimeKind.Utc);
@@ -136,16 +101,21 @@ namespace LigamanagerManagement.Web.Pages
 
                 RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("2", "2. Runde"),
-                      new DisplayRunde("AF", "Achtelfinale"),
-                       new DisplayRunde("VF", "Viertelfinale"),
-                       new DisplayRunde("HF", "Halbfinale"),
-                        new DisplayRunde("F", "Finale")
+                    new DisplayRunde("G1", "Gruppenphase Spieltag 1"),
+                    new DisplayRunde("G2", "Gruppenphase Spieltag 2"),
+                    new DisplayRunde("G3", "Gruppenphase Spieltag 3"),
+                    new DisplayRunde("G4", "Gruppenphase Spieltag 4"),
+                    new DisplayRunde("G5", "Gruppenphase Spieltag 5"),
+                    new DisplayRunde("G6", "Gruppenphase Spieltag 6"),
+                    new DisplayRunde("AF", "Achtelfinale"),
+                    new DisplayRunde("VF", "Viertelfinale"),
+                    new DisplayRunde("HF", "Halbfinale"),
+                    new DisplayRunde("F", "Finale")
                 };
-                              
+
                 if (Convert.ToInt32(Id) == 0)
                 {
-                    Runde = Globals.currentPokalRunde;
+                    Runde = Globals.currentClRunde;
                     RundeChoosed = Runde;
 
                     StateHasChanged();
@@ -154,6 +124,7 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     RundeChoosed = Spiel.Runde;
                     Runde = RundeChoosed;
+                    Globals.currentClRunde = RundeChoosed;
                     Spiel.Runde = Runde;
 
                     StateHasChanged();
@@ -172,19 +143,7 @@ namespace LigamanagerManagement.Web.Pages
         protected async override void OnAfterRender(bool firstRender)
         {
 
-            //if (Id != null)
-            //{
-            //    SpielCombo = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-            //    Vereinsname1 = SpielCombo.Verein1;
-            //    Vereinsname2 = SpielCombo.Verein2;
-            //    Stadion = SpielCombo.Ort;
-            //    //VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
-            //}
-            //else
-            //{
-            //    Vereinsname1 = null;
-            //    Vereinsname2 = null;
-            //}
+
         }
 
         public void Change(object value, string name, string action)
@@ -196,7 +155,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = int.Parse(e.Value.ToString());
                 Spiel.Ort = verein.Stadion;
@@ -209,7 +168,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein2 = verein.Vereinsname1;
                 Spiel.Verein2_Nr = int.Parse(e.Value.ToString());
             }
@@ -223,7 +182,6 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.Ort = VereineList[index].Ort;
             }
 
-
             StateHasChanged();
         }
 
@@ -235,17 +193,6 @@ namespace LigamanagerManagement.Web.Pages
                 RundeChoosed = e.Value.ToString();
 
                 Globals.currentPokalRunde = RundeChoosed;
-
-                //if (RundeChoosed == "2")
-                //    Titel = "Pokalspiel Neuanlage 2. Runde";
-                //else if (RundeChoosed == "AF")
-                //    Titel = "Pokalspiel Neuanlage Achtelfinale";
-                //else if (RundeChoosed == "VF")
-                //    Titel = "Pokalspiel Neuanlage Viertelfinale";
-                //else if (RundeChoosed == "HF")
-                //    Titel = "Pokalspiel Neuanlage Halbfinale";
-                //else
-                //    Titel = "Pokalspiel Neuanlage Finale";
             }
         }
 
@@ -264,17 +211,6 @@ namespace LigamanagerManagement.Web.Pages
             public string Ort { get; set; }
         }
 
-        [Bind]
-        public class DisplaySpieler
-        {
-            public DisplaySpieler(int spielerID, string spielername)
-            {
-                SpielerID = spielerID;
-                Spielername = spielername;
-            }
-            public int SpielerID { get; set; }
-            public string Spielername { get; set; }
-        }
 
         [Bind]
         public class DisplayRunde

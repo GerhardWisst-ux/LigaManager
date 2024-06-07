@@ -78,13 +78,13 @@ else
                                 {
                                     @foreach (var runde in RundeList)
                                     {
-                                        @if (runde.RundeID == RundeChoosed)
+                                        @if (runde.RundeKurzbezeichung == Globals.currentClRunde)
                                         {
-                                            <option selected value="@runde.RundeID"> @runde.Rundename </option>
+                                            <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
                                         }
                                         else
                                         {
-                                            <option value="@runde.RundeID"> @runde.Rundename </option>
+                                            <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
                                         }
                                     }
                                 }
@@ -92,7 +92,7 @@ else
                             <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">Bitte Runde wählen</label>
                         </div>
                         <div class="dropdown" style="display:inline">
-                            <RadzenButton title="Einlesen" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="Einlesen" Click="@GetDataFromOpenLgaDB">
+                            <RadzenButton title="Einlesen OpenLigaDB" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="Einlesen" Click="@GetDataFromOpenLgaDB">
                         </RadzenButton>
                             <RadzenButton title="Saison und Runde auswählen" style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="Auswählen" Click="@OnClickHandler">
                             </RadzenButton>
@@ -125,7 +125,7 @@ else
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="Datum" />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                                 <Template Context="data">
-                                                    <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                                    <NavLink href="@($"editclspieltag/{data.SpieltagId}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                                 </Template>
                                             </RadzenDataGridColumn>
                                         </Columns>
