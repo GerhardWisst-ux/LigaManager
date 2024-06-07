@@ -618,10 +618,10 @@ namespace LigaManagerManagement.Web.Pages
 
                     await DisplaySpieltagAkt();
 
-                    if (Spieltage.Count() == 0)
-                        VisibleVorZurueck = false;
-                    else
+                    if (Spieltage.Any())
                         VisibleVorZurueck = true;
+                    else
+                        VisibleVorZurueck = false;
 
                     currentspieltag = Convert.ToInt32(e.Value);
 
@@ -646,10 +646,10 @@ namespace LigaManagerManagement.Web.Pages
 
             await DisplaySpieltagAkt();
 
-            if (Spieltage.Count() == 0)
-                VisibleVorZurueck = false;
-            else
+            if (Spieltage.Any())
                 VisibleVorZurueck = true;
+            else
+                VisibleVorZurueck = false;
 
             StateHasChanged();
         }
@@ -663,10 +663,10 @@ namespace LigaManagerManagement.Web.Pages
 
             await DisplaySpieltagAkt();
 
-            if (Spieltage.Count() == 0)
-                VisibleVorZurueck = false;
-            else
+            if (Spieltage.Any())
                 VisibleVorZurueck = true;
+            else
+                VisibleVorZurueck = false;
 
             StateHasChanged();
         }

@@ -27,7 +27,11 @@ namespace LigaManagerManagement.Web.Pages
         public int LandID;
         public int LigaID;
         public string Liganame = "";
-           
+
+
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+
 
         public List<DisplayLaender> LaenderList;
 
@@ -67,9 +71,6 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
-        [CascadingParameter]
-        public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

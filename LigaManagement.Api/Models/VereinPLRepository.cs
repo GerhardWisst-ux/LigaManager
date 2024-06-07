@@ -254,7 +254,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
                         ",[Gegruendet] =" + verein.Gegruendet +
                         ",[Pokal] =" + bPokal +
-                        ",[Bundesliga] =" + bLiga1 +
+                        ",[Liga1] =" + bLiga1 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
                 cmd.ExecuteNonQuery();

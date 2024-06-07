@@ -42,7 +42,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
-                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
+                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);                
 
                 cmd.ExecuteNonQuery();
 

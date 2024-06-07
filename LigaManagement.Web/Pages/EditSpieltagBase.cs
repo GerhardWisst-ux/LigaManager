@@ -667,7 +667,7 @@ namespace LigamanagerManagement.Web.Pages
             public string Torart { get; set; }
         }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
         protected void Delete_Click()
         {

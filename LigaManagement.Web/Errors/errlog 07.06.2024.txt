@@ -7,3 +7,12 @@ StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
    at LigamanagerManagement.Web.Pages.EditCLSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditCLSpieltagBase.cs:line 83
 Date/Time: 07.06.2024 11:00:39
 ============================================
+Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineService.GetVerein(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Services\VereineService.cs:line 55
+   at LigamanagerManagement.Web.Pages.TabellenListBase.TabelleBerechnen(Int32 TabArt) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\TabellenListBase.cs:line 471
+Date/Time: 07.06.2024 13:00:43
+============================================

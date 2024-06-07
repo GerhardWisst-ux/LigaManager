@@ -130,8 +130,8 @@ namespace LigaManagerManagement.Api.Models
                         verein.Vereinsname1 = reader["Vereinsname1"].ToString();
                         verein.Vereinsname2 = reader["Vereinsname2"].ToString();
                         verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
                         verein.Erfolge = reader["Erfolge"].ToString();
-                        verein.Stadion = reader["Stadion"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();                        
                         verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
@@ -171,6 +171,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
                         verein.Vereinsname1 = reader["Vereinsname1"].ToString();
                         verein.Vereinsname2 = reader["Vereinsname2"].ToString();
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
                         verein.Fassungsvermoegen = reader["Fassungsvermoegen"].ToString();
                         verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = reader["Stadion"].ToString();
@@ -255,7 +256,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
                         ",[Gegruendet] =" + verein.Gegruendet +
                         ",[Pokal] =" + bPokal +
-                        ",[Bundesliga] =" + bLiga1 +
+                        ",[Liga1] =" + bLiga1 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
                 cmd.ExecuteNonQuery();

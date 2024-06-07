@@ -19,6 +19,7 @@ namespace Ligamanager.Components
         public static string currentClRunde;
         public static int Spieltag;
         public static int LandID;
+        public static int LandIDVerein;
         public static int LigaID;
         public static int LigaNummer;
         public static int SaisonID;

@@ -22,7 +22,6 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public ILigaService LigaService { get; set; }
 
-
         protected string CssClass { get; set; } = null;
         public IEnumerable<Liga> LigenList { get; set; }
 
@@ -56,8 +55,9 @@ namespace LigaManagerManagement.Web.Pages
 
             var liga = (await LigaService.GetLiga(Globals.LigaID));
             Liganame = liga.Liganame;
-
+                       
             Globals.bVisibleNavMenuElements = true;
+
         }
 
         protected async Task VereinDeleted()

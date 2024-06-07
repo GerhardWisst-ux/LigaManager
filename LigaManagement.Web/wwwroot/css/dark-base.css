@@ -13765,7 +13765,7 @@ ul.rz-profile-menu .rz-navigation-menu .rzi {
     margin: 0 !important;
   }
 }
-@container rz-lookup-panel (max-width: 768px) {
+@@container rz-lookup-panel (max-width: 768px) {
   .rz-paginator-page:not(.rz-state-active) {
     display: none;
   }

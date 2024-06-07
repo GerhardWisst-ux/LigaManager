@@ -1,5 +1,5 @@
 ﻿@page "/createverein"
-@page "/editverein/{Id}"
+@page "/editverein/{Id}/{LandKz}"
 @using LigaManagement.Web.Services.Contracts;
 @using LigaManagerManagement.Models;
 @inherits LigaManagerManagement.Web.Pages.VereineListBase
@@ -62,7 +62,7 @@ else
                             {
                                 @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
                                 {
-                                    @if (land.LandID == Globals.LandID)
+                                    @if (land.LandID == Globals.LandIDVerein)
                                     {
                                         <option selected value="@land.LandID"> @land.Laendername </option>
                                     }
@@ -74,7 +74,7 @@ else
                             }
                         </select>                        
                     </div>
-                    @if (LigaID < 4)
+                    @if (LandKz == "DE")
                     {
                         <div class="form-group row">
                             <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
@@ -87,8 +87,7 @@ else
                             <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
-                            @* <InputText required Resizable id="txtErfolge" @bind-Value="Verein.Erfolge" class="form-control col-sm-9"></InputText> *@
+                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>                            
                             <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
                             <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
                         </div>
@@ -107,32 +106,37 @@ else
                             <InputNumber required id="txtFassungsvermoegen" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
                         </div>
-                        <div class="form-group">
-                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
-                            <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                            </RadzenColumn>
-                            <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
+                        <div class="form-group row">
+                            <RadzenLabel Text="Hyperlink" class="col-sm-3" Component="txtHyperlink">Hyperlink</RadzenLabel>
+                            <InputText required id="txtHyperlink" @bind-Value="Verein.Hyperlink" class="form-control col-sm-9"></InputText>
+                            <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
                         </div>
                         <div class="form-group">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
-                            <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkBundesliga" />
+                            <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkBundesliga" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
                         </div>
 
+                        <div class="form-group">
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
+                            <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkPokal" />
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            </RadzenColumn>
+                            <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
+                        </div>
+                   
                         <div class="form-group row my-2">
                             <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
 
                             </RadzenButton>
 
                             <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
-
                             </RadzenButton>
                         </div>
                     }
-                    @if (LigaID > 3)
+                    else
                     {
 
                         <div class="form-group row">
@@ -146,13 +150,12 @@ else
                             <ValidationMessage For="()=>VereinAus.Vereinsname2"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>
-                            @* <InputText required Resizable id="txtErfolge" @bind-Value="VereinAus.Erfolge" class="form-control col-sm-9"></InputText> *@
+                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtErfolge">Erfolge</RadzenLabel>                            
                             <RadzenTextArea @bind-Value=@VereinAus.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
                             <ValidationMessage For="()=>VereinAus.Erfolge"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
+                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtGegründet">Gegründet</RadzenLabel>
                             <InputNumber required id="txtGegründet" @bind-Value="VereinAus.Gegruendet" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>VereinAus.Gegruendet"></ValidationMessage>
                         </div>
@@ -166,6 +169,25 @@ else
                             <InputText required id="txtVereinsname" @bind-Value="VereinAus.Fassungsvermoegen" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Fassungsvermoegen"></ValidationMessage>
                         </div>
+                        <div class="form-group row">
+                            <RadzenLabel Text="Hyperlink" class="col-sm-3" Component="txtHyperlink">Hyperlink</RadzenLabel>
+                            <InputText required id="txtHyperlink" @bind-Value="VereinAus.Hyperlink" class="form-control col-sm-9"></InputText>
+                            <ValidationMessage For="()=>VereinAus.Hyperlink"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga1">Liga1</RadzenLabel>
+                            <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga1" />
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            </RadzenColumn>
+                            <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
+                        </div>
+                        <div class="form-group">
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga2">Liga 2</RadzenLabel>
+                            <RadzenCheckBox @bind-Value="VereinAus.Liga2" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga2" />
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            </RadzenColumn>
+                            <ValidationMessage For="()=>VereinAus.Liga2"></ValidationMessage>
+                        </div>
                         <div class="form-group">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
@@ -173,25 +195,14 @@ else
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Pokal"></ValidationMessage>
                         </div>
-                        <div class="form-group">
-                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
-                            <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkBundesliga" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                            </RadzenColumn>
-                            <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
-                        </div>
-
                         <div class="form-group row my-2">
                             <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
-
                             </RadzenButton>
 
                             <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
-
                             </RadzenButton>
                         </div>
                     }
-
                 </EditForm>
             </div>
         </div>
@@ -200,6 +211,10 @@ else
 @code {
     [Parameter]
     public string Id { get; set; }
+
+    [Parameter]
+    public string LandKz { get; set; }
+
     private Verein Verein { get; set; } = new Verein();
     private VereinAUS VereinAus { get; set; } = new VereinAUS();
     private string Titel { get; set; }
@@ -231,188 +246,208 @@ else
     {
         IsLoading = true;
 
-        if (LigaID < 4)
+        if (LandKz == "DE")
+        {
+            Globals.LandIDVerein = 57;
             Verein = await _VereineService.GetVerein(Convert.ToInt32(Id));
-        else if (LigaID == 4)
-            VereinAus = await _VereinePLService.CreateVerein(VereinAus);
-        else if (LigaID == 6)
-            VereinAus = await _VereineITService.CreateVerein(VereinAus);
-        else if (LigaID == 7)
-            VereinAus = await _VereineFRService.CreateVerein(VereinAus);
-        else if (LigaID == 8)
-            VereinAus = await _VereineESService.CreateVerein(VereinAus);
-        else if (LigaID == 8)
-            VereinAus = await _VereineESService.CreateVerein(VereinAus);
-        else if (LigaID == 9)
-            VereinAus = await _VereineNLService.CreateVerein(VereinAus);
-        else if (LigaID == 10)
-            VereinAus = await _VereinePTService.CreateVerein(VereinAus);
-        else if (LigaID == 11)
-            VereinAus = await _VereineTUService.CreateVerein(VereinAus);
-        else if (LigaID == 14)
-            VereinAus = await _VereineBEService.CreateVerein(VereinAus);
+        }            
+        else if (LandKz == "PL")
+        {
+            Globals.LandIDVerein = 250;
+            VereinAus = await _VereinePLService.GetVerein(Convert.ToInt32(Id));
+        }        
+        else if (LandKz == "IT")
+        {
+            Globals.LandIDVerein = 110;
+            VereinAus = await _VereineITService.GetVerein(Convert.ToInt32(Id));
+        }            
+        else if(LandKz == "FR")
+        {
+            Globals.LandIDVerein = 75;
+            VereinAus = await _VereineFRService.GetVerein(Convert.ToInt32(Id));
+        }
+        else if (LandKz == "ES")
+        {
+            Globals.LandIDVerein = 68;
+            VereinAus = await _VereineESService.GetVerein(Convert.ToInt32(Id));
+        }
+
+
+        // else if (LigaID == 9)
+        //     VereinAus = await _VereineNLService.GetVerein(Convert.ToInt32(Id));
+        // else if (LigaID == 10)
+        //     VereinAus = await _VereinePTService.GetVerein(Convert.ToInt32(Id));
+        // else if (LigaID == 11)
+        //     VereinAus = await _VereineTUService.GetVerein(Convert.ToInt32(Id));
+        // else if (LigaID == 14)
+        //     VereinAus = await _VereineBEService.GetVerein(Convert.ToInt32(Id));
         IsLoading = false;
         StateHasChanged();
     }
     private async Task UpsertVerein()
     {
-
-        if (LigaID < 4)
+        bool bError = false;
+        if (LandKz == "DE")
         {
-            if ((Verein.Vereinsname1 == null))
+            if (Verein.Vereinsname1 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
-            if ((Verein.Vereinsname2 == null))
+
+            if (Verein.Vereinsname2 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
 
-            if ((Verein.Stadion == null))
+            if (Verein.Stadion == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
 
-            if ((Verein.Gegruendet == 0))
+            if (Verein.Gegruendet == 0)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
         }
-        else if (LigaID > 3)
+        else
         {
-            if ((VereinAus.Vereinsname1 == null))
+            if (VereinAus.Vereinsname1 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
-            if ((VereinAus.Vereinsname2 == null))
+
+            if (VereinAus.Vereinsname2 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
 
-            if ((VereinAus.Stadion == null))
+            if (VereinAus.Stadion == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
 
-            if ((VereinAus.Gegruendet == 0))
+            if (VereinAus.Gegruendet == 0)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
-                return;
+                bError = true;
             }
-        }
+        }        
 
-
-        if (Id == "0")
+        if (Id == "0" && bError == false)
         {
             //create
-            if (LigaID < 4)
+            if (LandKz == "DE")
             {
                 VereineMax = await VereineService.GetVereine();
                 int iMax = VereineMax.Select(i => i.VereinNr).Max();
                 Verein.VereinNr = iMax + 1;
+
             }
-            else if (LigaID == 4)
+            else if (LandKz == "PL")
             {
                 VereineAusMax = await _VereinePLService.GetVereine();
                 int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
                 Verein.VereinNr = iMax + 1;
             }
-            else if (LigaID == 6)
+            else if (LandKz == "IT")
             {
                 VereineAusMax = await _VereineITService.GetVereine();
                 int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
                 Verein.VereinNr = iMax + 1;
             }
-            else if (LigaID == 7)
+            else if (LandKz == "FR")
             {
                 VereineAusMax = await _VereineFRService.GetVereine();
                 int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
                 Verein.VereinNr = iMax + 1;
             }
-            else if (LigaID == 8)
+            else if (LandKz == "ES")
             {
                 VereineAusMax = await _VereineESService.GetVereine();
                 int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
                 Verein.VereinNr = iMax + 1;
             }
-            else if (LigaID == 9)
-            {
-                VereineAusMax = await _VereineNLService.GetVereine();
-                int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
-                Verein.VereinNr = iMax + 1;
-            }
-            else if (LigaID == 10)
-            {
-                VereineAusMax = await _VereinePTService.GetVereine();
-                int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
-                Verein.VereinNr = iMax + 1;
-            }
-            else if (LigaID == 11)
-            {
-                VereineAusMax = await _VereineTUService.GetVereine();
-                int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
-                Verein.VereinNr = iMax + 1;
-            }
-            else if (LigaID == 14)
-            {
-                VereineAusMax = await _VereineBEService.GetVereine();
-                int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
-                Verein.VereinNr = iMax + 1;
-            }
+            // else if (LandKz == "NL")
+            // {
+            //     VereineAusMax = await _VereineNLService.GetVereine();
+            //     int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
+            //     Verein.VereinNr = iMax + 1;
+            // }
+            // else if (LandKz == "PT")
+            // {
+            //     VereineAusMax = await _VereinePTService.GetVereine();
+            //     int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
+            //     Verein.VereinNr = iMax + 1;
+            // }
+            // else if (LandKz == "TU")
+            // {
+            //     VereineAusMax = await _VereineTUService.GetVereine();
+            //     int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
+            //     Verein.VereinNr = iMax + 1;
+            // }
+            // else if (LandKz == "BE")
+            // {
+            //     VereineAusMax = await _VereineBEService.GetVereine();
+            //     int iMax = VereineAusMax.Select(i => i.VereinNr).Max();
+            //     Verein.VereinNr = iMax + 1;
+            // }
 
 
-            if (LigaID < 4)
+            if (LandKz == "DE")
                 await _VereineService.CreateVerein(Verein);
-            else if (LigaID == 4)
+            else if (LandKz == "PL")
                 await _VereinePLService.CreateVerein(VereinAus);
-            else if (LigaID == 6)
+            else if (LandKz == "IT")
                 await _VereineITService.CreateVerein(VereinAus);
-            else if (LigaID == 7)
+            else if (LandKz == "FR")
                 await _VereineFRService.CreateVerein(VereinAus);
-            else if (LigaID == 8)
+            else if (LandKz == "ES")
                 await _VereineESService.CreateVerein(VereinAus);
-            else if (LigaID == 9)
-                await _VereineNLService.CreateVerein(VereinAus);
-            else if (LigaID == 10)
-                await _VereinePTService.CreateVerein(VereinAus);
-            else if (LigaID == 11)
-                await _VereineTUService.CreateVerein(VereinAus);
-            else if (LigaID == 14)
-                await _VereineBEService.CreateVerein(VereinAus);
+            // else if (LigaID == 9)
+            //     await _VereineNLService.CreateVerein(VereinAus);
+            // else if (LigaID == 10)
+            //     await _VereinePTService.CreateVerein(VereinAus);
+            // else if (LigaID == 11)
+            //     await _VereineTUService.CreateVerein(VereinAus);
+            // else if (LigaID == 14)
+            //     await _VereineBEService.CreateVerein(VereinAus);
 
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Verein", Detail = "Abgespeichert" });
 
         }
-        else
+        else if (bError == false)
         {
             //update
-            if (LigaID < 4)
+            if (LandKz == "DE")
                 await _VereineService.UpdateVerein(Verein);
-            else if (LigaID == 4)
+            else if (LandKz == "PL")
                 await _VereinePLService.UpdateVerein(VereinAus);
-            else if (LigaID == 6)
+            else if (LandKz == "IT")
                 await _VereineITService.UpdateVerein(VereinAus);
-            else if (LigaID == 7)
+            else if (LandKz == "FR")
                 await _VereineFRService.UpdateVerein(VereinAus);
-            else if (LigaID == 8)
+            else if (LandKz == "ES")
                 await _VereineESService.UpdateVerein(VereinAus);
-            else if (LigaID == 9)
-                await _VereineNLService.UpdateVerein(VereinAus);
-            else if (LigaID == 10)
-                await _VereinePTService.UpdateVerein(VereinAus);
-            else if (LigaID == 11)
-                await _VereineTUService.UpdateVerein(VereinAus);
-            else if (LigaID == 14)
-                await _VereineBEService.UpdateVerein(VereinAus);
+            // else if (LandKz == "FR")
+            //     await _VereineNLService.UpdateVerein(VereinAus);
+            // else if (LandKz == "PT")
+            //     await _VereinePTService.UpdateVerein(VereinAus);
+            // else if (LandKz == "TU")
+            //     await _VereineTUService.UpdateVerein(VereinAus);
+            // else if (LandKz == "BE")
+            //     await _VereineBEService.UpdateVerein(VereinAus);
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
         }
-        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
-        // _navigationManager.NavigateTo("vereine");
+        
+        
     }
 
     private void Zurueck_Click()

@@ -167,9 +167,12 @@ else
                                 <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                             </div>
                             <div class="form-group py-2">
-                                <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
+                                <RadzenButton title="Speichert Spiel ab" style="margin-left:5px;" id="btnsave" Click="Upsert" class="btn btn-primary" Text="Speichern">
                                     <span class="glyphicon glyphicon-save"></span>Speichern
                                 </RadzenButton>
+                                    <RadzenButton title="Löscht Spiel" style="margin-left:5px;" id="btnDelete" Click="Delete_Click" class="btn btn-danger" Text="Löschen">
+                                        <span class="glyphicon glyphicon-remove"></span>Löschen
+                                    </RadzenButton>
 
                                 <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
                                     <span class="glyphicon glyphicon-left"></span>Zurück

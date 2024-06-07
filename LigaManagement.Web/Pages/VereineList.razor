@@ -78,7 +78,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
@@ -125,7 +125,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"PL"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
@@ -153,8 +153,7 @@ else
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
-                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
-
+                
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
@@ -172,7 +171,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"IT"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
@@ -219,7 +218,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"FR"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
@@ -273,7 +272,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"ES"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>

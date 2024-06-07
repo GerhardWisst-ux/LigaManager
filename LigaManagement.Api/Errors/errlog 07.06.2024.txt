@@ -32,3 +32,15 @@ StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException ex
    at LigaManagerManagement.Api.Models.VereinRepository.GetVereinCL(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 159
 Date/Time: 07.06.2024 11:01:02
 ============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Ungültiger Spaltenname "Bundesliga".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.VereinPLRepository.UpdateVerein(VereinAUS verein) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinPLRepository.cs:line 260
+Date/Time: 07.06.2024 14:04:32
+============================================

@@ -247,7 +247,7 @@ namespace LigaManagement.Web.Pages
 
                     cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason + "/" + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
                     cmd.Parameters.AddWithValue("@SaisonID", Globals.CLPokalSaisonID);
-                    cmd.Parameters.AddWithValue("@LigaID", 99);
+                    cmd.Parameters.AddWithValue("@LigaID", 13);
                     cmd.Parameters.AddWithValue("@Verein1", match.Team1.TeamName);
                     cmd.Parameters.AddWithValue("@Verein2", match.Team2.TeamName);
                     cmd.Parameters.AddWithValue("@Verein1_Nr", match.Team1.TeamId);

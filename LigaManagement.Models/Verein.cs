@@ -29,6 +29,8 @@ namespace LigaManagement.Models
 
         public bool Bundesliga { get; set; }
 
+        public string Hyperlink { get; set; }
+
     }
 
     public class VereinAktSaison: Verein
