@@ -1,5 +1,4 @@
 ﻿using LigaManagement.Models;
-using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
@@ -7,11 +6,12 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Web.Pages
@@ -25,6 +25,9 @@ namespace LigamanagerManagement.Web.Pages
         public string SpieltagNr { get; set; }
 
         public string Torart { get; set; }
+
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -45,7 +48,7 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
-                
+
         [Inject]
         public ISpieltageBEService SpieltagBEService { get; set; }
         [Inject]
@@ -71,7 +74,7 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public ISpieltageTUService SpieltagTUService { get; set; }
-               
+
 
         [Inject]
         public IToreService ToreService { get; set; }
@@ -124,6 +127,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public IEnumerable<Verein> Vereine { get; set; }
 
+        NotificationService NotificationService = new NotificationService();
 
         protected async override Task OnInitializedAsync()
         {
@@ -188,7 +192,7 @@ namespace LigamanagerManagement.Web.Pages
                     {
                         var verein = await VereineService.GetVereinL3(verList[i].VereinNr);
                         VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
-                    }                   
+                    }
 
                     SpieltagNr = Globals.Spieltag.ToString();
                 }
@@ -353,7 +357,7 @@ namespace LigamanagerManagement.Web.Pages
             catch (Exception ex)
             {
 
-               // ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                // ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
 
         }
@@ -505,44 +509,44 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     var verein = await VereinePLService.GetVerein(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 5)
                 {
                     var verein = await VereineAusService.GetVereinIT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();
-                    
+
                 }
                 else if (Globals.LigaNummer == 6)
                 {
                     var verein = await VereineAusService.GetVereinFR(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                   
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 7)
                 {
                     var verein = await VereineAusService.GetVereinES(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 8)
                 {
                     var verein = await VereineAusService.GetVereinNL(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 9)
                 {
                     var verein = await VereineAusService.GetVereinPT(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 10)
                 {
                     var verein = await VereineAusService.GetVereinTU(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
-                    Spiel.Verein2_Nr = e.Value.ToString();                    
+                    Spiel.Verein2_Nr = e.Value.ToString();
                 }
                 else if (Globals.LigaNummer == 11)
                 {
@@ -669,9 +673,24 @@ namespace LigamanagerManagement.Web.Pages
 
         protected ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
+        protected async Task<bool> Confirm()
         {
-            DeleteConfirmation.Show();
+            string message = "Möchten Sie dieses Spiel tatsächlich löschen?";
+            var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
+
+            if (result)
+            {
+                await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
+
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Spiel", Detail = "Gelöscht" });
+            }
+            
+
+            return result;
         }
+
+
     }
+
+
 }

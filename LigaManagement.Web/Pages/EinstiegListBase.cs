@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Radzen;
 using System;
@@ -110,6 +111,9 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Land> Laender { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
+
+        [Inject]
+        public IStringLocalizer<EinstiegList> Localizer { get; set; }
 
         public bool TestSQLServer()
         {

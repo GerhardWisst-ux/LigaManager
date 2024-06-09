@@ -69,7 +69,9 @@
                 <RadzenButton title="Speichert Liga ab" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="Speichern">
                     <span class="glyphicon glyphicon-save"></span>Speichern
                 </RadzenButton>
-                
+                <RadzenButton title="Löscht Liga" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                    <span class="glyphicon glyphicon-remove"></span>Löschen
+                </RadzenButton>
                 <RadzenButton title="Zurück zu Ligen" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
 
                 </RadzenButton>
@@ -187,6 +189,21 @@
         }
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Liga", Detail = "Abgespeichert"});
         // _navigationManager.NavigateTo("ligen");
+    }
+    protected async Task<bool> Confirm()
+    {
+        string message = "Möchten Sie diesen Verein tatsächlich löschen?";
+
+
+        var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
+
+        if (result)
+        {
+            await _Ligaservice.DeleteLiga(Convert.ToInt32(Id));
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Liga", Detail = "Gelöscht" });
+        }
+
+        return false;
     }
 
     private void Zurueck_Click()

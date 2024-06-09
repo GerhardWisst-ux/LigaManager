@@ -4,6 +4,7 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -71,6 +72,10 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public IJSRuntime jsr { get; set; }
+
 
         protected override async Task OnInitializedAsync()
         {

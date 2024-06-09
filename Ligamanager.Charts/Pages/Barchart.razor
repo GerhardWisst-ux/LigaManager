@@ -1,0 +1,114 @@
+﻿@page "/barchart"
+@inject HttpClient Http
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <button @onclick="ReloadBasicChart">Reload Basic Chart</button>
+
+    <BasicBarChart @ref="_chart"  Title="Hello Basic Chart" Data="@(new() { ["Hello"] = (double)new Random().Next(1,20) , ["dsff"] = (double)new Random().Next(1,20), ["sdf"] = (double)new Random().Next(1,20)})"></BasicBarChart>
+    <ChartCanvas Configs="_config"></ChartCanvas>
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+
+    private ChartConfig _config;
+
+    private BasicBarChart _chart;
+
+    private async Task ReloadBasicChart()
+    {
+        await _chart.InitChartAsync();
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+
+        _config = new ChartConfig
+        {
+            Type = ChartJSTypes.Bar,
+            Data = new ChartData
+            {
+                Datasets = new List<ChartDataset>
+             {
+                     new ChartDataset
+                     {
+                         BackgroundColor = new List<string>{ChartJSColors.Transparent60.Grey },
+                         BorderColor =new List<string>{ChartJSColors.Transparent60.Grey },
+                         Data = forecasts.Select(x=> (double)x.TemperatureC).ToList(),
+                         BorderWidth =1,
+                         Label ="forcasts c"
+
+                     },
+                     new ChartDataset
+                     {
+                         BackgroundColor = new List<string>{ChartJSColors.Transparent60.Violet },
+                         BorderColor =new List<string>{ChartJSColors.Transparent60.Violet},
+                         Data = forecasts.Select(x=> (double)x.TemperatureF).ToList(),
+                         BorderWidth =1,
+                         Label ="forcasts f"
+
+                     }
+                 },
+                Labels = forecasts.Select(x => x.Date.ToShortDateString()).ToList()
+            },
+            Options = new ChartOptions
+            {
+                Responsive = true,
+                Plugins = new ChartPlugin
+                {
+                    Legend = new ChartLegend
+                    {
+                        Position = ChartJsPositions.Top
+                    },
+                    Title = new ChartTitle
+                    {
+                        Display = true,
+                        Text = "chart js bar chart"
+                    }
+                }
+            }
+
+        };
+    }
+
+    public class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+
+        public int TemperatureC { get; set; }
+
+        public string Summary { get; set; }
+
+        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    }
+}

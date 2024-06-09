@@ -2,6 +2,7 @@
 @page "/editverein/{Id}/{LandKz}"
 @using LigaManagement.Web.Services.Contracts;
 @using LigaManagerManagement.Models;
+
 @inherits LigaManagerManagement.Web.Pages.VereineListBase
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
 @inject LigaManagement.Web.Services.Contracts.IVereinePLService _VereinePLService
@@ -12,8 +13,6 @@
 @inject LigaManagement.Web.Services.Contracts.IVereinePTService _VereinePTService
 @inject LigaManagement.Web.Services.Contracts.IVereineTUService _VereineTUService
 @inject LigaManagement.Web.Services.Contracts.IVereineBEService _VereineBEService
-
-
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
@@ -129,9 +128,10 @@ else
                    
                         <div class="form-group row my-2">
                             <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
-
                             </RadzenButton>
-
+                            <RadzenButton title="Löscht Verein" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                                <span class="glyphicon glyphicon-remove"></span>Löschen
+                            </RadzenButton>
                             <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
                             </RadzenButton>
                         </div>
@@ -240,7 +240,6 @@ else
             }
         }
     }
-
 
     private async Task LoadVerein()
     {
@@ -445,9 +444,24 @@ else
             //     await _VereineBEService.UpdateVerein(VereinAus);
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
-        }
+        }        
+
+    }
+
+    protected async Task<bool> Confirm()
+    {
+        string message = "Möchten Sie diesen Verein tatsächlich löschen?";
         
-        
+
+        var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
+
+        if (result)
+        {
+            await _VereineService.DeleteVerein(Convert.ToInt32(Id));
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Verein", Detail = "Gelöscht" });
+        }      
+
+        return false;
     }
 
     private void Zurueck_Click()

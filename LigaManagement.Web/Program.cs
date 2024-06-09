@@ -18,8 +18,8 @@ namespace LigaManagement.Web
 
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseWebRoot("wwwroot");                    
-                    webBuilder.UseStaticWebAssets();                    
-
+                    webBuilder.UseStaticWebAssets();
+                    
                 });
     }
 }

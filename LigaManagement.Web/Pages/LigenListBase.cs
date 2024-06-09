@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Ligamanager.Components;
 using System.Net;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -34,8 +35,9 @@ namespace LigaManagerManagement.Web.Pages
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
-        string type = "Click";
-        bool multiple = true;
+        [Inject]
+        public IJSRuntime jsr { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             var authenticationState = await authenticationStateTask;
@@ -65,24 +67,7 @@ namespace LigaManagerManagement.Web.Pages
             LigenList = (await LigaService.GetLigen()).ToList();
         }
 
-        public void Select(DataGridCellMouseEventArgs<Liga> args)
-        {
-            if (!multiple)
-            {
-                selectedCellData.Clear();
-            }
-
-            var cellData = selectedCellData.FirstOrDefault(i => i.Item1 == args.Data && i.Item2 == args.Column);
-            if (cellData != null)
-            {
-                selectedCellData.Remove(cellData);
-            }
-            else
-            {
-                selectedCellData.Add(new Tuple<Liga, RadzenDataGridColumn<Liga>>(args.Data, args.Column));
-            }
-        }
-
+       
         int index;
         public void ResetIndex(bool shouldReset)
         {
@@ -90,35 +75,8 @@ namespace LigaManagerManagement.Web.Pages
             {
                 index = 0;
             }
-        }
-
-        public void OnCellClick(DataGridCellMouseEventArgs<Liga> args)
-        {
-            if (type == "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellDoubleClick(DataGridCellMouseEventArgs<Liga> args)
-        {
-            if (type != "Click")
-            {
-                Select(args);
-            }
-        }
-
-        public void OnCellRender(DataGridCellRenderEventArgs<Liga> args)
-        {
-            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-            {
-                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-            }
-        }
-        public void OnFilter(DataGridColumnFilterEventArgs<Liga> args)
-        {
-            //
-        }
+        }        
+        
 
     }
 }

@@ -194,6 +194,7 @@ namespace LigaManagement.Web
                 services.AddScoped<TooltipService>();
                 services.AddScoped<ChartTooltip>();
                 services.AddScoped<ContextMenuService>();
+                services.AddLocalization();
 
                 services.AddRadzenComponents();
 

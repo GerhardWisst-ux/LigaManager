@@ -1,10 +1,12 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -100,6 +102,9 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ILigaService LigaService { get; set; }
+
+        [Inject]
+        public IStringLocalizer<SpieltageList> Localizer { get; set; }
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }

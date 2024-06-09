@@ -63,16 +63,20 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
         {
-            //var result = await appDbContext.Spieltage
-            //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
-            //if (result != null)
-            //{
-            //    appDbContext.Spieltage.Remove(result);
-            //    await appDbContext.SaveChangesAsync();
-            //    return result;
-            //}
+            SqlConnection conn = new SqlConnection(Globals.connstring);
+            conn.Open();
 
-            return null;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM [dbo].[Spieltage] Where SpieltagId= @SpieltagId";
+
+            cmd.Parameters.AddWithValue("@Id", SpieltagId);
+
+          //  cmd.ExecuteNonQuery();
+
+            conn.Close();
+
+            return null;            
         }
 
         public Task<Spieltag> GetAktSpieltag()

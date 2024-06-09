@@ -36,8 +36,7 @@ else
         <RadzenCard class="m-0 rz-shadow-3">
             <div class="d-flex flex-row">
                 <div class="card-body">
-                    <h2 style="display:inline-block;">Start Ligamanager</h2>
-                    <h2 style="display:inline-block;">Start Ligamanager</h2>
+                    <h2 style="display:inline-block;"> @Localizer["Start"] Ligamanager</h2>
                 </div>
             </div>
         </RadzenCard>
@@ -45,7 +44,7 @@ else
         <RadzenCard Style="height:70vh;" class="m-0">
             <RadzenTabs>
                 <Tabs>
-                    <RadzenTabsItem class="p-0" Text="Auswahl">
+                    <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"]">
                         <div class="form-group row">
                             <div class="dropdown mr-2" style="display:inline;">
                                 <select value="@LandID" id="cboLand" class="form-control dropdown" @onchange="LandChangeAsync">
@@ -114,7 +113,7 @@ else
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Import">
+                    <RadzenTabsItem Text="@Localizer["Import"]">
                         <div class="form-group row">
                             <div class="col-sm-12 ml-0">
                                 <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
@@ -143,7 +142,7 @@ else
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Tabellen anlegen">
+                    <RadzenTabsItem Text="@Localizer["Tabellen anlegen"]">
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <RadzenLabel Style="font-weight:bold;">Tabellen auswählen</RadzenLabel>
