@@ -109,6 +109,7 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
+     
         protected async override Task OnInitializedAsync()
         {
 
@@ -144,7 +145,7 @@ namespace LigaManagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                curentsaison = Globals.currentSaison;
+             
             }
             catch (Exception ex)
             {

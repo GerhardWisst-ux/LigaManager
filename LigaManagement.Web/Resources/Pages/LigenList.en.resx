@@ -117,16 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswahl" xml:space="preserve">
-    <value>Auswahl</value>
+  <data name="Bearbeiten" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="Import" xml:space="preserve">
-    <value>Import</value>
+  <data name="Ligen" xml:space="preserve">
+    <value>Leagues</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="Neuanlage Liga" xml:space="preserve">
+    <value>Create new league</value>
   </data>
-  <data name="Tabellen anlegen" xml:space="preserve">
-    <value>Tabellen anlegen</value>
+  <data name="Nächster Spieltag" xml:space="preserve">
+    <value>Next Match day</value>
+  </data>
+  <data name="Voriger Spieltag" xml:space="preserve">
+    <value>Previous Match day</value>
   </data>
 </root>

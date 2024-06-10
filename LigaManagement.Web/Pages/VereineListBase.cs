@@ -4,6 +4,7 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
@@ -76,6 +77,8 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IJSRuntime jsr { get; set; }
 
+        [Inject]
+        public IStringLocalizer<VereineList> Localizer { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

@@ -1,4 +1,4 @@
-﻿@page "/vereine"
+﻿@page "/Ligamanager/vereine"
 @using LigaManagerManagement.Web.Pages;
 @using Radzen;
 @inherits VereineListBase
@@ -30,9 +30,9 @@ else
                <RadzenCard class="m-0 mb-3 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2 style="display:inline-block;">Vereine</h2>
+                            <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>
                             <span class="ml-3">
-                                <a href="createverein" style="width:35px; height:30px;" title="Neuanlage Verein" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                <a href="createverein" style="width:35px; height:30px;" title=">@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
                             </span>
                         </div>
                     </div>
@@ -78,7 +78,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>

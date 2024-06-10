@@ -684,7 +684,7 @@ namespace LigaManagement.Web.Pages
 
             Globals.bVisibleNavMenuElements = true;
 
-            NavigationManager.NavigateTo($"{Globals.currentLigaUrl}/spieltage/{iAktSpieltag}", true);
+            NavigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{iAktSpieltag}", true);
 
         }
 

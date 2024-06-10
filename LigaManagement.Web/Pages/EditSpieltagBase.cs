@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
@@ -12,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Web.Pages
@@ -128,6 +130,10 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         NotificationService NotificationService = new NotificationService();
+
+        public bool bAbgeschlossen = true;
+
+        public bool bDeleteButtonVisible = true;
 
         protected async override Task OnInitializedAsync()
         {
@@ -353,11 +359,27 @@ namespace LigamanagerManagement.Web.Pages
                     }
                     ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
                 }
+
+                var saison = await SaisonenService.GetSaison(Globals.SaisonID);
+
+                if (saison == null)
+                {
+                    if (saison.Abgeschlossen)
+                        bAbgeschlossen = true;
+                    else
+                        bAbgeschlossen = false;
+                }
+
+                if (bAbgeschlossen)
+                    bDeleteButtonVisible = false;
+                else
+                    bDeleteButtonVisible = true;
+                
             }
             catch (Exception ex)
             {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
 
-                // ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
 
         }

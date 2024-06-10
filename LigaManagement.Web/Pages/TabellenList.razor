@@ -1,4 +1,4 @@
-@page "/{CurrentligaUrl}/tabellen"
+@page "/Ligamanager/{CurrentligaUrl}/tabellen"
 @inherits TabellenListBase
 
 @attribute [Authorize]
@@ -72,8 +72,8 @@ else
             <div class="col-sm-12">
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
-                        <div class="card-body">                            
-                          <h2 style="display:inline-block;">Tabelle @Globals.currentLiganame @Globals.currentSaison </h2>                            
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">@Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison </h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -83,7 +83,7 @@ else
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline">
                     <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="0" selected required>Saison wählen</option>
+                        <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
                         @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
                         {
                             @if (saison.SaisonID == Globals.SaisonID)
@@ -99,7 +99,7 @@ else
                 </div>
                 <div class="dropdown" style="display:inline">
                     <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
-                        <option value="0" selected required>Spieltag wählen</option>
+                        <option value="0" selected required>@Localizer["Spieltag wählen"].Value</option>
                         @foreach (var spieltag in SpieltagList)
                         {
                             @if (spieltag.Nummer == currentspieltag.ToString())
@@ -115,15 +115,15 @@ else
                 </div>
                 <div class="dropdown" style="display:inline">
                     <select id="cboTableArt" style="display:inline; max-width:180px;height:38px;margin-left:2px;" class="form-control dropdown" @onchange="TabArtChange">
-                        <option value="0">Tabellenart wählen</option>
-                        <option selected value="1">Gesamttabelle</option>
-                        <option value="2">Heimtabelle</option>
-                        <option value="3">Auswärtstabelle</option>
-                        <option value="4">Vorrunde</option>
-                        <option value="5">Rückrunde</option>
+                        <option value="0">@Localizer["Tabellenart wählen"].Value</option>
+                        <option selected value="1">@Localizer["Gesamttabelle"].Value</option>
+                        <option value="2">@Localizer["Heimtabelle"].Value</option>
+                        <option value="3">@Localizer["Auswärtstabelle"].Value</option>
+                        <option value="4">@Localizer["Vorrunde"].Value</option>
+                        <option value="5">@Localizer["Rückrunde"].Value</option>
                         @if (Globals.LigaID < 4)
                         {
-                            <option value="6">Ewige Tabelle</option>
+                            <option value="5">@Localizer["Ewige Tabelle"].Value</option>
                         }
                     </select>
                 </div>
@@ -148,25 +148,25 @@ else
                 <Columns>
                     <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
+                    <RadzenDataGridColumn CssClass="separated" Title="@Localizer["Platz"].Value" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true />
                     <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
                         <Template Context="data">
                             <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; width: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
                         </Template>
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="Verein" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="S" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="G" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="U" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="V" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="T" />
-                    <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="Diff" />
-                    <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="P" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Verein"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["V"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
+                    <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
+                    <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
                 </Columns>
             </RadzenDataGrid>
             <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                 <RadzenColumn Offset="11" Style="text-align:right;">
-                    <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                    <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="@Localizer["Nach oben"].Value" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
                 </RadzenColumn>
             </RadzenRow>
             <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">

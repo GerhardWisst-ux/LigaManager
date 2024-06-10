@@ -1,4 +1,4 @@
-@page "/{CurrentligaUrl}/spieltage/{SpieltagNr}"
+@page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
 @inject DialogService DialogService
 
@@ -79,7 +79,7 @@ else
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"]</h2>
+                            <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"].Value</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -142,7 +142,7 @@ else
                             </RadzenDataGridColumn>
                             @if (Globals.LigaNummer == 3)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title=""  Sortable="true" Width="74px" MinWidth="74px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -201,7 +201,7 @@ else
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
-                                    <NavLink href="@($"editspieltag/{data.SpieltagId}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                    <NavLink href="@($"editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
                            @*  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">

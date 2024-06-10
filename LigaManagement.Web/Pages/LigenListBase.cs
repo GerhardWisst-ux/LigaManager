@@ -12,6 +12,8 @@ using Ligamanager.Components;
 using System.Net;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.JSInterop;
+using LigaManagement.Web.Pages;
+using Microsoft.Extensions.Localization;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -37,6 +39,9 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public IJSRuntime jsr { get; set; }
+
+        [Inject]
+        public IStringLocalizer<Ligen> Localizer { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

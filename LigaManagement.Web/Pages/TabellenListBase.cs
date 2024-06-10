@@ -1,16 +1,17 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -117,6 +118,9 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Saison> Saisonen { get; set; }
 
         [Inject]
+        public IStringLocalizer<TabellenList> Localizer { get; set; }
+
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
         
         int iMaxSpieltag = 0;
@@ -158,7 +162,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 for (int i = 1; i <= iSpieltage; i++)
                 {
-                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + "." + Localizer["Spieltag"].Value));
                 }
 
                 for (int i = 0; i < Saisonen.Count(); i++)
@@ -357,6 +361,7 @@ namespace LigamanagerManagement.Web.Pages
             if (e.Value != null)
             {
                 currentspieltag = Convert.ToInt32(e.Value);
+                iSpieltage = currentspieltag;
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
                 await TabelleBerechnen(1);

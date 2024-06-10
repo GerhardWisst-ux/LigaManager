@@ -170,7 +170,7 @@ else
                                     <RadzenButton title="Speichert Spiel ab" style="margin-left:5px;" id="btnsave" Click="Upsert" class="btn btn-primary" Text="Speichern">
                                         <span class="glyphicon glyphicon-save"></span>Speichern
                                     </RadzenButton>
-                                        <RadzenButton title="Löscht Spiel" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                                    <RadzenButton title="Löscht Spiel" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
                                             <span class="glyphicon glyphicon-remove"></span>Löschen
                                         </RadzenButton>
 
@@ -555,7 +555,7 @@ else
 
     private void GoBack()
     {
-        _navigationManager.NavigateTo($"{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
+        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
     }
 }
 

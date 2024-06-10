@@ -36,7 +36,7 @@ namespace LigaManagement.Web
 
                 services.AddRazorPages();
                 services.AddServerSideBlazor();
-
+                services.AddLocalization(options => options.ResourcesPath = "Resources");
 
                 services.AddAutoMapper(typeof(Startup));
 

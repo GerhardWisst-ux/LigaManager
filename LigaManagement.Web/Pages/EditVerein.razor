@@ -46,7 +46,7 @@ else
                 <RadzenCard class="m-0 mb-3">
                     <div class="d-flex flex-row">
                         <div class="card-body ">
-                            <h2 style="display:inline-block;">@Titel Verein</h2>
+                            <h2 style="display:inline-block;">@Titel @Localizer["Verein"].Value</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -54,7 +54,7 @@ else
             <div class="col-sm-12">
                 <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
                     <div class="form-group row">
-                        <RadzenLabel Text="Land" class="col-sm-3" Component="cboLand">Land</RadzenLabel>
+                        <RadzenLabel Text="Land" class="col-sm-3" Component="cboLand">@Localizer["Land"].Value</RadzenLabel>
                         <select value="@LandID" id="cboLand" class="form-control dropdown col-sm-9" @onchange="LandChangeAsync">
                             <option value="0" required>Land auswählen</option>
                             @if (LaenderList != null)
@@ -76,32 +76,32 @@ else
                     @if (LandKz == "DE")
                     {
                         <div class="form-group row">
-                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
+                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">@Localizer["Verein"].Value</RadzenLabel>
                             <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">Anzeigename</RadzenLabel>
+                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
                             <InputText required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">Erfolge</RadzenLabel>                            
+                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">@Localizer["Erfolge"].Value</RadzenLabel>
                             <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
                             <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">Gegründet</RadzenLabel>
+                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">@Localizer["Gegruendet"].Value</RadzenLabel>
                             <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
+                            <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">@Localizer["Stadion"].Value</RadzenLabel>
                             <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">Fassungsvermögen</RadzenLabel>
+                            <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">@Localizer["Fassungsvermoegen"].Value</RadzenLabel>
                             <InputNumber required id="txtFassungsvermoegen" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
                         </div>
@@ -127,12 +127,12 @@ else
                         </div>
                    
                         <div class="form-group row my-2">
-                            <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
+                            <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                             </RadzenButton>
-                            <RadzenButton title="Löscht Verein" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
-                                <span class="glyphicon glyphicon-remove"></span>Löschen
+                            <RadzenButton title="@Localizer["Löscht Verein"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                                <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                             </RadzenButton>
-                            <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                            <RadzenButton title="@Localizer["Zurück zu Vereine"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                             </RadzenButton>
                         </div>
                     }
@@ -140,32 +140,32 @@ else
                     {
 
                         <div class="form-group row">
-                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">Vereinsname</RadzenLabel>
+                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">@Localizer["Verein"].Value</RadzenLabel>
                             <InputText required id="txtVereinsname1" @bind-Value="VereinAus.Vereinsname1" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Vereinsname1"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">Anzeigename</RadzenLabel>
+                            <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
                             <InputText required id="txtVereinsname2" @bind-Value="VereinAus.Vereinsname2" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Vereinsname2"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtErfolge">Erfolge</RadzenLabel>                            
+                            <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtErfolge">@Localizer["Erfolge"].Value</RadzenLabel>
                             <RadzenTextArea @bind-Value=@VereinAus.Erfolge Cols="105" Rows="7" class="form-control col-sm-9" aria-label="Textfeld " />
                             <ValidationMessage For="()=>VereinAus.Erfolge"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtGegründet">Gegründet</RadzenLabel>
+                            <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtGegründet">@Localizer["Gegruendet"].Value</RadzenLabel>
                             <InputNumber required id="txtGegründet" @bind-Value="VereinAus.Gegruendet" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>VereinAus.Gegruendet"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">Stadion</RadzenLabel>
+                            <RadzenLabel Text="Stadion" class="col-sm-3" Component="txtStadion">@Localizer["Stadion"].Value</RadzenLabel>
                             <InputText required id="txtStadion" @bind-Value="VereinAus.Stadion" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Stadion"></ValidationMessage>
                         </div>
                         <div class="form-group row">
-                            <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">Fassungsvermögen</RadzenLabel>
+                            <RadzenLabel Text="Fassungsvermögen" class="col-sm-3" Component="txtVereinsname1">@Localizer["Fassungsvermoegen"].Value</RadzenLabel>
                             <InputText required id="txtVereinsname" @bind-Value="VereinAus.Fassungsvermoegen" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Fassungsvermoegen"></ValidationMessage>
                         </div>
@@ -175,31 +175,33 @@ else
                             <ValidationMessage For="()=>VereinAus.Hyperlink"></ValidationMessage>
                         </div>
                         <div class="form-group">
-                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga1">Liga1</RadzenLabel>
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga1">@Localizer["Liga1"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga1" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
                         </div>
                         <div class="form-group">
-                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga2">Liga 2</RadzenLabel>
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga2">@Localizer["Liga2"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Liga2" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga2" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Liga2"></ValidationMessage>
                         </div>
                         <div class="form-group">
-                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
+                            <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Pokal"></ValidationMessage>
                         </div>
                         <div class="form-group row my-2">
-                            <RadzenButton title="Speichert Verein ab" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="Speichern">
+                            <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                             </RadzenButton>
-
-                            <RadzenButton title="Zurück zu Vereine" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                            <RadzenButton title="@Localizer["Löscht Verein"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                                <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                            </RadzenButton>
+                            <RadzenButton title="@Localizer["Zurück zu Vereine"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                             </RadzenButton>
                         </div>
                     }
@@ -228,14 +230,14 @@ else
             if (Id == "0" || Id is null)
             {
                 //Neuanlage
-                Titel = "Neuanlage";
+                Titel = Localizer["Neuanlage"].Value;
                 Id = "0";
                 IsLoading = false;
             }
             else
             {
                 //Bearbeiten
-                Titel = "Bearbeiten";
+                Titel = Localizer["Bearbeiten"].Value;
                 await LoadVerein();
             }
         }

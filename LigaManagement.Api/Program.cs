@@ -24,5 +24,8 @@ namespace LigaManagement.Api
                     //webBuilder.UseStaticWebAssets();
 
                 });
+
     }
+
+
 }

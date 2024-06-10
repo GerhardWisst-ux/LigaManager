@@ -117,16 +117,79 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswahl" xml:space="preserve">
-    <value>Auswahl</value>
+  <data name="Auswärtstabelle" xml:space="preserve">
+    <value>Away Table</value>
   </data>
-  <data name="Import" xml:space="preserve">
-    <value>Import</value>
+  <data name="Diff" xml:space="preserve">
+    <value>Diff</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="Ewige Tabelle" xml:space="preserve">
+    <value>Eternal table</value>
   </data>
-  <data name="Tabellen anlegen" xml:space="preserve">
-    <value>Tabellen anlegen</value>
+  <data name="G" xml:space="preserve">
+    <value>W</value>
+  </data>
+  <data name="Gesamttabelle" xml:space="preserve">
+    <value>Total table</value>
+  </data>
+  <data name="Heimtabelle" xml:space="preserve">
+    <value>Home table</value>
+  </data>
+  <data name="Nach oben" xml:space="preserve">
+    <value>Go to Top</value>
+  </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Next Match day</value>
+  </data>
+  <data name="P" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="Platz" xml:space="preserve">
+    <value>Ps.</value>
+  </data>
+  <data name="Rückrunde" xml:space="preserve">
+    <value>Second half</value>
+  </data>
+  <data name="S" xml:space="preserve">
+    <value>Ga.</value>
+  </data>
+  <data name="Saison wählen" xml:space="preserve">
+    <value>Select Saison</value>
+  </data>
+  <data name="Spieltag" xml:space="preserve">
+    <value>Matchday</value>
+  </data>
+  <data name="Spieltag wählen" xml:space="preserve">
+    <value>Select Matchday</value>
+  </data>
+  <data name="T" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="Tabellenart wählen" xml:space="preserve">
+    <value>Select Tableart </value>
+  </data>
+  <data name="Tore" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="Tore Durchschnitt" xml:space="preserve">
+    <value>Tore Durchschnitt</value>
+  </data>
+  <data name="U" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="V" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="Verein" xml:space="preserve">
+    <value>Club</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Previous Match day</value>
+  </data>
+  <data name="Vorrunde" xml:space="preserve">
+    <value>First half</value>
   </data>
 </root>

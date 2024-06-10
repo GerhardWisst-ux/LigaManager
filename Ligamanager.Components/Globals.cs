@@ -42,7 +42,7 @@ namespace Ligamanager.Components
             Vorrunde = 4,
             Rückrunde = 5,
             EwigeTabelle = 6
-        }
+        }       
 
 
         //public static int MaxSpieltag(int SaisonID)

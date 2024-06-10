@@ -108,7 +108,7 @@ namespace LigaManagerManagement.Web.Services
 
                 var alleSpieltage = (await spieltagService.GetSpieltage());
 
-                if (Tabart == (int)Globals.Tabart.Vorrunde)
+                if (Tabart == 4)
                 {
                     if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                         BisSpieltag = 15;
@@ -118,7 +118,7 @@ namespace LigaManagerManagement.Web.Services
                         BisSpieltag = 17;
                 }
 
-                if (Tabart == (int)Globals.Tabart.Rückrunde)
+                if (Tabart == 5)
                 {
                     if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
                         VonSpieltag = 16;
@@ -183,7 +183,7 @@ namespace LigaManagerManagement.Web.Services
                         {
                             if (item.Tore1_Nr > item.Tore2_Nr)
                             {
-                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                if (Tabart != 3)
                                 {
                                     tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
                                     tabelleneintragF.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
@@ -206,7 +206,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Liga = Globals.currentLiga;
                                 }
 
-                                if (Tabart != (int)Globals.Tabart.Heim)
+                                if (Tabart != 2)
                                 {
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                     tabelleneintragF2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
@@ -226,7 +226,7 @@ namespace LigaManagerManagement.Web.Services
                             }
                             else if (item.Tore1_Nr == item.Tore2_Nr)
                             {
-                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                if (Tabart != 3)
                                 {
                                     tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
                                     tabelleneintragF.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
@@ -245,7 +245,7 @@ namespace LigaManagerManagement.Web.Services
 
                                 }
 
-                                if (Tabart != (int)Globals.Tabart.Heim)
+                                if (Tabart != 2)
                                 {
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                     tabelleneintragF2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
@@ -265,7 +265,7 @@ namespace LigaManagerManagement.Web.Services
                             }
                             else if (item.Tore1_Nr < item.Tore2_Nr)
                             {
-                                if (Tabart != (int)Globals.Tabart.Auswärts)
+                                if (Tabart != 3)
                                 {
                                     tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
                                     tabelleneintragF.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF.VereinNr)).Vereinsname1;
@@ -282,7 +282,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
                                     tabelleneintragF.Liga = Globals.currentLiga;
                                 }
-                                if (Tabart != (int)Globals.Tabart.Heim)
+                                if (Tabart != 2)
                                 {
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                     tabelleneintragF2.Verein = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(tabelleneintragF2.VereinNr)).Vereinsname1;
