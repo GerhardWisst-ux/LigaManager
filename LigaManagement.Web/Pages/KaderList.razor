@@ -36,7 +36,7 @@ else
                 <RadzenCard class="m-0 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2 style="display:inline-block;">Kader</h2>
+                            <h2 style="display:inline-block;">@Localizer["Kader"].Value</h2>
                             <span class="ml-3">
                                 @* <a href="createkaderspieler" title="Neuer Spieler" style="width:40px;" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
                                 <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink>
@@ -47,37 +47,37 @@ else
             </div>
         </div>
         <div class="form-group row">
-            <label for="cboSaison" class="col-sm-1 control-label">Saison</label>
+            <label for="cboSaison" class="col-sm-1 control-label">@Localizer["Saison"].Value</label>
             <div class="col-sm-4 m-0">
                 <select id="cboSaison" style="display:inline-block; " class="form-control dropdown" @onchange="SaisonChange">
-                    <option selected="selected">Saison auswählen</option>
+                    <option selected="selected">@Localizer["Saison auswählen"].Value</option>
                     @foreach (var verein in SaisonenList.OrderBy(x => x.SaisonID))
                     {
                         <option value="@verein.SaisonID"> @verein.Saisonname </option>
                     }
-                    <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                    <label title="@Localizer["Bitte Liga wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
                 </select>
             </div>
-            <label title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">Bitte Saison wählen</label>
+            <label title="@Localizer["Bitte Saison wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Saison wählen"].Value</label>
 
-            <label for="cboSaison" class="col-sm-1 control-label m-0">Verein</label>
+            <label for="cboSaison" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
             <div class="col-sm-4 m-0">
                 <select id="cboSaison" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
-                    <option value="" selected required>Verein auswählen</option>
+                    <option value="" selected required>@Localizer["Verein auswählen"].Value</option>
                     @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
                     {
                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                     }
                 </select>
-                <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">Bitte Verein wählen</label>
+                <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">@Localizer["Bitte Verein wählen"].Value</label>
             </div>
             <div class="col-sm-2 m-0 pull-right">
                 @* <linkbutton title="Saison und Verein auswählen" style="display:inline-block;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
                     Auswählen
                 </linkbutton> *@
 
-                <RadzenButton title="Saison und Verein auswählen" style="margin-left:5px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="Auswählen">
-                    <span class="oi checkmark-done-outline"></span>Auswählen                    
+                <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" style="margin-left:5px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
+                    <span class="oi checkmark-done-outline"></span>@Localizer["Auswählen"].Value
                 </RadzenButton>
                 
             </div>
@@ -93,21 +93,21 @@ else
                                     AllowPaging="true" Responsive=true AllowSorting="true" AllowFiltering="true"
                                     TItem="Kader" Visible="true" AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter" CellRender="OnCellRender">
+                                    LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter">
                         <Columns>
                             <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">                             
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Kader" Property="PositionsNr" Width="8%" TextAlign="TextAlign.Right" SortOrder="SortOrder.Ascending" Sortable=true Title="Pos" />
                             <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
-                            <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Width="24%" Sortable=true Title="Name" SortOrder="SortOrder.Ascending"
+                            <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="24%" Sortable=true SortOrder="SortOrder.Ascending"
                                                   SortProperty="SpielerName" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="24%" Sortable=true Title="Vorname" SortOrder="SortOrder.Ascending"
+                            <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="24%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
                                                   SortProperty="Vorname" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="8%" TextAlign="TextAlign.Right" Title="Spiele" Sortable=true SortProperty="Einsaetze" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="Tore" Sortable=true SortProperty="Tore" />
+                            <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Spiele"].Value" Sortable=true SortProperty="Einsaetze" />
+                            <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="@Localizer["Tore"].Value" Sortable=true SortProperty="Tore" />
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Kader" Property="Id" Width="5%" Filterable="false" Sortable="false">
                                 <Template Context="data">
-                                    <NavLink href="@($"editkaderspieler/{data.Id}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                    <NavLink href="@($"editkaderspieler/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
 
@@ -115,12 +115,12 @@ else
                         <FooterTemplate>
                         </FooterTemplate>
                         <FooterTemplate>
-                            Anzahl Spieler: <b>@spielerList.Count()</b>
+                            @Localizer["ToAnzahl Spielerre"].Value: <b>@spielerList.Count()</b>
                         </FooterTemplate>
                     </RadzenDataGrid>
                     <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                         <RadzenColumn Offset="11" Style="text-align:right;">
-                            <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="@Localizer["Nach Oben"].Value" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
                         </RadzenColumn>
                     </RadzenRow>
 

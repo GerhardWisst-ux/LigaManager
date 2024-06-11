@@ -1,11 +1,13 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -22,7 +24,6 @@ namespace LigaManagerManagement.Web.Pages
     {
         protected string DisplayErrorLiga = "none";
         public string Liganame = "Bundesliga";
-        public bool value = true;
         protected int LigaID;
         public Density Density = Density.Compact;
 
@@ -51,7 +52,6 @@ namespace LigaManagerManagement.Web.Pages
         public List<Verein> Vereine { get; set; }
 
         public IEnumerable<Liga> Ligen { get; set; }
-
         public Verein Verein { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
@@ -68,8 +68,8 @@ namespace LigaManagerManagement.Web.Pages
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
-        string type = "Click";
-        bool multiple = true;
+        [Inject]
+        public IStringLocalizer<SaisonenList> Localizer { get; set; }
 
 
         protected override async Task OnInitializedAsync()
@@ -83,7 +83,7 @@ namespace LigaManagerManagement.Web.Pages
 
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/saisonen");
+                string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
@@ -95,9 +95,6 @@ namespace LigaManagerManagement.Web.Pages
                 var columns = Ligen.ElementAt(i);
                 LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Id, columns.Liganame));
             }
-
-            var liga = (await LigaService.GetLiga(Globals.LigaID));
-            Liganame = liga.Liganame;
 
             SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
 
@@ -111,22 +108,35 @@ namespace LigaManagerManagement.Web.Pages
             {
                 var result = VereineSaison.FindIndex(s => s.VereinNr == Vereine[i].VereinNr);
 
-                if (Id != null)
+                if (Id == "0")
+                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
+                else
                 {
                     if (result == -1)
                         VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
                     else
                         VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
                 }
-                else                   
-                    VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, false));
-            }         
+            }
+
+            Saison saison;
+            //if (Id == "0")
+            //{
+            //    LigaID = 1;
+            //    Liganame = "Bundesliga";
+            //}                
+            //else
+            //{
+            //    saison = await SaisonenService.GetSaison(Convert.ToInt32(Id));
+            //    LigaID = saison.LigaID;
+            //    Liganame = saison.Liganame;
+            //}                
 
             DisplayErrorLiga = "none";
-            LigaID = 0;
+            
             Globals.bVisibleNavMenuElements = true;
         }
-      
+
         [Bind]
         public class DisplayVerein
         {
@@ -147,7 +157,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Verein = await VereineService.GetVerein(Convert.ToInt32(aSelectedId));
 
-                var isVereinInList = vereinesaisonSelected.FirstOrDefault(x => x.Vereinsname1 == Verein.Vereinsname1);                                                
+                var isVereinInList = vereinesaisonSelected.FirstOrDefault(x => x.Vereinsname1 == Verein.Vereinsname1);
 
                 if (vereinesaisonSelected == null)
                     throw new Exception("vereinesaisonSelected null");
@@ -171,7 +181,7 @@ namespace LigaManagerManagement.Web.Pages
 
             }
         }
-       
+
 
         public async void LigaChange(ChangeEventArgs e)
         {

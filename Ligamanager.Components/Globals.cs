@@ -1,5 +1,8 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using LigaManagement.Web.Classes;
+using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Ligamanager.Components
 {
@@ -29,7 +32,7 @@ namespace Ligamanager.Components
         public static int CLPokalSaisonID;
         public static int KaderVereinNr;
         public static int maxSpieltag;
-        public static bool bVisibleNavMenuElements = false;
+        public static bool bVisibleNavMenuElements;
 
         public static Dictionary<string, string> VereinAktSaison = new Dictionary<string, string>();
         public static int currentVereinID;
@@ -42,7 +45,36 @@ namespace Ligamanager.Components
             Vorrunde = 4,
             Rückrunde = 5,
             EwigeTabelle = 6
-        }       
+        }
+
+
+        public static string GetSprache_LandKZ()
+        {
+            string LandKz = "DE";
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Sprache_LandKZ FROM [Einstellungen] ", conn);
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        LandKz = reader["Sprache_LandKZ"].ToString().Trim();
+                      
+                    }
+                }
+                conn.Close();
+                return LandKz;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return LandKz;
+            }
+        }
 
 
         //public static int MaxSpieltag(int SaisonID)

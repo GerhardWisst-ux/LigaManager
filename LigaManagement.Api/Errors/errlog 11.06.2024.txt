@@ -1,0 +1,56 @@
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 08:14:29
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 08:39:44
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 08:59:35
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 08:59:39
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 08:59:53
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 09:04:22
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Hyperlink
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineL3() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 303
+Date/Time: 11.06.2024 09:04:28
+============================================

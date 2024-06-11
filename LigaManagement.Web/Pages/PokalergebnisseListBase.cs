@@ -5,6 +5,7 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Radzen;
 using Radzen.Blazor;
@@ -13,6 +14,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
+using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
 using static LigamanagerManagement.Web.Pages.EditPokalspieltagBase;
@@ -77,6 +79,8 @@ namespace LigaManagement.Web.Pages
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
+
+              
                 SaisonenList = new List<DisplaySaison>();
 
 
@@ -110,9 +114,7 @@ namespace LigaManagement.Web.Pages
 
                 if (Globals.currentPokalRunde != null)
                     OnClickHandler();
-
-                Globals.bVisibleNavMenuElements = true;
-
+                                
                 RundeList = new List<DisplayRunde>
                 {                    
                     new DisplayRunde("2", "2. Runde"),
@@ -121,6 +123,8 @@ namespace LigaManagement.Web.Pages
                        new DisplayRunde("HF", "Halbfinale"),
                         new DisplayRunde("F", "Finale")
                 };
+
+                Globals.bVisibleNavMenuElements = true;
             }
             catch (Exception ex)
             {

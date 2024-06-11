@@ -1,4 +1,4 @@
-﻿@page "/editsaison/{Id}"
+﻿@page "/Ligamanager/editsaison/{Id}"
 @inherits LigaManagerManagement.Web.Pages.SaisonenListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService
@@ -45,13 +45,12 @@ else
     <EditForm Model="Saison" OnValidSubmit="SaveSaison">
         <RadzenSteps Change="@OnChange" CanChange="@CanChange">
             <Steps>
-                <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
+                <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
                     <RadzenRow>
-                        <RadzenLabel Text="Grunddaten" class="col-sm-3 pl-0">Grunddaten</RadzenLabel>
+                        <RadzenLabel Text="Grunddaten" class="col-sm-3 pl-0">@Localizer["Grunddaten"].Value</RadzenLabel>
                     </RadzenRow>
                     <br />
-                    <br />
-                    <div class="form-group">
+                    <div class="form-group-row pt-2">
                         @if (Id == null)
                         {
                             <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
@@ -64,12 +63,11 @@ else
                         }
                         <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group-row pt-2">
                         @if (Id == null)
                         {
-                            <RadzenLabel Text="Liganame" class="col-sm-3 pl-0" Component="cboLiga">Liganame</RadzenLabel>
-                            <select id="cboLiga" name="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
-                                @* <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option> *@
+                            <RadzenLabel Text="@Localizer["Liganame"].Value" class="col-sm-3 pl-0" Component="cboLiga">@Localizer["Liganame"].Value</RadzenLabel>
+                            <select id="cboLiga" name="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">                                
                                 @if (LigenList != null)
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
@@ -81,84 +79,79 @@ else
                         }
                         else
                         {
-                            <RadzenLabel Text="Liganame" class="col-sm-3 pl-0" Component="cboLigaDisabled">Liganame</RadzenLabel>
+                            <RadzenLabel Text="@Localizer["Liganame"].Value" class="col-sm-3 pl-0" Component="cboLiga">@Localizer["Liganame"].Value</RadzenLabel>
                             <select id="cboLigaDisabled" name="cboLigaDisabled" class="form-control col-9 dropdown" @onchange="LigaChange">
-                                @* <option value="@Convert.ToInt32(Globals.currentLiga)">@Liganame</option> *@
                                 @if (LigenList != null)
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                                     {
-                                        <option value="@liga.LigaID"> @liga.Liganame</option>
+
+                                        @if (liga.LigaID == LigaID)
+                                        {
+                                            <option selected value="@liga.LigaID"> @liga.Liganame</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@liga.LigaID"> @liga.Liganame</option>
+                                        }
                                     }
                                 }
                             </select>
                         }
-                        <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                        <label title="@Localizer["Bitte Liga wählen"].Value" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
                     </div>
-                    <div class="form-group">
-                        <RadzenLabel Text="Anzahl" class="col-sm-3" Component="txtAnzahlVereine">Anzahl</RadzenLabel>
-                        <RadzenNumeric required name="txtAnzahlVereine" id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-9"></RadzenNumeric>
-                        @* <ValidationMessage For="()=>Saison.AnzahlVereine"></ValidationMessage> *@
+                    <div class="form-group-row pt-2">
+                        <RadzenLabel Text="AnzahlVereine" class="col-sm-3 pl-0" Component="txtVereinsname2">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.AnzahlVereine"></ValidationMessage>
                     </div>
-                    <div class="form-group">
-                        <RadzenLabel Text="Aktuell" class="col-sm-3 pl-0" Component="chkAktiv">Aktuell</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;width:40px;max-width:40px;" class="form-control col-sm-1" Name="chkAktiv" />
-                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                        </RadzenColumn>
+                    <div class="form-group pt-2">
+                        <RadzenLabel Text="@Localizer["Aktuell"].Value" class="col-sm-3 pl-0" Component="chkAktuell">@Localizer["Aktuell"].Value</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktuell" />
+                        <InputNumber id="txtPlatzhalter" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
                         <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
                     </div>
-
-                    <div class="form-group">
-                        <RadzenLabel Text="Abgeschlossen" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
-                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                        </RadzenColumn>
+                    <div class="form-group pt-2">
+                        <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                        <InputNumber id="txtPlatzhalter2" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
-                    <RadzenButton Text="Speichern" Click="@SaveGrunddaten" />
+                    <RadzenButton Text="@Localizer["Speichern"].Value" Click="@SaveGrunddaten" />
                 </RadzenStepsItem>
-                <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
+                <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
                     <RadzenRow>
                         <RadzenRow>
-                            <RadzenLabel Text="Vereine zuordnen" class="col-sm-3 pl-0">Vereine zuordnen</RadzenLabel>
+                            <RadzenLabel Text="@Localizer["Vereine zuordnen"].Value" class="col-sm-12 pl-0">@Localizer["Vereine zuordnen"].Value</RadzenLabel>
                         </RadzenRow>
                         <br />
                         <br />
                     </RadzenRow>
                     <div class="form-group">
                         <ul class="ul">
-                            @foreach (var verein in VereineList.OrderBy(x => x.VereinID))
+                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1).OrderByDescending(x => x.VereinChecked))
                             {
                                 string Id = @verein.VereinID;
                                 <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkvereindisabled" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
                             }
                         </ul>
-                    </div>
-                    <div class="form-group">
-                        <ul class="ul">
-                            @foreach (var verein in VereineSaisonList.OrderBy(x => x.VereinChecked))
-                            {
-                                string Id = @verein.VereinID;
-                                <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
-                            }
-                        </ul>
-                    </div>
+                    </div>                    
                 </RadzenStepsItem>
-                <RadzenStepsItem PreviousText="Voriger Schritt" NextText="Nächster Schritt">
+                <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
                     <RadzenRow>
-                        <RadzenLabel Text="Zusammenfassung" class="col-sm-3 pl-0">Zusammenfassung</RadzenLabel>
+                        <RadzenLabel Text="@Localizer["Zusammenfassung"].Value" class="col-sm-3 pl-0">@Localizer["Zusammenfassung"].Value</RadzenLabel>
                     </RadzenRow>
                     <br />
                     <br />
                     <div class="form-group">
                         @if (Id == null)
                         {
-                            <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonname">Saisonname</RadzenLabel>
+                            <RadzenLabel Text="@Localizer["Saisonname"].Value" class="col-sm-3 pl-0" Component="txtSaisonname">@Localizer["Saisonname"].Value</RadzenLabel>
                             <RadzenTextBox required name="txtSaisonname" id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
                         }
                         else
                         {
-                            <RadzenLabel Text="Saisonname" class="col-sm-3 pl-0" Component="txtSaisonnameDisabled">Saisonname</RadzenLabel>
+                            <RadzenLabel Text="@Localizer["Saisonname"].Value" class="col-sm-3 pl-0" Component="txtSaisonnameDisabled">@Localizer["Saisonname"].Value</RadzenLabel>
                             <RadzenTextBox required name="txtSaisonnameDisabled" id="txtSaisonnameDisabled" @bind-Value="Saison.Saisonname" class="form-control col-9"></RadzenTextBox>
                         }
                         <ValidationMessage For="()=>Saison.Saisonname"></ValidationMessage>
@@ -168,7 +161,7 @@ else
                         @if (Id == null)
                         {
                             <select id="cboLiga" name="cboLiga" class="form-control col-9 dropdown" @onchange="LigaChange">
-                                <option value="0" required>Liga auswählen</option>
+                                <option value="0" required>@Localizer["Liga auswählen"].Value</option>
                                 @if (LigenList != null)
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
@@ -190,12 +183,11 @@ else
                         {
                             <select id="cboLigaDisabled" name="cboLigaDisabled" class="form-control col-9 dropdown" @onchange="LigaChange">
 
-                                <option value="0" required>Liga auswählen</option>
+                                <option value="0" required>@Localizer["Liga auswählen"].Value</option>
                                 @if (LigenList != null)
                                 {
                                     @foreach (var liga in LigenList.OrderBy(o => o.LigaID))
                                     {
-
                                         @if (liga.LigaID == LigaID)
                                         {
                                             <option selected value="@liga.LigaID"> @liga.Liganame</option>
@@ -208,41 +200,44 @@ else
                                 }
                             </select>
                         }
-                        <label title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                        <label title="@Localizer["Bitte Liga wählen"].Value" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
+
                     </div>
                     <div class="form-group">
-                        <RadzenLabel Text="Anzahl" class="col-sm-3 pl-0" Component="txtAnzahlVereine">AnzahlVereine</RadzenLabel>
-                        <RadzenNumeric required name="txtAnzahlVereine" id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-9"></RadzenNumeric>
+                        <RadzenLabel Text="@Localizer["Anzahl Vereine"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-sm-9"></InputNumber>
                         <ValidationMessage For="()=>Saison.AnzahlVereine"></ValidationMessage>
                     </div>
-                    <div class="form-group">
-                        <RadzenLabel Text="Aktuell" class="col-sm-3 pl-0" Component="chkAktiv">Aktuell</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px;width:40px;max-width:40px;" class="form-control col-sm-1" Name="chkAktiv" />
-                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                        </RadzenColumn>
+                    <div class="form-group pt-2">
+                        <RadzenLabel Text="@Localizer["Aktuell"].Value" class="col-sm-3 pl-0" Component="chkAktuell">@Localizer["Aktuell"].Value</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktuell" />
+                        <InputNumber id="txtPlatzhalter3" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
                         <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
                     </div>
 
-                    <div class="form-group">
-                        <RadzenLabel Text="Abgeschlossen" class="col-sm-3 pl-0" Component="chkAbgeschlossen">Abgeschlossen</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
-                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
-                        </RadzenColumn>
+                    <div class="form-group pt-2">
+                        <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
+                        <InputNumber id="txtPlatzhalter4" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
-                    <RadzenRow>
-                        <RadzenLabel Text="Vereine" class="col-sm-3 pl-0">Vereine</RadzenLabel>
-                    </RadzenRow>
-                    <div class="form-group">
+                    
+                     <div class="form-group pt-2">
+                        <RadzenRow>
+                            <RadzenLabel Text="@Localizer["Vereine"].Value" class="col-sm-3 pl-0">Vereine</RadzenLabel>
+                        </RadzenRow>
+                    </div>
+                    
+                    <div class="form-group pt-2">
                         <ul class="ul">
-                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                            @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1).OrderByDescending(x => x.VereinChecked))
                             {
                                 string Id = @verein.VereinID;
                                 <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkvereindisabled" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
                             }
                         </ul>
                     </div>
-                    <div class="form-group">
+                    @* <div class="form-group">
                         <ul class="ul">
                             @foreach (var verein in VereineSaisonList.OrderBy(x => x.Vereinname1))
                             {
@@ -250,8 +245,8 @@ else
                                 <li><input data-bind=" @verein.VereinID" class="col-sm-4" type="checkbox"><span>@verein.Vereinname1</span></li>
                             }
                         </ul>
-                    </div>
-                    <RadzenButton Text="Speichern" id="btnSaveSaison" Click="@SaveSaison" />
+                    </div> *@
+                    <RadzenButton Text="@Localizer["Speichern"].Value" id="btnSaveSaison" Click="@SaveSaison" />
                 </RadzenStepsItem>
             </Steps>
         </RadzenSteps>
@@ -296,8 +291,7 @@ else
 
     private async Task LoadSaison()
     {
-        IsLoading = true;
-        StateHasChanged();
+        IsLoading = true;        
         Saison = await _SaisonenService.GetSaison(Convert.ToInt32(Id));
         IsLoading = false;
         StateHasChanged();

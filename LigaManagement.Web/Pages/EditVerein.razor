@@ -1,4 +1,4 @@
-﻿@page "/createverein"
+﻿@page "/createverein/{LandKz}"
 @page "/editverein/{Id}/{LandKz}"
 @using LigaManagement.Web.Services.Contracts;
 @using LigaManagerManagement.Models;
@@ -184,14 +184,14 @@ else
                         <div class="form-group">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga2">@Localizer["Liga2"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Liga2" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga2" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Liga2"></ValidationMessage>
                         </div>
                         <div class="form-group">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Pokal"></ValidationMessage>
                         </div>
@@ -216,6 +216,8 @@ else
 
     [Parameter]
     public string LandKz { get; set; }
+
+    public string _LandKz { get; set; }
 
     private Verein Verein { get; set; } = new Verein();
     private VereinAUS VereinAus { get; set; } = new VereinAUS();
@@ -246,6 +248,7 @@ else
     private async Task LoadVerein()
     {
         IsLoading = true;
+
 
         if (LandKz == "DE")
         {
@@ -292,25 +295,31 @@ else
         {
             if (Verein.Vereinsname1 == null)
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Verein", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (Verein.Vereinsname2 == null)
+            else if (Verein.Vereinsname2 == null)
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (Verein.Stadion == null)
+            else if (Verein.Stadion == null)
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (Verein.Gegruendet == 0)
+            else if (Verein.Erfolge == null)
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Verein", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (Verein.Gegruendet == 0)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
         }
@@ -322,19 +331,27 @@ else
                 bError = true;
             }
 
-            if (VereinAus.Vereinsname2 == null)
+           else if (VereinAus.Vereinsname2 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (VereinAus.Stadion == null)
+            else if (VereinAus.Stadion == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (VereinAus.Gegruendet == 0)
+            
+            else if (VereinAus.Erfolge == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+
+            else if (VereinAus.Gegruendet == 0)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
                 bError = true;
@@ -400,6 +417,17 @@ else
             //     Verein.VereinNr = iMax + 1;
             // }
 
+
+            // if (LigaID == 1)
+            //     LandKz = "DE";
+            // else if (LigaID == 4)
+            //     LandKz = "PL";
+            // else if (LigaID == 6)
+            //     LandKz = "IT";
+            // else if (LigaID == 7)
+            //     LandKz = "FR";
+            // else if (LigaID == 8)
+            //     LandKz = "ES";
 
             if (LandKz == "DE")
                 await _VereineService.CreateVerein(Verein);
@@ -468,6 +496,6 @@ else
 
     private void Zurueck_Click()
     {
-        _navigationManager.NavigateTo("vereine");
+        _navigationManager.NavigateTo("Ligamanager/vereine");
     }
 }

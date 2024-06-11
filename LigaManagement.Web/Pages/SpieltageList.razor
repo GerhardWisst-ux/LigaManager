@@ -108,12 +108,12 @@ else
                     <span class="ml-3">
                         @if (VisibleBtnNew)
                         {
-                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
+                            <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title="Neuanlage" class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
 
                         }
                         else
                         {
-                            <NavLink href="@($"createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
+                            <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title="Neuanlage" style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
 
                         }
                     </span>
@@ -201,7 +201,7 @@ else
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
-                                    <NavLink href="@($"editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                    <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
                            @*  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">

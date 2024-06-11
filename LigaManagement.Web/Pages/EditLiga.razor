@@ -23,56 +23,56 @@
     <div class="col-12">
         <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
             <div class="form-group row">
-                <RadzenLabel Text="Liganame" class="col-sm-3" Component="txtLiganame">Liganame</RadzenLabel>
+                <RadzenLabel Text="Liganame" class="col-sm-3" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="(()=>Liga.Liganame)"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Liganummer" class="col-sm-3" Component="txtSaisonen">Liganummer</RadzenLabel>
+                <RadzenLabel Text="Liganummer" class="col-sm-3" Component="txtSaisonen">@Localizer["Liganummer"].Value</RadzenLabel>
                 <InputNumber required id="txtSaisonen" @bind-Value="Liga.Liganummer" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Liganummer"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">Verband</RadzenLabel>
+                <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="(()=>Liga.Verband)"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Erstaustragung" class="col-sm-3" Component="txtErstaustragung">Erstaustragung</RadzenLabel>
+                <RadzenLabel Text="Erstaustragung" class="col-sm-3" Component="txtErstaustragung">@Localizer["Erstaustragung"].Value</RadzenLabel>
                 <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control col-sm-9"></InputDate>
                 <ValidationMessage For="()=>Liga.Erstaustragung"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Saisonen" class="col-sm-3" Component="txtSaisonen">Saisonen</RadzenLabel>
+                <RadzenLabel Text="Saisonen" class="col-sm-3" Component="txtSaisonen">@Localizer["Saisonen"].Value</RadzenLabel>
                 <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Saisonen"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Rekordspieler" class="col-sm-3" Component="txtRekordspieler">Rekordspieler</RadzenLabel>
+                <RadzenLabel Text="Rekordspieler" class="col-sm-3" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
                 <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="()=>Liga.Rekordspieler"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Spiele Rekordspieler" class="col-sm-3" Component="txtSaisonen">Spiele Rekordspieler</RadzenLabel>
+                <RadzenLabel Text="Spiele Rekordspieler" class="col-sm-3" Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
                 <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
             </div>
-            <div class="form-group">
-                <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Aktiv</RadzenLabel>
+            <div class="form-group row">
+                <RadzenLabel Text="Label" class="col-sm-3" Component="chkAktiv">@Localizer["Active"].Value</RadzenLabel>
                 <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
             </div>
-            <br />
-            <div class="form-group py-2">
-                <RadzenButton title="Speichert Liga ab" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="Speichern">
-                    <span class="glyphicon glyphicon-save"></span>Speichern
+            
+            <div class="form-group row">
+                <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
+                    <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                 </RadzenButton>
-                <RadzenButton title="Löscht Liga" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
-                    <span class="glyphicon glyphicon-remove"></span>Löschen
+                <RadzenButton title="@Localizer["Löscht Liga"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                    <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                 </RadzenButton>
-                <RadzenButton title="Zurück zu Ligen" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                <RadzenButton title="@Localizer["Zurück zu Ligen"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
 
                 </RadzenButton>
             </div>
@@ -83,7 +83,6 @@
 @code {
     [Parameter]
     public string Id { get; set; }
-
     private Liga Liga { get; set; } = new Liga();
     private string Titel { get; set; }
     public bool IsLoading { get; set; }
@@ -107,7 +106,7 @@
             }
             else
             {
-                Titel = "Bearbeiten";
+                Titel = @Localizer["Bearbeiten"].Value;
                 await LoadLiga();
             }
         }
@@ -192,8 +191,7 @@
     }
     protected async Task<bool> Confirm()
     {
-        string message = "Möchten Sie diesen Verein tatsächlich löschen?";
-
+        string message = "Möchten Sie diese Liga tatsächlich löschen?";
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
 
@@ -208,6 +206,6 @@
 
     private void Zurueck_Click()
     {
-        _navigationManager.NavigateTo("ligen");
+        _navigationManager.NavigateTo("Ligamanager/ligen");
     }
 }

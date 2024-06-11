@@ -63,10 +63,10 @@ else
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>                         
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="350px" Sortable=true Title="Liganame" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="200px" Sortable=true Title="Saisonen" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="250px" Sortable=true Title="Verband" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="Erstaustragung" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="350px" Sortable=true Title="@Localizer["Liganame"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="200px" Sortable=true Title="@Localizer["Saisonen"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="250px" Sortable=true Title="@Localizer["Verband"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="@Localizer["Erstaustragung"].Value" />
 
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" Title="Aktiv" Width="10%" Filterable="false">
                             <Template Context="data">
@@ -83,12 +83,12 @@ else
                     <FooterTemplate>
                     </FooterTemplate>
                     <FooterTemplate>
-                        Anzahl Ligen: <b>@LigenList.Count()</b>
+                        @Localizer["Anzahl Ligen"].Value: <b>@LigenList.Count()</b>
                     </FooterTemplate>
                 </RadzenDataGrid>
                 <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
                     <RadzenColumn Offset="11" Style="text-align:right;">
-                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
                     </RadzenColumn>
                 </RadzenRow>
             </div>

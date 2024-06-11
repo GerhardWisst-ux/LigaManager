@@ -31,7 +31,7 @@
     <RadzenCard class="m-0">
         <div class="d-flex flex-row rz-shadow-3">
             <div class="card-body">
-                <h2 style="display:inline-block;">Statistiken</h2>
+                <h2 style="display:inline-block;">@Localizer["Statistiken"].Value</h2>
             </div>
         </div>
     </RadzenCard>
@@ -39,14 +39,14 @@
 
     <RadzenTabs @bind-SelectedIndex=@selectedIndex Change=@OnChange>
         <Tabs>
-            <RadzenTabsItem Text="Verein gegen Verein">
+            <RadzenTabsItem Text="@Localizer["Verein gegen Verein"].Value">
                 <RadzenCard Style="height:70vh;" class="m-0">
                     <div class="content">
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
                                 <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein1Change">
-                                    <option selected="selected">Verein auswählen</option>
+                                    <option value="" selected required>@Localizer["Verein auswählen"].Value</option>
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                     {
                                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -57,7 +57,7 @@
                             <div class="col-sm-6">
                                 <label style="display:inline-block;" class="col-sm-2">Verein</label>
                                 <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
-                                    <option selected="selected">Verein auswählen</option>
+                                    <option value="" selected required>@Localizer["Verein auswählen"].Value</option>
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                     {
                                         <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -67,8 +67,8 @@
                         </div>
                         <div class="form-group row">
                             <div class="col-sm-12">
-                                <label style="display:@DisplayElements;">Spielpaarungen: @Spielergebnisse.Count() </label>
-                                <label style="display:@DisplayElements;">Statistiken: @Statistik</label>
+                                <label style="display:@DisplayElements;">@Localizer["Spielpaarungen"].Value : @Spielergebnisse.Count() </label>
+                                <label style="display:@DisplayElements;">@Localizer["Statistiken"].Value> : @Statistik</label>
                             </div>
                         </div>
                         <div class="form-group row">
@@ -79,7 +79,7 @@
 
                                     <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                         <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                        <RadzenLabel Text="Alle auf einer Seite" Component="allowVirtualization" />
+                                        <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
                                     </RadzenStack>
 
                                     <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
@@ -103,7 +103,7 @@
                                                         <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenColumn Size="1" SizeXS="1">                                                      
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
+                                                        <RadzenText title="@Localizer["Statistiken"].Value" TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
                                                     </RadzenColumn>
                                                     <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
                                                         <Template Context="data">
@@ -131,7 +131,7 @@
                     </div>
                 </RadzenCard>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Höchste Heimsiege">
+            <RadzenTabsItem Text="@Localizer["Höchste Heimsiege"].Value">
                 <RadzenCard Style="height:85vh;" class="m-0">
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -142,7 +142,7 @@
 
                                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                     <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                    <RadzenLabel Text="Alle auf einer Seite" Component="allowVirtualization" />
+                                    <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
                                 </RadzenStack>
 
                                 <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
@@ -184,7 +184,7 @@
                     </div>
                 </RadzenCard>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Höchste Auswärtssiege">
+            <RadzenTabsItem Text="@Localizer["Höchste Auswärtssiege"].Value">
                 <RadzenCard Style="height:85vh;" class="m-0">
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -195,7 +195,7 @@
 
                                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                     <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                    <RadzenLabel Text="Alle auf einer Seite" Component="allowVirtualization" />
+                                    <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
                                 </RadzenStack>
 
                                 <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
@@ -238,7 +238,7 @@
                     </div>
                 </RadzenCard>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Torreichste Spiele">
+            <RadzenTabsItem Text="@Localizer["Torreichste Spiele"].Value">            
                 <RadzenCard Style="height:85vh;" class="m-0">
                     <div class="form-group row">
                         <div class="col-sm-12">
@@ -248,7 +248,7 @@
 
                                 <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
                                     <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                    <RadzenLabel Text="Alle auf einer Seite" Component="allowVirtualization" />
+                                    <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
                                 </RadzenStack>
 
                                 <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : "")"
@@ -296,7 +296,7 @@
                     </div>
                 </RadzenCard>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Statistik Verein">
+            <RadzenTabsItem Text="@Localizer["Statistik Verein"].Value">
                 <RadzenCard Style="height:75vh;" class="m-0">
                     <div class="content">
                         <div class="form-group row">
@@ -539,7 +539,7 @@
                     </div>
                 </RadzenCard>
             </RadzenTabsItem>
-            <RadzenTabsItem Text="Torjägerliste">
+            <RadzenTabsItem Text="@Localizer["Torjägerliste"].Value">
                 <RadzenCard Style="height:75vh;" class="m-0">
                     <div class="content">
                         <div class="form-group row">

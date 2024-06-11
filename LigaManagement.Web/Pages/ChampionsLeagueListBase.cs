@@ -161,6 +161,7 @@ namespace LigaManagement.Web.Pages
 
                 VisibleBtnNew = "hidden";
 
+                Globals.bVisibleNavMenuElements = true;
             }
             catch (Exception ex)
             {
