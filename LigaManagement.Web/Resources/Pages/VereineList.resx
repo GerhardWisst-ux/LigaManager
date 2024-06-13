@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Anzahl Vereine" xml:space="preserve">
+    <value>Anzahl Vereine</value>
+  </data>
   <data name="Anzeigename" xml:space="preserve">
     <value>Anzeigename</value>
   </data>
@@ -132,6 +135,9 @@
   <data name="Gegruendet" xml:space="preserve">
     <value>Gegründet</value>
   </data>
+  <data name="Kurzname" xml:space="preserve">
+    <value>Kurzname</value>
+  </data>
   <data name="Liga1" xml:space="preserve">
     <value>Liga 1</value>
   </data>
@@ -146,6 +152,9 @@
   </data>
   <data name="Neuanlage" xml:space="preserve">
     <value>Neuanlage</value>
+  </data>
+  <data name="Nr" xml:space="preserve">
+    <value>Nr</value>
   </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Nächster Spieltag</value>
@@ -179,6 +188,18 @@
   </data>
   <data name="Vereine" xml:space="preserve">
     <value>Vereine</value>
+  </data>
+  <data name="Vereine Deutschland" xml:space="preserve">
+    <value>German Clubs</value>
+  </data>
+  <data name="Vereine La Liga" xml:space="preserve">
+    <value>Vereine La Liga</value>
+  </data>
+  <data name="Vereine Ligue 1" xml:space="preserve">
+    <value>Vereine Ligue 1</value>
+  </data>
+  <data name="Vereine Premier League" xml:space="preserve">
+    <value>Vereine Premier League</value>
   </data>
   <data name="Voriger Spieltag" xml:space="preserve">
     <value>Voriger Spieltag</value>

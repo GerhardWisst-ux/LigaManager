@@ -167,7 +167,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
                         verein.Vereinsname1 = reader["Verein1"].ToString();
                         verein.Vereinsname2 = reader["Verein1"].ToString();
-                        verein.Hyperlink = reader["Hyperlink"].ToString();                        
+                        //verein.Hyperlink = reader["Hyperlink"].ToString();                        
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
                         verein.Stadion = "";
@@ -282,12 +282,14 @@ namespace LigaManagerManagement.Api.Models
         public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
         {
             int i = 1;
+            bool bFound = false;
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3", conn);
+                
+                SqlCommand command = new SqlCommand("SELECT Vereine.Vereinsname1,VereineSaison.[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison] inner join vereine on Vereine.VereinNr = VereineSaison.VereinNr order by Vereine.Vereinsname1", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -295,12 +297,14 @@ namespace LigaManagerManagement.Api.Models
                     while (reader.Read())
                     {
                         verein = new VereinAktSaison();
-                        verein.Id = i;
+                        verein.Id = i;                        
                         verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
-                        verein.Vereinsname1 = reader["Verein1"].ToString();
-                        verein.Vereinsname2 = reader["Verein1"].ToString();
-                        verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname1"].ToString();
+
+                        
+                        //verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
                         verein.Stadion = "";
@@ -311,8 +315,40 @@ namespace LigaManagerManagement.Api.Models
                         vereinelist.Add(verein);
 
                         i++;
+                        bFound = true;
                     }
                 }
+
+                if (bFound == false)
+                {
+                    
+                    verein = null;
+                    vereinelist = new List<VereinAktSaison>();
+                    command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3", conn);
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            verein = new VereinAktSaison();
+                            verein.Id = i;
+                            verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
+                            verein.Vereinsname1 = reader["Verein1"].ToString();
+                            verein.Vereinsname2 = reader["Verein1"].ToString();
+                            // verein.Hyperlink = "";
+                            verein.Fassungsvermoegen = 0;
+                            verein.Erfolge = "";
+                            verein.Stadion = "";
+                            verein.Gegruendet = 0;
+                            verein.Pokal = true;
+                            verein.Bundesliga = true;
+
+                            vereinelist.Add(verein);
+                            i++;
+
+                        }
+                    }
+                }
+                
                 conn.Close();
                 return vereinelist;
             }
@@ -360,7 +396,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3 Where Verein1_Nr =" + intvereinnr, conn);
+                SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr Where VereineSaison.VereinNr=" + intvereinnr, conn);
                 Verein verein = null;
 
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -368,10 +404,10 @@ namespace LigaManagerManagement.Api.Models
                     while (reader.Read())
                     {
                         verein = new Verein();
-                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
-                        verein.Vereinsname1 = reader["Verein1"].ToString();
-                        verein.Vereinsname2 = reader["Verein1"].ToString();
-                        verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname1"].ToString();
+                        //verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
                         verein.Stadion = "";

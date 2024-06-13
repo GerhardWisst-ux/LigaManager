@@ -117,28 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswärts" xml:space="preserve">
-    <value>Away</value>
+  <data name="Alle Pokalendspiele" xml:space="preserve">
+    <value>Alle Pokalendspiele</value>
+  </data>
+  <data name="Auswählen" xml:space="preserve">
+    <value>Auswählen</value>
+  </data>
+  <data name="Bearbeiten" xml:space="preserve">
+    <value>Bearbeiten</value>
+  </data>
+  <data name="Begegnungen" xml:space="preserve">
+    <value>Begegnungen</value>
+  </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Datum</value>
+  </data>
+  <data name="Gast" xml:space="preserve">
+    <value>Gast</value>
   </data>
   <data name="Heim" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
+  <data name="Keine Daten zum Anzeigen" xml:space="preserve">
+    <value>Keine Daten zum Anzeigen</value>
   </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
+  <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
+    <value>Neuanlage Pokal-Spiel</value>
   </data>
-  <data name="Spieltag" xml:space="preserve">
-    <value>Match day</value>
+  <data name="Ort" xml:space="preserve">
+    <value>Ort</value>
   </data>
-  <data name="Tore" xml:space="preserve">
-    <value>Goals:</value>
+  <data name="Pokalergebnisse" xml:space="preserve">
+    <value>Pokalergebnisse</value>
   </data>
-  <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Goals Average</value>
+  <data name="Runde wählen" xml:space="preserve">
+    <value>Runde wählen</value>
   </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
+  <data name="Saison und Runde auswählen" xml:space="preserve">
+    <value>Saison und Runde auswählen</value>
+  </data>
+  <data name="Saison wählen" xml:space="preserve">
+    <value>Saison wählen</value>
+  </data>
+  <data name="Zurück" xml:space="preserve">
+    <value>Zurück</value>
+  </data>
+  <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
+    <value>Zurück zu Pokalergebnisse</value>
   </data>
 </root>

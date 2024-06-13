@@ -117,28 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswärts" xml:space="preserve">
-    <value>Away</value>
+  <data name="Alle Pokalendspiele" xml:space="preserve">
+    <value>All Cup games</value>
   </data>
-  <data name="Heim" xml:space="preserve">
-    <value>Home</value>
+  <data name="Auswählen" xml:space="preserve">
+    <value>Apply</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
+  <data name="Bearbeiten" xml:space="preserve">
+    <value>Edit</value>
   </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
+  <data name="Begegnungen" xml:space="preserve">
+    <value>Competitions</value>
   </data>
-  <data name="Spieltag" xml:space="preserve">
-    <value>Match day</value>
+  <data name="Datum" xml:space="preserve">
+    <value>Date</value>
   </data>
-  <data name="Tore" xml:space="preserve">
-    <value>Goals:</value>
+  <data name="Gast" xml:space="preserve">
+    <value>Guest</value>
   </data>
-  <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Goals Average</value>
+  <data name="Keine Daten zum Anzeigen" xml:space="preserve">
+    <value>No data to display</value>
   </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
+  <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
+    <value>Create new cup game</value>
+  </data>
+  <data name="Ort" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Pokalergebnisse" xml:space="preserve">
+    <value>Cup results</value>
+  </data>
+  <data name="Runde wählen" xml:space="preserve">
+    <value>Select round</value>
+  </data>
+  <data name="Saison und Runde auswählen" xml:space="preserve">
+    <value>Select saison and round</value>
+  </data>
+  <data name="Saison wählen" xml:space="preserve">
+    <value>Select saison</value>
+  </data>
+  <data name="Zurück" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
+    <value>Back to Cuplist</value>
   </data>
 </root>

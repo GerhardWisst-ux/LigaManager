@@ -48,17 +48,17 @@ else
             
                       <RadzenTabs>
                 <Tabs>
-                    <RadzenTabsItem Text="Vereine Deutschland">
+                    <RadzenTabsItem Text="Bundesliga">
                       <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                         AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                         TItem="Verein" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
-                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 @* <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="10%" Filterable="false" Sortable="false">
@@ -67,7 +67,7 @@ else
                     </Template>
                  </RadzenDataGridColumn>                
 
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title=@Localizer["Pokal"].Value Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
                     </Template>
@@ -85,27 +85,27 @@ else
             <FooterTemplate>
              </FooterTemplate>
              <FooterTemplate>
-                    Anzahl Vereine: <b>@VereineList.Count()</b>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineList.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Vereine Premier League">
+                    <RadzenTabsItem Text="Premier League">                    
                     <RadzenDataGrid @ref="gridPL" Data="@VereineListPL" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                         AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                         TItem="VereinAUS" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga" Width="10%" Filterable="false" Sortable="false">
@@ -125,34 +125,34 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"PL"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"PL"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
             <FooterTemplate>
              </FooterTemplate>
              <FooterTemplate>
-                    Anzahl Vereine: <b>@VereineListPL.Count()</b>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListPL.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
-                    </RadzenTabsItem>
-                    <RadzenTabsItem Text="Vereine Serie A">
+                    </RadzenTabsItem>                    
+                        <RadzenTabsItem Text="Serie A">
                  <RadzenDataGrid @ref="gridIT" Data="@VereineListIT" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                         AllowPaging="true" AllowSorting="true" Density="@Density" Responsive=true AllowFiltering="true"
                         TItem="VereinAUS" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
                     <Template Context="data">
@@ -171,34 +171,35 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"IT"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"IT"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
             <FooterTemplate>
              </FooterTemplate>
              <FooterTemplate>
-                    Anzahl Vereine: <b>@VereineListIT.Count()</b>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListIT.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="Vereine Ligue 1">
+                    <RadzenTabsItem Text="Ligue 1">
                           <RadzenDataGrid @ref="gridFR" Data="@VereineListFR" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                         AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                         TItem="VereinAUS" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+          <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
                 @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
@@ -218,7 +219,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"FR"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"FR"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
@@ -227,29 +228,28 @@ else
             <FooterTemplate>
              </FooterTemplate>
              <FooterTemplate>
-                    Anzahl Vereine: <b>@VereineListFR.Count()</b>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListFR.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>
-
-                     <RadzenTabsItem Text="Vereine La Liga">
-
+                         <RadzenTabsItem Text="La Liga">
                           <RadzenDataGrid @ref="gridES" Data="@VereineListES" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                         AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="true"
                         TItem="VereinAUS" Visible="true" AllowColumnResize="true"
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="Nr" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title="Kurzname" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title="Anzeigename" />
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title="Stadion" />
+              <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
                 @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
@@ -272,20 +272,20 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"ES"}")" title="Bearbeiten" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"ES"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>
              <FooterTemplate>
              </FooterTemplate>
              <FooterTemplate>
-                    Anzahl Vereine: <b>@VereineListES.Count()</b>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListES.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="Nach oben" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>

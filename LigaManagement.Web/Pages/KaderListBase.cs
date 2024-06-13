@@ -4,12 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
+using LigaManagement.Web.Shared;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
 using Radzen;
 
 namespace LigaManagerManagement.Web.Pages
@@ -47,6 +50,8 @@ namespace LigaManagerManagement.Web.Pages
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        public IStringLocalizer<KaderList> Localizer { get; set; }
         protected override async Task OnInitializedAsync()
         {
 
@@ -59,7 +64,7 @@ namespace LigaManagerManagement.Web.Pages
 
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
-                string returnUrl = WebUtility.UrlEncode($"/");
+                string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                 NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
             }
 
@@ -77,10 +82,6 @@ namespace LigaManagerManagement.Web.Pages
                 if (verList[i].SaisonID == Globals.SaisonID)
                     VereineList.Add(new DisplayKaderVerein(verList[i].VereinNr.ToString(), verList[i].Vereinsname1, verList[i].Stadion));
             }
-
-            //var kaderspieler = await KaderService.GetSpieler(Convert.ToInt32(Id));
-
-            //PositionsNr = kaderspieler.PositionsNr;
 
             DisplayElements = "none";
             DisplayErrorSaison = "none";   

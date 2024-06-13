@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -62,6 +63,8 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltageFinale { get; set; }
 
+        [Inject]
+        public IStringLocalizer<Pokalergebnisse> Localizer { get; set; }
         protected override async Task OnInitializedAsync()
         {
             try
@@ -75,7 +78,7 @@ namespace LigaManagement.Web.Pages
 
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
-                    string returnUrl = WebUtility.UrlEncode($"/");
+                    string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 

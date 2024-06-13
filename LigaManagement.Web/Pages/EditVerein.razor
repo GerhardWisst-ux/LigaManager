@@ -105,23 +105,23 @@ else
                             <InputNumber required id="txtFassungsvermoegen" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
                         </div>
-                        <div class="form-group row">
+                        <div class="form-group row my-4">
                             <RadzenLabel Text="Hyperlink" class="col-sm-3" Component="txtHyperlink">Hyperlink</RadzenLabel>
                             <InputText required id="txtHyperlink" @bind-Value="Verein.Hyperlink" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row my-4">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkBundesliga">Bundesliga</RadzenLabel>
                             <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkBundesliga" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group row my-4">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">Pokal</RadzenLabel>
                             <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkPokal" />
-                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
                         </div>
@@ -174,21 +174,21 @@ else
                             <InputText required id="txtHyperlink" @bind-Value="VereinAus.Hyperlink" class="form-control col-sm-9"></InputText>
                             <ValidationMessage For="()=>VereinAus.Hyperlink"></ValidationMessage>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row my-4">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga1">@Localizer["Liga1"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga1" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row my-4">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkLiga2">@Localizer["Liga2"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Liga2" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkLiga2" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>VereinAus.Liga2"></ValidationMessage>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group row mb-5">
                             <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkPokal" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">

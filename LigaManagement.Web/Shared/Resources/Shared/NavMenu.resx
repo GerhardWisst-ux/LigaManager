@@ -117,28 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswärts" xml:space="preserve">
-    <value>Away</value>
+  <data name="Charts" xml:space="preserve">
+    <value>Charts</value>
   </data>
-  <data name="Heim" xml:space="preserve">
-    <value>Home</value>
+  <data name="CL" xml:space="preserve">
+    <value>CL</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
+  <data name="Einstellunen" xml:space="preserve">
+    <value>Einstellunen</value>
   </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
+  <data name="Impressum" xml:space="preserve">
+    <value>Impressum</value>
   </data>
-  <data name="Spieltag" xml:space="preserve">
-    <value>Match day</value>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
-  <data name="Tore" xml:space="preserve">
-    <value>Goals:</value>
+  <data name="Kader" xml:space="preserve">
+    <value>Kader</value>
   </data>
-  <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Goals Average</value>
+  <data name="Ligen" xml:space="preserve">
+    <value>Ligen</value>
   </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
+  <data name="Pokal" xml:space="preserve">
+    <value>Pokal</value>
+  </data>
+  <data name="RSS Feed" xml:space="preserve">
+    <value>RSS Feed</value>
+  </data>
+  <data name="Saisonen" xml:space="preserve">
+    <value>Saisonen</value>
+  </data>
+  <data name="Spieltage" xml:space="preserve">
+    <value>Spieltage</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="Statistiken" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
+  <data name="Tabellen" xml:space="preserve">
+    <value>Tabellen</value>
+  </data>
+  <data name="Vereine" xml:space="preserve">
+    <value>Vereine</value>
   </data>
 </root>

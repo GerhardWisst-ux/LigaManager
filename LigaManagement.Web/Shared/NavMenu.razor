@@ -1,4 +1,5 @@
-﻿
+﻿@using Microsoft.Extensions.Localization
+
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -111,7 +112,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" ActiveClass="highlighted-link active" href=@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{Globals.Spieltag}") Match="NavLinkMatch.All">
-                            <span class="oi oi-calendar"></span> Spieltage
+                            <span class="oi oi-calendar"></span> @Localizer["Spieltage"].Value
                         </NavLink>
                     </li>
                 }
@@ -119,7 +120,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" ActiveClass="active" href=@($"Ligamanager/{Globals.currentLigaUrl}/tabellen") Match="NavLinkMatch.All">
-                            <span class="oi oi-list" aria-hidden="true"></span> Tabellen
+                            <span class="oi oi-list" aria-hidden="true"></span> @Localizer["Tabellen"].Value
                         </NavLink>
                     </li>
                 }
@@ -127,7 +128,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/vereine") Match="NavLinkMatch.All">
-                            <span class="oi--grid-three-up"></span>&nbsp;&nbsp; Vereine
+                            <span class="oi--grid-three-up"></span>&nbsp;&nbsp; @Localizer["Vereine"].Value
                         </NavLink>
                     </li>
                 }
@@ -135,7 +136,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/saisonen") Match="NavLinkMatch.All">
-                            <span class="oi oi-timer" aria-hidden="true"></span> Saisonen
+                            <span class="oi oi-timer" aria-hidden="true"></span> @Localizer["Saisonen"].Value
                         </NavLink>
                     </li>
                 }
@@ -143,7 +144,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/ligen") Match="NavLinkMatch.All">
-                            <span class="oi oi-signal" aria-hidden="true"></span> Ligen
+                            <span class="oi oi-signal" aria-hidden="true"></span>@Localizer["Ligen"].Value
                         </NavLink>
                     </li>
                 }
@@ -151,7 +152,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/kader") Match="NavLinkMatch.All">
-                            <span class="oi oi-person" aria-hidden="true"></span> Kader
+                            <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
                         </NavLink>
                     </li>
                 }
@@ -160,7 +161,7 @@
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/statistiken") Match="NavLinkMatch.All">
 
-                            <span class="oi oi-bar-chart" aria-hidden="true"></span>Statistiken
+                            <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
                         </NavLink>
                     </li>
                 }
@@ -168,7 +169,7 @@
                 {
                     <li style="display:none;" class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"rssfeed") Match="NavLinkMatch.All">
-                            <RadzenIcon Icon="launch" />&nbsp; RSS Feed
+                            <RadzenIcon Icon="launch" />&nbsp; @Localizer["RSS Feed"].Value
                         </NavLink>
                     </li>
                 }
@@ -176,7 +177,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"ChartProject") Match="NavLinkMatch.All">
-                            <span class="oi oi-graph"></span> Charts
+                            <span class="oi oi-graph"></span> @Localizer["Charts"].Value
                         </NavLink>
                     </li>
                 }
@@ -184,7 +185,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/pokalergebnisse") Match="NavLinkMatch.All">
-                            <span class="oi oi-aperture"></span> Pokal
+                            <span class="oi oi-aperture"></span> @Localizer["Pokal"].Value
                         </NavLink>
                     </li>
                 }
@@ -192,7 +193,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/championsleague") Match="NavLinkMatch.All">
-                            <span class="oi oi-aperture"></span> CL
+                            <span class="oi oi-aperture"></span> @Localizer["CL"].Value
                         </NavLink>
                     </li>
                 }
@@ -201,7 +202,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/info") Match="NavLinkMatch.All">
-                            <span class="oi--info"></span>&nbsp;&nbsp;Info
+                            <span class="oi--info"></span>&nbsp;&nbsp;@Localizer["Info"].Value
                         </NavLink>
                     </li>
                 }
@@ -210,7 +211,16 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/impressum") Match="NavLinkMatch.All">
-                            <span class="oi oi-ellipses"></span>Impressum
+                            <span class="oi oi-ellipses"></span>@Localizer["Impressum"].Value
+                        </NavLink>
+                    </li>
+                }
+
+                @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"Ligamanager/einstellungen") Match="NavLinkMatch.All">
+                            <i class="fa fa-cog" aria-hidden="true"></i>@Localizer["Einstellugnen"].Value
                         </NavLink>
                     </li>
                 }
@@ -235,12 +245,12 @@
             <NotAuthorized>
                 <li class="nav-item px-4">
                     <NavLink class="nav-link" href="/einstieg" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Start
+                        <span class="oi oi-home" aria-hidden="true"></span> @Localizer["Start"].Value
                     </NavLink>
                 </li>
                 <li class="nav-item px-4">
                     <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
-                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
+                        <span class="oi oi-lock-locked" aria-hidden="true"></span> @Localizer["Login"].Value
                     </NavLink>
                 </li>
             </NotAuthorized>
@@ -255,10 +265,10 @@
 
     @inject NavigationManager NavigationManager;
 
-    private void HandleClick()
-    {
+    [Inject]
+    public IStringLocalizer<NavMenu> Localizer { get; set; }
 
-    }
+   
 
     private void ToggleNavMenu()
     {

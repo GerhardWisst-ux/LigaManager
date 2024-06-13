@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abloesesumme" xml:space="preserve">
+    <value>Transfer fee</value>
+  </data>
+  <data name="Aktiv" xml:space="preserve">
+    <value>Active</value>
+  </data>
   <data name="Anzahl Spieler" xml:space="preserve">
     <value>Numbers of players</value>
   </data>
@@ -135,6 +141,12 @@
   <data name="Bitte Verein wählen" xml:space="preserve">
     <value>Select club</value>
   </data>
+  <data name="Einsätze" xml:space="preserve">
+    <value>Apperances</value>
+  </data>
+  <data name="Geburtsdatum" xml:space="preserve">
+    <value>Birth Date</value>
+  </data>
   <data name="Höchste Auswärtssiege" xml:space="preserve">
     <value>Hightest Awayvictories</value>
   </data>
@@ -147,6 +159,15 @@
   <data name="Nach Oben" xml:space="preserve">
     <value>Got To top</value>
   </data>
+  <data name="Neuanlage" xml:space="preserve">
+    <value>Create new player</value>
+  </data>
+  <data name="Position" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="Rückennummer" xml:space="preserve">
+    <value>Rückennummer</value>
+  </data>
   <data name="Saison" xml:space="preserve">
     <value>Saison</value>
   </data>
@@ -156,11 +177,17 @@
   <data name="Saison und Verein auswählen" xml:space="preserve">
     <value>Select saison and club</value>
   </data>
+  <data name="Speichern" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Speichert Speiler ab" xml:space="preserve">
+    <value>Saves player</value>
+  </data>
   <data name="Spiele" xml:space="preserve">
     <value>Games</value>
   </data>
   <data name="SpielerName" xml:space="preserve">
-    <value>Name</value>
+    <value>Name of plaayer</value>
   </data>
   <data name="SpielerVorname" xml:space="preserve">
     <value>Prename</value>
@@ -173,5 +200,14 @@
   </data>
   <data name="Verein auswählen" xml:space="preserve">
     <value>Select club</value>
+  </data>
+  <data name="Vorname" xml:space="preserve">
+    <value>Prename</value>
+  </data>
+  <data name="Zurück" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="Zurück zu Kaderübersicht" xml:space="preserve">
+    <value>Back to List of Squad</value>
   </data>
 </root>

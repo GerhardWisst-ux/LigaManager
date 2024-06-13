@@ -25,12 +25,12 @@ namespace LigaManagement.Web
                     webBuilder.UseWebRoot("wwwroot");                    
                     webBuilder.UseStaticWebAssets();
 
-                    if (Globals.GetSprache_LandKZ() == "DE")
+                    if (LMSettings.GetSprache_LandKZ() == "DE")
                     {
                         CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
                         CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("de-DE");
                     }
-                    else if (Globals.GetSprache_LandKZ() == "EN")
+                    else if (LMSettings.GetSprache_LandKZ() == "EN")
                     {
                         CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
                         CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");

@@ -113,7 +113,7 @@ else
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="@Localizer["Import"].Value">
+                    <RadzenTabsItem Visible="@ImportVisible" Text="@Localizer["Import"].Value">
                         <div class="form-group row">
                             <div class="col-sm-12 ml-0">
                                 <label for="formFileLg" style="display:inline-block;" title="@ImportCSV" class="form-label col-sm-12">Bitte CSV-Datei wählen</label>
@@ -142,7 +142,7 @@ else
                             </div>
                         </div>
                     </RadzenTabsItem>
-                    <RadzenTabsItem Text="@Localizer["Tabellen anlegen"].Value">
+                    <RadzenTabsItem Visible="@TabellenAnlegenVisible" Text="@Localizer["Tabellen anlegen"].Value">
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <RadzenLabel Style="font-weight:bold;">Tabellen auswählen</RadzenLabel>

@@ -124,7 +124,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
-                    string returnUrl = WebUtility.UrlEncode($"/");
+                    string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
@@ -268,7 +268,7 @@ namespace LigaManagerManagement.Web.Pages
             else if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
             {
                 var vereineSaison = await SpieltagService.GetVereineL3();
-                
+                               
                 Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
@@ -277,13 +277,23 @@ namespace LigaManagerManagement.Web.Pages
                     var columns = Spieltage.ElementAt(i);
 
                     if (vereineSaison == null)
-                        throw new Exception("Vereine sind null");
+                        throw new Exception("VereineSaison sind null");                    
 
-                    columns.Verein1 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
-                    columns.Verein2 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
-                    columns.Verein1Anzeige = columns.Verein1;
-                    columns.Verein2Anzeige = columns.Verein2;
-                    columns.Doppelpunkt = ":";
+                    if (columns.Verein1 != "" && columns.Verein2 != "")
+                    {
+                        columns.Verein1Anzeige = columns.Verein1;
+                        columns.Verein2Anzeige = columns.Verein2;
+                        columns.Doppelpunkt = ":";
+                    }
+                    else
+                    {
+                        columns.Verein1 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
+                        columns.Verein2 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
+                        columns.Verein1Anzeige = columns.Verein1;
+                        columns.Verein2Anzeige = columns.Verein2;
+                        columns.Doppelpunkt = ":";
+                    }
+
                 }
             }
             else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 15)

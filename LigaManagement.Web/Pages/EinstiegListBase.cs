@@ -36,6 +36,9 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorLand = "none";
+
+        protected bool ImportVisible = false;
+        protected bool TabellenAnlegenVisible = false;        
         protected bool isDropdownDisabledLiga = true;
         protected bool isDropdownDisabledSaison = true;
 
@@ -147,6 +150,7 @@ namespace LigaManagement.Web.Pages
         {
             try
             {
+
                 if (TestSQLServer() == false)
                     return;
 
@@ -199,6 +203,16 @@ namespace LigaManagement.Web.Pages
                     isDropdownDisabledSaison = true;
                 else
                     isDropdownDisabledSaison = false;
+
+                if (LMSettings.GetImportVisible() == false)
+                    ImportVisible = false;
+                else  if (LMSettings.GetImportVisible() == true)
+                    ImportVisible = true;
+
+                if (LMSettings.GetTabellenAnlegenVisible() == false)
+                    TabellenAnlegenVisible = false;
+                else if (LMSettings.GetTabellenAnlegenVisible() == true)
+                    TabellenAnlegenVisible = true;
 
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";

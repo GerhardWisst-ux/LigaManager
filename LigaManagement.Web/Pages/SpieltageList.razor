@@ -137,7 +137,7 @@ else
                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                         <Columns>
                             <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="Heim">
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
                             </RadzenDataGridColumn>
                             @if (Globals.LigaNummer == 3)
@@ -194,7 +194,7 @@ else
                                 </RadzenDataGridColumn>
                             }
 
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
 
                             <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title="Datum" />
                             <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" />

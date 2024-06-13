@@ -1,0 +1,119 @@
+﻿@page "/Ligamanager/einstellungen"
+@using LigaManagement.Web.Services.Contracts;
+@using LigaManagerManagement.Models;
+
+@inherits LigaManagerManagement.Web.Pages.VereineListBase
+@inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
+
+<style>
+    .rz-button.rz-link {
+        background: none !important;
+    }
+
+
+        .rz-button.rz-link .rz-button-text {
+            color: var(--rz-link-color);
+        }
+
+
+        .rz-button.rz-link:hover .rz-button-text {
+            text-decoration: underline !important;
+        }
+</style>
+
+<EditForm Model="settings" OnValidSubmit="UpsertEinstellungen">
+    <div class="row my-2">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0 mb-3">
+                    <div class="d-flex flex-row">
+                        <div class="card-body ">
+                            <h2 style="display:inline-block;">Einstellungen</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+        </div>
+        <div class="col-12">
+
+            <div class="form-group row">
+                <RadzenLabel Text="Sprache" class="col-sm-3" Component="txtLiganame">Sprache</RadzenLabel>
+                <InputText required id="txtTore1" @bind-Value="settings.Sprache_LandKZ" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="(()=>settings.Sprache_LandKZ)"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <RadzenLabel Text="Import" class="col-sm-3" Component="chkImportVisible">Import</RadzenLabel>
+                <RadzenCheckBox @bind-Value="settings.ImportVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkImportVisible" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+                </RadzenColumn>
+                <ValidationMessage For="()=>settings.ImportVisible"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <RadzenLabel Text="Import" class="col-sm-3" Component="chkTabellenAnlegenVisible">Tabellen anlegen</RadzenLabel>
+                <RadzenCheckBox @bind-Value="settings.TabellenAnlegenVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkTabellenAnlegenVisible" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+                </RadzenColumn>
+                <ValidationMessage For="()=>settings.TabellenAnlegenVisible"></ValidationMessage>
+            </div>
+
+            <div class="form-group row">
+                <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertEinstellungen" class="btn btn-primary" Text="Speichern">
+                    <span class="glyphicon glyphicon-save"></span>Speichern
+                </RadzenButton>
+                <RadzenButton title="@Localizer["Zurück"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="Zurück">
+
+                </RadzenButton>
+
+            </div>
+
+        </div>
+    </div>
+</EditForm>
+
+@code {
+
+    [Parameter]
+    
+    public LigaManagement.Models.Einstellungen settings { get; set; } = new LigaManagement.Models.Einstellungen();
+
+    private string Titel { get; set; }
+    public bool IsLoading { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Titel = Localizer["Bearbeiten"].Value;
+            await LoadSettings();
+        }
+    }
+
+    private async Task LoadSettings()
+    {
+        IsLoading = true;
+
+        settings.Sprache_LandKZ = "DE";
+        settings.ImportVisible = false;
+        settings.TabellenAnlegenVisible = false;
+
+        settings = null;
+
+        StateHasChanged();
+    }
+    private void UpsertEinstellungen()
+    {
+
+    }
+
+    private void Zurueck_Click()
+    {
+        _navigationManager.NavigateTo("Ligamanager/");
+    }
+}
+
+
+
+
+
+
