@@ -5,10 +5,7 @@
 @attribute [Authorize]
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  
 </head>
 <style type="text/css">
 
@@ -158,7 +155,7 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -187,7 +184,7 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="Gast" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>
@@ -196,8 +193,8 @@ else
 
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
 
-                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title="Datum" />
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title="Ort" />
+                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
@@ -222,10 +219,10 @@ else
 
                     <div class="row">
                         <div class="col-md-1">
-                            <a type="button" Style="text-align:left;display:inline-block;" data-toggle="Voriger Spieltag" title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                            <a type="button" Style="text-align:left;display:inline-block;" data-toggle=@Localizer["Voriger Spieltag"] title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
                         </div>
                         <div class="col-md-11 text-right">
-                            <a type="button" data-toggle="Nächster Spieltag" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                            <a type="button" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
                         </div>
                     </div>
                 </RadzenCard>

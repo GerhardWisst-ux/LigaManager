@@ -120,17 +120,29 @@
   <data name="Auswärts" xml:space="preserve">
     <value>Auswärts</value>
   </data>
+  <data name="Bearbeiten" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Datum</value>
+  </data>
   <data name="Heim" xml:space="preserve">
     <value>Heim</value>
   </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Nächster Spieltag</value>
   </data>
+  <data name="Ort" xml:space="preserve">
+    <value>Ort</value>
+  </data>
   <data name="Spiele" xml:space="preserve">
     <value>Spiele</value>
   </data>
   <data name="Spieltag" xml:space="preserve">
     <value>Spieltag</value>
+  </data>
+  <data name="Spieltag auswählen" xml:space="preserve">
+    <value>Spieltag auswählen</value>
   </data>
   <data name="Tore" xml:space="preserve">
     <value>Tore</value>

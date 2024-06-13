@@ -1,4 +1,4 @@
-﻿@page "/charts"
+﻿@page "/Ligamanager/charts2"
 @using LigaManagerManagement.Web.Pages;
 @using System.Globalization
 
@@ -14,6 +14,9 @@
 <!DOCTYPE html>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <html>
+<head>    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
 <body>
     <div class="container-fluid">
         <div class="form-group row">
@@ -81,10 +84,12 @@
                 </div>
             </RadzenCard>
         }
-    </div>
-    <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
 
-    <script>
+
+    </div>
+    @* <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div> *@
+
+   @*  <script>
         google.charts.load('current', { packages: ['corechart', 'line'] });
         google.charts.setOnLoadCallback(drawBasic);
 
@@ -96,7 +101,7 @@
 
 
             data.addRows([
-        @multiDimensionalArray2
+        @arrSpieltage
                             ]);
 
             var options = {
@@ -112,8 +117,7 @@
 
             chart.draw(data, options);
         }
-    </script>
-
+    </script> *@
 
 </body>
 </html>

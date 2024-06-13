@@ -27,14 +27,11 @@
     <Compile Remove="Migrations\20231118082923_Identity.Designer.cs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Content Remove="Pages\Charts.razor" />
-  </ItemGroup>
-
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="BootstrapBlazor" Version="8.3.10" />
 		<PackageReference Include="FontAwesome" Version="4.7.0" />
+		<PackageReference Include="jQuery" Version="3.7.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.25" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-preview5.20216.8" />
@@ -49,6 +46,7 @@
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.6" />
 		<PackageReference Include="Microsoft.OData.Client" Version="7.20.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Radzen.Blazor" Version="4.32.1" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
 	</ItemGroup>
 
