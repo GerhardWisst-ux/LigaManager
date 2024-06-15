@@ -71,7 +71,7 @@ else
                                     <option value="0" required>@Localizer["Liga"].Value</option>
                                     @if (LigenList != null)
                                     {
-                                        @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
+                                        @foreach (var liga in LigenList.Where(x => x.Aktiv == true && x.EMWM ==false).OrderBy(o => o.LigaID))
                                         {
                                             @if (liga.LigaID == Globals.LigaID)
                                             {

@@ -85,5 +85,61 @@ namespace Ligamanager.Components
                 return bTabellenAnlegenVisible;
             }
         }
+
+        public static bool GetSpielverlaufVisible()
+        {
+
+            bool bSpielverlauf = false;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Spielverlauf FROM [Einstellungen] ", conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        bSpielverlauf = bool.Parse(reader["Spielverlauf"].ToString());
+                    }
+                }
+                conn.Close();
+                return bSpielverlauf;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return bSpielverlauf;
+            }
+        }
+
+        public static bool GetAufstellungenVisible()
+        {
+
+            bool bAufstellungen = false;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT Aufstellungen FROM [Einstellungen] ", conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        bAufstellungen = bool.Parse(reader["Aufstellungen"].ToString());
+                    }
+                }
+                conn.Close();
+                return bAufstellungen;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return bAufstellungen;
+            }
+        }
     }
 }

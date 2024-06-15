@@ -10,6 +10,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Saison> GetSaison(int id);
         Task<Saison> UpdateSaison(Saison updatedSaison);
         Task<Saison> CreateSaison(Saison newSaison);
-        Task DeleteSaison(int id);        
+        Task DeleteSaison(int id);
+        Task<Saison> GetSaisonWMEM(int id);
     }
 }

@@ -29,5 +29,7 @@ namespace LigaManagement.Models
         public string Rekordspieler { get; set; }
 
         public int Spiele_Rekordspieler { get; set; }
+
+        public bool EMWM { get; set; }
     }
 }

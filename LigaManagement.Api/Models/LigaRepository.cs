@@ -24,8 +24,8 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand cmd = new SqlCommand
                 {
                     Connection = conn,
-                    CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler)"
+                    CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM)" +
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler,EMWM)"
                 };
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
@@ -37,6 +37,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@LandID", liga.LandID);
                 cmd.Parameters.AddWithValue("@Rekordspieler", liga.Rekordspieler);
                 cmd.Parameters.AddWithValue("@Spiele_Rekordspieler", liga.Spiele_Rekordspieler);
+                cmd.Parameters.AddWithValue("@EMWM", liga.EMWM);
 
                 cmd.ExecuteNonQuery();
 
@@ -99,6 +100,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.LandID = int.Parse(reader["LandID"].ToString());
                         liga.Rekordspieler = reader["Rekordspieler"].ToString();
                         liga.Spiele_Rekordspieler = int.TryParse(reader["Spiele_Rekordspieler"].ToString(), out var f) ? f : 0;
+                        liga.EMWM  = bool.Parse(reader["EMWM"].ToString());
                     }
                 }
                 conn.Close();
@@ -141,7 +143,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.LandID = int.Parse(reader["LandID"].ToString());
                         liga.Rekordspieler = reader["Rekordspieler"].ToString();
                         liga.Spiele_Rekordspieler = int.TryParse(reader["Spiele_Rekordspieler"].ToString(), out var f) ? f : 0;
-
+                        liga.EMWM = bool.Parse(reader["EMWM"].ToString());
                         peList.Add(liga);
                     }
                 }
@@ -160,7 +162,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<Liga> UpdateLiga(Liga liga)
         {
             string sAktiv;
-            
+            string sEMWM;
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
@@ -174,6 +176,11 @@ namespace LigaManagerManagement.Api.Models
                 else
                     sAktiv = "FALSE";
 
+                if (liga.EMWM == true)
+                    sEMWM = "TRUE";
+                else
+                    sEMWM = "FALSE";
+
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
                        "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
@@ -184,6 +191,7 @@ namespace LigaManagerManagement.Api.Models
                       ",[Rekordspieler] ='" + liga.Rekordspieler + "'" +
                       ",[Spiele_Rekordspieler] =" + liga.Spiele_Rekordspieler +
                       ",[Aktiv] = '" + sAktiv + "'" +
+                      ",[EMWM] = '" + sEMWM + "'" +
                       " WHERE [Id] = " + liga.Id;
 
                 cmd.ExecuteNonQuery();

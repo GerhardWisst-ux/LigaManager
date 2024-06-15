@@ -83,7 +83,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>

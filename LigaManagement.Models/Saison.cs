@@ -25,6 +25,6 @@ namespace LigaManagerManagement.Models
         public bool Aktuell { get; set; }
 
         [Required]
-        public bool Abgeschlossen { get; set; }
+        public bool Abgeschlossen { get; set; }     
     }
 }

@@ -113,6 +113,41 @@ namespace LigaManagement.Api.Models
 
         }
 
+        public async Task<Saison> GetSaisonEMWM(int SaisonId)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [SaisonenCL] Where SaisonID= " + SaisonId, conn);
+                Saison saison = null;
+                List<Saison> peList = new List<Saison>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        saison = new Saison();
+
+                        saison.SaisonID = (int)reader["saisonID"];
+                        saison.LigaID = (int)reader["LigaID"];
+                        saison.Saisonname = reader["Saisonname"].ToString();
+                        saison.Liganame = reader["Liganame"].ToString();
+                        saison.Aktuell = (bool)reader["Aktuell"];
+                        saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                    }
+                }
+                conn.Close();
+                return saison;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<Saison>> GetSaisonen()
         {
             try

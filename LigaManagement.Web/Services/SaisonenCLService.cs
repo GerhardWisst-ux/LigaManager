@@ -56,5 +56,17 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.PutJsonAsync<Saison>("api/saisonenCL", updatedsaison);
         }
 
+        public async Task<Saison> GetSaisonWMEM(int id)
+        {
+            try
+            {
+                return await httpClient.GetJsonAsync<Saison>($"api/saisonenEMWM/{id}");
+            }
+            catch (System.Exception ex)
+            {
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
+        }
     }
 }

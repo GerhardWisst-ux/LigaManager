@@ -68,7 +68,7 @@ else
                         <div class="card-body">
                                 <h2 class="card-title"> @Globals.currentLand @Globals.currentLiga @Titel Spiel</h2>
                             <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
-                            <a href="@($"spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
+                            <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
                         </div>
                     </div>
                 </RadzenCard>
@@ -178,7 +178,7 @@ else
                                 </div>
                             </div>
                         </RadzenTabsItem>
-                        <RadzenTabsItem Text="Aufstellungen">
+                        <RadzenTabsItem Visible="@AufstellungenVisible" Text="@Localizer["Aufstellungen"].Value">
                             <div style="width:100%" class="content card">
                                 <div class="form-group row">
                                     <label class="col-sm-3">Kader Verein 1</label>
@@ -343,7 +343,7 @@ else
                                 </details>
                             </div>
                         </RadzenTabsItem>
-                        <RadzenTabsItem Text="Spielverlauf">
+                        <RadzenTabsItem Visible="@SpielverlaufVisible" Text="@Localizer["Spielverlauf"].Value">
                         </RadzenTabsItem>
 
                     </Tabs>

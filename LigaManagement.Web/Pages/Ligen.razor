@@ -1,7 +1,7 @@
 ﻿@page "/Ligamanager/ligen"
 @using LigaManagerManagement.Web.Pages;
 @inherits LigenListBase
-
+@inject NotificationService NotificationService
 @attribute [Authorize]
 
 <head>
@@ -38,6 +38,7 @@ else
                     <h2 style="display:inline-block;">@Localizer["Ligen"].Value</h2>
                     <span class="ml-3">
                         <a href="createliga" style="width:35px; height:30px;" title="@Localizer["Neuanlage Liga"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
                     </span>
                 </div>
             </div>
@@ -60,8 +61,8 @@ else
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>                         
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="350px" Sortable=true Title="@Localizer["Liganame"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="200px" Sortable=true Title="@Localizer["Saisonen"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="250px" Sortable=true Title="@Localizer["Liganame"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="150px" Sortable=true Title="@Localizer["Saisonen"].Value" />
                         <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="250px" Sortable=true Title="@Localizer["Verband"].Value" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="@Localizer["Erstaustragung"].Value" />
 
@@ -72,8 +73,8 @@ else
                         </RadzenDataGridColumn>
 
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
-                            <Template Context="data">
-                                <NavLink href="@($"editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                            <Template Context="data">                                
+                                <NavLink href="@($"editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
@@ -112,6 +113,10 @@ else
             document.documentElement.scrollTop = 0;
         }
     </script>
-
-
+}
+@code {
+    private void OnClick(string text)
+    {
+        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Button Clicked", Detail = text });
+    }
 }

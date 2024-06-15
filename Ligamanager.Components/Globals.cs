@@ -19,7 +19,9 @@ namespace Ligamanager.Components
         public static string currentPokalSaison;
         public static string currentPokalRunde;
         public static string currentCLSaison;
+        public static string currentEMWMSaison;
         public static string currentClRunde;
+        public static string currentEMWMRunde;
         public static int Spieltag;
         public static int LandID;
         public static int LandIDVerein;
@@ -30,6 +32,7 @@ namespace Ligamanager.Components
         public static int KaderSaisonID;
         public static int CLSaisonID;
         public static int CLPokalSaisonID;
+        public static int EMWMSaisonID;
         public static int KaderVereinNr;
         public static int maxSpieltag;
         public static bool bVisibleNavMenuElements;

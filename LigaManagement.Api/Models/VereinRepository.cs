@@ -278,6 +278,52 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineEMWM()
+        {
+
+            int i = 1;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageEMWM] where groupID = 1 SELECT DISTINCT [Verein2_Nr],[Verein2] FROM [dbo].[SpieltageEMWM]", conn);
+                VereinAktSaison verein = null;
+                List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new VereinAktSaison();
+                        verein.Id = i;
+                        //verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
+                        verein.Vereinsname1 = reader["MannschaftName1"].ToString();
+                        verein.Vereinsname2 = reader["MannschaftName1"].ToString();
+                        verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.Fassungsvermoegen = 0;
+                        verein.Erfolge = "";
+                        verein.Stadion = "";
+                        verein.Gegruendet = 0;
+                        verein.Pokal = true;
+                        verein.Bundesliga = true;
+
+                        vereinelist.Add(verein);
+
+                        i++;
+                    }
+                }
+                conn.Close();
+                return vereinelist;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
 
         public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
         {
@@ -351,6 +397,49 @@ namespace LigaManagerManagement.Api.Models
                 
                 conn.Close();
                 return vereinelist;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<Verein> GetVereinEMWM(int Id)
+        {
+            int i = 1;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageEMWM] where groupID = 1 SELECT DISTINCT [Verein2_Nr],[Verein2] FROM [dbo].[SpieltageEMWM] where id =" + Id, conn);
+                VereinAktSaison verein = null;
+                List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        verein = new VereinAktSaison();
+                        verein.Id = i;
+                        //verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
+                        verein.Vereinsname1 = reader["MannschaftName1"].ToString();
+                        verein.Vereinsname2 = reader["MannschaftName1"].ToString();
+                        verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.Fassungsvermoegen = 0;
+                        verein.Erfolge = "";
+                        verein.Stadion = "";
+                        verein.Gegruendet = 0;
+                        verein.Pokal = true;
+                        verein.Bundesliga = true;                      
+
+                        i++;
+                    }
+                }
+                conn.Close();
+                return verein;
             }
             catch (Exception ex)
             {
@@ -479,9 +568,8 @@ namespace LigaManagerManagement.Api.Models
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-
         }
-
+       
     }
 }
 

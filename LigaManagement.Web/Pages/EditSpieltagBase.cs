@@ -1,12 +1,14 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
 using System;
@@ -34,6 +36,8 @@ namespace LigamanagerManagement.Web.Pages
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
+        protected bool SpielverlaufVisible = false;
+        protected bool AufstellungenVisible = false;
         public bool popup;
         public bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
@@ -104,6 +108,9 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        [Inject]
+        public IStringLocalizer<SpieltageList> Localizer { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 
@@ -374,7 +381,19 @@ namespace LigamanagerManagement.Web.Pages
                     bDeleteButtonVisible = false;
                 else
                     bDeleteButtonVisible = true;
-                
+
+
+                if (LMSettings.GetSpielverlaufVisible() == false)
+                    SpielverlaufVisible = false;
+                else if (LMSettings.GetSpielverlaufVisible() == true)
+                    SpielverlaufVisible = true;
+
+                if (LMSettings.GetAufstellungenVisible() == false)
+                    AufstellungenVisible = false;
+                else if (LMSettings.GetAufstellungenVisible() == true)
+                    AufstellungenVisible = true;
+
+
             }
             catch (Exception ex)
             {

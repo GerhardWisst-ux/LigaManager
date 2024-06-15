@@ -10,6 +10,9 @@ namespace LigamanagerManagement.Api.Models.Repository
     {
         Task<IEnumerable<Saison>> GetSaisonen();
         Task<Saison> GetSaison(int SaisonId);
+
+        Task<Saison> GetSaisonEMWM(int SaisonId);
+
         Task<Saison> GetSaisonID(string saison);
         Task<Saison> AddSaison(Saison Saison);
         Task<Saison> UpdateSaison(Saison Saison);

@@ -1,7 +1,7 @@
 ﻿@using Microsoft.Extensions.Localization
 
-<head>        
-    
+<head>
+
 </head>
 
 <style>
@@ -199,6 +199,14 @@
                         </NavLink>
                     </li>
                 }
+                @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"Ligamanager/em_wm") Match="NavLinkMatch.All">
+                            <span class="oi oi-aperture"></span> @Localizer["EM"].Value
+                        </NavLink>
+                    </li>
+                }
 
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
@@ -218,14 +226,14 @@
                     </li>
                 }
 
-                @if (Globals.bVisibleNavMenuElements == true)
+               @*  @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/einstellungen") Match="NavLinkMatch.All">
                             <i class="fas fa-cog"></i>@Localizer["Einstellugnen"].Value
                         </NavLink>
                     </li>
-                }
+                } *@
 
                 @*  @if (Globals.bVisibleNavMenuElements == true)
                 {
@@ -246,7 +254,7 @@
             </Authorized>
             <NotAuthorized>
                 <li class="nav-item px-4">
-                    <NavLink class="nav-link" href="/einstieg" Match="NavLinkMatch.All">
+                    <NavLink class="nav-link" href="/Ligamanager" Match="NavLinkMatch.All">
                         <span class="oi oi-home" aria-hidden="true"></span> @Localizer["Start"].Value
                     </NavLink>
                 </li>
@@ -270,7 +278,7 @@
     [Inject]
     public IStringLocalizer<NavMenu> Localizer { get; set; }
 
-   
+
 
     private void ToggleNavMenu()
     {
@@ -285,10 +293,10 @@
         }
         catch (Exception ex)
         {
-            
+
             throw ex;
         }
     }
 
-
 }
+

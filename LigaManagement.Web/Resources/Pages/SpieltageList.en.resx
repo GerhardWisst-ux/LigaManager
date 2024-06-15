@@ -132,6 +132,9 @@
   <data name="Heim" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Neuanlage" xml:space="preserve">
+    <value>Create new</value>
+  </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Next Match day</value>
   </data>

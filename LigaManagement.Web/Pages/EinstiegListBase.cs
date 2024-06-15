@@ -38,7 +38,7 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorLand = "none";
 
         protected bool ImportVisible = false;
-        protected bool TabellenAnlegenVisible = false;        
+        protected bool TabellenAnlegenVisible = false;
         protected bool isDropdownDisabledLiga = true;
         protected bool isDropdownDisabledSaison = true;
 
@@ -169,7 +169,7 @@ namespace LigaManagement.Web.Pages
                 for (int i = 0; i < Ligen.Count(); i++)
                 {
                     var columns = Ligen.ElementAt(i);
-                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame, columns.EMWM));
                 }
 
                 if (Globals.SaisonID == 0)
@@ -276,12 +276,12 @@ namespace LigaManagement.Web.Pages
                 Globals.currentLand = land.Laendername;
 
                 LigenList = new List<DisplayLiga>();
-                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID);
+                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID && x.EMWM == false );
 
                 for (int i = 0; i < Ligen.Count(); i++)
                 {
                     var columns = Ligen.ElementAt(i);
-                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame, columns.EMWM));
                 }
 
                 isDropdownDisabledLiga = false;
@@ -910,7 +910,7 @@ namespace LigaManagement.Web.Pages
                     SqlCommand cmd = new SqlCommand("INSERT INTO spieltageL3(Saison,SaisonID,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr,Tore2_Nr, Ort,Datum,LigaID,Zuschauer,Schiedrichter,Abgeschlossen,TeamIconUrl1,TeamIconUrl2) " +
                                                       "VALUES (@Saison,@SaisonID,@SpieltagNr, @Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@LigaID,@Zuschauer,@Schiedrichter,@Abgeschlossen,@TeamIconUrl1,@TeamIconUrl2)", conn);
 
-                    cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason + "/" + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
+                    cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason +  + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
                     cmd.Parameters.AddWithValue("@SaisonID", 391);
                     cmd.Parameters.AddWithValue("@LigaID", 23);
                     cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
@@ -944,17 +944,19 @@ namespace LigaManagement.Web.Pages
         [Bind]
         public class DisplayLiga
         {
-            public DisplayLiga(bool aktiv, int ligaID, int landid, string liganame)
+            public DisplayLiga(bool aktiv, int ligaID, int landid, string liganame, bool emwm)
             {
                 Aktiv = aktiv;
                 LigaID = ligaID;
                 LandID = landid;
                 Liganame = liganame;
+                EMWM = emwm;
             }
             public int LandID { get; set; }
             public int LigaID { get; set; }
             public string Liganame { get; set; }
             public bool Aktiv { get; set; }
+                        public bool EMWM { get; set; }
         }
 
         [Bind]

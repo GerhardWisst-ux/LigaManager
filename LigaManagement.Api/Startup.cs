@@ -44,6 +44,7 @@ namespace LigaManagement.Api
                 services.AddScoped<ISpieltageTURepository, SpieltageTURepository>();
                 services.AddScoped<ISpieltageBERepository, SpieltageBERepository>();
                 services.AddScoped<ISpieltageCLRepository, SpieltageCLRepository>();
+                services.AddScoped<ISpieltageEMWMRepository, SpieltageEMWMRepository>();
 
                 services.AddScoped<IVereinRepository, VereinRepository>();
 

@@ -151,7 +151,7 @@ namespace LigamanagerManagement.Web.Pages
                 for (int i = 0; i < Ligen.Count(); i++)
                 {
                     var columns = Ligen.ElementAt(i);
-                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame));
+                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.LandID, columns.LandID, columns.Liganame, columns.EMWM));
                 }
 
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();

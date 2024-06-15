@@ -129,6 +129,9 @@
   <data name="Heim" xml:space="preserve">
     <value>Heim</value>
   </data>
+  <data name="Neuanlage" xml:space="preserve">
+    <value>Neuanlage</value>
+  </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Nächster Spieltag</value>
   </data>

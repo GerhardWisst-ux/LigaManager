@@ -37,5 +37,6 @@ namespace LigaManagement.Web.Services.Contracts
 
         Task<IEnumerable<Tabelle>> BerechneTabelleCL(ISpieltageCLService spieltagService, int GroupID, int BisSpieltag);
         Task<IEnumerable<Tabelle>> BerechneTabelleDEL3(ISpieltagService spieltagService, bool bAbgeschlossen, List<VereinAktSaison> verList, int iSpieltage, int gesamt);
+        Task<IEnumerable<Tabelle>> BerechneTabelleEMWM(ISpieltageEMWMService spieltagService, int count, int bisSpieltag);
     }
 }

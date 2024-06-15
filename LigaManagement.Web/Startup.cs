@@ -144,6 +144,11 @@ namespace LigaManagement.Web
                     client.BaseAddress = new Uri("https://localhost:44355/");
                 });
 
+                services.AddHttpClient<ISpieltageEMWMService, SpieltagEMWMService>(client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:44355/");
+                });
+
                 services.AddHttpClient<ITabelleService, TabelleService>(client =>
                 {
                     client.BaseAddress = new Uri("https://localhost:44355/");
@@ -231,6 +236,7 @@ namespace LigaManagement.Web
             app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            
 
             app.UseRouting();
             app.UseCors("NewPolicy");
