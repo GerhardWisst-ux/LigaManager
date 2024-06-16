@@ -15,7 +15,6 @@ namespace LigaManagement.Web.Services.Contracts
         Task<VereinAktSaison> GetVereinCL(int id);
         Task<VereinAktSaison> GetVereinEMWM(int id);
         Task<VereinAktSaison> GetVereinL3(int id);
-
         Task<Verein> UpdateVerein(Verein updatedVerein);
         Task<Verein> CreateVerein(Verein newVerein);
         Task DeleteVerein(int id);

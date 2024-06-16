@@ -65,9 +65,11 @@ namespace LigaManagement.Models
 
     public class PokalergebnisCLSpieltag : PokalergebnisSpieltag
     {
+        public int? LigaID { get; set; }
         public int? Land1_Nr { get; set; }
         public int? Land2_Nr { get; set; }
         public int? GroupID { get; set; }
+        public string RundeDetail { get; set; }
         public string TeamIconUrl1 { get; set; }
         public string TeamIconUrl2 { get; set; }
     }

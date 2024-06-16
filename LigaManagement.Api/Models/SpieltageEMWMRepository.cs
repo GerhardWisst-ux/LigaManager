@@ -22,15 +22,16 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO SpieltageEMWM ([Saison],[SaisonID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr],Verlängerung,Runde,Elfmeterschiessen)" +
-                    " VALUES(@Saison,@SaisonID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr,@Verlängerung,@Runde,@Elfmeterschiessen)";
+                cmd.CommandText = "INSERT INTO SpieltageEMWM ([Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr],Verlängerung,Runde,RundeDetail,Elfmeterschiessen,GroupID,Gruppe,Abgeschlossen,TeamIconUrl1,TeamIconUrl2)" +
+                    " VALUES(@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr,@Verlängerung,@Runde,@RundeDetail,@Elfmeterschiessen,@GroupID,@Gruppe,@Abgeschlossen,@TeamIconUrl1,@TeamIconUrl2)";
                 
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
-                cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);                
+                cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
                 cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
                 cmd.Parameters.AddWithValue("@Land1_Nr", spieltag.Land1_Nr);
                 cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
-                cmd.Parameters.AddWithValue("@Land2_Nr", spieltag.Verein2_Nr);
+                cmd.Parameters.AddWithValue("@Land2_Nr", spieltag.Land2_Nr);
                 cmd.Parameters.AddWithValue("@Verein1", spieltag.Verein1);
                 cmd.Parameters.AddWithValue("@Verein2", spieltag.Verein2);
                 cmd.Parameters.AddWithValue("@Tore1_Nr", spieltag.Tore1_Nr);
@@ -41,7 +42,13 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
                 cmd.Parameters.AddWithValue("@Verlängerung", spieltag.Verlängerung);
                 cmd.Parameters.AddWithValue("@Runde", spieltag.Runde);
+                cmd.Parameters.AddWithValue("@RundeDetail", spieltag.RundeDetail);
+                cmd.Parameters.AddWithValue("@GroupID", spieltag.GroupID);
+                cmd.Parameters.AddWithValue("@Gruppe", spieltag.GroupID);
                 cmd.Parameters.AddWithValue("@Elfmeterschiessen", spieltag.Elfmeterschiessen);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Elfmeterschiessen);
+                cmd.Parameters.AddWithValue("@TeamIconUrl1", "");
+                cmd.Parameters.AddWithValue("@TeamIconUrl2", "");
 
                 cmd.ExecuteNonQuery();
 
@@ -274,7 +281,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageEMWM] where groupID = " + iGroupID, conn);
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID] FROM [dbo].[MannschaftEMWM] where groupID = " + iGroupID, conn);
 
                 Verein verein = null;
                 List<Verein> vereineList = new List<Verein>();
@@ -283,8 +290,8 @@ namespace LigaManagerManagement.Api.Models
                     while (reader.Read())
                     {
                         verein = new Verein();                        
-                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
-                        verein.Vereinsname1 = reader["Verein1"].ToString();
+                        verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
+                        verein.Vereinsname1 = reader["MannschaftName1"].ToString();
 
                         vereineList.Add(verein);
                     }

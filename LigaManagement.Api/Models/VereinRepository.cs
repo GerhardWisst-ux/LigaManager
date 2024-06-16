@@ -287,7 +287,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageEMWM] where groupID = 1 SELECT DISTINCT [Verein2_Nr],[Verein2] FROM [dbo].[SpieltageEMWM]", conn);
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink] FROM [dbo].[MannschaftEMWM]", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -414,7 +414,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageEMWM] where groupID = 1 SELECT DISTINCT [Verein2_Nr],[Verein2] FROM [dbo].[SpieltageEMWM] where id =" + Id, conn);
+                SqlCommand command = new SqlCommand("SELECT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink] FROM [dbo].[MannschaftEMWM] Where MannschaftNr = " + Id , conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -427,7 +427,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
                         verein.Vereinsname1 = reader["MannschaftName1"].ToString();
                         verein.Vereinsname2 = reader["MannschaftName1"].ToString();
-                        verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.Hyperlink = ""; //reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
                         verein.Stadion = "";

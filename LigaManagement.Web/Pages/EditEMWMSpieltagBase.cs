@@ -1,15 +1,18 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Web.Pages
@@ -25,6 +28,8 @@ namespace LigamanagerManagement.Web.Pages
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
         public string RundeChoosed;
+        public string RundeDetail;
+        public int GruppeChoosed;
 
         public List<DisplayRunde> RundeList;
 
@@ -53,6 +58,8 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        public IStringLocalizer<EditEMWMpieltag> Localizer { get; set; }
 
         public bool Collapsed = true;
 
@@ -103,10 +110,7 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     new DisplayRunde("G1", "Gruppenphase Spieltag 1"),
                     new DisplayRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayRunde("G3", "Gruppenphase Spieltag 3"),
-                    new DisplayRunde("G4", "Gruppenphase Spieltag 4"),
-                    new DisplayRunde("G5", "Gruppenphase Spieltag 5"),
-                    new DisplayRunde("G6", "Gruppenphase Spieltag 6"),
+                    new DisplayRunde("G3", "Gruppenphase Spieltag 3"),                                    
                     new DisplayRunde("AF", "Achtelfinale"),
                     new DisplayRunde("VF", "Viertelfinale"),
                     new DisplayRunde("HF", "Halbfinale"),
@@ -115,31 +119,26 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Convert.ToInt32(Id) == 0)
                 {
-                    Runde = Globals.currentClRunde;
-                    RundeChoosed = Runde;
-
-                    StateHasChanged();
+                    Runde = Globals.currentEMWMRunde;
+                    RundeChoosed = Runde;                   
                 }
                 else
                 {
                     RundeChoosed = Spiel.Runde;
                     Runde = RundeChoosed;
-                    Globals.currentClRunde = RundeChoosed;
-                    Spiel.Runde = Runde;
-
-                    StateHasChanged();
+                    Globals.currentEMWMRunde = RundeChoosed;
+                    Spiel.Runde = Runde;                   
                 }
+
+                RundeDetail = "";
             }
             catch (Exception ex)
             {
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
-
-
-
-
         }
+
         protected async override void OnAfterRender(bool firstRender)
         {
 
@@ -155,10 +154,11 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
+                var verein = await VereineService.GetVereinEMWM(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = int.Parse(e.Value.ToString());
                 Spiel.Ort = verein.Stadion;
+                Spiel.Land1_Nr = 57;
                 Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
             }
             StateHasChanged();
@@ -168,22 +168,13 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
+                var verein = await VereineService.GetVereinEMWM(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein2 = verein.Vereinsname1;
+                Spiel.Land2_Nr = 57;
                 Spiel.Verein2_Nr = int.Parse(e.Value.ToString());
             }
             StateHasChanged();
-        }
-        public void StadionChange(ChangeEventArgs e)
-        {
-            if (e.Value != null)
-            {
-                int index = VereineList.FindIndex(x => x.VereinID == e.Value.ToString());
-                Spiel.Ort = VereineList[index].Ort;
-            }
-
-            StateHasChanged();
-        }
+        }     
 
 
         public async void RundeChange(ChangeEventArgs e)
@@ -192,7 +183,15 @@ namespace LigamanagerManagement.Web.Pages
             {
                 RundeChoosed = e.Value.ToString();
 
-                Globals.currentPokalRunde = RundeChoosed;
+                Globals.currentEMWMRunde = RundeChoosed;             
+            }
+        }
+
+        public async void GruppeChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                GruppeChoosed = Convert.ToInt32(e.Value.ToString());             
             }
         }
 
@@ -207,7 +206,6 @@ namespace LigamanagerManagement.Web.Pages
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
-
             public string Ort { get; set; }
         }
 

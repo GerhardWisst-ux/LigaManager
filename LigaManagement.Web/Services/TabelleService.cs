@@ -26,6 +26,10 @@ namespace LigaManagerManagement.Web.Services
 
         public IEnumerable<Spielergebnisse> Spielergebnisse { get; set; }
 
+
+        [Inject]
+        public ISaisonenCLService SaisonenEMWMService { get; set; }
+
         public IEnumerable<Verein> Verein { get; set; }
 
         private readonly HttpClient httpClient;
@@ -3411,7 +3415,8 @@ namespace LigaManagerManagement.Web.Services
                 int VonSpieltag = 1;
 
                 try
-                {
+                {                   
+
                     var alleSpieltage = (await spieltagService.GetSpieltage()).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID);
 
                     var vereineGruppe = await rep.GetVereine(GroupID);

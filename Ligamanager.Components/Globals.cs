@@ -26,6 +26,7 @@ namespace Ligamanager.Components
         public static int LandID;
         public static int LandIDVerein;
         public static int LigaID;
+        public static int EMMWMLigaId;
         public static int LigaNummer;
         public static int SaisonID;
 
