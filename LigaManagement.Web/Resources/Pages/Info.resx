@@ -117,100 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anzahl Vereine" xml:space="preserve">
-    <value>Number of clubs</value>
-  </data>
-  <data name="Anzeigename" xml:space="preserve">
-    <value>Show name</value>
-  </data>
   <data name="Bearbeiten" xml:space="preserve">
-    <value>Edit</value>
+    <value>Bearbeiten</value>
   </data>
-  <data name="Bundesliga" xml:space="preserve">
-    <value>Bundesliga</value>
+  <data name="Der Ligamanager wurde in den Jahren 2023/24 erstellt" xml:space="preserve">
+    <value>Der Ligamanager wurde in den Jahren 2023/24 erstellt</value>
   </data>
-  <data name="Erfolge" xml:space="preserve">
-    <value>Successes</value>
+  <data name="Erstellt Webanwendungen in C#,ASP.Net/Blazor" xml:space="preserve">
+    <value>Erstellt Webanwendungen in C#,ASP.Net/Blazor</value>
   </data>
-  <data name="Fassungsvermoegen" xml:space="preserve">
-    <value>Capacity</value>
+  <data name="Kontakt" xml:space="preserve">
+    <value>Kontakt</value>
   </data>
-  <data name="Gegruendet" xml:space="preserve">
-    <value>Founded</value>
+  <data name="LinkedIn Profil" xml:space="preserve">
+    <value>LinkedIn Profil</value>
   </data>
-  <data name="Kurzname" xml:space="preserve">
-    <value>Short name</value>
+  <data name="Mailadresse" xml:space="preserve">
+    <value>Mailadresse</value>
   </data>
-  <data name="Land" xml:space="preserve">
-    <value>Country</value>
+  <data name="Mailkontakt" xml:space="preserve">
+    <value>Mailkontakt</value>
   </data>
-  <data name="Liga1" xml:space="preserve">
-    <value>Liga 1</value>
+  <data name="Programmierer" xml:space="preserve">
+    <value>Programmer</value>
   </data>
-  <data name="Liga2" xml:space="preserve">
-    <value>Liga 2</value>
+  <data name="Purpose1" xml:space="preserve">
+    <value>Langjährige Programmiererfahrung unter .NET und SQL-Server</value>
   </data>
-  <data name="Löschen" xml:space="preserve">
-    <value>Delete</value>
+  <data name="Purpose2" xml:space="preserve">
+    <value>Mit ihm lassen sich Bundesliga, 2. Liga und 3.Liga -Saisonen erstellen, Ergebnisse verwalten sowie Pokalergebnisse verwalten. Enthalten ist eine umfangreiche Statistikfunktion</value>
   </data>
-  <data name="Löscht Verein" xml:space="preserve">
-    <value>Delete club</value>
+  <data name="XING Profil" xml:space="preserve">
+    <value>XING Profil</value>
   </data>
-  <data name="Neuanlage" xml:space="preserve">
-    <value>Create new</value>
-  </data>
-  <data name="Neuanlage Verein" xml:space="preserve">
-    <value>Create new club</value>
-  </data>
-  <data name="Nr" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
-  </data>
-  <data name="Pokal" xml:space="preserve">
-    <value>Cup</value>
-  </data>
-  <data name="Speichern" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="Speichert Verein ab" xml:space="preserve">
-    <value>Saves club</value>
-  </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
-  </data>
-  <data name="Stadion" xml:space="preserve">
-    <value>Stadium</value>
-  </data>
-  <data name="Verein" xml:space="preserve">
-    <value>Club</value>
-  </data>
-  <data name="Vereine" xml:space="preserve">
-    <value>Clubs</value>
-  </data>
-  <data name="Vereine Deutschland" xml:space="preserve">
-    <value>Clubs Germany</value>
-  </data>
-  <data name="Vereine La Liga" xml:space="preserve">
-    <value>Clubs La Liga</value>
-  </data>
-  <data name="Vereine Ligue 1" xml:space="preserve">
-    <value>Clubs Ligue 1</value>
-  </data>
-  <data name="Vereine Premier League" xml:space="preserve">
-    <value>Clubs Premier League</value>
-  </data>
-  <data name="Vereine Serie A" xml:space="preserve">
-    <value>Clubs Serie A</value>
-  </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
-  </data>
-  <data name="Zurück" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="Zurück zu Vereine" xml:space="preserve">
-    <value>Back to list of clubs</value>
+  <data name="Über Ligamanager" xml:space="preserve">
+    <value>Über Ligamanager</value>
   </data>
 </root>

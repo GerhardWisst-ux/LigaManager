@@ -36,6 +36,8 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
 
+        protected string VisibleTable = "none";
+        
         public List<DisplayCLRunde> RundeList;
 
         public int SaisonChoosed = 0;
@@ -47,7 +49,9 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Tabelle> TabellenC { get; set; }
         public IEnumerable<Tabelle> TabellenD { get; set; }
         public IEnumerable<Tabelle> TabellenE { get; set; }
-        public IEnumerable<Tabelle> TabellenF { get; set; }      
+        public IEnumerable<Tabelle> TabellenF { get; set; }
+        public IEnumerable<Tabelle> TabellenG { get; set; }
+        public IEnumerable<Tabelle> TabellenH { get; set; }
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -82,7 +86,7 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<PokalergebnisCLSpieltag> EMWMSpieltageFinale { get; set; }
 
         [Inject]
-        public IStringLocalizer<EditEMWMpieltag> Localizer { get; set; }
+        public IStringLocalizer<EditEMWMSpieltag> Localizer { get; set; }
         protected override async Task OnInitializedAsync()
         {
             try
@@ -120,18 +124,17 @@ namespace LigaManagement.Web.Pages
                 }
 
                 EMWMSpieltageFinale = EMWMSpieltage.ToList().Where(x => x.Runde == "F");
-                                                
+
                 if (Globals.currentEMWMRunde == null)
                     RundeChoosed = "F";
                 else
                     RundeChoosed = Globals.currentEMWMRunde;
 
 
-                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.SaisonID == Globals.EMWMSaisonID).Where(x => x.Runde == RundeChoosed);
+                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.SaisonID == Globals.EMWMSaisonID).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
 
-                //if (PokalergebnisseCLSpieltage.Count() == 0)
+                //if (EMWMSpieltage.Count() > 0)
                 //{
-
                 //    System.Threading.Thread.Sleep(2000);
                 //}
                 //var result = await GetDataFromOpenLgaDB();
@@ -145,20 +148,14 @@ namespace LigaManagement.Web.Pages
                 {
                     new DisplayCLRunde("G1", "Gruppenphase Spieltag 1"),
                     new DisplayCLRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayCLRunde("G3", "Gruppenphase Spieltag 3"),                  
+                    new DisplayCLRunde("G3", "Gruppenphase Spieltag 3"),
                       new DisplayCLRunde("AF", "Achtelfinale"),
                        new DisplayCLRunde("VF", "Viertelfinale"),
                        new DisplayCLRunde("HF", "Halbfinale"),
                         new DisplayCLRunde("F", "Finale")
                 };
 
-
-                if (Globals.currentEMWMRunde != null)
-                    OnClickHandler();
-
                 VisibleBtnNew = "hidden";
-
-                Globals.currentEMWMSaison = "EM 2024";
 
                 var saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonChoosed));
 
@@ -170,6 +167,16 @@ namespace LigaManagement.Web.Pages
 
                     OnClickHandler();
                 }
+                else
+                    Globals.currentEMWMSaison = "EM 2024";
+
+                if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    VisibleTable = "block";
+                else
+                    VisibleTable = "none";
+
+                if (Globals.currentEMWMRunde != null)
+                    OnClickHandler();
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
                 {
@@ -186,7 +193,15 @@ namespace LigaManagement.Web.Pages
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
                     TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
                     TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    {
+                        TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
+                        TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
+                    }
+
                 }
+
+                
 
                 Globals.bVisibleNavMenuElements = true;
             }
@@ -208,13 +223,18 @@ namespace LigaManagement.Web.Pages
 
                 SaisonChoosed = Convert.ToInt32(e.Value);
 
-                var saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonChoosed));                               
+                var saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonChoosed));
 
                 if (saison != null)
                 {
                     Globals.currentEMWMSaison = saison.Saisonname;
                     Globals.EMWMSaisonID = saison.SaisonID;
                     Globals.EMMWMLigaId = saison.LigaID;
+
+                    if (Globals.currentEMWMSaison.StartsWith("WM"))
+                        VisibleTable = "block";
+                    else
+                        VisibleTable = "none";
 
                     OnClickHandler();
                 }
@@ -237,7 +257,7 @@ namespace LigaManagement.Web.Pages
                     //if (PokalergebnisseCLSpieltage.Count() > 0)
                     //    return ret;
 
-                    var matches = await GetMatchesAsync("getmatchdata/uefacl22/2022");
+                    var matches = await GetMatchesAsync("getmatchdata/UEFA EM 2016/2016");
 
                     if (matches == null)
                         return ret;
@@ -267,20 +287,18 @@ namespace LigaManagement.Web.Pages
 
         private void SaveImportDataToDatabase(LigaManagement.Models.Match match, MatchDetail matchdetail)
         {
-
             try
             {
-
                 using (SqlConnection conn = new SqlConnection(Globals.connstring))
                 {
                     conn.Open();
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO spieltageEMWM(Saison,SaisonID,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr,Tore2_Nr, Ort,Datum,LigaID,Zuschauer,Schiedrichter,Runde,RundeDetail,Gruppe,Abgeschlossen,Land1_Nr, Land2_Nr,TeamIconUrl1,TeamIconUrl2,Verlängerung,Elfmeterschiessen,GroupID) " +
-                                                      "VALUES (@Saison, @SaisonID,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@LigaID,@Zuschauer,@Schiedrichter,@Runde,@RundeDetail,@Gruppe,@Abgeschlossen,@Land1_Nr,@Land2_Nr,@TeamIconUrl1,@TeamIconUrl2,@Verlängerung,@Elfmeterschiessen,@GroupID)", conn);
+                                                      "VALUES (@Saison,@SaisonID,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@LigaID,@Zuschauer,@Schiedrichter,@Runde,@RundeDetail,@Gruppe,@Abgeschlossen,@Land1_Nr,@Land2_Nr,@TeamIconUrl1,@TeamIconUrl2,@Verlängerung,@Elfmeterschiessen,@GroupID)", conn);
 
-                    cmd.Parameters.AddWithValue("@Saison", matchdetail.LeagueSeason +  + (Convert.ToInt32(matchdetail.LeagueSeason.ToString().Substring(2, 2)) + 1));
-                    cmd.Parameters.AddWithValue("@SaisonID", Globals.EMWMSaisonID);
-                    cmd.Parameters.AddWithValue("@LigaID", 13);
+                    cmd.Parameters.AddWithValue("@Saison", "EM 2016");
+                    cmd.Parameters.AddWithValue("@SaisonID", 33);
+                    cmd.Parameters.AddWithValue("@LigaID", 31);
                     cmd.Parameters.AddWithValue("@Verein1", match.Team1.TeamName);
                     cmd.Parameters.AddWithValue("@Verein2", match.Team2.TeamName);
                     cmd.Parameters.AddWithValue("@Verein1_Nr", match.Team1.TeamId);
@@ -292,98 +310,49 @@ namespace LigaManagement.Web.Pages
                     cmd.Parameters.AddWithValue("@Verlängerung", 0);
                     cmd.Parameters.AddWithValue("@Elfmeterschiessen", 0);
 
-                    //cmd.Parameters.AddWithValue("@Tore1_Nr", matchdetail.matchResults[1].PointsTeam1);
-                    //cmd.Parameters.AddWithValue("@Tore2_Nr", matchdetail.matchResults[1].PointsTeam2);
+                    //cmd.Parameters.AddWithValue("@Tore1_Nr", matchdetail.MatchResults[1].PointsTeam1);
+                    //cmd.Parameters.AddWithValue("@Tore2_Nr", matchdetail.MatchResults[1].PointsTeam2);
+
+                    cmd.Parameters.AddWithValue("@Tore1_Nr", 0);
+                    cmd.Parameters.AddWithValue("@Tore2_Nr", 0);
+
                     cmd.Parameters.AddWithValue("@Ort", "k.A.");
                     cmd.Parameters.AddWithValue("@Zuschauer", 0);
                     cmd.Parameters.AddWithValue("@TeamIconUrl1", match.Team1.TeamIconUrl);
                     cmd.Parameters.AddWithValue("@TeamIconUrl2", match.Team2.TeamIconUrl);
                     cmd.Parameters.AddWithValue("@Schiedrichter", "k.A.");
 
+                    //cmd.Parameters.AddWithValue("@Runde", match.Group.GroupName);
+                    cmd.Parameters.AddWithValue("@Gruppe", 0);
+                    cmd.Parameters.AddWithValue("@GroupID", 0);
 
-                    if (match.Group.GroupName.IndexOf("Gruppenspieltag") > -1)
+                    if (match.Group.GroupName == "Achtelfinale")
                     {
-                        if (match.Group.GroupName == "1. Gruppenspieltag")
-                            cmd.Parameters.AddWithValue("@Runde", "G1");
-                        else if (match.Group.GroupName == "2. Gruppenspieltag")
-                            cmd.Parameters.AddWithValue("@Runde", "G2");
-                        else if (match.Group.GroupName == "3. Gruppenspieltag")
-                            cmd.Parameters.AddWithValue("@Runde", "G3");                      
-                        else
-                            cmd.Parameters.AddWithValue("@Runde", match.Group.GroupName);
-
-
-                        if (match.Team1.TeamName == "Galatasaray Istanbul" || match.Team2.TeamName == "Galatasaray Istanbul")
-                            cmd.Parameters.AddWithValue("@GroupID", 1);
-                        else if (match.Team1.TeamName == "FC Bayern München" || match.Team2.TeamName == "FC Bayern München")
-                            cmd.Parameters.AddWithValue("@GroupID", 1);
-                        else if (match.Team1.TeamName == "Manchester United FC" || match.Team2.TeamName == "Manchester United FC")
-                            cmd.Parameters.AddWithValue("@GroupID", 1);
-                        else if (match.Team1.TeamName == "FC Kopenhagen" || match.Team2.TeamName == "FC Kopenhagen")
-                            cmd.Parameters.AddWithValue("@GroupID", 1);
-                        else if (match.Team1.TeamName == "Feyenoord Rotterdam" || match.Team2.TeamName == "Feyenoord Rotterdam")
-                            cmd.Parameters.AddWithValue("@GroupID", 5);
-                        else if (match.Team1.TeamName == "Celtic Glasgow" || match.Team2.TeamName == "Celtic Glasgow")
-                            cmd.Parameters.AddWithValue("@GroupID", 5);
-                        else if (match.Team1.TeamName == "Lazio Rom" || match.Team2.TeamName == "Lazio Rom")
-                            cmd.Parameters.AddWithValue("@GroupID", 5);
-                        else if (match.Team1.TeamName == "Lazio Rom" || match.Team2.TeamName == "Lazio Rom")
-                            cmd.Parameters.AddWithValue("@GroupID", 5);
-                        else if (match.Team1.TeamName == "Feyenoord Rotterdam" || match.Team2.TeamName == "Feyenoord Rotterdam")
-                            cmd.Parameters.AddWithValue("@GroupID", 4);
-                        else if (match.Team1.TeamName == "Benfica Lissabon" || match.Team2.TeamName == "Benfica Lissabon")
-                            cmd.Parameters.AddWithValue("@GroupID", 4);
-                        else if (match.Team1.TeamName == "Celtic Glasgow" || match.Team2.TeamName == "Celtic Glasgow")
-                            cmd.Parameters.AddWithValue("@GroupID", 4);
-                        else if (match.Team1.TeamName == "Real Sociedad" || match.Team2.TeamName == "Real Sociedad")
-                            cmd.Parameters.AddWithValue("@GroupID", 4);
-                        else if (match.Team1.TeamName == "RB Leipzig" || match.Team2.TeamName == "RB Leipzig")
-                            cmd.Parameters.AddWithValue("@GroupID", 7);
-                        else if (match.Team1.TeamName == "BSC Young Boys" || match.Team2.TeamName == "BSC Young Boys")
-                            cmd.Parameters.AddWithValue("@GroupID", 7);
-                        else if (match.Team1.TeamName == "Manchester City" || match.Team2.TeamName == "Manchester City")
-                            cmd.Parameters.AddWithValue("@GroupID", 7);
-                        else if (match.Team1.TeamName == "Roter Stern Belgrad" || match.Team2.TeamName == "Roter Stern Belgrad")
-                            cmd.Parameters.AddWithValue("@GroupID", 7);
-                        else if (match.Team1.TeamName == "Royal Antwerpen FC" || match.Team2.TeamName == "Royal Antwerpen FC")
-                            cmd.Parameters.AddWithValue("@GroupID", 8);
-                        else if (match.Team1.TeamName == "Schachtar Donezk" || match.Team2.TeamName == "Schachtar Donezk")
-                            cmd.Parameters.AddWithValue("@GroupID", 8);
-                        else if (match.Team1.TeamName == "Barcelona F. C" || match.Team2.TeamName == "Barcelona F. C")
-                            cmd.Parameters.AddWithValue("@GroupID", 8);
-                        else if (match.Team1.TeamName == "FC Porto" || match.Team2.TeamName == "FC Porto")
-                            cmd.Parameters.AddWithValue("@GroupID", 8);
-
-                        else
-                            cmd.Parameters.AddWithValue("@GroupID", 0);
-
-                        cmd.Parameters.AddWithValue("@Gruppe", true);
-
+                        cmd.Parameters.AddWithValue("@Runde", "AF");
+                        cmd.Parameters.AddWithValue("@RundeDetail", "AF");
+                    }
+                    else if (match.Group.GroupName == "Viertelfinale")
+                    {
+                        cmd.Parameters.AddWithValue("@Runde", "VF");
+                        cmd.Parameters.AddWithValue("@RundeDetail", "VF");
+                    }
+                    else if (match.Group.GroupName == "Halbfinale")
+                    {
+                        cmd.Parameters.AddWithValue("@Runde", "HF");
+                        cmd.Parameters.AddWithValue("@RundeDetail", "HF");
+                    }
+                        
+                    else if (match.Group.GroupName == "Finale")
+                    {
+                        cmd.Parameters.AddWithValue("@Runde", "F");
+                        cmd.Parameters.AddWithValue("@RundeDetail", "F");
                     }
                     else
                     {
-                        if (match.Group.GroupName == "Achtelfinale - Hinspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "AF");
-                        else if (match.Group.GroupName == "Achtelfinale - Rückspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "AF");
-                        else if (match.Group.GroupName == "Viertelfinale - Hinspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "VF");
-                        else if (match.Group.GroupName == "Viertelfinale - Rückspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "VF");
-                        else if (match.Group.GroupName == "Halbfinale - Hinspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "HF");
-                        else if (match.Group.GroupName == "Halbfinale - Rückspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "HF");
-                        else if (match.Group.GroupName == "Finalspiel")
-                            cmd.Parameters.AddWithValue("@Runde", "F");
-                        else
-                            cmd.Parameters.AddWithValue("@Runde", match.Group.GroupName);
-
-                        cmd.Parameters.AddWithValue("@Gruppe", false);
-                        cmd.Parameters.AddWithValue("@GroupID", 0);
+                        cmd.Parameters.AddWithValue("@Runde", match.Group.GroupName);
+                        cmd.Parameters.AddWithValue("@RundeDetail", match.Group.GroupName);
                     }
 
-                    cmd.Parameters.AddWithValue("@RundeDetail", match.Group.GroupName);
                     cmd.Parameters.AddWithValue("@Datum", match.MatchDateTime);
                     cmd.Parameters.AddWithValue("@Abgeschlossen", true);
                     cmd.ExecuteNonQuery();
@@ -449,14 +418,13 @@ namespace LigaManagement.Web.Pages
                 RundeChoosed = e.Value.ToString();
                 Globals.currentEMWMRunde = RundeChoosed;
 
-             
 
                 EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
 
                 if (EMWMSpieltage == null)
                     return;
 
-                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.Saison == Globals.currentEMWMSaison).Where(x => x.Runde == RundeChoosed);
+                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.Saison == Globals.currentEMWMSaison).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
 
                 VisibleBtnNew = NewButtonVisible();
 
@@ -467,14 +435,19 @@ namespace LigaManagement.Web.Pages
                     else if (RundeChoosed == "G2")
                         BisSpieltag = 2;
                     else if (RundeChoosed == "G3")
-                        BisSpieltag = 3;                   
+                        BisSpieltag = 3;
 
                     TabellenA = await TabelleService.BerechneTabelleEMWM(SpieltagService, 1, BisSpieltag);
                     TabellenB = await TabelleService.BerechneTabelleEMWM(SpieltagService, 2, BisSpieltag);
                     TabellenC = await TabelleService.BerechneTabelleEMWM(SpieltagService, 3, BisSpieltag);
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
                     TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
-                    TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);                    
+                    TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    {
+                        TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
+                        TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
+                    }
                 }
 
                 StateHasChanged();
@@ -506,16 +479,22 @@ namespace LigaManagement.Web.Pages
                     return;
                 }
 
+                if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    VisibleTable = "block";
+                else
+                    VisibleTable = "none";
+
                 DisplayErrorSaison = "none";
                 DisplayErrorRunde = "none";
 
                 EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
 
-                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.Saison == Globals.currentEMWMSaison).Where(x => x.Runde == RundeChoosed);
+                EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.SaisonID == Globals.EMWMSaisonID).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
 
                 VisibleBtnNew = NewButtonVisible();
 
                 Globals.bVisibleNavMenuElements = true;
+
                 StateHasChanged();
             }
             catch (Exception ex)

@@ -1,6 +1,7 @@
 ﻿namespace LigaManagement.Web.Classes
 {
     using System;
+    using System.Globalization;
     using System.IO;
 
     using System.Text;
@@ -20,15 +21,22 @@
 
             }
 
-            FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt" , FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            string DATEPATTERN = "dd.MM.yy";
 
+            DateTime.TryParseExact(DateTime.Now.Date.ToString(), DATEPATTERN, null, DateTimeStyles.None, out DateTime outGermanDate);
+
+            //From outGermanDate to UTC Format
+            string dateUTC = outGermanDate.ToString("yyyy-MM-dd");
+
+            FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog " + ".txt" , FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            
             StreamWriter s = new StreamWriter(fs);
 
             s.Close();
 
             fs.Close();
 
-            FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.Append, FileAccess.Write);
+            FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog " + ".txt", FileMode.Append, FileAccess.Write);
 
             StreamWriter s1 = new StreamWriter(fs1);
 

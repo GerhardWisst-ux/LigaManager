@@ -25,6 +25,9 @@ namespace LigamanagerManagement.Web.Pages
         [Parameter]
         public string Runde { get; set; }
 
+        [Parameter]
+        public string Gruppe { get; set; }
+
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
         public string RundeChoosed;
@@ -59,7 +62,7 @@ namespace LigamanagerManagement.Web.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IStringLocalizer<EditEMWMpieltag> Localizer { get; set; }
+        public IStringLocalizer<EditEMWMSpieltag> Localizer { get; set; }
 
         public bool Collapsed = true;
 

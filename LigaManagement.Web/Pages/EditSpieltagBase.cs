@@ -110,7 +110,7 @@ namespace LigamanagerManagement.Web.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IStringLocalizer<SpieltageList> Localizer { get; set; }
+        public IStringLocalizer<EditSpieltag> Localizer { get; set; }
 
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 

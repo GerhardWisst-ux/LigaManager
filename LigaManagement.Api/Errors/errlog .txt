@@ -1,0 +1,42 @@
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Die parametrisierte Abfrage "(@Liganame nvarchar(7),@Verband nvarchar(4),@Erstaustragung date" erwartet den @Rekordspieler-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.LigaRepository.AddLiga(Liga liga) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 42
+Date/Time: 18.06.2024 15:21:07
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Ungültiger Spaltenname "EMWM".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.LigaRepository.AddLiga(Liga liga) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 45
+Date/Time: 18.06.2024 15:23:17
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: String '24' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
+   at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
+Date/Time: 18.06.2024 15:34:02
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: String '24' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
+   at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
+Date/Time: 18.06.2024 15:35:25
+============================================

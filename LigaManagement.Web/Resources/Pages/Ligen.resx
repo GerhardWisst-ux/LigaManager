@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Aktiv" xml:space="preserve">
+    <value>Aktiv</value>
+  </data>
   <data name="Anzahl Ligen" xml:space="preserve">
     <value>Anzahl Ligen</value>
   </data>
   <data name="Bearbeiten" xml:space="preserve">
     <value>Bearbeiten</value>
+  </data>
+  <data name="EMWM" xml:space="preserve">
+    <value>EMWM</value>
   </data>
   <data name="Erstaustragung" xml:space="preserve">
     <value>Erstaustragung</value>

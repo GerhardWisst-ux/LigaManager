@@ -32,8 +32,8 @@ namespace LigaManagement.Web
                     }
                     else if (LMSettings.GetSprache_LandKZ() == "EN")
                     {
-                        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-US");
-                        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-US");
+                        CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-GB");
+                        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("en-GB");
                     }
                     else
                     {

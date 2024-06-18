@@ -3440,6 +3440,7 @@ namespace LigaManagerManagement.Web.Services
                         tabelleneintragV1.Verloren = 0;
                         tabelleneintragV1.Platz = 0;
                         tabelleneintragV1.Tore = "0";
+                        tabelleneintragV1.Hyperlink = vereineGruppe.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(verein.VereinNr)).Hyperlink;
                         tabelleneintragV1.Diff = 0;
                         tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
                         tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
@@ -3459,8 +3460,8 @@ namespace LigaManagerManagement.Web.Services
                         {
                             item = this.SpieltagCL[ii - 1];
 
-                            Tabelle tabelleneintragF = TabSaisonSorted.FirstOrDefault(x => x.VereinNr == Convert.ToInt32(item.Verein1_Nr));
-                            Tabelle tabelleneintragF2 = TabSaisonSorted.FirstOrDefault(x => x.VereinNr == Convert.ToInt32(item.Verein2_Nr));
+                            Tabelle tabelleneintragF = TabSaisonSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein1_Nr));
+                            Tabelle tabelleneintragF2 = TabSaisonSorted.Find(x => x.VereinNr == Convert.ToInt32(item.Verein2_Nr));
 
                             tabelleneintragV1 = new Tabelle();
                             tabelleneintragV2 = new Tabelle();
@@ -3481,9 +3482,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 3;
                                     tabelleneintragF.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF.Hyperlink = item.TeamIconUrl1;
 
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
@@ -3497,9 +3498,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 1;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 0;
                                     tabelleneintragF2.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF2.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF2.Hyperlink = item.TeamIconUrl2;
 
                                 }
@@ -3516,9 +3517,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 0;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF.Hyperlink = item.TeamIconUrl1;
 
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
@@ -3532,9 +3533,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 0;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF2.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF2.Hyperlink = item.TeamIconUrl2;
 
 
@@ -3553,9 +3554,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 0;
                                     tabelleneintragF.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF.Hyperlink = item.TeamIconUrl1;
 
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
@@ -3569,9 +3570,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 0;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 3;
                                     tabelleneintragF2.Platz = 0;
-                                    tabelleneintragV1.Tab_Sai_Id = Globals.EMWMSaisonID;
-                                    tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragV1.Liga = Globals.currentEMWMSaison;
+                                    tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
+                                    tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
+                                    tabelleneintragF2.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF2.Hyperlink = item.TeamIconUrl2;
                                 }
                             }

@@ -21,6 +21,20 @@
         min-height: 8%;
         word-break: break-all;
     }
+
+    <style>
+    .icon-preview div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        width: 120px;
+    }
+    .icon-preview span {
+        color: var(--rz-text-disabled-color);
+        font-size: 0.75rem;
+    }
+</style>
 </style>
 
 @if (VereineList == null)
@@ -37,7 +51,7 @@ else
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>
                             <span class="ml-3">
-                                <a href="@($"createverein/{"DE"}")" style="width:35px; height:30px;" title=">@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                <a href="@($"createverein/{"DE"}")" style="width:35px; height:30px;" title="@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
                             </span>
                         </div>
                     </div>
@@ -96,7 +110,7 @@ else
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>

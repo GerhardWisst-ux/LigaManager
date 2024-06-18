@@ -117,100 +117,106 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Anzahl Vereine" xml:space="preserve">
-    <value>Number of clubs</value>
-  </data>
-  <data name="Anzeigename" xml:space="preserve">
-    <value>Show name</value>
-  </data>
   <data name="Bearbeiten" xml:space="preserve">
-    <value>Edit</value>
+    <value>Bearbeiten</value>
   </data>
-  <data name="Bundesliga" xml:space="preserve">
-    <value>Bundesliga</value>
+  <data name="Datum" xml:space="preserve">
+    <value>Datum</value>
   </data>
-  <data name="Erfolge" xml:space="preserve">
-    <value>Successes</value>
+  <data name="Eigentor" xml:space="preserve">
+    <value>Eigentor</value>
   </data>
-  <data name="Fassungsvermoegen" xml:space="preserve">
-    <value>Capacity</value>
+  <data name="Elfmeter" xml:space="preserve">
+    <value>Elfmeter</value>
   </data>
-  <data name="Gegruendet" xml:space="preserve">
-    <value>Founded</value>
+  <data name="Kader Verein 1" xml:space="preserve">
+    <value>Kader Verein 1</value>
   </data>
-  <data name="Kurzname" xml:space="preserve">
-    <value>Short name</value>
+  <data name="Kader Verein 2" xml:space="preserve">
+    <value>Kader Verein 2</value>
   </data>
-  <data name="Land" xml:space="preserve">
-    <value>Country</value>
-  </data>
-  <data name="Liga1" xml:space="preserve">
-    <value>Liga 1</value>
-  </data>
-  <data name="Liga2" xml:space="preserve">
-    <value>Liga 2</value>
+  <data name="Kontakt" xml:space="preserve">
+    <value>Kontakt</value>
   </data>
   <data name="Löschen" xml:space="preserve">
-    <value>Delete</value>
+    <value>Löschen</value>
   </data>
-  <data name="Löscht Verein" xml:space="preserve">
-    <value>Delete club</value>
+  <data name="Löscht Spiel" xml:space="preserve">
+    <value>Löscht Spiel</value>
   </data>
   <data name="Neuanlage" xml:space="preserve">
-    <value>Create new</value>
+    <value>Neuanlage</value>
   </data>
-  <data name="Neuanlage Verein" xml:space="preserve">
-    <value>Create new club</value>
+  <data name="Ort" xml:space="preserve">
+    <value>Ort</value>
   </data>
-  <data name="Nr" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
-  </data>
-  <data name="Pokal" xml:space="preserve">
-    <value>Cup</value>
+  <data name="Schiedrichter" xml:space="preserve">
+    <value>Schiedrichter</value>
   </data>
   <data name="Speichern" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
   </data>
-  <data name="Speichert Verein ab" xml:space="preserve">
-    <value>Saves club</value>
+  <data name="Speichert Spiel ab" xml:space="preserve">
+    <value>Speichert Spiel ab</value>
   </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
+  <data name="Speichert Tor ab" xml:space="preserve">
+    <value>Speichert Tor ab</value>
   </data>
-  <data name="Stadion" xml:space="preserve">
-    <value>Stadium</value>
+  <data name="Spiel" xml:space="preserve">
+    <value>Spiel</value>
+  </data>
+  <data name="Spieler Verein 1" xml:space="preserve">
+    <value>Spieler Verein 1</value>
+  </data>
+  <data name="Spieler Verein 2" xml:space="preserve">
+    <value>Spieler Verein 2</value>
+  </data>
+  <data name="Spieler wählen" xml:space="preserve">
+    <value>Spieler wählen</value>
+  </data>
+  <data name="Spielinfo" xml:space="preserve">
+    <value>Spielinfo</value>
+  </data>
+  <data name="Spielminute" xml:space="preserve">
+    <value>Spielminute</value>
+  </data>
+  <data name="Spielstand" xml:space="preserve">
+    <value>Spielstand</value>
+  </data>
+  <data name="Tore" xml:space="preserve">
+    <value>Tore</value>
+  </data>
+  <data name="Tore 1" xml:space="preserve">
+    <value>Tore 1</value>
+  </data>
+  <data name="Tore 2" xml:space="preserve">
+    <value>Tore 2</value>
   </data>
   <data name="Verein" xml:space="preserve">
-    <value>Club</value>
+    <value>Verein</value>
+  </data>
+  <data name="Verein 1" xml:space="preserve">
+    <value>Verein 1</value>
+  </data>
+  <data name="Verein 2" xml:space="preserve">
+    <value>Verein 2</value>
+  </data>
+  <data name="Verein wählen" xml:space="preserve">
+    <value>Verein wählen</value>
   </data>
   <data name="Vereine" xml:space="preserve">
-    <value>Clubs</value>
-  </data>
-  <data name="Vereine Deutschland" xml:space="preserve">
-    <value>Clubs Germany</value>
-  </data>
-  <data name="Vereine La Liga" xml:space="preserve">
-    <value>Clubs La Liga</value>
-  </data>
-  <data name="Vereine Ligue 1" xml:space="preserve">
-    <value>Clubs Ligue 1</value>
-  </data>
-  <data name="Vereine Premier League" xml:space="preserve">
-    <value>Clubs Premier League</value>
-  </data>
-  <data name="Vereine Serie A" xml:space="preserve">
-    <value>Clubs Serie A</value>
-  </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
+    <value>Vereine</value>
   </data>
   <data name="Zurück" xml:space="preserve">
-    <value>Back</value>
+    <value>Zurück</value>
   </data>
-  <data name="Zurück zu Vereine" xml:space="preserve">
-    <value>Back to list of clubs</value>
+  <data name="Zurück zu Spieltagsübersicht" xml:space="preserve">
+    <value>Zurück zu Spieltagsübersicht</value>
+  </data>
+  <data name="Zuschauer" xml:space="preserve">
+    <value>Zuschauer</value>
+  </data>
+  <data name="Übersicht Spielverlauf" xml:space="preserve">
+    <value>Übersicht Spielverlauf</value>
   </data>
 </root>

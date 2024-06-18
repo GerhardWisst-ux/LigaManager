@@ -189,6 +189,9 @@
   <data name="Verband" xml:space="preserve">
     <value>Association</value>
   </data>
+  <data name="Verein auswählen" xml:space="preserve">
+    <value>Select club</value>
+  </data>
   <data name="Verein gegen Verein" xml:space="preserve">
     <value>Club against club</value>
   </data>

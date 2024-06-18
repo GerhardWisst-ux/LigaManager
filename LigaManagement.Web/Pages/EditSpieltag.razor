@@ -66,19 +66,19 @@ else
                 <RadzenCard class="m-0 mb-3 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                                <h2 class="card-title"> @Globals.currentLand @Globals.currentLiga @Titel Spiel</h2>
+                                <h2 class="card-title"> @Globals.currentLand @Globals.currentLiga @Titel @Localizer["Spiel"].Value </h2>
                             <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
-                            <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</a>
+                            <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a>
                         </div>
                     </div>
                 </RadzenCard>
 
                 <RadzenTabs>
                     <Tabs>
-                        <RadzenTabsItem Text="Spielinfo">
+                        <RadzenTabsItem Text="@Localizer["Spielinfo"].Value">
                             <div class="content">
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein1">Verein 1</RadzenLabel>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
                                         <option value="" selected required>Verein wählen</option>
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
@@ -96,22 +96,22 @@ else
                                     <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputText>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore1">Tore 1</RadzenLabel>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
                                     @* <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-9"></InputNumber> *@
                                     <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-sm-9" />
                                     <ValidationMessage class="form-control col-sm-9" For="@(() => Spiel.Tore1_Nr)" />
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore2">Tore 2</RadzenLabel>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
                                     @* <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-9"></InputNumber> *@
                                     <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-sm-9" />
                                     @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
                                     <ValidationMessage class="form-control col-sm-9" For="@(() => Spiel.Tore2_Nr)" />
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein2">Verein 2</RadzenLabel>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein2Change">
-                                        <option value="" selected required>Verein wählen</option>
+                                        <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
                                             @if (verein.VereinID == Spiel.Verein2_Nr)
@@ -127,13 +127,13 @@ else
                                     <InputText style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-9"></InputText>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Datum" class="col-sm-3" Component="txtDatum">Datum</RadzenLabel>
+                                    <RadzenLabel Text="Datum" class="col-sm-3" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
                                     <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-3"></InputDate>
                                     <ValidationMessage For="(()=>Spiel.Datum)"></ValidationMessage>
                                     <input id="txtZeit" type="time" class="form-control col-sm-3" required @bind-value="Time" />
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Ort" class="col-sm-3" Component="cboStadion">Ort</RadzenLabel>
+                                    <RadzenLabel Text="Ort" class="col-sm-3" Component="cboStadion">@Localizer["Ort"].Value</RadzenLabel>
                                     <select id="cboStadion" bind-value="@Spiel.Ort" class="form-control col-sm-9" @onchange="StadionChange">
                                         @foreach (var verein in VereineList.OrderBy(x => x.Ort))
                                         {
@@ -153,27 +153,27 @@ else
                                     <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Schiedrichter" class="col-sm-3" Component="txtSchiedrichter">Schiedrichter</RadzenLabel>
+                                    <RadzenLabel Text="Schiedrichter" class="col-sm-3" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
                                     <RadzenTextBox required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-9"></RadzenTextBox>
                                     <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
 
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Zuschauer" class="col-sm-3" Component="txtZuschauer">Zuschauer</RadzenLabel>
+                                    <RadzenLabel Text="Zuschauer" class="col-sm-3" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
                                     <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-sm-9" />
                                     @* <RadzenNumericRangeValidator Component="txtZuschauer" Min="100" Max="1000000" Text="Zuschauer zwischen 100 und 100000" Style="position: absolute" /> *@
                                     <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                                 </div>
                                 <div class="form-group py-2">
-                                    <RadzenButton title="Speichert Spiel ab" style="margin-left:5px;" id="btnsave" Click="Upsert" class="btn btn-primary" Text="Speichern">
-                                        <span class="glyphicon glyphicon-save"></span>Speichern
+                                    <RadzenButton title="@Localizer["Speichert Spiel ab"].Value" style="margin-left:5px;" id="btnsave" Click="Upsert" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
+                                        <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                                     </RadzenButton>
-                                    <RadzenButton title="Löscht Spiel" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
-                                            <span class="glyphicon glyphicon-remove"></span>Löschen
+                                    <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                                         </RadzenButton>
 
-                                    <RadzenButton title="Zurück zu Spieltagsübersicht" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
-                                        <span class="glyphicon glyphicon-left"></span>Zurück
+                                    <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+                                        <span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value
                                     </RadzenButton>
                                 </div>
                             </div>
@@ -181,7 +181,7 @@ else
                         <RadzenTabsItem Visible="@AufstellungenVisible" Text="@Localizer["Aufstellungen"].Value">
                             <div style="width:100%" class="content card">
                                 <div class="form-group row">
-                                    <label class="col-sm-3">Kader Verein 1</label>
+                                    <label class="col-sm-3">@Localizer["Kader Verein 1"].Value</label>
                                     <select id="cboKader" class="form-control col-sm-4" @onchange="KaderChange1">
                                         <option value="" selected>@Spielername</option>
                                         <option value="" selected Spieler wählen></option>
@@ -191,7 +191,7 @@ else
 
                                         }
                                     </select>
-                                    <label class="col-sm-3">Kader Verein 2</label>
+                                    <label class="col-sm-3">@Localizer["Kader Verein 2"].Value</label>
                                     <select id="cboKader2" class="form-control col-sm-4" @onchange="KaderChange2">
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
@@ -199,12 +199,12 @@ else
                                                 <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
-                                        <option value="" selected>Spieler wählen</option>
+                                        <option value="" selected>@Localizer["Spieler wählen"].Value</option>
                                     </select>
                                     <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputText>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Spieler Verein 1" class="col-sm-3 pl-0" Component="chkSpielerVerein1">Spieler Verein 1</RadzenLabel>
+                                    <RadzenLabel Text="Spieler Verein 1" class="col-sm-3 pl-0" Component="chkSpielerVerein1">@Localizer["Spieler Verein 1"].Value </RadzenLabel>
                                     <select id="cboSpieler1" class="form-control col-sm-4" @onchange="KaderChange1">
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
@@ -212,9 +212,9 @@ else
                                                 <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
-                                        <option value="" selected>Spieler wählen</option>
+                                        <option value="" selected>@Localizer["Spieler wählen"].Value</option>
                                     </select>
-                                    <RadzenLabel Text="Spieler Verein 2" class="col-sm-3 pl-0" Component="chkSpielerVerein1">Spieler Verein 2</RadzenLabel>
+                                    <RadzenLabel Text="Spieler Verein 2" class="col-sm-3 pl-0" Component="chkSpielerVerein1">@Localizer["Spieler Verein 2"].Value</RadzenLabel>
                                     <select id="cboSpieler2" class="form-control col-sm-4" @onchange="KaderChange2">
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
@@ -222,22 +222,22 @@ else
                                                 <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
-                                        <option value="" selected>Spieler wählen</option>
+                                        <option value="" selected>@Localizer["Spieler wählen"].Value</option>
                                     </select>
                                     <InputText style="display:none;" id="txtSpieler" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputText>
                                     <div class="form-group-row py-2">
-                                        <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>Speichern</button>
-                                        <NavLink href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>Zurück</NavLink>
+                                        <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value</button>
+                                        <NavLink href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</NavLink>
 
-                                        <button onclick="GoBack" class="btn btn-primary"><span class="glyphicon glyphicon-left"></span>Zurück</button>
+                                        <button onclick="GoBack" class="btn btn-primary"><span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value</button>
                                     </div>
                                 </div>
                             </div>
                         </RadzenTabsItem>
-                        <RadzenTabsItem Text="Tore">
+                        <RadzenTabsItem Text=@Localizer["Tore"].Value>
                             <div class="form-group row">
                                 <details open>
-                                    <summary>Übersicht Spielverlauf</summary>
+                                    <summary>@Localizer["Übersicht Spielverlauf"].Value</summary>
                                     <p>
                                         @if (ToreList != null)
                                         {
@@ -278,13 +278,13 @@ else
                                 </details>
 
                                 <details>
-                                    <summary>Tore</summary>
+                                    <summary>@Localizer["Goals"].Value</summary>
                                     <p>
                                         <div class="card-body CardTore">
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Spieler Verein 1" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkSpielerVerein1">Spieler Verein 1</RadzenLabel>
+                                                <RadzenLabel Text="Spieler Verein 1" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkSpielerVerein1">@Localizer["Spieler Verein 1"].Value</RadzenLabel>
                                                 <select id="cboKader" class="form-control col-sm-8" @onchange="ToreChange1">
-                                                    <option selected="selected">Spieler auswählen</option>
+                                                    <option selected="selected">@Localizer["Spieler wählen"].Value </option>
                                                     @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
                                                     {
                                                             <option value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -292,9 +292,9 @@ else
                                                 </select>
                                             </div>
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Spieler Verein 2" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkSpielerVerein2">Spieler Verein 2</RadzenLabel>
+                                                <RadzenLabel Text="Spieler Verein 2" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkSpielerVerein2">@Localizer["Spieler Verein 2"].Value</RadzenLabel>
                                                 <select id="cboKader" Style="margin-left:5px;" class="form-control col-sm-8" @onchange="ToreChange2">
-                                                    <option selected="selected">Spieler auswählen</option>
+                                                    <option selected="selected">@Localizer["Spieler wählen"].Value</option>
                                                     @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                                     {
                                                             <option value="@spieler.SpielerID"> @spieler.Spielername </option>
@@ -302,21 +302,21 @@ else
                                                 </select>
                                             </div>
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Spielminute" style="margin-left:15px;" class="col-sm-3 pl-0" Component="txtSpielminute">Spielminute</RadzenLabel>
+                                                <RadzenLabel Text="Spielminute" style="margin-left:15px;" class="col-sm-3 pl-0" Component="txtSpielminute">@Localizer["Spielminute"].Value</RadzenLabel>
                                                 <InputNumber id="txtSpielminute" @bind-Value="Tor.Spielminute" Style="margin-left:5px;" class="form-control col-sm-8"></InputNumber>
                                             </div>
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Spielstand" style="margin-left:15px;" class="col-sm-3 pl-0" Component="txtSpielstand">Spielstand</RadzenLabel>
+                                                <RadzenLabel Text="Spielstand" style="margin-left:15px;" class="col-sm-3 pl-0" Component="txtSpielstand">@Localizer["Spielstand"].Value</RadzenLabel>
                                                 <InputText id="txtSpielstand" @bind-Value="Tor.Spielstand" Style="margin-left:5px;" class="form-control col-sm-8"></InputText>
                                             </div>
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Eigentor" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkEigentor">Eigentor</RadzenLabel>
+                                                <RadzenLabel Text="Eigentor" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkEigentor">@Localizer["Eigentor"].Value</RadzenLabel>
                                                 <RadzenCheckBox @bind-Value="Tor.Eigentor" Style="width:auto;margin-left:5px;" class="form-control col-sm-1" Name="chkEigentor" />
                                                 <RadzenLabel Text="" class="col-sm-8 pl-0"></RadzenLabel>
                                                 <ValidationMessage For="()=>Tor.Eigentor"></ValidationMessage>
                                             </div>
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenLabel Text="Elfmeter" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkElfmeter">Elfmeter</RadzenLabel>
+                                                <RadzenLabel Text="Elfmeter" style="margin-left:15px;" class="col-sm-3 pl-0" Component="chkElfmeter">@Localizer["Elfmeter"].Value</RadzenLabel>
                                                 <RadzenCheckBox @bind-Value="Tor.Elfmeter" Style="width:auto;margin-left:5px;" class="form-control col-sm-1" Name="chkElfmeter" />
                                                 <RadzenLabel Text="" class="col-sm-8 pl-0"></RadzenLabel>
                                                 <ValidationMessage For="()=>Tor.Elfmeter"></ValidationMessage>
@@ -335,7 +335,7 @@ else
                                         </div>
                                         <br /> *@
                                             <div style="display:block;" class="form-group row">
-                                                <RadzenButton style="margin-left:15px;" title="Speichert Tor ab" id="btnSpeichernTor" Click="UpsertTor1" class="btn btn-primary" Text="Speichern">
+                                                <RadzenButton style="margin-left:15px;" title="@Localizer["Speichert Tor ab"].Value" id="btnSpeichernTor" Click="UpsertTor1" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                                                 </RadzenButton>
                                             </div>
                                         </div>
@@ -364,14 +364,14 @@ else
             if (Id == "0" || Id is null)
             {
                 //Neuanlage
-                Titel = "Neuanlage";
+                Titel = @Localizer["Neuanlage"].Value;
                 Id = "0";
                 IsLoading = false;
             }
             else
             {
                 //Bearbeiten
-                Titel = "Bearbeiten";
+                Titel =@Localizer["Bearbeiten"].Value;
                 await LoadSpiel();
             }
         }
@@ -517,7 +517,7 @@ else
             if (spieltag != null)
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Spieltag", Detail = "Abgespeichert" });
         }
-        string url = "/spieltage/" + SpieltagNr;
+        string url = "/Ligamanager/spieltage/" + SpieltagNr;
 
         /* navigationManager.NavigateTo(url); */
     }

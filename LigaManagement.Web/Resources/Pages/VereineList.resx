@@ -126,6 +126,9 @@
   <data name="Bearbeiten" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="Bundesliga" xml:space="preserve">
+    <value>Bundesliga</value>
+  </data>
   <data name="Erfolge" xml:space="preserve">
     <value>Erfolge</value>
   </data>
@@ -152,6 +155,9 @@
   </data>
   <data name="Neuanlage" xml:space="preserve">
     <value>Neuanlage</value>
+  </data>
+  <data name="Neuanlage Verein" xml:space="preserve">
+    <value>Neuanlage Verein</value>
   </data>
   <data name="Nr" xml:space="preserve">
     <value>Nr</value>

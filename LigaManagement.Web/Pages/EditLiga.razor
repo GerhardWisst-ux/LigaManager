@@ -62,11 +62,18 @@
                 <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
             </div>
             <div class="form-group row">
-                <RadzenLabel Text="Label" class="col-sm-3" Component="chkAktiv">@Localizer["Active"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
+                <RadzenLabel Text="lblAktiv" class="col-sm-3" Component="chkAktiv">@Localizer["Active"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
+            </div>
+            <div class="form-group row">
+                <RadzenLabel Text="lblEMWM" class="col-sm-3" Component="chkAktiv">@Localizer["EMWM"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+                </RadzenColumn>
+                <ValidationMessage For="()=>Liga.EMWM"></ValidationMessage>
             </div>
             
             <div class="form-group row">
@@ -125,31 +132,34 @@
     }
     private async Task UpsertLiga()
     {
+        bool bError = false;
 
         if ((Liga.Liganame == null))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganame nicht angegeben.Speichern nicht möglich." });
-            return;
+            bError = true;
         }
 
         if ((Liga.Liganummer == 0))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganummer nicht angegeben.Speichern nicht möglich." });
-            return;
+            bError = true;
         }
 
         if ((Liga.Verband == null))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Verband nicht angegeben.Speichern nicht möglich." });
-            return;
+            bError = true;
         }
 
         if ((Liga.Erstaustragung.ToString() == "01.01.0001 00:00:00"))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Erstaustragung nicht angegeben.Speichern nicht möglich." });
-            return;
+            bError = true;
         }
 
+        if (bError == true)
+            return;
 
         if (Id == "0")
         {           

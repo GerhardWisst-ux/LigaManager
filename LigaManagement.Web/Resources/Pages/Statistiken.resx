@@ -189,6 +189,9 @@
   <data name="Verband" xml:space="preserve">
     <value>Verband</value>
   </data>
+  <data name="Verein auswählen" xml:space="preserve">
+    <value>Verein auswählen</value>
+  </data>
   <data name="Voriger Spieltag" xml:space="preserve">
     <value>Voriger Spieltag</value>
   </data>

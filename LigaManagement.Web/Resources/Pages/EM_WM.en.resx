@@ -129,6 +129,9 @@
   <data name="Begegnungen" xml:space="preserve">
     <value>Matches</value>
   </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Elfmeterschiessen" xml:space="preserve">
     <value>Peanalty shootout</value>
   </data>
@@ -149,6 +152,9 @@
   </data>
   <data name="Neuanlage EM-Spiel" xml:space="preserve">
     <value>Create new EM-Match</value>
+  </data>
+  <data name="Ort" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="Runde wählen" xml:space="preserve">
     <value>Select round</value>

@@ -66,9 +66,15 @@ else
                         <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="250px" Sortable=true Title="@Localizer["Verband"].Value" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="@Localizer["Erstaustragung"].Value" />
 
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" Title="Aktiv" Width="10%" Filterable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" title="@Localizer["Aktiv"].Value" Width="10%" Filterable="false">
                             <Template Context="data">
                               <RadzenCheckBox @bind-Value=@data.Aktiv TValue="bool" Name="chkBundesliga" /> 
+                            </Template>
+                        </RadzenDataGridColumn>
+
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="EMWM" title="@Localizer["EMWM"].Value" Width="10%" Filterable="false">
+                            <Template Context="data">
+                                <RadzenCheckBox @bind-Value=@data.EMWM TValue="bool" Name="chkEMWM" />
                             </Template>
                         </RadzenDataGridColumn>
 
@@ -86,7 +92,7 @@ else
                 </RadzenDataGrid>
                 <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
                     <RadzenColumn Offset="11" Style="text-align:right;">
-                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
                     </RadzenColumn>
                 </RadzenRow>
             </div>

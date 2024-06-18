@@ -121,7 +121,7 @@ else
                             <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
                         </div>
                         <div class="form-group row my-4">
-                            <RadzenLabel Text="Label" class="col-sm-3" Component="chkBundesliga">Bundesliga</RadzenLabel>
+                            <RadzenLabel Text="Label" class="col-sm-3" Component="chkBundesliga">@Localizer["Bundesliga"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkBundesliga" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>

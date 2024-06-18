@@ -25,7 +25,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     Connection = conn,
                     CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler,EMWM)"
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler,@EMWM)"
                 };
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
@@ -35,7 +35,10 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Liganummer", liga.Liganummer);
                 cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
                 cmd.Parameters.AddWithValue("@LandID", liga.LandID);
-                cmd.Parameters.AddWithValue("@Rekordspieler", liga.Rekordspieler);
+                if (liga.Rekordspieler != null)
+                    cmd.Parameters.AddWithValue("@Rekordspieler", liga.Rekordspieler);
+                else
+                    cmd.Parameters.AddWithValue("@Rekordspieler", "");
                 cmd.Parameters.AddWithValue("@Spiele_Rekordspieler", liga.Spiele_Rekordspieler);
                 cmd.Parameters.AddWithValue("@EMWM", liga.EMWM);
 

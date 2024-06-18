@@ -38,4 +38,18 @@ namespace LigaManagement.Models
         public int SaisonID { get; set; }
 
     }
+
+    public class VereinEMWM : Verein
+    {
+        public int GroupID2024 { get; set; }
+        public int GroupID2022 { get; set; }
+        public int GroupID2020 { get; set; }
+        public int GroupID2018 { get; set; }
+        public int GroupID2016 { get; set; }
+        public int GroupID2014 { get; set; }
+        public int GroupID2012 { get; set; }
+        public int GroupID2010 { get; set; }
+        public int GroupID2008 { get; set; }
+
+    }
 }
