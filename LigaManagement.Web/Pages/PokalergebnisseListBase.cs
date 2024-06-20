@@ -117,14 +117,14 @@ namespace LigaManagement.Web.Pages
 
                 if (Globals.currentPokalRunde != null)
                     OnClickHandler();
-                                
+
                 RundeList = new List<DisplayRunde>
-                {                    
-                    new DisplayRunde("2", "2. Runde"),
-                      new DisplayRunde("AF", "Achtelfinale"),
-                       new DisplayRunde("VF", "Viertelfinale"),
-                       new DisplayRunde("HF", "Halbfinale"),
-                        new DisplayRunde("F", "Finale")
+                {
+                    new DisplayRunde("2",Localizer["2. Runde"].Value),
+                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayRunde("F", Localizer["Finale"].Value),
                 };
 
                 Globals.bVisibleNavMenuElements = true;

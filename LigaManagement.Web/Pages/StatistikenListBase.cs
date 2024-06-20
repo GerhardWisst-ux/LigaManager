@@ -168,7 +168,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (e.Value.ToString() == "Verein auswählen")
+                if (e.Value.ToString() == Localizer["Verein auswählen"].Value)
                     return;
 
                 Spiel.Verein1_Nr = e.Value.ToString();
@@ -184,7 +184,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (e.Value.ToString() == "Verein auswählen")
+                if (e.Value.ToString() == Localizer["Verein auswählen"].Value)
                     return;
 
                 Spiel.Verein2_Nr = e.Value.ToString();
@@ -210,7 +210,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (e.Value.ToString() == "Verein auswählen")
+                if (e.Value.ToString() == Localizer["Verein auswählen"].Value)
                     return;
 
                 Spiel.Verein1_Nr = e.Value.ToString();
@@ -227,7 +227,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 var stat = await TabelleService.VereinSum(SpieltagService, Spiel);
 
-                Statistik = String.Concat("Gewonnen:", stat.Gewonnen, " Unentschieden: ", stat.Unentschieden, " Verloren: ", stat.Verloren);
+                Statistik = String.Concat(Localizer["Gewonnen"].Value, stat.Gewonnen, " " + Localizer["Untentschieden"].Value + " ", stat.Unentschieden, " " + Localizer["Verloren"].Value + "", stat.Verloren);
                 DisplayElements = "block";
                 StateHasChanged();
             }

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Abgespeichert</value>
+  </data>
   <data name="Aktiv" xml:space="preserve">
     <value>Aktiv</value>
   </data>
@@ -126,11 +129,17 @@
   <data name="Bearbeiten" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="BearbeitenLiga" xml:space="preserve">
+    <value>Bearbeiten Liga</value>
+  </data>
   <data name="EMWM" xml:space="preserve">
     <value>EMWM</value>
   </data>
   <data name="Erstaustragung" xml:space="preserve">
     <value>Erstaustragung</value>
+  </data>
+  <data name="Gelöscht" xml:space="preserve">
+    <value>Gelöscht</value>
   </data>
   <data name="Liganame" xml:space="preserve">
     <value>Liganame</value>
@@ -144,8 +153,14 @@
   <data name="Löschen" xml:space="preserve">
     <value>Löschen</value>
   </data>
+  <data name="Löschen Liga" xml:space="preserve">
+    <value>Löschen Liga</value>
+  </data>
   <data name="Löscht Liga" xml:space="preserve">
     <value>Löscht Liga</value>
+  </data>
+  <data name="MessageDelete" xml:space="preserve">
+    <value>Möchten Sie diese Liga tatsächlich löschen?</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Nach oben</value>

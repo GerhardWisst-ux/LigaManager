@@ -18,7 +18,7 @@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
-<head>   
+<head>
 
 </head>
 
@@ -47,13 +47,17 @@
         margin: 0;
     }
 
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+
 </style>
 
 @if (Spiel == null)
 {
-        <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
-            <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
-        </RadzenStack>
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
 }
 else
 {
@@ -66,8 +70,8 @@ else
                 <RadzenCard class="m-0 mb-3 rz-shadow-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                                <h2 class="card-title"> @Globals.currentLand @Globals.currentLiga @Titel @Localizer["Spiel"].Value </h2>
-                            <h3 class="card-title">@SpieltagNr .Spieltag Saison @Globals.currentSaison</h3>
+                            <h2 class="card-title"> @Globals.currentLand @Globals.currentLiga @Titel @Localizer["Spiel"].Value </h2>
+                            <h3 class="card-title">@SpieltagNr .@Localizer["Spieltag"].Value Saison @Globals.currentSaison</h3>
                             <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a>
                         </div>
                     </div>
@@ -80,16 +84,16 @@ else
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-sm-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
-                                        <option value="" selected required>Verein wählen</option>
+                                        <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
                                             @if (verein.VereinID == Spiel.Verein1_Nr)
                                             {
-                                                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                                <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
                                             }
                                             else
                                             {
-                                                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                             }
                                         }
                                     </select>
@@ -116,11 +120,11 @@ else
                                         {
                                             @if (verein.VereinID == Spiel.Verein2_Nr)
                                             {
-                                                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                                <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
                                             }
                                             else
                                             {
-                                                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                                             }
                                         }
                                     </select>
@@ -137,16 +141,16 @@ else
                                     <select id="cboStadion" bind-value="@Spiel.Ort" class="form-control col-sm-9" @onchange="StadionChange">
                                         @foreach (var verein in VereineList.OrderBy(x => x.Ort))
                                         {
-                                                <option value="@verein.VereinID"> @verein.Ort </option>
+                                            <option value="@verein.VereinID"> @verein.Ort </option>
 
                                         }
                                         @if (Id is null)
                                         {
-                                                <option value="" selected>Stadion wählen</option>
+                                            <option value="" selected>@Localizer["Stadion wählen"].Value</option>
                                         }
                                         else
                                         {
-                                                <option selected="selected">@Spiel.Ort</option>
+                                            <option selected="selected">@Spiel.Ort</option>
                                         }
                                     </select>
                                     <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-9"></InputText>
@@ -170,7 +174,7 @@ else
                                     </RadzenButton>
                                     <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
                                         <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
-                                        </RadzenButton>
+                                    </RadzenButton>
 
                                     <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                                         <span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value
@@ -187,7 +191,7 @@ else
                                         <option value="" selected Spieler wählen></option>
                                         @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
                                         {
-                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                            <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
                                     </select>
@@ -196,7 +200,7 @@ else
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                         {
-                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                            <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
                                         <option value="" selected>@Localizer["Spieler wählen"].Value</option>
@@ -209,7 +213,7 @@ else
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in SpielerList1.OrderBy(x => x.Spielername))
                                         {
-                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                            <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
                                         <option value="" selected>@Localizer["Spieler wählen"].Value</option>
@@ -219,7 +223,7 @@ else
                                         <option value="" selected>@Spielername</option>
                                         @foreach (var spieler in SpielerList2.OrderBy(x => x.Spielername))
                                         {
-                                                <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                            <option selected value="@spieler.SpielerID"> @spieler.Spielername </option>
 
                                         }
                                         <option value="" selected>@Localizer["Spieler wählen"].Value</option>
@@ -243,36 +247,36 @@ else
                                         {
                                             var ToreList2 = ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
 
-                                                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
-                                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                                Data="@ToreList2" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                                                    <Template Context="Tor">
-                                                        <RadzenCard Style="width:100%; padding:0;">
-                                                            <RadzenRow Gap="0">
-                                                                <RadzenColumn Size="4" SizeXS="4">
-                                                                    <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
+                                            <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
+                                                            WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                                            Data="@ToreList2" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                                                <Template Context="Tor">
+                                                    <RadzenCard Style="width:100%; padding:0;">
+                                                        <RadzenRow Gap="0">
+                                                            <RadzenColumn Size="4" SizeXS="4">
+                                                                <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">@(Tor.Spieler)</RadzenText>
                                                                 @if (Tor.Eigentor)
                                                                 {
-                                                                            <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">(ET)</RadzenText>
+                                                                    <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">(ET)</RadzenText>
                                                                 }
                                                                 @if (Tor.Elfmeter)
                                                                 {
-                                                                            <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">(Elfmeter)</RadzenText>
+                                                                    <RadzenText Style="display: inline-block;" TextStyle="TextStyle.Body2">(Elfmeter)</RadzenText>
                                                                 }
-                                                                </RadzenColumn>
-                                                                <RadzenColumn Size="1" SizeXS="1">
-                                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
-                                                                </RadzenColumn>
-                                                                <RadzenColumn Size="2" SizeXS="2">
-                                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
-                                                                </RadzenColumn>
-                                                                <RadzenColumn Size="3" SizeXS="3">
-                                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Torart)</RadzenText>
-                                                                </RadzenColumn>
-                                                            </RadzenRow>
-                                                        </RadzenCard>
-                                                    </Template>
-                                                </RadzenDataList>
+                                                            </RadzenColumn>
+                                                            <RadzenColumn Size="1" SizeXS="1">
+                                                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielminute)</RadzenText>
+                                                            </RadzenColumn>
+                                                            <RadzenColumn Size="2" SizeXS="2">
+                                                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Spielstand)</RadzenText>
+                                                            </RadzenColumn>
+                                                            <RadzenColumn Size="3" SizeXS="3">
+                                                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Tor.Torart)</RadzenText>
+                                                            </RadzenColumn>
+                                                        </RadzenRow>
+                                                    </RadzenCard>
+                                                </Template>
+                                            </RadzenDataList>
                                         }
                                     </p>
                                 </details>
@@ -287,7 +291,7 @@ else
                                                     <option selected="selected">@Localizer["Spieler wählen"].Value </option>
                                                     @foreach (var spieler in KaderList1.OrderBy(x => x.Spielername))
                                                     {
-                                                            <option value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                                        <option value="@spieler.SpielerID"> @spieler.Spielername </option>
                                                     }
                                                 </select>
                                             </div>
@@ -297,7 +301,7 @@ else
                                                     <option selected="selected">@Localizer["Spieler wählen"].Value</option>
                                                     @foreach (var spieler in KaderList2.OrderBy(x => x.Spielername))
                                                     {
-                                                            <option value="@spieler.SpielerID"> @spieler.Spielername </option>
+                                                        <option value="@spieler.SpielerID"> @spieler.Spielername </option>
                                                     }
                                                 </select>
                                             </div>
@@ -371,7 +375,7 @@ else
             else
             {
                 //Bearbeiten
-                Titel =@Localizer["Bearbeiten"].Value;
+                Titel = @Localizer["Bearbeiten"].Value;
                 await LoadSpiel();
             }
         }

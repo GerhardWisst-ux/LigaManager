@@ -79,8 +79,8 @@ else
                         </RadzenDataGridColumn>
 
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
-                            <Template Context="data">                                
-                                <NavLink href="@($"editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            <Template Context="data">
+                                <NavLink href="@($"Ligamanager/editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
@@ -123,6 +123,6 @@ else
 @code {
     private void OnClick(string text)
     {
-        _navigationManager.NavigateTo("createliga");
+        _navigationManager.NavigateTo("Ligamanager/createliga");
     }
 }

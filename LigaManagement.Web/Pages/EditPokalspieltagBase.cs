@@ -2,11 +2,16 @@
 using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,8 +90,16 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        public IStringLocalizer<EditPokalspieltag> Localizer { get; set; }
+
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
+
+        NotificationService NotificationService = new NotificationService();
 
         public bool Collapsed = true;
+        public bool bDeleteButtonVisible = true;
 
         protected async override Task OnInitializedAsync()
         {
@@ -133,16 +146,15 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
 
-
                 RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("2", "2. Runde"),
-                      new DisplayRunde("AF", "Achtelfinale"),
-                       new DisplayRunde("VF", "Viertelfinale"),
-                       new DisplayRunde("HF", "Halbfinale"),
-                        new DisplayRunde("F", "Finale")
+                    new DisplayRunde("2",Localizer["2. Runde"].Value),
+                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayRunde("F", Localizer["Finale"].Value),
                 };
-                              
+
                 if (Convert.ToInt32(Id) == 0)
                 {
                     Runde = Globals.currentPokalRunde;
@@ -288,11 +300,22 @@ namespace LigamanagerManagement.Web.Pages
             public string Rundename { get; set; }
         }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
+        protected async Task<bool> Confirm()
         {
-            DeleteConfirmation.Show();
+            string message = Localizer["Möchten Sie dieses Pokalspiel tatsächlich löschen?"].Value;
+            var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
+
+            if (result)
+            {
+                await PokalergebnisseService.DeletePokalergebnis(Convert.ToInt32(Id));
+
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Pokalspiel"].Value, Detail = Localizer["Gelöscht"].Value });
+            }
+
+
+            return result;
         }
     }
 }

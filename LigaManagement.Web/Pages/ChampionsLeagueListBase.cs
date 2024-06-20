@@ -20,6 +20,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
 using static LigamanagerManagement.Web.Pages.EditPokalspieltagBase;
 
 namespace LigaManagement.Web.Pages
@@ -80,6 +81,9 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<PokalergebnisCLSpieltag> PokalergebnisseCLSpieltage { get; set; }
 
         public IEnumerable<PokalergebnisCLSpieltag> PokalergebnisseCLSpieltageFinale { get; set; }
+
+        [Inject]
+        public IStringLocalizer<ChampionsLeague> Localizer { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -143,16 +147,13 @@ namespace LigaManagement.Web.Pages
 
                 RundeList = new List<DisplayCLRunde>
                 {
-                    new DisplayCLRunde("G1", "Gruppenphase Spieltag 1"),
-                    new DisplayCLRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayCLRunde("G3", "Gruppenphase Spieltag 3"),
-                    new DisplayCLRunde("G4", "Gruppenphase Spieltag 4"),
-                    new DisplayCLRunde("G5", "Gruppenphase Spieltag 5"),
-                    new DisplayCLRunde("G6", "Gruppenphase Spieltag 6"),
-                      new DisplayCLRunde("AF", "Achtelfinale"),
-                       new DisplayCLRunde("VF", "Viertelfinale"),
-                       new DisplayCLRunde("HF", "Halbfinale"),
-                        new DisplayCLRunde("F", "Finale")
+                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayCLRunde("F", Localizer["Finale"].Value),
                 };
 
 

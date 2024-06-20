@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Alle Pokalendspiele" xml:space="preserve">
-    <value>Alle Pokalendspiele</value>
+  <data name="2. Runde" xml:space="preserve">
+    <value>2. Runde</value>
+  </data>
+  <data name="Achtelfinale" xml:space="preserve">
+    <value>Achtelfinale</value>
+  </data>
+  <data name="Alle CL-Endspiele" xml:space="preserve">
+    <value>Alle CL-Endspiele</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Auswählen</value>
@@ -132,8 +138,14 @@
   <data name="Datum" xml:space="preserve">
     <value>Datum</value>
   </data>
+  <data name="Finale" xml:space="preserve">
+    <value>Finale</value>
+  </data>
   <data name="Gast" xml:space="preserve">
     <value>Gast</value>
+  </data>
+  <data name="Halbfinale" xml:space="preserve">
+    <value>Halbfinale</value>
   </data>
   <data name="Heim" xml:space="preserve">
     <value>Home</value>
@@ -158,6 +170,9 @@
   </data>
   <data name="Saison wählen" xml:space="preserve">
     <value>Saison wählen</value>
+  </data>
+  <data name="Viertelfinale" xml:space="preserve">
+    <value>Viertelfinale</value>
   </data>
   <data name="Zurück" xml:space="preserve">
     <value>Zurück</value>

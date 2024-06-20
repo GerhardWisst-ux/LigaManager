@@ -133,7 +133,7 @@
     <value>Home</value>
   </data>
   <data name="Neuanlage" xml:space="preserve">
-    <value>Create new</value>
+    <value>Create new match</value>
   </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Next Match day</value>
@@ -147,7 +147,7 @@
   <data name="Spieltag" xml:space="preserve">
     <value>Match day</value>
   </data>
-  <data name="Spieltag auswählen" xml:space="preserve">
+  <data name="Spieltag wählen" xml:space="preserve">
     <value>Select Matchday</value>
   </data>
   <data name="Tore" xml:space="preserve">

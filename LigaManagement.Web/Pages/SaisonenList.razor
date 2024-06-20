@@ -2,7 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using LigaManagerManagement.Models;
 @using Radzen;
-
+@inject NavigationManager _navigationManager
 @inherits SaisonenListBase
 
 @attribute [Authorize]
@@ -34,7 +34,8 @@ else
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Localizer["Saisonen"].Value</h2>
                             <span class="ml-3">
-                                <a href="Ligamanager/createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                @* <a href="Ligamanager/createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Saison"].Value" ButtonStyle="ButtonStyle.Primary" />
                             </span>
                         </div>
                     </div>
@@ -92,7 +93,12 @@ else
         </div>
     </div>
 
-
+   @code {
+        private void OnClick(string text)
+        {
+        _navigationManager.NavigateTo("Ligamanager/createsaison");
+        }
+    }
 
     <script>
 

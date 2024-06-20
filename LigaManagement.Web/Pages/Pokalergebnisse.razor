@@ -52,7 +52,7 @@ else
                                 {
                                     @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                     {
-                                        @if (saison.SaisonID == Globals.CLSaisonID)
+                                        @if (saison.SaisonID == Globals.CLPokalSaisonID)
                                         {
                                             <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
                                         }
@@ -118,8 +118,8 @@ else
                                             <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title=@Localizer["Ort"].Value />
                                             <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title=@Localizer["Datum"].Value />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
-                                                <Template Context="data">
-                                                    <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                                <Template Context="data">                                                    
+                                                    <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                                 </Template>
                                             </RadzenDataGridColumn>
                                         </Columns>

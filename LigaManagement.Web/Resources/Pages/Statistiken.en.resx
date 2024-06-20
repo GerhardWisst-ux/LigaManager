@@ -129,6 +129,9 @@
   <data name="Erstaustragung" xml:space="preserve">
     <value>Initial date</value>
   </data>
+  <data name="Gewonnen" xml:space="preserve">
+    <value>Won</value>
+  </data>
   <data name="Höchste Auswärtssiege" xml:space="preserve">
     <value>Highest Away-Wins</value>
   </data>
@@ -180,20 +183,29 @@
   <data name="Statistiken" xml:space="preserve">
     <value>Statistics</value>
   </data>
-  <data name="Torjägerliste" xml:space="preserve">
+  <data name="Torjaegerliste" xml:space="preserve">
     <value>Top scorer list</value>
   </data>
   <data name="Torreichste Spiele" xml:space="preserve">
     <value>Goal-Richest games </value>
   </data>
+  <data name="Untentschieden" xml:space="preserve">
+    <value>Draw</value>
+  </data>
   <data name="Verband" xml:space="preserve">
     <value>Association</value>
   </data>
-  <data name="Verein auswählen" xml:space="preserve">
-    <value>Select club</value>
+  <data name="Verein" xml:space="preserve">
+    <value>Club</value>
   </data>
   <data name="Verein gegen Verein" xml:space="preserve">
     <value>Club against club</value>
+  </data>
+  <data name="Verein wählen" xml:space="preserve">
+    <value>Select club</value>
+  </data>
+  <data name="Verloren" xml:space="preserve">
+    <value>Lost</value>
   </data>
   <data name="Voriger Spieltag" xml:space="preserve">
     <value>Previous Match day</value>

@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="2. Runde" xml:space="preserve">
-    <value>2. Round</value>
+    <value>Second round</value>
+  </data>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Saved</value>
   </data>
   <data name="Achtelfinale" xml:space="preserve">
-    <value>Rund of 16</value>
+    <value>Round of 16</value>
   </data>
-  <data name="Alle Pokalendspiele" xml:space="preserve">
-    <value>All German Cup finals</value>
+  <data name="Alle Endspiele" xml:space="preserve">
+    <value>All Finals</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Apply</value>
@@ -133,40 +136,157 @@
     <value>Edit</value>
   </data>
   <data name="Begegnungen" xml:space="preserve">
-    <value>Competitions</value>
+    <value>Matches</value>
   </data>
   <data name="Datum" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="Diff" xml:space="preserve">
+    <value>Diff</value>
+  </data>
+  <data name="Einlesen" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="Elfmeterschiessen" xml:space="preserve">
+    <value>Penalty shootout</value>
+  </data>
+  <data name="EM-Spieltag" xml:space="preserve">
+    <value>EM-Match day</value>
+  </data>
+  <data name="Ergebnisse" xml:space="preserve">
+    <value>Results</value>
+  </data>
   <data name="Finale" xml:space="preserve">
     <value>Final</value>
   </data>
+  <data name="G" xml:space="preserve">
+    <value>W</value>
+  </data>
   <data name="Gast" xml:space="preserve">
-    <value>Guest</value>
+    <value>Away</value>
+  </data>
+  <data name="Gelöscht" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="Gruppe wählen" xml:space="preserve">
+    <value>Select group</value>
+  </data>
+  <data name="Gruppenphase Spieltag" xml:space="preserve">
+    <value>Group phase matchday</value>
   </data>
   <data name="Halbfinale" xml:space="preserve">
     <value>Semi final</value>
   </data>
-  <data name="Keine Daten zum Anzeigen" xml:space="preserve">
-    <value>No data to display</value>
+  <data name="Heim" xml:space="preserve">
+    <value>Home</value>
   </data>
-  <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
-    <value>Create new cup game</value>
+  <data name="Löschen" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Löscht Pokalspiel" xml:space="preserve">
+    <value>Deletes cup match</value>
+  </data>
+  <data name="Mannschaft wählen" xml:space="preserve">
+    <value>Select team</value>
+  </data>
+  <data name="Möchten Sie dieses Pokalspiel tatsächlich löschen?" xml:space="preserve">
+    <value>Do you really want to delete this cup match?</value>
+  </data>
+  <data name="Nach oben" xml:space="preserve">
+    <value>Goto to Top</value>
+  </data>
+  <data name="Neuanlage EM-Spiel" xml:space="preserve">
+    <value>Create new Cup-Match</value>
   </data>
   <data name="Ort" xml:space="preserve">
     <value>Location</value>
   </data>
+  <data name="P" xml:space="preserve">
+    <value>P</value>
+  </data>
+  <data name="Platz" xml:space="preserve">
+    <value>Ps.</value>
+  </data>
   <data name="Pokalergebnisse" xml:space="preserve">
     <value>German Cup results</value>
+  </data>
+  <data name="PokalSpieltag" xml:space="preserve">
+    <value>Cup Match day</value>
   </data>
   <data name="Runde wählen" xml:space="preserve">
     <value>Select round</value>
   </data>
-  <data name="Saison und Runde auswählen" xml:space="preserve">
-    <value>Select saison and round</value>
+  <data name="S" xml:space="preserve">
+    <value>Ga.</value>
+  </data>
+  <data name="Saison und Runde wählen" xml:space="preserve">
+    <value>Select season and round</value>
   </data>
   <data name="Saison wählen" xml:space="preserve">
     <value>Select saison</value>
+  </data>
+  <data name="Schiedrichter" xml:space="preserve">
+    <value>Referee</value>
+  </data>
+  <data name="Speichern" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Speichern nicht möglich" xml:space="preserve">
+    <value>Saving not possible</value>
+  </data>
+  <data name="Speichert Spiel ab" xml:space="preserve">
+    <value>Saves match</value>
+  </data>
+  <data name="Spiel Bearbeiten" xml:space="preserve">
+    <value>Edit Match</value>
+  </data>
+  <data name="Spielinfo" xml:space="preserve">
+    <value>Match Info</value>
+  </data>
+  <data name="Spieltag" xml:space="preserve">
+    <value>Matchday</value>
+  </data>
+  <data name="Spieltag wählen" xml:space="preserve">
+    <value>Select Matchday</value>
+  </data>
+  <data name="T" xml:space="preserve">
+    <value>G</value>
+  </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="Tabelle Gruppe" xml:space="preserve">
+    <value>Table group</value>
+  </data>
+  <data name="Tore" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="Tore 1" xml:space="preserve">
+    <value>Goals 1</value>
+  </data>
+  <data name="Tore 2" xml:space="preserve">
+    <value>Goals 2</value>
+  </data>
+  <data name="Turnier wählen" xml:space="preserve">
+    <value>Select tournament</value>
+  </data>
+  <data name="U" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="V" xml:space="preserve">
+    <value>L</value>
+  </data>
+  <data name="Verein" xml:space="preserve">
+    <value>Club</value>
+  </data>
+  <data name="Verein 1" xml:space="preserve">
+    <value>Club 1</value>
+  </data>
+  <data name="Verein 2" xml:space="preserve">
+    <value>Club 2</value>
+  </data>
+  <data name="Verlängerung" xml:space="preserve">
+    <value>Extension Time</value>
   </data>
   <data name="Viertelfinale" xml:space="preserve">
     <value>Quarter final</value>
@@ -174,7 +294,10 @@
   <data name="Zurück" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
-    <value>Back to list of german cup results</value>
+  <data name="Zurück zu Übersicht Pokalergebnisse" xml:space="preserve">
+    <value>Back to List of german cup results</value>
+  </data>
+  <data name="Zuschauer" xml:space="preserve">
+    <value>Spectators</value>
   </data>
 </root>

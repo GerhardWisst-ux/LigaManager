@@ -40,6 +40,10 @@
         .rz-button.rz-link:hover .rz-button-text {
             text-decoration: underline !important;
         }
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
 </style>
 
 @if (Verein == null)
@@ -127,15 +131,13 @@ else
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
                         </div>
-
                         <div class="form-group row my-4">
-                            <RadzenLabel Text="Label" class="col-sm-3" Component="chkPokal">Pokal</RadzenLabel>
+                            <RadzenLabel Text="Label" class="col-sm-3" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkPokal" />
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
-                        </div>
-                   
+                        </div>                   
                         <div class="form-group row my-2">
                             <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                             </RadzenButton>

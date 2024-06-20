@@ -1,7 +1,7 @@
 @page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
 @inject DialogService DialogService
-
+@inject NavigationManager _navigationManager
 @attribute [Authorize]
 
 <head>
@@ -86,7 +86,7 @@ else
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                     <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style ="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
-                        <option value="0" selected="selected">@Localizer["Spieltag auswählen"].Value</option>
+                        <option value="0" selected="selected">@Localizer["Spieltag wählen"].Value</option>
                         if (@SpieltagList != null)
                         {
                         @foreach (var spieltag in SpieltagList)
@@ -105,12 +105,16 @@ else
                     <span class="ml-3">
                         @if (VisibleBtnNew)
                         {
-                            <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink>
+                         @*    <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink> *@
+
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                         }
                         else
                         {
-                            <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink>
+                            @* <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink> *@
+
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" tyle="display:none;"  title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                         }
                     </span>
@@ -238,6 +242,10 @@ else
               new DialogOptions() { Width = "700px", Height = "520px" });
     }
 
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("Ligamanager/createliga");
+    }
 
 }
 

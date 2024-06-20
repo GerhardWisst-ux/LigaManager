@@ -247,9 +247,7 @@ namespace LigaManagement.Web.Pages
                             Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
                         VisibleTable = "block";
                     else
-                        VisibleTable = "none";
-
-                    OnClickHandler();
+                        VisibleTable = "none";                    
                 }
             }
         }
@@ -468,8 +466,9 @@ namespace LigaManagement.Web.Pages
                     }
                 }
 
-                StateHasChanged();
+                OnClickHandler();
             }
+            
         }
 
         public async void OnClickHandler()

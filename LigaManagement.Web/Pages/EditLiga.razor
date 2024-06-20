@@ -1,5 +1,5 @@
-﻿@page "/createliga"
-@page "/editliga/{Id}"
+﻿@page "/Ligamanager/createliga"
+@page "/Ligamanager/editliga/{Id}"
 @using LigaManagement.Web.Services.Contracts;
 
 @inherits LigaManagerManagement.Web.Pages.LigenListBase
@@ -7,13 +7,32 @@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
-<head>
-   
-</head>
+
+<style>
+    .rz-button.rz-link {
+        background: none !important;
+    }
+
+
+        .rz-button.rz-link .rz-button-text {
+            color: var(--rz-link-color);
+        }
+
+
+        .rz-button.rz-link:hover .rz-button-text {
+            text-decoration: underline !important;
+        }
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+</style>
+
+
 
 <div class="container">
     <div class="form-group row">
-        <div class="col-sm-12">         
+        <div class="col-sm-12">
             <RadzenCard class="m-0 mb-3 rz-shadow-3">
                 <div class="d-flex flex-row">
                     <div class="card-body">
@@ -22,7 +41,7 @@
                 </div>
             </RadzenCard>
         </div>
-    </div>    
+    </div>
 
     <div class="col-12">
         <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
@@ -30,7 +49,7 @@
                 <RadzenLabel Text="Liganame" class="col-sm-3" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="(()=>Liga.Liganame)"></ValidationMessage>
-            </div>          
+            </div>
             <div class="form-group row">
                 <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control col-sm-9"></InputText>
@@ -56,21 +75,21 @@
                 <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control col-sm-9"></InputNumber>
                 <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
             </div>
-            <div class="form-group row">
-                <RadzenLabel Text="lblAktiv" class="col-sm-3" Component="chkAktiv">@Localizer["Active"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkAktiv" />
-                <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+            <div class="form-group row my-4">
+                <RadzenLabel Text="Label" class="col-sm-3" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
             </div>
-            <div class="form-group row">
-                <RadzenLabel Text="lblEMWM" class="col-sm-3" Component="chkAktiv">@Localizer["EMWM"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkEMWM" />
-                <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+            <div class="form-group row my-4">
+                <RadzenLabel Text="lblEMWM" class="col-sm-3" Component="chkEMWM">@Localizer["EMWM"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.EMWM"></ValidationMessage>
             </div>
-            
+
             <div class="form-group row">
                 <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                     <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
@@ -97,16 +116,16 @@
         if (firstRender)
         {
             if (Id == "0" || Id is null)
-            {                
+            {
                 Id = "0";
-                Titel = @Localizer["Neuanlage"].Value;
+                Titel = @Localizer["Neuanlage Liga"].Value;
                 IsLoading = false;
                 Liga = await _Ligaservice.GetLiga(Convert.ToInt32(Id));
                 StateHasChanged();
             }
             else
             {
-                Titel = @Localizer["Bearbeiten"].Value;
+                Titel = @Localizer["BearbeitenLiga"].Value;
                 await LoadLiga();
             }
         }
@@ -114,7 +133,7 @@
 
     private async Task LoadLiga()
     {
-        IsLoading = true;        
+        IsLoading = true;
         Liga = await _Ligaservice.GetLiga(Convert.ToInt32(Id));
         IsLoading = false;
         StateHasChanged();
@@ -133,19 +152,19 @@
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
-        }       
+        }
 
         else if (Liga.Verband == null)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Verband nicht angegeben.Speichern nicht möglich." });
             bError = true;
-        }        
+        }
 
         if (bError == true)
             return;
 
         if (Id == "0")
-        {   
+        {
             var ligen = await _Ligaservice.GetLigen();
             List<Liga> ligenList = ligen.OrderBy(x => x.Liganummer).ToList();
             int iMaxLigaNummer = ligenList.Max(x => x.Liganummer) + 1;
@@ -166,7 +185,7 @@
             //     {
             //         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganame  " + Liga.Liganame + " schon vorhanden.Speichern nicht möglich." });
             //         return;
-            //     }                
+            //     }
             // }
 
             // for (int i = 0; i < ligen.Count(); i++)
@@ -181,19 +200,21 @@
             //update
             await _Ligaservice.UpdateLiga(Liga);
         }
-        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Liga", Detail = "Abgespeichert"});
+        NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Info, Summary = Localizer["BearbeitenLiga"].Value, Detail = Localizer["Abgespeichert"].Value });
         // _navigationManager.NavigateTo("ligen");
     }
     protected async Task<bool> Confirm()
     {
-        string message = "Möchten Sie diese Liga tatsächlich löschen?";
+        string message = Localizer["MessageDelete"].Value;
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
 
         if (result)
         {
             await _Ligaservice.DeleteLiga(Convert.ToInt32(Id));
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Liga", Detail = "Gelöscht" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Liga"].Value, Detail = Localizer["Gelöscht"].Value });
         }
 
         return false;

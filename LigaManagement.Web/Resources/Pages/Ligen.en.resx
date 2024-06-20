@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Saved.</value>
+  </data>
   <data name="Aktiv" xml:space="preserve">
     <value>Active</value>
   </data>
@@ -126,11 +129,17 @@
   <data name="Bearbeiten" xml:space="preserve">
     <value>Edit</value>
   </data>
+  <data name="BearbeitenLiga" xml:space="preserve">
+    <value>Edit League</value>
+  </data>
   <data name="EMWM" xml:space="preserve">
     <value>EMWM</value>
   </data>
   <data name="Erstaustragung" xml:space="preserve">
     <value>Initial date</value>
+  </data>
+  <data name="Gelöscht" xml:space="preserve">
+    <value>Deleted</value>
   </data>
   <data name="Liganame" xml:space="preserve">
     <value>Name of league</value>
@@ -144,8 +153,14 @@
   <data name="Löschen" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Löschen Liga" xml:space="preserve">
+    <value>Delete league</value>
+  </data>
   <data name="Löscht Liga" xml:space="preserve">
     <value>Deletes league</value>
+  </data>
+  <data name="MessageDelete" xml:space="preserve">
+    <value>Do you really want to delete this league?</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Goto to top</value>

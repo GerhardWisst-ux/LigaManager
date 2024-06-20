@@ -43,6 +43,10 @@
         background-color: lightgrey;
         pointer-events: none;
     } */
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
 </style>
 <div class="row my-2">
     <div class="col-12">
@@ -60,7 +64,7 @@
                 <RadzenCard class="m-0 mb-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2>Pokalergebnisse @Ligamanager.Components.Globals.currentPokalSaison</h2>
+                            <h2>@Localizer["Pokalergebnisse"].Value @Ligamanager.Components.Globals.currentPokalSaison</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -89,8 +93,8 @@
                         <RadzenTabsItem Text="Spielinfo">
                             <div class="content">
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein1">Verein 1</RadzenLabel>
-                                    <select id="cboVerein1" class="form-control col-sm-10" @onchange="Verein1Change">
+                                    <RadzenLabel Text="lblVerein1" class="col-sm-3" Component="cboVerein1">@Localizer["Verein 1"].Value</RadzenLabel>
+                                    <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
                                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -98,31 +102,31 @@
                                         }
                                         @if (Id is null)
                                         {
-                                            <option value="" selected required>Verein wählen</option>
+                                            <option value="" selected>@Localizer["Mannschaft wählen"].Value</option>
                                         }
                                         else
                                         {
                                             <option selected="selected">@Spiel.Verein1</option>
                                         }
                                     </select>
-                                    <InputNumber style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-10"></InputNumber>
+                                    <InputNumber style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputNumber>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore1">Tore 1</RadzenLabel>
-                                    <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-10"></InputNumber>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
+                                    <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-9"></InputNumber>
 
                                     @* <RadzenNumeric class="form-control col-sm-10" @bind-Value=@Spiel.Tore1_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" /> *@
                                     <ValidationMessage For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-2" Component="txtTore2">Tore 2</RadzenLabel>
-                                    <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-10"></InputNumber>
+                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
+                                    <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-9"></InputNumber>
                                     @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
                                     <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-2" Component="cboVerein2">Verein 2</RadzenLabel>
-                                    <select id="cboVerein2" class="form-control col-sm-10" @onchange="Verein2Change">
+                                    <RadzenLabel Text="lblVerein2" class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
+                                    <select id="cboVerein2" class="form-control col-sm-9" @onchange="Verein2Change">
                                         @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
@@ -131,69 +135,59 @@
                                         }
                                         @if (Id is null)
                                         {
-                                            <option value="" selected>Verein wählen</option>
+                                            <option value="" selected>@Localizer["Mannschaft wählen"].Value</option>
                                         }
                                         else
                                         {
                                             <option selected="selected">@Spiel.Verein2</option>
                                         }
                                     </select>
-                                    <InputNumber style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-10"></InputNumber>
+                                    <InputNumber style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-9"></InputNumber>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Datum" class="col-sm-2" Component="txtDatum">Datum</RadzenLabel>
+                                    <RadzenLabel Text="Datum" class="col-sm-3" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
                                     <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                                     <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
                                     <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
-                                </div>
-                                <div class="form-group row">
-                                    <RadzenLabel Text="Ort" class="col-sm-2" Component="cboStadion">Ort</RadzenLabel>
-                                    <select id="cboStadion" class="form-control col-sm-10" @onchange="StadionChange">
-                                        @* <option value="" selected>@Stadion</option> *@
-                                        @foreach (var verein in VereineList.OrderBy(x => x.Ort))
-                                        {
-                                            <option value="@verein.VereinID"> @verein.Ort </option>
 
-                                        }
-                                        @if (Id is null)
-                                        {
-                                            <option value="" selected>Stadion wählen</option>
-                                        }
-                                        else
-                                        {
-                                            <option selected="selected">@Spiel.Ort</option>
-                                        }
-                                    </select>
-                                    <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-10"></InputText>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Schiedrichter" class="col-sm-2" Component="txtSchiedrichter">Schiedrichter</RadzenLabel>
-                                    <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-10"></InputText>
+                                    <RadzenLabel Text="Ort" class="col-sm-3" Component="txtOrt">@Localizer["Ort"].Value</RadzenLabel>
+                                    <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-9"></InputText>
+                                    <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
+                                </div>
+                                <div class="form-group row">
+                                    <RadzenLabel Text="Schiedrichter" class="col-sm-3" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
+                                    <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-9"></InputText>
                                     <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">Zuschauer</RadzenLabel>
-                                    <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
+                                    <RadzenLabel Text="Zuschauer" class="col-sm-3" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
+                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-sm-9" />
+                                    <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                                 </div>
-                                <div class="form-group">
-                                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Verlängerung</RadzenLabel>
-                                    <RadzenCheckBox @bind-Value="Spiel.Verlängerung" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkVerlängerung" />
-                                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                                <div class="form-group row">
+                                    <RadzenLabel Text="lblVerlängerung" class="col-sm-3" Component="chkAktiv">@Localizer["Verlängerung"].Value</RadzenLabel>
+                                    <RadzenCheckBox @bind-Value="Spiel.Verlängerung" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkVerlängerung" />
+                                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>
                                     <ValidationMessage For="()=>Spiel.Verlängerung"></ValidationMessage>
                                 </div>
-                                <div class="form-group">
-                                    <RadzenLabel Text="Label" class="col-sm-3 pl-0" Component="chkAktiv">Elfmeterschiessen</RadzenLabel>
-                                    <RadzenCheckBox @bind-Value="Spiel.Elfmeterschiessen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-9" Name="chkElfmeterschiessen" />
-                                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-5">
+                                <div class="form-group row">
+                                    <RadzenLabel Text="lblElfmeterschiessen" class="col-sm-3" Component="chkAktiv">@Localizer["Elfmeterschiessen"].Value</RadzenLabel>
+                                    <RadzenCheckBox @bind-Value="Spiel.Elfmeterschiessen" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkElfmeterschiessen" />
+                                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>
                                     <ValidationMessage For="()=>Spiel.Elfmeterschiessen"></ValidationMessage>
                                 </div>
                                 <div class="form-group py-2">
-                                    <RadzenButton title="Speichert Spieltag ab" style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text="Speichern">
-                                        <span class="glyphicon glyphicon-save"></span>Speichern
+                                    <RadzenButton title=@Localizer["Speichert Spiel ab"].Value style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text=@Localizer["Speichern"].Value>
+                                        <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                                     </RadzenButton>
-                                    <RadzenButton title="Zurück zur Übersicht Pokalergebnisse" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="Zurück">
+                                    <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                                    </RadzenButton>
+                                    <RadzenButton title=@Localizer["Zurück zu Übersicht Pokalergebnisse"].Value style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text=@Localizer["Zurück"].Value>
                                     </RadzenButton>
                                 </div>
                             </div>
@@ -249,6 +243,7 @@
     }
     private async Task Upsert()
     {
+        bool bError = false;
         Spieltag spieltag = new Spieltag();
 
         string[] subs = Time.Value.ToString().Split(':');
@@ -258,60 +253,61 @@
         Spiel.SaisonID = Globals.CLSaisonID;
         Spiel.Runde = RundeChoosed;
         Spiel.Datum = SpielDateTime;
-
         if ((Spiel.Verein1_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Tore1_Nr == null))
+        else if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Tore2_Nr == null))
+        else if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Verein2_Nr == 0))
+        else if ((Spiel.Verein2_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Verein1 == Spiel.Verein2))
+        else if ((Spiel.Verein1 == Spiel.Verein2))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
+        else if ((Spiel.Datum.Date.ToString() == "01.01.0001"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Datum.Hour.ToString() == "0"))
+        else if ((Spiel.Datum.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
+        else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            bError = true; ;
         }
 
-        if ((Spiel.Schiedrichter == null))
+        else if ((Spiel.Schiedrichter == null))
         {
             Spiel.Schiedrichter = "k.A.";
         }
-        
+
+        if (bError == true)
+            return;
 
         if (Id == "0")
         {
@@ -336,7 +332,7 @@
 
     private void Zurueck_Click()
     {
-        _navigationManager.NavigateTo("/pokalergebnisse");
+        _navigationManager.NavigateTo("/Ligamanager/pokalergebnisse");
     }
 }
 

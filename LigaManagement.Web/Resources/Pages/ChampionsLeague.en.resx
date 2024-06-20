@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2. Runde" xml:space="preserve">
-    <value>2. Round</value>
-  </data>
   <data name="Achtelfinale" xml:space="preserve">
-    <value>Rund of 16</value>
+    <value>Round of 16</value>
   </data>
-  <data name="Alle Pokalendspiele" xml:space="preserve">
-    <value>All German Cup finals</value>
+  <data name="Alle CL-Endspiele" xml:space="preserve">
+    <value>All Chamipions League Cup finals</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Apply</value>
@@ -144,14 +141,17 @@
   <data name="Gast" xml:space="preserve">
     <value>Guest</value>
   </data>
+  <data name="Gruppenphase Spieltag" xml:space="preserve">
+    <value>Group phase matchday</value>
+  </data>
   <data name="Halbfinale" xml:space="preserve">
-    <value>Semi final</value>
+    <value>Half final</value>
   </data>
   <data name="Keine Daten zum Anzeigen" xml:space="preserve">
     <value>No data to display</value>
   </data>
-  <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
-    <value>Create new cup game</value>
+  <data name="Neuanlage CL-Spiel" xml:space="preserve">
+    <value>Create new CL game</value>
   </data>
   <data name="Ort" xml:space="preserve">
     <value>Location</value>
@@ -168,6 +168,12 @@
   <data name="Saison wählen" xml:space="preserve">
     <value>Select saison</value>
   </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Table</value>
+  </data>
+  <data name="Tabelle Gruppe" xml:space="preserve">
+    <value>Table group</value>
+  </data>
   <data name="Viertelfinale" xml:space="preserve">
     <value>Quarter final</value>
   </data>
@@ -175,6 +181,6 @@
     <value>Back</value>
   </data>
   <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
-    <value>Back to list of german cup results</value>
+    <value>Back to list of champions leaque games</value>
   </data>
 </root>

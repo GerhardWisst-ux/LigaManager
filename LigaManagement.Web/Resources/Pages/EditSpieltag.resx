@@ -183,6 +183,9 @@
   <data name="Spielstand" xml:space="preserve">
     <value>Spielstand</value>
   </data>
+  <data name="Stadion wählen" xml:space="preserve">
+    <value>Stadion wählen</value>
+  </data>
   <data name="Tore" xml:space="preserve">
     <value>Tore</value>
   </data>

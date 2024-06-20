@@ -117,64 +117,73 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="2. Runde" xml:space="preserve">
-    <value>2. Round</value>
-  </data>
   <data name="Achtelfinale" xml:space="preserve">
-    <value>Rund of 16</value>
+    <value>Achtelfinale</value>
   </data>
-  <data name="Alle Pokalendspiele" xml:space="preserve">
-    <value>All German Cup finals</value>
+  <data name="Alle CL-Endspiele" xml:space="preserve">
+    <value>Alle Champions League-Endspiele</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
-    <value>Apply</value>
+    <value>Auswählen</value>
   </data>
   <data name="Bearbeiten" xml:space="preserve">
-    <value>Edit</value>
+    <value>Bearbeiten</value>
   </data>
   <data name="Begegnungen" xml:space="preserve">
-    <value>Competitions</value>
+    <value>Begegnungen</value>
   </data>
   <data name="Datum" xml:space="preserve">
-    <value>Date</value>
+    <value>Datum</value>
   </data>
   <data name="Finale" xml:space="preserve">
-    <value>Final</value>
+    <value>Finale</value>
   </data>
   <data name="Gast" xml:space="preserve">
-    <value>Guest</value>
+    <value>Gast</value>
+  </data>
+  <data name="Gruppenphase Spieltag" xml:space="preserve">
+    <value>Gruppenphase Spieltag</value>
   </data>
   <data name="Halbfinale" xml:space="preserve">
-    <value>Semi final</value>
+    <value>Halbfinale</value>
+  </data>
+  <data name="Heim" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="Keine Daten zum Anzeigen" xml:space="preserve">
-    <value>No data to display</value>
+    <value>Keine Daten zum Anzeigen</value>
   </data>
   <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
-    <value>Create new cup game</value>
+    <value>Neuanlage Pokal-Spiel</value>
   </data>
   <data name="Ort" xml:space="preserve">
-    <value>Location</value>
+    <value>Ort</value>
   </data>
   <data name="Pokalergebnisse" xml:space="preserve">
-    <value>German Cup results</value>
+    <value>Pokalergebnisse</value>
   </data>
   <data name="Runde wählen" xml:space="preserve">
-    <value>Select round</value>
+    <value>Runde wählen</value>
   </data>
   <data name="Saison und Runde auswählen" xml:space="preserve">
-    <value>Select saison and round</value>
+    <value>Saison und Runde auswählen</value>
   </data>
   <data name="Saison wählen" xml:space="preserve">
-    <value>Select saison</value>
+    <value>Saison wählen</value>
+  </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Tabelle</value>
+  </data>
+  <data name="Tabelle Gruppe" xml:space="preserve">
+    <value>Tabelle Gruppe</value>
   </data>
   <data name="Viertelfinale" xml:space="preserve">
-    <value>Quarter final</value>
+    <value>Viertelfinale</value>
   </data>
   <data name="Zurück" xml:space="preserve">
-    <value>Back</value>
+    <value>Zurück</value>
   </data>
   <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
-    <value>Back to list of german cup results</value>
+    <value>Zurück zu Pokalergebnisse</value>
   </data>
 </root>

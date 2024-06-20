@@ -241,7 +241,7 @@ namespace LigaManagerManagement.Web.Pages
 
             for (int i = 1; i <= iSpieltage; i++)
             {
-                SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
+                SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + "." + Localizer["Spieltag"].Value));
             }
 
             if (Globals.LigaNummer < 3)

@@ -35,6 +35,7 @@ namespace LigamanagerManagement.Web.Pages
         protected string DisplayErrorRunde = "none";
         public string RundeChoosed;        
         public int GruppeChoosed;
+        public bool GroupVisible;
 
         public List<DisplayRunde> RundeList;
 
@@ -140,7 +141,13 @@ namespace LigamanagerManagement.Web.Pages
                     Globals.currentEMWMRunde = RundeChoosed;
                     Spiel.Runde = Runde;                   
                 }
-                
+
+                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
+                    GroupVisible = true;
+                else
+                    GroupVisible = false;
+
+
             }
             catch (Exception ex)
             {
@@ -148,17 +155,7 @@ namespace LigamanagerManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
-
-        protected async override void OnAfterRender(bool firstRender)
-        {
-
-
-        }
-
-        public void Change(object value, string name, string action)
-        {
-            Console.WriteLine($"{name} item with index {value} {action}");
-        }
+      
 
         public async void Verein1Change(ChangeEventArgs e)
         {

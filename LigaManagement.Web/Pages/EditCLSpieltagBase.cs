@@ -1,10 +1,14 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,13 +22,19 @@ namespace LigamanagerManagement.Web.Pages
     {
         [Parameter]
         public string Id { get; set; }
-
+        
         [Parameter]
         public string Runde { get; set; }
+
+        [Parameter]
+        public string Gruppe { get; set; }
+
 
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
         public string RundeChoosed;
+        public bool GroupVisible;
+        public int GruppeChoosed;
 
         public List<DisplayRunde> RundeList;
 
@@ -51,9 +61,17 @@ namespace LigamanagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         [Inject]
+        IJSRuntime JSRuntime { get; set; }
+
+        NotificationService NotificationService = new NotificationService();
+
+        [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [Inject]
+        public IStringLocalizer<EditCLSpieltag> Localizer { get; set; }
 
+        public bool bDeleteButtonVisible = true;
         public bool Collapsed = true;
 
         protected async override Task OnInitializedAsync()
@@ -101,17 +119,15 @@ namespace LigamanagerManagement.Web.Pages
 
                 RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("G1", "Gruppenphase Spieltag 1"),
-                    new DisplayRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayRunde("G3", "Gruppenphase Spieltag 3"),
-                    new DisplayRunde("G4", "Gruppenphase Spieltag 4"),
-                    new DisplayRunde("G5", "Gruppenphase Spieltag 5"),
-                    new DisplayRunde("G6", "Gruppenphase Spieltag 6"),
-                    new DisplayRunde("AF", "Achtelfinale"),
-                    new DisplayRunde("VF", "Viertelfinale"),
-                    new DisplayRunde("HF", "Halbfinale"),
-                    new DisplayRunde("F", "Finale")
+                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayRunde("F", Localizer["Finale"].Value),
                 };
+
 
                 if (Convert.ToInt32(Id) == 0)
                 {
@@ -136,19 +152,15 @@ namespace LigamanagerManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
 
-
-
-
-        }
-        protected async override void OnAfterRender(bool firstRender)
-        {
-
-
         }
 
-        public void Change(object value, string name, string action)
+        public async void GruppeChange(ChangeEventArgs e)
         {
-            Console.WriteLine($"{name} item with index {value} {action}");
+            if (e.Value != null)
+            {
+                GruppeChoosed = Convert.ToInt32(e.Value.ToString());
+                Gruppe = e.Value.ToString();
+            }
         }
 
         public async void Verein1Change(ChangeEventArgs e)
@@ -195,7 +207,7 @@ namespace LigamanagerManagement.Web.Pages
                 Globals.currentPokalRunde = RundeChoosed;
             }
         }
-
+      
         [Bind]
         public class DisplayVerein
         {
@@ -207,7 +219,6 @@ namespace LigamanagerManagement.Web.Pages
             }
             public string VereinID { get; set; }
             public string Vereinname1 { get; set; }
-
             public string Ort { get; set; }
         }
 
@@ -224,11 +235,22 @@ namespace LigamanagerManagement.Web.Pages
             public string Rundename { get; set; }
         }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
+        protected async Task<bool> Confirm()
         {
-            DeleteConfirmation.Show();
+            string message = Localizer["\"Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
+            var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
+
+            if (result)
+            {
+                await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
+
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+            }
+
+
+            return result;
         }
     }
 }
