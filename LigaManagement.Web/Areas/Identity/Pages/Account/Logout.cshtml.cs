@@ -36,7 +36,7 @@ namespace LigaManagement.Web.Areas.Identity.Pages.Account
             }
             else
             {
-                return LocalRedirect("~/");
+                return LocalRedirect("~/Ligamanager");
             }
         }
     }

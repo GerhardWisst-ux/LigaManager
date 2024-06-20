@@ -3415,11 +3415,14 @@ namespace LigaManagerManagement.Web.Services
                 int VonSpieltag = 1;
 
                 try
-                {                   
+                {
 
-                    var alleSpieltage = (await spieltagService.GetSpieltage()).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID);
+                    var alleSpieltage = (await spieltagService.GetSpieltage()).ToList().Where(st => st.Saison == Globals.currentEMWMSaison).Where(x => x.GroupID == GroupID);
 
                     var vereineGruppe = await rep.GetVereine(GroupID);
+
+                    if (vereineGruppe == null)
+                        return TabSaisonSorted;
 
                     int j = 1;
                     // Grundtabelle erzeugen
@@ -3543,14 +3546,15 @@ namespace LigaManagerManagement.Web.Services
                                 else if (item.Tore1_Nr < item.Tore2_Nr)
                                 {
 
+
                                     tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
                                     tabelleneintragF.Verein = item.Verein1;
-                                    tabelleneintragF.Anzeigename = item.Verein2;
+                                    tabelleneintragF.Anzeigename = item.Verein1;
                                     tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
-                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
-                                    tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen;
-                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden + 0;
+                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 0;
+                                    tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen + 0;
+                                    tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 0;
                                     tabelleneintragF.Platz = 0;
@@ -3561,7 +3565,7 @@ namespace LigaManagerManagement.Web.Services
 
                                     tabelleneintragF2.VereinNr = Convert.ToInt32(item.Verein2_Nr);
                                     tabelleneintragF2.Verein = item.Verein2;
-                                    tabelleneintragF2.Anzeigename = item.Verein1;
+                                    tabelleneintragF2.Anzeigename = item.Verein2;
                                     tabelleneintragF2.TorePlus = tabelleneintragF2.TorePlus + item.Tore2_Nr;
                                     tabelleneintragF2.ToreMinus = tabelleneintragF2.ToreMinus + item.Tore1_Nr;
                                     tabelleneintragF2.Spiele = tabelleneintragF2.Spiele + 1;

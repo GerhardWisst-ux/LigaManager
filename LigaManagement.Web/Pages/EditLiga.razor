@@ -30,12 +30,7 @@
                 <RadzenLabel Text="Liganame" class="col-sm-3" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-sm-9"></InputText>
                 <ValidationMessage For="(()=>Liga.Liganame)"></ValidationMessage>
-            </div>
-            <div class="form-group row">
-                <RadzenLabel Text="Liganummer" class="col-sm-3" Component="txtSaisonen">@Localizer["Liganummer"].Value</RadzenLabel>
-                <InputNumber required id="txtSaisonen" @bind-Value="Liga.Liganummer" class="form-control col-sm-9"></InputNumber>
-                <ValidationMessage For="()=>Liga.Liganummer"></ValidationMessage>
-            </div>
+            </div>          
             <div class="form-group row">
                 <RadzenLabel Text="Verband" class="col-sm-3" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control col-sm-9"></InputText>
@@ -63,15 +58,15 @@
             </div>
             <div class="form-group row">
                 <RadzenLabel Text="lblAktiv" class="col-sm-3" Component="chkAktiv">@Localizer["Active"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkAktiv" />
+                <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
             </div>
             <div class="form-group row">
                 <RadzenLabel Text="lblEMWM" class="col-sm-3" Component="chkAktiv">@Localizer["EMWM"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkEMWM" />
+                <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.EMWM"></ValidationMessage>
             </div>
@@ -102,17 +97,11 @@
         if (firstRender)
         {
             if (Id == "0" || Id is null)
-            {
-                Titel = "Neuanlage";
+            {                
                 Id = "0";
+                Titel = @Localizer["Neuanlage"].Value;
                 IsLoading = false;
                 Liga = await _Ligaservice.GetLiga(Convert.ToInt32(Id));
-
-                var ligen = await _Ligaservice.GetLigen();
-                List<Liga> ligenList = ligen.OrderBy(x => x.Liganummer).ToList();
-                int iMaxLigaNummer = ligenList.Max(x => x.Liganummer) + 1;
-
-                Liga.Liganummer = iMaxLigaNummer;
                 StateHasChanged();
             }
             else
@@ -140,36 +129,28 @@
             bError = true;
         }
 
-        if ((Liga.Liganummer == 0))
+        else if (Liga.Erstaustragung.Date.ToString() == "01.01.0001")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganummer nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
-        }
+        }       
 
-        if ((Liga.Verband == null))
+        else if (Liga.Verband == null)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Verband nicht angegeben.Speichern nicht möglich." });
             bError = true;
-        }
-
-        if ((Liga.Erstaustragung.ToString() == "01.01.0001 00:00:00"))
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Erstaustragung nicht angegeben.Speichern nicht möglich." });
-            bError = true;
-        }
+        }        
 
         if (bError == true)
             return;
 
         if (Id == "0")
-        {           
-            Liga.Aktiv = true;
+        {   
             var ligen = await _Ligaservice.GetLigen();
-            List<Liga> ligenList = ligen.ToList();
-            // var resLiganame = ligenList.Where(x => x.Liganame == Liga.Liganame).FirstOrDefault().Liganame;
-            // var resLiganummer = ligenList.Where(x => x.Liganummer == Liga.Liganummer).FirstOrDefault().Liganummer;
-
-            // Liga.Liganummer = resLiganummer;
+            List<Liga> ligenList = ligen.OrderBy(x => x.Liganummer).ToList();
+            int iMaxLigaNummer = ligenList.Max(x => x.Liganummer) + 1;
+            Liga.LandID = 57;
+            Liga.Liganummer = iMaxLigaNummer;
 
             await _Ligaservice.CreateLiga(Liga);
         }

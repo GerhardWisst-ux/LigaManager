@@ -1,7 +1,7 @@
 ﻿@page "/Ligamanager/ligen"
 @using LigaManagerManagement.Web.Pages;
 @inherits LigenListBase
-@inject NotificationService NotificationService
+@inject NavigationManager _navigationManager
 @attribute [Authorize]
 
 <head>
@@ -37,8 +37,8 @@ else
                 <div class="card-body">
                     <h2 style="display:inline-block;">@Localizer["Ligen"].Value</h2>
                     <span class="ml-3">
-                        <a href="createliga" style="width:35px; height:30px;" title="@Localizer["Neuanlage Liga"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
-                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+                        @* <a href="createliga" style="width:35px; height:30px;" title="@Localizer["Neuanlage Liga"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Liga"].Value" ButtonStyle="ButtonStyle.Primary" />
                     </span>
                 </div>
             </div>
@@ -123,6 +123,6 @@ else
 @code {
     private void OnClick(string text)
     {
-        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Button Clicked", Detail = text });
+        _navigationManager.NavigateTo("createliga");
     }
 }

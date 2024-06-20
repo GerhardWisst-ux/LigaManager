@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
+using Radzen;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,8 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 namespace LigamanagerManagement.Web.Pages
 {
     public class EditEMWMSpieltagBase : ComponentBase
@@ -30,8 +33,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
-        public string RundeChoosed;
-        public string RundeDetail;
+        public string RundeChoosed;        
         public int GruppeChoosed;
 
         public List<DisplayRunde> RundeList;
@@ -64,7 +66,13 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public IStringLocalizer<EditEMWMSpieltag> Localizer { get; set; }
 
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
+
+        NotificationService NotificationService = new NotificationService();
         public bool Collapsed = true;
+
+        public bool bDeleteButtonVisible = true;
 
         protected async override Task OnInitializedAsync()
         {
@@ -111,13 +119,13 @@ namespace LigamanagerManagement.Web.Pages
 
                 RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("G1", "Gruppenphase Spieltag 1"),
-                    new DisplayRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayRunde("G3", "Gruppenphase Spieltag 3"),                                    
-                    new DisplayRunde("AF", "Achtelfinale"),
-                    new DisplayRunde("VF", "Viertelfinale"),
-                    new DisplayRunde("HF", "Halbfinale"),
-                    new DisplayRunde("F", "Finale")
+                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayRunde("F", Localizer["Finale"].Value),
                 };
 
                 if (Convert.ToInt32(Id) == 0)
@@ -132,8 +140,7 @@ namespace LigamanagerManagement.Web.Pages
                     Globals.currentEMWMRunde = RundeChoosed;
                     Spiel.Runde = Runde;                   
                 }
-
-                RundeDetail = "";
+                
             }
             catch (Exception ex)
             {
@@ -186,7 +193,8 @@ namespace LigamanagerManagement.Web.Pages
             {
                 RundeChoosed = e.Value.ToString();
 
-                Globals.currentEMWMRunde = RundeChoosed;             
+                Globals.currentEMWMRunde = RundeChoosed;
+                Runde = RundeChoosed;
             }
         }
 
@@ -194,7 +202,8 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                GruppeChoosed = Convert.ToInt32(e.Value.ToString());             
+                GruppeChoosed = Convert.ToInt32(e.Value.ToString());
+                Gruppe = e.Value.ToString();
             }
         }
 
@@ -225,11 +234,23 @@ namespace LigamanagerManagement.Web.Pages
             public string Rundename { get; set; }
         }
 
-        protected Ligamanager.Components.ConfirmBase DeleteConfirmation { get; set; }
+        
+        protected ConfirmBase DeleteConfirmation { get; set; }
 
-        protected void Delete_Click()
+        protected async Task<bool> Confirm()
         {
-            DeleteConfirmation.Show();
+            string message = Localizer["\"Möchten Sie dieses Spiel tatsächlich löschen?"].Value ;
+            var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
+
+            if (result)
+            {
+                await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
+
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+            }
+
+
+            return result;
         }
     }
 }

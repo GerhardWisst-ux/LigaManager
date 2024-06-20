@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Achtelfinale" xml:space="preserve">
+    <value>Achtelfinale</value>
+  </data>
   <data name="Alle EM-Endspiele" xml:space="preserve">
     <value>Alle EM-Endspiele</value>
   </data>
@@ -135,8 +138,17 @@
   <data name="Elfmeterschiessen" xml:space="preserve">
     <value>Elfmeterschiessen</value>
   </data>
+  <data name="Finale" xml:space="preserve">
+    <value>Finale</value>
+  </data>
   <data name="Gast" xml:space="preserve">
     <value>Gast</value>
+  </data>
+  <data name="Gruppenphase Spieltag" xml:space="preserve">
+    <value>Group phase matchday</value>
+  </data>
+  <data name="Halbfinale" xml:space="preserve">
+    <value>Halbfinale</value>
   </data>
   <data name="Heim" xml:space="preserve">
     <value>Heim</value>
@@ -194,6 +206,9 @@
   </data>
   <data name="Verlängerung" xml:space="preserve">
     <value>Verlängerung</value>
+  </data>
+  <data name="Viertelfinale" xml:space="preserve">
+    <value>Viertelfinale</value>
   </data>
   <data name="Zurück zu Übersicht EMWM" xml:space="preserve">
     <value>Zurück zu Übersicht EMWM</value>

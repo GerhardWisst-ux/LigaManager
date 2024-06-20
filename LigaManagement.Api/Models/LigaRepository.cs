@@ -16,8 +16,21 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Liga> AddLiga(Liga liga)
         {
+            string sAktiv = string.Empty;
+            string sEMWM = string.Empty;
+
             try
             {
+                if (liga.Aktiv == true)
+                    sAktiv = "TRUE";
+                else
+                    sAktiv = "FALSE";
+
+                if (liga.EMWM == true)
+                    sEMWM = "TRUE";
+                else
+                    sEMWM = "FALSE";
+
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
@@ -25,7 +38,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     Connection = conn,
                     CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Aktiv,@Liganummer,@LandID,@Rekordspieler,@Spiele_Rekordspieler,@EMWM)"
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Liganummer,@Aktiv,@LandID,@Rekordspieler,@Spiele_Rekordspieler,@EMWM)"
                 };
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
@@ -33,14 +46,14 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
                 cmd.Parameters.AddWithValue("@Saisonen", liga.Saisonen);
                 cmd.Parameters.AddWithValue("@Liganummer", liga.Liganummer);
-                cmd.Parameters.AddWithValue("@Aktiv", liga.Aktiv);
+                cmd.Parameters.AddWithValue("@Aktiv", sAktiv);
                 cmd.Parameters.AddWithValue("@LandID", liga.LandID);
                 if (liga.Rekordspieler != null)
                     cmd.Parameters.AddWithValue("@Rekordspieler", liga.Rekordspieler);
                 else
                     cmd.Parameters.AddWithValue("@Rekordspieler", "");
                 cmd.Parameters.AddWithValue("@Spiele_Rekordspieler", liga.Spiele_Rekordspieler);
-                cmd.Parameters.AddWithValue("@EMWM", liga.EMWM);
+                cmd.Parameters.AddWithValue("@EMWM", sEMWM);
 
                 cmd.ExecuteNonQuery();
 

@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Saved</value>
+  </data>
   <data name="Achtelfinale" xml:space="preserve">
     <value>Round of 16</value>
   </data>
@@ -132,6 +135,9 @@
   <data name="Begegnungen" xml:space="preserve">
     <value>Matches</value>
   </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Date</value>
+  </data>
   <data name="Diff" xml:space="preserve">
     <value>Diff</value>
   </data>
@@ -139,7 +145,10 @@
     <value>Import</value>
   </data>
   <data name="Elfmeterschiessen" xml:space="preserve">
-    <value>Peanalty shootout</value>
+    <value>Penalty shootout</value>
+  </data>
+  <data name="EM-Spieltag" xml:space="preserve">
+    <value>EM-Match day</value>
   </data>
   <data name="Ergebnisse" xml:space="preserve">
     <value>Results</value>
@@ -153,6 +162,12 @@
   <data name="Gast" xml:space="preserve">
     <value>Away</value>
   </data>
+  <data name="Gelöscht" xml:space="preserve">
+    <value>Deleted</value>
+  </data>
+  <data name="Gruppe wählen" xml:space="preserve">
+    <value>Select group</value>
+  </data>
   <data name="Gruppenphase Spieltag" xml:space="preserve">
     <value>Group phase matchday</value>
   </data>
@@ -165,14 +180,23 @@
   <data name="Löschen" xml:space="preserve">
     <value>Delete</value>
   </data>
+  <data name="Löscht Spiel" xml:space="preserve">
+    <value>Deletes match</value>
+  </data>
   <data name="Mannschaft wählen" xml:space="preserve">
     <value>Select team</value>
+  </data>
+  <data name="Möchten Sie dieses Spiel tatsächlich löschen?" xml:space="preserve">
+    <value>Do you really want to delete this match?</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Goto to Top</value>
   </data>
   <data name="Neuanlage EM-Spiel" xml:space="preserve">
     <value>Create new EM-Match</value>
+  </data>
+  <data name="Ort" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="P" xml:space="preserve">
     <value>P</value>
@@ -197,6 +221,9 @@
   </data>
   <data name="Speichern" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="Speichern nicht möglich" xml:space="preserve">
+    <value>Saving not possible</value>
   </data>
   <data name="Speichert Spiel ab" xml:space="preserve">
     <value>Saves match</value>
@@ -250,7 +277,7 @@
     <value>Club 2</value>
   </data>
   <data name="Verlängerung" xml:space="preserve">
-    <value>Extension</value>
+    <value>Extension Time</value>
   </data>
   <data name="Viertelfinale" xml:space="preserve">
     <value>Quarter final</value>

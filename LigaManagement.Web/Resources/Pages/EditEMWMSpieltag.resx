@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Abgespeichert</value>
+  </data>
   <data name="Achtelfinale" xml:space="preserve">
     <value>Achtelfinale</value>
   </data>
@@ -141,6 +144,9 @@
   <data name="Elfmeterschiessen" xml:space="preserve">
     <value>Elfmeterschiessen</value>
   </data>
+  <data name="EM-Spieltag" xml:space="preserve">
+    <value>EM-Spieltag</value>
+  </data>
   <data name="Ergebnisse" xml:space="preserve">
     <value>Ergebnisse</value>
   </data>
@@ -152,6 +158,12 @@
   </data>
   <data name="Gast" xml:space="preserve">
     <value>Gast</value>
+  </data>
+  <data name="Gelöscht" xml:space="preserve">
+    <value>Gelöscht</value>
+  </data>
+  <data name="Gruppe wählen" xml:space="preserve">
+    <value>Gruppe wählen</value>
   </data>
   <data name="Gruppenphase Spieltag" xml:space="preserve">
     <value>Gruppenphase Spieltag</value>
@@ -165,8 +177,17 @@
   <data name="Löschen" xml:space="preserve">
     <value>Löschen</value>
   </data>
+  <data name="Löschen Spiel" xml:space="preserve">
+    <value>Löschen Spiel</value>
+  </data>
+  <data name="Löscht Spiel" xml:space="preserve">
+    <value>Löscht Spiel</value>
+  </data>
   <data name="Mannschaft wählen" xml:space="preserve">
     <value>Mannschaft wählen</value>
+  </data>
+  <data name="Möchten Sie dieses Spiel tatsächlich löschen?" xml:space="preserve">
+    <value>Möchten Sie dieses Spiel tatsächlich löschen?</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Nach oben</value>
@@ -200,6 +221,9 @@
   </data>
   <data name="Speichern" xml:space="preserve">
     <value>Speichern</value>
+  </data>
+  <data name="Speichern nicht möglich" xml:space="preserve">
+    <value>Speichern nicht möglich</value>
   </data>
   <data name="Speichert Spiel ab" xml:space="preserve">
     <value>Speichert Spiel ab</value>

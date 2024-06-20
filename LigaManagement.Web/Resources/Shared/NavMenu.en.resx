@@ -127,7 +127,7 @@
     <value>Settings</value>
   </data>
   <data name="Impressum" xml:space="preserve">
-    <value>Impressum</value>
+    <value>Imprint</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
@@ -139,7 +139,7 @@
     <value>Leagues</value>
   </data>
   <data name="Pokal" xml:space="preserve">
-    <value>Cup</value>
+    <value>German Cup</value>
   </data>
   <data name="RSS Feed" xml:space="preserve">
     <value>RSS Feed</value>
@@ -157,7 +157,7 @@
     <value>Statistics</value>
   </data>
   <data name="Tabellen" xml:space="preserve">
-    <value>tables</value>
+    <value>Tables</value>
   </data>
   <data name="Vereine" xml:space="preserve">
     <value>Clubs</value>

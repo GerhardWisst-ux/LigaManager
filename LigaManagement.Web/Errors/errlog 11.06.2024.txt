@@ -1,7 +1,0 @@
-Title: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Message: Value cannot be null. (Parameter 'source')
-StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
-   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
-   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 195
-Date/Time: 11.06.2024 22:45:15
-============================================

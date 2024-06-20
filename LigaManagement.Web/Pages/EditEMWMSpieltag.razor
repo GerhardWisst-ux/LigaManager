@@ -39,10 +39,9 @@
         margin: 0;
     }
 
-    /* #cboRunde:read-only {
-                background-color: lightgrey;
-                pointer-events: none;
-            } */
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
 </style>
 <div class="row my-2">
     <div class="col-12">
@@ -91,7 +90,7 @@
                         else
                         {
                             <option value="1">A</option>
-                        }                        
+                        }
                         }
                         @if (Gruppe.ToString() == "2")
                         {
@@ -197,7 +196,7 @@
                                     <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                                     <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
                                     <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
-                                    
+
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Ort" class="col-sm-2" Component="txtOrt">@Localizer["Ort"].Value</RadzenLabel>
@@ -213,23 +212,26 @@
                                     <RadzenLabel Text="Zuschauer" class="col-sm-2" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
                                     <InputNumber required id="txtZuschauer" @bind-Value="Spiel.Zuschauer" class="form-control col-sm-10"></InputNumber>
                                 </div>
-                                <div class="form-group">
-                                    <RadzenLabel Text="Verlängerung" class="col-sm-3 pl-0" Component="chkVerlängerung">@Localizer["Verlängerung"].Value</RadzenLabel>
-                                    <RadzenCheckBox @bind-Value="Spiel.Verlängerung" Style="border-width:0px; width:30px;max-width:30px;" class="form-control col-sm-9" Name="chkVerlängerung" />
-                                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-1">
+                                <div class="form-group row">
+                                    <RadzenLabel Text="lblVerlängerung" class="col-sm-3" Component="chkAktiv">@Localizer["Verlängerung"].Value</RadzenLabel>
+                                    <RadzenCheckBox @bind-Value="Spiel.Verlängerung" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkVerlängerung" />
+                                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>
                                     <ValidationMessage For="()=>Spiel.Verlängerung"></ValidationMessage>
                                 </div>
-                                <div class="form-group">
-                                    <RadzenLabel Text="Elfmeterschiessen" class="col-sm-3 pl-0" Component="chkAktiv">@Localizer["Elfmeterschiessen"].Value</RadzenLabel>
-                                    <RadzenCheckBox @bind-Value="Spiel.Elfmeterschiessen" Style="border-width:0px; width:40px;max-width:40px;" class="form-control col-sm-1" Name="chkElfmeterschiessen" />
-                                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-1">
+                                <div class="form-group row">
+                                    <RadzenLabel Text="lblElfmeterschiessen" class="col-sm-3" Component="chkAktiv">@Localizer["Elfmeterschiessen"].Value</RadzenLabel>
+                                    <RadzenCheckBox @bind-Value="Spiel.Elfmeterschiessen" Style="border-width:0px; width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkElfmeterschiessen" />
+                                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>
                                     <ValidationMessage For="()=>Spiel.Elfmeterschiessen"></ValidationMessage>
                                 </div>
                                 <div class="form-group py-2">
                                     <RadzenButton title=@Localizer["Speichert Spiel ab"].Value style="margin-left:5px;" id="btnSpeichern" Click="Upsert" class="btn btn-primary" Text=@Localizer["Speichern"].Value>
                                         <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
+                                    </RadzenButton>
+                                    <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                                     </RadzenButton>
                                     <RadzenButton title=@Localizer["Zurück zu Übersicht EMWM"].Value style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text=@Localizer["Zurück"].Value>
                                     </RadzenButton>
@@ -259,49 +261,54 @@
                 Spiel.Saison = Globals.currentEMWMSaison;
                 Spiel.SaisonID = Globals.EMWMSaisonID;
                 Spiel.Runde = RundeChoosed;
-                Spiel.Datum = SpielDateTime;                
+                Spiel.Datum = SpielDateTime;
                 Spiel.GroupID = GruppeChoosed;
                 Spiel.Land1_Nr = 57;
                 Spiel.Land2_Nr = 57;
                 Spiel.LigaID = Globals.EMMWMLigaId;
 
                 RundeChoosed = Runde;
-                Id = "0";                
+                Id = "0";
 
-                if (Runde == "Gruppenphase Spieltag 1")
+                if (Runde == "G1")
                 {
-                    Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Gruppenphase Spieltag"].Value + 1;
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["Gruppenphase Spieltag"].Value + 1;
                     Spiel.RundeDetail = "Gruppenphase Spieltag 1";
-                }                
-                else if (Runde == "Gruppenphase Spieltag 2")
+                }
+                else if (Runde == "G2")
                 {
-                    Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Gruppenphase Spieltag"].Value + 2;
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["Gruppenphase Spieltag"].Value + 2;
                     Spiel.RundeDetail = "Gruppenphase Spieltag 2";
                 }
-                else if (Runde == "Gruppenphase Spieltag 3")
+                else if (Runde == "G3")
                 {
-                    Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Gruppenphase Spieltag"].Value + 3;
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["Gruppenphase Spieltag"].Value + 3;
                     Spiel.RundeDetail = "Gruppenphase Spieltag 3";
                 }
-                else if (Runde == "Achtelfinale")
+                else if (Runde == "AF")
                 {
                     Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Achtelfinale"].Value;
-                    Spiel.RundeDetail = "Achtelfinale";
+                    Spiel.RundeDetail = "AF";
                 }
-                else if (Runde == "Viertelfinale")
+                else if (Runde == "VF")
                 {
                     Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Viertelfinale"].Value;
-                    Spiel.RundeDetail = "Viertelfinale";
+                    Spiel.RundeDetail = "VF";
                 }
-                else if (Runde == "Halbfinale")
+                else if (Runde == "HF")
                 {
                     Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Halbfinale"].Value;
-                    Spiel.RundeDetail = "Halbfinale";
+                    Spiel.RundeDetail = "HF";
+                }
+                else if (Runde == "F")
+                {
+                    Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Finale"].Value;
+                    Spiel.RundeDetail = "";
                 }
                 else
                 {
-                    Titel = @Localizer["Neuanlage EM-Spiele"].Value + @Localizer["Finale"].Value;
-                    Spiel.RundeDetail = "Finale";
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["Gruppenphase Spieltag"].Value + 1;
+                    Spiel.RundeDetail = "Gruppenphase Spieltag 1";
                 }
             }
             else
@@ -329,49 +336,53 @@
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
         Spiel.Saison = Globals.currentEMWMSaison;
         Spiel.SaisonID = Globals.EMWMSaisonID;
-        Spiel.Runde = RundeChoosed;
+        if (RundeChoosed != null)
+            Spiel.Runde = RundeChoosed;
+        else
+            Spiel.Runde = "";
         Spiel.Datum = SpielDateTime;
-        Spiel.GroupID = GruppeChoosed;
-        Spiel.RundeDetail = RundeDetail;
+        Spiel.GroupID = Convert.ToInt32(Gruppe);
+        // Spiel.RundeDetail = RundeDetail;
+
         if ((Spiel.Verein1_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Verein2_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Verein1 == Spiel.Verein2))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
             bError = true;
         }
 
-        else if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
+        else if ((Spiel.Datum.Date.ToString() == "01.01.0001"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Datum.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
             bError = true;
         }
 
@@ -394,7 +405,7 @@
             await _EMWMErgebnisseService.CreateSpieltag(Spiel);
 
             if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Pokal-Spieltag", Detail = "Abgespeichert" });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Localizer["Neuanlage EM-Spiel"].Value, Detail = @Localizer["Abgespeichert"].Value });
         }
         else
         {
@@ -402,12 +413,9 @@
             await _EMWMErgebnisseService.UpdateSpieltag(Spiel);
 
             if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten EM-Spieltag", Detail = "Abgespeichert" });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Localizer["Neuanlage EM-Spiel"].Value, Detail = @Localizer["Abgespeichert"].Value });
         }
 
-
-        //string url = "/pokalergebnisse";
-        /* navigationManager.NavigateTo(url); */
     }
 
     private void Zurueck_Click()

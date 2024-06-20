@@ -37,7 +37,8 @@ namespace LigaManagement.Web.Pages
         protected string DisplayErrorSaison = "none";
 
         protected string VisibleTable = "none";
-        
+        protected string VisibleTableWM = "none";
+
         public List<DisplayCLRunde> RundeList;
 
         public int SaisonChoosed = 0;
@@ -107,7 +108,7 @@ namespace LigaManagement.Web.Pages
                 SaisonenList = new List<DisplaySaison>();
 
 
-                Saisonen = (await SaisonenEMWMService.GetSaisonen()).ToList();
+                Saisonen = (await SaisonenEMWMService.GetSaisonen()).Where(x => x.Saisonname.StartsWith("WM") || x.Saisonname.StartsWith("EM")).ToList().OrderByDescending(x => x.Saisonname.Substring(x.Saisonname.Length - 4));
 
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
@@ -115,7 +116,19 @@ namespace LigaManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                SaisonChoosed = Globals.EMWMSaisonID;
+                var saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonenList[0].SaisonID));
+
+                if (saison != null)
+                {
+                    Globals.currentEMWMSaison = saison.Saisonname;
+                    Globals.EMWMSaisonID = saison.SaisonID;
+                    Globals.EMMWMLigaId = saison.LigaID;
+                    
+                    SaisonChoosed = Globals.EMWMSaisonID;
+
+                    OnClickHandler();
+                }
+                
 
                 EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
                 if (EMWMSpieltage == null)
@@ -130,7 +143,6 @@ namespace LigaManagement.Web.Pages
                 else
                     RundeChoosed = Globals.currentEMWMRunde;
 
-
                 EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.SaisonID == Globals.EMWMSaisonID).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
 
                 //if (EMWMSpieltage.Count() > 0)
@@ -139,38 +151,29 @@ namespace LigaManagement.Web.Pages
                 //}
                 //var result = await GetDataFromOpenLgaDB();
 
-                DisplayErrorRunde = "none";
-                DisplayErrorSaison = "none";
+             
 
                 Globals.bVisibleNavMenuElements = true;
 
                 RundeList = new List<DisplayCLRunde>
                 {
-                    new DisplayCLRunde("G1", "Gruppenphase Spieltag 1"),
-                    new DisplayCLRunde("G2", "Gruppenphase Spieltag 2"),
-                    new DisplayCLRunde("G3", "Gruppenphase Spieltag 3"),
-                      new DisplayCLRunde("AF", "Achtelfinale"),
-                       new DisplayCLRunde("VF", "Viertelfinale"),
-                       new DisplayCLRunde("HF", "Halbfinale"),
-                        new DisplayCLRunde("F", "Finale")
+                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayCLRunde("F", Localizer["Finale"].Value),
                 };
 
                 VisibleBtnNew = "hidden";
 
-                var saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonChoosed));
-
-                if (saison != null)
-                {
-                    Globals.currentEMWMSaison = saison.Saisonname;
-                    Globals.EMWMSaisonID = saison.SaisonID;
-                    Globals.EMMWMLigaId = saison.LigaID;
-
-                    OnClickHandler();
-                }
-                else
-                    Globals.currentEMWMSaison = "EM 2024";
-
+             
                 if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    VisibleTable = "block";
+                else if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
                     VisibleTable = "block";
                 else
                     VisibleTable = "none";
@@ -191,17 +194,23 @@ namespace LigaManagement.Web.Pages
                     TabellenB = await TabelleService.BerechneTabelleEMWM(SpieltagService, 2, BisSpieltag);
                     TabellenC = await TabelleService.BerechneTabelleEMWM(SpieltagService, 3, BisSpieltag);
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
-                    TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
-                    TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+
+                    if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
+                    {
+                        TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
+                        TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    }
                     if (Globals.currentEMWMSaison.StartsWith("WM"))
                     {
                         TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
                         TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
                     }
-
                 }
 
-                
+                DisplayErrorRunde = "none";
+                DisplayErrorSaison = "none";
 
                 Globals.bVisibleNavMenuElements = true;
             }
@@ -232,6 +241,10 @@ namespace LigaManagement.Web.Pages
                     Globals.EMMWMLigaId = saison.LigaID;
 
                     if (Globals.currentEMWMSaison.StartsWith("WM"))
+                        VisibleTable = "block";
+                    else if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
+                            Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                            Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
                         VisibleTable = "block";
                     else
                         VisibleTable = "none";
@@ -306,7 +319,6 @@ namespace LigaManagement.Web.Pages
                     cmd.Parameters.AddWithValue("@Land1_Nr", 0);
                     cmd.Parameters.AddWithValue("@Land2_Nr", 0);
 
-
                     cmd.Parameters.AddWithValue("@Verlängerung", 0);
                     cmd.Parameters.AddWithValue("@Elfmeterschiessen", 0);
 
@@ -341,7 +353,7 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Runde", "HF");
                         cmd.Parameters.AddWithValue("@RundeDetail", "HF");
                     }
-                        
+
                     else if (match.Group.GroupName == "Finale")
                     {
                         cmd.Parameters.AddWithValue("@Runde", "F");
@@ -441,8 +453,14 @@ namespace LigaManagement.Web.Pages
                     TabellenB = await TabelleService.BerechneTabelleEMWM(SpieltagService, 2, BisSpieltag);
                     TabellenC = await TabelleService.BerechneTabelleEMWM(SpieltagService, 3, BisSpieltag);
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
-                    TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
-                    TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
+                    {
+                        TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
+                        TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    }
+
                     if (Globals.currentEMWMSaison.StartsWith("WM"))
                     {
                         TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
@@ -480,9 +498,11 @@ namespace LigaManagement.Web.Pages
                 }
 
                 if (Globals.currentEMWMSaison.StartsWith("WM"))
-                    VisibleTable = "block";
+                    VisibleTableWM = "block";
                 else
-                    VisibleTable = "none";
+                    VisibleTableWM = "none";
+
+
 
                 DisplayErrorSaison = "none";
                 DisplayErrorRunde = "none";

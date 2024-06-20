@@ -2,6 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using Radzen;
 @inherits VereineListBase
+@inject NavigationManager _navigationManager
 
 @attribute [Authorize]
 
@@ -51,7 +52,8 @@ else
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>
                             <span class="ml-3">
-                                <a href="@($"createverein/{"DE"}")" style="width:35px; height:30px;" title="@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>
+                                @* <a href="@($"createverein/{"DE"}")" style="width:35px; height:30px;" title="@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                                <RadzenButton title="@Localizer["Neuanlage Verein"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
                             </span>
                         </div>
                     </div>
@@ -316,7 +318,12 @@ else
         </div>       
     </div>
    
-
+@code {
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("createverein/DE");
+    }
+}
 <script>
 
     let mybutton = document.getElementById("btnTop");

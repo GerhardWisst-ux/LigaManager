@@ -40,3 +40,93 @@ StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
    at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
 Date/Time: 18.06.2024 15:35:25
 ============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Falsche Syntax in der Nähe von "=".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.UpdateSpieltag(PokalergebnisCLSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 262
+Date/Time: 18.06.2024 16:24:55
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Falsche Syntax in der Nähe von "=".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.UpdateSpieltag(PokalergebnisCLSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 262
+Date/Time: 18.06.2024 17:24:39
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: String '25' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
+   at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
+Date/Time: 18.06.2024 19:04:17
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: SqlDateTime overflow. Must be between 1/1/1753 12:00:00 AM and 12/31/9999 11:59:59 PM.
+StackTrace:    at System.Data.SqlTypes.SqlDateTime.FromTimeSpan(TimeSpan value)
+   at System.Data.SqlTypes.SqlDateTime.FromDateTime(DateTime value)
+   at System.Data.SqlTypes.SqlDateTime..ctor(DateTime value)
+   at Microsoft.Data.SqlClient.MetaType.FromDateTime(DateTime dateTime, Byte cb)
+   at Microsoft.Data.SqlClient.TdsParser.WriteUnterminatedValue(Object value, MetaType type, Byte scale, Int32 actualLength, Int32 encodingByteSize, Int32 offset, TdsParserStateObject stateObj, Int32 paramSize, Boolean isDataFeed)
+   at Microsoft.Data.SqlClient.TdsParser.WriteValue(Object value, MetaType type, Byte scale, Int32 actualLength, Int32 encodingByteSize, Int32 offset, TdsParserStateObject stateObj, Int32 paramSize, Boolean isDataFeed)
+   at Microsoft.Data.SqlClient.TdsParser.TDSExecuteRPCAddParameter(TdsParserStateObject stateObj, SqlParameter param, MetaType mt, Byte options, SqlCommand command, Boolean isAnonymous)
+   at Microsoft.Data.SqlClient.TdsParser.TdsExecuteRPC(SqlCommand cmd, _SqlRPC[] rpcArray, Int32 timeout, Boolean inSchema, SqlNotificationRequest notificationRequest, TdsParserStateObject stateObj, Boolean isCommandProc, Boolean sync, TaskCompletionSource`1 completion, Int32 startRpc, Int32 startParam)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.LigaRepository.AddLiga(Liga liga) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 45
+Date/Time: 18.06.2024 21:08:35
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: String '26' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
+   at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
+Date/Time: 18.06.2024 21:15:58
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: String '1' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(ReadOnlySpan`1 value)
+   at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.LigaRepository.GetLigen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\LigaRepository.cs:line 145
+Date/Time: 18.06.2024 21:18:59
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Die parametrisierte Abfrage "(@Saison nvarchar(7),@SaisonID int,@LigaID int,@Verein1_Nr int,@" erwartet den @Runde-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.AddSpieltag(PokalergebnisCLSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 53
+Date/Time: 19.06.2024 08:07:37
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Die parametrisierte Abfrage "(@Saison nvarchar(7),@SaisonID int,@LigaID int,@Verein1_Nr int,@" erwartet den @Runde-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.AddSpieltag(PokalergebnisCLSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 53
+Date/Time: 19.06.2024 08:08:03
+============================================

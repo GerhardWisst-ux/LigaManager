@@ -698,6 +698,7 @@ namespace LigaManagement.Web.Pages
 
             Globals.bVisibleNavMenuElements = true;
 
+            Globals.EMWMSaisonID = 0;
             NavigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{iAktSpieltag}", true);
 
         }

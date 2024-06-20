@@ -50,6 +50,9 @@ namespace LigaManagement.Models
         public int GroupID2012 { get; set; }
         public int GroupID2010 { get; set; }
         public int GroupID2008 { get; set; }
-
+        public int GroupID2006 { get; set; }
+        public int GroupID2004 { get; set; }
+        public int GroupID1996 { get; set; }
+        public int GroupID1960 { get; set; }
     }
 }
