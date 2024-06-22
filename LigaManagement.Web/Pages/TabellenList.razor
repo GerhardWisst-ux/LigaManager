@@ -150,19 +150,19 @@ else
                             <RadzenImage Path="@($"/Images/{data.Verein}.webp")" style="height: 30px; width: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
                         </Template>
                     </RadzenDataGridColumn>
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Verein"].Value" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["V"].Value" />
-                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="17%" Sortable=false Title="@Localizer["Verein"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="6%" Sortable=true Title="@Localizer["S"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="6%" Sortable=true Title="@Localizer["G"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="6%" Sortable=true Title="@Localizer["U"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="6%" Sortable=true Title="@Localizer["V"].Value" />
+                    <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Right" Width="6%" Sortable=true Title="@Localizer["T"].Value" />
                     <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
                     <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
                 </Columns>
             </RadzenDataGrid>
             <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                 <RadzenColumn Offset="11" Style="text-align:right;">
-                    <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="@Localizer["Nach oben"].Value" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                    <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
                 </RadzenColumn>
             </RadzenRow>
             <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">

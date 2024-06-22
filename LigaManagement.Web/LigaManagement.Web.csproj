@@ -1,80 +1,84 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <!--<PropertyGroup>
+	<!--<PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>-->
 
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
-		 <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
-		 <Nullable>warnings</Nullable>
-		 <ProduceReferenceAssembly>False</ProduceReferenceAssembly>
-		 <RepositoryType>git</RepositoryType>
-		 <AssemblyVersion>1.0.0.0</AssemblyVersion>
-		 <StartupObject>LigaManagement.Web.Program</StartupObject>
+		<TargetFramework>net7.0-windows10.0.22621.0</TargetFramework>
+		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+		<Nullable>warnings</Nullable>
+		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
+		<RepositoryType>git</RepositoryType>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<StartupObject>LigaManagement.Web.Program</StartupObject>
 
 		<BlazorWebAssemblyLoadAllGlobalizationData>
 			true
 		</BlazorWebAssemblyLoadAllGlobalizationData>
-	
+
+		<PlatformTarget>x64</PlatformTarget>
+
+		<ApplicationIcon>Soccer.ico</ApplicationIcon>
+
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
 	</PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20231106123348_Identity.cs" />
-    <Compile Remove="Migrations\20231106123348_Identity.Designer.cs" />
-    <Compile Remove="Migrations\20231118082923_Identity.cs" />
-    <Compile Remove="Migrations\20231118082923_Identity.Designer.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Migrations\20231106123348_Identity.cs" />
+		<Compile Remove="Migrations\20231106123348_Identity.Designer.cs" />
+		<Compile Remove="Migrations\20231118082923_Identity.cs" />
+		<Compile Remove="Migrations\20231118082923_Identity.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Remove="Pages\Charts.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Soccer.ico" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
 		<PackageReference Include="BootstrapBlazor" Version="8.3.10" />
 		<PackageReference Include="FontAwesome" Version="4.7.0" />
-		<PackageReference Include="jQuery" Version="3.7.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="6.0.25" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-preview5.20216.8" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.25" />
-		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.14" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.5" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.6" />
-		<PackageReference Include="Microsoft.OData.Client" Version="7.20.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-		<PackageReference Include="Radzen.Blazor" Version="4.32.1" />
 		<PackageReference Include="System.ServiceModel.Syndication" Version="8.0.0" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LigaManagement.Api\LigaManagement.Api.csproj" />
-    <ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />
-    <ProjectReference Include="..\Ligamanager.Components\Ligamanager.Components.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\LigaManagement.Api\LigaManagement.Api.csproj" />
+		<ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />
+		<ProjectReference Include="..\Ligamanager.Components\Ligamanager.Components.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Classes\" />
-    <Folder Include="Errors\" />
-    <Folder Include="wwwroot\fonts\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="Classes\" />
+		<Folder Include="Errors\" />
+		<Folder Include="wwwroot\fonts\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
 
 </Project>

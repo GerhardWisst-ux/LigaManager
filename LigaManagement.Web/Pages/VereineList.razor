@@ -77,18 +77,18 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="250px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="250px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 @* <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="10%" Filterable="false" Sortable="false">
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="15%" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkBundesliga" />
                     </Template>
                  </RadzenDataGridColumn>                
 
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title=@Localizer["Pokal"].Value Width="10%" Filterable="false" Sortable="false">
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title=@Localizer["Pokal"].Value Width="15%" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
                     </Template>
@@ -159,7 +159,7 @@ else
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>                    
@@ -255,7 +255,7 @@ else
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>
@@ -306,7 +306,7 @@ else
         </RadzenDataGrid>
         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
             <RadzenColumn Offset="11" Style="text-align:right;">
-                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
             </RadzenColumn>
         </RadzenRow>
                     </RadzenTabsItem>

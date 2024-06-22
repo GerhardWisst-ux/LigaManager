@@ -159,6 +159,9 @@
   <data name="Neuanlage" xml:space="preserve">
     <value>Neuanlage</value>
   </data>
+  <data name="Neuer Spieler" xml:space="preserve">
+    <value>Neuer Spieler</value>
+  </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
   </data>

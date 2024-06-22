@@ -204,6 +204,9 @@
   <data name="Verein 2" xml:space="preserve">
     <value>Club 2</value>
   </data>
+  <data name="Vereine EMWM" xml:space="preserve">
+    <value>Clubs EM-WM</value>
+  </data>
   <data name="Verlängerung" xml:space="preserve">
     <value>Extension</value>
   </data>

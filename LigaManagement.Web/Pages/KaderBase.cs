@@ -64,12 +64,13 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             SaisonenList = new List<DisplaySaison>();
-            Saisonen = (await SaisonenService.GetSaisonen()).ToList();
+            Saisonen = (await SaisonenService.GetSaisonen()).OrderBy(x => x.Saisonname).ToList();
 
             for (int i = 0; i < Saisonen.Count(); i++)
             {
                 var columns = Saisonen.ElementAt(i);
-                SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                if (columns.Liganame == "Bundesliga")
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
             }
 
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == Globals.KaderSaisonID).ToList();
@@ -156,7 +157,7 @@ namespace LigaManagerManagement.Web.Pages
             StateHasChanged();
         }
 
-                
+
         public void OnFilter(DataGridColumnFilterEventArgs<Kader> args)
         {
             //

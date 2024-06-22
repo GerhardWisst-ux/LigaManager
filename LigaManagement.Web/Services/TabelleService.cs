@@ -3019,7 +3019,8 @@ namespace LigaManagerManagement.Web.Services
                     tabelleneintragV1.Diff = 0;
                     tabelleneintragV1.Tab_Sai_Id = Globals.SaisonID;
                     tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
-                    tabelleneintragV1.Liga = Globals.currentLiga;
+                    tabelleneintragV1.Liga
+                        = Globals.currentLiga;
 
                     TabSaisonSorted.Add(tabelleneintragV1);
                 }
@@ -3552,7 +3553,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Anzeigename = item.Verein1;
                                     tabelleneintragF.TorePlus = tabelleneintragF.TorePlus + item.Tore1_Nr;
                                     tabelleneintragF.ToreMinus = tabelleneintragF.ToreMinus + item.Tore2_Nr;
-                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 0;
+                                    tabelleneintragF.Spiele = tabelleneintragF.Spiele + 1;
                                     tabelleneintragF.Gewonnen = tabelleneintragF.Gewonnen + 0;
                                     tabelleneintragF.Untentschieden = tabelleneintragF.Untentschieden;
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;

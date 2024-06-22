@@ -1,0 +1,333 @@
+﻿@page "/createverein"
+@page "/editvereinemwm/{Id}"
+@using LigaManagement.Web.Services.Contracts;
+@using LigaManagerManagement.Models;
+
+@inherits LigaManagerManagement.Web.Pages.EditVereinEMWMListBase
+@inject LigaManagement.Web.Services.Contracts.IVereineService _VereineService
+@inject LigaManagement.Web.Services.Contracts.IVereinePLService _VereinePLService
+@inject LigaManagement.Web.Services.Contracts.IVereineITService _VereineITService
+@inject LigaManagement.Web.Services.Contracts.IVereineFRService _VereineFRService
+@inject LigaManagement.Web.Services.Contracts.IVereineESService _VereineESService
+@inject LigaManagement.Web.Services.Contracts.IVereineNLService _VereineNLService
+@inject LigaManagement.Web.Services.Contracts.IVereinePTService _VereinePTService
+@inject LigaManagement.Web.Services.Contracts.IVereineTUService _VereineTUService
+@inject LigaManagement.Web.Services.Contracts.IVereineBEService _VereineBEService
+@inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
+
+</head>
+
+<style>
+    .rz-button.rz-link {
+        background: none !important;
+    }
+
+
+        .rz-button.rz-link .rz-button-text {
+            color: var(--rz-link-color);
+        }
+
+
+        .rz-button.rz-link:hover .rz-button-text {
+            text-decoration: underline !important;
+        }
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+</style>
+
+@if (Verein == null)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+    <div class="row my-2">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0 mb-3">
+                    <div class="d-flex flex-row">
+                        <div class="card-body ">
+                            <h2 style="display:inline-block;">@Titel @Localizer["Mannschaft"].Value</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+            <div class="col-sm-12">
+                <EditForm Model="Vereine" OnValidSubmit="UpsertVerein">
+                   @*  <div class="form-group row">
+                        <RadzenLabel Text="Land" class="col-sm-3" Component="cboLand">@Localizer["Land"].Value</RadzenLabel>
+                        <select value="@LandID" id="cboLand" class="form-control dropdown col-sm-9" @onchange="LandChangeAsync">
+                            <option value="0" required>Land auswählen</option>
+                            @if (LaenderList != null)
+                            {
+                                @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
+                                {
+                                    @if (land.LandID == Globals.LandIDVerein)
+                                    {
+                                        <option selected value="@land.LandID"> @land.Laendername </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@land.LandID"> @land.Laendername </option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div> *@
+
+                    <div class="form-group row">
+                        <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">@Localizer["Mannschaft"].Value</RadzenLabel>
+                        <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
+                        <InputText required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">@Localizer["Erfolge"].Value</RadzenLabel>
+                        <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="3" class="form-control col-sm-9" aria-label="Textfeld " />
+                        <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+                    </div>
+                    <div class="form-group row">
+                        <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">@Localizer["Gegruendet"].Value</RadzenLabel>
+                        <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+                    </div>                    
+                    <div class="form-group row my-4">
+                        <RadzenLabel Text="Hyperlink" class="col-sm-3" Component="txtHyperlink">Hyperlink</RadzenLabel>
+                        <InputText required id="txtHyperlink" @bind-Value="Verein.Hyperlink" class="form-control col-sm-9"></InputText>
+                        <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
+                    </div>
+                    <div class="form-group row my-4">
+                        <RadzenLabel Text="lblGroupID2024" class="col-sm-3" Component="txt2024">@Localizer["EM2024"].Value</RadzenLabel>
+                        <InputNumber id="txt2024" @bind-Value="Verein.GroupID2024" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2024"></ValidationMessage>                    
+                        <RadzenLabel Text="lblGroupID2022" class="col-sm-1" Component="txt2022">@Localizer["WM2022"].Value</RadzenLabel>
+                        <InputNumber id="txt2022" @bind-Value="Verein.GroupID2022" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2022"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2020" class="col-sm-1" Component="txt2020">@Localizer["EM2020"].Value</RadzenLabel>
+                        <InputNumber id="txt2020" @bind-Value="Verein.GroupID2020" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2020"></ValidationMessage>
+                    </div>
+                    <div class="form-group row my-4">
+                      
+                        <RadzenLabel Text="lblGroupID2018" class="col-sm-3" Component="txt2018">@Localizer["WM2018"].Value</RadzenLabel>
+                        <InputNumber id="txt2018" @bind-Value="Verein.GroupID2018" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2018"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2016" class="col-sm-1" Component="txt2016">@Localizer["EM2016"].Value</RadzenLabel>
+                        <InputNumber id="txt2018" @bind-Value="Verein.GroupID2016" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2016"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2014" class="col-sm-1" Component="txt2014">@Localizer["WM2014"].Value</RadzenLabel>
+                        <InputNumber id="txt2014" @bind-Value="Verein.GroupID2014" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2014"></ValidationMessage>
+                    </div>             
+                    <div class="form-group row my-4">
+                        <RadzenLabel Text="lblGroupID2012" class="col-sm-3" Component="txt2012">@Localizer["EM2012"].Value</RadzenLabel>
+                        <InputNumber id="txt2012" @bind-Value="Verein.GroupID2012" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2012"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2010" class="col-sm-1" Component="txt2014">@Localizer["WM2010"].Value</RadzenLabel>
+                        <InputNumber id="txt2010" @bind-Value="Verein.GroupID2010" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2010"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2010" class="col-sm-1" Component="txt2014">@Localizer["WM2008"].Value</RadzenLabel>
+                        <InputNumber id="txt2008" @bind-Value="Verein.GroupID2008" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2008"></ValidationMessage>
+                    </div>
+                    <div class="form-group row my-4">
+                        <RadzenLabel Text="lblGroupID2006" class="col-sm-3" Component="txt2006">@Localizer["WM2006"].Value</RadzenLabel>
+                        <InputNumber id="txt2006" @bind-Value="Verein.GroupID2006" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2000"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2004" class="col-sm-1" Component="txt2014">@Localizer["EM2004"].Value</RadzenLabel>
+                        <InputNumber id="txt2004" @bind-Value="Verein.GroupID2004" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2004"></ValidationMessage>
+                        <RadzenLabel Text="lblGroupID2000" class="col-sm-1" Component="txt2000">@Localizer["EM2000"].Value</RadzenLabel>
+                        <InputNumber id="txt2000" @bind-Value="Verein.GroupID2000" class="form-control col-sm-1"></InputNumber>
+                        <ValidationMessage For="()=>Verein.GroupID2000"></ValidationMessage>
+                    </div>
+                   
+                    <div class="form-group row my-2">
+                        <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
+                        </RadzenButton>
+                        <RadzenButton title="@Localizer["Löscht Verein"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                            <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                        </RadzenButton>
+                        <RadzenButton title="@Localizer["Zurück zu Vereine"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+                        </RadzenButton>
+                    </div>
+
+                </EditForm>
+            </div>
+        </div>
+    </div>
+}
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    [Parameter]
+    public string LandKz { get; set; }
+
+    public string _LandKz { get; set; }
+
+    private VereinAktSaison Verein { get; set; } = new VereinAktSaison();
+    private VereinAUS VereinAus { get; set; } = new VereinAUS();
+    private string Titel { get; set; }
+    public bool IsLoading { get; set; }
+    public IEnumerable<Verein> VereineMax { get; set; }
+    public IEnumerable<VereinAUS> VereineAusMax { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                //Neuanlage
+                Titel = Localizer["Neuanlage"].Value;
+                Id = "0";
+                IsLoading = false;
+            }
+            else
+            {
+                //Bearbeiten
+                Titel = Localizer["Bearbeiten"].Value;
+                await LoadVerein();
+            }
+        }
+    }
+
+    private async Task LoadVerein()
+    {
+        IsLoading = true;
+
+        Verein = await _VereineService.GetVereinEMWM(Convert.ToInt32(Id));
+
+        StateHasChanged();
+    }
+    private async Task UpsertVerein()
+    {
+        bool bError = false;
+        if (LandKz == "DE")
+        {
+            if (Verein.Vereinsname1 == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Mannschaft", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (Verein.Vereinsname2 == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Mannschaft", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (Verein.Stadion == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Mannschaft", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (Verein.Erfolge == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Mannschaft", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (Verein.Gegruendet == 0)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Neuanlage Mannschaft", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+        }
+        else
+        {
+            if (VereinAus.Vereinsname1 == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Mannschaft", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (VereinAus.Vereinsname2 == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Mannschaft", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+            else if (VereinAus.Stadion == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Mannschaft", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+
+            else if (VereinAus.Erfolge == null)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Mannschaft", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+
+
+            else if (VereinAus.Gegruendet == 0)
+            {
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Mannschaft", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
+                bError = true;
+            }
+        }
+
+        if (Id == "0" && bError == false)
+        {
+
+            VereineMax = await VereineService.GetVereine();
+            int iMax = VereineMax.Select(i => i.VereinNr).Max();
+            Verein.VereinNr = iMax + 1;
+
+            await _VereineService.CreateVerein(Verein);
+
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Mannschaft", Detail = "Abgespeichert" });
+
+        }
+        else if (bError == false)
+        {          
+            await _VereineService.UpdateVerein(Verein);
+          
+
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Mannschaft", Detail = "Abgespeichert" });
+        }
+
+    }
+
+    protected async Task<bool> Confirm()
+    {
+        string message = "Möchten Sie diese Mannschaft tatsächlich löschen?";
+
+
+        var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
+
+        if (result)
+        {
+            await _VereineService.DeleteVerein(Convert.ToInt32(Id));
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Mannschaft", Detail = "Gelöscht" });
+        }
+
+        return false;
+    }
+
+    private void Zurueck_Click()
+    {
+        _navigationManager.NavigateTo("/Ligamanager/vereineemwm");
+    }
+}

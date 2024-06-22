@@ -402,7 +402,7 @@ else
     private async Task Upsert()
     {
         Spieltag spieltag = new Spieltag();
-
+        bool bError = false;
         string[] subs = Time.Value.ToString().Split(':');
         int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
@@ -412,59 +412,62 @@ else
         Spiel.LigaID = Convert.ToInt32(Globals.LigaID);
 
 
-        if ((Spiel.Verein1_Nr == null))
+        if ((Spiel.Verein1_Nr == "0"))
+
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Tore1_Nr == null))
+        else if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Tore2_Nr == null))
+        else if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Verein2_Nr == null))
+        else if ((Spiel.Verein2_Nr == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Verein1 == Spiel.Verein2))
+        else if ((Spiel.Verein1 == Spiel.Verein2))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((Spiel.Datum.ToString() == "01.01.0001 00:00:00"))
+        else if ((Spiel.Datum.Date.ToString() == "01.01.0001"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht angegeben.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((SpielDateTime.Hour.ToString() == "0"))
+        else if ((Spiel.Datum.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+            bError = true;
         }
 
-        if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
+        else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
-            return;
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["Spieltag"].Value, Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            bError = true; ;
         }
 
-        if ((Spiel.Schiedrichter == null))
+        else if ((Spiel.Schiedrichter == null))
         {
             Spiel.Schiedrichter = "k.A.";
         }
 
+        if (bError == true)
+            return;
 
         if (Id == "0")
         {

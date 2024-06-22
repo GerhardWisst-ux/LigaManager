@@ -7,6 +7,14 @@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
+
+</head>
 
 <style>
     .rz-button.rz-link {
@@ -82,10 +90,10 @@
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.Aktiv"></ValidationMessage>
             </div>
-            <div class="form-group row my-4">
+            <div class="form-group row">
                 <RadzenLabel Text="lblEMWM" class="col-sm-3" Component="chkEMWM">@Localizer["EMWM"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
+                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkEMWM" />
+                <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Liga.EMWM"></ValidationMessage>
             </div>

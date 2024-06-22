@@ -162,6 +162,9 @@
   <data name="Neuanlage" xml:space="preserve">
     <value>Create new player</value>
   </data>
+  <data name="Neuer Spieler" xml:space="preserve">
+    <value>New player</value>
+  </data>
   <data name="Position" xml:space="preserve">
     <value>Position</value>
   </data>

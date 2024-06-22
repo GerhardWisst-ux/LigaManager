@@ -1,5 +1,5 @@
-﻿@page "/editemwmspieltag/{id}/{Gruppe}"
-@page "/createemwmspieltag/{Runde}/{Gruppe}"
+﻿@page "/Ligamanager/editemwmspieltag/{id}/{Gruppe}"
+@page "/Ligamanager/createemwmspieltag/{Runde}/{Gruppe}"
 @using LigaManagerManagement.Models
 
 @inherits EditEMWMSpieltagBase
@@ -78,58 +78,61 @@
                             }
                         }
                     </select>
-                    <select id="cboGruppe" style="display:inline; width:180px;height:38px;display:@GroupVisible" class="form-control dropdown" @onchange="GruppeChange">
-                        <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
-                        @if (Gruppe.ToString() == "1")
-                        {
-                            <option selected value="A">A</option>
-                        }
-                        else
-                        {
-                            <option value="1">A</option>
-                        }
-                        }
-                        @if (Gruppe.ToString() == "2")
-                        {
-                            <option selected value="1">B</option>
-                        }
-                        else
-                        {
-                            <option value="2">B</option>
-                        }
-                        @if (Gruppe.ToString() == "3")
-                        {
-                            <option selected value="C">C</option>
-                        }
-                        else
-                        {
-                            <option value="3">C</option>
-                        }
-                        @if (Gruppe.ToString() == "4")
-                        {
-                            <option selected value="4">D</option>
-                        }
-                        else
-                        {
-                            <option value="4">D</option>
-                        }
-                        @if (Gruppe.ToString() == "5")
-                        {
-                            <option selected value="5">E</option>
-                        }
-                        else
-                        {
-                            <option value="5">E</option>
-                        }
-                        @if (Gruppe.ToString() == "6")
-                        {
-                            <option selected value="6">F</option>
-                        }
-                        else
-                        {
-                            <option value="6">F</option>
-                        }
-                    </select>
+                    <div style="display:@GroupVisible">
+                        <select id="cboGruppe" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
+                            <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
+                            @if (Gruppe.ToString() == "1")
+                            {
+                                <option selected value="A">A</option>
+                            }
+                            else
+                            {
+                                <option value="1">A</option>
+                            }
+                            }
+                            @if (Gruppe.ToString() == "2")
+                            {
+                                <option selected value="1">B</option>
+                            }
+                            else
+                            {
+                                <option value="2">B</option>
+                            }
+                            @if (Gruppe.ToString() == "3")
+                            {
+                                <option selected value="C">C</option>
+                            }
+                            else
+                            {
+                                <option value="3">C</option>
+                            }
+                            @if (Gruppe.ToString() == "4")
+                            {
+                                <option selected value="4">D</option>
+                            }
+                            else
+                            {
+                                <option value="4">D</option>
+                            }
+                            @if (Gruppe.ToString() == "5")
+                            {
+                                <option selected value="5">E</option>
+                            }
+                            else
+                            {
+                                <option value="5">E</option>
+                            }
+                            @if (Gruppe.ToString() == "6")
+                            {
+                                <option selected value="6">F</option>
+                            }
+                            else
+                            {
+                                <option value="6">F</option>
+                            }
+                        </select>
+                    </div>
+                   
                 </RadzenCard>
                 <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
                 <RadzenTabs>

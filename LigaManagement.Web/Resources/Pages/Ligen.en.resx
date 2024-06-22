@@ -130,7 +130,7 @@
     <value>Edit</value>
   </data>
   <data name="BearbeitenLiga" xml:space="preserve">
-    <value>Edit League</value>
+    <value>Edit </value>
   </data>
   <data name="EMWM" xml:space="preserve">
     <value>EMWM</value>
@@ -140,6 +140,9 @@
   </data>
   <data name="Gelöscht" xml:space="preserve">
     <value>Deleted</value>
+  </data>
+  <data name="Liga" xml:space="preserve">
+    <value>League</value>
   </data>
   <data name="Liganame" xml:space="preserve">
     <value>Name of league</value>

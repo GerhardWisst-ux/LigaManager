@@ -37,6 +37,32 @@ namespace LigaManagement.Models
     {
         public int SaisonID { get; set; }
 
+        public int GroupID2024 { get; set; }
+
+        public int GroupID2022 { get; set; }
+
+        public int GroupID2020 { get; set; }
+
+        public int GroupID2018 { get; set; }
+        public int GroupID2016 { get; set; }
+        public int GroupID2014 { get; set; }
+        public int GroupID2012 { get; set; }
+        public int GroupID2010 { get; set; }
+        public int GroupID2008 { get; set; }
+        public int GroupID2006 { get; set; }
+        public int GroupID2004 { get; set; }
+        public int GroupID2000 { get; set; }
+        public int GroupID1998 { get; set; }
+        public int GroupID1996 { get; set; }
+        public int GroupID1994 { get; set; }
+        public int GroupID1992 { get; set; }
+        public int GroupID1990 { get; set; }
+        public int GroupID1988 { get; set; }
+        public int GroupID1986 { get; set; }
+        public int GroupID1984 { get; set; }
+        public int GroupID1982 { get; set; }
+        public int GroupID1980 { get; set; }
+
     }
 
     public class VereinEMWM : Verein
@@ -54,5 +80,7 @@ namespace LigaManagement.Models
         public int GroupID2004 { get; set; }
         public int GroupID1996 { get; set; }
         public int GroupID1960 { get; set; }
+
+        public int GroupID1980 { get; set; }
     }
 }

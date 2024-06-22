@@ -33,9 +33,10 @@ namespace LigamanagerManagement.Web.Pages
 
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
-        public string RundeChoosed;        
+        public string RundeChoosed;
         public int GruppeChoosed;
-        public bool GroupVisible;
+        protected string GroupVisible = "none";
+
 
         public List<DisplayRunde> RundeList;
 
@@ -79,6 +80,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             try
             {
+                List<VereinAktSaison> verList = new List<VereinAktSaison>();
                 var authenticationState = await authenticationStateTask;
 
                 if (authenticationState.User.Identity == null)
@@ -95,8 +97,43 @@ namespace LigamanagerManagement.Web.Pages
                 var saison = (await SaisonenEMWMService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentEMWMSaison).First();
 
                 var vereineSaison = await VereineService.GetVereineEMWM();
-                var verList = vereineSaison.ToList(); //.Where(x => x.SaisonID == Globals.EMWMSaisonID).ToList();
-                
+
+                if (saison.Saisonname.ToString() == "EM 2024")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2024 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2022")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2022 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 2020")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2020 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2018")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2018 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 2016")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2016 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2014")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2014 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 2012")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2012 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2010")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2010 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 2008")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2008 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2006")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2006 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 2004")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();                
+                else if (saison.Saisonname.ToString() == "EM 2000")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 1996")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1996 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 1992")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1992 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 1988")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1988 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 1984")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1984 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "EM 1980")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1980 > 0).ToList();
+
+
                 for (int i = 0; i < verList.Count(); i++)
                 {
                     var verein = await VereineService.GetVereinEMWM(verList[i].VereinNr);
@@ -132,20 +169,20 @@ namespace LigamanagerManagement.Web.Pages
                 if (Convert.ToInt32(Id) == 0)
                 {
                     Runde = Globals.currentEMWMRunde;
-                    RundeChoosed = Runde;                   
+                    RundeChoosed = Runde;
                 }
                 else
                 {
                     RundeChoosed = Spiel.Runde;
                     Runde = RundeChoosed;
                     Globals.currentEMWMRunde = RundeChoosed;
-                    Spiel.Runde = Runde;                   
+                    Spiel.Runde = Runde;
                 }
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
-                    GroupVisible = true;
+                    GroupVisible = "block";
                 else
-                    GroupVisible = false;
+                    GroupVisible = "none";
 
 
             }
@@ -155,7 +192,7 @@ namespace LigamanagerManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
-      
+
 
         public async void Verein1Change(ChangeEventArgs e)
         {
@@ -181,7 +218,7 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.Verein2_Nr = int.Parse(e.Value.ToString());
             }
             StateHasChanged();
-        }     
+        }
 
 
         public async void RundeChange(ChangeEventArgs e)
@@ -192,6 +229,12 @@ namespace LigamanagerManagement.Web.Pages
 
                 Globals.currentEMWMRunde = RundeChoosed;
                 Runde = RundeChoosed;
+
+
+                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
+                    GroupVisible = "block";
+                else
+                    GroupVisible = "none";
             }
         }
 
@@ -231,12 +274,10 @@ namespace LigamanagerManagement.Web.Pages
             public string Rundename { get; set; }
         }
 
-        
-        protected ConfirmBase DeleteConfirmation { get; set; }
 
         protected async Task<bool> Confirm()
         {
-            string message = Localizer["\"Möchten Sie dieses Spiel tatsächlich löschen?"].Value ;
+            string message = Localizer["Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
 
             if (result)

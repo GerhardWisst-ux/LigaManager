@@ -60,19 +60,19 @@ else
                     <Columns>
                         <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>                         
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="250px" Sortable=true Title="@Localizer["Liganame"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="150px" Sortable=true Title="@Localizer["Saisonen"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="250px" Sortable=true Title="@Localizer["Verband"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="10%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="20%" Sortable=true Title="@Localizer["Liganame"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="15%" Sortable=true Title="@Localizer["Saisonen"].Value" />
+                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="10%" Sortable=true Title="@Localizer["Verband"].Value" />
                         <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="@Localizer["Erstaustragung"].Value" />
 
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" title="@Localizer["Aktiv"].Value" Width="10%" Filterable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Aktiv" title="@Localizer["Aktiv"].Value" Width="100px" Filterable="false">
                             <Template Context="data">
                               <RadzenCheckBox @bind-Value=@data.Aktiv TValue="bool" Name="chkBundesliga" /> 
                             </Template>
                         </RadzenDataGridColumn>
 
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="EMWM" title="@Localizer["EMWM"].Value" Width="10%" Filterable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="EMWM" title="@Localizer["EMWM"].Value" Width="100px" Filterable="false">
                             <Template Context="data">
                                 <RadzenCheckBox @bind-Value=@data.EMWM TValue="bool" Name="chkEMWM" />
                             </Template>

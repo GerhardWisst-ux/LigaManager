@@ -39,7 +39,7 @@ namespace LigaManagement.Web.Pages
         protected string VisibleTable = "none";
         protected string VisibleTableWM = "none";
 
-        public List<DisplayCLRunde> RundeList;
+        public List<DisplayEMWMRunde> RundeList;
 
         public int SaisonChoosed = 0;
         int BisSpieltag = 3;
@@ -123,12 +123,12 @@ namespace LigaManagement.Web.Pages
                     Globals.currentEMWMSaison = saison.Saisonname;
                     Globals.EMWMSaisonID = saison.SaisonID;
                     Globals.EMMWMLigaId = saison.LigaID;
-                    
+
                     SaisonChoosed = Globals.EMWMSaisonID;
 
                     OnClickHandler();
                 }
-                
+
 
                 EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
                 if (EMWMSpieltage == null)
@@ -151,24 +151,24 @@ namespace LigaManagement.Web.Pages
                 //}
                 //var result = await GetDataFromOpenLgaDB();
 
-             
+
 
                 Globals.bVisibleNavMenuElements = true;
 
-                RundeList = new List<DisplayCLRunde>
+                RundeList = new List<DisplayEMWMRunde>
                 {
-                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
-                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
-                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
-                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
-                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
-                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
-                    new DisplayCLRunde("F", Localizer["Finale"].Value),
+                    new DisplayEMWMRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayEMWMRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayEMWMRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayEMWMRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayEMWMRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayEMWMRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayEMWMRunde("F", Localizer["Finale"].Value),
                 };
 
                 VisibleBtnNew = "hidden";
 
-             
+
                 if (Globals.currentEMWMSaison.StartsWith("WM"))
                     VisibleTable = "block";
                 else if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
@@ -247,8 +247,9 @@ namespace LigaManagement.Web.Pages
                             Globals.currentEMWMSaison.IndexOf("2012") > -1 || Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2008") > -1)
                         VisibleTable = "block";
                     else
-                        VisibleTable = "none";                    
+                        VisibleTable = "none";
                 }
+
             }
         }
 
@@ -468,9 +469,9 @@ namespace LigaManagement.Web.Pages
 
                 OnClickHandler();
             }
-            
-        }
 
+        }
+                
         public async void OnClickHandler()
         {
             try
@@ -529,7 +530,7 @@ namespace LigaManagement.Web.Pages
             if (SaisonChoosed > 0 && RundeChoosed != "F")
                 sButtonVisible = "block";
 
-            //var PokalergebnisseSpieltage = SpieltageCLService.GetSpielergebnisse();
+            //var PokalergebnisseSpieltage = SpieltageEMWMService.GetSpielergebnisse();
 
             //if (PokalergebnisseSpieltage == null)
             //    return sButtonVisible;
@@ -565,9 +566,9 @@ namespace LigaManagement.Web.Pages
         }
 
         [Bind]
-        public class DisplayCLRunde
+        public class DisplayEMWMRunde
         {
-            public DisplayCLRunde(string rundeKurzbezeichung, string rundename)
+            public DisplayEMWMRunde(string rundeKurzbezeichung, string rundename)
             {
                 RundeKurzbezeichung = rundeKurzbezeichung;
                 Rundename = rundename;

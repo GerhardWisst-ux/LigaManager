@@ -287,7 +287,9 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink] FROM [dbo].[MannschaftEMWM]", conn);
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
+                    "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
+                    "[GroupID1998],[GroupID1996],[GroupID1992],[GroupID1988],[GroupID1984],[GroupID1980] FROM [LigaDB].[dbo].[MannschaftEMWM]", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -302,11 +304,28 @@ namespace LigaManagerManagement.Api.Models
                         verein.Vereinsname2 = reader["MannschaftName1"].ToString();
                         verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
-                        verein.Erfolge = "";
+                        verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = "";
-                        verein.Gegruendet = 0;
-                        verein.Pokal = true;
-                        verein.Bundesliga = true;
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
+                        verein.Pokal = false;
+                        verein.Bundesliga = false;
+                        verein.GroupID2024 = int.Parse(reader["GroupID2024"].ToString());
+                        verein.GroupID2022 = int.Parse(reader["GroupID2022"].ToString());
+                        verein.GroupID2020 = int.Parse(reader["GroupID2020"].ToString());
+                        verein.GroupID2018 = int.Parse(reader["GroupID2018"].ToString());
+                        verein.GroupID2016 = int.Parse(reader["GroupID2016"].ToString());
+                        verein.GroupID2014 = int.Parse(reader["GroupID2014"].ToString());
+                        verein.GroupID2012 = int.Parse(reader["GroupID2012"].ToString());
+                        verein.GroupID2010 = int.Parse(reader["GroupID2010"].ToString());
+                        verein.GroupID2008 = int.Parse(reader["GroupID2008"].ToString());
+                        verein.GroupID2006 = int.Parse(reader["GroupID2006"].ToString());
+                        verein.GroupID2004 = int.Parse(reader["GroupID2004"].ToString());
+                        verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
+                        verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
+                        verein.GroupID1996 = int.Parse(reader["GroupID1992"].ToString());
+                        verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
+                        verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
+                        verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());                        
 
                         vereinelist.Add(verein);
 
@@ -414,7 +433,11 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink] FROM [dbo].[MannschaftEMWM] Where MannschaftNr = " + Id , conn);
+                SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
+                  "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
+                  "[GroupID1998],[GroupID1996],[GroupID1992],[GroupID1988],[GroupID1984],[GroupID1980] FROM [LigaDB].[dbo].[MannschaftEMWM] Where MannschaftNr = " + Id, conn);
+
+                
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -423,17 +446,33 @@ namespace LigaManagerManagement.Api.Models
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
-                        //verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
                         verein.Vereinsname1 = reader["MannschaftName1"].ToString();
                         verein.Vereinsname2 = reader["MannschaftName1"].ToString();
-                        verein.Hyperlink = ""; //reader["Hyperlink"].ToString();
+                        verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
-                        verein.Erfolge = "";
+                        verein.Erfolge = reader["Erfolge"].ToString();
                         verein.Stadion = "";
-                        verein.Gegruendet = 0;
-                        verein.Pokal = true;
-                        verein.Bundesliga = true;                      
+                        verein.Gegruendet = int.Parse(reader["Gegruendet"].ToString());
+                        verein.Pokal = false;
+                        verein.Bundesliga = false;
+                        verein.GroupID2024 = int.Parse(reader["GroupID2024"].ToString());
+                        verein.GroupID2022 = int.Parse(reader["GroupID2022"].ToString());
+                        verein.GroupID2020 = int.Parse(reader["GroupID2020"].ToString());
+                        verein.GroupID2018 = int.Parse(reader["GroupID2018"].ToString());
+                        verein.GroupID2016 = int.Parse(reader["GroupID2016"].ToString());
+                        verein.GroupID2014 = int.Parse(reader["GroupID2014"].ToString());
+                        verein.GroupID2012 = int.Parse(reader["GroupID2012"].ToString());
+                        verein.GroupID2010 = int.Parse(reader["GroupID2010"].ToString());
+                        verein.GroupID2008 = int.Parse(reader["GroupID2008"].ToString());
+                        verein.GroupID2006 = int.Parse(reader["GroupID2006"].ToString());
+                        verein.GroupID2004 = int.Parse(reader["GroupID2004"].ToString());
+                        verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
+                        verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
+                        verein.GroupID1996 = int.Parse(reader["GroupID1992"].ToString());
+                        verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
+                        verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
+                        verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());
 
                         i++;
                     }

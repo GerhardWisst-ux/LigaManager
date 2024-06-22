@@ -41,7 +41,7 @@ else
                                     <span class="ml-3">
                                         @* <a href="@($"createemwmspieltag/{@RundeChoosed}/1")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="@Localizer["Neuanlage EM-Spiel"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
                                         <RadzenButton title="@Localizer["Neuanlage EM-Spiel"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
-                                    </span>
+                                    </span>                                    
                                 </div>
                             </div>
                         </RadzenCard>
@@ -89,7 +89,10 @@ else
                             </select>
                             <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
                         </div>
-                        <div class="dropdown" style="display:inline">
+                        <div class="dropdown" style="display:inline">                            
+                            
+                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button"))  Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
+
                             <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
                             </RadzenButton>
                             <RadzenButton title=@Localizer["Saison und Runde wählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
@@ -122,7 +125,7 @@ else
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="@Localizer["Datum"].Value" />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                                 <Template Context="data">
-                                                    <NavLink href="@($"editemwmspieltag/{data.SpieltagId}/{data.GroupID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                                    <NavLink href="@($"Ligamanager/editemwmspieltag/{data.SpieltagId}/{data.GroupID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                                 </Template>
                                             </RadzenDataGridColumn>
                                         </Columns>
@@ -443,9 +446,14 @@ else
 
     private void OnClick(string text)
     {
-        _navigationManager.NavigateTo("createemwmspieltag/" + RundeChoosed + "/1");
+        _navigationManager.NavigateTo("Ligamanager/createemwmspieltag/" + RundeChoosed + "/1");
     }
 
+    private void OnClickEMWM(string text)
+    {
+        _navigationManager.NavigateTo("Ligamanager/vereineemwm/");
+    }
+        
     MyObject singleValue = new MyObject() { Id = 5, Name = "Name5" };
     IEnumerable<MyObject> data = Enumerable.Range(0, 100).Select(i => new MyObject() { Id = i, Name = $"Name{i}" });
 }

@@ -2,6 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using LigaManagerManagement.Models;
 @inherits KaderBase
+@inject NavigationManager _navigationManager
 @using Radzen;
 
 @attribute [Authorize]
@@ -35,9 +36,10 @@ else
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Localizer["Kader"].Value</h2>
-                            <span class="ml-3">
-                                @* <a href="createkaderspieler" title="Neuer Spieler" style="width:40px;" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
-                                <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink>
+                            <span class="ml-3">                                
+                                @* <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink> *@
+
+                                <RadzenButton Click=@(args => OnClick("Primary icon button"))  Visible="@VisibleAdd" Icon="add_circle_outline" title="@Localizer["Neuer Spieler"].Value" ButtonStyle="ButtonStyle.Primary" />
                             </span>
                         </div>
                     </div>
@@ -49,7 +51,7 @@ else
             <div class="col-sm-4 m-0">
                 <select id="cboSaison" style="display:inline-block; " class="form-control dropdown" @onchange="SaisonChange">
                     <option selected="selected">@Localizer["Saison auswählen"].Value</option>
-                    @foreach (var verein in SaisonenList.OrderBy(x => x.SaisonID))
+                    @foreach (var verein in SaisonenList.OrderByDescending(x => x.Saisonname))
                     {
                         <option value="@verein.SaisonID"> @verein.Saisonname </option>
                     }
@@ -105,7 +107,7 @@ else
                             <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="@Localizer["Tore"].Value" Sortable=true SortProperty="Tore" />
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Kader" Property="Id" Width="5%" Filterable="false" Sortable="false">
                                 <Template Context="data">
-                                    <NavLink href="@($"editkaderspieler/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit"></span></NavLink>
+                                    <NavLink href="@($"Ligamanager/editkaderspieler/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
 
@@ -113,12 +115,12 @@ else
                         <FooterTemplate>
                         </FooterTemplate>
                         <FooterTemplate>
-                            @Localizer["ToAnzahl Spielerre"].Value: <b>@spielerList.Count()</b>
+                            @Localizer["Anzahl Spieler"].Value: <b>@spielerList.Count()</b>
                         </FooterTemplate>
                     </RadzenDataGrid>
                     <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                         <RadzenColumn Offset="11" Style="text-align:right;">
-                            <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="@Localizer["Nach Oben"].Value" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
                         </RadzenColumn>
                     </RadzenRow>
 
@@ -126,6 +128,13 @@ else
             </div>
         </div>
     </div>
+
+    @code {
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("Ligamanager/createkaderspieler");
+    }
+    }
 
     <script>
 

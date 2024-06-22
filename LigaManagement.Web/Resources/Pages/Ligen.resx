@@ -130,7 +130,7 @@
     <value>Bearbeiten</value>
   </data>
   <data name="BearbeitenLiga" xml:space="preserve">
-    <value>Bearbeiten Liga</value>
+    <value>Bearbeiten</value>
   </data>
   <data name="EMWM" xml:space="preserve">
     <value>EMWM</value>
@@ -166,7 +166,7 @@
     <value>Nach oben</value>
   </data>
   <data name="Neuanlage Liga" xml:space="preserve">
-    <value>Neuanlage Liga</value>
+    <value>Neuanlage </value>
   </data>
   <data name="Nächster Spieltag" xml:space="preserve">
     <value>Nächster Spieltag</value>

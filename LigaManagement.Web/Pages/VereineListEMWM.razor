@@ -1,0 +1,152 @@
+﻿@page "/Ligamanager/vereineemwm"
+@using LigaManagerManagement.Web.Pages;
+@using Radzen;
+@inherits VereineListEMWMBase
+@inject NavigationManager _navigationManager
+
+@attribute [Authorize]
+
+<head>
+    
+
+</head>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+    .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
+    }
+
+    <style>
+    .icon-preview div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        width: 120px;
+    }
+    .icon-preview span {
+        color: var(--rz-text-disabled-color);
+        font-size: 0.75rem;
+    }
+</style>
+</style>
+
+@if (VereineList == null)
+{
+     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+     <div class="container">        
+               <RadzenCard class="m-0 mb-3 rz-shadow-3">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>
+                            <span class="ml-3">                                
+                                <RadzenButton title="@Localizer["Neuanlage Verein"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+                            </span>
+                        </div>
+                    </div>
+                </RadzenCard>
+        
+        <div class="form-group row">
+            <div class="col-sm-12">
+
+                 <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+                    </RadzenCard>
+            
+                    <RadzenTabs>
+                        <Tabs>
+                            <RadzenTabsItem Text="EMWM"></RadzenTabsItem>
+                              <RadzenDataGrid @ref="grid" Data="@VereineList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                                TItem="Verein" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+                                <Columns>
+                                    <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                                    <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="250px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                                    <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="250px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                                    <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                                    @* <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+
+                                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="15%" Filterable="false" Sortable="false">
+                                        <Template Context="data">
+                                            <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkBundesliga" />
+                                        </Template>
+                                        </RadzenDataGridColumn>                
+
+                                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title=@Localizer["Pokal"].Value Width="15%" Filterable="false" Sortable="false">
+                                        <Template Context="data">
+                                            <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                                        </Template>
+                                        </RadzenDataGridColumn>
+                
+                                    <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>                   
+                                    </RadzenDataGridColumn Context="data" >
+
+                                    <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                                                <Template Context="data">
+                                                    <NavLink href="@($"editvereinemwm/{data.VereinNr}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                                </Template>
+                                    </RadzenDataGridColumn>
+                                </Columns>
+                                <FooterTemplate>
+                                    </FooterTemplate>
+                                    <FooterTemplate>
+                                        @Localizer["Anzahl Vereine"].Value: <b>@VereineList.Count()</b>
+                                    </FooterTemplate>
+                             </RadzenDataGrid>              
+                                 
+                </Tabs>
+            </RadzenTabs>
+             <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+                    <RadzenColumn Offset="11" Style="text-align:right;">
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+                    </RadzenColumn>
+                </RadzenRow>
+            </div>
+        </div>       
+    </div>
+   
+@code {
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("createverein/DE");
+    }
+}
+<script>
+
+    let mybutton = document.getElementById("btnTop");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+
+
+}
