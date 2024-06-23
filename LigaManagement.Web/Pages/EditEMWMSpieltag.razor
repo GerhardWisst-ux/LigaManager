@@ -56,12 +56,12 @@
                 <RadzenCard class="m-0 mb-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <h2>EM @Localizer["Ergebnisse"].Value @Ligamanager.Components.Globals.currentEMWMSaison</h2>
+                            <h2>@Localizer["Ergebnisse"].Value @Ligamanager.Components.Globals.currentEMWMSaison</h2>
                         </div>
                     </div>
                 </RadzenCard>
                 <RadzenCard class="m-0 mb-3">
-                    <select id="cboRunde" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
+                    <select id="cboRunde" style="display:inline; width:auto;height:38px;" class="form-control dropdown" @onchange="RundeChange">
                         <option value="0" required>@Localizer["Runde wählen"].Value</option>
                         @if (RundeList != null)
                         {
@@ -79,7 +79,7 @@
                         }
                     </select>
                     <div style="display:@GroupVisible">
-                        <select id="cboGruppe" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
+                        <select id="cboGruppe" style="display:inline; width:auto;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
                             <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
                             @if (Gruppe.ToString() == "1")
                             {

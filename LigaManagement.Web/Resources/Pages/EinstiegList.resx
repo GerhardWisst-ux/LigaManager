@@ -144,4 +144,7 @@
   <data name="ToolTipButton" xml:space="preserve">
     <value>Land, Liga und Saison auswählen</value>
   </data>
+  <data name="Turnier wählen" xml:space="preserve">
+    <value>Turnier wählen</value>
+  </data>
 </root>

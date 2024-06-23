@@ -45,73 +45,112 @@ else
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
-                        <div class="form-group row">
-                            <div class="dropdown mr-2" style="display:inline;">
-                                <select value="@LandID" id="cboLand" class="form-control dropdown" @onchange="LandChangeAsync">
-                                    <option value="0" required>@Localizer["Land"].Value</option>
-                                    @if (LaenderList != null)
-                                    {
-                                        @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
-                                        {
-                                            @if (land.LandID == Globals.LandID)
-                                            {
-                                                <option selected value="@land.LandID"> @land.Laendername </option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@land.LandID"> @land.Laendername </option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                                <label for="cboLand" title="Bitte Land wählen" style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">Bitte Land wählen</label>
-                            </div>
-                            <div class="dropdown mr-2" style="display:inline;">
-                                <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
-                                    <option value="0" required>@Localizer["Liga"].Value</option>
-                                    @if (LigenList != null)
-                                    {
-                                        @foreach (var liga in LigenList.Where(x => x.Aktiv == true && x.EMWM ==false).OrderBy(o => o.LigaID))
-                                        {
-                                            @if (liga.LigaID == Globals.LigaID)
-                                            {
-                                                <option selected value="@liga.LigaID"> @liga.Liganame </option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@liga.LigaID"> @liga.Liganame </option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                                <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
-                            </div>
-                            <div class="dropdown" style="display:inline;">
-                                <select value="@SaisonID" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown" @onchange="SaisonChange">
-                                    <option value="0" required>@Localizer["Saison"].Value</option>
-                                    @if (SaisonenList != null)
-                                    {
-                                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                                        {
-                                            @if (saison.SaisonID == Globals.SaisonID)
-                                            {
-                                                <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                                            }
 
-                                        }
-                                    }
-                                </select>
-                                <label for="cboSaison" title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
-                            </div>
-                            <div class="dropdown" style="display:inline">
-                                <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler">
-                                </RadzenButton>
-                            </div>
-                        </div>
+
+                        <RadzenAccordion Style="margin-left:">
+                            <Items>
+                                <RadzenAccordionItem Selected=true Text="Nationale Wettbewerbe" CollapseTitle="Nationale Wettbewerbe zuklappen."
+                                                     ExpandTitle="Nationale Wettbewerbe aufklappen." CollapseAriaLabel="Nationale Wettbewerbe zuklappen."
+                                                     ExpandAriaLabel="Nationale Wettbewerbe aufklappen.">
+
+                                    <div class="form-group row">
+                                        <div class="dropdown mr-2" style="display:inline;">
+                                            <select value="@LandID" id="cboLand" class="form-control dropdown" @onchange="LandChangeAsync">
+                                                <option value="0" required>@Localizer["Land"].Value</option>
+                                                @if (LaenderList != null)
+                                                {
+                                                    @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
+                                                    {
+                                                        @if (land.LandID == Globals.LandID)
+                                                        {
+                                                            <option selected value="@land.LandID"> @land.Laendername </option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@land.LandID"> @land.Laendername </option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                            <label for="cboLand" title="Bitte Land wählen" style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">Bitte Land wählen</label>
+                                        </div>
+                                        <div class="dropdown mr-2" style="display:inline;">
+                                            <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
+                                                <option value="0" required>@Localizer["Liga"].Value</option>
+                                                @if (LigenList != null)
+                                                {
+                                                    @foreach (var liga in LigenList.Where(x => x.Aktiv == true && x.EMWM == false).OrderBy(o => o.LigaID))
+                                                    {
+                                                        @if (liga.LigaID == Globals.LigaID)
+                                                        {
+                                                            <option selected value="@liga.LigaID"> @liga.Liganame </option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@liga.LigaID"> @liga.Liganame </option>
+                                                        }
+                                                    }
+                                                }
+                                            </select>
+                                            <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                                        </div>
+                                        <div class="dropdown" style="display:inline;">
+                                            <select value="@SaisonID" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown" @onchange="SaisonChange">
+                                                <option value="0" required>@Localizer["Saison"].Value</option>
+                                                @if (SaisonenList != null)
+                                                {
+                                                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                                                    {
+                                                        @if (saison.SaisonID == Globals.SaisonID)
+                                                        {
+                                                            <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                                        }
+
+                                                    }
+                                                }
+                                            </select>
+                                            <label for="cboSaison" title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                                        </div>
+                                        <div class="dropdown" style="display:inline">
+                                            <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlen" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler">
+                                            </RadzenButton>
+                                        </div>
+                                    </div>
+                                </RadzenAccordionItem>
+                               @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
+                                                     ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
+                                                     ExpandAriaLabel="Internationale Wettbewerbe aufklappen.">
+                                    <div class="dropdown mr-2" style="display:inline">
+                                        <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChangeEMWM">
+                                            <option value="0" required>@Localizer["Turnier wählen"].Value</option>
+                                            @if (SaisonenListEMWM != null)
+                                            {
+                                                @foreach (var saisonemwm in SaisonenListEMWM.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
+                                                {
+                                                    @if (saisonemwm.Saisonname == Globals.currentEMWMSaison)
+                                                    {
+                                                        <option selected value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                        <label style="display:@DisplayErrorSaisonEMWM;color:red;" id="lblErrorSaison">@Localizer["Turnier wählen"].Value</label>
+                                    </div>
+                                    <div class="dropdown" style="display:inline">
+                                        <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlenEMWM" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandlerEMWM">
+                                        </RadzenButton>
+                                    </div>
+                                </RadzenAccordionItem> *@
+                            </Items>
+                        </RadzenAccordion>
                     </RadzenTabsItem>
                     <RadzenTabsItem Visible="@ImportVisible" Text="@Localizer["Import"].Value">
                         <div class="form-group row">

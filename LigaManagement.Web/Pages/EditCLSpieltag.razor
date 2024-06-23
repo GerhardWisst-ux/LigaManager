@@ -347,49 +347,49 @@
 
         if ((Spiel.Verein1_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Verein 1 " + @Localizer["NichtAngegeben"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Verein 1 " + @Localizer["NichtAngegeben"].Value });
             bError = true;
         }
 
         else if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Tore 1 " + @Localizer["NichtAngegeben"].Value }); 
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Tore 1 " + @Localizer["NichtAngegeben"].Value }); 
             bError = true;
         }
 
         else if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Tore 2 " + @Localizer["NichtAngegeben"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Tore 2 " + @Localizer["NichtAngegeben"].Value });
             bError = true;
         }
 
         else if ((Spiel.Verein2_Nr == 0))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Verein 2 " + @Localizer["NichtAngegeben"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Verein 2 " + @Localizer["NichtAngegeben"].Value });
             bError = true;
         }
 
         else if ((Spiel.Verein1 == Spiel.Verein2))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Datum.Date.ToString() == "01.01.0001"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum " + @Localizer["NichtAngegeben"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Datum " + @Localizer["NichtAngegeben"].Value });
             bError = true;
         }
 
         else if ((Spiel.Datum.Hour.ToString() == "0"))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Zeit(Stunde) " + @Localizer["NichtAngegeben"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Zeit(Stunde) " + @Localizer["NichtAngegeben"].Value });
             bError = true;
         }
 
         else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Datum " + @Localizer["NichtKorrekt"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten CL-Spieltag", Detail = "Datum " + @Localizer["NichtKorrekt"].Value });
             bError = true; ;
         }
 

@@ -41,7 +41,7 @@ else
                                     <span class="ml-3">
                                         @* <a href="@($"createemwmspieltag/{@RundeChoosed}/1")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="@Localizer["Neuanlage EM-Spiel"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
                                         <RadzenButton title="@Localizer["Neuanlage EM-Spiel"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
-                                    </span>                                    
+                                    </span>
                                 </div>
                             </div>
                         </RadzenCard>
@@ -89,9 +89,9 @@ else
                             </select>
                             <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
                         </div>
-                        <div class="dropdown" style="display:inline">                            
-                            
-                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button"))  Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
+                        <div class="dropdown" style="display:inline">
+
+                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                             <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
                             </RadzenButton>
@@ -116,12 +116,24 @@ else
                                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                                         <Columns>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="30%" Sortable=false Title="@Localizer["Heim"].Value">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="25%" Sortable=false Title="@Localizer["Heim"].Value">
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                    @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
+                                                </Template>
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 1" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 2" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="30%" Sortable=false Title="@Localizer["Gast"].Value" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title="@Localizer["Ort"].Value" />
+                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                    @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="25%" Sortable=false Title="@Localizer["Gast"].Value" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="20%" Sortable=false Title="@Localizer["Ort"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="@Localizer["Datum"].Value" />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                                 <Template Context="data">
@@ -190,56 +202,60 @@ else
                                         </Columns>
                                     </RadzenDataGrid>
 
-                                    <h4>@Localizer["Tabelle Gruppe"].Value C</h4>
-                                    <RadzenDataGrid @ref="gridTabelle" Data="TabellenC" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
-                                                    TItem="Tabelle" Visible="true" Responsive=true AllowColumnResize="false"
-                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                    LogicalFilterOperator="LogicalFilterOperator.Or">
-                                        <Columns>
-                                            <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
-                                            </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
-                                            <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
-                                                <Template Context="data">
-                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein}.webp")" style="width: 30px; height: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
-                                                </Template>
-                                            </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Heim"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Title="].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
-                                            <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
-                                            <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
-                                        </Columns>
-                                    </RadzenDataGrid>
-                                    <h4>@Localizer["Tabelle Gruppe"].Value D</h4>
-                                    <RadzenDataGrid @ref="gridTabelle" Data="TabellenD" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
-                                                    TItem="Tabelle" Visible="true" Responsive=true AllowColumnResize="false"
-                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                    LogicalFilterOperator="LogicalFilterOperator.Or">
-                                        <Columns>
-                                            <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
-                                            </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
-                                            <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
-                                                <Template Context="data">
-                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein}.webp")" style="width: 30px; height: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
-                                                </Template>
-                                            </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Heim"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Title="].Value" />
-                                            <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
-                                            <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
-                                            <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
-                                        </Columns>
-                                    </RadzenDataGrid>
+                                    <div Style="display:@VisibleTable">
+                                        <h4>@Localizer["Tabelle Gruppe"].Value C</h4>
+                                        <RadzenDataGrid @ref="gridTabelle" Data="TabellenC" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                                        AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
+                                                        TItem="Tabelle" Visible="true" Responsive=true AllowColumnResize="false"
+                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                        LogicalFilterOperator="LogicalFilterOperator.Or">
+                                            <Columns>
+                                                <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
+                                                <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
+                                                    <Template Context="data">
+                                                        <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein}.webp")" style="width: 30px; height: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
+                                                    </Template>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Heim"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Title="].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
+                                                <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
+                                                <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
+                                            </Columns>
+                                        </RadzenDataGrid>
+                                    </div>
+                                    <div Style="display:@VisibleTable">
+                                        <h4>@Localizer["Tabelle Gruppe"].Value D</h4>
+                                        <RadzenDataGrid @ref="gridTabelle" Data="TabellenD" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                                        AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
+                                                        TItem="Tabelle" Visible="true" Responsive=true AllowColumnResize="false"
+                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                        LogicalFilterOperator="LogicalFilterOperator.Or">
+                                            <Columns>
+                                                <RadzenDataGridColumn TItem="Tabelle" Property="Id" Title="Id" Visible=false>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Platz" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Visible=true Sortable=true Title="Pl." />
+                                                <RadzenDataGridColumn TItem="Tabelle" Title="" Sortable="true" Width="5%">
+                                                    <Template Context="data">
+                                                        <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein}.webp")" style="width: 30px; height: 30px;" title="@data.Verein" AlternateText="@(data.Verein)" />
+                                                    </Template>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Anzeigename" Width="22%" Sortable=false Title="@Localizer["Heim"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Spiele" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["S"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Gewonnen" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["G"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Untentschieden" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["U"].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Verloren" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Title="].Value" />
+                                                <RadzenDataGridColumn CssClass="separated" TItem="Tabelle" Property="Tore" TextAlign="TextAlign.Left" Width="5%" Sortable=true Title="@Localizer["T"].Value" />
+                                                <RadzenDataGridColumn TItem="Tabelle" Property="Diff" TextAlign="TextAlign.Right" Width="5%" Sortable=true Title="@Localizer["Diff"].Value" />
+                                                <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
+                                            </Columns>
+                                        </RadzenDataGrid>
+                                    </div>
                                     <div Style="display:@VisibleTable">
                                         <h4>@Localizer["Tabelle Gruppe"].Value E</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenE" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
@@ -453,7 +469,7 @@ else
     {
         _navigationManager.NavigateTo("Ligamanager/vereineemwm/");
     }
-        
+
     MyObject singleValue = new MyObject() { Id = 5, Name = "Name5" };
     IEnumerable<MyObject> data = Enumerable.Range(0, 100).Select(i => new MyObject() { Id = i, Name = $"Name{i}" });
 }

@@ -138,6 +138,9 @@
   <data name="Ligen" xml:space="preserve">
     <value>Leagues</value>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
   <data name="Pokal" xml:space="preserve">
     <value>German Cup</value>
   </data>
@@ -151,7 +154,7 @@
     <value>Match Day</value>
   </data>
   <data name="Start" xml:space="preserve">
-    <value>Login</value>
+    <value>Start</value>
   </data>
   <data name="Statistiken" xml:space="preserve">
     <value>Statistics</value>

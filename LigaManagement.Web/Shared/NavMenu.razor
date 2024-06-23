@@ -99,7 +99,7 @@
 
 
 <div class="top-row pl-4 navbar">
-    <a class="navbar-brand" href="/Ligamanager">Ligamanager Start</a>
+    <a class="navbar-brand" href="/Ligamanager">Ligamanager @Localizer["Start"].Value</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -111,7 +111,7 @@
             <Authorized>
                 <li class="nav-item px-4">
                     <NavLink class="nav-link" href="/Ligamanager" Match="NavLinkMatch.All">
-                        <span class="oi oi-home" aria-hidden="true"></span> Start
+                        <span class="oi oi-home" aria-hidden="true"></span> @Localizer["Start"].Value
                     </NavLink>
                 </li>
                 @if (Globals.bVisibleNavMenuElements == true)

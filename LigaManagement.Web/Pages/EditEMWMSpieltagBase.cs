@@ -157,9 +157,9 @@ namespace LigamanagerManagement.Web.Pages
 
                 RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
-                    new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
-                    new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag "].Value + 1),
+                    new DisplayRunde("G2", Localizer["Gruppenphase Spieltag "].Value + 2),
+                    new DisplayRunde("G3", Localizer["Gruppenphase Spieltag "].Value + 3),
                     new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
                     new DisplayRunde("HF", Localizer["Halbfinale"].Value),
@@ -180,9 +180,9 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
-                    GroupVisible = "block";
+                    GroupVisible = "inline-block;";
                 else
-                    GroupVisible = "none";
+                    GroupVisible = "none;";
 
 
             }
@@ -232,9 +232,9 @@ namespace LigamanagerManagement.Web.Pages
 
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
-                    GroupVisible = "block";
+                    GroupVisible = "inline-block;";
                 else
-                    GroupVisible = "none";
+                    GroupVisible = "none;";
             }
         }
 

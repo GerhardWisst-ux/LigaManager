@@ -322,7 +322,8 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID2004 = int.Parse(reader["GroupID2004"].ToString());
                         verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
                         verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
-                        verein.GroupID1996 = int.Parse(reader["GroupID1992"].ToString());
+                        verein.GroupID1992 = int.Parse(reader["GroupID1992"].ToString());
+                        verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
                         verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
                         verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
                         verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());                        
@@ -469,7 +470,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID2004 = int.Parse(reader["GroupID2004"].ToString());
                         verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
                         verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
-                        verein.GroupID1996 = int.Parse(reader["GroupID1992"].ToString());
+                        verein.GroupID1992 = int.Parse(reader["GroupID1992"].ToString());
                         verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
                         verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
                         verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());
