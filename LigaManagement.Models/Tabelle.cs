@@ -54,5 +54,7 @@ namespace LigaManagement.Models
         public string Tore { get; set; }
 
         public int? Diff { get; set; }
+
+        public string Gruppe { get; set; }
     }
 }

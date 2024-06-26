@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -698,14 +699,15 @@ namespace LigaManagerManagement.Web.Pages
 
         }
 
-        public void OnCellRender(DataGridCellRenderEventArgs<Spieltag> args)
-        {
-            if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-            {
-                args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-            }
-        }
+        //public void OnCellRender(DataGridCellRenderEventArgs<Spieltag> args)
+        //{
+        //    if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
+        //    {
+        //        args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
+        //    }
+        //}
 
+       
         protected async Task Delete_Click()
         {
             //DeleteConfirmation.Show();

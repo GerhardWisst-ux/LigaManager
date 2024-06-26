@@ -3406,6 +3406,7 @@ namespace LigaManagerManagement.Web.Services
         public async Task<IEnumerable<Tabelle>> BerechneTabelleEMWM(ISpieltageEMWMService spieltagService, int GroupID, int BisSpieltag)
         {
             {
+                string gruppe = string.Empty;
 
                 Tabelle tabelleneintragV1;
                 Tabelle tabelleneintragV2;
@@ -3425,6 +3426,23 @@ namespace LigaManagerManagement.Web.Services
                     if (vereineGruppe == null)
                         return TabSaisonSorted;
 
+                    if (GroupID == 1)
+                        gruppe = "A";
+                    else if (GroupID == 2)
+                        gruppe = "B";                    
+                    else if (GroupID == 3)
+                        gruppe = "C";
+                    else if (GroupID == 4)
+                        gruppe = "D";
+                    else if (GroupID == 5)
+                        gruppe = "E";
+                    else if (GroupID == 6)
+                        gruppe = "F";
+                    else if (GroupID == 7)
+                        gruppe = "G";
+                    else if (GroupID == 8)
+                        gruppe = "H";
+
                     int j = 1;
                     // Grundtabelle erzeugen
                     foreach (Verein verein in vereineGruppe)
@@ -3439,6 +3457,7 @@ namespace LigaManagerManagement.Web.Services
                         tabelleneintragV1.ToreMinus = 0;
                         tabelleneintragV1.Spiele = 0;
                         tabelleneintragV1.Punkte = 0;
+                        tabelleneintragV1.Gruppe = gruppe;
                         tabelleneintragV1.Gewonnen = 0;
                         tabelleneintragV1.Untentschieden = 0;
                         tabelleneintragV1.Verloren = 0;
@@ -3486,6 +3505,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 3;
                                     tabelleneintragF.Platz = 0;
+                                    tabelleneintragF.Gruppe = gruppe;
                                     tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF.Liga = Globals.currentEMWMSaison;
@@ -3502,6 +3522,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 1;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 0;
                                     tabelleneintragF2.Platz = 0;
+                                    tabelleneintragF2.Gruppe = gruppe;
                                     tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF2.Liga = Globals.currentEMWMSaison;
@@ -3521,6 +3542,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 0;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 1;
                                     tabelleneintragF.Platz = 0;
+                                    tabelleneintragF.Gruppe = gruppe;
                                     tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF.Liga = Globals.currentEMWMSaison;
@@ -3537,6 +3559,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 0;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 1;
                                     tabelleneintragF2.Platz = 0;
+                                    tabelleneintragF2.Gruppe = gruppe;
                                     tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF2.Liga = Globals.currentEMWMSaison;
@@ -3559,6 +3582,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Verloren = tabelleneintragF.Verloren + 1;
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte + 0;
                                     tabelleneintragF.Platz = 0;
+                                    tabelleneintragF.Gruppe = gruppe;
                                     tabelleneintragF.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF.Liga = Globals.currentEMWMSaison;
@@ -3575,6 +3599,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Verloren = tabelleneintragF2.Verloren + 0;
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte + 3;
                                     tabelleneintragF2.Platz = 0;
+                                    tabelleneintragF2.Gruppe = gruppe;
                                     tabelleneintragF2.Tab_Sai_Id = Globals.EMWMSaisonID;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF2.Liga = Globals.currentEMWMSaison;

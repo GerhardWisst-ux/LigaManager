@@ -36,7 +36,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Soccer.ico" />
+	  <None Remove="Soccer.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Soccer.ico">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>

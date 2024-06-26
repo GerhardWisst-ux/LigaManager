@@ -5,6 +5,7 @@
 @inherits EditEMWMSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltageEMWMService _EMWMErgebnisseService
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineCLService
+@inject LigaManagement.Web.Services.Contracts.ILandService _LaenderService
 @* @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService *@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
@@ -264,7 +265,7 @@
                 Spiel.Runde = RundeChoosed;
                 Spiel.Datum = SpielDateTime;
                 Spiel.GroupID = GruppeChoosed;
-                Spiel.Land1_Nr = 57;
+                Spiel.Land1_Nr = 57; //await _LaenderService.GetLand(Convert.ToInt32(Spiel.Land1_Nr));
                 Spiel.Land2_Nr = 57;
                 Spiel.LigaID = Globals.EMMWMLigaId;
 
@@ -343,7 +344,13 @@
             Spiel.Runde = "";
         Spiel.Datum = SpielDateTime;
         Spiel.GroupID = Convert.ToInt32(Gruppe);
-        // Spiel.RundeDetail = RundeDetail;
+
+        if (RundeChoosed == "AF" || RundeChoosed == "VF" || RundeChoosed == "HF" || RundeChoosed == "F")
+        {
+            Spiel.GroupID = 0;
+            Spiel.Gruppe = "0";
+        }
+        
 
         if ((Spiel.Verein1_Nr == 0))
         {
@@ -389,7 +396,7 @@
 
         else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum nicht korrekt.Speichern nicht möglich." });
             bError = true; ;
         }
 

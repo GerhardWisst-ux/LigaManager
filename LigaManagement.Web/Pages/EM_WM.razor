@@ -91,8 +91,7 @@ else
                         </div>
                         <div class="dropdown" style="display:inline">
 
-                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
-
+                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Style="margin-left: 3px;" Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
                             <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
                             </RadzenButton>
                             <RadzenButton title=@Localizer["Saison und Runde wählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
@@ -116,7 +115,9 @@ else
                                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                                     SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                                         <Columns>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="25%" Sortable=false Title="@Localizer["Heim"].Value">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Gruppe" Width="5%" Sortable=false Title="Gr.">
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="23%" Sortable=false Title="@Localizer["Heim"].Value">
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
                                                 <Template Context="data">
@@ -124,15 +125,15 @@ else
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
                                                 </Template>
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 1" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="10%" Sortable=false Title="T 2" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 1" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 2" />
                                              <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
                                                 <Template Context="data">
                                                     <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
                                                 </Template>
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="25%" Sortable=false Title="@Localizer["Gast"].Value" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="23%" Sortable=false Title="@Localizer["Gast"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="20%" Sortable=false Title="@Localizer["Ort"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="@Localizer["Datum"].Value" />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
@@ -202,7 +203,7 @@ else
                                         </Columns>
                                     </RadzenDataGrid>
 
-                                    <div Style="display:@VisibleTable">
+                                    <div Style="display:@VisibleTable2">
                                         <h4>@Localizer["Tabelle Gruppe"].Value C</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenC" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
@@ -229,7 +230,7 @@ else
                                             </Columns>
                                         </RadzenDataGrid>
                                     </div>
-                                    <div Style="display:@VisibleTable">
+                                    <div Style="display:@VisibleTable2">
                                         <h4>@Localizer["Tabelle Gruppe"].Value D</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenD" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
@@ -256,7 +257,7 @@ else
                                             </Columns>
                                         </RadzenDataGrid>
                                     </div>
-                                    <div Style="display:@VisibleTable">
+                                    <div Style="display:@VisibleTable3">
                                         <h4>@Localizer["Tabelle Gruppe"].Value E</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenE" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
@@ -283,7 +284,7 @@ else
                                             </Columns>
                                         </RadzenDataGrid>
                                     </div>
-                                    <div Style="display:@VisibleTable">
+                                    <div Style="display:@VisibleTable3">
                                         <h4>@Localizer["Tabelle Gruppe"].Value F</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenF" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
@@ -365,7 +366,6 @@ else
                                             </Columns>
                                         </RadzenDataGrid>
                                     </div>
-
                                 }
 
                             </div>

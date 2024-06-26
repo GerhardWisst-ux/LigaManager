@@ -121,7 +121,7 @@ namespace LigamanagerManagement.Web.Pages
                 else if (saison.Saisonname.ToString() == "EM 2004")
                     verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();                
                 else if (saison.Saisonname.ToString() == "EM 2000")
-                    verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2000 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1996")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1996 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1992")
@@ -170,10 +170,13 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     Runde = Globals.currentEMWMRunde;
                     RundeChoosed = Runde;
+                    GruppeChoosed = 1;
                 }
                 else
                 {
                     RundeChoosed = Spiel.Runde;
+                    Gruppe = Convert.ToInt32(Spiel.GroupID).ToString();
+                    GruppeChoosed = Convert.ToInt32(Spiel.GroupID);
                     Runde = RundeChoosed;
                     Globals.currentEMWMRunde = RundeChoosed;
                     Spiel.Runde = Runde;
@@ -229,7 +232,6 @@ namespace LigamanagerManagement.Web.Pages
 
                 Globals.currentEMWMRunde = RundeChoosed;
                 Runde = RundeChoosed;
-
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
                     GroupVisible = "inline-block;";
