@@ -135,6 +135,10 @@
   <data name="Heimtabelle" xml:space="preserve">
     <value>Home table</value>
   </data>
+  <data name="Kommentar" xml:space="preserve">
+    <value>The table was calculated using the three-point system.
+In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfurt was deducted 2 points, and in 2003/04, 1. FC Kaiserslautern was deducted 3 points.</value>
+  </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Go to Top</value>
   </data>
@@ -161,6 +165,9 @@
   </data>
   <data name="Spieltag wählen" xml:space="preserve">
     <value>Select Matchday</value>
+  </data>
+  <data name="Spieltage" xml:space="preserve">
+    <value>Matchdays</value>
   </data>
   <data name="T" xml:space="preserve">
     <value>G</value>

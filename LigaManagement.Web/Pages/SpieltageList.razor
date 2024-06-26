@@ -107,7 +107,7 @@ else
                         {
                          @*    <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink> *@
 
-                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Style="display:inline-block;"  title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                         }
                         else
@@ -118,6 +118,11 @@ else
 
                         }
                     </span>
+                    <div Style="display:inline-block;" class="row">
+                        <div  Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Tabelle"].Value" Click=@(args => AnzeigenTabelle()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary" />
+                        </div>
+                    </div>
                 </div>
             </div>
         </RadzenCard>
@@ -202,12 +207,7 @@ else
                                 <Template Context="data">
                                     <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value"  class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                 </Template>
-                            </RadzenDataGridColumn>
-                           @*  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
-                                <Template Context="data">
-                                    <NavLink @onclick="Delete_Click" data-toggle="Löschen" title="Löschen" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-remove-sign"></span></NavLink>
-                                </Template>
-                            </RadzenDataGridColumn> *@
+                            </RadzenDataGridColumn>                         
                             <hr style="border:5px;" />
                         </Columns>
                         <FooterTemplate>
@@ -217,8 +217,7 @@ else
                             @Localizer["Tore"]: <b>@Spieltage.Sum(x => x.Tore1_Nr + x.Tore2_Nr)</b>
                             @Localizer["Tore Durchschnitt"]: <b>@string.Format("{0:0.00}", @Spieltage.Average(x => x.Tore1_Nr + x.Tore2_Nr))</b>
                         </FooterTemplate>
-                    </RadzenDataGrid>                  
-
+                    </RadzenDataGrid>
 
                     <div class="row">
                         <div class="col-md-1">
@@ -246,6 +245,11 @@ else
     private void OnClick(string text)
     {
         _navigationManager.NavigateTo("Ligamanager/createliga");
+    }
+
+    private void AnzeigenTabelle()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/tabellen");
     }
 
 }

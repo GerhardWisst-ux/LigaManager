@@ -82,8 +82,6 @@ namespace LigaManagement.Web.Pages
                     NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
                 }
 
-
-              
                 SaisonenList = new List<DisplaySaison>();
 
 

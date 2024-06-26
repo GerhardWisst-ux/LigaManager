@@ -2,7 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using System.Globalization
 @using Microsoft.Extensions.Localization;
-
+@using System.Net.Mail;
 @attribute [Authorize]
 
 
@@ -91,35 +91,71 @@
     }
 </style>
 
-<div class="about-section">
-    <h1>@Localizer["Über Ligamanager"].Value</h1>
-    <p>@Localizer["Purpose1"].Value </p>
-    <p>@Localizer["Purpose2"].Value</p>
-</div>
 
-<h2 style="text-align:center">@Localizer["Programmierer"].Value:g.wisst@web.de</h2>
-<div class="row">
-    <div class="column">
-        <div class="card">
-            <div class="container">
-                <div class="row">
-                    <div class="span4"></div>
-                    <div class="span4"><img class="center-block" src="/Images/Gerhard Wißt.jpg" alt="Gerhard Wißt" style="width:25%"></div>
-                    <div class="span4"></div>
+<RadzenCard Style="height:100vh;" class="m-0">
+    <RadzenTabs>
+        <Tabs>
+            <RadzenTabsItem class="p-0" Text="@Localizer["Info"].Value">
+                <div class="about-section">
+                    <h1>@Localizer["Über Ligamanager"].Value</h1>                    
+                    <p>@Localizer["Purpose2"].Value</p>
                 </div>
-                <h2>Gerhard Wißt</h2>
-                <p class="title">@Localizer["Erstellt Webanwendungen in C#,ASP.Net/Blazor"].Value</p>
-                <p>@Localizer["Purpose1"].Value</p>
-                <a href="https://www.linkedin.com/in/gerhard-w-670a2169">@Localizer["LinkedIn Profil"].Value</a>
-                <br />
-                <a style="" href="https://www.xing.com/profile/Gerhard_Wisst/web_profiles">@Localizer["XING Profil"].Value</a>
-                <p>@Localizer["Mailadresse"].Value:g.wisst@web.de</p>
-                <RadzenButton title=@Localizer["Mailkontakt"].Value style="margin-left:5px;" id="btnSend" class="btn btn-primary" Text=@Localizer["Kontakt"].Value Click="@OnClickHandler">
-                </RadzenButton>
-            </div>
-        </div>
-    </div>
-</div>
+                                
+                <div class="row">
+                    <div class="column">
+                        <div class="card">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="span4"></div>
+                                    <div class="span4"><img class="center-block" src="/Images/Gerhard Wißt.jpg" alt="Gerhard Wißt" style="width:25%"></div>
+                                    <div class="span4"></div>
+                                </div>
+                                <h2>@Localizer["Programmierer"].Value: Gerhard Wißt</h2>
+                                <p class="title">@Localizer["Erstellt Webanwendungen in C#,ASP.Net/Blazor"].Value</p>
+                                <p class="title">@Localizer["Purpose1"].Value</p>
+                                <a href="https://www.linkedin.com/in/gerhard-w-670a2169">@Localizer["LinkedIn Profil"].Value</a>
+                                <br />
+                                <a style="display:inline-block;" href="https://www.xing.com/profile/Gerhard_Wisst/web_profiles">@Localizer["XING Profil"].Value</a>
+                                <p style="display:inline-block;">@Localizer["Mailadresse"].Value:g.wisst@web.de</p>
+                                <RadzenButton title=@Localizer["Mailkontakt"].Value style="margin-left:5px; display:none;" id="btnSend" class="btn btn-primary" Text=@Localizer["Kontakt"].Value Click="@OnClickHandler">
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    </div>
+                </div>      
+            </RadzenTabsItem>
+            <RadzenTabsItem class="p-0" Text="@Localizer["Impressum"].Value">
+
+                <div class="about-section">
+                    <h1>Impressum</h1>
+                </div>
+
+                <div class='impressum'>
+                    <h1>@Localizer["Impressum"].Value</h1><p>@Localizer["Angaben gemäß § 5 TMG"].Value</p><p>
+                        Gerhard Wißt <br>
+                        Augsburger Str.717<br>
+                        70329 Stuttgart <br>
+                    </p><p>
+                        <strong>@Localizer["Vertreten durch"].Value:</strong><br>
+                        Gerhard Wißt<br>                   
+                        <strong>@Localizer["Kontakt"].Value:</strong> <br>
+                        @Localizer["Telefon"].Value: 0711-1612-2317<br>
+                        E-Mail: <a href='mailto:g.wisst@web.de'>g.wisst@web.de</a>
+                    </p><p>
+                        <strong>@Localizer["Haftungsausschluss"].Value: </strong><br><br><strong>@Localizer["Haftung für Inhalte"].Value</strong><br><br>
+                        @Localizer["Text1"].Value <br>
+                        @Localizer["Text4"].Value <br>
+                        <br><br><strong>Google Analytics</strong><br><br>
+                        @Localizer["Text2"].Value<br><br><strong>Google AdSense</strong><br><br>
+                        @Localizer["Text3"].Value
+                    </p><br>
+                    @Localizer["ErstelltDurch"].Value <a href="https://www.impressum-generator.de">impressum-generator.de</a> @Localizer["VonDer"].Value <a href="https://www.kanzlei-hasselbach.de/" rel="nofollow"> @Localizer["Kanzlei Hasselbach"].Value</a>
+                </div>
+            </RadzenTabsItem>      
+        </Tabs>
+    </RadzenTabs>
+</RadzenCard>
+
 
 
 @code
@@ -135,7 +171,33 @@
 
     public async void OnClickHandler()
     {
+        SendMail("g.wisst@web.de", "Kontakt über Ligamanager", "Anfrage");
+    }
 
+    public void SendMail(string To, string Subject, string Body)
+    {
+      try
+        {
+            MailMessage mail = new MailMessage();
+            mail.To.Add(To);
+            mail.From = new MailAddress("g.wisst@web.de", "Gerhard Wißt");
+            mail.Subject = Subject;
+            mail.Body = Body;
+            mail.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient
+                {
+                    EnableSsl = true,
+                    Host = "mail.hannover.com",
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    Credentials = new System.Net.NetworkCredential("info@hannover.com", "****") // Enter seders User name and password
+                };
+            smtp.Send(mail);
+        }
+        catch (Exception ex)
+        {
+            
+            throw ex;
+        }
     }
 }
 

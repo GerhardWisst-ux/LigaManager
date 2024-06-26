@@ -596,7 +596,7 @@ namespace LigaManagement.Web.Pages
         }
 
         public async void OnClickHandlerEMWM()
-        {            
+        {
             if (Globals.currentEMWMSaison == null)
                 DisplayErrorSaisonEMWM = "block";
             else
@@ -604,7 +604,7 @@ namespace LigaManagement.Web.Pages
 
             if (Globals.currentEMWMSaison == null)
                 return;
-                                  
+
             Globals.EMWMSaisonID = 0;
             NavigationManager.NavigateTo($"Ligamanager/em_wm", true);
         }

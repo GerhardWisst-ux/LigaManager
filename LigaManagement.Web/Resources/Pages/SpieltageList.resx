@@ -147,6 +147,9 @@
   <data name="Spieltag wählen" xml:space="preserve">
     <value>Spieltag wählen</value>
   </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Tabelle</value>
+  </data>
   <data name="Tore" xml:space="preserve">
     <value>Tore</value>
   </data>

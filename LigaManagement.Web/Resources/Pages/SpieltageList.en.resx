@@ -150,6 +150,9 @@
   <data name="Spieltag wählen" xml:space="preserve">
     <value>Select Matchday</value>
   </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Table</value>
+  </data>
   <data name="Tore" xml:space="preserve">
     <value>Goals</value>
   </data>

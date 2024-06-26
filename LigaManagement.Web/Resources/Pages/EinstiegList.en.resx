@@ -123,6 +123,15 @@
   <data name="Auswählen" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="Bitte Land wählen" xml:space="preserve">
+    <value>Please select country</value>
+  </data>
+  <data name="Bitte Liga wählen" xml:space="preserve">
+    <value>Please select league</value>
+  </data>
+  <data name="Bitte Saison wählen" xml:space="preserve">
+    <value>Please select season</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>

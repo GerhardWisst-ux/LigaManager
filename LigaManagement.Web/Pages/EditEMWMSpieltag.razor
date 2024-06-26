@@ -131,6 +131,22 @@
                             {
                                 <option value="6">F</option>
                             }
+                            @if (Gruppe.ToString() == "7")
+                            {
+                                <option selected value="7">G</option>
+                            }
+                            else
+                            {
+                                <option value="7">G</option>
+                            }
+                            @if (Gruppe.ToString() == "8")
+                            {
+                                <option selected value="8">H</option>
+                            }
+                            else
+                            {
+                                <option value="8">H</option>
+                            }
                         </select>
                     </div>
                    
@@ -265,6 +281,7 @@
                 Spiel.Runde = RundeChoosed;
                 Spiel.Datum = SpielDateTime;
                 Spiel.GroupID = GruppeChoosed;
+                Spiel.Gruppe = GruppeChoosed.ToString();
                 Spiel.Land1_Nr = 57; //await _LaenderService.GetLand(Convert.ToInt32(Spiel.Land1_Nr));
                 Spiel.Land2_Nr = 57;
                 Spiel.LigaID = Globals.EMMWMLigaId;
@@ -342,8 +359,10 @@
             Spiel.Runde = RundeChoosed;
         else
             Spiel.Runde = "";
-        Spiel.Datum = SpielDateTime;
-        Spiel.GroupID = Convert.ToInt32(Gruppe);
+        Spiel.Datum = SpielDateTime;  
+        
+        Spiel.GroupID = GruppeChoosed;
+        Spiel.Gruppe = GruppeChoosed.ToString();
 
         if (RundeChoosed == "AF" || RundeChoosed == "VF" || RundeChoosed == "HF" || RundeChoosed == "F")
         {

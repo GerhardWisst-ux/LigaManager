@@ -16,13 +16,11 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 
 <style>
 
 </style>
-
 
 @if (SaisonenList == null)
 {
@@ -32,9 +30,7 @@
 }
 else
 {
-
     <div class="container">
-
         <RadzenCard class="m-0 rz-shadow-3">
             <div class="d-flex flex-row">
                 <div class="card-body">
@@ -47,8 +43,6 @@ else
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
-
-
                         <RadzenAccordion Style="margin-left:">
                             <Items>
                                 <RadzenAccordionItem Selected=true Text="Nationale Wettbewerbe" CollapseTitle="Nationale Wettbewerbe zuklappen."
@@ -74,7 +68,7 @@ else
                                                     }
                                                 }
                                             </select>
-                                            <label for="cboLand" title="Bitte Land wählen" style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">Bitte Land wählen</label>
+                                            <label for="cboLand" title=@Localizer["Bitte Land wählen"].Value style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">@Localizer["Bitte Land wählen"].Value</label>
                                         </div>
                                         <div class="dropdown mr-2" style="display:inline;">
                                             <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
@@ -94,7 +88,7 @@ else
                                                     }
                                                 }
                                             </select>
-                                            <label for="cboLiga" title="Bitte Liga wählen" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">Bitte Liga wählen</label>
+                                            <label for="cboLiga" title=@Localizer["Bitte Liga wählen"].Value style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
                                         </div>
                                         <div class="dropdown" style="display:inline;">
                                             <select value="@SaisonID" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown" @onchange="SaisonChange">
@@ -115,7 +109,7 @@ else
                                                     }
                                                 }
                                             </select>
-                                            <label for="cboSaison" title="Bitte Saison wählen" style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">Bitte Saison wählen</label>
+                                            <label for="cboSaison" title=@Localizer["Bitte Saison wählen"].Value style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Bitte Saison wählen"].Value</label>
                                         </div>
                                         <div class="dropdown" style="display:inline">
                                             <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlen" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler">
@@ -123,34 +117,34 @@ else
                                         </div>
                                     </div>
                                 </RadzenAccordionItem>
-                               @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
-                                                     ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
-                                                     ExpandAriaLabel="Internationale Wettbewerbe aufklappen.">
-                                    <div class="dropdown mr-2" style="display:inline">
-                                        <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChangeEMWM">
-                                            <option value="0" required>@Localizer["Turnier wählen"].Value</option>
-                                            @if (SaisonenListEMWM != null)
-                                            {
-                                                @foreach (var saisonemwm in SaisonenListEMWM.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
-                                                {
-                                                    @if (saisonemwm.Saisonname == Globals.currentEMWMSaison)
-                                                    {
-                                                        <option selected value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
-                                                    }
-                                                    else
-                                                    {
-                                                        <option value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
-                                                    }
-                                                }
-                                            }
-                                        </select>
-                                        <label style="display:@DisplayErrorSaisonEMWM;color:red;" id="lblErrorSaison">@Localizer["Turnier wählen"].Value</label>
-                                    </div>
-                                    <div class="dropdown" style="display:inline">
-                                        <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlenEMWM" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandlerEMWM">
-                                        </RadzenButton>
-                                    </div>
-                                </RadzenAccordionItem> *@
+                                @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
+                            ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
+                            ExpandAriaLabel="Internationale Wettbewerbe aufklappen.">
+                            <div class="dropdown mr-2" style="display:inline">
+                            <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChangeEMWM">
+                            <option value="0" required>@Localizer["Turnier wählen"].Value</option>
+                            @if (SaisonenListEMWM != null)
+                            {
+                            @foreach (var saisonemwm in SaisonenListEMWM.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
+                            {
+                            @if (saisonemwm.Saisonname == Globals.currentEMWMSaison)
+                            {
+                            <option selected value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
+                            }
+                            else
+                            {
+                            <option value="@saisonemwm.SaisonID"> @saisonemwm.Saisonname </option>
+                            }
+                            }
+                            }
+                            </select>
+                            <label style="display:@DisplayErrorSaisonEMWM;color:red;" id="lblErrorSaison">@Localizer["Turnier wählen"].Value</label>
+                            </div>
+                            <div class="dropdown" style="display:inline">
+                            <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlenEMWM" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandlerEMWM">
+                            </RadzenButton>
+                            </div>
+                            </RadzenAccordionItem> *@
                             </Items>
                         </RadzenAccordion>
                     </RadzenTabsItem>

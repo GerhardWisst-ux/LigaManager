@@ -379,9 +379,11 @@ namespace LigamanagerManagement.Web.Pages
             if (currentspieltag > 1)
                 currentspieltag = currentspieltag - 1;
 
-            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            iSpieltage = currentspieltag;
 
-            await TabelleBerechnen(TabArt);
+            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            
+            await TabelleBerechnen(1);
 
             DisplayElements = "block";
             StateHasChanged();
@@ -392,9 +394,11 @@ namespace LigamanagerManagement.Web.Pages
             if (currentspieltag < Globals.maxSpieltag)
                 currentspieltag = currentspieltag + 1;
 
-            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            iSpieltage = currentspieltag;
 
-            await TabelleBerechnen(TabArt);
+            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            
+            await TabelleBerechnen(1);
 
             DisplayElements = "block";
 

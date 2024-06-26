@@ -135,6 +135,10 @@
   <data name="Heimtabelle" xml:space="preserve">
     <value>Heimtabelle</value>
   </data>
+  <data name="Kommentar" xml:space="preserve">
+    <value>Die Tabelle wurde nach dem Drei-Punkte-System errechnet.
+1993/94 wurden Dynamo Dresden 4 Punkte, 1999/00 Eintracht Frankfurt 2 Punkte, 2003/04 dem 1. FC Kaiserslautern 3 Punkte abgezogen.</value>
+  </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Nach oben</value>
   </data>
@@ -161,6 +165,9 @@
   </data>
   <data name="Spieltag wählen" xml:space="preserve">
     <value>Spieltag wählen</value>
+  </data>
+  <data name="Spieltage" xml:space="preserve">
+    <value>Spieltage</value>
   </data>
   <data name="T" xml:space="preserve">
     <value>T</value>

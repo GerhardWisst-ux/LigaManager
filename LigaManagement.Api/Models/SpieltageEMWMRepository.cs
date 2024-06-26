@@ -283,6 +283,8 @@ namespace LigaManagerManagement.Api.Models
                         ",[Verein2] = '" + spieltag.Verein2 + "'" +
                         ",[Tore1_Nr] = " + spieltag.Tore1_Nr +
                         ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
+                        ",[Gruppe] = '" + spieltag.Gruppe + "'" +
+                        ",[GroupID] = " + spieltag.GroupID +
                         ",[Datum] = '" + spieltag.Datum + "'" +
                         ",[Ort] = '" + spieltag.Ort + "'" +
                         ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
