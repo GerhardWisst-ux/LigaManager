@@ -320,7 +320,9 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID2008 = int.Parse(reader["GroupID2008"].ToString());
                         verein.GroupID2006 = int.Parse(reader["GroupID2006"].ToString());
                         verein.GroupID2004 = int.Parse(reader["GroupID2004"].ToString());
+                        verein.GroupID2002 = int.Parse(reader["GroupID2002"].ToString());
                         verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
+                        verein.GroupID1998 = int.Parse(reader["GroupID1998"].ToString());
                         verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
                         verein.GroupID1992 = int.Parse(reader["GroupID1992"].ToString());
                         verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());

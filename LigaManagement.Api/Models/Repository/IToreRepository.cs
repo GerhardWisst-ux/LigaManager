@@ -4,12 +4,11 @@ using LigaManagement.Models;
 
 namespace ToremanagerManagement.Api.Models.Repository
 {
-    public interface IToreRepository
+    public interface IEinstellungenRepository
     {
-        Task<IEnumerable<Tore>> GetTore();
-        Task<Tore> GetTor(int ToreId);
-        Task<Tore> CreateTor(Tore ToreId);
-        Task<Tore> UpdateTor(Tore ToreId);
-        Task<Tore> DeleteTor(int ToreIdId);
+        Task<EinstellungenLM> GetEinstellungen();
+        
+        Task<EinstellungenLM> UpdateEinstellungen(EinstellungenLM einstellungen);
+        
     }
 }

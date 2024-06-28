@@ -170,7 +170,19 @@ namespace LigaManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
+        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCLSpieltag> args)
+        {
+            if (args.Column.Property == "Verein1")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr > args.Data.Tore2_Nr ? "800" : "normal")};");
+            }
 
+            if (args.Column.Property == "Verein2")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr < args.Data.Tore2_Nr ? "800" : "normal")};");
+            }
+
+        }
 
         public async void SaisonChange(ChangeEventArgs e)
         {

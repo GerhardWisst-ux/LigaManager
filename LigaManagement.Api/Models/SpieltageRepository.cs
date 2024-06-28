@@ -14,7 +14,7 @@ using System.Xml;
 
 namespace LigaManagerManagement.Api.Models
 {
-    public class SpieltageRepository : ISpieltagRepository
+    public class SpieltageRepository : ISpieltageRepository
     {
         public async Task<Spieltag> AddSpieltag(Spieltag spieltag)
         {

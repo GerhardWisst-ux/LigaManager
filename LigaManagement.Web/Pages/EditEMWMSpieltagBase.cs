@@ -119,9 +119,13 @@ namespace LigamanagerManagement.Web.Pages
                 else if (saison.Saisonname.ToString() == "WM 2006")
                     verList = vereineSaison.ToList().Where(x => x.GroupID2006 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 2004")
-                    verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();                
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2004 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 2002")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID2002 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 2000")
                     verList = vereineSaison.ToList().Where(x => x.GroupID2000 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1998")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1998 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1996")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1996 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1992")
@@ -174,10 +178,10 @@ namespace LigamanagerManagement.Web.Pages
                 }
                 else
                 {
-                    RundeChoosed = Spiel.Runde;
+                    RundeChoosed = Spiel.Runde;                   
                     Gruppe = Convert.ToInt32(Spiel.GroupID).ToString();
                     GruppeChoosed = Convert.ToInt32(Spiel.GroupID);
-                    Runde = RundeChoosed;
+                    Runde = RundeChoosed;                    
                     Globals.currentEMWMRunde = RundeChoosed;
                     Spiel.Runde = Runde;
                 }

@@ -14,9 +14,17 @@
 </head>
 
 <style>
-
     .rz-chkbox-box {
         border-color: darkgray !important;
+    }
+
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
+
+    .rz-datatable td {
+        padding: 2.5px;
     }
 </style>
 
@@ -29,78 +37,76 @@
 }
 else
 {
+
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <div class="form-group row">
-                    <div class="col-sm-12">
-                        <RadzenCard class="m-0 mb-3 rz-shadow-3">
-                            <div class="d-flex flex-row">
-                                <div class="card-body">
-                                    <h2 style="display:inline-block;">@Globals.currentEMWMSaison</h2>
-                                    <span class="ml-3">
-                                        @* <a href="@($"createemwmspieltag/{@RundeChoosed}/1")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="@Localizer["Neuanlage EM-Spiel"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
-                                        <RadzenButton title="@Localizer["Neuanlage EM-Spiel"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
-                                    </span>
-                                </div>
-                            </div>
-                        </RadzenCard>
-                    </div>
-                </div>
-                <RadzenCard style="margin-bottom:4px;">
-                    <div class="form-group row">
-                        <div class="dropdown mr-2" style="display:inline">
-                            <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                                <option value="0" required>@Localizer["Turnier wählen"].Value</option>
-                                @if (SaisonenList != null)
-                                {
-                                    @foreach (var saison in SaisonenList.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
-                                    {
-                                        @if (saison.Saisonname == Globals.currentEMWMSaison)
-                                        {
-                                            <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@saison.SaisonID"> @saison.Saisonname </option>
-                                        }
-                                    }
-                                }
-                            </select>
-                            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Turnier wählen"].Value</label>
-                        </div>
-                        <div class="dropdown" style="display:inline">
-                            <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
-                                <option value="0" required>@Localizer["Runde wählen"].Value</option>
-                                @if (RundeList != null)
-                                {
-                                    @foreach (var runde in RundeList)
-                                    {
-                                        @if (runde.RundeKurzbezeichung == Globals.currentEMWMRunde)
-                                        {
-                                            <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
-                                        }
-                                    }
-                                }
-                            </select>
-                            <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
-                        </div>
-                        <div class="dropdown" style="display:inline">
-
-                            <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Style="margin-left: 3px;" Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
-                            <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
-                            </RadzenButton>
-                            <RadzenButton title=@Localizer["Saison und Runde wählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
-                            </RadzenButton>
+                <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <h2 style="display:inline-block;">@Globals.currentEMWMSaison</h2>
+                            <span class="ml-3">
+                                <RadzenButton title="@Localizer["Neuanlage EM-Spiel"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
+                            </span>
                         </div>
                     </div>
                 </RadzenCard>
             </div>
         </div>
+
+
+        <RadzenCard style="margin-bottom:4px;">
+            <div class="form-group row">
+                <div class="dropdown mr-2 ml-3" style="display:inline">
+                    <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+                        <option value="0" required>@Localizer["Turnier wählen"].Value</option>
+                        @if (SaisonenList != null)
+                        {
+                            @foreach (var saison in SaisonenList.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
+                            {
+                                @if (saison.Saisonname == Globals.currentEMWMSaison)
+                                {
+                                    <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                                }
+                                else
+                                {
+                                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                }
+                            }
+                        }
+                    </select>
+                    <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Turnier wählen"].Value</label>
+                </div>
+                <div class="dropdown" style="display:inline">
+                    <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
+                        <option value="0" required>@Localizer["Runde wählen"].Value</option>
+                        @if (RundeList != null)
+                        {
+                            @foreach (var runde in RundeList)
+                            {
+                                @if (runde.RundeKurzbezeichung == Globals.currentEMWMRunde)
+                                {
+                                    <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                }
+                                else
+                                {
+                                    <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                }
+                            }
+                        }
+                    </select>
+                    <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
+                </div>
+                <div class="dropdown" style="display:inline">
+
+                    <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Style="margin-left: 3px;" Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
+                    <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
+                    </RadzenButton>
+                    <RadzenButton title=@Localizer["Saison und Runde wählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
+                    </RadzenButton>
+                </div>
+            </div>
+        </RadzenCard>
 
         <RadzenCard Style="height:70%;" class="m-0">
             <RadzenTabs>
@@ -113,7 +119,7 @@ else
                                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
                                                     TItem="PokalergebnisCLSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                    SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                    SelectionMode="DataGridSelectionMode.Single" CellRender="@CellRender" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
                                         <Columns>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Gruppe" Width="5%" Sortable=false Title="Gr.">
                                             </RadzenDataGridColumn>
@@ -127,7 +133,7 @@ else
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 1" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 2" />
-                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
                                                 <Template Context="data">
                                                     <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
@@ -415,6 +421,7 @@ else
             </RadzenTabs>
         </RadzenCard>
     </div>
+ 
 }
 
 <script>

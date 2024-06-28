@@ -20,6 +20,20 @@
         min-height: 8%;
         word-break: break-all;
     }
+
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
+
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
+
+    .rz-datatable td {
+        padding: 2.5px;
+    }
 </style>
 
 @if (LigenList == null)
@@ -31,13 +45,12 @@
 else
 {
     <div class="container">
-        
-        <RadzenCard class="m-0 mb-3 rz-shadow-3">                  
+
+        <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
             <div class="d-flex flex-row">
                 <div class="card-body">
                     <h2 style="display:inline-block;">@Localizer["Ligen"].Value</h2>
-                    <span class="ml-3">
-                        @* <a href="createliga" style="width:35px; height:30px;" title="@Localizer["Neuanlage Liga"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                    <span class="ml-3">                        
                         <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Liga"].Value" ButtonStyle="ButtonStyle.Primary" />
                     </span>
                 </div>

@@ -123,6 +123,12 @@
   <data name="Auswählen" xml:space="preserve">
     <value>Apply</value>
   </data>
+  <data name="Auswärts" xml:space="preserve">
+    <value>Away</value>
+  </data>
+  <data name="Bearbeiten" xml:space="preserve">
+    <value>Edit</value>
+  </data>
   <data name="Bitte Land wählen" xml:space="preserve">
     <value>Please select country</value>
   </data>
@@ -132,26 +138,65 @@
   <data name="Bitte Saison wählen" xml:space="preserve">
     <value>Please select season</value>
   </data>
+  <data name="Datum" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="Heim" xml:space="preserve">
+    <value>Home</value>
+  </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
   <data name="Land" xml:space="preserve">
     <value>Select Country</value>
   </data>
+  <data name="Letze Ergebnisse" xml:space="preserve">
+    <value>Last results</value>
+  </data>
+  <data name="Letze ErgebnisseCollapse" xml:space="preserve">
+    <value>Collapse last results</value>
+  </data>
+  <data name="Letze ErgebnisseExpand" xml:space="preserve">
+    <value>Expand last results</value>
+  </data>
   <data name="Liga" xml:space="preserve">
     <value>Select League</value>
+  </data>
+  <data name="Nationale Wettbewerbe" xml:space="preserve">
+    <value>National Competitions</value>
+  </data>
+  <data name="Nationale Wettbewerbe aufklappen" xml:space="preserve">
+    <value>Expand National Competitions</value>
+  </data>
+  <data name="Nationale Wettbewerbe zuklappen" xml:space="preserve">
+    <value>Collapse National Competitions</value>
+  </data>
+  <data name="Ort" xml:space="preserve">
+    <value>Location</value>
   </data>
   <data name="Saison" xml:space="preserve">
     <value>Select Saison</value>
   </data>
+  <data name="Spiele" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="Spieltag" xml:space="preserve">
+    <value>Match Day</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="Tabelle" xml:space="preserve">
+    <value>Table</value>
   </data>
   <data name="Tabellen anlegen" xml:space="preserve">
     <value>Create Tables</value>
   </data>
   <data name="ToolTipButton" xml:space="preserve">
     <value>Select Country, League and Saison</value>
+  </data>
+  <data name="Tore" xml:space="preserve">
+    <value>Goals</value>
   </data>
   <data name="Turnier wählen" xml:space="preserve">
     <value>Select tournament</value>

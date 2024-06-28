@@ -139,6 +139,9 @@
     <value>The table was calculated using the three-point system.
 In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfurt was deducted 2 points, and in 2003/04, 1. FC Kaiserslautern was deducted 3 points.</value>
   </data>
+  <data name="Legende" xml:space="preserve">
+    <value>Gold: Champion Green:Champions League, Blue: Europa-League, Orange: Relegation, Rot: Relegated</value>
+  </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Go to Top</value>
   </data>

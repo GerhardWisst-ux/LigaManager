@@ -39,7 +39,7 @@
 <div class="container">
     <div class="form-group row">
         <div class="col-sm-12">
-            <RadzenCard class="m-0 mb-3 rz-shadow-3">
+            <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
                 <div class="d-flex flex-row">
                     <div class="card-body">
                         <h2>@Titel Liga</h2>
@@ -150,19 +150,19 @@
 
         if ((Liga.Liganame == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Liganame nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["BearbeitenLiga"].Value, Detail = "Liganame nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if (Liga.Erstaustragung.Date.ToString() == "01.01.0001")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["BearbeitenLiga"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if (Liga.Verband == null)
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Liga", Detail = "Verband nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["BearbeitenLiga"].Value, Detail = "Verband nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 

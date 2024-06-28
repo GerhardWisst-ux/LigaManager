@@ -117,55 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Charts" xml:space="preserve">
-    <value>Charts</value>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Saved</value>
   </data>
-  <data name="CL" xml:space="preserve">
-    <value>CL</value>
+  <data name="Aufstellungen" xml:space="preserve">
+    <value>Lining up</value>
   </data>
-  <data name="Einstellunen" xml:space="preserve">
+  <data name="BearbeitenEinstellungen" xml:space="preserve">
+    <value>Edit settings</value>
+  </data>
+  <data name="Einstellungen" xml:space="preserve">
     <value>Settings</value>
   </data>
-  <data name="EM-WM" xml:space="preserve">
-    <value>EM/WM</value>
+  <data name="Import" xml:space="preserve">
+    <value>Import</value>
   </data>
-  <data name="Impressum" xml:space="preserve">
-    <value>Imprint</value>
+  <data name="Kommentar" xml:space="preserve">
+    <value>In case of language changing please restart the application</value>
   </data>
-  <data name="Info" xml:space="preserve">
-    <value>Info</value>
+  <data name="Speichern" xml:space="preserve">
+    <value>Save</value>
   </data>
-  <data name="Kader" xml:space="preserve">
-    <value>Squad</value>
+  <data name="Speichert Einstellungen ab" xml:space="preserve">
+    <value>Saves settings</value>
   </data>
-  <data name="Ligen" xml:space="preserve">
-    <value>Leagues</value>
+  <data name="Spielverlauf" xml:space="preserve">
+    <value>Course of play</value>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
+  <data name="Sprache" xml:space="preserve">
+    <value>Language</value>
   </data>
-  <data name="Pokal" xml:space="preserve">
-    <value>German Cup</value>
+  <data name="Tabellen anlegen" xml:space="preserve">
+    <value>Create tables</value>
   </data>
-  <data name="RSS Feed" xml:space="preserve">
-    <value>RSS Feed</value>
+  <data name="Zurück" xml:space="preserve">
+    <value>Back</value>
   </data>
-  <data name="Saisonen" xml:space="preserve">
-    <value>Saisons</value>
-  </data>
-  <data name="Spieltage" xml:space="preserve">
-    <value>Match Day</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="Statistiken" xml:space="preserve">
-    <value>Statistics</value>
-  </data>
-  <data name="Tabellen" xml:space="preserve">
-    <value>Tables</value>
-  </data>
-  <data name="Vereine" xml:space="preserve">
-    <value>Clubs</value>
+  <data name="Zurück zu Einstiegsseite" xml:space="preserve">
+    <value>Back to start page</value>
   </data>
 </root>

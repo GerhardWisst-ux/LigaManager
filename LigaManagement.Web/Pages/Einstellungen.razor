@@ -1,121 +1,187 @@
 ﻿@page "/Ligamanager/einstellungen"
 @using LigaManagement.Web.Services.Contracts;
 @using LigaManagerManagement.Models;
+@using Microsoft.Extensions.Localization
 
-@inherits LigaManagerManagement.Web.Pages.VereineListBase
+@inject IEinstellungenService _EinstellungenService
+@inherits LigaManagerManagement.Web.Pages.EinstellungenBase
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
-
-
 <head>
- 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
 </head>
 
-<style>
-    .rz-button.rz-link {
-        background: none !important;
+<style type="text/css">
+
+    .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
     }
 
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
 
-        .rz-button.rz-link .rz-button-text {
-            color: var(--rz-link-color);
-        }
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
 
+    .rz-datatable td {
+        padding: 2.5px;
+    }
 
-        .rz-button.rz-link:hover .rz-button-text {
-            text-decoration: underline !important;
-        }
+    .rz-chkbox-box {
+        position: absolute !important;
+        cursor: pointer !important;
+        width: 40px !important;
+        height: 40px !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center;
+        border: var(--rz-input-border) !important;
+        border-width: var(--rz-checkbox-border-width) !important;
+        border-radius: var(--rz-checkbox-border-radius) !important;
+        box-shadow: var(--rz-input-shadow) !important;
+        background-color: var(--rz-input-background-color) !important;
+        transition: var(--rz-transition-all) !important;
+    }
 </style>
 
-<EditForm Model="settings" OnValidSubmit="UpsertEinstellungen">
-    <div class="row my-2">
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <RadzenCard class="m-0 mb-3">
-                    <div class="d-flex flex-row">
-                        <div class="card-body ">
-                            <h2 style="display:inline-block;">Einstellungen</h2>
-                        </div>
-                    </div>
-                </RadzenCard>
+
+
+<div class="container">
+    <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+        <div class="d-flex flex-row">
+            <div class="card-body">
+                <h2>@Titel</h2>
             </div>
         </div>
-        <div class="col-12">
+    </RadzenCard>
 
+    <div class="col-12 mt-5">
+        <EditForm Model="Settings" OnValidSubmit="UpsertEinstellungen">
             <div class="form-group row">
-                <RadzenLabel Text="Sprache" class="col-sm-3" Component="txtLiganame">Sprache</RadzenLabel>
-                <InputText required id="txtTore1" @bind-Value="settings.Sprache_LandKZ" class="form-control col-sm-9"></InputText>
-                <ValidationMessage For="(()=>settings.Sprache_LandKZ)"></ValidationMessage>
+                <RadzenLabel Text="Sprache_LandKZ" class="col-sm-3" Component="txtSprache_LandKZ">@Localizer["Sprache"].Value</RadzenLabel>
+                <InputText required id="txtSprache_LandKZ" @bind-Value="Settings.Sprache_LandKZ" class="form-control col-sm-9"></InputText>
+                <ValidationMessage For="(()=>Settings.Sprache_LandKZ)"></ValidationMessage>
             </div>
-            <div class="form-group row">
-                <RadzenLabel Text="Import" class="col-sm-3" Component="chkImportVisible">Import</RadzenLabel>
-                <RadzenCheckBox @bind-Value="settings.ImportVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkImportVisible" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+            <div class="form-group row my-4">
+                <RadzenLabel Text="Import" class="col-sm-3" Component="chkImportVisible">@Localizer["Import"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.ImportVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
-                <ValidationMessage For="()=>settings.ImportVisible"></ValidationMessage>
+                <ValidationMessage For="()=>Settings.ImportVisible"></ValidationMessage>
             </div>
-            <div class="form-group row">
-                <RadzenLabel Text="Import" class="col-sm-3" Component="chkTabellenAnlegenVisible">Tabellen anlegen</RadzenLabel>
-                <RadzenCheckBox @bind-Value="settings.TabellenAnlegenVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkTabellenAnlegenVisible" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-pl-0">
+            <div class="form-group row my-4">
+                <RadzenLabel Text="TabellenAnlegenVisible" class="col-sm-3" Component="chkTabellenAnlegenVisible">@Localizer["Tabellen anlegen"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.TabellenAnlegenVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkTabellenAnlegenVisible" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
-                <ValidationMessage For="()=>settings.TabellenAnlegenVisible"></ValidationMessage>
+                <ValidationMessage For="()=>Settings.TabellenAnlegenVisible"></ValidationMessage>
             </div>
-
+            <div class="form-group row my-4">
+                <RadzenLabel Text="Aufstellungen" class="col-sm-3" Component="chkAufstellungen">@Localizer["Aufstellungen"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.Aufstellungen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAufstellungen" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
+                </RadzenColumn>
+                <ValidationMessage For="()=>Settings.Aufstellungen"></ValidationMessage>
+            </div>
+            <div class="form-group row my-4">
+                <RadzenLabel Text="Spielverlauf" class="col-sm-3" Component="chkSpielverlauf">@Localizer["Spielverlauf"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.Spielverlauf" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkSpielverlauf" />
+                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
+                </RadzenColumn>
+                <ValidationMessage For="()=>Settings.Spielverlauf"></ValidationMessage>
+            </div>
             <div class="form-group row">
-                <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertEinstellungen" class="btn btn-primary" Text="Speichern">
-                    <span class="glyphicon glyphicon-save"></span>Speichern
+                <RadzenButton title="@Localizer["Speichert Einstellungen ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertEinstellungen" class="btn btn-primary" Text=@Localizer["Speichern"].Value>
+                    <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                 </RadzenButton>
-                <RadzenButton title="@Localizer["Zurück"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="Zurück">
+                <RadzenButton title="@Localizer["Zurück zu Einstiegsseite"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
 
                 </RadzenButton>
-
             </div>
-
-        </div>
+        </EditForm>
     </div>
-</EditForm>
+</div>
 
 @code {
-
-    [Parameter]
-    
-    public LigaManagement.Models.Einstellungen settings { get; set; } = new LigaManagement.Models.Einstellungen();
-
     private string Titel { get; set; }
-    public bool IsLoading { get; set; }
+    protected EinstellungenLM Settings { get; set; } = new EinstellungenLM();
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+
         if (firstRender)
         {
-            Titel = Localizer["Bearbeiten"].Value;
-            await LoadSettings();
+
+            Titel = @Localizer["Bearbeiten Einstellungen"].Value;
+            await LoadEinstellungen();
         }
     }
 
-    private async Task LoadSettings()
+    private async Task LoadEinstellungen()
     {
         IsLoading = true;
-
-        settings.Sprache_LandKZ = "DE";
-        settings.ImportVisible = false;
-        settings.TabellenAnlegenVisible = false;
-
-        settings = null;
-
+        Settings = await _EinstellungenService.GetEinstellungen();
+        IsLoading = false;
         StateHasChanged();
     }
-    private void UpsertEinstellungen()
+    public void UpsertEinstellungen()
     {
+        bool bError = false;
+
+        if (Settings.Sprache_LandKZ == null)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["BearbeitenEinstellungen"].Value, Detail = "Sprach-KZ nicht angegeben.Speichern nicht möglich." });
+            bError = true;
+        }
+
+        if (Settings.Sprache_LandKZ != "DE" && Settings.Sprache_LandKZ != "EN")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["BearbeitenEinstellungen"].Value, Detail = "Sprach-KZ muß 'DE' oder 'EN' sein.Speichern nicht möglich." });
+            bError = true;
+        }
+
+        if (bError == true)
+            return;
+
+        _EinstellungenService.UpdateEinstellungen(Settings);
+
+
+        NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Info,
+                Summary = Localizer["BearbeitenEinstellungen"].Value,
+                Detail = Localizer["Abgespeichert"].Value
+            });
+
+        NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Warning,
+                Summary = Localizer["BearbeitenEinstellungen"].Value,
+                Detail = Localizer["Kommentar"].Value
+            });
 
     }
 
-    private void Zurueck_Click()
+    public void Zurueck_Click()
     {
         _navigationManager.NavigateTo("Ligamanager/");
     }
 }
+
+
+
+
+
 
 
 

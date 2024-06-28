@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace LigamanagerManagement.Api.Models.Repository
 {
-    public interface ISpieltagRepository
+    public interface ISpieltageRepository
     {
         Task<IEnumerable<Spieltag>> GetSpieltage();        
         Task<IEnumerable<Spieltag>> GetSpieltageL3();

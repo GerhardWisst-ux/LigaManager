@@ -124,7 +124,10 @@
     <value>CL</value>
   </data>
   <data name="Einstellunen" xml:space="preserve">
-    <value>Einstellunen</value>
+    <value>Einstellungen</value>
+  </data>
+  <data name="EM-WM" xml:space="preserve">
+    <value>EM/WM</value>
   </data>
   <data name="Impressum" xml:space="preserve">
     <value>Impressum</value>

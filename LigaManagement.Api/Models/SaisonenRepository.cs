@@ -103,7 +103,11 @@ namespace LigaManagement.Api.Models
                         saison.Aktuell = (bool)reader["Aktuell"];
                         saison.AnzahlVereine = (int)reader["AnzahlVereine"];
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
-
+                        saison.Absteiger = (int)reader["AnzahlAbsteiger"];
+                        saison.CL_League = (int)reader["AnzahlCL_Plaetze"];
+                        saison.CF_League = (int)reader["AnzahlCF_Plaetze"];
+                        saison.EL_League = (int)reader["AnzahlEL_Plaetze"];
+                        saison.Relegation = (int)reader["Anzahl_Relegation"];
                     }
                 }
                 conn.Close();
@@ -142,6 +146,11 @@ namespace LigaManagement.Api.Models
                         saison.Aktuell = (bool)reader["Aktuell"];
                         saison.AnzahlVereine = (int)reader["AnzahlVereine"];
                         saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                        saison.Absteiger = (int)reader["AnzahlAbsteiger"];
+                        saison.CL_League = (int)reader["AnzahlCL_Plaetze"];
+                        saison.CF_League = (int)reader["AnzahlCF_Plaetze"];
+                        saison.EL_League = (int)reader["AnzahlEL_Plaetze"];
+                        saison.Relegation = (int)reader["Anzahl_Relegation"];
 
                         saisonenList.Add(saison);
                     }
@@ -212,7 +221,12 @@ namespace LigaManagement.Api.Models
                     bAbgeschlossen = 1;
 
                 cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +                         
-                          " [Aktuell] =" + bAktuell +                          
+                          " [Aktuell] =" + bAktuell +
+                          ",[AnzahlAbsteiger] = " + saison.Absteiger +
+                          ",[AnzahlCL_Plaetze] =" + saison.CL_League +
+                          ",[AnzahlCF_Plaetze] =" + saison.CF_League +
+                          ",[AnzahlEL_Plaetze] =" + saison.EL_League +
+                          ",[Anzahl_Relegation] =" + saison.Relegation +
                           ",[Abgeschlossen] =" + bAbgeschlossen +
                           " WHERE  [SaisonID] = " + saison.SaisonID;
 

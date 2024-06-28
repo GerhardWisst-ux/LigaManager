@@ -189,7 +189,7 @@
                                     <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblVerein2" class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
+                                    <RadzenLabel Text="lblVerein2"  class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
                                     <select id="cboVerein2" class="form-control col-sm-9" @onchange="Verein2Change">
                                         @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))

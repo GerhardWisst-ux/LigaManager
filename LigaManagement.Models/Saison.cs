@@ -25,6 +25,15 @@ namespace LigaManagerManagement.Models
         public bool Aktuell { get; set; }
 
         [Required]
-        public bool Abgeschlossen { get; set; }     
+        public bool Abgeschlossen { get; set; }
+
+        public int Absteiger { get; set; }
+
+        public int Relegation { get; set; }
+
+        public int CL_League { get; set; }
+
+        public int CF_League { get; set; }
+        public int EL_League { get; set; }
     }
 }

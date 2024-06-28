@@ -51,6 +51,7 @@ namespace LigaManagement.Models
         public int GroupID2008 { get; set; }
         public int GroupID2006 { get; set; }
         public int GroupID2004 { get; set; }
+        public int GroupID2002 { get; set; }
         public int GroupID2000 { get; set; }
         public int GroupID1998 { get; set; }
         public int GroupID1996 { get; set; }
@@ -78,12 +79,15 @@ namespace LigaManagement.Models
         public int GroupID2008 { get; set; }
         public int GroupID2006 { get; set; }
         public int GroupID2004 { get; set; }
+        public int GroupID2002 { get; set; }
         public int GroupID2000 { get; set; }
+        public int GroupID1998 { get; set; }
         public int GroupID1996 { get; set; }
         public int GroupID1992 { get; set; }
         public int GroupID1988 { get; set; }
         public int GroupID1984 { get; set; }
         public int GroupID1980 { get; set; }
         public int GroupID1960 { get; set; }
+        
     }
 }

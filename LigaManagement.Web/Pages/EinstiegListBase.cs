@@ -12,6 +12,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,6 +44,10 @@ namespace LigaManagement.Web.Pages
         protected bool TabellenAnlegenVisible = false;
         protected bool isDropdownDisabledLiga = true;
         protected bool isDropdownDisabledSaison = true;
+
+        public RadzenDataGrid<Spieltag> spieltageGrid;
+        public RadzenDataGrid<Spieltag> grid;
+        IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
 
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
@@ -108,6 +113,9 @@ namespace LigaManagement.Web.Pages
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
+        public ISpieltagServiceLE SpieltagServiceLE { get; set; }
+
+        [Inject]
         public ILigaService LigaService { get; set; }
 
         [Inject]
@@ -120,6 +128,8 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Land> Laender { get; set; }
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
+
+        public IEnumerable<Spieltag> LetzteErgebnisse { get; set; }
 
         [Inject]
         public IStringLocalizer<EinstiegList> Localizer { get; set; }
@@ -232,6 +242,7 @@ namespace LigaManagement.Web.Pages
                 else if (LMSettings.GetTabellenAnlegenVisible() == true)
                     TabellenAnlegenVisible = true;
 
+                LetzteErgebnisse = await SpieltagServiceLE.GetSpieltage();
 
                 DisplayErrorLiga = "none";
                 DisplayErrorSaison = "none";
@@ -741,6 +752,7 @@ namespace LigaManagement.Web.Pages
 
             SpieltageRepository rep = new SpieltageRepository();
 
+            
             bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
             int iAktSpieltag;

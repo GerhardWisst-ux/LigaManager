@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using LigaManagement.Models;
 
-namespace ToreManagerManagement.Web.Services
+namespace LigaManagerManagement.Web.Services
 {
     public class ToreService : IToreService
     {

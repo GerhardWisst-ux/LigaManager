@@ -22,7 +22,7 @@ namespace LigaManagement.Models
 
         [Required(ErrorMessage = "Verein 1 muß angegeben werden.")]
         public string Verein1 { get; set; }
-                
+
         public string Verein1Anzeige { get; set; }
 
         [Required]
@@ -37,9 +37,9 @@ namespace LigaManagement.Models
         [Range(0, 100, ErrorMessage = "Tore 1 darf nicht größer als 100 sein.")]
         public int? Tore1_Nr { get; set; }
 
-        public string Doppelpunkt  { get; set; }
+        public string Doppelpunkt { get; set; }
 
-    [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
+        [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
         [Range(0, 100, ErrorMessage = "Tore 2 darf nicht größer als 100 sein.")]
         public int? Tore2_Nr { get; set; }
 
@@ -70,10 +70,11 @@ namespace LigaManagement.Models
         public int? Land2_Nr { get; set; }
         public int? GroupID { get; set; }
         public string Gruppe { get; set; }
-
         public string RundeDetail { get; set; }
         public string TeamIconUrl1 { get; set; }
         public string TeamIconUrl2 { get; set; }
+        public string FontWeight1 { get; set; }
+        public string FontWeight2 { get; set; }
     }
-   
-    }
+
+}

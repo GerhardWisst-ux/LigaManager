@@ -16,30 +16,37 @@
 </script>
 
 <style type="text/css">
-
-    .columns-2 {
-        width: 100%;
-        display: flex;
-        margin: 1px;
+   
+    .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
     }
 
-    .rz-chkbox-box {
-        border-color: darkgray !important;
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
+
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
+
+    .rz-datatable td {
+        padding: 2.5px;
     }
 </style>
 
 <div class="container">
-
-    <RadzenCard class="m-0">
-        <div class="d-flex flex-row rz-shadow-3">
+    <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+        <div class="d-flex flex-row">
             <div class="card-body">
-                <h2 style="display:inline-block;">@Localizer["Statistiken"].Value</h2>
+                <h2 style="display:inline-block;">@Localizer["Statistiken"].Value</h2>          
             </div>
-        </div>
+        </div>       
     </RadzenCard>
 
-
-    <RadzenTabs @bind-SelectedIndex=@selectedIndex Change=@OnChange>
+    <RadzenTabs Style="margin-top:25px;" @bind-SelectedIndex=@selectedIndex Change=@OnChange>
         <Tabs>
             <RadzenTabsItem Text="@Localizer["Verein gegen Verein"].Value">
                 <RadzenCard Style="height:70vh;" class="m-0">

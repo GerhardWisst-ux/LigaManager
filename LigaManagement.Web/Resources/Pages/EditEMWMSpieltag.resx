@@ -124,7 +124,7 @@
     <value>Achtelfinale</value>
   </data>
   <data name="Alle EM-Endspiele" xml:space="preserve">
-    <value>Alle EM-Endspiele</value>
+    <value>Alle Endspiele</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Auswählen</value>
@@ -193,7 +193,7 @@
     <value>Nach oben</value>
   </data>
   <data name="Neuanlage EM-Spiel" xml:space="preserve">
-    <value>Neuanlage EM-Spiel</value>
+    <value>Neuanlage EM/WM-Spiel</value>
   </data>
   <data name="Ort" xml:space="preserve">
     <value>Ort</value>
@@ -286,7 +286,7 @@
     <value>Zurück</value>
   </data>
   <data name="Zurück zu Übersicht EMWM" xml:space="preserve">
-    <value>Zurück zu Übersicht EMWM</value>
+    <value>Zurück zu Übersicht EM/WM</value>
   </data>
   <data name="Zuschauer" xml:space="preserve">
     <value>Zuschauer</value>

@@ -9,8 +9,6 @@
 <head>
     
 
-</head>
-
 <script>
     function scrollToTop() {
         window.scrollTo(0, 0);
@@ -23,7 +21,7 @@
         word-break: break-all;
     }
 
-    <style>
+    
     .icon-preview div {
         display: flex;
         flex-direction: column;
@@ -35,8 +33,12 @@
         color: var(--rz-text-disabled-color);
         font-size: 0.75rem;
     }
+    .rz-datatable td {
+        padding: 2.5px;
+    }
 </style>
-</style>
+
+</head>
 
 @if (VereineList == null)
 {
@@ -47,7 +49,7 @@
 else
 {
      <div class="container">        
-               <RadzenCard class="m-0 mb-3 rz-shadow-3">
+               <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>

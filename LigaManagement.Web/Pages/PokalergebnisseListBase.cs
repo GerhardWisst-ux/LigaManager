@@ -134,6 +134,19 @@ namespace LigaManagement.Web.Pages
             }
         }
 
+        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisSpieltag> args)
+        {
+            if (args.Column.Property == "Verein1")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr > args.Data.Tore2_Nr ? "800" : "normal")};");
+            }
+
+            if (args.Column.Property == "Verein2")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr < args.Data.Tore2_Nr ? "800" : "normal")};");
+            }
+
+        }
 
         public async void SaisonChange(ChangeEventArgs e)
         {
@@ -170,7 +183,7 @@ namespace LigaManagement.Web.Pages
                 OnClickHandler();
             }
         }
-
+       
         public async void OnClickHandler()
         {
             try

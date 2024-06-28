@@ -195,6 +195,33 @@ namespace LigamanagerManagement.Web.Pages
             }
         }
 
+        public void CellRender(DataGridCellRenderEventArgs<Tabelle> args)
+        {
+            
+            if (args.Data.Platz > 16)
+            {
+                args.Attributes.Add("style", $"background-color:lightcoral;");                
+            }
+            else if (args.Data.Platz == 16)
+                args.Attributes.Add("style", $"background-color:orange;");
+            else if (args.Data.Platz > 1 && args.Data.Platz < 6)
+            {
+                args.Attributes.Add("style", $"background-color:springgreen;");
+            }
+            else if (args.Data.Platz == 6 || args.Data.Platz == 7)
+            {
+                args.Attributes.Add("style", $"background-color:lightblue;");
+            }
+            else if (args.Data.Platz == 1)
+                args.Attributes.Add("style", $"background-color:gold;");
+            else
+                args.Attributes.Add("style", $"background-color:wheat;");
+
+            //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz > 1 && args.Data.Platz < 6 ? "blue" : "white")};");
+            //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz == 16 ? "coral" : "white")};");
+            //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz == 17 || args.Data.Platz == 18 ? "red" : "white")};");
+
+        }
         private int ErmittlenAktSpieltag()
         {
             int iSpieltage = 34;

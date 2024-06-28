@@ -26,22 +26,21 @@
 }
 else
 {
+    
     <div class="container">
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <RadzenCard class="m-0 mb-3 rz-shadow-3">
-                    <div class="d-flex flex-row">
-                        <div class="card-body">
-                            <h2 style="display:inline-block;">@Localizer["Saisonen"].Value</h2>
-                            <span class="ml-3">
-                                @* <a href="Ligamanager/createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
-                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Saison"].Value" ButtonStyle="ButtonStyle.Primary" />
-                            </span>
-                        </div>
-                    </div>
-                </RadzenCard>
+
+        <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+            <div class="d-flex flex-row">
+                <div class="card-body">
+                    <h2 style="display:inline-block;">@Localizer["Saisonen"].Value</h2>
+                    <span class="ml-3">
+                        @* <a href="Ligamanager/createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
+                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Saison"].Value" ButtonStyle="ButtonStyle.Primary" />
+                    </span>
+                </div>
             </div>
-        </div>
+        </RadzenCard>
+
         <div class="form-group row">
             <div class="col-sm-12">
 

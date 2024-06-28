@@ -8,18 +8,14 @@
 @using Radzen.Blazor;
 @using Radzen.Blazor.Rendering;
 
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<head>        
+    
 </head>
 
 <style>
 
+    .rz-datatable td {
+        padding: 3.5px;
 </style>
 
 @if (SaisonenList == null)
@@ -39,15 +35,22 @@ else
             </div>
         </RadzenCard>
 
+        <div style="display:inline-block" class="container py-3 mt-3">            
+            <div class="row">
+                <div class="col-12">
+                    <span class="float-right"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" src="images/settings.png" /></a></span></div>
+            </div>
+        </div>
+        
         <RadzenCard Style="height:70vh;" class="m-0">
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
                         <RadzenAccordion Style="margin-left:">
                             <Items>
-                                <RadzenAccordionItem Selected=true Text="Nationale Wettbewerbe" CollapseTitle="Nationale Wettbewerbe zuklappen."
-                                                     ExpandTitle="Nationale Wettbewerbe aufklappen." CollapseAriaLabel="Nationale Wettbewerbe zuklappen."
-                                                     ExpandAriaLabel="Nationale Wettbewerbe aufklappen.">
+                                <RadzenAccordionItem Selected=true Text="@Localizer["Nationale Wettbewerbe"].Value" CollapseTitle="@Localizer["Nationale Wettbewerbe zuklappen"].Value"
+                                                     ExpandTitle="@Localizer["Nationale Wettbewerbe aufklappen"].Value" CollapseAriaLabel="@Localizer["Nationale Wettbewerbe zuklappen"].Value"
+                                                     ExpandAriaLabel="@Localizer["Nationale Wettbewerbe aufklappen"].Value">
 
                                     <div class="form-group row">
                                         <div class="dropdown mr-2" style="display:inline;">
@@ -71,7 +74,7 @@ else
                                             <label for="cboLand" title=@Localizer["Bitte Land wählen"].Value style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">@Localizer["Bitte Land wählen"].Value</label>
                                         </div>
                                         <div class="dropdown mr-2" style="display:inline;">
-                                            <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
+                                            <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" style="width:200px;" class="form-control dropdown" @onchange="LigaChangeAsync">
                                                 <option value="0" required>@Localizer["Liga"].Value</option>
                                                 @if (LigenList != null)
                                                 {
@@ -116,6 +119,49 @@ else
                                             </RadzenButton>
                                         </div>
                                     </div>
+                                    
+                                </RadzenAccordionItem>
+                                <RadzenAccordionItem Text="@Localizer["Letze Ergebnisse"].Value" CollapseTitle="@Localizer["Letze ErgebnisseExpand"].Value"
+                                                     ExpandTitle="@Localizer["Letze ErgebnisseCollape"].Value" CollapseAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value"
+                                                     ExpandAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value">
+                                    <div class="form-group row">
+                                        
+                                        <div class="col-sm-12">
+                                            <RadzenCard style="flex:1;margin-right:0px; height:auto;">
+
+                                                <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                    <Columns>
+                                                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                                            <Template Context="data">
+                                                                <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                            </Template>
+                                                        </RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+                                                        </RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
+                                                        <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                                            <Template Context="data">
+                                                                <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                            </Template>
+                                                        </RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                                        <hr style="border:5px;" />
+                                                    </Columns>
+
+                                                </RadzenDataGrid>
+
+                                            </RadzenCard>
+                                            @* </div> *@
+                                        </div>
+                                    </div>
                                 </RadzenAccordionItem>
                                 @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
                             ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
@@ -145,6 +191,8 @@ else
                             </RadzenButton>
                             </div>
                             </RadzenAccordionItem> *@
+
+                            
                             </Items>
                         </RadzenAccordion>
                     </RadzenTabsItem>

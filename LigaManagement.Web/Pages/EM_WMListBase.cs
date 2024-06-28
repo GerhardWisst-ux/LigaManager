@@ -29,13 +29,14 @@ namespace LigaManagement.Web.Pages
     {
         public RadzenDataGrid<Tabelle> gridTabelle;
         public bool allowVirtualization;
+
         static HttpClient client = new HttpClient();
         public RadzenDataGrid<PokalergebnisCLSpieltag> grid;
         public Density Density = Density.Compact;
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
-
+        protected string FontWeight = "font-weight:normal";
         protected string VisibleTable = "none";
         protected string VisibleTable2 = "none";
         protected string VisibleTable3 = "none";
@@ -120,9 +121,9 @@ namespace LigaManagement.Web.Pages
                 }
 
                 if (Globals.EMWMSaisonID == 0)
-                   saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonenList[0].SaisonID));
+                    saison = await SaisonenEMWMService.GetSaison(Convert.ToInt32(SaisonenList[0].SaisonID));
                 else
-                   saison = await SaisonenEMWMService.GetSaison(Globals.EMWMSaisonID);
+                    saison = await SaisonenEMWMService.GetSaison(Globals.EMWMSaisonID);
 
                 if (saison != null)
                 {
@@ -231,8 +232,9 @@ namespace LigaManagement.Web.Pages
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
 
                     if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
-                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 || 
-                        Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1)
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("1998") > -1)
                     {
                         TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
                         TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
@@ -294,8 +296,21 @@ namespace LigaManagement.Web.Pages
                 }
                 OnClickHandler();
             }
-        }
+        }        
 
+        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCLSpieltag> args)
+        {
+            if (args.Column.Property == "Verein1")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr > args.Data.Tore2_Nr && args.Data.GroupID == 0  ? "800" : "normal")};");                
+            }
+
+            if (args.Column.Property == "Verein2")
+            {
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr < args.Data.Tore2_Nr && args.Data.GroupID == 0 ? "800" : "normal")};");                
+            }           
+
+        }
         protected async Task<int> GetDataFromOpenLgaDB()
         {
             int ret = 0;
@@ -497,7 +512,8 @@ namespace LigaManagement.Web.Pages
 
                     if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
                           Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
-                          Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1)
+                          Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
+                          Globals.currentEMWMSaison.IndexOf("1998") > -1)
                     {
                         TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
                         TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);

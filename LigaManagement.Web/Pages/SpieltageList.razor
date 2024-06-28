@@ -9,9 +9,6 @@
 </head>
 <style type="text/css">
 
-    body {
-    }
-
 
     .NewBtn {
         gap: 1px;
@@ -21,7 +18,7 @@
         margin-right: 0px !important;
     }
 
-    a {
+    #btnVor, #btnZurueck {
         text-decoration: none;
         display: inline-block;
         padding: 8px 16px;
@@ -60,6 +57,10 @@
         /* background-color:black !important;
                             color: white !important;  */
     }
+
+    .rz-datatable td {
+        padding: 3.5px;
+    }
 </style>
 
 @if (Spieltage == null)
@@ -73,7 +74,7 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"].Value</h2>
@@ -82,7 +83,7 @@ else
                 </RadzenCard>
             </div>
         </div>
-        <RadzenCard style="margin-bottom:4px;">
+        <RadzenCard style="margin-bottom:4px;height:80px;">
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                     <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style ="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
@@ -128,7 +129,7 @@ else
         </RadzenCard>
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard style="flex:1;margin-right:0px;">
+                <RadzenCard style="flex:1;margin-right:0px; height:auto;">
                     <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
                         <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
@@ -221,10 +222,10 @@ else
 
                     <div class="row">
                         <div class="col-md-1">
-                            <a type="button" Style="text-align:left;display:inline-block;" data-toggle=@Localizer["Voriger Spieltag"] title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                            <a type="button" id="btnZurueck" Style="text-align:left;display:inline-block;" data-toggle=@Localizer["Voriger Spieltag"] title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
                         </div>
                         <div class="col-md-11 text-right">
-                            <a type="button" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                            <a type="button" id="btnVor" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
                         </div>
                     </div>
                 </RadzenCard>

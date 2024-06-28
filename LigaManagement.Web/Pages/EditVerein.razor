@@ -20,8 +20,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    
-    
+
+
     <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
 
 </head>
@@ -85,7 +85,7 @@ else
                                     }
                                 }
                             }
-                        </select>                        
+                        </select>
                     </div>
                     @if (LandKz == "DE")
                     {
@@ -137,7 +137,7 @@ else
                             <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                             </RadzenColumn>
                             <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
-                        </div>                   
+                        </div>
                         <div class="form-group row my-2">
                             <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                             </RadzenButton>
@@ -266,18 +266,18 @@ else
         {
             Globals.LandIDVerein = 57;
             Verein = await _VereineService.GetVerein(Convert.ToInt32(Id));
-        }            
+        }
         else if (LandKz == "PL")
         {
             Globals.LandIDVerein = 250;
             VereinAus = await _VereinePLService.GetVerein(Convert.ToInt32(Id));
-        }        
+        }
         else if (LandKz == "IT")
         {
             Globals.LandIDVerein = 110;
             VereinAus = await _VereineITService.GetVerein(Convert.ToInt32(Id));
-        }            
-        else if(LandKz == "FR")
+        }
+        else if (LandKz == "FR")
         {
             Globals.LandIDVerein = 75;
             VereinAus = await _VereineFRService.GetVerein(Convert.ToInt32(Id));
@@ -343,7 +343,7 @@ else
                 bError = true;
             }
 
-           else if (VereinAus.Vereinsname2 == null)
+            else if (VereinAus.Vereinsname2 == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
                 bError = true;
@@ -355,7 +355,7 @@ else
                 bError = true;
             }
 
-            
+
             else if (VereinAus.Erfolge == null)
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
@@ -368,7 +368,7 @@ else
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
-        }        
+        }
 
         if (Id == "0" && bError == false)
         {
@@ -486,14 +486,14 @@ else
             //     await _VereineBEService.UpdateVerein(VereinAus);
 
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
-        }        
+        }
 
     }
 
     protected async Task<bool> Confirm()
     {
         string message = "Möchten Sie diesen Verein tatsächlich löschen?";
-        
+
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
 
@@ -501,7 +501,7 @@ else
         {
             await _VereineService.DeleteVerein(Convert.ToInt32(Id));
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Verein", Detail = "Gelöscht" });
-        }      
+        }
 
         return false;
     }
