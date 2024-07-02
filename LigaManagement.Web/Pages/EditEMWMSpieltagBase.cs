@@ -76,6 +76,8 @@ namespace LigamanagerManagement.Web.Pages
 
         public bool bDeleteButtonVisible = true;
 
+        public string sGroupGHVisible = "none;";
+
         protected async override Task OnInitializedAsync()
         {
             try
@@ -128,15 +130,22 @@ namespace LigamanagerManagement.Web.Pages
                     verList = vereineSaison.ToList().Where(x => x.GroupID1998 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1996")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1996 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1994")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1994 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1992")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1992 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1990")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1990 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1988")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1988 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1986")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1986 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1984")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1984 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1982")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1982 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1980")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1980 > 0).ToList();
-
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -190,6 +199,14 @@ namespace LigamanagerManagement.Web.Pages
                     GroupVisible = "inline-block;";
                 else
                     GroupVisible = "none;";
+
+
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"))                
+                    sGroupGHVisible = "inline-block;"; 
+                 else
+                   sGroupGHVisible = "none;"; 
+                
 
 
             }

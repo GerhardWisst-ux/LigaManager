@@ -133,19 +133,19 @@
                             }
                             @if (Gruppe.ToString() == "7")
                             {
-                                <option selected value="7">G</option>
+                                <option style ="display:@sGroupGHVisible" selected value="7">G</option>
                             }
                             else
                             {
-                                <option value="7">G</option>
+                                <option style="display:@sGroupGHVisible" value="7">G</option>
                             }
                             @if (Gruppe.ToString() == "8")
                             {
-                                <option selected value="8">H</option>
+                                <option style="display:@sGroupGHVisible" selected value="8">H</option>
                             }
                             else
                             {
-                                <option value="8">H</option>
+                                <option style="display:@sGroupGHVisible" value="8">H</option>
                             }
                         </select>
                     </div>
@@ -407,11 +407,11 @@
             bError = true;
         }
 
-        else if ((Spiel.Datum.Hour.ToString() == "0"))
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
-            bError = true;
-        }
+        // else if ((Spiel.Datum.Hour.ToString() == "0"))
+        // {
+        //     NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["EM-Spieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+        //     bError = true;
+        // }
 
         else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
         {

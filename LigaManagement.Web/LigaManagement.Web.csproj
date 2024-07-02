@@ -32,6 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Remove="Pages\Chart3.razor" />
 		<Content Remove="Pages\Charts.razor" />
 	</ItemGroup>
 
@@ -71,6 +72,10 @@
 		<Folder Include="Classes\" />
 		<Folder Include="Errors\" />
 		<Folder Include="wwwroot\fonts\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Pages\Chart3.razor" />
 	</ItemGroup>
 
 	<ItemGroup>

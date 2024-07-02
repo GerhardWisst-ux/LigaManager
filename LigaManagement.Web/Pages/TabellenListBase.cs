@@ -5,6 +5,7 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -122,10 +123,12 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-        
+
+        private Saison saisonFormat;
+
         int iMaxSpieltag = 0;
         int iSpieltage = 34;
-
+        
         bool bAbgeschlossen;
         protected override async Task OnInitializedAsync()
         {
@@ -185,6 +188,8 @@ namespace LigamanagerManagement.Web.Pages
 
                 var liga = await LigaService.GetLiga(Globals.LigaID);
 
+                saisonFormat = await SaisonenService.GetSaison(Globals.SaisonID);
+
                 Liganame = liga.Liganame;                
 
             }
@@ -197,25 +202,57 @@ namespace LigamanagerManagement.Web.Pages
 
         public void CellRender(DataGridCellRenderEventArgs<Tabelle> args)
         {
-            
-            if (args.Data.Platz > 16)
+            if (saisonFormat.Ligahoehe == 1)
             {
-                args.Attributes.Add("style", $"background-color:lightcoral;");                
+                if (args.Data.Platz > saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
+                {
+                    args.Attributes.Add("style", $"background-color:lightcoral;");
+                }
+                else if (args.Data.Platz == saisonFormat.AnzahlVereine - saisonFormat.Absteiger && saisonFormat.Relegation > 0)
+                    args.Attributes.Add("style", $"background-color:orange;");
+                else if (args.Data.Platz > 1 && args.Data.Platz < 6)
+                {
+                    args.Attributes.Add("style", $"background-color:springgreen;");
+                }
+                else if (args.Data.Platz == 6 || args.Data.Platz == 7)
+                {
+                    args.Attributes.Add("style", $"background-color:lightblue;");
+                }
+                else if (args.Data.Platz == 1)
+                    args.Attributes.Add("style", $"background-color:gold;");
+                else
+                    args.Attributes.Add("style", $"background-color:wheat;");
             }
-            else if (args.Data.Platz == 16)
-                args.Attributes.Add("style", $"background-color:orange;");
-            else if (args.Data.Platz > 1 && args.Data.Platz < 6)
+            else if (saisonFormat.Ligahoehe == 2)
             {
-                args.Attributes.Add("style", $"background-color:springgreen;");
+                if (args.Data.Platz > saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
+                {
+                    args.Attributes.Add("style", $"background-color:lightcoral;");
+                }
+                else if (args.Data.Platz == saisonFormat.Aufsteiger + saisonFormat.Relegation)
+                    args.Attributes.Add("style", $"background-color:orange;");
+                else if (args.Data.Platz == saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
+                    args.Attributes.Add("style", $"background-color:orange;");
+                else if (args.Data.Platz == 1 || args.Data.Platz == 2)
+                    args.Attributes.Add("style", $"background-color:gold;");
+                else
+                    args.Attributes.Add("style", $"background-color:wheat;");
+
             }
-            else if (args.Data.Platz == 6 || args.Data.Platz == 7)
+            else if (saisonFormat.Ligahoehe > 2)
             {
-                args.Attributes.Add("style", $"background-color:lightblue;");
+                if (args.Data.Platz > saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
+                {
+                    args.Attributes.Add("style", $"background-color:lightcoral;");
+                }
+                else if (args.Data.Platz == saisonFormat.Aufsteiger + saisonFormat.Relegation)
+                    args.Attributes.Add("style", $"background-color:orange;");               
+                else if (args.Data.Platz == 1 || args.Data.Platz == 2)
+                    args.Attributes.Add("style", $"background-color:gold;");
+                else
+                    args.Attributes.Add("style", $"background-color:wheat;");
+
             }
-            else if (args.Data.Platz == 1)
-                args.Attributes.Add("style", $"background-color:gold;");
-            else
-                args.Attributes.Add("style", $"background-color:wheat;");
 
             //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz > 1 && args.Data.Platz < 6 ? "blue" : "white")};");
             //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz == 16 ? "coral" : "white")};");

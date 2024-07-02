@@ -86,12 +86,7 @@ else
                             <RadzenLabel Text="@Localizer["Anzahl Vereine"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
                             <InputNumber required id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Saison.AnzahlVereine"></ValidationMessage>
-                        </div>
-                        <div class="form-group">
-                            <RadzenLabel Text="@Localizer["Absteiger"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Absteiger"].Value</RadzenLabel>
-                            <InputNumber required id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-sm-9"></InputNumber>
-                            <ValidationMessage For="()=>Saison.Absteiger"></ValidationMessage>
-                        </div>
+                        </div>                        
                         <div class="form-group">
                             <RadzenLabel Text="@Localizer["AnzahlCL_Plaetze"].Value" class="col-sm-3 pl-0" Component="txtAnzahlCL_Plaetze">@Localizer["AnzahlCL_Plaetze"].Value</RadzenLabel>
                             <InputNumber required id="txtAnzahlCL_Plaetze" @bind-Value="Saison.CL_League" class="form-control col-sm-9"></InputNumber>
@@ -102,12 +97,21 @@ else
                             <InputNumber required id="txtAnzahlEL_Plaetze" @bind-Value="Saison.EL_League" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Saison.EL_League"></ValidationMessage>
                         </div>
+                        <div class="form-group">
+                            <RadzenLabel Text="@Localizer["AnzahlCF_Plaetze"].Value" class="col-sm-3 pl-0" Component="txtAnzahlCL_Plaetze">@Localizer["AnzahlCF_Plaetze"].Value</RadzenLabel>
+                            <InputNumber required id="txtAnzahlEL_Plaetze" @bind-Value="Saison.CF_League" class="form-control col-sm-9"></InputNumber>
+                            <ValidationMessage For="()=>Saison.CF_League"></ValidationMessage>
+                        </div>
                         <div class="form-group pt-2">
                             <RadzenLabel Text="@Localizer["Relegation"].Value" class="col-sm-3 pl-0" Component="txtRelegation">@Localizer["Relegation"].Value</RadzenLabel>
                             <InputNumber id="txtRelegation" @bind-Value="Saison.Relegation" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Saison.Relegation"></ValidationMessage>
                         </div>
-
+                        <div class="form-group">
+                            <RadzenLabel Text="@Localizer["Absteiger"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Absteiger"].Value</RadzenLabel>
+                            <InputNumber required id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-sm-9"></InputNumber>
+                            <ValidationMessage For="()=>Saison.Absteiger"></ValidationMessage>
+                        </div>
                         <div class="form-group pt-2">
                             <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
                             <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
@@ -180,17 +184,40 @@ else
 
                         <label title="@Localizer["Bitte Liga wählen"].Value" style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga"> title="@Localizer["Bitte Liga wählen"].Value"</label>
                     </div>
-                    <div class="form-group pt-2">
-                        <RadzenLabel Text="@Localizer["Aktuell"].Value" class="col-sm-3 pl-0" Component="chkAktuell">@Localizer["Aktuell"].Value</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Aktuell" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktuell" />
-                        <InputNumber id="txtPlatzhalter3" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
-                        <ValidationMessage For="()=>Saison.Aktuell"></ValidationMessage>
+                    <div class="form-group">
+                        <RadzenLabel Text="@Localizer["Anzahl Vereine"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlVereine" @bind-Value="Saison.AnzahlVereine" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.AnzahlVereine"></ValidationMessage>
                     </div>
-
+                    <div class="form-group">
+                        <RadzenLabel Text="@Localizer["AnzahlCL_Plaetze"].Value" class="col-sm-3 pl-0" Component="txtAnzahlCL_Plaetze">@Localizer["AnzahlCL_Plaetze"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlCL_Plaetze" @bind-Value="Saison.CL_League" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.CL_League"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="@Localizer["AnzahlEL_Plaetze"].Value" class="col-sm-3 pl-0" Component="txtAnzahlCL_Plaetze">@Localizer["AnzahlEL_Plaetze"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlEL_Plaetze" @bind-Value="Saison.EL_League" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.EL_League"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="@Localizer["AnzahlCF_Plaetze"].Value" class="col-sm-3 pl-0" Component="txtAnzahlCL_Plaetze">@Localizer["AnzahlCF_Plaetze"].Value</RadzenLabel>
+                        <InputNumber required id="txtAnzahlEL_Plaetze" @bind-Value="Saison.CF_League" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.CF_League"></ValidationMessage>
+                    </div>
+                    <div class="form-group pt-2">
+                        <RadzenLabel Text="@Localizer["Relegation"].Value" class="col-sm-3 pl-0" Component="txtRelegation">@Localizer["Relegation"].Value</RadzenLabel>
+                        <InputNumber id="txtRelegation" @bind-Value="Saison.Relegation" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.Relegation"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <RadzenLabel Text="@Localizer["Absteiger"].Value" class="col-sm-3 pl-0" Component="txtAnzahlVereine">@Localizer["Absteiger"].Value</RadzenLabel>
+                        <InputNumber required id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-sm-9"></InputNumber>
+                        <ValidationMessage For="()=>Saison.Absteiger"></ValidationMessage>
+                    </div>
                     <div class="form-group pt-2">
                         <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
-                        <InputNumber id="txtPlatzhalter4" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
+                        <InputNumber id="txtPlatzhalter2" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
                     <RadzenRow>

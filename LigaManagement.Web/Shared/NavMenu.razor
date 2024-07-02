@@ -80,7 +80,7 @@
 
     a {
         text-decoration: none;
-        display: inline-block;     
+        display: inline-block;
     }
 
         a:hover {
@@ -199,7 +199,7 @@
 </div>
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <ul class="nav flex-column">
+    <ul class="nav flex-column" style="height:3000px;overflow:scroll;">
         <AuthorizeView>
             <Authorized>
                 @if (Globals.bVisibleNavMenuElements == true)
@@ -268,21 +268,21 @@
                         </NavLink>
                     </li>
                 }
-               @*  @if (Globals.bVisibleNavMenuElements == true)
+                @*  @if (Globals.bVisibleNavMenuElements == true)
                 {
-                    <li style="display:none;" class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/rssfeed") Match="NavLinkMatch.All">
-                            <RadzenIcon Icon="launch" />&nbsp; @Localizer["RSS Feed"].Value
-                        </NavLink>
-                    </li>
-                } *@
-                @* @if (Globals.bVisibleNavMenuElements == true)
-                {
-                <li class="nav-item px-4">
-                <NavLink class="nav-link" href=@($"/Ligamanager/chart2") Match="NavLinkMatch.All">
-                <span class="oi oi-graph"></span> @Localizer["Charts"].Value
+                <li style="display:none;" class="nav-item px-4">
+                <NavLink class="nav-link" href=@($"Ligamanager/rssfeed") Match="NavLinkMatch.All">
+                <RadzenIcon Icon="launch" />&nbsp; @Localizer["RSS Feed"].Value
                 </NavLink>
                 </li>
+                } *@
+              @*   @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"/Ligamanager/chart2") Match="NavLinkMatch.All">
+                            <span class="oi oi-graph"></span> @Localizer["Charts"].Value
+                        </NavLink>
+                    </li>
                 } *@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {

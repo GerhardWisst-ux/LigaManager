@@ -38,3 +38,40 @@ Message: Unable to cast object of type 'System.DBNull' to type 'System.Int32'.
 StackTrace:    at LigaManagement.Api.Models.SaisonenRepository.GetSaisonen() in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\SaisonenRepository.cs:line 153
 Date/Time: 28.06.2024 23:28:42
 ============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: Falsche Syntax in der Nähe von "gladbach".
+Kein schließendes Anführungszeichen nach der Zeichenfolge ",[Verlängerung] = 0,[Elfmeterschiessen] = 0 WHERE [SpieltagId] = 1148".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at ToreManagerManagement.Api.Models.PokalergebnisseRepository.UpdatePokalergebnis(PokalergebnisSpieltag pokalspiel) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\PokalergebnisseRepository.cs:line 210
+Date/Time: 30.06.2024 15:05:04
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: GroupID1986
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereinEMWM(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 481
+Date/Time: 01.07.2024 10:24:41
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: GroupID1986
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereinEMWM(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 481
+Date/Time: 01.07.2024 10:25:26
+============================================
+Title: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Message: GroupID1986
+StackTrace:    at Microsoft.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
+   at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereinEMWM(Int32 Id) in C:\Users\gwiss\source\repos\Ligamanager\LigaManagement.Api\Models\VereinRepository.cs:line 481
+Date/Time: 01.07.2024 10:25:43
+============================================

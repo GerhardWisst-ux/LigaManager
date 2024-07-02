@@ -147,7 +147,7 @@ else
                             </RadzenDataGridColumn>
                             @if (Globals.LigaNummer == 3)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title=""  Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title=""  Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -155,7 +155,7 @@ else
                             }
                             else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -163,7 +163,7 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -175,7 +175,7 @@ else
 
                             @if (Globals.LigaNummer == 3)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>
@@ -184,7 +184,7 @@ else
 
                             else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>
@@ -192,7 +192,7 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>

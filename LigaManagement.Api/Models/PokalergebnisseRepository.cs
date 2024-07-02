@@ -191,8 +191,8 @@ namespace ToreManagerManagement.Api.Models
 
                 cmd.CommandText = "UPDATE [dbo].[Pokalergebnisse] SET " +                      
                       " [Saison] = '" + pokalspiel.Saison + "'" +
-                      ",[SaisonID] = " + pokalspiel.SaisonID +              
-                      ",[Verein1_Nr] = '" + pokalspiel.Verein1_Nr + "'" +
+                      ",[SaisonID] = " + pokalspiel.SaisonID +
+                      ",[Verein1_Nr] = " + pokalspiel.Verein1_Nr +
                       ",[Verein1] = '" + pokalspiel.Verein1 + "'" +
                       ",[Verein2_Nr] = " + pokalspiel.Verein2_Nr +
                       ",[Verein2] = '" + pokalspiel.Verein2 + "'" +
@@ -201,7 +201,7 @@ namespace ToreManagerManagement.Api.Models
                       ",[Datum] = '" + pokalspiel.Datum + "'" +
                       ",[Ort] = '" + pokalspiel.Ort + "'" +
                       ",[Schiedrichter] = '" + pokalspiel.Schiedrichter + "'" +              
-                      ",[Zuschauer] =" + pokalspiel.Zuschauer +                      
+                      ",[Zuschauer] = " + pokalspiel.Zuschauer +                      
                       ",[Runde] = '" + pokalspiel.Runde + "'" +
                       ",[Verlängerung] = " + bVerlängerung +
                       ",[Elfmeterschiessen] = " + bElfmeterschiessen +

@@ -100,14 +100,16 @@ namespace LigaManagement.Api.Models
                         saison.LandID = (int)reader["landID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
-                        saison.Aktuell = (bool)reader["Aktuell"];
+                        saison.Ligahoehe = (int)reader["Ligahoehe"];
                         saison.AnzahlVereine = (int)reader["AnzahlVereine"];
-                        saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                        saison.Aufsteiger = (int)reader["AnzahlAufsteiger"];
                         saison.Absteiger = (int)reader["AnzahlAbsteiger"];
                         saison.CL_League = (int)reader["AnzahlCL_Plaetze"];
                         saison.CF_League = (int)reader["AnzahlCF_Plaetze"];
                         saison.EL_League = (int)reader["AnzahlEL_Plaetze"];
                         saison.Relegation = (int)reader["Anzahl_Relegation"];
+                        saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                        saison.Aktuell = (bool)reader["Aktuell"];
                     }
                 }
                 conn.Close();
@@ -137,20 +139,22 @@ namespace LigaManagement.Api.Models
                     while (reader.Read())
                     {
                         saison = new Saison();
-                                                
-                        saison.SaisonID = (int)reader["saisonID"];                        
+
+                        saison.SaisonID = (int)reader["saisonID"];
                         saison.LigaID = (int)reader["LigaID"];
-                        saison.LandID = (int)reader["LandID"];
+                        saison.LandID = (int)reader["landID"];
                         saison.Saisonname = reader["Saisonname"].ToString();
                         saison.Liganame = reader["Liganame"].ToString();
-                        saison.Aktuell = (bool)reader["Aktuell"];
+                        saison.Ligahoehe = (int)reader["Ligahoehe"];
                         saison.AnzahlVereine = (int)reader["AnzahlVereine"];
-                        saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                        saison.Aufsteiger = (int)reader["AnzahlAufsteiger"];
                         saison.Absteiger = (int)reader["AnzahlAbsteiger"];
                         saison.CL_League = (int)reader["AnzahlCL_Plaetze"];
                         saison.CF_League = (int)reader["AnzahlCF_Plaetze"];
                         saison.EL_League = (int)reader["AnzahlEL_Plaetze"];
                         saison.Relegation = (int)reader["Anzahl_Relegation"];
+                        saison.Abgeschlossen = (bool)reader["Abgeschlossen"];
+                        saison.Aktuell = (bool)reader["Aktuell"];
 
                         saisonenList.Add(saison);
                     }

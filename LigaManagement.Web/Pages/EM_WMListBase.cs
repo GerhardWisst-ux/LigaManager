@@ -146,7 +146,7 @@ namespace LigaManagement.Web.Pages
                 EMWMSpieltageFinale = EMWMSpieltage.ToList().Where(x => x.Runde == "F");
 
                 if (Globals.currentEMWMRunde == null)
-                    RundeChoosed = "F";
+                    RundeChoosed = "G1";
                 else
                     RundeChoosed = Globals.currentEMWMRunde;
 
@@ -157,8 +157,6 @@ namespace LigaManagement.Web.Pages
                 //    System.Threading.Thread.Sleep(2000);
                 //}
                 //var result = await GetDataFromOpenLgaDB();
-
-
 
                 Globals.bVisibleNavMenuElements = true;
 
@@ -175,12 +173,22 @@ namespace LigaManagement.Web.Pages
 
                 VisibleBtnNew = "hidden";
 
-                if (Globals.currentEMWMSaison.StartsWith("WM"))
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
+                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"))
                 {
-                    VisibleTableWM = "inline-block;";
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "inline-block;";
+                }
+                else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1990"
+                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1982"))
+                {
+
+                    VisibleTable = "inline-block;";
+                    VisibleTable2 = "inline-block;";
+                    VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "none;";
                 }
                 else if (Globals.currentEMWMSaison.IndexOf("1980") > -1 || Globals.currentEMWMSaison.IndexOf("1984") > -1 || Globals.currentEMWMSaison.IndexOf("1988") > -1 ||
                         Globals.currentEMWMSaison.IndexOf("1992") > -1)
@@ -188,7 +196,7 @@ namespace LigaManagement.Web.Pages
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "none;";
                     VisibleTable3 = "none;";
-                    VisibleTableWM = "none";
+                    VisibleTableWM = "none;";
                 }
                 else if (Globals.currentEMWMSaison.IndexOf("1996") > -1 || Globals.currentEMWMSaison.IndexOf("2000") > -1 || Globals.currentEMWMSaison.IndexOf("2004") > -1
                    || Globals.currentEMWMSaison.IndexOf("2008") > -1 || Globals.currentEMWMSaison.IndexOf("2012") > -1)
@@ -196,7 +204,7 @@ namespace LigaManagement.Web.Pages
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "none;";
-                    VisibleTableWM = "none";
+                    VisibleTableWM = "none;";
                 }
                 else if (Globals.currentEMWMSaison.IndexOf("1972") > -1 || Globals.currentEMWMSaison.IndexOf("1968") > -1 || Globals.currentEMWMSaison.IndexOf("1964") > -1
                    || Globals.currentEMWMSaison.IndexOf("1960") > -1)
@@ -204,47 +212,19 @@ namespace LigaManagement.Web.Pages
                     VisibleTable = "none;";
                     VisibleTable2 = "none;";
                     VisibleTable3 = "none;";
-                    VisibleTableWM = "none";
+                    VisibleTableWM = "none;";
                 }
                 else
                 {
-                    VisibleTableWM = "none";
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "none;";
                 }
 
-                if (Globals.currentEMWMRunde != null)
+                //if (Globals.currentEMWMRunde != null)
                     OnClickHandler();
 
-                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
-                {
-                    if (RundeChoosed == "G1")
-                        BisSpieltag = 1;
-                    else if (RundeChoosed == "G2")
-                        BisSpieltag = 2;
-                    else if (RundeChoosed == "G3")
-                        BisSpieltag = 3;
-
-                    TabellenA = await TabelleService.BerechneTabelleEMWM(SpieltagService, 1, BisSpieltag);
-                    TabellenB = await TabelleService.BerechneTabelleEMWM(SpieltagService, 2, BisSpieltag);
-                    TabellenC = await TabelleService.BerechneTabelleEMWM(SpieltagService, 3, BisSpieltag);
-                    TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
-
-                    if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
-                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
-                        Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
-                        Globals.currentEMWMSaison.IndexOf("1998") > -1)
-                    {
-                        TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
-                        TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
-                    }
-                    if (Globals.currentEMWMSaison.StartsWith("WM"))
-                    {
-                        TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
-                        TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
-                    }
-                }
 
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
@@ -287,7 +267,13 @@ namespace LigaManagement.Web.Pages
                         VisibleTable = "none;";
 
                     if (Globals.currentEMWMSaison.StartsWith("WM"))
-                        VisibleTable2 = "inline-block;";
+                    {
+                        if (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990")
+                            VisibleTable2 = "inline-block;";
+                        else
+                            VisibleTable2 = "none;";
+
+                    }
                     else if (Globals.currentEMWMSaison.IndexOf("1980") > -1 || Globals.currentEMWMSaison.IndexOf("1984") > -1 || Globals.currentEMWMSaison.IndexOf("1988") > -1 ||
                             Globals.currentEMWMSaison.IndexOf("1992") > -1 || Globals.currentEMWMSaison.IndexOf("1996") > -1)
                         VisibleTable2 = "none;";
@@ -296,19 +282,19 @@ namespace LigaManagement.Web.Pages
                 }
                 OnClickHandler();
             }
-        }        
+        }
 
         public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCLSpieltag> args)
         {
             if (args.Column.Property == "Verein1")
             {
-                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr > args.Data.Tore2_Nr && args.Data.GroupID == 0  ? "800" : "normal")};");                
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr > args.Data.Tore2_Nr && args.Data.GroupID == 0 ? "800" : "normal")};");
             }
 
             if (args.Column.Property == "Verein2")
             {
-                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr < args.Data.Tore2_Nr && args.Data.GroupID == 0 ? "800" : "normal")};");                
-            }           
+                args.Attributes.Add("style", $"font-weight: {(args.Data.Tore1_Nr < args.Data.Tore2_Nr && args.Data.GroupID == 0 ? "800" : "normal")};");
+            }
 
         }
         protected async Task<int> GetDataFromOpenLgaDB()
@@ -511,17 +497,21 @@ namespace LigaManagement.Web.Pages
                     TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
 
                     if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
-                          Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
-                          Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
-                          Globals.currentEMWMSaison.IndexOf("1998") > -1)
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("1998") > -1 || Globals.currentEMWMSaison.IndexOf("1994") > -1 || Globals.currentEMWMSaison.IndexOf("1990") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("1986") > -1)
                     {
                         TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
                         TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
                     }
                     if (Globals.currentEMWMSaison.StartsWith("WM"))
                     {
-                        TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
-                        TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
+                        if (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990")
+                        {
+                            TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
+                            TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
+                        }
                     }
                 }
 
@@ -534,7 +524,7 @@ namespace LigaManagement.Web.Pages
         {
             try
             {
-                if (SaisonChoosed == 0 && RundeChoosed == null)
+                if (SaisonChoosed == 0 && RundeChoosed == "0")
                 {
                     DisplayErrorSaison = "block";
                     DisplayErrorRunde = "block";
@@ -555,13 +545,22 @@ namespace LigaManagement.Web.Pages
                     return;
                 }
 
-
-                if (Globals.currentEMWMSaison.StartsWith("WM"))
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
+                     && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"))
                 {
-                    VisibleTableWM = "inline-block;";
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "inline-block;";
+                }
+                else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1990"
+                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1982"))
+                {
+
+                    VisibleTable = "inline-block;";
+                    VisibleTable2 = "inline-block;";
+                    VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "none;";
                 }
                 else if (Globals.currentEMWMSaison.IndexOf("1980") > -1 || Globals.currentEMWMSaison.IndexOf("1984") > -1 || Globals.currentEMWMSaison.IndexOf("1988") > -1 ||
                         Globals.currentEMWMSaison.IndexOf("1992") > -1)
@@ -569,22 +568,30 @@ namespace LigaManagement.Web.Pages
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "none;";
                     VisibleTable3 = "none;";
-                    VisibleTableWM = "none";
+                    VisibleTableWM = "none;";
                 }
                 else if (Globals.currentEMWMSaison.IndexOf("1996") > -1 || Globals.currentEMWMSaison.IndexOf("2000") > -1 || Globals.currentEMWMSaison.IndexOf("2004") > -1
-                    || Globals.currentEMWMSaison.IndexOf("2008") > -1 || Globals.currentEMWMSaison.IndexOf("2012") > -1)
+                   || Globals.currentEMWMSaison.IndexOf("2008") > -1 || Globals.currentEMWMSaison.IndexOf("2012") > -1)
                 {
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "none;";
-                    VisibleTableWM = "none";
+                    VisibleTableWM = "none;";
+                }
+                else if (Globals.currentEMWMSaison.IndexOf("1972") > -1 || Globals.currentEMWMSaison.IndexOf("1968") > -1 || Globals.currentEMWMSaison.IndexOf("1964") > -1
+                   || Globals.currentEMWMSaison.IndexOf("1960") > -1)
+                {
+                    VisibleTable = "none;";
+                    VisibleTable2 = "none;";
+                    VisibleTable3 = "none;";
+                    VisibleTableWM = "none;";
                 }
                 else
                 {
-                    VisibleTableWM = "none";
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "inline-block;";
+                    VisibleTableWM = "none;";
                 }
 
                 DisplayErrorSaison = "none";
@@ -597,6 +604,41 @@ namespace LigaManagement.Web.Pages
                 VisibleBtnNew = NewButtonVisible();
 
                 Globals.bVisibleNavMenuElements = true;
+
+
+                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
+                {
+                    if (RundeChoosed == "G1")
+                        BisSpieltag = 1;
+                    else if (RundeChoosed == "G2")
+                        BisSpieltag = 2;
+                    else if (RundeChoosed == "G3")
+                        BisSpieltag = 3;
+
+                    TabellenA = await TabelleService.BerechneTabelleEMWM(SpieltagService, 1, BisSpieltag);
+                    TabellenB = await TabelleService.BerechneTabelleEMWM(SpieltagService, 2, BisSpieltag);
+                    TabellenC = await TabelleService.BerechneTabelleEMWM(SpieltagService, 3, BisSpieltag);
+                    TabellenD = await TabelleService.BerechneTabelleEMWM(SpieltagService, 4, BisSpieltag);
+
+                    if (Globals.currentEMWMSaison.IndexOf("2024") > -1 || Globals.currentEMWMSaison.IndexOf("2022") > -1 || Globals.currentEMWMSaison.IndexOf("2020") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2018") > -1 || Globals.currentEMWMSaison.IndexOf("2016") > -1 || Globals.currentEMWMSaison.IndexOf("2014") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("2010") > -1 || Globals.currentEMWMSaison.IndexOf("2006") > -1 || Globals.currentEMWMSaison.IndexOf("2002") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("1998") > -1 || Globals.currentEMWMSaison.IndexOf("1994") > -1 || Globals.currentEMWMSaison.IndexOf("1990") > -1 ||
+                        Globals.currentEMWMSaison.IndexOf("1986") > -1 || Globals.currentEMWMSaison.IndexOf("1982") > -1)
+                    {
+                        TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
+                        TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    }
+                    if (Globals.currentEMWMSaison.StartsWith("WM"))
+                    {
+                        if (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986"
+                            && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982")
+                        {
+                            TabellenG = await TabelleService.BerechneTabelleEMWM(SpieltagService, 7, BisSpieltag);
+                            TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
+                        }
+                    }
+                }
 
                 StateHasChanged();
             }

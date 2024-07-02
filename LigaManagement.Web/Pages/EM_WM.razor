@@ -115,6 +115,7 @@ else
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <RadzenCard style="flex:1;margin:0px;">
+                                    <RadzenButton Text="Export XLS" Icon="grid_on" Click="@(args => Export("excel"))" class="mb-4 me-2" /><RadzenButton Text="Export CSV" Icon="wrap_text" Click="@(args => Export("csv"))" class="mb-4" />
                                     <RadzenDataGrid @ref="grid" Data="@EMWMSpieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
                                                     TItem="PokalergebnisCLSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
@@ -125,21 +126,21 @@ else
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein1" Width="23%" Sortable=false Title="@Localizer["Heim"].Value">
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="7%">
                                                 <Template Context="data">
-                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein1}.webp")" style="width: 30px; height: 30px;border-width:1px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
                                                 </Template>
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 1" />
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 2" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" Title="" Sortable="true" Width="8%">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="23%" Sortable=false Title="@Localizer["Gast"].Value" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Right" Width="7%">
                                                 <Template Context="data">
-                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                                    @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
+                                                    <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;border-width:1px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                 </Template>
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Verein2" Width="23%" Sortable=false Title="@Localizer["Gast"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="20%" Sortable=false Title="@Localizer["Ort"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="@Localizer["Datum"].Value" />
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
@@ -421,7 +422,7 @@ else
             </RadzenTabs>
         </RadzenCard>
     </div>
- 
+
 }
 
 <script>
@@ -466,6 +467,24 @@ else
             return base.GetHashCode();
         }
     }
+
+        public void Export(string type)
+        {
+        Export("EMWM", type, new Query()
+            {
+                OrderBy = grid.Query.OrderBy,
+                Filter = grid.Query.Filter,
+                Select = string.Join(",", grid.ColumnsCollection.Where(c => c.GetVisible() && !string.IsNullOrEmpty(c.Property))
+                                .Select(c => c.Property.Contains(".") ? $"{c.Property} as {c.Property.Replace(".", "_")}" : c.Property))
+            });
+        }
+
+    public void Export(string table, string type, Query query = null)
+    {
+        _navigationManager.NavigateTo(query != null ? query.ToUrl($"/export/northwind/{table}/{type}") : $"/export/northwind/{table}/{type}", true);
+    }
+
+
 
     private void OnClick(string text)
     {

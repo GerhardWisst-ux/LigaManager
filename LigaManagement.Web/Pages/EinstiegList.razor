@@ -42,7 +42,7 @@ else
             </div>
         </div>
         
-        <RadzenCard Style="height:70vh;" class="m-0">
+        <RadzenCard Style="height:100vh;" class="m-0">
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
@@ -121,14 +121,13 @@ else
                                     </div>
                                     
                                 </RadzenAccordionItem>
-                                <RadzenAccordionItem Text="@Localizer["Letze Ergebnisse"].Value" CollapseTitle="@Localizer["Letze ErgebnisseExpand"].Value"
-                                                     ExpandTitle="@Localizer["Letze ErgebnisseCollape"].Value" CollapseAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value"
+                                <RadzenAccordionItem Selected=true Text="@Localizer["Letze Ergebnisse"].Value" CollapseTitle="@Localizer["Letze ErgebnisseCollapse"].Value"
+                                                     ExpandTitle="@Localizer["Letze ErgebnisseExpand"].Value" CollapseAriaLabel="@Localizer["Letze ErgebnisseCollapse"].Value"
                                                      ExpandAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value">
                                     <div class="form-group row">
                                         
                                         <div class="col-sm-12">
                                             <RadzenCard style="flex:1;margin-right:0px; height:auto;">
-
                                                 <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
                                                                 AllowPaging="true" AllowSorting="true" AllowFiltering="false"
                                                                 TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
@@ -136,7 +135,7 @@ else
                                                                 SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
                                                     <Columns>
                                                         <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                                             <Template Context="data">
                                                                 <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                                             </Template>
@@ -146,12 +145,12 @@ else
                                                         <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
                                                         <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
                                                         <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
-                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
-                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="74px" MinWidth="74px">
+                                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                                             <Template Context="data">
                                                                 <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                             </Template>
                                                         </RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />                                                        
                                                         <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
                                                         <hr style="border:5px;" />
                                                     </Columns>
