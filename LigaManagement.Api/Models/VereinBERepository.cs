@@ -251,7 +251,7 @@ namespace LigaManagerManagement.Api.Models
 
 
                 cmd.CommandText = "UPDATE [dbo].[VereineBE] SET " +                        
-                        "[VereinNr] = '" + verein.VereinNr + "'" +
+                        "[VereinNr] = " + verein.VereinNr  +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
                         ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
                         ",[Stadion] = '" + verein.Stadion + "'" +

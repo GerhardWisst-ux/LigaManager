@@ -132,6 +132,9 @@
   <data name="BearbeitenLiga" xml:space="preserve">
     <value>Edit league</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="EMWM" xml:space="preserve">
     <value>EMWM</value>
   </data>
@@ -140,6 +143,9 @@
   </data>
   <data name="Gelöscht" xml:space="preserve">
     <value>Deleted</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Liga" xml:space="preserve">
     <value>League</value>
@@ -152,6 +158,9 @@
   </data>
   <data name="Ligen" xml:space="preserve">
     <value>Leagues</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Löschen" xml:space="preserve">
     <value>Delete</value>

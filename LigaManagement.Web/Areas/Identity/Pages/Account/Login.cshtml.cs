@@ -52,6 +52,8 @@ namespace LigaManagement.Web.Areas.Identity.Pages.Account
 
             [Display(Name = "Logindaten speichern?")]
             public bool RememberMe { get; set; }
+
+            public string Group { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

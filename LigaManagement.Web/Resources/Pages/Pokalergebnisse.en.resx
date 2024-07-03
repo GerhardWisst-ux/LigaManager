@@ -138,6 +138,9 @@
   <data name="Datum" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Finale" xml:space="preserve">
     <value>Final</value>
   </data>
@@ -147,8 +150,14 @@
   <data name="Halbfinale" xml:space="preserve">
     <value>Semi final</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Keine Daten zum Anzeigen" xml:space="preserve">
     <value>No data to display</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
     <value>Create new cup game</value>

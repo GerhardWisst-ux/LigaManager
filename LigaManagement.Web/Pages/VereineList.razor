@@ -49,9 +49,12 @@
 else
 {
      <div class="container">        
-               <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+               <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
+                            <span class="float-right"><a href="/identity/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2 style="display:inline-block;">@Localizer["Vereine"].Value</h2>
                             <span class="ml-3">
                                 @* <a href="@($"createverein/{"DE"}")" style="width:35px; height:30px;" title="@Localizer["Neuanlage Verein"].Value" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
@@ -303,6 +306,206 @@ else
              </FooterTemplate>
              <FooterTemplate>
                     @Localizer["Anzahl Vereine"].Value: <b>@VereineListES.Count()</b>
+             </FooterTemplate>
+           
+        </RadzenDataGrid>
+         <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><span class="glyphicon glyphicon-arrow-up"></span></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+                    <RadzenTabsItem Text="Eredivsie">
+                          <RadzenDataGrid @ref="gridFR" Data="@VereineListNL" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+          <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                    
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"NL"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+              <FooterTemplate>
+             </FooterTemplate>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListFR.Count()</b>
+             </FooterTemplate>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>
+                       <RadzenTabsItem Text="Primeira-liga">
+                          <RadzenDataGrid @ref="gridPT" Data="@VereineListPT" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+          <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                    
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"PT"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+              <FooterTemplate>
+             </FooterTemplate>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListPT.Count()</b>
+             </FooterTemplate>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>                     
+                       <RadzenTabsItem Text="Süper Lig">
+                          <RadzenDataGrid @ref="gridTU" Data="@VereineListTU" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+          <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                    
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"TU"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+              <FooterTemplate>
+             </FooterTemplate>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListTU.Count()</b>
+             </FooterTemplate>
+           
+        </RadzenDataGrid>
+        <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">                
+            <RadzenColumn Offset="11" Style="text-align:right;">
+                <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+            </RadzenColumn>
+        </RadzenRow>
+                    </RadzenTabsItem>                     
+                       <RadzenTabsItem Text="Jupiler League">
+                          <RadzenDataGrid @ref="gridBE" Data="@VereineListBE" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                        AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                        TItem="VereinAUS" Visible="true" AllowColumnResize="true"
+                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                        LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
+            <Columns>
+          <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
+                @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                    </Template>
+                 </RadzenDataGridColumn>                
+
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                    <Template Context="data">
+                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                    </Template>
+                 </RadzenDataGridColumn>
+                
+                <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>                    
+                </RadzenDataGridColumn Context="data" >
+
+                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"BE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                </RadzenDataGridColumn>
+            </Columns>
+              <FooterTemplate>
+             </FooterTemplate>
+            <FooterTemplate>
+             </FooterTemplate>
+             <FooterTemplate>
+                    @Localizer["Anzahl Vereine"].Value: <b>@VereineListBE.Count()</b>
              </FooterTemplate>
            
         </RadzenDataGrid>

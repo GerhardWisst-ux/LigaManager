@@ -123,6 +123,9 @@
   <data name="Diff" xml:space="preserve">
     <value>Diff</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Ewige Tabelle" xml:space="preserve">
     <value>Ewige Tabelle</value>
   </data>
@@ -135,12 +138,18 @@
   <data name="Heimtabelle" xml:space="preserve">
     <value>Heimtabelle</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Kommentar" xml:space="preserve">
     <value>Die Tabelle wurde nach dem Drei-Punkte-System errechnet.
 1993/94 wurden Dynamo Dresden 4 Punkte, 1999/00 Eintracht Frankfurt 2 Punkte, 2003/04 dem 1. FC Kaiserslautern 3 Punkte abgezogen.</value>
   </data>
   <data name="Legende" xml:space="preserve">
     <value>Gold: Meister, Grün: Champions League, Blau: Europa-Liga, Orange: Relegation, Rot: Absteiger</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Nach oben</value>

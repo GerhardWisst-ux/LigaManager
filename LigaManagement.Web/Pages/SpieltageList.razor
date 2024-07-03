@@ -5,7 +5,7 @@
 @attribute [Authorize]
 
 <head>
-  
+
 </head>
 <style type="text/css">
 
@@ -24,10 +24,10 @@
         padding: 8px 16px;
     }
 
-        a:hover {
-            background-color: #ddd;
-            color: black;
-        }
+    a:hover {
+        background-color: #ddd;
+        color: black;
+    }
 
     .previous {
         background-color: #1b6ec2;
@@ -55,7 +55,7 @@
         /* font-weight: bold !important;         */
         /* border-color: wheat !important ; */
         /* background-color:black !important;
-                            color: white !important;  */
+                                color: white !important;  */
     }
 
     .rz-datatable td {
@@ -74,10 +74,14 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
+                            <span class="float-right"><a href="/identity/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"].Value</h2>
+
                         </div>
                     </div>
                 </RadzenCard>
@@ -86,7 +90,7 @@ else
         <RadzenCard style="margin-bottom:4px;height:80px;">
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
-                    <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style ="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                    <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
                         <option value="0" selected="selected">@Localizer["Spieltag wählen"].Value</option>
                         if (@SpieltagList != null)
                         {
@@ -106,24 +110,37 @@ else
                     <span class="ml-3">
                         @if (VisibleBtnNew)
                         {
-                         @*    <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink> *@
+                            @*    <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink> *@
 
-                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Style="display:inline-block;"  title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Style="display:inline-block;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                         }
                         else
                         {
                             @* <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink> *@
 
-                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" tyle="display:none;"  title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" tyle="display:none;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
                         }
                     </span>
                     <div Style="display:inline-block;" class="row">
-                        <div  Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Tabelle"].Value" Click=@(args => AnzeigenTabelle()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary" />
+                        <div Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Tabelle"].Value" Click=@(args => AnzeigenTabelle()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-list" aria-hidden="true"></span> @Localizer["Tabelle"].Value
+                            </RadzenButton>
                         </div>
                     </div>
+                    @if (Globals.currentLiganame == "Bundesliga")
+                    {
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Kader"].Value" Click=@(args => AnzeigenKader()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
+                                </RadzenButton>
+                            </div>
+                        </div>
+                    }
+                    
                 </div>
             </div>
         </RadzenCard>
@@ -147,7 +164,7 @@ else
                             </RadzenDataGridColumn>
                             @if (Globals.LigaNummer == 3)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title=""  Sortable="true" Width="44px" MinWidth="44px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -206,9 +223,9 @@ else
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="true">
                                 <Template Context="data">
-                                    <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value"  class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                    <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                 </Template>
-                            </RadzenDataGridColumn>                         
+                            </RadzenDataGridColumn>
                             <hr style="border:5px;" />
                         </Columns>
                         <FooterTemplate>
@@ -251,6 +268,10 @@ else
     private void AnzeigenTabelle()
     {
         _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/tabellen");
+    }
+    private void AnzeigenKader()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/kader");
     }
 
 }

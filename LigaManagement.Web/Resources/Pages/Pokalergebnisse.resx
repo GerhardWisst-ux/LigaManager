@@ -138,6 +138,9 @@
   <data name="Datum" xml:space="preserve">
     <value>Datum</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Finale" xml:space="preserve">
     <value>Finale</value>
   </data>
@@ -150,8 +153,14 @@
   <data name="Heim" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Keine Daten zum Anzeigen" xml:space="preserve">
     <value>Keine Daten zum Anzeigen</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
     <value>Neuanlage Pokal-Spiel</value>

@@ -18,8 +18,21 @@ namespace LigaManagement.Web.Areas.Identity.Pages.Account
 
         public LogoutModel(SignInManager<IdentityUser> signInManager, ILogger<LogoutModel> logger)
         {
+            string returnUrl = null;
+
             _signInManager = signInManager;
             _logger = logger;
+
+             _signInManager.SignOutAsync();
+            _logger.LogInformation("Benutzer wurde ausgeloggt.");
+            if (returnUrl != null)
+            {
+                LocalRedirect(returnUrl);
+            }
+            else
+            {
+                LocalRedirect("~/Ligamanager");
+            }
         }
 
         public void OnGet()
@@ -28,16 +41,18 @@ namespace LigaManagement.Web.Areas.Identity.Pages.Account
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            if (returnUrl != null)
-            {
-                return LocalRedirect(returnUrl);
-            }
-            else
-            {
-                return LocalRedirect("~/Ligamanager");
-            }
+            //Post funktioniert nicht
+            //await _signInManager.SignOutAsync();
+            //_logger.LogInformation("User logged out.");
+            //if (returnUrl != null)
+            //{
+            //    return LocalRedirect(returnUrl);
+            //}
+            //else
+            //{
+            //    return LocalRedirect("~/Ligamanager");
+            //}
+            return null;
         }
     }
 }

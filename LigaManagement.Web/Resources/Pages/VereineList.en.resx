@@ -129,6 +129,9 @@
   <data name="Bundesliga" xml:space="preserve">
     <value>Bundesliga</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Erfolge" xml:space="preserve">
     <value>Successes</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Gegruendet" xml:space="preserve">
     <value>Founded</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Kurzname" xml:space="preserve">
     <value>Short name</value>
@@ -149,6 +155,9 @@
   </data>
   <data name="Liga2" xml:space="preserve">
     <value>Liga 2</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Löschen" xml:space="preserve">
     <value>Delete</value>

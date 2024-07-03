@@ -123,6 +123,9 @@
   <data name="Diff" xml:space="preserve">
     <value>Diff</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Ewige Tabelle" xml:space="preserve">
     <value>Eternal table</value>
   </data>
@@ -135,12 +138,18 @@
   <data name="Heimtabelle" xml:space="preserve">
     <value>Home table</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Kommentar" xml:space="preserve">
     <value>The table was calculated using the three-point system.
 In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfurt was deducted 2 points, and in 2003/04, 1. FC Kaiserslautern was deducted 3 points.</value>
   </data>
   <data name="Legende" xml:space="preserve">
     <value>Gold: Champion Green:Champions League, Blue: Europa-League, Orange: Relegation, Rot: Relegated</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
     <value>Go to Top</value>

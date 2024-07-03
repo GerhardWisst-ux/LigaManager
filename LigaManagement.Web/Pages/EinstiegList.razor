@@ -29,18 +29,14 @@ else
     <div class="container">
         <RadzenCard class="m-0 rz-shadow-3">
             <div class="d-flex flex-row">
-                <div class="card-body">
+                <div class="card-body">                    
+                    <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                    <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title=">@Localizer["Info"].Value" src="images/info.png" /></a></span>
                     <h2 style="display:inline-block;"> @Localizer["Start"].Value Ligamanager</h2>
                 </div>
             </div>
         </RadzenCard>
-
-        <div style="display:inline-block" class="container py-3 mt-3">            
-            <div class="row">
-                <div class="col-12">
-                    <span class="float-right"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" src="images/settings.png" /></a></span></div>
-            </div>
-        </div>
+        
         
         <RadzenCard Style="height:100vh;" class="m-0">
             <RadzenTabs>
@@ -161,6 +157,7 @@ else
                                             @* </div> *@
                                         </div>
                                     </div>
+
                                 </RadzenAccordionItem>
                                 @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
                             ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."

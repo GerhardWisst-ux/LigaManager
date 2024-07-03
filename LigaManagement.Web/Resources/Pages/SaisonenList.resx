@@ -138,14 +138,23 @@
   <data name="Bitte Liga wählen" xml:space="preserve">
     <value>Bitte Liga wählen</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Grunddaten" xml:space="preserve">
     <value>Grunddaten</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Liga auswählen" xml:space="preserve">
     <value>Liga auswählen</value>
   </data>
   <data name="Liganame" xml:space="preserve">
     <value>Liganame</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Löschen" xml:space="preserve">
     <value>Löschen</value>

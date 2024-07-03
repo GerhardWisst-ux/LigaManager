@@ -627,7 +627,7 @@ namespace LigaManagement.Web.Pages
             else
                 DisplayErrorLand = "none";
 
-            if (Globals.currentLiga == "")
+            if (Globals.currentLiga == null)
                 DisplayErrorLiga = "block";
             else
                 DisplayErrorLiga = "none";

@@ -126,8 +126,20 @@
   <data name="Datum" xml:space="preserve">
     <value>Datum</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Heim" xml:space="preserve">
     <value>Heim</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
+  <data name="Kader" xml:space="preserve">
+    <value>Kader</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Neuanlage" xml:space="preserve">
     <value>Neuanlage Spiel</value>

@@ -24,6 +24,10 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<VereinAUS> gridIT;
         public RadzenDataGrid<VereinAUS> gridFR;
         public RadzenDataGrid<VereinAUS> gridES;
+        public RadzenDataGrid<VereinAUS> gridNL;
+        public RadzenDataGrid<VereinAUS> gridPT;
+        public RadzenDataGrid<VereinAUS> gridTU;
+        public RadzenDataGrid<VereinAUS> gridBE;
 
         public Density Density = Density.Compact;
         public int LandID;
@@ -51,6 +55,18 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IVereineITService VereineITService { get; set; }
 
+        [Inject]
+        public IVereineNLService VereineNLService { get; set; }
+
+        [Inject]
+        public IVereinePTService VereinePTService { get; set; }
+       
+        [Inject]
+        public IVereineTUService VereineTUService { get; set; }
+
+        [Inject]
+        public IVereineBEService VereineBEService { get; set; }
+
         public IEnumerable<Verein> VereineList { get; set; }
 
         public IEnumerable<VereinAUS> VereineListPL { get; set; }
@@ -60,6 +76,13 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<VereinAUS> VereineListFR { get; set; }
 
         public IEnumerable<VereinAUS> VereineListES { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListNL { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListPT { get; set; }
+
+        public IEnumerable<VereinAUS> VereineListTU { get; set; }
+        public IEnumerable<VereinAUS> VereineListBE { get; set; }
 
         public IEnumerable<Land> Laender { get; set; }
 
@@ -104,6 +127,14 @@ namespace LigaManagerManagement.Web.Pages
             VereineListFR = (await VereineFRService.GetVereine()).ToList();
 
             VereineListES = (await VereineESService.GetVereine()).ToList();
+
+            VereineListNL = (await VereineNLService.GetVereine()).ToList();
+
+            VereineListPT = (await VereinePTService.GetVereine()).ToList();
+
+            VereineListTU = (await VereineTUService.GetVereine()).ToList();
+
+            VereineListBE = (await VereineBEService.GetVereine()).ToList();
 
             LaenderList = new List<DisplayLaender>();
             Laender = (await LaenderService.GetLaender()).ToList();

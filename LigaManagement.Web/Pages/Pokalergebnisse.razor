@@ -41,9 +41,12 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
+                            <span class="float-right"><a href="/identity/account/logout"><img style="height:25px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2 style="display:inline-block;">@Localizer["Pokalergebnisse"].Value @Ligamanager.Components.Globals.currentPokalSaison</h2>
                             <span class="ml-3">
                                 <a href="@($"createpokalspieltag/{@RundeChoosed}")" style="width:35px; height:30px;visibility:@VisibleBtnNew;" title="Neuanlage Pokal-Spiel" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a>

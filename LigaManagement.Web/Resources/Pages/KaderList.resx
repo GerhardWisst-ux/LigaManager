@@ -141,17 +141,26 @@
   <data name="Bitte Verein wählen" xml:space="preserve">
     <value>Bitte Verein wählen</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Einsätze" xml:space="preserve">
     <value>Einsätze</value>
   </data>
   <data name="Geburtsdatum" xml:space="preserve">
     <value>Geburtsdatum</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Kader" xml:space="preserve">
     <value>Kader</value>
   </data>
   <data name="Kader Spieler" xml:space="preserve">
     <value>Kader Spieler</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
   </data>
   <data name="Nach Oben" xml:space="preserve">
     <value>Nach Oben</value>
