@@ -289,7 +289,7 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
                     "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
-                    "[GroupID1998],[GroupID1996],[GroupID1994],[GroupID1992],[GroupID1990],[GroupID1988], [GroupID1986],[GroupID1984],[GroupID1982], [GroupID1980] FROM [LigaDB].[dbo].[MannschaftEMWM]", conn);
+                    "[GroupID1998],[GroupID1996],[GroupID1994],[GroupID1992],[GroupID1990],[GroupID1988], [GroupID1986],[GroupID1984],[GroupID1982], [GroupID1980], [GroupID1970] FROM [LigaDB].[dbo].[MannschaftEMWM]", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -331,7 +331,8 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID1986 = int.Parse(reader["GroupID1986"].ToString());
                         verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
                         verein.GroupID1982 = int.Parse(reader["GroupID1982"].ToString());
-                        verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());                        
+                        verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());
+                        verein.GroupID1970 = int.Parse(reader["GroupID1970"].ToString());
 
                         vereinelist.Add(verein);
 

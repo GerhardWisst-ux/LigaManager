@@ -225,6 +225,7 @@ namespace LigaManagerManagement.Api.Models
         {
             int bPokal;
             int bLiga1;
+            int bLiga2;
 
             try
             {
@@ -244,9 +245,15 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bLiga1 = 1;
 
+                if (verein.Liga2 == false)
+                    bLiga2 = 0;
+                else
+                    bLiga2 = 1;
+
+
 
                 cmd.CommandText = "UPDATE [dbo].[VereineES] SET " +
-                        "[VereinNr] = '" + verein.VereinNr + "'" +
+                        "[VereinNr] = " + verein.VereinNr +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
                         ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +
                         ",[Stadion] = '" + verein.Stadion + "'" +
@@ -255,10 +262,10 @@ namespace LigaManagerManagement.Api.Models
                         ",[Gegruendet] =" + verein.Gegruendet +
                         ",[Pokal] =" + bPokal +
                         ",[Liga1] =" + bLiga1 +
+                        ",[Liga2] =" + bLiga2 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
                 cmd.ExecuteNonQuery();
-
                 conn.Close();
 
                 return verein;

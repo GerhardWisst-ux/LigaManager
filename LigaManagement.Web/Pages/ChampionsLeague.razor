@@ -65,7 +65,7 @@ else
                         <option value="" selected required>@Localizer["Saison wählen"].Value</option>
                         @if (SaisonenList != null)
                         {
-                            @foreach (var saison in SaisonenList.Where(x => !x.Saisonname.StartsWith("EM") && !x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
+                            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                             {
                                 @if (saison.SaisonID == Globals.CLSaisonID)
                                 {

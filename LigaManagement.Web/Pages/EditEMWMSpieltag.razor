@@ -117,19 +117,19 @@
                             }
                             @if (Gruppe.ToString() == "5")
                             {
-                                <option selected value="5">E</option>
+                                <option style="display:@sGroupEFVisible" selected value="5">E</option>
                             }
                             else
                             {
-                                <option value="5">E</option>
+                                <option style="display:@sGroupEFVisible" value="5">E</option>
                             }
                             @if (Gruppe.ToString() == "6")
                             {
-                                <option selected value="6">F</option>
+                                <option style="display:@sGroupEFVisible" selected value="6">F</option>
                             }
                             else
                             {
-                                <option value="6">F</option>
+                                <option style="display:@sGroupEFVisible" value="6">F</option>
                             }
                             @if (Gruppe.ToString() == "7")
                             {
@@ -157,8 +157,8 @@
                         <RadzenTabsItem Text=@Localizer["Spielinfo"].Value>
                             <div class="content">
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblVerein1" class="col-sm-3" Component="cboVerein1">@Localizer["Verein 1"].Value</RadzenLabel>
-                                    <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
+                                    <RadzenLabel Text="lblVerein1" class="col-md-3 col-xs-6" Component="cboVerein1">@Localizer["Verein 1"].Value</RadzenLabel>
+                                    <select id="cboVerein1" class="form-control col-md-9 col-xs-6" @onchange="Verein1Change">
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
                                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
@@ -173,24 +173,24 @@
                                             <option selected="selected">@Spiel.Verein1</option>
                                         }
                                     </select>
-                                    <InputNumber style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-sm-9"></InputNumber>
+                                    <InputNumber style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-md-9 col-xs-6"></InputNumber>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
-                                    <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-sm-9"></InputNumber>
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
+                                    <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-md-9 col-xs-6"></InputNumber>
 
                                     @* <RadzenNumeric class="form-control col-sm-10" @bind-Value=@Spiel.Tore1_Nr InputAttributes="@(new Dictionary<string,object>(){ { "aria-label", "enter value" }})" /> *@
                                     <ValidationMessage For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-sm-3" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
-                                    <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-sm-9"></InputNumber>
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
+                                    <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-md-9 col-xs-6"></InputNumber>
                                     @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
                                     <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblVerein2"  class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
-                                    <select id="cboVerein2" class="form-control col-sm-9" @onchange="Verein2Change">
+                                    <RadzenLabel Text="lblVerein2"  class="col-md-3 col-xs-6" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
+                                    <select id="cboVerein2" class="form-control col-md-9 col-xs-6" @onchange="Verein2Change">
                                         @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
@@ -206,39 +206,39 @@
                                             <option selected="selected">@Spiel.Verein2</option>
                                         }
                                     </select>
-                                    <InputNumber style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-sm-9"></InputNumber>
+                                    <InputNumber style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-md-9 col-xs-6"></InputNumber>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Datum" class="col-sm-3" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
+                                    <RadzenLabel Text="Datum" class="col-md-3 col-xs-6" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
                                     <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-sm-2"></InputDate>
                                     <ValidationMessage class="offset-sm-3 col-sm-8" For="(()=>Spiel.Datum)"></ValidationMessage>
                                     <input id="txtZeit" type="time" class="form-control col-sm-2" required @bind-value="Time" />
 
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Ort" class="col-sm-3" Component="txtOrt">@Localizer["Ort"].Value</RadzenLabel>
-                                    <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-sm-9"></InputText>
+                                    <RadzenLabel Text="Ort" class="col-md-3 col-xs-6" Component="txtOrt">@Localizer["Ort"].Value</RadzenLabel>
+                                    <InputText required id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-md-9 col-xs-6"></InputText>
                                     <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Schiedrichter" class="col-sm-3" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
-                                    <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-sm-9"></InputText>
+                                    <RadzenLabel Text="Schiedrichter" class="col-md-3 col-xs-6" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
+                                    <InputText required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-md-9 col-xs-6"></InputText>
                                     <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Zuschauer" class="col-sm-3" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
-                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-sm-9" />
+                                    <RadzenLabel Text="Zuschauer" class="col-md-3 col-xs-6" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
+                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-md-9 col-xs-6" />
                                     <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblVerlängerung" class="col-sm-3" Component="chkAktiv">@Localizer["Verlängerung"].Value</RadzenLabel>
+                                    <RadzenLabel Text="lblVerlängerung" class="col-md-3 col-xs-6" Component="chkAktiv">@Localizer["Verlängerung"].Value</RadzenLabel>
                                     <RadzenCheckBox @bind-Value="Spiel.Verlängerung" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkVerlängerung" />
                                     <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>
                                     <ValidationMessage For="()=>Spiel.Verlängerung"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblElfmeterschiessen" class="col-sm-3" Component="chkAktiv">@Localizer["Elfmeterschiessen"].Value</RadzenLabel>
+                                    <RadzenLabel Text="lblElfmeterschiessen" class="col-md-3 col-xs-6" Component="chkAktiv">@Localizer["Elfmeterschiessen"].Value</RadzenLabel>
                                     <RadzenCheckBox @bind-Value="Spiel.Elfmeterschiessen" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkElfmeterschiessen" />
                                     <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
                                     </RadzenColumn>

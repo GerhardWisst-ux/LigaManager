@@ -622,6 +622,8 @@ namespace LigaManagement.Web.Pages
 
         public async void OnClickHandler()
         {
+            bool bAbgeschlossen = false;
+
             if (Globals.LandID == 0)
                 DisplayErrorLand = "block";
             else
@@ -752,8 +754,9 @@ namespace LigaManagement.Web.Pages
 
             SpieltageRepository rep = new SpieltageRepository();
 
-            
-            bool bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+
+            if (Saisonen != null)
+                bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
             int iAktSpieltag;
             if (bAbgeschlossen)

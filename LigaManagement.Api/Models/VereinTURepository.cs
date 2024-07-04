@@ -224,6 +224,7 @@ namespace LigaManagerManagement.Api.Models
         {
             int bPokal;
             int bLiga1;
+            int bLiga2;
 
             try
             {
@@ -232,7 +233,6 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-               
 
                 if (verein.Pokal == false)
                     bPokal = 0;
@@ -244,17 +244,24 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bLiga1 = 1;
 
+                if (verein.Liga2 == false)
+                    bLiga2 = 0;
+                else
+                    bLiga2 = 1;
 
-                cmd.CommandText = "UPDATE [dbo].[VereineTU] SET " +                        
-                        "[VereinNr] = '" + verein.VereinNr + "'" +
+
+
+                cmd.CommandText = "UPDATE [dbo].[VereineTU] SET " +
+                        "[VereinNr] = " + verein.VereinNr +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
-                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +                                               
+                        ",[Vereinsname2] = '" + verein.Vereinsname2 + "'" +
                         ",[Stadion] = '" + verein.Stadion + "'" +
                         ",[Fassungsvermoegen] = '" + verein.Fassungsvermoegen + "'" +
                         ",[Erfolge] = '" + verein.Erfolge + "'" +
                         ",[Gegruendet] =" + verein.Gegruendet +
                         ",[Pokal] =" + bPokal +
-                        ",[Bundesliga] =" + bLiga1 +
+                        ",[Liga1] =" + bLiga1 +
+                        ",[Liga2] =" + bLiga2 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
                 cmd.ExecuteNonQuery();

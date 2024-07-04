@@ -170,7 +170,7 @@ namespace LigamanagerManagement.Web.Pages
                     for (int i = 0; i < verList.Count(); i++)
                     {
                         var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname2, verein.Stadion));
                     }
 
                     var allkader = await KaderService.GetAllSpieler();

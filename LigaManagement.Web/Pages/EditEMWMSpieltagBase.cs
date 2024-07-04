@@ -77,6 +77,7 @@ namespace LigamanagerManagement.Web.Pages
         public bool bDeleteButtonVisible = true;
 
         public string sGroupGHVisible = "none;";
+        public string sGroupEFVisible = "none;";
 
         protected async override Task OnInitializedAsync()
         {
@@ -146,6 +147,8 @@ namespace LigamanagerManagement.Web.Pages
                     verList = vereineSaison.ToList().Where(x => x.GroupID1982 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "EM 1980")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1980 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1970")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1970 > 0).ToList();
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -202,12 +205,16 @@ namespace LigamanagerManagement.Web.Pages
 
 
                 if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"))                
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" 
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970"))                
                     sGroupGHVisible = "inline-block;"; 
                  else
-                   sGroupGHVisible = "none;"; 
-                
+                   sGroupGHVisible = "none;";
 
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970"))
+                    sGroupEFVisible = "none;";
+                else
+                    sGroupEFVisible = "inline-block;";
 
             }
             catch (Exception ex)

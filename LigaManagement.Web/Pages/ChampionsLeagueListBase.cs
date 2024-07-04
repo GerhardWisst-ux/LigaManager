@@ -105,14 +105,14 @@ namespace LigaManagement.Web.Pages
                 SaisonenList = new List<DisplaySaison>();
 
 
-                Saisonen = (await SaisonenCLService.GetSaisonen()).ToList();
-
+                Saisonen = (await SaisonenCLService.GetSaisonen()).ToList().Where(x => x.Liganame == "Champions League");
+                
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
                     var columns = Saisonen.ElementAt(i);
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
-
+                               
                 SaisonChoosed = Globals.CLSaisonID;
 
                 PokalergebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
