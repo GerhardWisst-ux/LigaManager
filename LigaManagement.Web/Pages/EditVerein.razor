@@ -305,7 +305,7 @@ else
             Globals.LandIDVerein = 20;
             VereinAus = await _VereineBEService.GetVerein(Convert.ToInt32(Id));
         }
-       
+
         IsLoading = false;
         StateHasChanged();
     }
@@ -467,7 +467,7 @@ else
             else if (LandKz == "ES")
                 await _VereineESService.CreateVerein(VereinAus);
             else if (LandKz == "NL")
-                 await _VereineNLService.CreateVerein(VereinAus);
+                await _VereineNLService.CreateVerein(VereinAus);
             else if (LandKz == "PT")
                 await _VereinePTService.CreateVerein(VereinAus);
             else if (LandKz == "TU")
@@ -507,7 +507,15 @@ else
 
     protected async Task<bool> Confirm()
     {
-        string message = "Möchten Sie diesen Verein tatsächlich löschen?";
+        string message =string.Empty;
+
+        if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+        {
+            message = "Sie können diesen Verein nicht löschen!";
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Löschen Verein", Detail = message });
+            return false;
+        }
+        message = "Möchten Sie diesen Verein tatsächlich löschen?";
 
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
@@ -518,7 +526,7 @@ else
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Verein", Detail = "Gelöscht" });
         }
 
-        return false;
+        return true;
     }
 
     private void Zurueck_Click()

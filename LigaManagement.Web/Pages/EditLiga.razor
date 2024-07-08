@@ -213,7 +213,15 @@
     }
     protected async Task<bool> Confirm()
     {
-        string message = Localizer["MessageDelete"].Value;
+        string message = string.Empty;
+
+        if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+        {
+            message = "Sie können dieses Spiel nicht löschen?";
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Verein", Detail = "Löschen" });
+            return false;
+        }
+        message = Localizer["MessageDelete"].Value;
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
 

@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Ligamanager.Components;
+using System.Diagnostics;
 
 namespace LigaManagement.Web.Areas.Identity.Pages.Account
 {
@@ -84,7 +86,17 @@ namespace LigaManagement.Web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole("GUEST"))
+                        Debug.Print(_signInManager.Context.Response.Headers.ToString());
+                    //Globals.iUserGroup = (int)Globals.UserGroup.Gast; 
+                    else if (User.IsInRole("Admin"))
+                        Globals.iUserGroup = (int)Globals.UserGroup.Admin;
+                    else if (User.IsInRole("USER"))
+                        Globals.iUserGroup = (int)Globals.UserGroup.User;
+
+
                     _logger.LogInformation("Benutzer eingeloggt.");
+                   
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

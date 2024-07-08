@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+
 namespace LigamanagerManagement.Web.Pages
 {
     public class EditEMWMSpieltagBase : ComponentBase
@@ -70,8 +71,9 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
-
+        
         NotificationService NotificationService = new NotificationService();
+
         public bool Collapsed = true;
 
         public bool bDeleteButtonVisible = true;
@@ -149,6 +151,10 @@ namespace LigamanagerManagement.Web.Pages
                     verList = vereineSaison.ToList().Where(x => x.GroupID1980 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "WM 1970")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1970 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1966")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1966 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1962")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1962 > 0).ToList();
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -206,12 +212,17 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" 
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970"))                
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982" 
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970") 
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962")                
                     sGroupGHVisible = "inline-block;"; 
                  else
                    sGroupGHVisible = "none;";
 
-                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970"))
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970" 
+                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966" 
+                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962")))
                     sGroupEFVisible = "none;";
                 else
                     sGroupEFVisible = "inline-block;";
@@ -307,7 +318,16 @@ namespace LigamanagerManagement.Web.Pages
 
         protected async Task<bool> Confirm()
         {
-            string message = Localizer["Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
+            string message = string.Empty;
+
+            if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+            {
+                message = "Sie können dieses Spiel nicht löschen!";
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Löschen EM-Spiel", Detail = message });
+                return false;
+            }
+            message = Localizer["Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
+
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
 
             if (result)

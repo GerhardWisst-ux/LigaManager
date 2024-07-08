@@ -38,6 +38,15 @@ namespace Ligamanager.Components
         public static int maxSpieltag;
         public static bool bVisibleNavMenuElements;
 
+        public enum UserGroup
+        {
+            Admin = 1,
+            User = 2,
+            Gast = 3,
+        }
+        public static int iUserGroup;
+
+
         public static Dictionary<string, string> VereinAktSaison = new Dictionary<string, string>();
         public static int currentVereinID;
 

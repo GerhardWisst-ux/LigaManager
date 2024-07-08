@@ -51,6 +51,18 @@
         border-color: darkgray !important;
     }
 
+    .rz-label {        
+        margin-left: 0px !important;
+        padding-left: 20px !important;
+    }
+
+   @@media (max-width: 767px) {
+        .rz-label {
+            margin-left: 0px !important;
+            padding-left: 0px !important;
+        }
+    }
+
 </style>
 
 @if (Spiel == null)
@@ -82,7 +94,7 @@ else
                         <RadzenTabsItem Text="@Localizer["Spielinfo"].Value">
                             <div class="content">
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-6 ml-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-md-9 col-xs-6" @onchange="Verein1Change">
                                         <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
@@ -102,13 +114,13 @@ else
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
                                     @* <InputNumber required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-md-9 col-xs-6"></InputNumber> *@
-                                    <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-md-9 col-xs-6" />
+                                    <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-md-9 col-xs-6 pl-2" />
                                     <ValidationMessage class="form-control col-md-9 col-xs-6" For="@(() => Spiel.Tore1_Nr)" />
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
                                     @* <InputNumber required id="txtTore2" @bind-Value="Spiel.Tore2_Nr" class="form-control col-md-9 col-xs-6"></InputNumber> *@
-                                    <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-md-9 col-xs-6" />
+                                    <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-md-9 col-xs-6 pl-2" />
                                     @* <RadzenNumericRangeValidator Component="txtTore2" Min="1" Max="20" Text="Tore 2 darf nicht größer als 20 sein" Style="position: absolute" /> *@
                                     <ValidationMessage class="form-control col-md-9 col-xs-6" For="@(() => Spiel.Tore2_Nr)" />
                                 </div>
@@ -158,13 +170,13 @@ else
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Schiedrichter" class="col-md-3 col-xs-6" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
-                                    <RadzenTextBox required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-md-9 col-xs-6"></RadzenTextBox>
+                                    <RadzenTextBox required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-md-9 col-xs-6 pl-3"></RadzenTextBox>
                                     <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
 
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Zuschauer" class="col-md-3 col-xs-6" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
-                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-md-9 col-xs-6" />
+                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-md-9 col-xs-6 pl-2" />
                                     @* <RadzenNumericRangeValidator Component="txtZuschauer" Min="100" Max="1000000" Text="Zuschauer zwischen 100 und 100000" Style="position: absolute" /> *@
                                     <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                                 </div>

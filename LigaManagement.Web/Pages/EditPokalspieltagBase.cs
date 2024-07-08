@@ -304,7 +304,16 @@ namespace LigamanagerManagement.Web.Pages
 
         protected async Task<bool> Confirm()
         {
-            string message = Localizer["Möchten Sie dieses Pokalspiel tatsächlich löschen?"].Value;
+            string message = string.Empty;
+
+            if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+            {
+                message = "Sie können dieses Pokalspiel nicht löschen!";
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Löschen EM-Spiel", Detail = message });
+                return false;
+            }
+            
+            message = Localizer["Möchten Sie dieses Pokalspiel tatsächlich löschen?"].Value;
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
 
             if (result)
@@ -313,7 +322,6 @@ namespace LigamanagerManagement.Web.Pages
 
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Pokalspiel"].Value, Detail = Localizer["Gelöscht"].Value });
             }
-
 
             return result;
         }
