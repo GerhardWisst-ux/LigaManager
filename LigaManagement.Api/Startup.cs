@@ -75,6 +75,7 @@ namespace LigaManagement.Api
                 services.AddScoped<IPokalergebnisseRepository, PokalergebnisseRepository>();
                 services.AddScoped<ILaenderRepository, LandRepository>();
                 services.AddScoped<IEinstellungenRepository, EinstellungenRepository>();
+                services.AddScoped<IUserRepository, UserRepository>();
 
                 services.AddControllers();
 

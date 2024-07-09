@@ -76,6 +76,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="Pages\Account\Login.razor" />
+	  <None Include="Pages\Account\Logout.razor" />
+	  <None Include="Pages\Account\_Imports.razor" />
 	  <None Include="Pages\Chart3.razor" />
 	</ItemGroup>
 

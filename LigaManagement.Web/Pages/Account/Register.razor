@@ -1,0 +1,66 @@
+﻿@page "/Ligamanger/account/register"
+@using LigaManagement.Api.Models
+@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="card">
+    <h4 class="card-header">Register</h4>
+    <div class="card-body">
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>Vorname</label>
+                <InputText @bind-Value="model.FirstName" class="form-control" />
+                <ValidationMessage For="@(() => model.FirstName)" />
+            </div>
+            <div class="form-group">
+                <label>Nachname</label>
+                <InputText @bind-Value="model.LastName" class="form-control" />
+                <ValidationMessage For="@(() => model.LastName)" />
+            </div>
+            <div class="form-group">
+                <label>Benutzername</label>
+                <InputText @bind-Value="model.Username" class="form-control" />
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+            <div class="form-group">
+                <label>Passwort</label>
+                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+            <button disabled="@loading" class="btn btn-primary">
+                @if (loading) 
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Register
+            </button>
+            <NavLink href="Ligamanager/account/login" class="btn btn-link">Abbrechen</NavLink>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private User model = new User();
+    private bool loading;
+
+    private async void OnValidSubmit()
+    {
+        // reset alerts on submit
+        //AlertService.Clear();
+        
+        loading = true;
+        try
+        {
+            // await AccountService.Register(model);
+            // AlertService.Success("Registration successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("Ligamanager/account/login");
+        }
+        catch (Exception ex)
+        {
+            //AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}

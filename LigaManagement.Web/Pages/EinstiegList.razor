@@ -1,5 +1,6 @@
 ﻿@page "/Ligamanager"
 @inherits EinstiegListBase
+@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
 
 @attribute [Authorize]
 
@@ -8,8 +9,8 @@
 @using Radzen.Blazor;
 @using Radzen.Blazor.Rendering;
 
-<head>        
-    
+<head>
+
 </head>
 
 <style>
@@ -27,18 +28,23 @@
 else
 {
     <div class="container">
+        
         <RadzenCard class="m-0 rz-shadow-3">
             <div class="d-flex flex-row">
-                <div class="card-body">                    
+                <div class="card-body">
+                    <span class="float-left">@BlazorSchoolAuthenticationStateProvider.CurrentUser</span>
+
+                    <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                     <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                     <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title=">@Localizer["Info"].Value" src="images/info.png" /></a></span>
                     <h2 style="display:inline-block;"> @Localizer["Start"].Value Ligamanager</h2>
                 </div>
             </div>
         </RadzenCard>
-        
-        
+
+
         <RadzenCard Style="height:100vh;" class="m-0">
+            
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
@@ -115,13 +121,13 @@ else
                                             </RadzenButton>
                                         </div>
                                     </div>
-                                    
+
                                 </RadzenAccordionItem>
                                 <RadzenAccordionItem Selected=true Text="@Localizer["Letze Ergebnisse"].Value" CollapseTitle="@Localizer["Letze ErgebnisseCollapse"].Value"
                                                      ExpandTitle="@Localizer["Letze ErgebnisseExpand"].Value" CollapseAriaLabel="@Localizer["Letze ErgebnisseCollapse"].Value"
                                                      ExpandAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value">
                                     <div class="form-group row">
-                                        
+
                                         <div class="col-sm-12">
                                             <RadzenCard style="flex:1;margin-right:0px; height:auto;">
                                                 <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
@@ -146,7 +152,7 @@ else
                                                                 <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                             </Template>
                                                         </RadzenDataGridColumn>
-                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />                                                        
+                                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
                                                         <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
                                                         <hr style="border:5px;" />
                                                     </Columns>
@@ -188,7 +194,7 @@ else
                             </div>
                             </RadzenAccordionItem> *@
 
-                            
+
                             </Items>
                         </RadzenAccordion>
                     </RadzenTabsItem>

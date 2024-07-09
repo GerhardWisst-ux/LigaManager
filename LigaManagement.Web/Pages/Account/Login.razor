@@ -1,0 +1,58 @@
+﻿@page "/Ligamanager/account/login"
+@using LigaManagement.Api.Models
+@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<div class="card">
+    
+    <h3 class="card-header">Login</h3>
+    <div class="card-body">
+        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+            <DataAnnotationsValidator />
+            <div class="form-group">
+                <label>Benutzername</label>
+                <InputText @bind-Value="model.Username" class="form-control" />
+                <ValidationMessage For="@(() => model.Username)" />
+            </div>
+            <div class="form-group">
+                <label>Passwort</label>
+                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => model.Password)" />
+            </div>
+            <button disabled="@loading" class="btn btn-primary">
+                @if (loading)
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Login
+            </button>
+            <NavLink href="/Ligamanager/account/register" class="btn btn-link">Registrieren</NavLink>
+        </EditForm>
+    </div>
+</div>
+
+
+@code {
+    private User model = new User();
+    private bool loading;
+
+    private async void OnValidSubmit()
+    {
+        // reset alerts on submit
+        
+        loading = true;
+        try
+        {
+            await BlazorSchoolAuthenticationStateProvider.LoginAsync(model.Username, model.Password);
+         
+            NavigationManager.NavigateTo("/Ligamanager");
+        }
+        catch (Exception ex)
+        {
+            //AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+    
+}

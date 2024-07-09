@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Web;
 using System;
 using Ligamanager.Components;
+using LigaManagerManagement.Web.Services;
 
 namespace LigaManagement.Web
 {
@@ -19,8 +20,8 @@ namespace LigaManagement.Web
 
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
-                {                    
-
+                {
+                    
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseWebRoot("wwwroot");                    
                     webBuilder.UseStaticWebAssets();

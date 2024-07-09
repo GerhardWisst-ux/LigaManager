@@ -3,6 +3,7 @@ using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -202,6 +203,15 @@ namespace LigaManagement.Web
                 {
                     client.BaseAddress = new Uri("https://localhost:44355/");
                 });
+
+                services.AddHttpClient<IUserService, UserService>(client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:44355/");
+                });
+
+                services.AddScoped<BlazorSchoolUserService>();
+                services.AddScoped<BlazorSchoolAuthenticationStateProvider>();
+                services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<BlazorSchoolAuthenticationStateProvider>());
 
                 //services.AddScoped<RadzenChart>();
                 services.AddScoped<DialogService>();

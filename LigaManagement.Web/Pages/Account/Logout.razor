@@ -1,0 +1,18 @@
+﻿@page "/Ligamanager/account/logout"
+@using LigaManagement.Api.Models
+@layout MainLayout
+@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
+@inject NavigationManager NavigationManager
+
+<h3>Logout - sie wurden ausgeloggt</h3>
+
+@code {
+    private User model = new User();
+    protected override async void OnInitialized()
+    {
+        await BlazorSchoolAuthenticationStateProvider.LogoutAsync();
+        NavigationManager.NavigateTo("/Ligamanager/account/login");
+
+    }
+    
+}
