@@ -1,9 +1,11 @@
-﻿using LigaManagement.Models;
+﻿using LigaManagement.Api.Models;
+using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -51,13 +53,10 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
-
+        public User CurrentLMUser { get; private set; } = new();
         public int LandID;
         public int LigaID;
         public int SaisonID;
-
-        [CascadingParameter]
-        public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         [BindProperty]
         public string ImportCSV { get; set; }
@@ -248,7 +247,8 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorSaison = "none";
                 DisplayErrorSaisonEMWM = "none";
                 DisplayErrorLand = "none";
-
+                                
+                StateHasChanged();
                 //var result = await GetDataFromOpenLgaDB();
             }
             catch (Exception ex)

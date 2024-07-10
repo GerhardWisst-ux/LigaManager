@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Api.Models;
+using LigaManagement.Web.Services.Contracts;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
@@ -6,24 +7,27 @@ using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class BlazorSchoolAuthenticationStateProvider : AuthenticationStateProvider
+    public class LigaManagerAuthenticationStateProvider : AuthenticationStateProvider
     {
-        private readonly BlazorSchoolUserService _blazorSchoolUserService;
-        public User CurrentUser { get; private set; } = new();
+        [Inject]
+        public static IUserService userService { get; set; }
 
-        public BlazorSchoolAuthenticationStateProvider(BlazorSchoolUserService blazorSchoolUserService)
+        private readonly BlazorSchoolUserService _ligaManagerUserService;
+        public User CurrentUser { get; private set; } = new();               
+
+        public LigaManagerAuthenticationStateProvider(BlazorSchoolUserService LigaManagerUserService)
         {
-            _blazorSchoolUserService = blazorSchoolUserService;
+            _ligaManagerUserService = LigaManagerUserService;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var principal = new ClaimsPrincipal();
-            var user = await _blazorSchoolUserService.FetchUserFromBrowserAsync();
+            var user = await _ligaManagerUserService.FetchUserFromBrowserAsync();
 
             if (user is not null)
             {
-                var userInDatabase = _blazorSchoolUserService.LookupUserInDatabase(user.Username, user.Password);
+                var userInDatabase = _ligaManagerUserService.LookupUserInDatabase(user.Username, user.Password);
 
                 if (userInDatabase is not null)
                 {
@@ -31,6 +35,7 @@ namespace LigaManagerManagement.Web.Services
                     CurrentUser = userInDatabase;
                 }
             }
+            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(principal)));
 
             return new(principal);
         }
@@ -40,12 +45,13 @@ namespace LigaManagerManagement.Web.Services
         public async Task LoginAsync(string username, string password)
         {
             var principal = new ClaimsPrincipal();
-            var user = _blazorSchoolUserService.LookupUserInDatabase(username, password);
+            var user = _ligaManagerUserService.LookupUserInDatabase(username, password);
 
             if (user is not null)
             {
-                await _blazorSchoolUserService.PersistUserToBrowserAsync(user);
+                await _ligaManagerUserService.PersistUserToBrowserAsync(user);
                 principal = user.ToClaimsPrincipal();
+                CurrentUser = user;
             }
 
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(principal)));
@@ -54,7 +60,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task LogoutAsync()
         {
-            await _blazorSchoolUserService.ClearBrowserUserDataAsync();
+            await _ligaManagerUserService.ClearBrowserUserDataAsync();
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(new())));
         }
 

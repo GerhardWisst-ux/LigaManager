@@ -117,91 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswahl" xml:space="preserve">
-    <value>Auswahl</value>
+  <data name="Benutzername" xml:space="preserve">
+    <value>Username</value>
   </data>
-  <data name="Auswählen" xml:space="preserve">
-    <value>Auswählen</value>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
   </data>
-  <data name="Auswärts" xml:space="preserve">
-    <value>Auswärts</value>
+  <data name="Passwort" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="Bearbeiten" xml:space="preserve">
-    <value>Bearbeiten</value>
-  </data>
-  <data name="Bitte Land wählen" xml:space="preserve">
-    <value>Bitte Land wählen</value>
-  </data>
-  <data name="Bitte Liga wählen" xml:space="preserve">
-    <value>Bitte Liga wählen</value>
-  </data>
-  <data name="Bitte Saison wählen" xml:space="preserve">
-    <value>Bitte Saison wählen</value>
-  </data>
-  <data name="Datum" xml:space="preserve">
-    <value>Datum</value>
-  </data>
-  <data name="Eingeloggter Benutzer" xml:space="preserve">
-    <value>Eingeloggter Benutzer</value>
-  </data>
-  <data name="Heim" xml:space="preserve">
-    <value>Heim</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>Import</value>
-  </data>
-  <data name="Land" xml:space="preserve">
-    <value>Land auswählen</value>
-  </data>
-  <data name="Letze Ergebnisse" xml:space="preserve">
-    <value>Letze hinzugefügte Ergebnisse</value>
-  </data>
-  <data name="Letze ErgebnisseCollapse" xml:space="preserve">
-    <value>Letzte Ergebnisse zuklappen</value>
-  </data>
-  <data name="Letze ErgebnisseExpand" xml:space="preserve">
-    <value>Letzte Ergebnisse aufklappen</value>
-  </data>
-  <data name="Liga" xml:space="preserve">
-    <value>Liga auswählen</value>
-  </data>
-  <data name="Nationale Wettbewerbe" xml:space="preserve">
-    <value>Nationale Wettbewerbe</value>
-  </data>
-  <data name="Nationale Wettbewerbe aufklappen" xml:space="preserve">
-    <value>Nationale Wettbewerbe aufklappen</value>
-  </data>
-  <data name="Nationale Wettbewerbe zuklappen" xml:space="preserve">
-    <value>Nationale Wettbewerbe zuklappen</value>
-  </data>
-  <data name="Ort" xml:space="preserve">
-    <value>Ort</value>
-  </data>
-  <data name="Saison" xml:space="preserve">
-    <value>Saison auswählen</value>
-  </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Spiele</value>
-  </data>
-  <data name="Spieltag" xml:space="preserve">
-    <value>Spieltag</value>
-  </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
-  </data>
-  <data name="Tabelle" xml:space="preserve">
-    <value>Tabelle</value>
-  </data>
-  <data name="Tabellen anlegen" xml:space="preserve">
-    <value>Tabellen anlegen</value>
-  </data>
-  <data name="ToolTipButton" xml:space="preserve">
-    <value>Land, Liga und Saison auswählen</value>
-  </data>
-  <data name="Tore" xml:space="preserve">
-    <value>Tore</value>
-  </data>
-  <data name="Turnier wählen" xml:space="preserve">
-    <value>Turnier wählen</value>
+  <data name="Registrieren" xml:space="preserve">
+    <value>Register</value>
   </data>
 </root>

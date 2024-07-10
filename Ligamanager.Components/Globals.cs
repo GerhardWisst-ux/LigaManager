@@ -60,10 +60,8 @@ namespace Ligamanager.Components
             EwigeTabelle = 6
         }
 
-
+        public static string CurrentRole = "USER";
         
-
-
         //public static int MaxSpieltag(int SaisonID)
         //{
         //    int iMaxSpieltag = 0;

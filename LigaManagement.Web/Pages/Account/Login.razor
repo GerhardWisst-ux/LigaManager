@@ -1,22 +1,43 @@
 ﻿@page "/Ligamanager/account/login"
 @using LigaManagement.Api.Models
-@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
+@using Microsoft.Extensions.Localization
+@using LigaManagement.Web.Services.Contracts
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider LigamanagerAuhenticationStateProvider
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<Login> Localizer
+
+<head>
+
+</head>
+
+<style type="text/css">
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+
+    .rz-label {
+        margin-left: 0px !important;
+        padding-left: 0px !important;
+    }
+
+    
+</style>
 
 <div class="card">
-    
     <h3 class="card-header">Login</h3>
     <div class="card-body">
         <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+
             <DataAnnotationsValidator />
             <div class="form-group">
-                <label>Benutzername</label>
-                <InputText @bind-Value="model.Username" class="form-control" />
+                <RadzenLabel Text="@Localizer["Benutzername"].Value" class="col-12 " Component="txtVereinsname2">@Localizer["Benutzername"].Value</RadzenLabel>
+                <InputText @bind-Value="model.Username" class="form-control col-12" />
                 <ValidationMessage For="@(() => model.Username)" />
             </div>
             <div class="form-group">
-                <label>Passwort</label>
-                <InputText @bind-Value="model.Password" type="password" class="form-control" />
+                <RadzenLabel Text="@Localizer["Passwort"].Value" class="col-12" Component="txtVereinsname2">@Localizer["Passwort"].Value</RadzenLabel>
+                <InputText @bind-Value="model.Password" type="password" class="form-control col-12" />
                 <ValidationMessage For="@(() => model.Password)" />
             </div>
             <button disabled="@loading" class="btn btn-primary">
@@ -24,9 +45,9 @@
                 {
                     <span class="spinner-border spinner-border-sm mr-1"></span>
                 }
-                Login
+                @Localizer["Login"].Value
             </button>
-            <NavLink href="/Ligamanager/account/register" class="btn btn-link">Registrieren</NavLink>
+            <NavLink href="Ligamanager/account/register" style="display:none;" class="btn btn-link">@Localizer["Registrieren"].Value</NavLink>
         </EditForm>
     </div>
 </div>
@@ -36,16 +57,30 @@
     private User model = new User();
     private bool loading;
 
+    [Inject]
+    public IUserService UserService { get; set; }
+
     private async void OnValidSubmit()
     {
         // reset alerts on submit
-        
+
         loading = true;
         try
         {
-            await BlazorSchoolAuthenticationStateProvider.LoginAsync(model.Username, model.Password);
-         
-            NavigationManager.NavigateTo("/Ligamanager");
+            await LigamanagerAuhenticationStateProvider.LoginAsync(model.Username, model.Password);
+
+            if (LigamanagerAuhenticationStateProvider.CurrentUser == null)
+            {
+                return;
+            }
+            else
+            {
+                Globals.CurrentRole = LigamanagerAuhenticationStateProvider.CurrentUser.Role;
+                
+
+                NavigationManager.NavigateTo("/Ligamanager");
+            }
+            
         }
         catch (Exception ex)
         {
@@ -54,5 +89,6 @@
             StateHasChanged();
         }
     }
-    
+
+
 }

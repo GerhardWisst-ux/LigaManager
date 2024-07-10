@@ -8,7 +8,7 @@
 @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
-
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 
 <head>
 
@@ -76,6 +76,11 @@
                 <RadzenCard class="m-0 mb-3">
                     <div class="d-flex flex-row">
                         <div class="card-body">
+                            <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <br />
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2>@Localizer["Pokalergebnisse"].Value @Ligamanager.Components.Globals.currentPokalSaison</h2>
                         </div>
                     </div>
@@ -256,6 +261,13 @@
     private async Task Upsert()
     {
         bool bError = false;
+
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Sie haben nicht das Recht Pokalspiele zu ändern bzw. neu anzulegen." });
+            return;
+        }
+        
         Spieltag spieltag = new Spieltag();
 
         string[] subs = Time.Value.ToString().Split(':');

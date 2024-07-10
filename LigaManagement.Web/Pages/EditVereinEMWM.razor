@@ -15,8 +15,7 @@
 @inject LigaManagement.Web.Services.Contracts.IVereineBEService _VereineBEService
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
-
-
+@inject IJSRuntime JSRuntime
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -312,15 +311,22 @@ else
 
     protected async Task<bool> Confirm()
     {
-        string message = "Möchten Sie diese Mannschaft tatsächlich löschen?";
+        string message;
 
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Sie können diesen Verein nicht löschen", Detail = "Löschen" });
+            return false;
+        }
+        
+        message = "Möchten Sie diesen Verein tatsächlich löschen?";
 
         var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
 
         if (result)
         {
             await _VereineService.DeleteVerein(Convert.ToInt32(Id));
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Mannschaft", Detail = "Gelöscht" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Verein", Detail = "Gelöscht" });
         }
 
         return false;

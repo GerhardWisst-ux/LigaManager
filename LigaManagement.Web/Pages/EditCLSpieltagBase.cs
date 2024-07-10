@@ -22,7 +22,7 @@ namespace LigamanagerManagement.Web.Pages
     {
         [Parameter]
         public string Id { get; set; }
-        
+
         [Parameter]
         public string Runde { get; set; }
 
@@ -95,7 +95,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 var vereineSaison = await VereineService.GetVereineCL();
                 var verList = vereineSaison.Where(x => x.SaisonID == Globals.CLSaisonID).ToList();
-                
+
                 for (int i = 0; i < verList.Count(); i++)
                 {
                     var verein = await VereineService.GetVereinCL(verList[i].VereinNr);
@@ -207,7 +207,7 @@ namespace LigamanagerManagement.Web.Pages
                 Globals.currentPokalRunde = RundeChoosed;
             }
         }
-      
+
         [Bind]
         public class DisplayVerein
         {
@@ -239,16 +239,29 @@ namespace LigamanagerManagement.Web.Pages
 
         protected async Task<bool> Confirm()
         {
-            string message = Localizer["\"Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
+            string message;
+
+            if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+            {
+                message = "Sie können dieses Spiel nicht löschen";
+                await JSRuntime.InvokeVoidAsync("alert", message);
+
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Sie können diese Spiel nicht löschen", Detail = "Löschen" });
+                return false;
+            }
+
+            message = Localizer["Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
+
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
 
             if (result)
             {
                 await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
 
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                message = "Spiel wurde gelöscht";
+                await JSRuntime.InvokeVoidAsync("alert", message);
             }
-
 
             return result;
         }

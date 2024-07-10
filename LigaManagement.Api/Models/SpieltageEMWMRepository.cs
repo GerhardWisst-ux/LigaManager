@@ -420,6 +420,9 @@ namespace LigaManagerManagement.Api.Models
                 else if (Globals.currentEMWMSaison == "WM 1962")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962] FROM [dbo].[MannschaftEMWM] where GroupID1962 = " + iGroupID, conn);
+                else if (Globals.currentEMWMSaison == "WM 1958")
+                    command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958] FROM [dbo].[MannschaftEMWM] where GroupID1958 = " + iGroupID, conn);
 
                 VereinEMWM verein = null;
                 List<VereinEMWM> vereineList = new List<VereinEMWM>();
@@ -456,6 +459,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID1970 = int.Parse(reader["GroupID1970"].ToString());
                         verein.GroupID1966 = int.Parse(reader["GroupID1966"].ToString());
                         verein.GroupID1962 = int.Parse(reader["GroupID1962"].ToString());
+                        verein.GroupID1958 = int.Parse(reader["GroupID1958"].ToString());
 
                         verein.Hyperlink = reader["Hyperlink"].ToString();
                         vereineList.Add(verein);

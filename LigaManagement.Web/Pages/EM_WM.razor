@@ -2,7 +2,9 @@
 @inherits EM_WMListbase
 @attribute [Authorize]
 @inject DialogService DialogService
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 @inject NavigationManager _navigationManager
+
 @using LigaManagerManagement.Web.Pages;
 @using Radzen;
 @using Radzen.Blazor;
@@ -42,12 +44,14 @@ else
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3" style="height:90px;">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                            <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <br />
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2 style="display:inline-block;">@Globals.currentEMWMSaison</h2>
                             <span class="ml-3">
                                 <RadzenButton title="@Localizer["Neuanlage EM-Spiel"].Value" Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" ButtonStyle="ButtonStyle.Primary" />
@@ -103,7 +107,7 @@ else
                 </div>
                 <div class="dropdown" style="display:inline">
 
-                    <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Style="margin-left: 3px;" Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
+                    <RadzenButton title="@Localizer["Vereine EMWM"].Value" Click=@(args => OnClickEMWM("Primary icon button")) Style="margin-left: 3px;display:none;" Text="@Localizer["Vereine EMWM"].Value" ButtonStyle="ButtonStyle.Primary" />
                     <RadzenButton title="@Localizer["Einlesen"].Value" style="margin-left: 5px;" id="btnEinlesen" class="btn btn-primary pull-right" Text="@Localizer["Einlesen"].Value" Click="@GetDataFromOpenLgaDB">
                     </RadzenButton>
                     <RadzenButton title=@Localizer["Saison und Runde wählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
@@ -119,7 +123,8 @@ else
                         <div class="form-group row">
                             <div class="col-sm-12">
                                 <RadzenCard style="flex:1;margin:0px;">
-                                    <RadzenButton Text="Export XLS" Icon="grid_on" Click="@(args => Export("excel"))" class="mb-4 me-2" /><RadzenButton Text="Export CSV" Icon="wrap_text" Click="@(args => Export("csv"))" class="mb-4" />
+                                    <RadzenButton Text="Export XLS" Icon="grid_on" Style="display:none;" Click="@(args => Export("excel"))" class="mb-4 me-2" />
+                                    <RadzenButton Text="Export CSV" Icon="wrap_text" Style="display:none;" Click="@(args => Export("csv"))" class="mb-4" />
                                     <RadzenDataGrid @ref="grid" Data="@EMWMSpieltage" EmptyText="Keine Daten zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                     AllowPaging="true" AllowSorting="false" AllowFiltering="false"
                                                     TItem="PokalergebnisCLSpieltag" Visible="true" Responsive=true AllowColumnResize="true"

@@ -162,6 +162,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Löschen" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
   <data name="Nach Oben" xml:space="preserve">
     <value>Nach Oben</value>
   </data>

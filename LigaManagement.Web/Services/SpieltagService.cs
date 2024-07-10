@@ -110,6 +110,25 @@ namespace LigaManagerManagement.Web.Services
                 return null;
             }
         }
+
+        public async Task<Spieltag> UpdateSpieltagL3(Spieltag updatedSpieltag)
+        {
+            return await httpClient.PutJsonAsync<Spieltag>("api/spieltageL3", updatedSpieltag);
+        }
+
+        public async Task<Spieltag> CreateSpieltagL3(Spieltag newSpieltag)
+        {
+            try
+            {
+                return await httpClient.PostJsonAsync<Spieltag>("api/spieltageL3", newSpieltag);
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
+                return null;
+            }
+        }
     }
 
 

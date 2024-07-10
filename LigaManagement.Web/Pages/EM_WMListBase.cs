@@ -173,65 +173,7 @@ namespace LigaManagement.Web.Pages
 
                 VisibleBtnNew = "hidden";
 
-                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
-                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982" 
-                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970") && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966" 
-                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962")
-                {
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "inline-block;";
-                    VisibleTable3 = "inline-block;";
-                    VisibleTableWM = "inline-block;";
-                }
-                else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1990"
-                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1982"))
-                {
-
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "inline-block;";
-                    VisibleTable3 = "inline-block;";
-                    VisibleTableWM = "none;";
-                }
-                else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970") 
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962")
-                {
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "inline-block;";
-                    VisibleTable3 = "none;";
-                    VisibleTableWM = "none;";
-                }
-                else if (Globals.currentEMWMSaison.IndexOf("1980") > -1 || Globals.currentEMWMSaison.IndexOf("1984") > -1 || Globals.currentEMWMSaison.IndexOf("1988") > -1 ||
-                        Globals.currentEMWMSaison.IndexOf("1992") > -1)
-                {
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "none;";
-                    VisibleTable3 = "none;";
-                    VisibleTableWM = "none;";
-                }
-                else if (Globals.currentEMWMSaison.IndexOf("1996") > -1 || Globals.currentEMWMSaison.IndexOf("2000") > -1 || Globals.currentEMWMSaison.IndexOf("2004") > -1
-                   || Globals.currentEMWMSaison.IndexOf("2008") > -1 || Globals.currentEMWMSaison.IndexOf("2012") > -1)
-                {
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "inline-block;";
-                    VisibleTable3 = "none;";
-                    VisibleTableWM = "none;";
-                }
-                else if (Globals.currentEMWMSaison.IndexOf("1972") > -1 || Globals.currentEMWMSaison.IndexOf("1968") > -1 || Globals.currentEMWMSaison.IndexOf("1964") > -1
-                   || Globals.currentEMWMSaison.IndexOf("1960") > -1)
-                {
-                    VisibleTable = "none;";
-                    VisibleTable2 = "none;";
-                    VisibleTable3 = "none;";
-                    VisibleTableWM = "none;";
-                }
-                else
-                {
-                    VisibleTable = "inline-block;";
-                    VisibleTable2 = "inline-block;";
-                    VisibleTable3 = "inline-block;";
-                    VisibleTableWM = "none;";
-                }
+                
 
                 //if (Globals.currentEMWMRunde != null)
                     OnClickHandler();
@@ -559,7 +501,7 @@ namespace LigaManagement.Web.Pages
                 if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"
                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970") && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
-                     && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962")
+                     && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958")
                 {
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
@@ -569,7 +511,6 @@ namespace LigaManagement.Web.Pages
                 else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1990"
                     && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1986" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1982"))
                 {
-
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";
                     VisibleTable3 = "inline-block;";
@@ -577,7 +518,8 @@ namespace LigaManagement.Web.Pages
                 }
                 else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970")
                     || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962")
+                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962"
+                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958")
                 {
                     VisibleTable = "inline-block;";
                     VisibleTable2 = "inline-block;";

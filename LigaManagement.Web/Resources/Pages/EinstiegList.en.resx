@@ -141,6 +141,9 @@
   <data name="Datum" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="Eingeloggter Benutzer" xml:space="preserve">
+    <value>Logged in User</value>
+  </data>
   <data name="Heim" xml:space="preserve">
     <value>Home</value>
   </data>

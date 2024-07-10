@@ -5,16 +5,40 @@
 @inherits LigaManagerManagement.Web.Pages.EditKaderSpielerBase
 @inject LigaManagement.Web.Services.Contracts.IKaderService _KaderService
 @inject NavigationManager _navigationManager
-
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject NotificationService NotificationService
 
 <head>
 
 </head>
 
+<style type="text/css">
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+    .rz-label {        
+        margin-left: 0px !important;
+        padding-left: 20px !important;
+    }
+
+   @@media (max-width: 767px) {
+        .rz-label {
+            margin-left: 0px !important;
+            padding-left: 0px !important;
+        }
+    }
+</style>
+
 <div class="container">
     <RadzenCard class="m-0 mb-3 rz-shadow-3">
         <div class="d-flex flex-row">
             <div class="card-body">
+                <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                <br />
+                <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                 <h2>@Titel @Localizer["Kader Spieler"].Value</h2>
             </div>
         </div>
@@ -24,39 +48,39 @@
         <div class="col-12">
             <EditForm Model="Kader" OnValidSubmit="UpsertKader">
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Verein"].Value</label>
-                    <select id="cboVerein" class="form-control col-sm-9" @onchange="VereinChange">
+                    <RadzenLabel Text="Verein" class="col-md-3 col-xs-12" Component="cboVerein">@Localizer["Verein"].Value</RadzenLabel>
+                    <select id="cboVerein" class="form-control col-md-9 col-xs-12" @onchange="VereinChange">
                         <option value="" selected>@Vereinsname1</option>
                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                         {
                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                         }
                     </select>
-                    <label style="display:@DisplayErrorVerein;color:red;" class="form-control col-sm-9" id="lblErrorVerein">Verein auswählen</label>
+                    <label style="display:@DisplayErrorVerein;color:red;" class="form-control col-md-9 col-xs-12" id="lblErrorVerein">Verein auswählen</label>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Rückennummer"].Value</label>
-                    <InputNumber required id="txtRueckennummer" @bind-Value="Kader.Rueckennummer" class="form-control col-sm-9"></InputNumber>
+                    <RadzenLabel Text="Rückennummer" class="col-md-3 col-xs-12" Component="txtRueckennummer">@Localizer["Rückennummer"].Value</RadzenLabel>
+                    <InputNumber required id="txtRueckennummer" @bind-Value="Kader.Rueckennummer" class="form-control col-md-9 col-xs-12"></InputNumber>
                     <ValidationMessage For="()=>Kader.Rueckennummer"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Spielername"].Value</label>
-                    <InputText required id="txtSpielerName" @bind-Value="Kader.SpielerName" class="form-control col-sm-9"></InputText>
+                    <RadzenLabel Text="SpielerName" class="col-md-3 col-xs-12" Component="txtSpielerName">@Localizer["SpielerName"].Value</RadzenLabel>
+                    <InputText required id="txtSpielerName" @bind-Value="Kader.SpielerName" class="form-control col-md-9 col-xs-6"></InputText>
                     <ValidationMessage For="()=>Kader.SpielerName"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Vorname"].Value</label>
-                    <InputText required id="txtVorname" @bind-Value="Kader.Vorname" class="form-control col-sm-9"></InputText>
+                    <RadzenLabel Text="Vorname" class="col-md-3 col-xs-12" Component="txtVorname">@Localizer["Vorname"].Value</RadzenLabel>
+                    <InputText required id="txtVorname" @bind-Value="Kader.Vorname" class="form-control col-md-9 col-xs-12"></InputText>
                     <ValidationMessage For="()=>Kader.Vorname"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Geburtsdatum"].Value</label>
-                    <InputDate required id="txtGeburtsdatum" @bind-Value="Kader.Geburtsdatum" class="form-control col-sm-9"></InputDate>
+                    <RadzenLabel Text="Geburtsdatum" class="col-md-3 col-xs-12" Component="txtGeburtsdatum">@Localizer["Geburtsdatum"].Value</RadzenLabel>
+                    <InputDate required id="txtGeburtsdatum" @bind-Value="Kader.Geburtsdatum" class="form-control col-md-9 col-xs-12"></InputDate>
                     <ValidationMessage For="()=>Kader.Geburtsdatum"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Position"].Value</label>
-                    <select id="cboPosition" style="display:inline-block;" class="form-control col-sm-9" @onchange="PositionChange">
+                    <RadzenLabel Text="Position" class="col-md-3 col-xs-12" Component="cboStadion">@Localizer["Position"].Value</RadzenLabel>
+                    <select id="cboPosition" style="display:inline-block;" class="form-control col-md-9 col-xs-12" @onchange="PositionChange">
                         <option value="@PositionsNr" selected required>Position auswählen</option>
                         <option value="1">Torhüter</option>
                         <option value="2">Abwehr</option>
@@ -66,29 +90,29 @@
                     <ValidationMessage For="()=>Kader.PositionsNr"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Einsätze"].Value</label>
-                    <InputNumber required id="txtEinsaetze" @bind-Value="Kader.Einsaetze" class="form-control col-sm-9"></InputNumber>
+                    <RadzenLabel Text="Einsätze" class="col-md-3 col-xs-12" Component="txtEinsaetze">@Localizer["Einsätze"].Value</RadzenLabel>
+                    <InputNumber required id="txtEinsaetze" @bind-Value="Kader.Einsaetze" class="form-control col-md-9 col-xs-12"></InputNumber>
                     <ValidationMessage For="()=>Kader.Einsaetze"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Tore"].Value</label>
-                    <InputNumber required id="txtTore" @bind-Value="Kader.Tore" class="form-control col-sm-9"></InputNumber>
+                    <RadzenLabel Text="tore" class="col-md-3 col-xs-12" Component="txtTore">@Localizer["Tore"].Value</RadzenLabel>
+                    <InputNumber required id="txtTore" @bind-Value="Kader.Tore" class="form-control col-md-9 col-xs-12"></InputNumber>
                     <ValidationMessage For="()=>Kader.Tore"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">Im Verein seit</label>
-                    <InputDate required id="txtImVereinSeit" @bind-Value="Kader.ImVereinSeit" class="form-control col-sm-9"></InputDate>
+                    <RadzenLabel Text="Im Verein seit" class="col-md-3 col-xs-12" Component="txtImVereinSeit">@Localizer["Im Verein seit"].Value</RadzenLabel>
+                    <InputDate required id="txtImVereinSeit" @bind-Value="Kader.ImVereinSeit" class="form-control col-md-9 col-xs-12"></InputDate>
                     <ValidationMessage For="()=>Kader.ImVereinSeit"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-3">@Localizer["Abloesesumme"].Value</label>
-                    <InputNumber id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-sm-9"></InputNumber>
+                    <RadzenLabel Text="Ablösesumme" class="col-md-3 col-xs-12" Component="txtAbloesesumme">@Localizer["Ablösesumme"].Value</RadzenLabel>
+                    <InputNumber id="txtAbloesesumme" @bind-Value="Kader.Abloesesumme" class="form-control col-md-9 col-xs-12"></InputNumber>
                     <ValidationMessage For="()=>Kader.Abloesesumme"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <RadzenLabel Text="lblAktiv" class="col-sm-3" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
-                    <RadzenCheckBox @bind-Value="Kader.Aktiv" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkAktiv" />
-                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+                    <RadzenLabel Text="Aktiv" class="col-sm-3" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Kader.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                     </RadzenColumn>
                     <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
                 </div>
@@ -96,8 +120,10 @@
                     <RadzenButton title="@Localizer["Speichert Spieler ab"].Value" style="margin-left:5px;" id="btnSpeichern" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                         <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                     </RadzenButton>
+                    <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
+                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                    </RadzenButton>
                     <RadzenButton title="@Localizer["Zurück zu Kaderübersicht"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
-
                     </RadzenButton>
                 </div>
             </EditForm>
@@ -139,6 +165,12 @@
     }
     private async Task UpsertKader()
     {
+          if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Sie haben nicht das Recht Kaders-Spieler zu ändern bzw. neu anzulegen." });
+            return;
+        }
+
         Kader.SaisonId = Globals.SaisonID;
         if (Globals.currentLiga == "Bundesliga")
             Kader.LigaID = 1;

@@ -18,6 +18,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace LigamanagerManagement.Web.Pages
 {
@@ -155,6 +157,8 @@ namespace LigamanagerManagement.Web.Pages
                     verList = vereineSaison.ToList().Where(x => x.GroupID1966 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "WM 1962")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1962 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1958")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1958 > 0).ToList();
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -215,14 +219,16 @@ namespace LigamanagerManagement.Web.Pages
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982" 
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970") 
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962")                
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962"
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958")                
                     sGroupGHVisible = "inline-block;"; 
                  else
                    sGroupGHVisible = "none;";
 
                 if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970" 
                     || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966" 
-                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962")))
+                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962"
+                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958"))))
                     sGroupEFVisible = "none;";
                 else
                     sGroupEFVisible = "inline-block;";
@@ -318,14 +324,17 @@ namespace LigamanagerManagement.Web.Pages
 
         protected async Task<bool> Confirm()
         {
-            string message = string.Empty;
+            string message;
 
-            if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+            if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
             {
-                message = "Sie können dieses Spiel nicht löschen!";
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Löschen EM-Spiel", Detail = message });
+                message = "Sie können dieses Spiel nicht löschen";
+                await JSRuntime.InvokeVoidAsync("alert", message);
+
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Sie können diese Spiel nicht löschen", Detail = "Löschen" });
                 return false;
             }
+            
             message = Localizer["Möchten Sie dieses Spiel tatsächlich löschen?"].Value;
 
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
@@ -334,9 +343,10 @@ namespace LigamanagerManagement.Web.Pages
             {
                 await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
 
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                message = "Spiel wurde gelöscht";
+                await JSRuntime.InvokeVoidAsync("alert", message);
             }
-
 
             return result;
         }

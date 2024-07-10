@@ -14,6 +14,8 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Spieltag> GetSpieltagL3(int id);
         Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag);
         Task<Spieltag> CreateSpieltag(Spieltag newSpieltag);
+        Task<Spieltag> UpdateSpieltagL3(Spieltag updatedSpieltag);
+        Task<Spieltag> CreateSpieltagL3(Spieltag newSpieltag);
         Task DeleteSpieltag(int? id);        
     }
 }

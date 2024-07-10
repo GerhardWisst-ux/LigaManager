@@ -66,7 +66,7 @@ namespace LigaManagement.Api.Controllers
                     return BadRequest();
                 }
                
-                var createdSpieltag = await SpieltagRepository.AddSpieltag(spieltag);
+                var createdSpieltag = await SpieltagRepository.AddSpieltagL3(spieltag);
 
                 return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
                     createdSpieltag);
@@ -90,7 +90,7 @@ namespace LigaManagement.Api.Controllers
                     return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
                 }
 
-                return await SpieltagRepository.UpdateSpieltag(Spieltag);
+                return await SpieltagRepository.UpdateSpieltagL3(Spieltag);
             }
             catch (Exception ex)
             {
@@ -112,7 +112,7 @@ namespace LigaManagement.Api.Controllers
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagRepository.DeleteSpieltag(id);
+                return await SpieltagRepository.DeleteSpieltagL3(id);
             }
             catch (Exception ex)
             {

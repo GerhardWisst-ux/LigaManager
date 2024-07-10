@@ -10,6 +10,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Verein>> GetVereine();
 
         Task<IEnumerable<VereinAktSaison>> GetVereineCL();
+        Task<IEnumerable<VereinAktSaison>> GetVereineL3();
         Task<IEnumerable<VereinAktSaison>> GetVereineEMWM();
         Task<Verein> GetVerein(int id);
         Task<VereinAktSaison> GetVereinCL(int id);

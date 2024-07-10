@@ -500,6 +500,117 @@ namespace LigaManagerManagement.Api.Models
             }
             
         }
+
+        public async Task<Spieltag> AddSpieltagL3(Spieltag spieltag)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO SpieltageL3 ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
+                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
+
+                cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);
+                cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
+                cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
+                cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
+                cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
+                cmd.Parameters.AddWithValue("@Verein1", spieltag.Verein1);
+                cmd.Parameters.AddWithValue("@Verein2", spieltag.Verein2);
+                cmd.Parameters.AddWithValue("@Tore1_Nr", spieltag.Tore1_Nr);
+                cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
+                cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
+                cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
+                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return spieltag;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<Spieltag> UpdateSpieltagL3(Spieltag spieltag)
+        {
+            int bAbgeschlossen;
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                //cmd.CommandText = "UPDATE Spieltage (SpieltagNr,Saison,SaisonID,LigaID,Verein1_Nr,Verein1,Verein2_Nr,Verein2,Tore1_Nr,Tore2_Nr,Datum,Ort,Schiedrichter,Abgeschlossen,Zuschauer)" +
+                //" VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
+
+                //cmd.CommandText = "UPDATE Spieltage(Datum)" +
+                //" VALUES(@Datum)";
+
+                if (spieltag.Abgeschlossen == false)
+                    bAbgeschlossen = 0;
+                else
+                    bAbgeschlossen = -1;
+
+                cmd.CommandText = "UPDATE [dbo].[SpieltageL3] SET " +
+                        " [SpieltagNr] = " + spieltag.SpieltagNr +
+                        ",[Saison] = '" + spieltag.Saison + "'" +
+                        ",[SaisonID] = " + spieltag.SaisonID +
+                        ",[LigaID] = " + spieltag.LigaID +
+                        ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
+                        ",[Verein1] = '" + spieltag.Verein1 + "'" +
+                        ",[Verein2_Nr] = " + spieltag.Verein2_Nr +
+                        ",[Verein2] = '" + spieltag.Verein2 + "'" +
+                        ",[Tore1_Nr] = " + spieltag.Tore1_Nr +
+                        ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
+                        ",[Datum] = '" + spieltag.Datum + "'" +
+                        ",[Ort] = '" + spieltag.Ort + "'" +
+                        ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
+                        ",[Abgeschlossen] =" + bAbgeschlossen +
+                        ",[Zuschauer] =" + spieltag.Zuschauer +
+                        " WHERE  [SpieltagId] = " + spieltag.SpieltagId;               
+
+                cmd.ExecuteNonQuery();
+
+                conn.Close();
+
+                return spieltag;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<Spieltag> DeleteSpieltagL3(int SpieltagId)
+        {
+            SqlConnection conn = new SqlConnection(Globals.connstring);
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM [dbo].[SpieltageL3] Where SpieltagId= @SpieltagId";
+
+            cmd.Parameters.AddWithValue("@Id", SpieltagId);
+
+            cmd.ExecuteNonQuery();
+
+            conn.Close();
+
+            return null;
+        }
     }
 }
 

@@ -266,6 +266,27 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Doppelpunkt = ":";
                 }
             }
+           else if (Globals.LigaNummer ==3)
+            {
+                Vereine = await VereineService.GetVereineL3();
+
+                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
+
+                for (int i = 0; i < Spieltage.Count(); i++)
+                {
+                    var columns = Spieltage.ElementAt(i);
+
+                    if (Vereine == null)
+                        throw new Exception("Vereine sind null");
+
+                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
+                    columns.Verein1Anzeige = columns.Verein1;
+                    columns.Verein2Anzeige = columns.Verein2;
+                    columns.Doppelpunkt = ":";
+                }
+            }
             else if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
             {
                 var vereineSaison = await SpieltagService.GetVereineL3();

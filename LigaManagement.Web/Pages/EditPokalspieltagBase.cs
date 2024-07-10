@@ -304,15 +304,17 @@ namespace LigamanagerManagement.Web.Pages
 
         protected async Task<bool> Confirm()
         {
-            string message = string.Empty;
+            string message;
 
-            if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+            if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
             {
-                message = "Sie können dieses Pokalspiel nicht löschen!";
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Löschen EM-Spiel", Detail = message });
+                message = "Sie können dieses Pokalspiel nicht löschen";
+                await JSRuntime.InvokeVoidAsync("alert", message);
+
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Sie können dieses Pokalspiel nicht löschen", Detail = "Löschen" });
                 return false;
             }
-            
+
             message = Localizer["Möchten Sie dieses Pokalspiel tatsächlich löschen?"].Value;
             var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
 
@@ -320,8 +322,10 @@ namespace LigamanagerManagement.Web.Pages
             {
                 await PokalergebnisseService.DeletePokalergebnis(Convert.ToInt32(Id));
 
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Pokalspiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Pokalspiel"].Value, Detail = Localizer["Gelöscht"].Value });
             }
+            message = "Pokalspiel wurde gelöscht";
+            await JSRuntime.InvokeVoidAsync("alert", message);
 
             return result;
         }

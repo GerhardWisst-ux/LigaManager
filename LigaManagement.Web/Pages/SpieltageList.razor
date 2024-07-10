@@ -1,5 +1,6 @@
 @page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 @inject DialogService DialogService
 @inject NavigationManager _navigationManager
 
@@ -78,9 +79,11 @@ else
                 <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                            <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <br />
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"].Value</h2>
 
                         </div>
@@ -163,15 +166,7 @@ else
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
                             </RadzenDataGridColumn>
-                            @if (Globals.LigaNummer == 3)
-                            {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                                    <Template Context="data">
-                                        <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                    </Template>
-                                </RadzenDataGridColumn>
-                            }
-                            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                            @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
                                 <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">
@@ -191,16 +186,7 @@ else
                             <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
 
-                            @if (Globals.LigaNummer == 3)
-                            {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                                    <Template Context="data">
-                                        <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                    </Template>
-                                </RadzenDataGridColumn>
-                            }
-
-                            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                            @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
                                 <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                     <Template Context="data">

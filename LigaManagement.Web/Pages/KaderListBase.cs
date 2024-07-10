@@ -13,6 +13,7 @@ using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Radzen;
 
 namespace LigaManagerManagement.Web.Pages
@@ -52,6 +53,9 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public IStringLocalizer<KaderList> Localizer { get; set; }
+
+        [Inject]
+        IJSRuntime JSRuntime { get; set; }
         protected override async Task OnInitializedAsync()
         {
 
@@ -71,7 +75,7 @@ namespace LigaManagerManagement.Web.Pages
             var verein = await VereineService.GetVerein(Globals.KaderVereinNr);
             Vereinsname1 = verein.Vereinsname1;
             Verein1_Nr = verein.VereinNr.ToString();
-                        
+
             Vereine = (await VereineService.GetVereine()).ToList();
             var vereineSaison = await VereineService.GetVereineSaison();
 
@@ -84,7 +88,7 @@ namespace LigaManagerManagement.Web.Pages
             }
 
             DisplayElements = "none";
-            DisplayErrorSaison = "none";   
+            DisplayErrorSaison = "none";
             Globals.bVisibleNavMenuElements = true;
         }
 
@@ -114,7 +118,7 @@ namespace LigaManagerManagement.Web.Pages
                 {
                     Kader.PositionsNr = 1;
                     Kader.Position = "Torhüter";
-                }                    
+                }
                 else if (Position == "2")
                 {
                     Kader.PositionsNr = 2;
@@ -132,16 +136,45 @@ namespace LigaManagerManagement.Web.Pages
                 }
                 else
                 {
-                    Kader.PositionsNr =null;
+                    Kader.PositionsNr = null;
                     Kader.Position = "";
                 }
-                
+
                 Kader.VereinID = Convert.ToInt32(Verein1_Nr);
 
                 StateHasChanged();
             }
         }
-    }    
+
+        protected async Task<bool> Confirm()
+        {
+            string message;
+
+            if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+            {
+                message = "Sie können diesen Spieler nicht löschen";
+                await JSRuntime.InvokeVoidAsync("alert", message);
+
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Sie können diese Spiel nicht löschen", Detail = "Löschen" });
+                return false;
+            }
+
+            message = Localizer["Möchten Sie diesen Spieler tatsächlich löschen?"].Value;
+
+            var result = await JSRuntime.InvokeAsync<bool>("confirm", new[] { message });
+
+            if (result)
+            {
+                await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
+
+                //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });
+                message = "Spieler wurde gelöscht";
+                await JSRuntime.InvokeVoidAsync("alert", message);
+            }
+
+            return result;
+        }
+    }
 }
 
 public class DisplayKaderVerein

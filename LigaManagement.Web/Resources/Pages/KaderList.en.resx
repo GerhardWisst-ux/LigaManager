@@ -165,6 +165,9 @@
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
+  <data name="Löschen" xml:space="preserve">
+    <value>Delete</value>
+  </data>
   <data name="Nach Oben" xml:space="preserve">
     <value>Got To top</value>
   </data>

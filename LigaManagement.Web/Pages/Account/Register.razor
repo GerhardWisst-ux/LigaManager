@@ -1,58 +1,75 @@
-﻿@page "/Ligamanger/account/register"
+﻿@page "/Ligamanager/account/register"
 @using LigaManagement.Api.Models
-@inject LigaManagerManagement.Web.Services.BlazorSchoolAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
+@using Microsoft.Extensions.Localization
+@using LigaManagement.Web.Services.Contracts
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider BlazorSchoolAuthenticationStateProvider
 @inject NavigationManager NavigationManager
+@inject IStringLocalizer<Register> Localizer
 
 <div class="card">
-    <h4 class="card-header">Register</h4>
+    <h4 class="card-header">@Localizer["Registrieren"].Value</h4>
     <div class="card-body">
-        <EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+        <EditForm autocomplete="off" Model="@modelReg" OnValidSubmit="OnValidSubmit">
             <DataAnnotationsValidator />
             <div class="form-group">
-                <label>Vorname</label>
-                <InputText @bind-Value="model.FirstName" class="form-control" />
-                <ValidationMessage For="@(() => model.FirstName)" />
+                <label>@Localizer["Benutzername"].Value</label>
+                <InputText id="regUsername" name ="regUsername" @bind-Value ="modelReg.Username" autocomplete="off" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.Username)" />
             </div>
             <div class="form-group">
-                <label>Nachname</label>
-                <InputText @bind-Value="model.LastName" class="form-control" />
-                <ValidationMessage For="@(() => model.LastName)" />
+                <label>@Localizer["Passwort"].Value</label>
+                <InputText id="regPasswort" name="regPasswort" @bind-Value="modelReg.Password" autocomplete="off" type="password" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.Password)" />
             </div>
             <div class="form-group">
-                <label>Benutzername</label>
-                <InputText @bind-Value="model.Username" class="form-control" />
-                <ValidationMessage For="@(() => model.Username)" />
+                <label>@Localizer["Vorname"].Value</label>
+                <InputText @bind-Value="modelReg.FirstName" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.FirstName)" />
             </div>
             <div class="form-group">
-                <label>Passwort</label>
-                <InputText @bind-Value="model.Password" type="password" class="form-control" />
-                <ValidationMessage For="@(() => model.Password)" />
+                <label>@Localizer["Nachname"].Value</label>
+                <InputText @bind-Value="modelReg.LastName" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.LastName)" />
+            </div>
+            <div class="form-group">
+                <label>@Localizer["Ort"].Value</label>
+                <InputText @bind-Value="modelReg.Location" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.Location)" />
+            </div>
+            <div class="form-group">
+                <label>@Localizer["Mail"].Value</label>
+                <InputText @bind-Value="modelReg.Mail" class="form-control" />
+                <ValidationMessage For="@(() => modelReg.Mail)" />
             </div>
             <button disabled="@loading" class="btn btn-primary">
-                @if (loading) 
+                @if (loading)
                 {
                     <span class="spinner-border spinner-border-sm mr-1"></span>
                 }
-                Register
+                @Localizer["Registrieren"].Value
             </button>
-            <NavLink href="Ligamanager/account/login" class="btn btn-link">Abbrechen</NavLink>
+            <NavLink href="Ligamanager/account/login" class="btn btn-link">@Localizer["Abbrechen"].Value</NavLink>
         </EditForm>
     </div>
 </div>
 
 @code {
-    private User model = new User();
+    User modelReg = new User();
+
     private bool loading;
+
+    // [Inject]
+    // public IUserService UserService { get; set; }
 
     private async void OnValidSubmit()
     {
         // reset alerts on submit
         //AlertService.Clear();
-        
+
         loading = true;
         try
         {
-            // await AccountService.Register(model);
+            // var user = UserService.CreateUser(model);
             // AlertService.Success("Registration successful", keepAfterRouteChange: true);
             NavigationManager.NavigateTo("Ligamanager/account/login");
         }
@@ -62,5 +79,13 @@
             loading = false;
             StateHasChanged();
         }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        modelReg.Username = "";
+        modelReg.Password = "";
+
+        StateHasChanged();
     }
 }

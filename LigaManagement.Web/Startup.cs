@@ -210,8 +210,8 @@ namespace LigaManagement.Web
                 });
 
                 services.AddScoped<BlazorSchoolUserService>();
-                services.AddScoped<BlazorSchoolAuthenticationStateProvider>();
-                services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<BlazorSchoolAuthenticationStateProvider>());
+                services.AddScoped<LigaManagerAuthenticationStateProvider>();
+                services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<LigaManagerAuthenticationStateProvider>());
 
                 //services.AddScoped<RadzenChart>();
                 services.AddScoped<DialogService>();
