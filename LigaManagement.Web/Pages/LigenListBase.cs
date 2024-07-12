@@ -19,6 +19,7 @@ namespace LigaManagerManagement.Web.Pages
     public class LigenListBase : ComponentBase
     {
         public string Liganame = "";
+        public string Ausrichterland = "";
         public Density Density = Density.Compact;
 
         [Inject]
@@ -60,8 +61,10 @@ namespace LigaManagerManagement.Web.Pages
             LigenList = (await LigaService.GetLigen()).ToList();
 
             var liga = (await LigaService.GetLiga(Globals.LigaID));
+
             Liganame = liga.Liganame;
-                       
+            
+
             Globals.bVisibleNavMenuElements = true;
 
         }

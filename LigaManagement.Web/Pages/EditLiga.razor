@@ -10,7 +10,7 @@
 
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
 
 </head>
@@ -45,7 +45,7 @@
                         <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                         <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                         <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                        <h2>@Titel @Localizer["Liga"].Value</h2>
+                        <h2>@Titel</h2>
                     </div>
                 </div>
             </RadzenCard>
@@ -74,16 +74,29 @@
                 <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control  col-md-9 col-xs-12"></InputNumber>
                 <ValidationMessage For="()=>Liga.Saisonen"></ValidationMessage>
             </div>
-            <div class="form-group row">
-                <RadzenLabel Text="Rekordspieler" class="col-md-3 col-xs-12" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
-                <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputText>
-                <ValidationMessage For="()=>Liga.Rekordspieler"></ValidationMessage>
-            </div>
-            <div class="form-group row">
-                <RadzenLabel Text="Spiele Rekordspieler" class="col-md-3 col-xs-12" Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
-                <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputNumber>
-                <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
-            </div>
+            @if (Ausrichterland.ToString().Trim() =="")
+            {
+                <div class="form-group row">
+                    <RadzenLabel Text="Rekordspieler" class="col-md-3 col-xs-12" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
+                    <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputText>
+                    <ValidationMessage For="()=>Liga.Rekordspieler"></ValidationMessage>
+                </div>
+                <div class="form-group row">
+                    <RadzenLabel Text="Spiele Rekordspieler" class="col-md-3 col-xs-12" Visible Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
+                    <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputNumber>
+                    <ValidationMessage For="()=>Liga.Spiele_Rekordspieler"></ValidationMessage>
+                </div>
+            }
+            else
+            {
+                <div class="form-group row">
+                    <RadzenLabel Text="Ausrichterland" class="col-md-3 col-xs-12" Component="txtAusrichterland">@Localizer["Ausrichterland"].Value</RadzenLabel>
+                    <InputText required id="txtAusrichterland" @bind-Value="Liga.Ausrichterland" class="form-control  col-md-9 col-xs-12"></InputText>
+                    <ValidationMessage For="()=>Liga.Ausrichterland"></ValidationMessage>
+                </div>                
+            }
+
+            
             <div class="form-group row my-4">
                 <RadzenLabel Text="lblAktiv" class="col-md-3 col-xs-12" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
                 <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkAktiv" />
@@ -117,6 +130,7 @@
 @code {
     [Parameter]
     public string Id { get; set; }
+    public string Ausrichterland = "";
     private Liga Liga { get; set; } = new Liga();
     private string Titel { get; set; }
     public bool IsLoading { get; set; }
@@ -133,7 +147,7 @@
                 StateHasChanged();
             }
             else
-            {
+            {   
                 Titel = @Localizer["BearbeitenLiga"].Value;
                 await LoadLiga();
             }
@@ -144,6 +158,7 @@
     {
         IsLoading = true;
         Liga = await _Ligaservice.GetLiga(Convert.ToInt32(Id));
+        Ausrichterland = Liga.Ausrichterland;
         IsLoading = false;
         StateHasChanged();
     }
@@ -161,7 +176,7 @@
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Liganame nicht angegeben.Speichern nicht möglich." });
             bError = true;
-        }       
+        }
         else if (Liga.Verband == null)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Verband nicht angegeben.Speichern nicht möglich." });
@@ -225,7 +240,10 @@
         }
         NotificationService.Notify(new NotificationMessage
             {
-                Severity = NotificationSeverity.Info, Summary = Localizer["BearbeitenLiga"].Value, Detail = Localizer["Abgespeichert"].Value });
+                Severity = NotificationSeverity.Info,
+                Summary = Localizer["BearbeitenLiga"].Value,
+                Detail = Localizer["Abgespeichert"].Value
+            });
         // _navigationManager.NavigateTo("ligen");
     }
     protected async Task<bool> Confirm()

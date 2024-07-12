@@ -79,7 +79,15 @@ else
 
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="SaisonID" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                @if (data.LandID == 57)
+                                {
+                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                }
+                                else
+                                {
+                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                }
+
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

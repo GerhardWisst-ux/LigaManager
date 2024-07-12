@@ -490,6 +490,8 @@ namespace LigaManagement.Web.Pages
         {
             try
             {
+                int BisSpieltag = 6;
+
                 if (SaisonChoosed == 0 && RundeChoosed == null)
                 {
                     DisplayErrorSaison = "block";
@@ -517,6 +519,49 @@ namespace LigaManagement.Web.Pages
                 ErgebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
 
                 ErgebnisseCLSpieltage = ErgebnisseCLSpieltage.ToList().Where(x => x.Saison == Globals.currentCLSaison).Where(x => x.Runde == RundeChoosed);
+
+                if (ErgebnisseCLSpieltage.Count() == 0)
+                {
+                    TabellenB = null;
+                    TabellenC = null;
+                    TabellenD = null;
+                    TabellenE = null;
+                    TabellenF = null;
+                    TabellenG = null;
+                    TabellenH = null;
+
+                    VisibleBtnNew = NewButtonVisible();
+
+                    Globals.bVisibleNavMenuElements = true;
+                    StateHasChanged();
+                    return;
+                }
+
+                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3" || RundeChoosed == "G4" || RundeChoosed == "G5" || RundeChoosed == "G6")
+                {
+                    if (RundeChoosed == "G1")
+                        BisSpieltag = 1;
+                    else if (RundeChoosed == "G2")
+                        BisSpieltag = 2;
+                    else if (RundeChoosed == "G3")
+                        BisSpieltag = 3;
+                    else if (RundeChoosed == "G4")
+                        BisSpieltag = 4;
+                    else if (RundeChoosed == "G5")
+                        BisSpieltag = 5;
+                    else if (RundeChoosed == "G6")
+                        BisSpieltag = 6;
+
+                    TabellenA = await TabelleService.BerechneTabelleCL(SpieltagService, 1, BisSpieltag);
+                    TabellenB = await TabelleService.BerechneTabelleCL(SpieltagService, 2, BisSpieltag);
+                    TabellenC = await TabelleService.BerechneTabelleCL(SpieltagService, 3, BisSpieltag);
+                    TabellenD = await TabelleService.BerechneTabelleCL(SpieltagService, 4, BisSpieltag);
+                    TabellenE = await TabelleService.BerechneTabelleCL(SpieltagService, 5, BisSpieltag);
+                    TabellenF = await TabelleService.BerechneTabelleCL(SpieltagService, 6, BisSpieltag);
+                    TabellenG = await TabelleService.BerechneTabelleCL(SpieltagService, 7, BisSpieltag);
+                    TabellenH = await TabelleService.BerechneTabelleCL(SpieltagService, 8, BisSpieltag);
+                }
+            
 
                 VisibleBtnNew = NewButtonVisible();
 

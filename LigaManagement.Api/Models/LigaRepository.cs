@@ -37,8 +37,8 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand cmd = new SqlCommand
                 {
                     Connection = conn,
-                    CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM)" +
-                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Liganummer,@Aktiv,@LandID,@Rekordspieler,@Spiele_Rekordspieler,@EMWM)"
+                    CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM,AusrichterLand)" +
+                    " VALUES(@Liganame,@Verband,@Erstaustragung,@Saisonen,@Liganummer,@Aktiv,@LandID,@Rekordspieler,@Spiele_Rekordspieler,@EMWM,@AusrichterLand)"
                 };
 
                 cmd.Parameters.AddWithValue("@Liganame", liga.Liganame);
@@ -46,6 +46,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
                 cmd.Parameters.AddWithValue("@Saisonen", liga.Saisonen);
                 cmd.Parameters.AddWithValue("@Liganummer", liga.Liganummer);
+                cmd.Parameters.AddWithValue("@AusrichterLand", liga.Ausrichterland);
                 cmd.Parameters.AddWithValue("@Aktiv", sAktiv);
                 cmd.Parameters.AddWithValue("@LandID", liga.LandID);
                 if (liga.Rekordspieler != null)
@@ -110,6 +111,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = (DateTime)reader["Erstaustragung"];
+                        liga.Ausrichterland = reader["AusrichterLand"].ToString();
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
@@ -122,11 +124,10 @@ namespace LigaManagerManagement.Api.Models
                 conn.Close();
                 return liga;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
-                Debug.Print(ex.Message);
-
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
 
@@ -153,6 +154,7 @@ namespace LigaManagerManagement.Api.Models
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Verband = reader["Verband"].ToString();
                         liga.Erstaustragung = DateTime.Parse(reader["Erstaustragung"].ToString());
+                        liga.Ausrichterland = reader["AusrichterLand"].ToString();
                         liga.Liganame = reader["Liganame"].ToString();
                         liga.Saisonen = (int)reader["Saisonen"];
                         liga.Aktiv = bool.Parse(reader["Aktiv"].ToString());
@@ -200,11 +202,12 @@ namespace LigaManagerManagement.Api.Models
                 cmd.CommandText = "UPDATE [dbo].[Ligen] SET " +                    
                        "[Liganame] = '" + liga.Liganame + "'" +
                       ",[Verband] = '" + liga.Verband + "'" +                     
-                      ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +                      
+                      ",[Erstaustragung] = '" + liga.Erstaustragung + "'" +
                       ",[Saisonen] =" + liga.Saisonen +
                       ",[LandID] =" + liga.LandID +
                       ",[Liganummer] =" + liga.Liganummer +
                       ",[Rekordspieler] ='" + liga.Rekordspieler + "'" +
+                      ",[Ausrichterland] ='" + liga.Ausrichterland + "'" +
                       ",[Spiele_Rekordspieler] =" + liga.Spiele_Rekordspieler +
                       ",[Aktiv] = '" + sAktiv + "'" +
                       ",[EMWM] = '" + sEMWM + "'" +

@@ -35,8 +35,8 @@ namespace LigaManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, LandID, Saisonname,Liganame,Aktuell,Abgeschlossen,AnzahlVereine)" +
-                    " VALUES(@LigaID,@LandID, @Saisonname,@Liganame,@Aktuell,@Abgeschlossen,@AnzahlVereine)";
+                cmd.CommandText = "INSERT INTO [Saisonen] (LigaID, LandID, Saisonname,Liganame,Aktuell,Abgeschlossen,AnzahlVereine,AnzahlAbsteiger,AnzahlCL_Plaetze,AnzahlEL_Plaetze,Anzahl_Relegation)" +
+                    " VALUES(@LigaID,@LandID, @Saisonname,@Liganame,@Aktuell,@Abgeschlossen,@AnzahlVereine,@AnzahlAbsteiger,@AnzahlCL_Plaetze,@AnzahlEL_Plaetze,@Anzahl_Relegation)";
                                 
                 cmd.Parameters.AddWithValue("@LigaID", saison.LigaID);
                 cmd.Parameters.AddWithValue("@LandID", saison.LandID);
@@ -44,8 +44,12 @@ namespace LigaManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Liganame", saison.Liganame);
                 cmd.Parameters.AddWithValue("@Aktuell", bAktuell);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", bAbgeschlossen);
-                cmd.Parameters.AddWithValue("@AnzahlVereine", saison.AnzahlVereine);
-                
+                cmd.Parameters.AddWithValue("@AnzahlVereine", saison.AnzahlVereine);                
+                cmd.Parameters.AddWithValue("@AnzahlVereine", saison.Absteiger);
+                cmd.Parameters.AddWithValue("@AnzahlCL_Plaetze", saison.CL_League);
+                cmd.Parameters.AddWithValue("@AnzahlEL_Plaetze", saison.EL_League);
+                cmd.Parameters.AddWithValue("@AnzahlCF_Plaetze", saison.CF_League);
+
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -225,7 +229,7 @@ namespace LigaManagement.Api.Models
                     bAbgeschlossen = 1;
 
                 cmd.CommandText = "UPDATE [dbo].[Saisonen] SET " +                         
-                          " [Aktuell] =" + bAktuell +
+                          " [Aktuell] =" + bAktuell +                          
                           ",[AnzahlAbsteiger] = " + saison.Absteiger +
                           ",[AnzahlCL_Plaetze] =" + saison.CL_League +
                           ",[AnzahlCF_Plaetze] =" + saison.CF_League +

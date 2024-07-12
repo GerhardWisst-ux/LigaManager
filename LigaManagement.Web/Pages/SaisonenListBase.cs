@@ -69,7 +69,7 @@ namespace LigaManagerManagement.Web.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IStringLocalizer<SaisonenList> Localizer { get; set; }
+        public IStringLocalizer<EditSaison> Localizer { get; set; }
 
 
         protected override async Task OnInitializedAsync()

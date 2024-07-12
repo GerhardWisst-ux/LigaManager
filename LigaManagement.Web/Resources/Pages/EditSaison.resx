@@ -117,97 +117,61 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgeschlossen" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
   <data name="Abgespeichert" xml:space="preserve">
     <value>Abgespeichert</value>
+  </data>
+  <data name="Absteiger" xml:space="preserve">
+    <value>Absteiger</value>
   </data>
   <data name="Aktiv" xml:space="preserve">
     <value>Aktiv</value>
   </data>
-  <data name="Anzahl Ligen" xml:space="preserve">
-    <value>Anzahl Ligen</value>
+  <data name="Anzahl Vereine" xml:space="preserve">
+    <value>Anzahl Vereine</value>
   </data>
-  <data name="Ausrichterland" xml:space="preserve">
-    <value>Ausrichterland</value>
+  <data name="AnzahlCF_Plaetze" xml:space="preserve">
+    <value>Anzahl CF Plätze</value>
   </data>
-  <data name="Bearbeiten" xml:space="preserve">
-    <value>Bearbeiten</value>
+  <data name="AnzahlCL_Plaetze" xml:space="preserve">
+    <value>Anzahl CL Plätze</value>
   </data>
-  <data name="BearbeitenLiga" xml:space="preserve">
-    <value>Bearbeiten Liga</value>
+  <data name="AnzahlEL_Plaetze" xml:space="preserve">
+    <value>Anzahl EL Plätze</value>
   </data>
-  <data name="Einstellungen" xml:space="preserve">
-    <value>Einstellungen</value>
+  <data name="Bitte Liga wählen" xml:space="preserve">
+    <value>Bitte Liga wählen</value>
   </data>
-  <data name="EMWM" xml:space="preserve">
-    <value>EMWM</value>
-  </data>
-  <data name="Erstaustragung" xml:space="preserve">
-    <value>Erstaustragung</value>
-  </data>
-  <data name="Gelöscht" xml:space="preserve">
-    <value>Gelöscht</value>
-  </data>
-  <data name="Info" xml:space="preserve">
-    <value>Info</value>
+  <data name="Grunddaten" xml:space="preserve">
+    <value>Grunddaten</value>
   </data>
   <data name="Liganame" xml:space="preserve">
     <value>Liganame</value>
   </data>
-  <data name="Liganummer" xml:space="preserve">
-    <value>Liganummer</value>
+  <data name="Nächster Schritt" xml:space="preserve">
+    <value>Nächster Schritt</value>
   </data>
-  <data name="Ligen" xml:space="preserve">
-    <value>Ligen</value>
+  <data name="Relegation" xml:space="preserve">
+    <value>Relegation</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="Löschen" xml:space="preserve">
-    <value>Löschen</value>
-  </data>
-  <data name="Löschen Liga" xml:space="preserve">
-    <value>Löschen Liga</value>
-  </data>
-  <data name="Löscht Liga" xml:space="preserve">
-    <value>Löscht Liga</value>
-  </data>
-  <data name="MessageDelete" xml:space="preserve">
-    <value>Möchten Sie diese Liga tatsächlich löschen?</value>
-  </data>
-  <data name="Nach oben" xml:space="preserve">
-    <value>Nach oben</value>
-  </data>
-  <data name="Neuanlage Liga" xml:space="preserve">
-    <value>Neuanlage </value>
-  </data>
-  <data name="Nächster Spieltag" xml:space="preserve">
-    <value>Nächster Spieltag</value>
-  </data>
-  <data name="Rekordspieler" xml:space="preserve">
-    <value>Rekordspieler</value>
-  </data>
-  <data name="Saisonen" xml:space="preserve">
-    <value>Saisonen</value>
+  <data name="Saisonname" xml:space="preserve">
+    <value>Saisonname</value>
   </data>
   <data name="Speichern" xml:space="preserve">
     <value>Speichern</value>
   </data>
-  <data name="Speichert Liga ab" xml:space="preserve">
-    <value>Speichert Liga ab</value>
+  <data name="Speichert Saison ab" xml:space="preserve">
+    <value>Speichert Saison ab</value>
   </data>
-  <data name="Spiele Rekordspieler" xml:space="preserve">
-    <value>Spiele Rekordspieler</value>
+  <data name="Vereine zuordnen" xml:space="preserve">
+    <value>Vereine zuordnen</value>
   </data>
-  <data name="Verband" xml:space="preserve">
-    <value>Verband</value>
+  <data name="Voriger Schritt" xml:space="preserve">
+    <value>Voriger Schritt</value>
   </data>
-  <data name="Voriger Spieltag" xml:space="preserve">
-    <value>Voriger Spieltag</value>
-  </data>
-  <data name="Zurück" xml:space="preserve">
-    <value>Zurück</value>
-  </data>
-  <data name="Zurück zu Ligen" xml:space="preserve">
-    <value>Zurück zu Ligen</value>
+  <data name="Zusammenfassung" xml:space="preserve">
+    <value>Zusammenfassung</value>
   </data>
 </root>

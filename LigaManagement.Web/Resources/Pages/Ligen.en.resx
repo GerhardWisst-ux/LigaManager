@@ -126,6 +126,9 @@
   <data name="Anzahl Ligen" xml:space="preserve">
     <value>Number of leagues</value>
   </data>
+  <data name="Ausrichterland" xml:space="preserve">
+    <value>Country of WM/EM</value>
+  </data>
   <data name="Bearbeiten" xml:space="preserve">
     <value>Edit</value>
   </data>

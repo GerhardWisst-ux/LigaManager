@@ -68,6 +68,8 @@ namespace LigaManagement.Models
         public int GroupID1962 { get; set; }
         public int GroupID1958 { get; set; }
         public int GroupID1954 { get; set; }
+        public int GroupID1950 { get; set; }
+        public int GroupID1938 { get; set; }
     }
 
     public class VereinEMWM : Verein
@@ -103,6 +105,7 @@ namespace LigaManagement.Models
         public int GroupID1960 { get; set; }
         public int GroupID1958 { get; set; }
         public int GroupID1954 { get; set; }
-
+        public int GroupID1950 { get; set; }
+        public int GroupID1938 { get; set; }
     }
 }

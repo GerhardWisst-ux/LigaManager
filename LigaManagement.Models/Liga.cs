@@ -31,5 +31,7 @@ namespace LigaManagement.Models
         public int Spiele_Rekordspieler { get; set; }
 
         public bool EMWM { get; set; }
+
+        public string Ausrichterland { get; set; }
     }
 }

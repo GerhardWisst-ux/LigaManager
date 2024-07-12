@@ -9,8 +9,72 @@
 @using LigaManagement.Web.Classes;
 
 <head>
-  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
+
 </head>
+
+<script type="text/javascript">
+    // $(document).ready(function () {
+    //     $("#previewDiv :input").attr("disabled", true);
+    // });
+</script>
+
+<style type="text/css">
+
+    input[name=checkvereindisabled] {
+        pointer-events: none;
+    }
+
+    input[name=txtSaisonnameDisabled] {
+        pointer-events: none;
+    }
+
+    select[name=cboLigaDisabled] {
+        pointer-events: none;
+    }
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+
+    /*  .rz-label {
+            margin-left: 0px !important;
+            padding-left: 20px !important;
+        } */
+
+    .elementleft {
+        margin-left: 0px !important;
+    }
+
+    .rz-label {
+        margin-left: 0px !important;
+        padding-left: 20px !important;
+    }
+
+    .row {
+        margin-right: 15px !important;
+    }
+
+    #listVereine li {
+        text-indent: -80px !important;
+    }
+
+    #listVereine li {
+        margin-left: -80px !important;
+        padding-left: 0 !important;
+    }
+
+
+    @@media (max-width: 767px) {
+        .rz-label {
+            margin-left: 5px !important;
+            padding-left: 0px !important;
+        }
+    }
+</style>
+
 @if (LigenList == null)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
@@ -112,10 +176,11 @@ else
                             <InputNumber required id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-sm-9"></InputNumber>
                             <ValidationMessage For="()=>Saison.Absteiger"></ValidationMessage>
                         </div>
-                        <div class="form-group pt-2">
-                            <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
-                            <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
-                            <InputNumber id="txtPlatzhalter2" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
+                        <div class="form-group row my-4">
+                            <RadzenLabel Text="lblAbgeschlossen" class="col-md-3 col-xs-12" Component="ckkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
+                            <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkAbgeschlossen" />
+                            <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
+                            </RadzenColumn>
                             <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                         </div>
                     </form>
@@ -214,25 +279,26 @@ else
                         <InputNumber required id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-sm-9"></InputNumber>
                         <ValidationMessage For="()=>Saison.Absteiger"></ValidationMessage>
                     </div>
-                    <div class="form-group pt-2">
-                        <RadzenLabel Text="@Localizer["Abgeschlossen"].Value" class="col-sm-3 pl-0" Component="chkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
-                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAbgeschlossen" />
-                        <InputNumber id="txtPlatzhalter2" @bind-Value="Saison.AnzahlVereine" style="visibility:hidden;" class="form-control col-sm-8"></InputNumber>
+                    <div class="form-group row my-4">
+                        <RadzenLabel Text="lblAbgeschlossen" class="col-md-3 col-xs-12" Component="ckkAbgeschlossen">@Localizer["Abgeschlossen"].Value</RadzenLabel>
+                        <RadzenCheckBox @bind-Value="Saison.Abgeschlossen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkAbgeschlossen" />
+                        <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
+                        </RadzenColumn>
                         <ValidationMessage For="()=>Saison.Abgeschlossen"></ValidationMessage>
                     </div>
-                    <RadzenRow>
-                        <RadzenLabel Text="@Localizer["Vereine"].Value" class="col-sm-3 pl-0">@Localizer["Vereine"].Value</RadzenLabel>
-                    </RadzenRow>
-                    <div class="form-group">
-                        <ul class="ul">
+                    <div class="form-group row mt-5">
+                        <RadzenLabel Text="@Localizer["Vereine"].Value" class="col-md-3 col-xs-12">@Localizer["Vereine"].Value</RadzenLabel>
+                    </div>
 
-                            @foreach (var verein in vereinesaisonSelected.OrderBy(x => x.Vereinsname1))
+                    <div class="form-group ">
+                        <ul id="listVereine" class="ul">
+                            @foreach (var verein in VereineList.Where(x => x.VereinChecked).OrderBy(x => x.Vereinname1).OrderByDescending(x => x.VereinChecked))
                             {
-                                int Id = @verein.Id;
-                                <li><input data-bind=" @verein.Id" class="col-sm-12" checked="checked" type="checkbox"><span>@verein.Vereinsname1</span></li>
+                                string Id = @verein.VereinID;
+                                <li><input @onchange="eventArgs => { CheckboxClicked(Id, eventArgs.Value); }" name="checkvereindisabled" checked="@verein.VereinChecked" data-bind=" @verein.VereinID" class="col-sm-2" type="checkbox"><span>@verein.Vereinname1</span></li>
                             }
                         </ul>
-                    </div>
+                    </div>                    
                     <RadzenButton Text="@Localizer["Speichern"].Value" id="btnSaveSaison" Click="@SaveSaison" />
                 </RadzenStepsItem>
             </Steps>
