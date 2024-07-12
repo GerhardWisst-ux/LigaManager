@@ -120,6 +120,9 @@
   <data name="Benutzername" xml:space="preserve">
     <value>Benutzername</value>
   </data>
+  <data name="Benutzername oder Passwort falsch" xml:space="preserve">
+    <value>Benutzername oder Passwort falsch</value>
+  </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
   </data>

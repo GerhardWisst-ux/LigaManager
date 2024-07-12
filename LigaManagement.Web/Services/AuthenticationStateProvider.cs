@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Api.Models;
 using LigaManagement.Web.Services.Contracts;
+using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
@@ -33,6 +34,7 @@ namespace LigaManagerManagement.Web.Services
                 {
                     principal = userInDatabase.ToClaimsPrincipal();
                     CurrentUser = userInDatabase;
+                    Globals.CurrentRole = userInDatabase.Role;
                 }
             }
             NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(principal)));

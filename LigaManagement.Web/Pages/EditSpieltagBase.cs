@@ -82,7 +82,6 @@ namespace LigamanagerManagement.Web.Pages
         [Inject]
         public ISpieltageTUService SpieltagTUService { get; set; }
 
-
         [Inject]
         public IToreService ToreService { get; set; }
 
@@ -159,7 +158,7 @@ namespace LigamanagerManagement.Web.Pages
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/editSpieltag/{Id}");
-                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                    NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
                 if (Globals.LigaNummer < 3)
@@ -466,7 +465,7 @@ namespace LigamanagerManagement.Web.Pages
                 }
                 if (Globals.LigaID == 3)
                 {
-                    var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    var verein = await VereineService.GetVereinL3(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein1 = verein.Vereinsname1;
                     Spiel.Verein1_Nr = e.Value.ToString();
                     Spiel.Ort = verein.Stadion;
@@ -536,9 +535,16 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (Globals.LigaID < 4)
+                if (Globals.LigaID < 3)
                 {
                     var verein = await VereineService.GetVerein(Convert.ToInt32(e.Value.ToString()));
+                    Spiel.Verein2 = verein.Vereinsname1;
+                    Spiel.Verein2_Nr = e.Value.ToString();
+
+                }
+                if (Globals.LigaID == 3)
+                {
+                    var verein = await VereineService.GetVereinL3(Convert.ToInt32(e.Value.ToString()));
                     Spiel.Verein2 = verein.Vereinsname1;
                     Spiel.Verein2_Nr = e.Value.ToString();
 

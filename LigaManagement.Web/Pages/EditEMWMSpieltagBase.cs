@@ -98,7 +98,7 @@ namespace LigamanagerManagement.Web.Pages
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
-                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                    NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
                 var saison = (await SaisonenEMWMService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentEMWMSaison).First();
@@ -159,6 +159,8 @@ namespace LigamanagerManagement.Web.Pages
                     verList = vereineSaison.ToList().Where(x => x.GroupID1962 > 0).ToList();
                 else if (saison.Saisonname.ToString() == "WM 1958")
                     verList = vereineSaison.ToList().Where(x => x.GroupID1958 > 0).ToList();
+                else if (saison.Saisonname.ToString() == "WM 1954")
+                    verList = vereineSaison.ToList().Where(x => x.GroupID1954 > 0).ToList();
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -220,7 +222,8 @@ namespace LigamanagerManagement.Web.Pages
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970") 
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958")                
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958"
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1954")                
                     sGroupGHVisible = "inline-block;"; 
                  else
                    sGroupGHVisible = "none;";
@@ -228,7 +231,8 @@ namespace LigamanagerManagement.Web.Pages
                 if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970" 
                     || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966" 
                     || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962"
-                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958"))))
+                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958"
+                    || (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1954")))))
                     sGroupEFVisible = "none;";
                 else
                     sGroupEFVisible = "inline-block;";
@@ -249,7 +253,7 @@ namespace LigamanagerManagement.Web.Pages
                 var verein = await VereineService.GetVereinEMWM(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = int.Parse(e.Value.ToString());
-                Spiel.Ort = verein.Stadion;
+                //Spiel.Ort = verein.Stadion;
                 Spiel.Land1_Nr = 57;
                 Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
             }

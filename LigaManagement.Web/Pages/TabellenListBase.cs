@@ -145,7 +145,7 @@ namespace LigamanagerManagement.Web.Pages
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager/tabellen");
-                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                    NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
                 LigenList = new List<DisplayLiga>();

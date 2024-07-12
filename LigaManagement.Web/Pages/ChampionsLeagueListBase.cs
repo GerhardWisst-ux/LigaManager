@@ -78,7 +78,7 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<Saison> Saisonen { get; set; }
 
-        public IEnumerable<PokalergebnisCLSpieltag> PokalergebnisseCLSpieltage { get; set; }
+        public IEnumerable<PokalergebnisCLSpieltag> ErgebnisseCLSpieltage { get; set; }
 
         public IEnumerable<PokalergebnisCLSpieltag> PokalergebnisseCLSpieltageFinale { get; set; }
 
@@ -99,7 +99,7 @@ namespace LigaManagement.Web.Pages
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
-                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                    NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
                 SaisonenList = new List<DisplaySaison>();
@@ -115,13 +115,13 @@ namespace LigaManagement.Web.Pages
                                
                 SaisonChoosed = Globals.CLSaisonID;
 
-                PokalergebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
-                if (PokalergebnisseCLSpieltage == null)
+                ErgebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
+                if (ErgebnisseCLSpieltage == null)
                 {
                     return;
                 }
 
-                PokalergebnisseCLSpieltageFinale = PokalergebnisseCLSpieltage.ToList().Where(x => x.Runde == "F");
+                PokalergebnisseCLSpieltageFinale = ErgebnisseCLSpieltage.ToList().Where(x => x.Runde == "F");
 
                 Globals.CLPokalSaisonID = Globals.SaisonID;
                 
@@ -131,7 +131,7 @@ namespace LigaManagement.Web.Pages
                     RundeChoosed = Globals.currentClRunde;
 
 
-                PokalergebnisseCLSpieltage = PokalergebnisseCLSpieltage.ToList().Where(x => x.SaisonID == Globals.CLPokalSaisonID).Where(x => x.Runde == RundeChoosed);
+                ErgebnisseCLSpieltage = ErgebnisseCLSpieltage.ToList().Where(x => x.SaisonID == Globals.CLPokalSaisonID).Where(x => x.Runde == RundeChoosed);
 
                 //if (PokalergebnisseCLSpieltage.Count() == 0)
                 //{
@@ -150,6 +150,9 @@ namespace LigaManagement.Web.Pages
                     new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
                     new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
                     new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
                     new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
@@ -196,6 +199,15 @@ namespace LigaManagement.Web.Pages
                 {
                     Globals.currentCLSaison = saison.Saisonname;
                     Globals.CLPokalSaisonID = saison.SaisonID;
+
+                    TabellenA = null;
+                    TabellenB = null;
+                    TabellenC = null;
+                    TabellenD = null;
+                    TabellenE = null;
+                    TabellenF = null;
+                    TabellenG = null;
+                    TabellenH = null;
 
                     OnClickHandler();
                 }
@@ -436,12 +448,12 @@ namespace LigaManagement.Web.Pages
                 RundeChoosed = e.Value.ToString();
                 Globals.currentClRunde = RundeChoosed;
 
-                PokalergebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
+                ErgebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
 
-                if (PokalergebnisseCLSpieltage == null)
+                if (ErgebnisseCLSpieltage == null)
                     return;
 
-                PokalergebnisseCLSpieltage = PokalergebnisseCLSpieltage.ToList().Where(x => x.Saison == Globals.currentSaison).Where(x => x.Runde == RundeChoosed);
+                ErgebnisseCLSpieltage = ErgebnisseCLSpieltage.ToList().Where(x => x.Saison == Globals.currentSaison).Where(x => x.Runde == RundeChoosed);
 
                 VisibleBtnNew = NewButtonVisible();
 
@@ -502,9 +514,9 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorSaison = "none";
                 DisplayErrorRunde = "none";
 
-                PokalergebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
+                ErgebnisseCLSpieltage = await SpieltageCLService.GetSpielergebnisse();
 
-                PokalergebnisseCLSpieltage = PokalergebnisseCLSpieltage.ToList().Where(x => x.Saison == Globals.currentCLSaison).Where(x => x.Runde == RundeChoosed);
+                ErgebnisseCLSpieltage = ErgebnisseCLSpieltage.ToList().Where(x => x.Saison == Globals.currentCLSaison).Where(x => x.Runde == RundeChoosed);
 
                 VisibleBtnNew = NewButtonVisible();
 

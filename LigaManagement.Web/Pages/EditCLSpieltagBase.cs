@@ -88,13 +88,13 @@ namespace LigamanagerManagement.Web.Pages
                 if (!authenticationState.User.Identity.IsAuthenticated)
                 {
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
-                    NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                    NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
                 var saison = (await SaisonenCLService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentCLSaison).First();
 
                 var vereineSaison = await VereineService.GetVereineCL();
-                var verList = vereineSaison.Where(x => x.SaisonID == Globals.CLSaisonID).ToList();
+                var verList = vereineSaison.ToList(); //ToDo überarbeiten Where(x => x.SaisonID == Globals.CLSaisonID)
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
@@ -122,6 +122,9 @@ namespace LigamanagerManagement.Web.Pages
                     new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
                     new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
                     new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
                     new DisplayRunde("HF", Localizer["Halbfinale"].Value),

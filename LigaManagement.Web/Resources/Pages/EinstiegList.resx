@@ -151,7 +151,7 @@
     <value>Import</value>
   </data>
   <data name="Land" xml:space="preserve">
-    <value>Land auswählen</value>
+    <value>Land wählen</value>
   </data>
   <data name="Letze Ergebnisse" xml:space="preserve">
     <value>Letze hinzugefügte Ergebnisse</value>
@@ -163,7 +163,7 @@
     <value>Letzte Ergebnisse aufklappen</value>
   </data>
   <data name="Liga" xml:space="preserve">
-    <value>Liga auswählen</value>
+    <value>Liga wählen</value>
   </data>
   <data name="Nationale Wettbewerbe" xml:space="preserve">
     <value>Nationale Wettbewerbe</value>
@@ -178,7 +178,7 @@
     <value>Ort</value>
   </data>
   <data name="Saison" xml:space="preserve">
-    <value>Saison auswählen</value>
+    <value>Saison wählen</value>
   </data>
   <data name="Spiele" xml:space="preserve">
     <value>Spiele</value>

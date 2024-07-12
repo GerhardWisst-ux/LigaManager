@@ -1,5 +1,5 @@
-﻿@page "/editpokalspieltag/{id}"
-@page "/createpokalspieltag/{Runde}"
+﻿@page "/Ligamanager/editpokalspieltag/{id}"
+@page "/Ligamanager/createpokalspieltag/{Runde}"
 @using LigaManagerManagement.Models
 
 @inherits EditPokalspieltagBase
@@ -78,7 +78,7 @@
                         <div class="card-body">
                             <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                             <br />
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2>@Localizer["Pokalergebnisse"].Value @Ligamanager.Components.Globals.currentPokalSaison</h2>
@@ -87,7 +87,7 @@
                 </RadzenCard>
                 <RadzenCard class="m-0 mb-3">
                     <select id="cboRunde" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
-                        <option value="0" required>Runde auswählen</option>
+                        <option value="0" required>@Localizer["Runde wählen"].Value</option>
                         @if (RundeList != null)
                         {
                             @foreach (var runde in RundeList)
@@ -264,7 +264,7 @@
 
         if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Sie haben nicht das Recht Pokalspiele zu ändern bzw. neu anzulegen." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Sie haben nicht das Recht Pokalspiele zu ändern bzw. neu anzulegen." });
             return;
         }
         
@@ -277,57 +277,59 @@
         Spiel.SaisonID = Globals.CLSaisonID;
         Spiel.Runde = RundeChoosed;
         Spiel.Datum = SpielDateTime;
-        if ((Spiel.Verein1_Nr == 0))
+
+        if (Spiel.Verein1 == null || Spiel.Verein1 == "")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Verein 1 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Tore1_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Tore 1 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
         else if ((Spiel.Tore2_Nr == null))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Tore 2 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
-        else if ((Spiel.Verein2_Nr == 0))
+        else if (Spiel.Verein2 == null || Spiel.Verein2 == "")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Verein 2 nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
 
-        else if ((Spiel.Verein1 == Spiel.Verein2))
+        else if (Spiel.Verein1 == Spiel.Verein2)
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Bitte wählen Sie unterschiedliche Vereine.Speichern nicht möglich." });
             bError = true;
         }
-
-        else if ((Spiel.Datum.Date.ToString() == "01.01.0001"))
+        else if (Spiel.Datum.Date.ToShortDateString() == "01.01.0001")
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
-
-        else if ((Spiel.Datum.Hour.ToString() == "0"))
+        else if (Spiel.Datum.Year < 1960 || Spiel.Datum.Month == 0 || Spiel.Datum.Day == 0)
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["PokalSpieltag"].Value, Detail = "Zeit(Stunde) nicht angegeben. Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
             bError = true;
         }
-
-        else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString())))
+        else if (!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.Date.ToString()))
         {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten EM-Spieltag", Detail = "Datum nicht korrekt.Speichern nicht möglich." });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
             bError = true; ;
         }
-
+        else if (Spiel.Ort == null || Spiel.Ort == "")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Ort nicht angegeben.Speichern nicht möglich." });
+            bError = true;
+        }
         else if ((Spiel.Schiedrichter == null))
         {
-            Spiel.Schiedrichter = "k.A.";
+            Spiel.Schiedrichter = "SR";
         }
 
         if (bError == true)
@@ -338,7 +340,7 @@
             await _PokalergebnisseService.CreatePokalergebnisSpieltag(Spiel);
 
             if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Neuanlage Pokal-Spieltag", Detail = "Abgespeichert" });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Titel, Detail = @Localizer["Abgespeichert"].Value });
         }
         else
         {
@@ -346,9 +348,8 @@
             await _PokalergebnisseService.UpdatePokalergebnisSpieltag(Spiel);
 
             if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Pokal-Spieltag", Detail = "Abgespeichert" });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Titel, Detail = @Localizer["Abgespeichert"].Value });
         }
-
 
         //string url = "/pokalergebnisse";
         /* navigationManager.NavigateTo(url); */

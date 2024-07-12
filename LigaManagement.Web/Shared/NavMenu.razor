@@ -285,15 +285,6 @@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
                     <li class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/vereine") Match="NavLinkMatch.All">
-                            <span class="oi--grid-three-up" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Localizer["Vereine"].Value
-                        </NavLink>
-                    </li>
-
-                }
-                @if (Globals.bVisibleNavMenuElements == true)
-                {
-                    <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/ligen") Match="NavLinkMatch.All">
                             <span class="oi oi-signal" aria-hidden="true"></span>@Localizer["Ligen"].Value
                         </NavLink>
@@ -307,6 +298,14 @@
                         </NavLink>
                     </li>
                 }
+                @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"Ligamanager/vereine") Match="NavLinkMatch.All">
+                            <span class="oi--grid-three-up" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Localizer["Vereine"].Value
+                        </NavLink>
+                    </li>
+                }              
                 
             @*     @if (Globals.bVisibleNavMenuElements == true)
                 {

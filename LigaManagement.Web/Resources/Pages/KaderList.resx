@@ -184,7 +184,7 @@
     <value>Saison</value>
   </data>
   <data name="Saison auswählen" xml:space="preserve">
-    <value>Saison auswählen</value>
+    <value>Saison wählen</value>
   </data>
   <data name="Saison und Verein auswählen" xml:space="preserve">
     <value>Saison und Verein auswählen</value>
@@ -208,7 +208,7 @@
     <value>Verein</value>
   </data>
   <data name="Verein auswählen" xml:space="preserve">
-    <value>Verein auswählen</value>
+    <value>Verein wählen</value>
   </data>
   <data name="Vorname" xml:space="preserve">
     <value>Vorname</value>

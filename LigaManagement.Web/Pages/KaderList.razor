@@ -9,8 +9,8 @@
 @attribute [Authorize]
 
 <head>
-    
-    
+
+
 </head>
 
 <style type="text/css">
@@ -38,14 +38,14 @@ else
                         <div class="card-body">
                             <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                             <br />
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2 style="display:inline-block;">@Localizer["Kader"].Value</h2>
-                            <span class="ml-3">                                
+                            <span class="ml-3">
                                 @* <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink> *@
 
-                                <RadzenButton Click=@(args => OnClick("Primary icon button"))  Visible="@VisibleAdd" Icon="add_circle_outline" title="@Localizer["Neuer Spieler"].Value" ButtonStyle="ButtonStyle.Primary" />
+                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Visible="@VisibleAdd" Icon="add_circle_outline" title="@Localizer["Neuer Spieler"].Value" ButtonStyle="ButtonStyle.Primary" />
                             </span>
                         </div>
                     </div>
@@ -57,36 +57,51 @@ else
             <div class="col-sm-4 m-0">
                 <select id="cboSaison" style="display:inline-block; " class="form-control dropdown" @onchange="SaisonChange">
                     <option selected="selected">@Localizer["Saison auswählen"].Value</option>
-                    @foreach (var verein in SaisonenList.OrderByDescending(x => x.Saisonname))
+                    @if (SaisonenList != null)
                     {
-                        <option value="@verein.SaisonID"> @verein.Saisonname </option>
+                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                        {
+                            @if (saison.Saisonname == Globals.currentSaison)
+                            {
+                                <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                            }
+                            else
+                            {
+                                <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                            }
+                        }
                     }
-                    <label title="@Localizer["Bitte Liga wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
+                    <label title="@Localizer["Bitte Saison wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Saison wählen"].Value</label>
                 </select>
             </div>
-            <label title="@Localizer["Bitte Saison wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Saison wählen"].Value</label>
 
             <label for="cboSaison" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
-            <div class="col-sm-4 m-0">
+            <div class="col-sm-4 col-xs-12 m-0">
                 <select id="cboSaison" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
-                    <option value="" selected required>@Localizer["Verein auswählen"].Value</option>
+                    <option value="" selected>@Localizer["Verein auswählen"].Value</option>
                     @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
                     {
-                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        @if (verein.VereinID == Globals.KaderVereinNr.ToString())
+                        {
+                            <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        }
+                        else
+                        {
+                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                        }
+                    }
+
                     }
                 </select>
-                <label title="Bitte Verein wählen" style="display:@DisplayErrorVerein;color:red;" id="lblErrorVerein">@Localizer["Bitte Verein wählen"].Value</label>
+                <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
             </div>
-            <div class="col-sm-2 m-0 pull-right">
-                @* <linkbutton title="Saison und Verein auswählen" style="display:inline-block;" id="btnUebernehmen" class="btn btn-primary" @onclick=OnClickHandler>
-                    Auswählen
-                </linkbutton> *@
+            <div class="col-sm-2 col-xs-12 pull-right">
 
-                <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" style="margin-left:5px;width:100px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
+                <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" Icon="account_circle" style="margin-left:5px;width:100px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
                     @Localizer["Auswählen"].Value
                 </RadzenButton>
-                
             </div>
+
         </div>
 
         <div class="form-group row">
@@ -95,13 +110,14 @@ else
                 {
                     var spielerList = SpielerList.OrderByDescending(x => x.Tore).ThenBy(x => x.PositionsNr);
 
+
                     <RadzenDataGrid @ref="grid" Data="@spielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="15"
                                     AllowPaging="true" Responsive=true AllowSorting="true" AllowFiltering="true"
                                     TItem="Kader" Visible="true" AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                     LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter">
                         <Columns>
-                            <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">                             
+                            <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Kader" Property="PositionsNr" Width="8%" TextAlign="TextAlign.Right" SortOrder="SortOrder.Ascending" Sortable=true Title="Pos" />
                             <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
@@ -124,6 +140,7 @@ else
                             @Localizer["Anzahl Spieler"].Value: <b>@spielerList.Count()</b>
                         </FooterTemplate>
                     </RadzenDataGrid>
+
                     <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                         <RadzenColumn Offset="11" Style="text-align:right;">
                             <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>

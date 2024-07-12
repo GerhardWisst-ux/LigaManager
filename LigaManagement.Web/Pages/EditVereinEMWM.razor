@@ -89,12 +89,12 @@ else
 
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">@Localizer["Mannschaft"].Value</RadzenLabel>
-                        <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></InputText>
+                        <RadzenTextBox required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></RadzenTextBox>
                         <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
-                        <InputText required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-sm-9"></InputText>
+                        <RadzenTextBox required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-sm-9"></RadzenTextBox>
                         <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
                     </div>
                     <div class="form-group row">

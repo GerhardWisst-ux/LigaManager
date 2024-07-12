@@ -18,7 +18,7 @@ namespace LigaManagerManagement.Web.Pages
     public class KaderBase : ComponentBase
     {
         protected bool bShowSpieler;
-
+        protected bool busy;
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
         public string DisplayTopButton = "none";
@@ -97,6 +97,9 @@ namespace LigaManagerManagement.Web.Pages
 
             DisplayTopButton = "none";
 
+            if (Globals.KaderVereinNr > 0)
+                OnClickHandler();
+
             VereinNr = Globals.KaderVereinNr;
 
             Globals.bVisibleNavMenuElements = true;
@@ -106,7 +109,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                Globals.KaderSaisonID = Convert.ToInt32(e.Value);
+                Globals.KaderSaisonID = Convert.ToInt32(e.Value);                
                 bChangedSaison = true;
             }
         }
@@ -115,8 +118,11 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
+                if (e.Value.ToString() == "")
+                    e.Value = 0;
+
                 Globals.KaderVereinNr = Convert.ToInt32(e.Value);
-                VereinNr = Globals.KaderVereinNr;
+                VereinNr = Convert.ToInt32(e.Value);
                 bChangedVerein = true;
 
                 if (VereinNr > 0)
@@ -126,6 +132,7 @@ namespace LigaManagerManagement.Web.Pages
 
         public async void OnClickHandler()
         {
+            busy = true;
             if (Globals.currentSaison == null & Globals.currentLiga == null)
             {
                 DisplayErrorVerein = "block";
@@ -139,7 +146,7 @@ namespace LigaManagerManagement.Web.Pages
                 return;
             }
 
-            if (Globals.currentLiga == null)
+            if (Globals.KaderVereinNr == 0)
             {
                 DisplayErrorVerein = "block";
                 return;
@@ -152,8 +159,9 @@ namespace LigaManagerManagement.Web.Pages
             VisibleAdd = true;
 
             DisplayTopButton = "block";
-            SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.VereinID == Globals.KaderVereinNr).ToList();
+            SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == Globals.KaderSaisonID).Where(x => x.VereinID == Globals.KaderVereinNr).ToList();
 
+            busy = false;
             StateHasChanged();
         }
 

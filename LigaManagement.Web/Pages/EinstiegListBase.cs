@@ -65,18 +65,14 @@ namespace LigaManagement.Web.Pages
         public ISaisonenService SaisonenService { get; set; }
 
         public List<DisplaySaison> SaisonenList;
-
-        public List<DisplaySaison> SaisonenListEMWM;
-
+                
         public List<DisplayLiga> LigenList;
 
         public List<DisplayLaender> LaenderList;
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
-        [Inject]
-        public ISaisonenCLService SaisonenEMWMService { get; set; }
+                
         public IEnumerable<Verein> Vereine { get; set; }
 
         public IEnumerable<VereinAUS> VereineAUS { get; set; }
@@ -211,19 +207,7 @@ namespace LigaManagement.Web.Pages
 
                     isDropdownDisabledLiga = false;
                     isDropdownDisabledSaison = false;
-                }
-
-
-                SaisonenListEMWM = new List<DisplaySaison>();
-
-
-                Saisonen = (await SaisonenEMWMService.GetSaisonen()).Where(x => x.Saisonname.StartsWith("WM") || x.Saisonname.StartsWith("EM")).ToList().OrderByDescending(x => x.Saisonname.Substring(x.Saisonname.Length - 4));
-
-                for (int i = 0; i < Saisonen.Count(); i++)
-                {
-                    var columns = Saisonen.ElementAt(i);
-                    SaisonenListEMWM.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
-                }
+                }                               
 
 
                 if (Globals.SaisonID == 0)
@@ -296,34 +280,6 @@ namespace LigaManagement.Web.Pages
                 StateHasChanged();
             }
         }
-
-        public async void SaisonChangeEMWM(ChangeEventArgs e)
-        {
-            if (e.Value != null)
-            {
-                if (e.Value.ToString() == "0")
-                    return;
-
-                Globals.currentEMWMSaison = e.Value.ToString();
-
-                Saisonen = (await SaisonenEMWMService.GetSaisonen()).Where(x => x.Saisonname.StartsWith("WM") || x.Saisonname.StartsWith("EM")).ToList().OrderByDescending(x => x.Saisonname.Substring(x.Saisonname.Length - 4));
-
-                if (Saisonen == null || Globals.currentEMWMSaison == null)
-                    throw new Exception("Saisonen is null oder Globals.currentEMWMSaison is null");
-
-                if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID) != null)
-                {
-                    Globals.EMWMSaisonID = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID).SaisonID;
-                }
-                else
-                {
-                    Globals.EMWMSaisonID = 1;
-                }
-
-                StateHasChanged();
-            }
-        }
-
 
         public async Task LandChangeAsync(ChangeEventArgs e)
         {
@@ -623,6 +579,7 @@ namespace LigaManagement.Web.Pages
         public async void OnClickHandler()
         {
             bool bAbgeschlossen = false;
+            int iAktSpieltag;
 
             if (Globals.LandID == 0)
                 DisplayErrorLand = "block";
@@ -751,14 +708,13 @@ namespace LigaManagement.Web.Pages
             else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                 Globals.maxSpieltag = 34;
 
-
             SpieltageRepository rep = new SpieltageRepository();
 
-
-            if (Saisonen != null)
+            if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison) != null)
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            else
+                bAbgeschlossen = false;            
 
-            int iAktSpieltag;
             if (bAbgeschlossen)
             {
                 iAktSpieltag = Globals.maxSpieltag;

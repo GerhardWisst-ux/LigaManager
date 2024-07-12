@@ -241,7 +241,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 conn.Open();
 
-                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageCL", conn);
+                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1 from SpieltageCL", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -250,17 +250,17 @@ namespace LigaManagerManagement.Api.Models
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
-                        verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        //verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
                         verein.Vereinsname1 = reader["Verein1"].ToString();
                         verein.Vereinsname2 = reader["Verein1"].ToString();
-                        verein.Hyperlink = reader["Hyperlink"].ToString();
-                        verein.Fassungsvermoegen = 0;
-                        verein.Erfolge = "";
-                        verein.Stadion = "";
-                        verein.Gegruendet = 0;
-                        verein.Pokal = true;
-                        verein.Bundesliga = true;
+                        //verein.Hyperlink = reader["Hyperlink"].ToString();
+                        //verein.Fassungsvermoegen = 0;
+                        //verein.Erfolge = "";
+                        //verein.Stadion = "";
+                        //verein.Gegruendet = 0;
+                        //verein.Pokal = true;
+                        //verein.Bundesliga = true;
 
                         vereinelist.Add(verein);
 
@@ -290,7 +290,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
                     "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
                     "[GroupID1998],[GroupID1996],[GroupID1994],[GroupID1992],[GroupID1990],[GroupID1988], [GroupID1986],[GroupID1984],[GroupID1982], [GroupID1980],[GroupID1970], [GroupID1966], " +
-                    "[GroupID1962],[GroupID1958] FROM [LigaDB].[dbo].[MannschaftEMWM]", conn);
+                    "[GroupID1962],[GroupID1958], [GroupID1954] FROM [LigaDB].[dbo].[MannschaftEMWM]", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -337,6 +337,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID1966 = int.Parse(reader["GroupID1966"].ToString());
                         verein.GroupID1962 = int.Parse(reader["GroupID1962"].ToString());
                         verein.GroupID1958 = int.Parse(reader["GroupID1958"].ToString());
+                        verein.GroupID1954 = int.Parse(reader["GroupID1954"].ToString());
 
                         vereinelist.Add(verein);
 
@@ -552,7 +553,7 @@ namespace LigaManagerManagement.Api.Models
                         //verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
-                        verein.Stadion = "";
+                        verein.Stadion = (string)reader["Stadion"];
                         verein.Gegruendet = 0;
                         verein.Pokal = true;
                         verein.Bundesliga = true;

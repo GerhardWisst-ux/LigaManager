@@ -33,7 +33,7 @@
                 <div class="form-group row">
                     <div class="dropdown mr-2" style="display:inline">
                         <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
-                            <option value="0" selected="selected">Saison auswählen</option>
+                            <option value="0" selected="selected">Saison wählen</option>
                             @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                             {
                                 @if (saison.SaisonID == Globals.SaisonID)

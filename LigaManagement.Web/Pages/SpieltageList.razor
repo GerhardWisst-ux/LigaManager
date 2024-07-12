@@ -57,7 +57,7 @@
         /* font-weight: bold !important;         */
         /* border-color: wheat !important ; */
         /* background-color:black !important;
-                                    color: white !important;  */
+                                        color: white !important;  */
     }
 
     .rz-datatable td {
@@ -72,7 +72,7 @@
     </RadzenStack>
 }
 else
-{    
+{
     <div class="container">
         <div class="form-group row">
             <div class="col-sm-12">
@@ -81,7 +81,7 @@ else
                         <div class="card-body">
                             <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                             <br />
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title=">@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
                             <h2>@Globals.currentLand @Liganame @SpieltagNr.ToString().@Localizer["Spieltag"].Value</h2>
@@ -240,27 +240,28 @@ else
 
     @code {
 
-            async Task OpenSpieltag(int? spieltagsid)
-            {
-                await DialogService.OpenAsync<DialogCardPage>($"Spieltag {spieltagsid}",
-                      new Dictionary<string, object>() { { "SpieltagsID", spieltagsid } },
-                      new DialogOptions() { Width = "700px", Height = "520px" });
-            }
+    async Task OpenSpieltag(int? spieltagsid)
+    {
+        await DialogService.OpenAsync<DialogCardPage>($"Spieltag {spieltagsid}",
+              new Dictionary<string, object>() { { "SpieltagsID", spieltagsid } },
+              new DialogOptions() { Width = "700px", Height = "520px" });
+    }
 
-            private void OnClick(string text)
-            {
-                _navigationManager.NavigateTo("Ligamanager/createspieltag/" + SpieltagNr);
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("Ligamanager/createspieltag/" + SpieltagNr);
 
-            }
+    }
 
-            private void AnzeigenTabelle()
-            {
-                _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/tabellen");
-            }
-            private void AnzeigenKader()
-            {
-                _navigationManager.NavigateTo($"Ligamanager/kader");
-            }
+    private void AnzeigenTabelle()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/tabellen");
+    }
+    private void AnzeigenKader()
+    {
+        Globals.KaderVereinNr = 0;
+        _navigationManager.NavigateTo($"Ligamanager/kader");
+    }
 
     }
 

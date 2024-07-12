@@ -1,19 +1,18 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
-using LigaManagerManagement.Models;
+using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
-using Radzen.Blazor;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Radzen;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Ligamanager.Components;
 using System.Net;
-using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.JSInterop;
-using LigaManagement.Web.Pages;
-using Microsoft.Extensions.Localization;
+using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -55,7 +54,7 @@ namespace LigaManagerManagement.Web.Pages
             if (!authenticationState.User.Identity.IsAuthenticated)
             {
                 string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
-                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+                NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
             }
 
             LigenList = (await LigaService.GetLigen()).ToList();
