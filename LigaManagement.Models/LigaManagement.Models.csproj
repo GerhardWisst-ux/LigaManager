@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Ligamanager.Components\Ligamanager.Components.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Database\" />
+  </ItemGroup>
+
 </Project>

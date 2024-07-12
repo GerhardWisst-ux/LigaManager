@@ -21,6 +21,10 @@
 
 		<ApplicationIcon>Soccer.ico</ApplicationIcon>
 
+		<RepositoryUrl>https://github.com/GerhardWisst-ux/LigaManager</RepositoryUrl>
+
+		<PackageTags>Ligamanager; Bundesliga; 2.Liga, EM/WM, englische, französische, italiensche, spanische, holländische, belgische, potugisische und türkische Liga</PackageTags>
+
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
 	</PropertyGroup>
 
