@@ -11,6 +11,7 @@ using System.Reflection;
 using System;
 using ToremanagerManagement.Api.Models.Repository;
 using ToreManagerManagement.Api.Models;
+using System.Reflection.PortableExecutable;
 
 namespace LigaManagement.Api
 {
@@ -77,6 +78,8 @@ namespace LigaManagement.Api
                 services.AddScoped<IEinstellungenRepository, EinstellungenRepository>();
                 services.AddScoped<IUserRepository, UserRepository>();
 
+                services.AddAuthentication();
+
                 services.AddControllers();
 
                 services.AddCors(options =>
@@ -106,14 +109,16 @@ namespace LigaManagement.Api
                     app.UseDeveloperExceptionPage();
                 }
 
+                
                 app.UseHttpsRedirection();
+                app.UseStaticFiles();
 
                 app.UseRouting();
 
                 app.UseCors("NewPolicy");
 
                 app.UseAuthorization();
-
+                
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();

@@ -117,104 +117,82 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswärtstabelle" xml:space="preserve">
-    <value>Away Table</value>
+  <data name="Chart" xml:space="preserve">
+    <value>Chart</value>
   </data>
   <data name="Diff" xml:space="preserve">
     <value>Diff</value>
   </data>
   <data name="Einstellungen" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="Ewige Tabelle" xml:space="preserve">
-    <value>Eternal table</value>
+    <value>Ewige Tabelle</value>
   </data>
   <data name="G" xml:space="preserve">
-    <value>W</value>
+    <value>G</value>
   </data>
   <data name="Gesamttabelle" xml:space="preserve">
-    <value>Total table</value>
-  </data>
-  <data name="Heimtabelle" xml:space="preserve">
-    <value>Home table</value>
+    <value>Gesamttabelle</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="Kader" xml:space="preserve">
-    <value>Squad</value>
-  </data>
-  <data name="Kommentar" xml:space="preserve">
-    <value>The table was calculated using the three-point system.
-In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfurt was deducted 2 points, and in 2003/04, 1. FC Kaiserslautern was deducted 3 points.</value>
-  </data>
   <data name="Legende" xml:space="preserve">
-    <value>Gold: Champion Green:Champions League, Blue: Europa-League, Orange: Relegation, Rot: Relegated</value>
+    <value>Gold: Meister, Grün: Champions League, Blau: Europa-Liga, Orange: Relegation, Rot: Absteiger</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
   </data>
   <data name="Nach oben" xml:space="preserve">
-    <value>Go to Top</value>
+    <value>Nach oben</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
-    <value>Next Match day</value>
+  <data name="Nächster Spieltag" xml:space="preserve">
+    <value>Nächster Spieltag</value>
   </data>
   <data name="P" xml:space="preserve">
     <value>P</value>
   </data>
   <data name="Platz" xml:space="preserve">
-    <value>Ps.</value>
+    <value>Platz</value>
+  </data>
+  <data name="Punkteentwicklung" xml:space="preserve">
+    <value>Punkteentwicklung</value>
   </data>
   <data name="Rückrunde" xml:space="preserve">
-    <value>Second half</value>
+    <value>Rückrunde</value>
   </data>
   <data name="S" xml:space="preserve">
-    <value>Ga.</value>
+    <value>S</value>
   </data>
   <data name="Saison wählen" xml:space="preserve">
-    <value>Select Saison</value>
+    <value>Saison wählen</value>
   </data>
   <data name="Spieltag" xml:space="preserve">
-    <value>Matchday</value>
+    <value>Spieltag</value>
   </data>
   <data name="Spieltag wählen" xml:space="preserve">
-    <value>Select Matchday</value>
+    <value>Spieltag wählen</value>
   </data>
   <data name="Spieltage" xml:space="preserve">
-    <value>Matchdays</value>
-  </data>
-  <data name="Statistiken" xml:space="preserve">
-    <value>Statistics</value>
+    <value>Spieltage</value>
   </data>
   <data name="T" xml:space="preserve">
-    <value>G</value>
+    <value>T</value>
   </data>
   <data name="Tabelle" xml:space="preserve">
-    <value>Table</value>
-  </data>
-  <data name="Tabellenart wählen" xml:space="preserve">
-    <value>Select Tableart </value>
+    <value>Tabelle</value>
   </data>
   <data name="Tore" xml:space="preserve">
-    <value>Goals</value>
-  </data>
-  <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Goals Average</value>
+    <value>Tore</value>
   </data>
   <data name="U" xml:space="preserve">
     <value>U</value>
   </data>
   <data name="V" xml:space="preserve">
-    <value>L</value>
+    <value>V</value>
   </data>
   <data name="Verein" xml:space="preserve">
-    <value>Club</value>
-  </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
-  </data>
-  <data name="Vorrunde" xml:space="preserve">
-    <value>First half</value>
+    <value>Verein</value>
   </data>
 </root>

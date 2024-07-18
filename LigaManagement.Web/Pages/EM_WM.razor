@@ -18,6 +18,16 @@
 </head>
 
 <style>
+     .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
+    }
+
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
+
     .rz-chkbox-box {
         border-color: darkgray !important;
     }
@@ -70,7 +80,7 @@ else
                         <option value="0" required>@Localizer["Turnier wählen"].Value</option>
                         @if (SaisonenList != null)
                         {
-                            @foreach (var saison in SaisonenList.Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
+                        @foreach (var saison in SaisonenList.Where(x => x.Aktuell).Where(x => x.Saisonname.StartsWith("EM") || x.Saisonname.StartsWith("WM")).OrderByDescending(o => o.Saisonname.Substring(o.Saisonname.Length - 4)))
                             {
                                 @if (saison.Saisonname == Globals.currentEMWMSaison)
                                 {
@@ -151,6 +161,17 @@ else
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Property="Ort" Width="20%" Sortable=false Title="@Localizer["Ort"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title="@Localizer["Datum"].Value" />
+
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Title="V" Sortable="true" TextAlign="TextAlign.Center" Width="7%">
+                                                <Template Context="data">
+                                                    <RadzenCheckBox @bind-Value=@data.Verlängerung TValue="bool" Name="V" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="PokalergebnisCLSpieltag" CssClass="table-row" Title="P" Sortable="true" TextAlign="TextAlign.Center" Width="7%">
+                                                <Template Context="data">
+                                                    <RadzenCheckBox @bind-Value=@data.Elfmeterschiessen TValue="bool" Name="P" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisCLSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                                 <Template Context="data">
                                                     <NavLink href="@($"Ligamanager/editemwmspieltag/{data.SpieltagId}/{data.GroupID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
@@ -218,7 +239,7 @@ else
                                         </Columns>
                                     </RadzenDataGrid>
 
-                                    <div Style="display:@VisibleTable2">
+                                    <div Style="display:@VisibleTableGH">
                                         <h4>@Localizer["Tabelle Gruppe"].Value C</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenC" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"
@@ -245,7 +266,7 @@ else
                                             </Columns>
                                         </RadzenDataGrid>
                                     </div>
-                                    <div Style="display:@VisibleTable2">
+                                    <div Style="display:@VisibleTableGH">
                                         <h4>@Localizer["Tabelle Gruppe"].Value D</h4>
                                         <RadzenDataGrid @ref="gridTabelle" Data="TabellenD" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                         AllowPaging="true" AllowSorting="true" AllowFiltering="false" AllowAlternatingRows="true"

@@ -1,6 +1,5 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     [ApiController]
     public class LaenderController : ControllerBase

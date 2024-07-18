@@ -1,28 +1,25 @@
-﻿using BootstrapBlazor.Components;
-using LigaManagement.Api.Models;
+﻿using LigaManagement.Api.Models;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class BlazorSchoolUserService
+    public class LigamanagerUserService
     {
         private readonly ProtectedLocalStorage _protectedLocalStorage;
-        private readonly string _blazorSchoolStorageKey = "blazorSchoolIdentity";
+        private readonly string _LigamanagerStorageKey = "LigamanagerIdentity";
 
 
-        public BlazorSchoolUserService(ProtectedLocalStorage protectedLocalStorage)
+        public LigamanagerUserService(ProtectedLocalStorage protectedLocalStorage)
         {
             _protectedLocalStorage = protectedLocalStorage;
         }
@@ -163,14 +160,14 @@ namespace LigaManagerManagement.Web.Services
         public async Task PersistUserToBrowserAsync(User user)
         {
             string userJson = JsonConvert.SerializeObject(user);
-            await _protectedLocalStorage.SetAsync(_blazorSchoolStorageKey, userJson);
+            await _protectedLocalStorage.SetAsync(_LigamanagerStorageKey, userJson);
         }
 
         public async Task<User?> FetchUserFromBrowserAsync()
         {
             try
             {
-                var storedUserResult = await _protectedLocalStorage.GetAsync<string>(_blazorSchoolStorageKey);
+                var storedUserResult = await _protectedLocalStorage.GetAsync<string>(_LigamanagerStorageKey);
 
                 if (storedUserResult.Success && !string.IsNullOrEmpty(storedUserResult.Value))
                 {
@@ -186,7 +183,7 @@ namespace LigaManagerManagement.Web.Services
             return null;
         }
 
-        public async Task ClearBrowserUserDataAsync() => await _protectedLocalStorage.DeleteAsync(_blazorSchoolStorageKey);
+        public async Task ClearBrowserUserDataAsync() => await _protectedLocalStorage.DeleteAsync(_LigamanagerStorageKey);
 
     }
 

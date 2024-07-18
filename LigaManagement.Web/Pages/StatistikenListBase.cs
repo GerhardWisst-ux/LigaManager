@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -101,7 +100,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 DisplayElements = "none";
 
-                Spieltage = (await SpieltagService.GetSpieltage());
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == 1);
 
                 var tore = await ToreService.GetTore();
 
@@ -113,9 +112,10 @@ namespace LigaManagerManagement.Web.Pages
 
                 await GetTorjaegerList();
 
+                StateHasChanged();
                 OnChange(1);
                 OnChange(0);
-                base.StateHasChanged();
+                StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -170,18 +170,7 @@ namespace LigaManagerManagement.Web.Pages
             }
             return TorjaegerList;
         }
-
-
-        public string Reverse(string text)
-        {
-            char[] cArray = text.ToCharArray();
-            string reverse = String.Empty;
-            for (int i = cArray.Length - 1; i > -1; i--)
-            {
-                reverse += cArray[i];
-            }
-            return reverse;
-        }
+       
 
         public async void Verein1Change(ChangeEventArgs e)
         {

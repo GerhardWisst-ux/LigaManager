@@ -161,6 +161,8 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
+                        spieltag.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
+                        spieltag.Verlängerung = bool.Parse(reader["Verlängerung"].ToString());
                         spieltag.GroupID = int.Parse(reader["GroupID"].ToString());
                         spieltag.Runde = reader["Runde"].ToString();
                         spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();

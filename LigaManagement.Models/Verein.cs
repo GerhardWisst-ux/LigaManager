@@ -63,6 +63,10 @@ namespace LigaManagement.Models
         public int GroupID1984 { get; set; }
         public int GroupID1982 { get; set; }
         public int GroupID1980 { get; set; }
+        public int GroupID1978 { get; set; }
+        public int GroupID1976 { get; set; }
+        public int GroupID1974 { get; set; }
+        public int GroupID1972 { get; set; }
         public int GroupID1970 { get; set; }
         public int GroupID1966 { get; set; }
         public int GroupID1962 { get; set; }
@@ -70,6 +74,8 @@ namespace LigaManagement.Models
         public int GroupID1954 { get; set; }
         public int GroupID1950 { get; set; }
         public int GroupID1938 { get; set; }
+        public int GroupID1934 { get; set; }
+        public int GroupID1930 { get; set; }
     }
 
     public class VereinEMWM : Verein
@@ -98,7 +104,9 @@ namespace LigaManagement.Models
         public int GroupID1982 { get; set; }
         public int GroupID1980 { get; set; }
         public int GroupID1978 { get; set; }
+        public int GroupID1976 { get; set; }
         public int GroupID1974 { get; set; }
+        public int GroupID1972 { get; set; }
         public int GroupID1970 { get; set; }
         public int GroupID1966 { get; set; }
         public int GroupID1962 { get; set; }
@@ -107,5 +115,7 @@ namespace LigaManagement.Models
         public int GroupID1954 { get; set; }
         public int GroupID1950 { get; set; }
         public int GroupID1938 { get; set; }
+        public int GroupID1934 { get; set; }
+        public int GroupID1930 { get; set; }
     }
 }

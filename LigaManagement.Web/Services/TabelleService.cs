@@ -70,7 +70,7 @@ namespace LigaManagerManagement.Web.Services
             {
                 var alleSpieltage = (await spieltagService.GetSpieltage());
 
-                var Spieltag = (alleSpieltage).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).OrderByDescending(o => o.SpieltagNr + 0).Take(1).ToList().ToArray();
+                var Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison).OrderByDescending(o => o.SpieltagNr + 0).Take(1).ToList().ToArray();
 
                 return Spieltag[0].Datum;
             }

@@ -21,10 +21,11 @@ namespace LigaManagement.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    
+                    webBuilder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+                    webBuilder.UseStaticWebAssets();
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseWebRoot("wwwroot");                    
-                    webBuilder.UseStaticWebAssets();
+                    
 
                     if (LMSettings.GetSprache_LandKZ() == "DE")
                     {

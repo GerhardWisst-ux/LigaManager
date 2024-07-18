@@ -259,7 +259,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentCLSaison = Globals.currentSaison;
 
                 if (Saisonen == null || Globals.currentSaison == null)
-                    throw new Exception("Saisonen null oder Globals.currentSaison");
+                    throw new Exception("Saisonen = null oder Globals.currentSaison = null");
 
                 if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID) != null)
                 {
@@ -749,7 +749,7 @@ namespace LigaManagement.Web.Pages
         public void GenerateDataBase()
         {
             String connstr;
-            SqlConnection myConn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Integrated security=SSPI;database=master;TrustServerCertificate=true;");
+            SqlConnection myConn = new SqlConnection("\"server=PC-WISST\\SQLEXPRESS;database=LigaDB;User='IIS APPPOOL\\Ligamanager';Password='';Trusted_Connection=true;TrustServerCertificate=true;");
             string SQLScript = string.Empty;
             string path = "C:\\TEMP\\Ligamanager";
 

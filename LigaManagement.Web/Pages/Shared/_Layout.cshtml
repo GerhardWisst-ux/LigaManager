@@ -10,13 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <a href="~/css/bootstrap/bootstrap.min.css.map"></a>
     <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="_content/Radzen.Blazor/css/material-base.css">
     <script src="~/jquery/jquery.min.js"></script>
     <script src="~/jquery/bootstrap.min.js"></script>
     <link href="~/css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/Identity/css/site.css" />
-    <link rel="icon" type="image/x-icon" href="wwwroot/images/soccer.ico">
+    <link rel="icon" type="image/x-icon" href="~/favicon.ico" />        
     <script src="~/js/plotly-latest.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    
+    
+    
 </head>
 
 <body>
@@ -57,10 +60,17 @@
             &copy; 2024 - LigaManagement.Web
         </div>
     </footer>
-
+    <script src="~/js/plotly-latest.min.js"></script>
     <script src="~/Identity/js/site.js" asp-append-version="true"></script>
-    <script src="~/js/blazor.server.js"></script>
-
+    <script src="_content/Radzen.Blazor/Radzen.Blazor.js"></script>
+    <script src="_framework/blazor.server.js" autostart="false"></script>
+    <script>
+        (function start() {
+            Blazor.start({
+                configureSignalR: builder => builder.withUrl('_blazor', 1 | 4) // WebSockets and Long Polling
+            });
+        })()
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -9,7 +9,7 @@ namespace Ligamanager.Components
     public class Globals
     {
         public static string currentLigaUrl;
-        public static string connstring = "Data Source=PC-WISST\\SQLEXPRESS;Database=LigaDB;Integrated Security=True;TrustServerCertificate=true;";
+        public static string connstring = "server=PC-WISST\\SQLEXPRESS;database=LigaDB;User='IIS APPPOOL\\Ligamanager';Password='';Trusted_Connection=true;TrustServerCertificate=true";
 
         public static string currentLand;
         public static string currentLiga;
@@ -61,7 +61,7 @@ namespace Ligamanager.Components
         }
 
         public static string CurrentRole = "USER";
-        
+
         //public static int MaxSpieltag(int SaisonID)
         //{
         //    int iMaxSpieltag = 0;
@@ -80,5 +80,23 @@ namespace Ligamanager.Components
         //    conn.Close();
         //    return iMaxSpieltag;
         //}
+
+        public string Reverse(string text)
+        {
+            char[] cArray = text.ToCharArray();
+            string reverse = String.Empty;
+            for (int i = cArray.Length - 1; i > -1; i--)
+            {
+                reverse += cArray[i];
+            }
+            return reverse;
+        }
+        public static int GetAgeFromDate(DateTime geburtstag)
+        {
+            int age = DateTime.Now.Year - geburtstag.Year;
+            geburtstag = geburtstag.AddYears(age);
+            if (DateTime.Now.CompareTo(geburtstag) < 0) { age--; }
+            return age;
+        }
     }
 }

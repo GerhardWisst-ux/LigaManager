@@ -5,7 +5,6 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -158,7 +157,8 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
-                Saisonen = Saisonen.Where(x => x.LigaID == Globals.LigaID); SpieltagList = new List<DisplaySpieltag>();
+                Saisonen = Saisonen.Where(x => x.LigaID == Globals.LigaID); 
+                SpieltagList = new List<DisplaySpieltag>();
                 SaisonenList = new List<DisplaySaison>();
 
                 iSpieltage = ErmittlenAktSpieltag();
@@ -210,13 +210,17 @@ namespace LigamanagerManagement.Web.Pages
                 }
                 else if (args.Data.Platz == saisonFormat.AnzahlVereine - saisonFormat.Absteiger && saisonFormat.Relegation > 0)
                     args.Attributes.Add("style", $"background-color:orange;");
-                else if (args.Data.Platz > 1 && args.Data.Platz < 6)
+                else if (args.Data.Platz > 1 && args.Data.Platz <= saisonFormat.CL_League + 1)
                 {
                     args.Attributes.Add("style", $"background-color:springgreen;");
                 }
-                else if (args.Data.Platz == 6 || args.Data.Platz == 7)
+                else if (args.Data.Platz == saisonFormat.CL_League + saisonFormat.EL_League)
                 {
                     args.Attributes.Add("style", $"background-color:lightblue;");
+                }
+                else if (args.Data.Platz == saisonFormat.CL_League + saisonFormat.EL_League + saisonFormat.CF_League)
+                {
+                    args.Attributes.Add("style", $"background-color:coral;");
                 }
                 else if (args.Data.Platz == 1)
                     args.Attributes.Add("style", $"background-color:gold;");
@@ -394,11 +398,10 @@ namespace LigamanagerManagement.Web.Pages
                         SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + ".Spieltag"));
                     }
 
-
                     Vereine = await VereineService.GetVereine();
 
 
-                    await TabelleBerechnen(1);
+                    await TabelleBerechnen((int)Globals.Tabart.Gesamt);
 
                     DisplayElements = "block";
 
@@ -546,7 +549,7 @@ namespace LigamanagerManagement.Web.Pages
                     }
 
                 }
-                else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 15)
+                else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 12)
                 {
                     VereineAus = await VereineAusService.GetVereinePL();
 
@@ -733,7 +736,6 @@ namespace LigamanagerManagement.Web.Pages
             }
             public string Nummer { get; set; }
             public string Name { get; set; }
-
         }
 
         public class DisplaySaison

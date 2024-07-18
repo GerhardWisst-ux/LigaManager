@@ -1,0 +1,481 @@
+﻿@page "/Ligamanager/ChartPunkte"
+@using LigaManagerManagement.Web.Pages
+@using Microsoft.Extensions.Localization
+
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject DialogService DialogService
+@inject NavigationManager _navigationManager
+@inherits LigaManagerManagement.Web.Pages.ChartPunkte
+
+<html>
+<head>
+    <style type="text/css">
+
+
+        .container {
+            container-type: inline-size;
+        }
+
+        ol {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: grid;
+            grid-template-areas: "dimension value" "bar bar";
+            grid-template-columns: minmax(0px, 1fr) min-content;
+            position: relative;
+        }
+
+        .tick-labels {
+            grid-column: bar;
+            display: block;
+            position: relative;
+            height: 1.35em;
+            font-size: 90%;
+        }
+
+        .tick-label {
+            position: absolute;
+            translate: -50%;
+            &:first-child
+
+        {
+            translate: none;
+        }
+
+        &:last-child {
+            translate: -102%;
+        }
+
+        }
+
+        .dimension {
+            grid-area: dimension;
+            padding-bottom: 2px;
+            padding-inline-start: 5px;
+        }
+
+        .bar-container {
+            grid-area: bar;
+            padding-bottom: 10px;
+        }
+
+        .barM {
+            background-color: Gold;
+            height: 20px;
+        }
+
+        .barCL {
+            background-color: lightgreen;
+            height: 20px;
+        }
+
+        .barEL {
+            background-color: Lightblue;
+            height: 20px;
+        }
+
+        .barCF {
+            background-color: Coral;
+            height: 20px;
+        }
+
+        .barRest {
+            background-color: wheat;
+            height: 20px;
+        }
+
+        .barRele {
+            background-color: orange;
+            height: 20px;
+        }
+
+        .barAb {
+            background-color: lightcoral;
+            height: 20px;
+        }
+
+
+        .tick-line {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background-color: gray;
+            translate: -50%;
+            z-index: -1;
+        }
+
+        .value {
+            grid-area: value;
+            padding-inline-end: 5px;
+        }
+
+        @@container (width > 500px) {
+            ol {
+                display: grid;
+                grid-template-areas: "dimension bar value";
+                grid-template-columns: fit-content(13rem) 1fr min-content;
+                column-gap: 20px;
+            }
+
+            li {
+                display: grid;
+                grid-template-columns: subgrid;
+                grid-template-areas: none;
+                grid-column: 1 / -1;
+                padding-bottom: 0;
+            }
+
+            .dimension {
+                padding-bottom: 0;
+            }
+
+            .bar-container {
+                position: relative;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    @if (SaisonenList == null)
+    {
+        <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+            <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+        </RadzenStack>
+    }
+    else
+    {
+        <div class="container">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                        <div class="d-flex flex-row">
+                            <div class="card-body">
+                                <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                                <br />
+                                <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                                <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                                <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                                <h2 style="display:inline-block;">@Localizer["Chart"].Value  @Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+
+                            </div>
+                        </div>
+                    </RadzenCard>
+                </div>
+            </div>
+
+            <RadzenCard style="margin-bottom:4px;height:80px;">
+                <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
+                        <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
+                            <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
+                            @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
+                            {
+                                @if (saison.SaisonID == Globals.SaisonID)
+                                {
+                                    <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                                else
+                                {
+                                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
+                            <option value="0" selected required>@Localizer["Spieltag wählen"].Value</option>
+                            @foreach (var spieltag in SpieltagList)
+                            {
+                                @if (spieltag.Nummer == currentspieltag.ToString())
+                                {
+                                    <option selected value="@spieltag.Nummer"> @spieltag.Name </option>
+                                }
+                                else
+                                {
+                                    <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </RadzenCard>
+            <div class="container">
+                @if (lstVereine.Count() > 0)
+                {
+                    <ol>
+                        <li class="tick-labels" aria-hidden="true">
+                            <div class="tick-label">0</div>
+                            <div class="tick-label" style="inset-inline-start: 20%">20</div>
+                            <div class="tick-label" style="inset-inline-start: 40%">40</div>
+                            <div class="tick-label" style="inset-inline-start: 60%">60</div>
+                            <div class="tick-label" style="inset-inline-start: 80%">80</div>
+                            <div class="tick-label" style="inset-inline-start: 102%">102</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[0].Platz. @lstVereine[0].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barM" style="width:@lstVereine[0].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[0].Punkte</div>
+
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[1].Platz. @lstVereine[1].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barCL" style="width: @lstVereine[1].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[1].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[2].Platz. @lstVereine[2].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barCL" style="width: @lstVereine[2].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[2].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[3].Platz. @lstVereine[3].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barCL" style="width: @lstVereine[3].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[3].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[4].Platz. @lstVereine[4].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barCL" style="width: @lstVereine[4].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[4].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[5].Platz. @lstVereine[5].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barEL" style="width: @lstVereine[5].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[5].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[6].Platz. @lstVereine[6].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barEL" style="width: @lstVereine[6].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[6].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[7].Platz. @lstVereine[7].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barCF" style="width: @lstVereine[7].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[7].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[8].Platz. @lstVereine[8].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[8].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[8].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[9].Platz. @lstVereine[9].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[9].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[9].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[10].Platz. @lstVereine[10].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[10].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[10].Punkte</div>
+                        </li>
+
+                        <li>
+                            <div class="dimension">@lstVereine[11].Platz. @lstVereine[11].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[11].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[11].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[12].Platz. @lstVereine[12].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[12].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[12].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[13].Platz. @lstVereine[13].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[13].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[13].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[14].Platz. @lstVereine[14].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRest" style="width: @lstVereine[14].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[14].Punkte</div>
+                        </li>
+                        <li>
+                            <div class="dimension">@lstVereine[15].Platz. @lstVereine[15].Anzeigename</div>
+                            <div class="bar-container">
+                                <div class="barRele" style="width: @lstVereine[15].Punkte%"></div>
+                                <div class="tick-line"></div>
+                                <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                <div class="tick-line" style="inset-inline-start: 102%"></div>
+                            </div>
+                            <div class="value">@lstVereine[15].Punkte</div>
+                        </li>
+                        @if (Globals.currentSaison != "1963/64" && Globals.currentSaison != "1964/65" && lstVereine.Count() == 18)
+                        {
+
+                            <li>
+                                <div class="dimension">@lstVereine[16].Platz. @lstVereine[16].Anzeigename</div>
+                                <div class="bar-container">
+                                    <div class="barAb" style="width: @lstVereine[16].Punkte%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@lstVereine[16].Punkte</div>
+                            </li>
+                            <li>
+                                <div class="dimension">@lstVereine[17].Platz. @lstVereine[17].Anzeigename</div>
+                                <div class="bar-container">
+                                    <div class="barAb" style="width: @lstVereine[17].Punkte%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@lstVereine[17].Punkte</div>
+                            </li>
+                        }
+                        @if (Globals.currentSaison == "1991/92" && lstVereine.Count() == 20)
+                        {
+                            <li>
+                                <div class="dimension">@lstVereine[18].Platz. @lstVereine[18].Anzeigename</div>
+                                <div class="bar-container">
+                                    <div class="barAb" style="width: @lstVereine[18].Punkte%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@lstVereine[18].Punkte</div>
+                            </li>
+                            <li>
+                                <div class="dimension">@lstVereine[19].Platz. @lstVereine[19].Anzeigename</div>
+                                <div class="bar-container">
+                                    <div class="barAb" style="width: @lstVereine[19].Punkte%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@lstVereine[18].Punkte</div>
+                            </li>
+                        }
+
+                    </ol>
+                }
+            </div>
+        </div>
+    }
+</body>
+</html>

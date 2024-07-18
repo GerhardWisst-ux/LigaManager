@@ -55,8 +55,7 @@ namespace LigaManagement.Web.Pages
         public bool InsertChartDataPunkte(List<int?> chartarray, int vereinsnr)
         {
             try
-            {
-                int punkte = 0;
+            {                
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 SqlCommand cmd = new SqlCommand();
                 conn.Open();

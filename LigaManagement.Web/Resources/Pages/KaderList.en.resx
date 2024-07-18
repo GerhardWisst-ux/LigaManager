@@ -180,6 +180,9 @@
   <data name="Position" xml:space="preserve">
     <value>Position</value>
   </data>
+  <data name="Position wählen" xml:space="preserve">
+    <value>Select position</value>
+  </data>
   <data name="Rückennummer" xml:space="preserve">
     <value>Rückennummer</value>
   </data>

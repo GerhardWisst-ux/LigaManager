@@ -25,7 +25,9 @@ namespace LigaManagerManagement.Models
 
         [Required(ErrorMessage = "Geburtsdatum erforderlich.")]
         public DateTime? Geburtsdatum { get; set; }
-                
+
+        public int Alter { get; set; }
+
         public string Position { get; set; }
 
         [Required(ErrorMessage = "Position erforderlich.")]
