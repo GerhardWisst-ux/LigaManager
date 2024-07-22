@@ -2,7 +2,7 @@
 @using LigaManagerManagement.Web.Pages;
 @using Radzen;
 @inherits VereineListBase
-@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@* @inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider *@
 @inject NavigationManager _navigationManager
 
 @attribute [Authorize]
@@ -53,7 +53,7 @@ else
                <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                             <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                             @* <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span> *@
                             <br />
                             <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
@@ -106,9 +106,10 @@ else
                 </RadzenDataGridColumn Context="data" >
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="100px" Filterable="false" Sortable="false">
-                            <Template Context="data">
-                                <NavLink href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
-                            </Template>
+                    <Template Context="data">
+                        <NavLink id="btnEdit" style="height:35px;" href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                        <NavLink id="btnChart" style="height:35px;" href="@($"Ligamanager/ChartVerein/{data.VereinNr}")" title="@Localizer["Chart Punkteentwicklung"].Value"  class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
+                    </Template>
                 </RadzenDataGridColumn>
             </Columns>
             <FooterTemplate>

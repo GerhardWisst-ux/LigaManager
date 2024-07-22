@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
-using LigaManagement.Web.Shared;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
-using Radzen;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -108,7 +105,15 @@ namespace LigaManagerManagement.Web.Pages
             StateHasChanged();
         }
 
-        public void PositionChange(ChangeEventArgs e)
+        public void DatumChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                DateTime d = Convert.ToDateTime(e.Value);
+            }
+        }
+
+            public void PositionChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {

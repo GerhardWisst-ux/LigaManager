@@ -141,6 +141,9 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Kader" xml:space="preserve">
+    <value>Squad</value>
+  </data>
   <data name="Kommentar" xml:space="preserve">
     <value>The table was calculated using the three-point system.
 In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfurt was deducted 2 points, and in 2003/04, 1. FC Kaiserslautern was deducted 3 points.</value>
@@ -181,6 +184,9 @@ In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfur
   <data name="Spieltage" xml:space="preserve">
     <value>Matchdays</value>
   </data>
+  <data name="Statistiken" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
   <data name="T" xml:space="preserve">
     <value>G</value>
   </data>
@@ -194,7 +200,7 @@ In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfur
     <value>Goals</value>
   </data>
   <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Tore Durchschnitt</value>
+    <value>Goals Average</value>
   </data>
   <data name="U" xml:space="preserve">
     <value>U</value>

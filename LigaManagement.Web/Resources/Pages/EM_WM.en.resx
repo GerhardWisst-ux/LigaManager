@@ -186,6 +186,9 @@
   <data name="Spiel Bearbeiten" xml:space="preserve">
     <value>Edit Match</value>
   </data>
+  <data name="Spiel um Platz 3" xml:space="preserve">
+    <value>3rd place match</value>
+  </data>
   <data name="Tabelle Gruppe" xml:space="preserve">
     <value>Table group</value>
   </data>

@@ -70,7 +70,7 @@ namespace LigaManagement.Api.Models
             //}
 
             return null;
-        }
+        }       
 
         public async Task<IEnumerable<Kader>> GetAllSpieler()
         {
@@ -93,11 +93,13 @@ namespace LigaManagement.Api.Models
                         kaderspieler.Vorname = reader["Vorname"].ToString();
                         kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
                         kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                        kaderspieler.Alter = Globals.GetAgeFromDate((DateTime)reader["Geburtstag"]);
                         kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
                         kaderspieler.Einsaetze = (int)reader["Einsaetze"];
                         kaderspieler.Tore = (int)reader["Tore"];
                         kaderspieler.VereinID = (int)reader["VereinNr"];
                         kaderspieler.SaisonId = (int)reader["SaisonID"];
+
                         kaderspieler.Aktiv = (bool)reader["Aktiv"];
                         kaderspieler.Position = (string)reader["Position"].ToString();
                         kaderspieler.PositionsNr = (int)reader["PositionsNr"];
@@ -137,6 +139,7 @@ namespace LigaManagement.Api.Models
                         kaderspieler.Vorname = reader["Vorname"].ToString();
                         kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
                         kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                        kaderspieler.Alter = Globals.GetAgeFromDate((DateTime)reader["Geburtstag"]);
                         kaderspieler.Einsaetze = (int)reader["Einsaetze"];
                         kaderspieler.Tore = (int)reader["Tore"];
                         kaderspieler.VereinID = (int)reader["VereinNr"];

@@ -28,7 +28,7 @@
     }
 
     .navbar-toggler {
-       color: rgba(255, 255, 255, 0.1) !important;
+        color: rgba(255, 255, 255, 0.1) !important;
     }
 
     .top-row {
@@ -172,6 +172,8 @@
         mask-size: 100% 100%;
     }
 
+
+
     @@media screen and (max-height: 900px) {
         #navbar {
             padding: 20px 10px !important;
@@ -189,7 +191,7 @@
     }
 </style>
 
-<div style="height´:auto" class="top-row pl-4 navbar">
+<div style="height:auto" class="top-row pl-4 navbar">
     <a style="margin-right:5px;" class="navbar-brand" href="/Ligamanager">@Localizer["Ligamanager"].Value</a>
     <button class="navbar-toggler" @onclick="ToggleNavMenu">
         <span class="navbar-toggler-icon"></span>
@@ -224,39 +226,31 @@
                 </NavLink>
                 </li>
                 } *@
-              
-               @*  @if (Globals.bVisibleNavMenuElements == true)
-                {
-                    <li class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/kader") Match="NavLinkMatch.All">
-                            <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
-                        </NavLink>
-                    </li>
-                }
-                @if (Globals.bVisibleNavMenuElements == true)
-                {
-                    <li class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/statistiken") Match="NavLinkMatch.All">
 
-                            <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
-                        </NavLink>
-                    </li>
-                } 
                  @if (Globals.bVisibleNavMenuElements == true)
                 {
-                    <li style="display:block;" class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/rssfeed") Match="NavLinkMatch.All">
-                            <RadzenIcon Icon="launch" />&nbsp; @Localizer["RSS Feed"].Value
-                        </NavLink>
-                    </li>
-                } *@
-                @*   @if (Globals.bVisibleNavMenuElements == true)
-                {
                 <li class="nav-item px-4">
-                <NavLink class="nav-link" href=@($"/Ligamanager/chart2") Match="NavLinkMatch.All">
-                <span class="oi oi-graph"></span> @Localizer["Charts"].Value
+                <NavLink class="nav-link" href=@($"Ligamanager/kader") Match="NavLinkMatch.All">
+                <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
                 </NavLink>
                 </li>
+                }
+              @*   @if (Globals.bVisibleNavMenuElements == true)
+                {
+                <li class="nav-item px-4">
+                <NavLink class="nav-link" href=@($"Ligamanager/statistiken") Match="NavLinkMatch.All">
+
+                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
+                </NavLink>
+                </li>
+                }                *@
+                @* @if (Globals.bVisibleNavMenuElements == true)
+                {
+                    <li class="nav-item px-4">
+                        <NavLink class="nav-link" href=@($"Ligamanager/chart") Match="NavLinkMatch.All">
+                            <span class="oi oi-aperture" aria-hidden="true"></span> @Localizer["Chart"].Value
+                        </NavLink>
+                    </li>
                 } *@
                 @if (Globals.bVisibleNavMenuElements == true)
                 {
@@ -278,7 +272,7 @@
                 {
                     <li class="nav-item px-4">
                         <NavLink class="nav-link" href=@($"Ligamanager/em_wm") Match="NavLinkMatch.All">
-                            <span class="oi oi-globe" aria-hidden="true"></span>@Localizer["EM-WM"].Value                            
+                            <span class="oi oi-globe" aria-hidden="true"></span>@Localizer["EM-WM"].Value
                         </NavLink>
                     </li>
                 }
@@ -305,28 +299,28 @@
                             <span class="oi--grid-three-up" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@Localizer["Vereine"].Value
                         </NavLink>
                     </li>
-                }              
-                
-            @*     @if (Globals.bVisibleNavMenuElements == true)
+                }
+
+                @*     @if (Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-4">
-                        <NavLink class="nav-link" href=@($"Ligamanager/info") Match="NavLinkMatch.All">
-                            <span class="oi--info" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;@Localizer["Info"].Value
-                        </NavLink>
-                    </li>
+                <li class="nav-item px-4">
+                <NavLink class="nav-link" href=@($"Ligamanager/info") Match="NavLinkMatch.All">
+                <span class="oi--info" aria-hidden="true"></span>&nbsp;&nbsp;&nbsp;&nbsp;@Localizer["Info"].Value
+                </NavLink>
+                </li>
                 } *@
-            @*     @if (Globals.bVisibleNavMenuElements == true)
+                @*     @if (Globals.bVisibleNavMenuElements == true)
                 {
-                    <li class="nav-item px-4">
-                        <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                            <span class="oi oi-power-standby" aria-hidden="true"></span>
-                            @Localizer["Logout"].Value
-                        </NavLink>
-                    </li>
+                <li class="nav-item px-4">
+                <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
+                <span class="oi oi-power-standby" aria-hidden="true"></span>
+                @Localizer["Logout"].Value
+                </NavLink>
+                </li>
                 } *@
             </Authorized>
             <NotAuthorized>
-                <div style="margin-left:2px;" class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">                    
+                <div style="margin-left:2px;" class="navbar navbar-expand-sm navbar-dark bg-dark align-items-start flex-sm-column flex-row">
                     <button class="navbar-toggler" @onclick="ToggleNavMenu">
                         <span class="navbar-toggler-icon"></span>
                     </button>

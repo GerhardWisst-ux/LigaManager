@@ -5,7 +5,7 @@
   </PropertyGroup>-->
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows10.0.22621.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
 		<Nullable>warnings</Nullable>
 		<ProduceReferenceAssembly>False</ProduceReferenceAssembly>
@@ -21,6 +21,12 @@
 
 		<ApplicationIcon>Soccer.ico</ApplicationIcon>
 
+		<RepositoryUrl>https://github.com/GerhardWisst-ux/LigaManager</RepositoryUrl>
+
+		<PackageTags>Ligamanager; Bundesliga; 2.Liga, EM/WM, englische, französische, italiensche, spanische, holländische, belgische, potugisische und türkische Liga</PackageTags>
+
+		<SignAssembly>False</SignAssembly>
+
 		<!--<AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>-->
 	</PropertyGroup>
 
@@ -32,11 +38,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Content Remove="Pages\Chart3.razor" />
 		<Content Remove="Pages\Charts.razor" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="favicon.ico" />
 	  <None Remove="Soccer.ico" />
 	</ItemGroup>
 
@@ -45,11 +51,15 @@
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
+	  <Content Include="favicon.ico">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
-		<PackageReference Include="BootstrapBlazor" Version="8.3.10" />
+		<PackageReference Include="BootstrapBlazor" Version="8.7.2" />
 		<PackageReference Include="FontAwesome" Version="4.7.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.2.0-preview3.20168.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.DataAnnotations.Validation" Version="3.2.0-preview5.20216.8" />
@@ -79,7 +89,6 @@
 	  <None Include="Pages\Account\Login.razor" />
 	  <None Include="Pages\Account\Logout.razor" />
 	  <None Include="Pages\Account\_Imports.razor" />
-	  <None Include="Pages\Chart3.razor" />
 	</ItemGroup>
 
 	<ItemGroup>

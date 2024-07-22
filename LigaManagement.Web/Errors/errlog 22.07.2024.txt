@@ -1,0 +1,822 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:32:26
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:32:26
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:32:27
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:21
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:21
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:21
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:21
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:33:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:34:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:35:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:36:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:36:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:36:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:36:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:37:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:40:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:23
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:41:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 10:42:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at LigaManagement.Web.Pages.EM_WMListbase.OnInitializedAsync()
+Datum/Uhrzeit: 22.07.2024 11:17:22
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:12
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: ExecuteReader: Connection property has not been initialized.
+StackTrace:    at Microsoft.Data.SqlClient.SqlCommand.ValidateCommand(Boolean isAsync, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader()
+   at LigaManagerManagement.Api.Models.SpieltageEMWMRepository.GetVereine(Int32 iGroupID) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageEMWMRepository.cs:line 469
+Datum/Uhrzeit: 22.07.2024 12:28:13
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 12:28:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 22.07.2024 12:28:17
+============================================

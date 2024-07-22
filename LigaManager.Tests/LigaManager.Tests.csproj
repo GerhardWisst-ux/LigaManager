@@ -7,13 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Radzen.Blazor" Version="4.32.8" />
+    <PackageReference Include="NUnit" Version="4.1.0" />
   </ItemGroup>
 
-  <ItemGroup>    
-    <ProjectReference Include="..\LigaManagement.Api\LigaManagement.Api.csproj" />    
-    <ProjectReference Include="..\LigaManagement.Models\LigaManagement.Models.csproj" />    
-    <ProjectReference Include="..\LigaManagement.Web\LigaManagement.Web.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Ligamanager\LigaManagement.Api\LigaManagement.Api.csproj" />
+		<ProjectReference Include="..\..\Ligamanager\LigaManagement.Models\LigaManagement.Models.csproj" />
+		<ProjectReference Include="..\..\Ligamanager\LigaManagement.Web\LigaManagement.Web.csproj" />
+		<ProjectReference Include="..\..\Ligamanager\Ligamanager.Components\Ligamanager.Components.csproj" />
+	</ItemGroup>
 
 </Project>

@@ -12,7 +12,7 @@ namespace LigaManagement.Web
     public class Program
     {
         public static void Main(string[] args)
-        {            
+        {
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -21,9 +21,9 @@ namespace LigaManagement.Web
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    
+
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.UseWebRoot("wwwroot");                    
+                    webBuilder.UseWebRoot("wwwroot");
                     webBuilder.UseStaticWebAssets();
 
                     if (LMSettings.GetSprache_LandKZ() == "DE")

@@ -36,7 +36,7 @@ else
                 <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
-                            <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <span style="background-color:#1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                             <br />
                             <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
@@ -75,9 +75,9 @@ else
                 </select>
             </div>
 
-            <label for="cboSaison" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
+            <label for="cboVerein" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
             <div class="col-sm-4 col-xs-12 m-0">
-                <select id="cboSaison" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
+                <select id="cboVerein" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
                     <option value="" selected>@Localizer["Verein auswählen"].Value</option>
                     @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
                     {
@@ -90,8 +90,7 @@ else
                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
                         }
                     }
-
-                    }
+                    
                 </select>
                 <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
             </div>
@@ -121,10 +120,11 @@ else
                             </RadzenDataGridColumn>
                             <RadzenDataGridColumn TItem="Kader" Property="PositionsNr" Width="8%" TextAlign="TextAlign.Right" SortOrder="SortOrder.Ascending" Sortable=true Title="Pos" />
                             <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
-                            <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="24%" Sortable=true SortOrder="SortOrder.Ascending"
+                            <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="20%" Sortable=true SortOrder="SortOrder.Ascending"
                                                   SortProperty="SpielerName" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="24%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
+                            <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="20%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
                                                   SortProperty="Vorname" />
+                            <RadzenDataGridColumn TItem="Kader" Property="Alter" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Alter"].Value" Sortable=true SortProperty="Alter" />
                             <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Spiele"].Value" Sortable=true SortProperty="Einsaetze" />
                             <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="@Localizer["Tore"].Value" Sortable=true SortProperty="Tore" />
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Kader" Property="Id" Width="5%" Filterable="false" Sortable="false">

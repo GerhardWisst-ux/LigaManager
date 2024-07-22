@@ -186,6 +186,9 @@
   <data name="Spieltag" xml:space="preserve">
     <value>Spieltag</value>
   </data>
+  <data name="Statistiken" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
   <data name="Verein" xml:space="preserve">
     <value>Verein</value>
   </data>

@@ -19,12 +19,13 @@
     .rz-chkbox-box {
         border-color: darkgray !important;
     }
-    .rz-label {        
+
+    .rz-label {
         margin-left: 0px !important;
         padding-left: 20px !important;
     }
 
-   @@media (max-width: 767px) {
+    @@media (max-width: 767px) {
         .rz-label {
             margin-left: 0px !important;
             padding-left: 0px !important;
@@ -77,17 +78,50 @@
                 </div>
                 <div class="form-group row">
                     <RadzenLabel Text="Geburtsdatum" class="col-md-3 col-xs-12" Component="txtGeburtsdatum">@Localizer["Geburtsdatum"].Value</RadzenLabel>
-                    <InputDate required id="txtGeburtsdatum" @bind-Value="Kader.Geburtsdatum" class="form-control col-md-9 col-xs-12"></InputDate>
+                    <InputDate required id="txtGeburtsdatum" onchange="DatumChange" @bind-Value="Kader.Geburtsdatum" class="form-control col-md-9 col-xs-12"></InputDate>
                     <ValidationMessage For="()=>Kader.Geburtsdatum"></ValidationMessage>
                 </div>
                 <div class="form-group row">
-                    <RadzenLabel Text="Position" class="col-md-3 col-xs-12" Component="cboStadion">@Localizer["Position"].Value</RadzenLabel>
+                    <RadzenLabel Text="Alter" class="col-md-3 col-xs-12" Component="txtAlter">@Localizer["Alter"].Value</RadzenLabel>
+                    <InputNumber required disabled id="txtAlter" @bind-Value="Kader.Alter" class="form-control col-md-9 col-xs-12"></InputNumber>
+                    <ValidationMessage For="()=>Kader.Alter"></ValidationMessage>
+                </div>
+                <div class="form-group row">
+                    <RadzenLabel Text="Position" class="col-md-3 col-xs-12" Component="cboPosition">@Localizer["Position"].Value</RadzenLabel>
                     <select id="cboPosition" style="display:inline-block;" class="form-control col-md-9 col-xs-12" @onchange="PositionChange">
-                        <option value="@PositionsNr" selected required>Position auswählen</option>
-                        <option value="1">Torhüter</option>
-                        <option value="2">Abwehr</option>
-                        <option value="3">Mittelfeld</option>
-                        <option value="4">Sturm</option>
+                        <option value="0" required>@Localizer["Position wählen"].Value</option>
+                        @if (Kader.PositionsNr == 1)
+                        {
+                            <option selected value="1">@Localizer["Torhüter"].Value</option>
+                        }
+                        else
+                        {
+                            <option value="1">@Localizer["Torhüter"].Value</option>
+                        }
+                        @if (Kader.PositionsNr == 2)
+                        {
+                            <option selected value="2">@Localizer["Abwehr"].Value</option>
+                        }
+                        else
+                        {
+                            <option value="2">@Localizer["Abwehr"].Value</option>
+                        }
+                        @if (Kader.PositionsNr == 3)
+                        {
+                            <option selected value="3">@Localizer["Mittelfeld"].Value</option>
+                        }
+                        else
+                        {
+                            <option value="3">@Localizer["Mittelfeld"].Value</option>
+                        }
+                        @if (Kader.PositionsNr == 4)
+                        {
+                            <option selected value="4">@Localizer["Sturm"].Value</option>
+                        }
+                        else
+                        {
+                            <option value="4">@Localizer["Sturm"].Value</option>
+                        }
                     </select>
                     <ValidationMessage For="()=>Kader.PositionsNr"></ValidationMessage>
                 </div>
@@ -167,7 +201,7 @@
     }
     private async Task UpsertKader()
     {
-          if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Localizer["CL-Spieltag"].Value, Detail = "Sie haben nicht das Recht Kaders-Spieler zu ändern bzw. neu anzulegen." });
             return;
@@ -189,7 +223,7 @@
 
         if (Position == null)
         {
-            Kader.Position = "";
+            // Kader.Position = 1;
             Kader.PositionsNr = 0;
         }
 

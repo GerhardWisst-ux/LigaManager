@@ -13,10 +13,10 @@ namespace LigaManagerManagement.Web.Services
         [Inject]
         public static IUserService userService { get; set; }
 
-        private readonly BlazorSchoolUserService _ligaManagerUserService;
+        private readonly LigamanagerUserService _ligaManagerUserService;
         public User CurrentUser { get; private set; } = new();               
 
-        public LigaManagerAuthenticationStateProvider(BlazorSchoolUserService LigaManagerUserService)
+        public LigaManagerAuthenticationStateProvider(LigamanagerUserService LigaManagerUserService)
         {
             _ligaManagerUserService = LigaManagerUserService;
         }
@@ -24,7 +24,9 @@ namespace LigaManagerManagement.Web.Services
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
             var principal = new ClaimsPrincipal();
-            var user = await _ligaManagerUserService.FetchUserFromBrowserAsync();
+            //var user = await _ligaManagerUserService.FetchUserFromBrowserAsync();
+
+            var user = new { Username = "g.wisst", Password = "LMAdmin742" };
 
             if (user is not null)
             {

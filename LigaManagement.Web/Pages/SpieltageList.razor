@@ -143,6 +143,21 @@ else
                                 </RadzenButton>
                             </div>
                         </div>
+
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Chart"].Value" Click=@(args => AnzeigenChart()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Chart"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-aperture" aria-hidden="true"></span>@Localizer["Chart"].Value
+                                </RadzenButton>
+                            </div>
+                        </div>
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Statistiken"].Value" Click=@(args => AnzeigenStatistiken()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Statistiken"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
+                                </RadzenButton>
+                            </div>
+                        </div>
                     }
 
                 </div>
@@ -261,6 +276,16 @@ else
     {
         Globals.KaderVereinNr = 0;
         _navigationManager.NavigateTo($"Ligamanager/kader");
+    }
+
+    private void AnzeigenChart()
+    {        
+        _navigationManager.NavigateTo($"Ligamanager/chartPunkte");
+    }
+
+    private void AnzeigenStatistiken()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/statistiken");
     }
 
     }

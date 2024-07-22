@@ -98,76 +98,104 @@
                         }
                     </select>
                     <div style="display:@GroupVisible">
-                        <select id="cboGruppe" style="display:inline; width:auto;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
-                            <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
-                            @if (Gruppe.ToString() == "1")
-                            {
-                                <option selected value="A">A</option>
-                            }
-                            else
-                            {
-                                <option value="1">A</option>
-                            }
-                            }
-                            @if (Gruppe.ToString() == "2")
-                            {
-                                <option selected value="1">B</option>
-                            }
-                            else
-                            {
-                                <option value="2">B</option>
-                            }
-                            @if (Gruppe.ToString() == "3")
-                            {
-                                <option selected value="C">C</option>
-                            }
-                            else
-                            {
-                                <option value="3">C</option>
-                            }
-                            @if (Gruppe.ToString() == "4")
-                            {
-                                <option selected value="4">D</option>
-                            }
-                            else
-                            {
-                                <option value="4">D</option>
-                            }
-                            @if (Gruppe.ToString() == "5")
-                            {
-                                <option style="display:@sGroupEFVisible" selected value="5">E</option>
-                            }
-                            else
-                            {
-                                <option style="display:@sGroupEFVisible" value="5">E</option>
-                            }
-                            @if (Gruppe.ToString() == "6")
-                            {
-                                <option style="display:@sGroupEFVisible" selected value="6">F</option>
-                            }
-                            else
-                            {
-                                <option style="display:@sGroupEFVisible" value="6">F</option>
-                            }
-                            @if (Gruppe.ToString() == "7")
-                            {
-                                <option style ="display:@sGroupGHVisible" selected value="7">G</option>
-                            }
-                            else
-                            {
-                                <option style="display:@sGroupGHVisible" value="7">G</option>
-                            }
-                            @if (Gruppe.ToString() == "8")
-                            {
-                                <option style="display:@sGroupGHVisible" selected value="8">H</option>
-                            }
-                            else
-                            {
-                                <option style="display:@sGroupGHVisible" value="8">H</option>
-                            }
-                        </select>
+                        @if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
+                        {
+                            <select id="cboGruppe" style="display:inline; width:auto;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
+
+                                <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
+                                @if (Gruppe.ToString() == "1")
+                                {
+                                    <option style="display:@sGroupABCDVisible" selected value="A">A</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupABCDVisible" value="1">A</option>
+                                }
+                                }
+                                @if (Gruppe.ToString() == "2")
+                                {
+                                    <option style="display:@sGroupABCDVisible" selected value="2">B</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupABCDVisible" value="2">B</option>
+                                }
+                                @if (Gruppe.ToString() == "3")
+                                {
+                                    <option style="display:@sGroupABCDVisible" selected value="C">C</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupABCDVisible" value="3">C</option>
+                                }
+                                @if (Gruppe.ToString() == "4")
+                                {
+                                    <option style="display:@sGroupABCDVisible" selected value="4">D</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupABCDVisible" value="4">D</option>
+                                }
+                                @if (Gruppe.ToString() == "5")
+                                {
+                                    <option style="display:@sGroupEFVisible" selected value="5">E</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupEFVisible" value="5">E</option>
+                                }
+                                @if (Gruppe.ToString() == "6")
+                                {
+                                    <option style="display:@sGroupEFVisible" selected value="6">F</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupEFVisible" value="6">F</option>
+                                }
+                                @if (Gruppe.ToString() == "7")
+                                {
+                                    <option style="display:@sGroupGHVisible" selected value="7">G</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupGHVisible" value="7">G</option>
+                                }
+                                @if (Gruppe.ToString() == "8")
+                                {
+                                    <option style="display:@sGroupGHVisible" selected value="8">H</option>
+                                }
+                                else
+                                {
+                                    <option style="display:@sGroupGHVisible" value="8">H</option>
+                                }
+                            </select>
+                        }
+                        else if (RundeChoosed == "2G1" || RundeChoosed == "2G2" || RundeChoosed == "2G3")
+                        {
+                            <select id="cboGruppe" style="display:inline; width:auto;height:38px;" class="form-control dropdown" @onchange="GruppeChange">
+                                <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
+                                @if (Gruppe.ToString() == "1")
+                                {
+                                    <option selected value="A">A</option>
+                                }
+                                else
+                                {
+                                    <option value="1">A</option>
+                                }
+                                }
+
+                                @if (Gruppe.ToString() == "2")
+                                {
+                                    <option selected value="2">B</option>
+                                }
+                                else
+                                {
+                                    <option value="2">B</option>
+                                }
+                            </select>
+                        }
                     </div>
-                   
+
                 </RadzenCard>
                 <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
                 <RadzenTabs>
@@ -195,7 +223,7 @@
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-6" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
-                                    <RadzenNumeric required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-md-9 col-xs-6 pl-3"></RadzenNumeric>                                    
+                                    <RadzenNumeric required id="txtTore1" @bind-Value="Spiel.Tore1_Nr" class="form-control col-md-9 col-xs-6 pl-3"></RadzenNumeric>
                                     <ValidationMessage For="(()=>Spiel.Tore1_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
@@ -205,7 +233,7 @@
                                     <ValidationMessage For="(()=>Spiel.Tore2_Nr)"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblVerein2"  class="col-md-3 col-xs-6" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
+                                    <RadzenLabel Text="lblVerein2" class="col-md-3 col-xs-6" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
                                     <select id="cboVerein2" class="form-control col-md-9 col-xs-6" @onchange="Verein2Change">
                                         @* <option selected Value="Spiel.Verein2_Nr"></option> *@
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
@@ -318,7 +346,22 @@
                 else if (Runde == "G3")
                 {
                     Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["Gruppenphase Spieltag"].Value + 3;
-                    Spiel.RundeDetail = "Gruppenphase Spieltag 3";
+                    Spiel.RundeDetail = "2.Finalrunde Spieltag 1";
+                }
+                else if (Runde == "2G1")
+                {
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["2.Finalrunde Spieltag"].Value + 1;
+                    Spiel.RundeDetail = "2.Finalrunde Spieltag 1";
+                }
+                else if (Runde == "2G2")
+                {
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["2.Finalrunde Spieltag"].Value + 2;
+                    Spiel.RundeDetail = "2.Finalrunde Spieltag 2";
+                }
+                else if (Runde == "2G3")
+                {
+                    Titel = @Localizer["Neuanlage EM-Spiel"].Value + @Localizer["2.Finalrunde Spieltag"].Value + 3;
+                    Spiel.RundeDetail = "2.Finalrunde Spieltag 3";
                 }
                 else if (Runde == "AF")
                 {
@@ -382,8 +425,8 @@
             Spiel.Runde = RundeChoosed;
         else
             Spiel.Runde = "";
-        Spiel.Datum = SpielDateTime;  
-        
+        Spiel.Datum = SpielDateTime;
+
         Spiel.GroupID = GruppeChoosed;
         Spiel.Gruppe = GruppeChoosed.ToString();
 
@@ -392,7 +435,7 @@
             Spiel.GroupID = 0;
             Spiel.Gruppe = "0";
         }
-        
+
 
         if ((Spiel.Verein1_Nr == 0))
         {
@@ -453,6 +496,14 @@
 
         if (bError == true)
             return;
+
+        if (RundeChoosed == "2G1" || RundeChoosed == "2G2" || RundeChoosed == "2G3")
+        {
+            if (Gruppe.ToString() == "1")
+                Spiel.GroupID = 9;
+            else if (Gruppe.ToString() == "1")
+                Spiel.GroupID = 10;
+        }
 
         if (Id == "0")
         {

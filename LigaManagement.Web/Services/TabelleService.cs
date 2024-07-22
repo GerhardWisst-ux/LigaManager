@@ -70,7 +70,7 @@ namespace LigaManagerManagement.Web.Services
             {
                 var alleSpieltage = (await spieltagService.GetSpieltage());
 
-                var Spieltag = (alleSpieltage).Where(st => st.Saison == Ligamanager.Components.Globals.currentSaison).OrderByDescending(o => o.SpieltagNr + 0).Take(1).ToList().ToArray();
+                var Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison).OrderByDescending(o => o.SpieltagNr + 0).Take(1).ToList().ToArray();
 
                 return Spieltag[0].Datum;
             }
@@ -3429,7 +3429,7 @@ namespace LigaManagerManagement.Web.Services
                     if (GroupID == 1)
                         gruppe = "A";
                     else if (GroupID == 2)
-                        gruppe = "B";                    
+                        gruppe = "B";
                     else if (GroupID == 3)
                         gruppe = "C";
                     else if (GroupID == 4)
@@ -3442,6 +3442,10 @@ namespace LigaManagerManagement.Web.Services
                         gruppe = "G";
                     else if (GroupID == 8)
                         gruppe = "H";
+                    else if (GroupID == 9)
+                        gruppe = "I";
+                    else if (GroupID == 10)
+                        gruppe = "II";
 
                     int j = 1;
                     // Grundtabelle erzeugen
@@ -3476,7 +3480,10 @@ namespace LigaManagerManagement.Web.Services
 
                     for (int i = VonSpieltag; i <= BisSpieltag; i++)
                     {
-                        this.SpieltagCL = (alleSpieltage).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID && x.Runde == "G" + i).ToList();
+                        if (GroupID < 9)
+                            this.SpieltagCL = (alleSpieltage).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID && x.Runde == "G" + i).ToList();
+                        else
+                            this.SpieltagCL = (alleSpieltage).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID && x.Runde == "2G" + i).ToList();
 
                         PokalergebnisCLSpieltag item = new PokalergebnisCLSpieltag();
                         for (int ii = 1; ii <= SpieltagCL.Count(); ii++)
@@ -3564,13 +3571,9 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
                                     tabelleneintragF2.Liga = Globals.currentEMWMSaison;
                                     tabelleneintragF2.Hyperlink = item.TeamIconUrl2;
-
-
                                 }
                                 else if (item.Tore1_Nr < item.Tore2_Nr)
                                 {
-
-
                                     tabelleneintragF.VereinNr = Convert.ToInt32(item.Verein1_Nr);
                                     tabelleneintragF.Verein = item.Verein1;
                                     tabelleneintragF.Anzeigename = item.Verein1;

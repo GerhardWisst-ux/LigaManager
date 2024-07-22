@@ -5,6 +5,7 @@ using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,15 +33,14 @@ namespace LigaManagement.Web
         {
             try
             {
-                services.AddAuthentication("Identity.Application")
-           .AddCookie();
+                services.AddAuthentication("Identity.Application").AddCookie();
 
                 services.AddRazorPages();
                 services.AddServerSideBlazor();
                 services.AddLocalization(options => options.ResourcesPath = "Resources");
 
                 services.AddAutoMapper(typeof(Startup));
-
+                                
                 services.AddHttpClient<IVereineService, VereineService>(client =>
                 {
                     client.BaseAddress = new Uri("https://localhost:44355/");
@@ -209,7 +209,7 @@ namespace LigaManagement.Web
                     client.BaseAddress = new Uri("https://localhost:44355/");
                 });
 
-                services.AddScoped<BlazorSchoolUserService>();
+                services.AddScoped<LigamanagerUserService>();
                 services.AddScoped<LigaManagerAuthenticationStateProvider>();
                 services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<LigaManagerAuthenticationStateProvider>());
 
@@ -253,7 +253,13 @@ namespace LigaManagement.Web
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            //var webSocketOptions = new Microsoft.AspNetCore.Builder.WebSocketOptions
+            //{
+            //    KeepAliveInterval = TimeSpan.FromMinutes(2)
+            //};
+
+            //app.UseWebSockets(webSocketOptions);
             app.UseDefaultFiles();
             app.UseStaticFiles();
             
@@ -264,7 +270,10 @@ namespace LigaManagement.Web
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapBlazorHub();
+                endpoints.MapBlazorHub(configureOptions: options =>
+                {
+                    options.Transports = HttpTransportType.WebSockets | HttpTransportType.LongPolling;
+                });
                 endpoints.MapFallbackToPage("/_Host");
             });
 

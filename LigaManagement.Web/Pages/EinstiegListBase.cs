@@ -5,9 +5,7 @@ using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
@@ -28,7 +26,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static LigaManagement.Web.Pages.EM_WMListbase;
 
 namespace LigaManagement.Web.Pages
 {
@@ -259,7 +256,7 @@ namespace LigaManagement.Web.Pages
                 Globals.currentCLSaison = Globals.currentSaison;
 
                 if (Saisonen == null || Globals.currentSaison == null)
-                    throw new Exception("Saisonen null oder Globals.currentSaison");
+                    throw new Exception("Saisonen = null oder Globals.currentSaison = null");
 
                 if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison && x.LigaID == Globals.LigaID) != null)
                 {
@@ -749,7 +746,7 @@ namespace LigaManagement.Web.Pages
         public void GenerateDataBase()
         {
             String connstr;
-            SqlConnection myConn = new SqlConnection("Data Source=PC-WISST\\SQLEXPRESS;Integrated security=SSPI;database=master;TrustServerCertificate=true;");
+            SqlConnection myConn = new SqlConnection("\"server=PC-WISST\\SQLEXPRESS;database=LigaDB;User='IIS APPPOOL\\Ligamanager';Password='';Trusted_Connection=true;TrustServerCertificate=true;");
             string SQLScript = string.Empty;
             string path = "C:\\TEMP\\Ligamanager";
 

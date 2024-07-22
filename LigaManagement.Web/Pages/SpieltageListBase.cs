@@ -318,7 +318,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 }
             }
-            else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 15)
+            else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 12)
             {
                 VereineAus = await VereineAusService.GetVereinePL();
 

@@ -17,6 +17,7 @@
 
     .rz-datatable td {
         padding: 3.5px;
+    }
 </style>
 
 @if (SaisonenList == null)
@@ -28,6 +29,7 @@
 else
 {
     <div class="container">
+
 
         <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
             <div class="d-flex flex-row">
@@ -43,8 +45,7 @@ else
         </RadzenCard>
 
 
-        <RadzenCard Style="height:100vh;" class="m-0 mt-2">
-            
+        <RadzenCard Style="height:100vh;" class="m-0 mt-2">            
             <RadzenTabs>
                 <Tabs>
                     <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
@@ -165,6 +166,8 @@ else
                                     </div>
 
                                 </RadzenAccordionItem>
+
+
                                 @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
                             ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
                             ExpandAriaLabel="Internationale Wettbewerbe aufklappen.">
@@ -197,6 +200,20 @@ else
 
                             </Items>
                         </RadzenAccordion>
+                        <RadzenRow class="rz-text-align-center rz-border-info-light" Gap="1rem">
+                            <RadzenColumn class="rz-background-color-info-lighter rz-color-on-info-lighter rz-p-5">
+                                Column 1 of 4
+                            </RadzenColumn>
+                            <RadzenColumn class="rz-background-color-info-lighter rz-color-on-info-lighter rz-p-5">
+                                Column 2 of 4
+                            </RadzenColumn>
+                            <RadzenColumn class="rz-background-color-info-lighter rz-color-on-info-lighter rz-p-5">
+                                Column 3 of 4
+                            </RadzenColumn>
+                            <RadzenColumn class="rz-background-color-info-lighter rz-color-on-info-lighter rz-p-5">
+                                Column 4 of 4
+                            </RadzenColumn>
+                        </RadzenRow>
                     </RadzenTabsItem>
                     <RadzenTabsItem Visible="@ImportVisible" Text="@Localizer["Import"].Value">
                         <div class="form-group row">
@@ -257,6 +274,9 @@ else
                 </Tabs>
             </RadzenTabs>
         </RadzenCard>
+
+
+
     </div>
 }
 <script>

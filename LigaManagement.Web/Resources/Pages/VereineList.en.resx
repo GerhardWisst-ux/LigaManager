@@ -129,6 +129,9 @@
   <data name="Bundesliga" xml:space="preserve">
     <value>Bundesliga</value>
   </data>
+  <data name="Chart" xml:space="preserve">
+    <value>Chart Points-Development</value>
+  </data>
   <data name="Einstellungen" xml:space="preserve">
     <value>Settings</value>
   </data>

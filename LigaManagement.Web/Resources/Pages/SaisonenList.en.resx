@@ -183,6 +183,9 @@
   <data name="Speichert Saison ab" xml:space="preserve">
     <value>Saves Saison</value>
   </data>
+  <data name="Statistiken" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
   <data name="Verein" xml:space="preserve">
     <value>Club</value>
   </data>
