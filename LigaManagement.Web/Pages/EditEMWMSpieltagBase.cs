@@ -64,7 +64,7 @@ namespace LigamanagerManagement.Web.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IStringLocalizer<EditEMWMSpieltag> Localizer { get; set; }
+        public IStringLocalizer<EditEMWMSpieltagBase> Localizer { get; set; }
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
@@ -193,9 +193,8 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Convert.ToInt32(Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4)) > 1938)
                 {
-                    RundeList = new List<DisplayRunde>
-                    {
 
+                }
                 if (Convert.ToInt32(Id) == 0)
                 {
                     Runde = Globals.currentEMWMRunde;

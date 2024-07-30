@@ -69,7 +69,6 @@ namespace LigaManagerManagement.Web.Pages
 
         protected string ChartVisible = "none";
         public int ChartVereinNr;
-        public int ChartArt;
         public Int32 currentspieltag;
         public int ChartSaisonId;
         int iSpieltage = 34;
@@ -82,6 +81,7 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<ChartData> chartDataList = new List<ChartData>();
 
+        public string ChartArt = "";
 
         protected override async Task OnInitializedAsync()
         {
@@ -119,13 +119,13 @@ namespace LigaManagerManagement.Web.Pages
             var vereinname = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
             Vereinsname = vereinname.Vereinsname2;
 
-            PrepareChart();
+            PrepareChartPunkte();
 
             DisplayErrorSaison = "none";
             DisplayErrorVerein = "none";
             DisplayErrorChartArt = "none";
 
-            ChartArt = 0;
+            ChartArt = "Punkte";
             ChartSaisonId = Globals.SaisonID;
 
             StateHasChanged();
@@ -154,8 +154,7 @@ namespace LigaManagerManagement.Web.Pages
 
             return iSpieltageSaison;
         }
-
-        protected async void PrepareChart()
+        protected async void PrepareChartPlatz()
         {
             var vereineSaison = await VereineSaisonService.GetVereineSaison();
             List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
@@ -177,20 +176,67 @@ namespace LigaManagerManagement.Web.Pages
             ChartVisible = "block";
 
             ChartVereinNr = Convert.ToInt32(VereinNr);
-            chartData = await TabelleService.CreateChart(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
+            chartData = await TabelleService.CreateChartPlatz(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
+
+            ProgressVisible = true;
+            StateHasChanged();
+
+        }
+        protected async void PrepareChartPunkte()
+        {
+            var vereineSaison = await VereineSaisonService.GetVereineSaison();
+            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
+
+            Vereine = await VereineService.GetVereine();
+
+            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+
+            Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, true, verList, Vereine, currentspieltag, (int)Globals.Tabart.Gesamt);
+
+            List<Tabelle> tab = Tabellen.ToList();
+
+            lstVereine.Clear();
+            for (int i = 0; i < Tabellen.Count(); i++)
+            {
+                lstVereine.Add(tab[i]);
+            }
+
+            ChartVisible = "block";
+
+            ChartVereinNr = Convert.ToInt32(VereinNr);
+            chartData = await TabelleService.CreateChartPunkte(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
 
             ProgressVisible = true;
             StateHasChanged();
 
         }
 
+        public async Task ArtChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                if (e.Value.ToString() == "Punkte")
+                {
+                    ChartArt = "Punkte";
+                    PrepareChartPunkte();
+                }
+                    
+                else if (e.Value.ToString() == "Platz")
+                {
+                    ChartArt = "Platz";
+                    PrepareChartPlatz();
+                }
+
+                StateHasChanged();
+            }
+        }
         public async Task SpieltagChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 currentspieltag = Convert.ToInt32(e.Value);
 
-                PrepareChart();
+                PrepareChartPunkte();
 
 
             }
@@ -221,13 +267,14 @@ namespace LigaManagerManagement.Web.Pages
 
                 Vereine = await VereineService.GetVereine();
 
-                PrepareChart();
+                PrepareChartPunkte();
                 DisplayErrorSaison = "none";
                 DisplayErrorVerein = "none";
                 DisplayErrorChartArt = "none";
 
-                ChartArt = 0;
                 ChartSaisonId = Globals.SaisonID;
+
+                StateHasChanged();
 
             }
         }
@@ -236,7 +283,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                ChartArt = Convert.ToInt32(e.Value);
+                ChartArt = e.Value.ToString();
 
                 StateHasChanged();
             }
@@ -277,7 +324,7 @@ namespace LigaManagerManagement.Web.Pages
             //{
             //    return;
             //}
-            PrepareChart();
+            PrepareChartPunkte();
             StateHasChanged();
 
             //Vereine = await VereineService.GetVereine();

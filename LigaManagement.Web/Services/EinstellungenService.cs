@@ -21,9 +21,9 @@ namespace LigaManagerManagement.Web.Services
             return await httpClient.GetJsonAsync<EinstellungenLM>("api/einstellungen");
         }
                 
-        public async Task<EinstellungenLM> UpdateEinstellungen(EinstellungenLM updatedEinstellungen)
+        public async Task<EinstellungenLM> UpdateEinstellungen(EinstellungenLM updateEinstellungen)
         {
-            return await httpClient.PutJsonAsync<EinstellungenLM>("api/einstellungen", updatedEinstellungen);
+            return await httpClient.PutJsonAsync<EinstellungenLM>("api/einstellungen", updateEinstellungen);
         }
     }
 }

@@ -156,6 +156,9 @@
   <data name="Platz" xml:space="preserve">
     <value>Platz</value>
   </data>
+  <data name="Platzentwicklung" xml:space="preserve">
+    <value>Platzentwicklung</value>
+  </data>
   <data name="Punkteentwicklung" xml:space="preserve">
     <value>Punkteentwicklung</value>
   </data>

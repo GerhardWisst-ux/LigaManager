@@ -6,6 +6,7 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -46,7 +47,10 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Erstaustragung", liga.Erstaustragung);
                 cmd.Parameters.AddWithValue("@Saisonen", liga.Saisonen);
                 cmd.Parameters.AddWithValue("@Liganummer", liga.Liganummer);
-                cmd.Parameters.AddWithValue("@AusrichterLand", liga.Ausrichterland);
+                if (liga.Ausrichterland != null)
+                    cmd.Parameters.AddWithValue("@AusrichterLand", liga.Ausrichterland);
+                else
+                    cmd.Parameters.AddWithValue("@AusrichterLand", "Deutschland");
                 cmd.Parameters.AddWithValue("@Aktiv", sAktiv);
                 cmd.Parameters.AddWithValue("@LandID", liga.LandID);
                 if (liga.Rekordspieler != null)

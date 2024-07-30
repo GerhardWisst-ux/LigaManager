@@ -132,8 +132,17 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="KaderKopieren" xml:space="preserve">
+    <value>Kader kopieren</value>
+  </data>
   <data name="Kommentar" xml:space="preserve">
     <value>In case of language changing please restart the application</value>
+  </data>
+  <data name="KopierenNach" xml:space="preserve">
+    <value>Kader kopieren nach</value>
+  </data>
+  <data name="KopierenVon" xml:space="preserve">
+    <value>Kader kopieren von</value>
   </data>
   <data name="Speichern" xml:space="preserve">
     <value>Save</value>

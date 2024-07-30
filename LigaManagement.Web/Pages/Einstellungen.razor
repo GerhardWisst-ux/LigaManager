@@ -68,38 +68,38 @@
     <div class="col-12 mt-5">
         <EditForm Model="Settings" OnValidSubmit="UpsertEinstellungen">
             <div class="form-group row">
-                <RadzenLabel Text="Sprache_LandKZ" class="col-sm-3" Component="txtSprache_LandKZ">@Localizer["Sprache"].Value</RadzenLabel>
-                <InputText required id="txtSprache_LandKZ" @bind-Value="Settings.Sprache_LandKZ" class="form-control col-sm-9"></InputText>
+                <RadzenLabel Text="Sprache_LandKZ" class="col-md-3 col-xs-12" Component="txtSprache_LandKZ">@Localizer["Sprache"].Value</RadzenLabel>
+                <InputText required id="txtSprache_LandKZ" @bind-Value="Settings.Sprache_LandKZ" class="form-control col-md-9 col-xs-6"></InputText>
                 <ValidationMessage For="(()=>Settings.Sprache_LandKZ)"></ValidationMessage>
             </div>
             <div class="form-group row my-4">
-                <RadzenLabel Text="Import" class="col-sm-3" Component="chkImportVisible">@Localizer["Import"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Settings.ImportVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkEMWM" />
+                <RadzenLabel Text="Import" class="col-md-3 col-xs-12" Component="chkImportVisible">@Localizer["Import"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.ImportVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-6" Name="chkEMWM" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Settings.ImportVisible"></ValidationMessage>
             </div>
             <div class="form-group row my-4">
-                <RadzenLabel Text="TabellenAnlegenVisible" class="col-sm-3" Component="chkTabellenAnlegenVisible">@Localizer["Tabellen anlegen"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Settings.TabellenAnlegenVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkTabellenAnlegenVisible" />
+                <RadzenLabel Text="TabellenAnlegenVisible" class="col-md-3 col-xs-12" Component="chkTabellenAnlegenVisible">@Localizer["Tabellen anlegen"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.TabellenAnlegenVisible" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-6" Name="chkTabellenAnlegenVisible" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Settings.TabellenAnlegenVisible"></ValidationMessage>
             </div>
             <div class="form-group row my-4">
-                <RadzenLabel Text="Aufstellungen" class="col-sm-3" Component="chkAufstellungen">@Localizer["Aufstellungen"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Settings.Aufstellungen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAufstellungen" />
+                <RadzenLabel Text="Aufstellungen" class="col-md-3 col-xs-12" Component="chkAufstellungen">@Localizer["Aufstellungen"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.Aufstellungen" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-6" Name="chkAufstellungen" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Settings.Aufstellungen"></ValidationMessage>
             </div>
             <div class="form-group row my-4">
-                <RadzenLabel Text="Spielverlauf" class="col-sm-3" Component="chkSpielverlauf">@Localizer["Spielverlauf"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Settings.Spielverlauf" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkSpielverlauf" />
+                <RadzenLabel Text="Spielverlauf" class="col-md-3 col-xs-12" Component="chkSpielverlauf">@Localizer["Spielverlauf"].Value</RadzenLabel>
+                <RadzenCheckBox @bind-Value="Settings.Spielverlauf" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-6" Name="chkSpielverlauf" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                 </RadzenColumn>
                 <ValidationMessage For="()=>Settings.Spielverlauf"></ValidationMessage>
-            </div>
+            </div>           
             <div class="form-group row">
                 <RadzenButton title="@Localizer["Speichert Einstellungen ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertEinstellungen" class="btn btn-primary" Text=@Localizer["Speichern"].Value>
                     <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
@@ -107,6 +107,60 @@
                 <RadzenButton title="@Localizer["Zurück"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
 
                 </RadzenButton>
+            </div>
+
+            <div class="form-group row">
+                <RadzenLabel Text=@Localizer["KopierenVon"].Value class="col-md-3 col-xs-12" Component="chkSpielverlauf">@Localizer["KopierenVon"].Value</RadzenLabel>
+
+                <select value="@SaisonIDVon" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown col-md-9 col-xs-6" @onchange="SaisonVonChange">
+                    <option value="0" required>@Localizer["Saison"].Value</option>
+                    @if (SaisonenVonList != null)
+                    {
+                        @foreach (var saison in SaisonenVonList.OrderByDescending(o => o.Saisonname))
+                        {
+                            @if (saison.SaisonID == SaisonIDVon)
+                            {
+                                <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
+                            else
+                            {
+                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                            }
+
+                        }
+                    }
+                </select>
+                @* <label for="cboSaison" title=@Localizer["Bitte Saison wählen"].Value style="display:@DisplayErrorSaisonVon;color:red;" id="lblErrorSaison">@Localizer["Bitte Saison wählen"].Value</label> *@
+            </div>           
+            
+            <div class="form-group row my-4">
+                
+                    <RadzenLabel Text=@Localizer["KopierenNach"].Value class="col-md-3 col-xs-12" Component="chkSpielverlauf">@Localizer["KopierenNach"].Value</RadzenLabel>
+                    <select value="@SaisonIDNach" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown col-md-9 col-xs-6" @onchange="SaisonNachChange">
+                        <option value="0" required>@Localizer["Saison"].Value</option>
+                        @if (SaisonenNachList != null)
+                        {
+                            @foreach (var saison in SaisonenNachList.OrderByDescending(o => o.Saisonname))
+                            {
+                                @if (saison.SaisonID == SaisonIDNach)
+                                {
+                                    <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                                else
+                                {
+                                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                            }
+                        }
+                    </select>
+                    @* <label for="cboSaison" title=@Localizer["Bitte Saison wählen"].Value style="display:@DisplayErrorSaisonNach;color:red;" id="lblErrorSaison">@Localizer["Bitte Saison wählen"].Value</label> *@
+                
+            </div>
+            <div class="form-group row">
+                <RadzenButton title="@Localizer["KaderKopieren"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertEinstellungen" class="btn btn-primary" Text=@Localizer["KaderKopieren"].Value>
+                    <span class="glyphicon glyphicon-save"></span>@Localizer["KaderKopieren"].Value
+                </RadzenButton>
+                
             </div>
         </EditForm>
     </div>
@@ -152,6 +206,9 @@
 
         if (bError == true)
             return;
+
+        Settings.SaisonIDVon = SaisonIDVon;
+        Settings.SaisonIDNach = SaisonIDNach;
 
         _EinstellungenService.UpdateEinstellungen(Settings);
 

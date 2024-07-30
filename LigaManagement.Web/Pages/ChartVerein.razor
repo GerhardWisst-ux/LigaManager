@@ -59,12 +59,12 @@
         .bar-container {
             grid-area: bar;
             padding-bottom: 10px;
-        }        
+        }
 
         .barRest {
             background-color: wheat;
             height: 20px;
-        }        
+        }
 
 
         .tick-line {
@@ -121,7 +121,7 @@
         <div class="container">
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                    <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
                         <div class="d-flex flex-row">
                             <div class="card-body">
                                 <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
@@ -129,8 +129,14 @@
                                 <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                                <h2 style="display:inline-block;">@Localizer["Punkteentwicklung"].Value @Vereinsname @Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
-
+                                @if (ChartArt == "Platz")
+                                {
+                                    <h2 style="display:inline-block;">@Localizer["Platzentwicklung"].Value @Vereinsname @Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+                                }
+                                else if (ChartArt == "Punkte")
+                                {
+                                    <h2 style="display:inline-block;">@Localizer["Punkteentwicklung"].Value @Vereinsname @Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+                                }
                             </div>
                         </div>
                     </RadzenCard>
@@ -139,6 +145,29 @@
 
             <RadzenCard style="margin-bottom:4px;height:80px;">
                 <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
+                        <select id="cboArt" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="ArtChange">
+                            <option value="0" selected required>@Localizer["Art wählen"].Value</option>
+                            @if (ChartArt == "Platz")
+                            {
+                                <option selected value="Platz">@Localizer["Platz"].Value</option>
+                            }
+                            else
+                            {
+                                <option value="Platz">@Localizer["Platz"].Value</option>
+                            }
+                            @if (ChartArt == "Punkte")
+                            {
+                                <option selected value="Punkte">@Localizer["Punkte"].Value</option>
+                            }
+                            else
+                            {
+                                <option value="Punkte">@Localizer["Punkte"].Value</option>
+                            }
+                        </select>
+                    </div>
+
+
                     <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                         <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
                             <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
@@ -154,574 +183,501 @@
                                 }
                             }
                         </select>
-                    </div>                   
+                    </div>
                 </div>
             </RadzenCard>
             <div class="container">
-                @if (chartData.Count() > 0)
+                @if (ChartArt == "Punkte")
                 {
-                    <ol>
-                        <li class="tick-labels" aria-hidden="true">
-                            <div class="tick-label">0</div>
-                            <div class="tick-label" style="inset-inline-start: 10%">10</div>
-                            <div class="tick-label" style="inset-inline-start: 20%">20</div>
-                            <div class="tick-label" style="inset-inline-start: 30%">30</div>
-                            <div class="tick-label" style="inset-inline-start: 40%">40</div>
-                            <div class="tick-label" style="inset-inline-start: 50%">50</div>
-                            <div class="tick-label" style="inset-inline-start: 60%">60</div>
-                            <div class="tick-label" style="inset-inline-start: 70%">70</div>
-                            <div class="tick-label" style="inset-inline-start: 80%">80</div>
-                            <div class="tick-label" style="inset-inline-start: 90%">90</div>
-                            <div class="tick-label" style="inset-inline-start: 102%">102</div>
-                        </li>
-                        <li>
-                            <div class="dimension">1.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[0].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[0].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">2.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[1].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[1].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">3.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[2].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[2].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">4.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[3].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[3].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">5.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[4].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[4].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">6.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[5].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[5].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">7.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[6].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[6].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">8.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[7].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[7].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">9.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[8].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[8].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">10.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[9].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[9].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">11.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[10].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[10].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">12.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[11].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[11].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">13.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[11].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[12].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">14.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[13].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[13].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">15.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[14].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[14].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">16.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[15].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[15].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">17.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[16].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[16].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">18.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[17].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[17].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">19.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[18].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[18].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">20.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[19].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[18].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">21.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[20].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[20].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">22.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[21].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[21].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">23.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[22].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[12].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">24.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[23].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[23].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">25.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[24].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[24].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">26.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[25].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[25].Value</div>
-                        </li>                        
-                       
-                        <li>
-                            <div class="dimension">27.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[26].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[26].Value</div>
-                        </li>
+                    @if (chartData.Count() > 0)
+                    {
+                        <ol>
+                            <li class="tick-labels" aria-hidden="true">
+                                <div class="tick-label">0</div>
+                                <div class="tick-label" style="inset-inline-start: 10%">10</div>
+                                <div class="tick-label" style="inset-inline-start: 20%">20</div>
+                                <div class="tick-label" style="inset-inline-start: 30%">30</div>
+                                <div class="tick-label" style="inset-inline-start: 40%">40</div>
+                                <div class="tick-label" style="inset-inline-start: 50%">50</div>
+                                <div class="tick-label" style="inset-inline-start: 60%">60</div>
+                                <div class="tick-label" style="inset-inline-start: 70%">70</div>
+                                <div class="tick-label" style="inset-inline-start: 80%">80</div>
+                                <div class="tick-label" style="inset-inline-start: 90%">90</div>
+                                <div class="tick-label" style="inset-inline-start: 102%">102</div>
+                            </li>
+                            <li>
+                                <div class="dimension">1.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[0].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[0].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">2.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[1].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[1].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">3.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[2].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[2].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">4.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[3].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[3].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">5.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[4].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[4].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">6.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[5].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[5].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">7.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[6].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[6].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">8.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[7].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[7].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">9.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[8].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[8].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">10.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[9].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[9].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">11.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[10].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[10].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">12.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[11].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[11].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">13.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[11].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[12].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">14.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[13].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[13].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">15.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[14].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[14].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">16.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[15].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[15].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">17.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[16].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[16].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">18.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[17].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[17].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">19.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[18].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[18].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">20.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[19].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[18].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">21.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[20].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[20].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">22.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[21].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[21].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">23.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[22].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[12].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">24.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[23].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[23].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">25.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[24].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[24].Value</div>
+                            </li>
+                            <li>
+                                <div class="dimension">26.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[25].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@chartData[25].Value</div>
+                            </li>
 
-                        <li>
-                            <div class="dimension">28.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">                                
-                                <div class="barRest" style="width: @chartData[27].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[27].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">29.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[28].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[28].Value</div>
-                        </li>
-                        <li>
-                            <div class="dimension">30.@Localizer["Spieltag"].Value</div>
-                            <div class="bar-container">
-                                <div class="barRest" style="width: @chartData[29].Value%"></div>
-                                <div class="tick-line"></div>
-                                <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                <div class="tick-line" style="inset-inline-start: 102%"></div>
-                            </div>
-                            <div class="value">@chartData[29].Value</div>
-                        </li>
-                        @if (Globals.currentSaison != "1963/64" && Globals.currentSaison != "1964/65")
-                        {
                             <li>
-                                <div class="dimension">31.@Localizer["Spieltag"].Value</div>
+                                <div class="dimension">27.@Localizer["Spieltag"].Value</div>
                                 <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[30].Value%"></div>
+                                    <div class="barRest" style="width: @chartData[26].Value%"></div>
                                     <div class="tick-line"></div>
                                     <div class="tick-line" style="inset-inline-start: 10%"></div>
                                     <div class="tick-line" style="inset-inline-start: 20%"></div>
@@ -734,12 +690,13 @@
                                     <div class="tick-line" style="inset-inline-start: 90%"></div>
                                     <div class="tick-line" style="inset-inline-start: 102%"></div>
                                 </div>
-                                <div class="value">@chartData[30].Value</div>
+                                <div class="value">@chartData[26].Value</div>
                             </li>
+
                             <li>
-                                <div class="dimension">32.@Localizer["Spieltag"].Value</div>
+                                <div class="dimension">28.@Localizer["Spieltag"].Value</div>
                                 <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[31].Value%"></div>
+                                    <div class="barRest" style="width: @chartData[27].Value%"></div>
                                     <div class="tick-line"></div>
                                     <div class="tick-line" style="inset-inline-start: 10%"></div>
                                     <div class="tick-line" style="inset-inline-start: 20%"></div>
@@ -752,12 +709,12 @@
                                     <div class="tick-line" style="inset-inline-start: 90%"></div>
                                     <div class="tick-line" style="inset-inline-start: 102%"></div>
                                 </div>
-                                <div class="value">@chartData[31].Value</div>
+                                <div class="value">@chartData[27].Value</div>
                             </li>
                             <li>
-                                <div class="dimension">33.@Localizer["Spieltag"].Value</div>
+                                <div class="dimension">29.@Localizer["Spieltag"].Value</div>
                                 <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[32].Value%"></div>
+                                    <div class="barRest" style="width: @chartData[28].Value%"></div>
                                     <div class="tick-line"></div>
                                     <div class="tick-line" style="inset-inline-start: 10%"></div>
                                     <div class="tick-line" style="inset-inline-start: 20%"></div>
@@ -770,12 +727,12 @@
                                     <div class="tick-line" style="inset-inline-start: 90%"></div>
                                     <div class="tick-line" style="inset-inline-start: 102%"></div>
                                 </div>
-                                <div class="value">@chartData[32].Value</div>
+                                <div class="value">@chartData[28].Value</div>
                             </li>
                             <li>
-                                <div class="dimension">34.@Localizer["Spieltag"].Value</div>
+                                <div class="dimension">30.@Localizer["Spieltag"].Value</div>
                                 <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[33].Value%"></div>
+                                    <div class="barRest" style="width: @chartData[29].Value%"></div>
                                     <div class="tick-line"></div>
                                     <div class="tick-line" style="inset-inline-start: 10%"></div>
                                     <div class="tick-line" style="inset-inline-start: 20%"></div>
@@ -788,87 +745,886 @@
                                     <div class="tick-line" style="inset-inline-start: 90%"></div>
                                     <div class="tick-line" style="inset-inline-start: 102%"></div>
                                 </div>
-                                <div class="value">@chartData[33].Value</div>
+                                <div class="value">@chartData[29].Value</div>
                             </li>
-                        }
-                        @if (Globals.currentSaison == "1991/92")
-                        {
-                            <li>
-                                <div class="dimension">35.@Localizer["Spieltag"].Value</div>
-                                <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[34].Value%"></div>
-                                    <div class="tick-line"></div>
-                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
-                                </div>
-                                <div class="value">@chartData[34].Value</div>
-                            </li>
-                            <li>
-                                <div class="dimension">36.@Localizer["Spieltag"].Value</div>
-                                <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[35].Value%"></div>
-                                    <div class="tick-line"></div>
-                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
-                                </div>
-                                <div class="value">@chartData[35].Value</div>
-                            </li>
-                            <li>
-                                <div class="dimension">37.@Localizer["Spieltag"].Value</div>
-                                <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[36].Value%"></div>
-                                    <div class="tick-line"></div>
-                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
-                                </div>
-                                <div class="value">@chartData[36].Value</div>
-                            </li>
-                            <li>
-                                <div class="dimension">38.@Localizer["Spieltag"].Value</div>
-                                <div class="bar-container">
-                                    <div class="barRest" style="width: @chartData[37].Value%"></div>
-                                    <div class="tick-line"></div>
-                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
-                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
-                                </div>
-                                <div class="value">@chartData[37].Value</div>
-                            </li>
-                        }
-                    
-                    </ol>
+                            @if (Globals.currentSaison != "1963/64" && Globals.currentSaison != "1964/65")
+                            {
+                                <li>
+                                    <div class="dimension">31.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[30].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[30].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">32.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[31].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[31].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">33.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[32].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[32].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">34.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[33].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[33].Value</div>
+                                </li>
+                            }
+                            @if (Globals.currentSaison == "1991/92")
+                            {
+                                <li>
+                                    <div class="dimension">35.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[34].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[34].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">36.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[35].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[35].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">37.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[36].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[36].Value</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">38.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[37].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@chartData[37].Value</div>
+                                </li>
+                            }
+
+                        </ol>
+                    }
                 }
+                else if (ChartArt == "Platz")
+                {
+                    @if (chartData.Count() > 0)
+                    {
+                        <ol>
+                            <li class="tick-labels" aria-hidden="true">
+                                <div class="tick-label">0</div>
+                                <div class="tick-label" style="inset-inline-start: 10%">2</div>
+                                <div class="tick-label" style="inset-inline-start: 20%">4</div>
+                                <div class="tick-label" style="inset-inline-start: 30%">6</div>
+                                <div class="tick-label" style="inset-inline-start: 40%">8</div>
+                                <div class="tick-label" style="inset-inline-start: 50%">10</div>
+                                <div class="tick-label" style="inset-inline-start: 60%">12</div>
+                                <div class="tick-label" style="inset-inline-start: 70%">14</div>
+                                <div class="tick-label" style="inset-inline-start: 80%">16</div>
+                                @if (Globals.currentSaison != "1963/64" && Globals.currentSaison != "1964/65")
+                                {
+                                    <div class="tick-label" style="inset-inline-start: 90%">18</div>
+                                }
+
+                                @if (Globals.currentSaison == "1991/92")
+                                {
+                                    <div class="tick-label" style="inset-inline-start: 102%">20</div>
+                                }
+
+                            </li>
+                            <li>
+                                <div class="dimension">1.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[0].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[2].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">2.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[1].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[1].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">3.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[2].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[2].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">4.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[3].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[3].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">5.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[4].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[4].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">6.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[5].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[5].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">7.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[6].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[6].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">8.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[7].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[7].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">9.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[8].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[8].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">10.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[9].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[9].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">11.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[10].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[10].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">12.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[11].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[11].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">13.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[11].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[12].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">14.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[13].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[13].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">15.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[14].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[14].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">16.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[15].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[15].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">17.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[16].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[16].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">18.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[17].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[17].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">19.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[18].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[18].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">20.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[19].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[19].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">21.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[20].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[20].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">22.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[21].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[21].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">23.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[22].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[22].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">24.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[23].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[23].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">25.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[24].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[24].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">26.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[25].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[25].Value / 5)</div>
+                            </li>
+
+                            <li>
+                                <div class="dimension">27.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[26].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[26].Value / 5)</div>
+                            </li>
+
+                            <li>
+                                <div class="dimension">28.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[27].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[27].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">29.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[28].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[28].Value / 5)</div>
+                            </li>
+                            <li>
+                                <div class="dimension">30.@Localizer["Spieltag"].Value</div>
+                                <div class="bar-container">
+                                    <div class="barRest" style="width: @chartData[29].Value%"></div>
+                                    <div class="tick-line"></div>
+                                    <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                    <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                </div>
+                                <div class="value">@(chartData[29].Value / 5)</div>
+                            </li>
+                            @if (Globals.currentSaison != "1963/64" && Globals.currentSaison != "1964/65")
+                            {
+                                <li>
+                                    <div class="dimension">31.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[30].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[30].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">32.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[31].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[31].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">33.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[32].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[32].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">34.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[33].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[33].Value / 5)</div>
+                                </li>
+                            }
+                            @if (Globals.currentSaison == "1991/92")
+                            {
+                                <li>
+                                    <div class="dimension">35.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[34].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[34].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">36.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[35].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[35].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">37.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[36].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[36].Value / 5)</div>
+                                </li>
+                                <li>
+                                    <div class="dimension">38.@Localizer["Spieltag"].Value</div>
+                                    <div class="bar-container">
+                                        <div class="barRest" style="width: @chartData[37].Value%"></div>
+                                        <div class="tick-line"></div>
+                                        <div class="tick-line" style="inset-inline-start: 10%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 20%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 30%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 40%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 50%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 60%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 70%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 80%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 90%"></div>
+                                        <div class="tick-line" style="inset-inline-start: 102%"></div>
+                                    </div>
+                                    <div class="value">@(chartData[37].Value / 5)</div>
+                                </li>
+                            }
+
+                        </ol>
+                    }
+                }
+
+
             </div>
         </div>
     }

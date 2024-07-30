@@ -57,9 +57,14 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
+                SqlConnection connReader = new SqlConnection(Globals.connstring);
                 conn.Open();
+                connReader.Open();
+
                 SqlCommand cmd = new SqlCommand();
+                SqlCommand cmdKader = new SqlCommand();
                 cmd.Connection = conn;
+                cmdKader.Connection = conn;
 
                 if (einstellungen.ImportVisible == false)
                     bImportVisible = 0;
@@ -86,10 +91,57 @@ namespace ToreManagerManagement.Api.Models
                     ",[ImportVisible] =" + bImportVisible +
                     ",[Spielverlauf] =" + bSpielverlauf +
                     ",[Aufstellungen] =" + bAufstellungen +
-                    ",[TabellenAnlegenVisible] =" + bTabellenAnlegenVisible;
-
+                    ",[TabellenAnlegenVisible] =" + bTabellenAnlegenVisible;                
 
                 cmd.ExecuteNonQuery();
+
+
+                if (einstellungen.SaisonIDVon > 0 && einstellungen.SaisonIDNach > 0)
+                {
+                    SqlCommand command = new SqlCommand("SELECT * FROM [Kader] where SaisonID = " + einstellungen.SaisonIDVon, connReader);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int number;
+                            double dec;
+                            cmdKader = new SqlCommand();
+                            cmdKader.Connection = conn;
+                            cmdKader.CommandText = "INSERT INTO [Kader] (SpielerName,Vorname,Geburtstag,Groesse,Gewicht,Laenderspiele,LaenderspieleTore,VereinNr,LandID,SaisonID,LigaID,Rueckennummer,Einsaetze,Spielminuten,Tore,Abloesesumme,ImVereinSeit,Aktiv,Position,PositionsNr)" +
+                     " VALUES(@SpielerName,@Vorname,@Geburtstag,@Groesse,@Gewicht,@Laenderspiele,@LaenderspieleTore,@VereinNr,@LandID,@SaisonID,@LigaID,@Rueckennummer,@Einsaetze,@Spielminuten,@Tore,@Abloesesumme,@ImVereinSeit,@Aktiv,@Position,@PositionsNr)";
+
+                            cmdKader.Parameters.AddWithValue("@SpielerName", reader["SpielerName"].ToString());
+                            cmdKader.Parameters.AddWithValue("@Vorname", reader["Vorname"].ToString());
+                            cmdKader.Parameters.AddWithValue("@Geburtstag", reader["Geburtstag"].ToString());
+                            cmdKader.Parameters.AddWithValue("@Laenderspiele", int.TryParse(reader["Laenderspiele"].ToString(), out number));
+                            cmdKader.Parameters.AddWithValue("@LaenderspieleTore", int.TryParse(reader["LaenderspieleTore"].ToString(), out number));
+                            cmdKader.Parameters.AddWithValue("@Groesse", double.TryParse(reader["Groesse"].ToString(), out dec));
+                            cmdKader.Parameters.AddWithValue("@Gewicht", double.TryParse(reader["Gewicht"].ToString(), out dec));
+                            cmdKader.Parameters.AddWithValue("@VereinNr", int.Parse(reader["VereinNr"].ToString()));
+                            cmdKader.Parameters.AddWithValue("@LandID", int.Parse(reader["LandID"].ToString()));
+                            cmdKader.Parameters.AddWithValue("@SaisonID", einstellungen.SaisonIDNach);
+                            cmdKader.Parameters.AddWithValue("@LigaID", int.Parse(reader["LigaID"].ToString()));
+                            cmdKader.Parameters.AddWithValue("@Rueckennummer", int.Parse(reader["Rueckennummer"].ToString()));
+                            cmdKader.Parameters.AddWithValue("@Einsaetze", 0);
+                            cmdKader.Parameters.AddWithValue("@Spielminuten", 0);
+                            cmdKader.Parameters.AddWithValue("@Tore", 0);
+                            cmdKader.Parameters.AddWithValue("@Abloesesumme", double.TryParse(reader["Abloesesumme"].ToString(), out dec));
+
+                            if (bool.Parse(reader["Aktiv"].ToString()))
+                                cmdKader.Parameters.AddWithValue("@Aktiv", 1);
+                            else
+                                cmdKader.Parameters.AddWithValue("@Aktiv", 0);
+
+                            cmdKader.Parameters.AddWithValue("@ImVereinSeit", reader["ImVereinSeit"].ToString());
+                            //cmdKader.Parameters.AddWithValue("@Image", null);
+                            cmdKader.Parameters.AddWithValue("@Position", reader["Position"].ToString());
+                            cmdKader.Parameters.AddWithValue("@PositionsNr", int.Parse(reader["PositionsNr"].ToString()));
+
+                            cmdKader.ExecuteNonQuery();
+                        }
+                    }
+                }
 
                 conn.Close();
 

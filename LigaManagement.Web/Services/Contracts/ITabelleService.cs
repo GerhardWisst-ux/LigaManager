@@ -23,7 +23,9 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, int ewigeTabelle);
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
-        Task<List<int?>> CreateChart(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
+        Task<List<int?>> CreateChartPunkte(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
+
+        Task<List<int?>> CreateChartPlatz(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int ivereinnr, int currentspieltag);
 
         Task<IEnumerable<Tabelle>> BerechneTabelleDE(ISpieltagService spieltagService, bool Abgeschlossen, List<VereineSaison> vereineAktSaison, IEnumerable<Verein> vereine, int currentspieltag, int tabart);
         Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltageENService spieltagENService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereine, int count, int tabart);        
