@@ -20,6 +20,8 @@ namespace LigaManagement.Api
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+
+
                     webBuilder.UseStartup<Startup>();
                     //webBuilder.UseStaticWebAssets();
 

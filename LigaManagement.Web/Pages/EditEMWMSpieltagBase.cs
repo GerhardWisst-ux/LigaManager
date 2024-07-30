@@ -191,7 +191,10 @@ namespace LigamanagerManagement.Web.Pages
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
 
 
-                ShowRunden();
+                if (Convert.ToInt32(Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4)) > 1938)
+                {
+                    RundeList = new List<DisplayRunde>
+                    {
 
                 if (Convert.ToInt32(Id) == 0)
                 {
@@ -211,18 +214,14 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
                     GroupVisible = "inline-block;";
-                else if (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1974" || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1978")
-                    GroupVisible = "inline-block;";
                 else
                     GroupVisible = "none;";
 
 
-                if (Globals.currentEMWMSaison.StartsWith("WM") && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
+                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1978"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1974"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970"
+                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970")
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962"
                   && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958"
