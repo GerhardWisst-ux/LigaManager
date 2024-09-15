@@ -35,7 +35,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<PokalergebnisCLSpieltag>> GetSpieltag(int id)
+        public async Task<ActionResult<PokalergebnisCL_EM_WMSpieltag>> GetSpieltag(int id)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Spieltag>> CreateSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<ActionResult<Spieltag>> CreateSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
             try
             {
@@ -78,7 +78,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPut()]        
-        public async Task<ActionResult<PokalergebnisCLSpieltag>> UpdateSpieltag(PokalergebnisCLSpieltag Spieltag)
+        public async Task<ActionResult<PokalergebnisCL_EM_WMSpieltag>> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag Spieltag)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<PokalergebnisCLSpieltag>> DeleteSpieltag(int id)
+        public async Task<ActionResult<PokalergebnisCL_EM_WMSpieltag>> DeleteSpieltag(int id)
         {
             try
             {

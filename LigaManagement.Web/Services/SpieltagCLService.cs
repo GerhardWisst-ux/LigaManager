@@ -18,19 +18,19 @@ namespace LigaManagerManagement.Web.Services
             this.httpClient = httpClient;
         }
 
-        public async Task<PokalergebnisCLSpieltag> GetSpieltag(int id)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> GetSpieltag(int id)
         {
 
             
-            return await httpClient.GetJsonAsync<PokalergebnisCLSpieltag>($"api/SpieltageCL/{id}");
+            return await httpClient.GetJsonAsync<PokalergebnisCL_EM_WMSpieltag>($"api/SpieltageCL/{id}");
 
         }
 
-        public async Task<IEnumerable<PokalergebnisCLSpieltag>> GetSpieltage()
+        public async Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetSpieltage()
         {
             try
             {
-                return await httpClient.GetJsonAsync<PokalergebnisCLSpieltag[]>("api/spieltageCL");
+                return await httpClient.GetJsonAsync<PokalergebnisCL_EM_WMSpieltag[]>("api/spieltageCL");
             }
             catch (System.Exception ex)
             {
@@ -40,12 +40,12 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<IEnumerable<PokalergebnisCLSpieltag>> GetPokalergebnisCLSpieltag()
+        public async Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetPokalergebnisCLSpieltag()
         {
             try
             {
 
-                return await httpClient.GetJsonAsync<PokalergebnisCLSpieltag[]>("api/SpieltageCL");
+                return await httpClient.GetJsonAsync<PokalergebnisCL_EM_WMSpieltag[]>("api/SpieltageCL");
             }
             catch (System.Exception ex)
             {
@@ -55,11 +55,11 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<PokalergebnisCLSpieltag> CreateSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> CreateSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
             try
             {
-                return await httpClient.PostJsonAsync<PokalergebnisCLSpieltag>("api/spieltageCL", spieltag);
+                return await httpClient.PostJsonAsync<PokalergebnisCL_EM_WMSpieltag>("api/spieltageCL", spieltag);
 
             }
             catch (System.Exception ex)
@@ -70,10 +70,10 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<PokalergebnisCLSpieltag> UpdateSpieltag(PokalergebnisCLSpieltag updatedSpieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag updatedSpieltag)
         {
 
-            return await httpClient.PutJsonAsync<PokalergebnisCLSpieltag>("api/SpieltageCL", updatedSpieltag);
+            return await httpClient.PutJsonAsync<PokalergebnisCL_EM_WMSpieltag>("api/SpieltageCL", updatedSpieltag);
 
         }
 
@@ -83,12 +83,12 @@ namespace LigaManagerManagement.Web.Services
 
         }
 
-        public async Task<IEnumerable<PokalergebnisCLSpieltag>> GetSpielergebnisse()
+        public async Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetSpielergebnisse()
         {
 
             try
             {
-                return await httpClient.GetJsonAsync<PokalergebnisCLSpieltag[]>("api/spieltageCL");
+                return await httpClient.GetJsonAsync<PokalergebnisCL_EM_WMSpieltag[]>("api/spieltageCL");
             }
             catch (System.Exception ex)
             {

@@ -1,0 +1,13 @@
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Falsche Syntax in der Nähe von "gladbach".
+Kein schließendes Anführungszeichen nach der Zeichenfolge ",[Abgeschlossen] =0,[Zuschauer] =29000 WHERE  [SpieltagId] = 38106".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteNonQueryTds(String methodName, Boolean isAsync, Int32 timeout, Boolean asyncWrite)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String methodName)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   at LigaManagerManagement.Api.Models.SpieltageRepository.UpdateSpieltag(Spieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepository.cs:line 432
+Datum/Uhrzeit: 10.09.2024 10:49:58
+============================================

@@ -31,20 +31,19 @@ namespace LigaManagement.Web.Pages
         public bool allowVirtualization;
 
         static HttpClient client = new HttpClient();
-        public RadzenDataGrid<PokalergebnisCLSpieltag> grid;
+        public RadzenDataGrid<PokalergebnisCL_EM_WMSpieltag> grid;
         public Density Density = Density.Compact;
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
         protected string FontWeight = "font-weight:normal";
 
-        protected string VisibleTableABCD = "block";
+        protected string VisibleTableABCD = "inline-block";
         protected string VisibleTableEF = "none";
-        protected string VisibleTableGH = "none";
-        protected string VisibleTable3 = "none";
+        protected string VisibleTableGH = "none";        
         protected string VisibleTableWM = "none";
 
-        public List<DisplayEMWMRunde> RundeList;
+        public List<DisplayRunde> RundeList;
 
         public int SaisonChoosed = 0;
         int BisSpieltag = 3;
@@ -89,9 +88,9 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<Saison> Saisonen { get; set; }
 
-        public IEnumerable<PokalergebnisCLSpieltag> EMWMSpieltage { get; set; }
+        public IEnumerable<PokalergebnisCL_EM_WMSpieltag> EMWMSpieltage { get; set; }
 
-        public IEnumerable<PokalergebnisCLSpieltag> EMWMSpieltageFinale { get; set; }
+        public IEnumerable<PokalergebnisCL_EM_WMSpieltag> EMWMSpieltageFinale { get; set; }
 
         [Inject]
         public IStringLocalizer<EM_WMListbase> Localizer { get; set; }
@@ -141,6 +140,9 @@ namespace LigaManagement.Web.Pages
 
                 ShowGroupTables();
 
+                if (Globals.currentEMWMRunde == null)
+                    Globals.currentEMWMRunde = "1";
+
                 if (Globals.currentEMWMRunde != null)
                 {
                     EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
@@ -168,28 +170,18 @@ namespace LigaManagement.Web.Pages
 
                 Globals.bVisibleNavMenuElements = true;
 
-                RundeList = new List<DisplayEMWMRunde>
-                {
-                    new DisplayEMWMRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
-                    new DisplayEMWMRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
-                    new DisplayEMWMRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
-                    new DisplayEMWMRunde("AF", Localizer["Achtelfinale"].Value),
-                    new DisplayEMWMRunde("VF", Localizer["Viertelfinale"].Value),
-                    new DisplayEMWMRunde("HF", Localizer["Halbfinale"].Value),
-                    new DisplayEMWMRunde("F", Localizer["Finale"].Value),
-                };
+                ShowRunden();
 
                 VisibleBtnNew = "hidden";
-
-                if (Globals.currentEMWMRunde != null)
-                    OnClickHandler();
+                                
+                OnClickHandler();
 
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
 
                 TableVisible();
                 Globals.bVisibleNavMenuElements = true;
-                StateHasChanged();
+                
             }
             catch (Exception ex)
             {
@@ -241,12 +233,12 @@ namespace LigaManagement.Web.Pages
                         VisibleTableGH = "inline-block;";
                 }
 
-                StateHasChanged();
+                ShowRunden();
                 OnClickHandler();
             }
         }
 
-        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCLSpieltag> args)
+        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCL_EM_WMSpieltag> args)
         {
             if (args.Column.Property == "Verein1")
             {
@@ -429,7 +421,6 @@ namespace LigaManagement.Web.Pages
 
         public async void RundeChange(ChangeEventArgs e)
         {
-            int BisSpieltag = 3;
             if (e.Value != null)
             {
                 RundeChoosed = e.Value.ToString();
@@ -513,7 +504,7 @@ namespace LigaManagement.Web.Pages
                 TabellenI = await TabelleService.BerechneTabelleEMWM(SpieltagService, 9, BisSpieltag);
                 TabellenII = await TabelleService.BerechneTabelleEMWM(SpieltagService, 10, BisSpieltag);
 
-                VisibleTableABCD = "none";
+                VisibleTableABCD = "none;";
 
             }
             else if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
@@ -538,6 +529,7 @@ namespace LigaManagement.Web.Pages
                 {
                     TabellenE = await TabelleService.BerechneTabelleEMWM(SpieltagService, 5, BisSpieltag);
                     TabellenF = await TabelleService.BerechneTabelleEMWM(SpieltagService, 6, BisSpieltag);
+                    VisibleTableEF = "inline-block;";
                 }
                 if (Globals.currentEMWMSaison.StartsWith("WM"))
                 {
@@ -548,51 +540,53 @@ namespace LigaManagement.Web.Pages
                         TabellenH = await TabelleService.BerechneTabelleEMWM(SpieltagService, 8, BisSpieltag);
                     }
                 }
+
+                VisibleTableABCD = "inline-block;";
             }
+            StateHasChanged();
         }
 
-            private void ShowRunden()
+        private void ShowRunden()
+        {
+            if (Globals.currentEMWMSaison.IndexOf("1974") > -1 || Globals.currentEMWMSaison.IndexOf("1978") > -1)
             {
-                if (Globals.currentEMWMSaison.IndexOf("1974") > -1 || Globals.currentEMWMSaison.IndexOf("1978") > -1)
-                {
-                    RundeList = new List<DisplayEMWMRunde>
+                RundeList = new List<DisplayRunde>
                     {
-                        new DisplayEMWMRunde("G1",Localizer["Gruppenphase Spieltag"].Value + " " + 1),
-                        new DisplayEMWMRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
-                        new DisplayEMWMRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
-                        new DisplayEMWMRunde("2G1",Localizer["2.Finalrunde Spieltag"].Value + " " + 1),
-                        new DisplayEMWMRunde("2G2",Localizer["2.Finalrunde Spieltag"].Value + " " + 2),
-                        new DisplayEMWMRunde("2G3",Localizer["2.Finalrunde Spieltag"].Value + " " + 3),
-                        new DisplayEMWMRunde("F3",Localizer["Spiel um Platz 3"].Value),
-                        new DisplayEMWMRunde("F", Localizer["Finale"].Value),
+                        new DisplayRunde("G1", Localizer["Gruppenphase Spieltag"].Value + " " + 1),
+                        new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
+                        new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
+                        new DisplayRunde("2G1",Localizer["2.Finalrunde Spieltag"].Value + " " + 1),
+                        new DisplayRunde("2G2",Localizer["2.Finalrunde Spieltag"].Value + " " + 2),
+                        new DisplayRunde("2G3",Localizer["2.Finalrunde Spieltag"].Value + " " + 3),
+                        new DisplayRunde("F3",Localizer["Spiel um Platz 3"].Value),
+                        new DisplayRunde("F", Localizer["Finale"].Value),
                     };
-                }
-                else if (Globals.currentEMWMSaison.IndexOf("1950") > -1)
-                {
-                    RundeList = new List<DisplayEMWMRunde>
-                    {
-                        new DisplayEMWMRunde("G1",Localizer["Gruppenphase Spieltag"].Value + " " + 1),
-                        new DisplayEMWMRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
-                        new DisplayEMWMRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
-                        new DisplayEMWMRunde("F",Localizer["Finalrunde"].Value + " " + 1),
-                    };
-                }
-                else
-                {
-                    RundeList = new List<DisplayEMWMRunde>
-                    {
-                        new DisplayEMWMRunde("G1",Localizer["Gruppenphase Spieltag"].Value + " " + 1),
-                        new DisplayEMWMRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
-                        new DisplayEMWMRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
-                        new DisplayEMWMRunde("AF", Localizer["Achtelfinale"].Value),
-                        new DisplayEMWMRunde("VF", Localizer["Viertelfinale"].Value),
-                        new DisplayEMWMRunde("HF", Localizer["Halbfinale"].Value),
-                        new DisplayEMWMRunde("F3",Localizer["Spiel um Platz 3"].Value),
-                        new DisplayEMWMRunde("F", Localizer["Finale"].Value),
-                    };
-                }
             }
-        
+            else if (Globals.currentEMWMSaison.IndexOf("1950") > -1)
+            {
+                RundeList = new List<DisplayRunde>
+                    {
+                        new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + " " + 1),
+                        new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
+                        new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
+                        new DisplayRunde("F",Localizer["Finalrunde"].Value + " " + 1),
+                    };
+            }
+            else
+            {
+                RundeList = new List<DisplayRunde>
+                    {
+                        new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + " " + 1),
+                        new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + " " + 2),
+                        new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + " " + 3),
+                        new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                        new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                        new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                        new DisplayRunde("F3",Localizer["Spiel um Platz 3"].Value),
+                        new DisplayRunde("F", Localizer["Finale"].Value),
+                    };
+            }
+        }
 
         private void ShowGroupTables()
         {
@@ -604,7 +598,7 @@ namespace LigaManagement.Web.Pages
                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958" && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1954"))
             {
                 VisibleTableABCD = "inline-block;";
-                VisibleTable3 = "inline-block;";
+                VisibleTableEF = "inline-block;";
                 VisibleTableWM = "inline-block;";
             }
             else if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1990"
@@ -612,7 +606,7 @@ namespace LigaManagement.Web.Pages
             {
                 VisibleTableEF = "inline-block;";
                 VisibleTableGH = "inline-block;";
-                VisibleTable3 = "inline-block;";
+                VisibleTableEF = "inline-block;";
                 VisibleTableWM = "none;";
             }
             else if (Globals.currentEMWMSaison.StartsWith("WM")
@@ -628,7 +622,7 @@ namespace LigaManagement.Web.Pages
             {
                 VisibleTableEF = "inline-block;";
                 VisibleTableGH = "inline-block;";
-                VisibleTable3 = "none;";
+                VisibleTableEF = "none;";
                 VisibleTableWM = "none;";
             }
             else if (Globals.currentEMWMSaison.IndexOf("1980") > -1 || Globals.currentEMWMSaison.IndexOf("1984") > -1 || Globals.currentEMWMSaison.IndexOf("1988") > -1 ||
@@ -636,7 +630,7 @@ namespace LigaManagement.Web.Pages
             {
                 VisibleTableEF = "inline-block;";
                 VisibleTableGH = "none;";
-                VisibleTable3 = "none;";
+                VisibleTableEF = "none;";
                 VisibleTableWM = "none;";
             }
             else if (Globals.currentEMWMSaison.IndexOf("1996") > -1 || Globals.currentEMWMSaison.IndexOf("2000") > -1 || Globals.currentEMWMSaison.IndexOf("2004") > -1
@@ -644,7 +638,7 @@ namespace LigaManagement.Web.Pages
             {
                 VisibleTableEF = "inline-block;";
                 VisibleTableGH = "inline-block;";
-                VisibleTable3 = "none;";
+                VisibleTableEF = "none;";
                 VisibleTableWM = "none;";
             }
             else if (Globals.currentEMWMSaison.IndexOf("1972") > -1 || Globals.currentEMWMSaison.IndexOf("1968") > -1 || Globals.currentEMWMSaison.IndexOf("1964") > -1
@@ -652,14 +646,14 @@ namespace LigaManagement.Web.Pages
             {
                 VisibleTableEF = "none;";
                 VisibleTableGH = "none;";
-                VisibleTable3 = "none;";
+                VisibleTableEF = "none;";
                 VisibleTableWM = "none;";
             }
             else
             {
                 VisibleTableEF = "inline-block;";
                 VisibleTableGH = "inline-block;";
-                VisibleTable3 = "inline-block;";
+                VisibleTableEF = "inline-block;";
                 VisibleTableWM = "none;";
             }
         }
@@ -710,9 +704,9 @@ namespace LigaManagement.Web.Pages
     }
 
     [Bind]
-    public class DisplayEMWMRunde
+    public class DisplayRunde
     {
-        public DisplayEMWMRunde(string rundeKurzbezeichung, string rundename)
+        public DisplayRunde(string rundeKurzbezeichung, string rundename)
         {
             RundeKurzbezeichung = rundeKurzbezeichung;
             Rundename = rundename;

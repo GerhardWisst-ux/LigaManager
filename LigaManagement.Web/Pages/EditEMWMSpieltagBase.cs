@@ -35,7 +35,7 @@ namespace LigamanagerManagement.Web.Pages
         public string RundeChoosed;
         public int GruppeChoosed;
         protected string GroupVisible = "none;";
-        
+
         public List<DisplayRunde> RundeList;
 
         public DateTime? Time { get; set; }
@@ -56,7 +56,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public IEnumerable<Spieltag> spieltage { get; set; }
 
-        public PokalergebnisCLSpieltag Spiel { get; set; } = new PokalergebnisCLSpieltag();
+        public PokalergebnisCL_EM_WMSpieltag Spiel { get; set; } = new PokalergebnisCL_EM_WMSpieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
 
@@ -64,7 +64,7 @@ namespace LigamanagerManagement.Web.Pages
         public NavigationManager NavigationManager { get; set; }
 
         [Inject]
-        public IStringLocalizer<EditEMWMSpieltagBase> Localizer { get; set; }
+        public IStringLocalizer<EditEMWMSpieltag> Localizer { get; set; }
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
@@ -193,59 +193,63 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Convert.ToInt32(Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4)) > 1938)
                 {
+                    RundeList = new List<DisplayRunde>();
+
+
+                    if (Convert.ToInt32(Id) == 0)
+                    {
+                        Runde = Globals.currentEMWMRunde;
+                        RundeChoosed = Runde;
+                        GruppeChoosed = 1;
+                    }
+                    else
+                    {
+                        RundeChoosed = Spiel.Runde;
+                        Gruppe = Convert.ToInt32(Spiel.GroupID).ToString();
+                        GruppeChoosed = Convert.ToInt32(Spiel.GroupID);
+                        Runde = RundeChoosed;
+                        Globals.currentEMWMRunde = RundeChoosed;
+                        Spiel.Runde = Runde;
+                    }
+
+                    if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
+                        GroupVisible = "inline-block;";
+                    else
+                        GroupVisible = "none;";
+
+
+                    if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970")
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1954"
+                      && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1950")
+                        sGroupGHVisible = "inline-block;";
+                    else
+                        sGroupGHVisible = "none;";
+
+                    if (Globals.currentEMWMSaison.StartsWith("WM")
+                        && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1978"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1974"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1954"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1950"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1938"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1934"
+                        || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1930")
+                        sGroupEFVisible = "none;";
+                    else
+                        sGroupEFVisible = "inline-block;";
 
                 }
-                if (Convert.ToInt32(Id) == 0)
-                {
-                    Runde = Globals.currentEMWMRunde;
-                    RundeChoosed = Runde;
-                    GruppeChoosed = 1;
-                }
-                else
-                {
-                    RundeChoosed = Spiel.Runde;
-                    Gruppe = Convert.ToInt32(Spiel.GroupID).ToString();
-                    GruppeChoosed = Convert.ToInt32(Spiel.GroupID);
-                    Runde = RundeChoosed;
-                    Globals.currentEMWMRunde = RundeChoosed;
-                    Spiel.Runde = Runde;
-                }
 
-                if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3")
-                    GroupVisible = "inline-block;";
-                else
-                    GroupVisible = "none;";
-
-
-                if (Globals.currentEMWMSaison.StartsWith("WM") && (Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1990"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1986"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1982"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1970")
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1966"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1962"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1958"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1954"
-                  && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) != "1950")
-                    sGroupGHVisible = "inline-block;";
-                else
-                    sGroupGHVisible = "none;";
-
-                if (Globals.currentEMWMSaison.StartsWith("WM")
-                    && Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1978"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1974"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1970"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1966"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1962"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1958"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1954"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1950"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1938"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1934"
-                    || Globals.currentEMWMSaison.Substring(Globals.currentEMWMSaison.Length - 4) == "1930")
-                    sGroupEFVisible = "none;";
-                else
-                    sGroupEFVisible = "inline-block;";
-
+                ShowRunden();
             }
             catch (Exception ex)
             {
@@ -309,7 +313,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 StateHasChanged();
             }
-            
+
         }
 
         public async void Verein2Change(ChangeEventArgs e)
@@ -323,7 +327,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 StateHasChanged();
             }
-            
+
         }
 
 
@@ -355,7 +359,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 StateHasChanged();
             }
-            
+
         }
 
         [Bind]

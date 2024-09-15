@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Web.Services
     {
         public IEnumerable<Spieltag> Spieltag { get; set; }
 
-        public List<PokalergebnisCLSpieltag> SpieltagCL { get; set; }
+        public List<PokalergebnisCL_EM_WMSpieltag> SpieltagCL { get; set; }
 
         public IEnumerable<Spielergebnisse> Spielergebnisse { get; set; }
 
@@ -3075,7 +3075,7 @@ namespace LigaManagerManagement.Web.Services
                     {
                         this.SpieltagCL = (alleSpieltage).Where(st => st.SaisonID == Globals.CLPokalSaisonID).Where(x => x.GroupID == GroupID && x.Runde == "G" + i).ToList();
 
-                        PokalergebnisCLSpieltag item = new PokalergebnisCLSpieltag();
+                        PokalergebnisCL_EM_WMSpieltag item = new PokalergebnisCL_EM_WMSpieltag();
                         for (int ii = 1; ii <= SpieltagCL.Count(); ii++)
                         {
                             item = this.SpieltagCL[ii - 1];
@@ -3758,7 +3758,7 @@ namespace LigaManagerManagement.Web.Services
                         else
                             this.SpieltagCL = (alleSpieltage).Where(st => st.SaisonID == Globals.EMWMSaisonID).Where(x => x.GroupID == GroupID && x.Runde == "2G" + i).ToList();
 
-                        PokalergebnisCLSpieltag item = new PokalergebnisCLSpieltag();
+                        PokalergebnisCL_EM_WMSpieltag item = new PokalergebnisCL_EM_WMSpieltag();
                         for (int ii = 1; ii <= SpieltagCL.Count(); ii++)
                         {
                             item = this.SpieltagCL[ii - 1];

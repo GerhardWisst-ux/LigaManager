@@ -83,13 +83,13 @@
 
             <DataAnnotationsValidator />
             <div class="form-group">
-                <RadzenLabel Text="@Localizer["Benutzername"].Value" class="col-12 " Component="txtVereinsname2">@Localizer["Benutzername"].Value</RadzenLabel>
-                <RadzenTextBox @bind-Value="model.Username" id="usrname" name="username" class="form-control col-12" />
+                <RadzenLabel Text="@Localizer["Benutzername"].Value" class="col-12 " Component="txtBenutzername">@Localizer["Benutzername"].Value</RadzenLabel>
+                <RadzenTextBox @bind-Value="model.Username" id="txtBenutzername" name="txtBenutzername" class="form-control col-12" />
                 <ValidationMessage For="@(() => model.Username)" />
             </div>
             <div class="form-group">
-                <RadzenLabel Text="@Localizer["Passwort"].Value" class="col-12" Component="txtVereinsname2">@Localizer["Passwort"].Value</RadzenLabel>
-                <RadzenTextBox @bind-Value="model.Password" id="psw" name="psw" type="password" class="form-control col-12"></RadzenTextBox>
+                <RadzenLabel Text="@Localizer["Passwort"].Value" class="col-12" Component="txtPassword">@Localizer["Passwort"].Value</RadzenLabel>
+                <RadzenTextBox @bind-Value="model.Password" id="txtPassword" name="txtPassword" type="password" class="form-control col-12"></RadzenTextBox>
                 <ValidationMessage For="@(() => model.Password)" />
             </div>
             <div class="form-group">

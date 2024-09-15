@@ -13,7 +13,7 @@ namespace LigaManagerManagement.Api.Models
 {
     public class SpieltageEMWMRepository : ISpieltageEMWMRepository
     {
-        public async Task<PokalergebnisCLSpieltag> AddSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> AddSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO SpieltageEMWM ([Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr],Verlängerung,Runde,RundeDetail,Elfmeterschiessen,GroupID,Gruppe,Abgeschlossen,TeamIconUrl1,TeamIconUrl2)" +
                     " VALUES(@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr,@Verlängerung,@Runde,@RundeDetail,@Elfmeterschiessen,@GroupID,@Gruppe,@Abgeschlossen,@TeamIconUrl1,@TeamIconUrl2)";
-                
+
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
                 cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
@@ -38,7 +38,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);                
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
                 cmd.Parameters.AddWithValue("@Verlängerung", spieltag.Verlängerung);
                 cmd.Parameters.AddWithValue("@Runde", spieltag.Runde);
@@ -61,10 +61,10 @@ namespace LigaManagerManagement.Api.Models
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }            
+            }
         }
 
-        public async Task<PokalergebnisCLSpieltag> DeleteSpieltag(int SpieltagId)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> DeleteSpieltag(int SpieltagId)
         {
             try
             {
@@ -91,12 +91,12 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
-        public Task<PokalergebnisCLSpieltag> GetAktSpieltag()
+        public Task<PokalergebnisCL_EM_WMSpieltag> GetAktSpieltag()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<PokalergebnisCLSpieltag> GetSpieltag(int spieltagId)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> GetSpieltag(int spieltagId)
         {
             try
             {
@@ -104,16 +104,16 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageEMWM] WHERE SpieltagId =" + spieltagId, conn);
-                PokalergebnisCLSpieltag spieltag = null;
+                PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        spieltag = new PokalergebnisCLSpieltag();
+                        spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());                                                
+                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         spieltag.Saison = reader["Saison"].ToString();
                         spieltag.Verein1 = reader["Verein1"].ToString();
                         spieltag.Verein2 = reader["Verein2"].ToString();
@@ -122,10 +122,10 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());                        
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();                        
+                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         spieltag.Land1_Nr = int.Parse(reader["Land1_Nr"].ToString());
                         spieltag.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
@@ -166,7 +166,7 @@ namespace LigaManagerManagement.Api.Models
             //    .FirstOrDefaultAsync(d => d.SpieltagId == SpieltagId);
         }
 
-        public async Task<IEnumerable<PokalergebnisCLSpieltag>> GetSpieltage()
+        public async Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetSpieltage()
         {
 
             try
@@ -175,13 +175,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageEMWM] ", conn);
-                PokalergebnisCLSpieltag spieltag = null;
-                List<PokalergebnisCLSpieltag> Spieltaglist = new List<PokalergebnisCLSpieltag>();
+                PokalergebnisCL_EM_WMSpieltag spieltag = null;
+                List<PokalergebnisCL_EM_WMSpieltag> Spieltaglist = new List<PokalergebnisCL_EM_WMSpieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        spieltag = new PokalergebnisCLSpieltag();
+                        spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
@@ -193,7 +193,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());                        
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
@@ -243,9 +243,9 @@ namespace LigaManagerManagement.Api.Models
 
                 throw ex;
             }
-               
-            
-            
+
+
+
             //return await appDbContext.Spieltage                
             //    .ToListAsync();
         }
@@ -272,9 +272,9 @@ namespace LigaManagerManagement.Api.Models
             return iMaxSpieltag;
         }
 
-        public async Task<PokalergebnisCLSpieltag> UpdateSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
-           
+
             try
             {
                 int bVerlängerung;
@@ -297,9 +297,9 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bElfmeterschiessen = 1;
 
-                cmd.CommandText = "UPDATE [dbo].[SpieltageEMWM] SET " +                        
+                cmd.CommandText = "UPDATE [dbo].[SpieltageEMWM] SET " +
                         " [Saison] = '" + spieltag.Saison + "'" +
-                        ",[SaisonID] = " + spieltag.SaisonID +                        
+                        ",[SaisonID] = " + spieltag.SaisonID +
                         ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
                         ",[Land1_Nr] = '" + spieltag.Land1_Nr + "'" +
                         ",[Verein1] = '" + spieltag.Verein1 + "'" +
@@ -319,7 +319,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Elfmeterschiessen] = " + bElfmeterschiessen +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
-             
+
                 cmd.ExecuteNonQuery();
 
                 conn.Close();
@@ -346,94 +346,123 @@ namespace LigaManagerManagement.Api.Models
 
                 if (Globals.currentEMWMSaison == "EM 2024")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2024 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2024 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2022")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2022 = " + iGroupID, conn);
+                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2022 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2020")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2020 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2020 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2018")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM]where GroupID2018 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM]where GroupID2018 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2016")
-                   command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2016 = " + iGroupID, conn);
+                    command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                        " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2016 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2014")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2014 = " + iGroupID, conn);
+                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2014 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2012")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2012 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2012 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2010")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID] ,[Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2010 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2010 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2008")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2008 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2008 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2006")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2006 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2006 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2004")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2004 = " + iGroupID, conn);
+                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2004 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 2002")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938]FROM [dbo].[MannschaftEMWM] where GroupID2002 = " + iGroupID, conn);
+                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930]FROM [dbo].[MannschaftEMWM] where GroupID2002 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 2000")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004], " +
-                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID2000 = " + iGroupID, conn);
+                      " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID2000 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1998")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                    " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1998 = " + iGroupID, conn);
+                    " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1998 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 1996")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1996 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1996 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1994")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1994 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1994 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 1992")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1992 = " + iGroupID, conn);
+                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1992 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1990")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1990 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1990 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 1988")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1988 = " + iGroupID, conn);
+                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1988 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1986")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1986 = " + iGroupID, conn);
+                       " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1986 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 1984")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1984 = " + iGroupID, conn);
+                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1984 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1982")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1982 = " + iGroupID, conn);
+                   " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1982 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "EM 1980")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1980 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978],[GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934] FROM [dbo].[MannschaftEMWM] where GroupID1980 = " + iGroupID, conn);
+                else if (Globals.currentEMWMSaison == "WM 1978")
+                    if (iGroupID < 9)
+                    {
+                        command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1978 = " + iGroupID, conn);
+                    }
+                    else
+                    {
+                        command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                                          " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978_2], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1978_2 = " + iGroupID, conn);
+                    }
+                else if (Globals.currentEMWMSaison == "WM 1974")
+                    if (iGroupID < 9)
+                    {
+                        command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1974 = " + iGroupID, conn);
+                    }
+                    else
+                    {
+                        command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974_2], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1974_2 = " + iGroupID, conn);
+                    }
+
                 else if (Globals.currentEMWMSaison == "WM 1970")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938]  FROM [dbo].[MannschaftEMWM] where GroupID1970 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930]  FROM [dbo].[MannschaftEMWM] where GroupID1970 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1966")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1966 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1966 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1962")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1962 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1962 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1958")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1958 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1958 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1954")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938]  FROM [dbo].[MannschaftEMWM] where GroupID1954 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930]  FROM [dbo].[MannschaftEMWM] where GroupID1954 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1950")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1950 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1950 = " + iGroupID, conn);
                 else if (Globals.currentEMWMSaison == "WM 1938")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
-                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938] FROM [dbo].[MannschaftEMWM] where GroupID1950 = " + iGroupID, conn);
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1938 = " + iGroupID, conn);
+                else if (Globals.currentEMWMSaison == "WM 1934")
+                    command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1934 = " + iGroupID, conn);
+                else if (Globals.currentEMWMSaison == "WM 1930")
+                    command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
+                  " [GroupID2002], [GroupID2000], [GroupID1998], [GroupID1996], [GroupID1994], [GroupID1992], [GroupID1990], [GroupID1988], [GroupID1986], [GroupID1984], [GroupID1982], [GroupID1980], [GroupID1978], [GroupID1974], [GroupID1970], [GroupID1966], [GroupID1962], [GroupID1958], [GroupID1954], [GroupID1950], [GroupID1938], [GroupID1934], [GroupID1930], [GroupID1930] FROM [dbo].[MannschaftEMWM] where GroupID1930 = " + iGroupID, conn);
 
                 VereinEMWM verein = null;
                 List<VereinEMWM> vereineList = new List<VereinEMWM>();
@@ -441,7 +470,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     while (reader.Read())
                     {
-                        verein = new VereinEMWM();                        
+                        verein = new VereinEMWM();
                         verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());
                         verein.Vereinsname1 = reader["MannschaftName1"].ToString();
                         verein.Vereinsname2 = reader["MannschaftName2"].ToString();
@@ -467,6 +496,17 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID1984 = int.Parse(reader["GroupID1984"].ToString());
                         verein.GroupID1982 = int.Parse(reader["GroupID1982"].ToString());
                         verein.GroupID1980 = int.Parse(reader["GroupID1980"].ToString());
+
+                        if (iGroupID < 9)
+                            verein.GroupID1978 = int.Parse(reader["GroupID1978"].ToString());
+                        else
+                            verein.GroupID1978 = int.Parse(reader["GroupID1978_2"].ToString());
+
+                        if (iGroupID < 9)
+                            verein.GroupID1974 = int.Parse(reader["GroupID1974"].ToString());
+                        else
+                            verein.GroupID1974 = int.Parse(reader["GroupID1974_2"].ToString());
+
                         verein.GroupID1970 = int.Parse(reader["GroupID1970"].ToString());
                         verein.GroupID1966 = int.Parse(reader["GroupID1966"].ToString());
                         verein.GroupID1962 = int.Parse(reader["GroupID1962"].ToString());
@@ -493,4 +533,5 @@ namespace LigaManagerManagement.Api.Models
         }
     }
 }
+
 

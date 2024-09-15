@@ -56,7 +56,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public IEnumerable<Spieltag> spieltage { get; set; }
 
-        public PokalergebnisCLSpieltag Spiel { get; set; } = new PokalergebnisCLSpieltag();
+        public PokalergebnisCL_EM_WMSpieltag Spiel { get; set; } = new PokalergebnisCL_EM_WMSpieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
 

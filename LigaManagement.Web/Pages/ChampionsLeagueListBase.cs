@@ -30,7 +30,7 @@ namespace LigaManagement.Web.Pages
         public RadzenDataGrid<Tabelle> gridTabelle;
         public bool allowVirtualization;
         static HttpClient client = new HttpClient();
-        public RadzenDataGrid<PokalergebnisCLSpieltag> grid;
+        public RadzenDataGrid<PokalergebnisCL_EM_WMSpieltag> grid;
         public Density Density = Density.Compact;
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
@@ -78,9 +78,9 @@ namespace LigaManagement.Web.Pages
 
         public IEnumerable<Saison> Saisonen { get; set; }
 
-        public IEnumerable<PokalergebnisCLSpieltag> ErgebnisseCLSpieltage { get; set; }
+        public IEnumerable<PokalergebnisCL_EM_WMSpieltag> ErgebnisseCLSpieltage { get; set; }
 
-        public IEnumerable<PokalergebnisCLSpieltag> PokalergebnisseCLSpieltageFinale { get; set; }
+        public IEnumerable<PokalergebnisCL_EM_WMSpieltag> PokalergebnisseCLSpieltageFinale { get; set; }
 
         [Inject]
         public IStringLocalizer<ChampionsLeague> Localizer { get; set; }
@@ -173,7 +173,7 @@ namespace LigaManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
-        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCLSpieltag> args)
+        public void CellRender(DataGridCellRenderEventArgs<PokalergebnisCL_EM_WMSpieltag> args)
         {
             if (args.Column.Property == "Verein1")
             {

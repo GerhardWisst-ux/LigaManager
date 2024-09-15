@@ -1,0 +1,21 @@
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: GroupID1938
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineEMWM() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 342
+Datum/Uhrzeit: 31.07.2024 09:31:37
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: GroupID1938
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineEMWM() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 342
+Datum/Uhrzeit: 31.07.2024 09:57:37
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: GroupID1938
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineEMWM() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 342
+Datum/Uhrzeit: 31.07.2024 10:35:55
+============================================

@@ -1,0 +1,50 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 13.09.2024 23:06:00
+============================================

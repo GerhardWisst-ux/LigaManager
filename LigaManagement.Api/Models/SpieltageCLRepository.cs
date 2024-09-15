@@ -13,7 +13,7 @@ namespace LigaManagerManagement.Api.Models
 {
     public class SpieltageCLRepository : ISpieltageCLRepository
     {
-        public async Task<PokalergebnisCLSpieltag> AddSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> AddSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace LigaManagerManagement.Api.Models
             }            
         }
 
-        public async Task<PokalergebnisCLSpieltag> DeleteSpieltag(int SpieltagId)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> DeleteSpieltag(int SpieltagId)
         {
             //var result = await appDbContext.Spieltage
             //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
@@ -71,12 +71,12 @@ namespace LigaManagerManagement.Api.Models
             return null;
         }
 
-        public Task<PokalergebnisCLSpieltag> GetAktSpieltag()
+        public Task<PokalergebnisCL_EM_WMSpieltag> GetAktSpieltag()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<PokalergebnisCLSpieltag> GetSpieltag(int spieltagId)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> GetSpieltag(int spieltagId)
         {
             try
             {
@@ -84,13 +84,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageCL] WHERE SpieltagId =" + spieltagId, conn);
-                PokalergebnisCLSpieltag spieltag = null;
+                PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        spieltag = new PokalergebnisCLSpieltag();
+                        spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());                                                
@@ -129,7 +129,7 @@ namespace LigaManagerManagement.Api.Models
             //    .FirstOrDefaultAsync(d => d.SpieltagId == SpieltagId);
         }
 
-        public async Task<IEnumerable<PokalergebnisCLSpieltag>> GetSpieltage()
+        public async Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetSpieltage()
         {
 
             try
@@ -138,13 +138,13 @@ namespace LigaManagerManagement.Api.Models
                 conn.Open();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageCL] ", conn);
-                PokalergebnisCLSpieltag spieltag = null;
-                List<PokalergebnisCLSpieltag> Spieltaglist = new List<PokalergebnisCLSpieltag>();
+                PokalergebnisCL_EM_WMSpieltag spieltag = null;
+                List<PokalergebnisCL_EM_WMSpieltag> Spieltaglist = new List<PokalergebnisCL_EM_WMSpieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        spieltag = new PokalergebnisCLSpieltag();
+                        spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());                        
@@ -208,7 +208,7 @@ namespace LigaManagerManagement.Api.Models
             return iMaxSpieltag;
         }
 
-        public async Task<PokalergebnisCLSpieltag> UpdateSpieltag(PokalergebnisCLSpieltag spieltag)
+        public async Task<PokalergebnisCL_EM_WMSpieltag> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
            
             try
