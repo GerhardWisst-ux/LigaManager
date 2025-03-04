@@ -132,80 +132,83 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
         {
-
+            
             try
             {
-                SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
 
-                SqlCommand command = new SqlCommand("sp_spieltage", conn);
-                command.CommandType = CommandType.StoredProcedure;
-                Spieltag spieltag = null;
-                List<Spieltag> Spieltaglist = new List<Spieltag>();
-                using (SqlDataReader reader = command.ExecuteReader())
-
-                ////SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] ", conn);
-                ////Spieltag spieltag = null;
-                ////List<Spieltag> Spieltaglist = new List<Spieltag>();
-                ////using (SqlDataReader reader = command.ExecuteReader())
+                using (var conn = new SqlConnection(Globals.connstring))
                 {
-                    while (reader.Read())
+                    await conn.OpenAsync();
+
+                    SqlCommand command = new SqlCommand("sp_spieltage", conn);
+                    command.CommandType = CommandType.StoredProcedure;
+                    Spieltag spieltag = null;
+                    List<Spieltag> Spieltaglist = new List<Spieltag>();
+                    await using (SqlDataReader reader = command.ExecuteReader())
+
+                    ////SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] ", conn);
+                    ////Spieltag spieltag = null;
+                    ////List<Spieltag> Spieltaglist = new List<Spieltag>();
+                    ////using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        spieltag = new Spieltag();
+                        while (await reader.ReadAsync())
+                        {
+                            spieltag = new Spieltag();
 
-                        spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                        spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
-                        spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
-                        spieltag.Saison = reader["Saison"].ToString();
-                        spieltag.Verein1 = reader["Verein1"].ToString();
-                        spieltag.Verein2 = reader["Verein2"].ToString();
-                        spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
-                        spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
-                        spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
-                        spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
-                        spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
-                        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
-                        spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-                        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
-                        spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
+                            spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                            spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                            spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
+                            spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
+                            spieltag.Saison = reader["Saison"].ToString();
+                            spieltag.Verein1 = reader["Verein1"].ToString();
+                            spieltag.Verein2 = reader["Verein2"].ToString();
+                            spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
+                            spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
+                            spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                            spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
+                            spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
+                            spieltag.Ort = reader["Ort"].ToString();
+                            spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                            spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                            spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
+                            spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
+                            spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
 
-                        Spieltaglist.Add(spieltag);
+                            Spieltaglist.Add(spieltag);
+                        }
                     }
+
+
+                    //{
+                    //    while (reader.Read())
+                    //    {
+                    //        spieltag = new Spieltag();
+
+                    //        spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
+                    //        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                    //        spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
+                    //        spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
+                    //        spieltag.Saison = reader["Saison"].ToString();
+                    //        spieltag.Verein1 = reader["Verein1"].ToString();
+                    //        spieltag.Verein2 = reader["Verein2"].ToString();
+                    //        spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
+                    //        spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
+                    //        spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                    //        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
+                    //        spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
+                    //        spieltag.Ort = reader["Ort"].ToString();
+                    //        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                    //        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                    //        spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
+                    //        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
+                    //        spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
+
+                    //        Spieltaglist.Add(spieltag);
+                    //    }
+                    //}
+                    return Spieltaglist;
                 }
-
-              
-                //{
-                //    while (reader.Read())
-                //    {
-                //        spieltag = new Spieltag();
-
-                //        spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                //        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                //        spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
-                //        spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
-                //        spieltag.Saison = reader["Saison"].ToString();
-                //        spieltag.Verein1 = reader["Verein1"].ToString();
-                //        spieltag.Verein2 = reader["Verein2"].ToString();
-                //        spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
-                //        spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
-                //        spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                //        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
-                //        spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
-                //        spieltag.Ort = reader["Ort"].ToString();
-                //        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
-                //        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
-                //        spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-                //        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
-                //        spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
-
-                //        Spieltaglist.Add(spieltag);
-                //    }
-                //}
-                conn.Close();
-                return Spieltaglist;
+                
             }
             catch (Exception ex)
             {
@@ -222,7 +225,7 @@ namespace LigaManagerManagement.Api.Models
 
             try
             {
-                if (Globals.LigaNummer < 2)
+                if (Globals.LigaNummer == 1 || Globals.LigaNummer == 2)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [Spieltage] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
                     using SqlDataReader reader = command.ExecuteReader();
@@ -401,9 +404,9 @@ namespace LigaManagerManagement.Api.Models
                         ",[SaisonID] = " + spieltag.SaisonID +
                         ",[LigaID] = " + spieltag.LigaID +
                         ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
-                        ",[Verein1] = '" + spieltag.Verein1 + "'" +
+                        //",[Verein1] = '" + spieltag.Verein1 + "'" +
                         ",[Verein2_Nr] = " + spieltag.Verein2_Nr +
-                        ",[Verein2] = '" + spieltag.Verein2 + "'" +
+                        //",[Verein2] = '" + spieltag.Verein2 + "'" +
                         ",[Tore1_Nr] = " + spieltag.Tore1_Nr +
                         ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
                         ",[Datum] = '" + spieltag.Datum + "'" +

@@ -116,8 +116,28 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
 
-
-                RundeList = new List<DisplayRunde>
+                if (Spiel.Datum.Year > 2024 && Spiel.Datum.Month > 7)
+                {
+                    RundeList = new List<DisplayRunde>
+                {
+                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
+                    new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 7),
+                    new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 8),
+                    new DisplayRunde("Zw", Localizer["Zwischenrunde"].Value),
+                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayRunde("F", Localizer["Finale"].Value),
+                };
+                }
+                else
+                {
+                    RundeList = new List<DisplayRunde>
                 {
                     new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
@@ -130,6 +150,7 @@ namespace LigamanagerManagement.Web.Pages
                     new DisplayRunde("HF", Localizer["Halbfinale"].Value),
                     new DisplayRunde("F", Localizer["Finale"].Value),
                 };
+                }
 
 
                 if (Convert.ToInt32(Id) == 0)

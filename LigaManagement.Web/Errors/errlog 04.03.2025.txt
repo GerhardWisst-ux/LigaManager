@@ -1,0 +1,44 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.Dispatcher.AssertAccess()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 226
+Datum/Uhrzeit: 04.03.2025 10:40:24
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 226
+Datum/Uhrzeit: 04.03.2025 10:40:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.Dispatcher.AssertAccess()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 208
+Datum/Uhrzeit: 04.03.2025 10:42:35
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 208
+Datum/Uhrzeit: 04.03.2025 10:42:47
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.Dispatcher.AssertAccess()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 208
+Datum/Uhrzeit: 04.03.2025 10:43:08
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.Dispatcher.AssertAccess()
+   at Microsoft.AspNetCore.Components.RenderTree.Renderer.AddToRenderQueue(Int32 componentId, RenderFragment renderFragment)
+   at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 208
+Datum/Uhrzeit: 04.03.2025 10:51:22
+============================================

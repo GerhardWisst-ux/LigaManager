@@ -145,7 +145,28 @@ namespace LigaManagement.Web.Pages
 
                 Globals.bVisibleNavMenuElements = true;
 
-                RundeList = new List<DisplayCLRunde>
+                if (Globals.CLSaisonID > 64)
+                {
+                    RundeList = new List<DisplayCLRunde>
+                {
+                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 7),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 8),
+                    new DisplayCLRunde("Zw", Localizer["Zwischenrunde"].Value),
+                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayCLRunde("F", Localizer["Finale"].Value),
+                };
+                }
+                else
+                {
+                    RundeList = new List<DisplayCLRunde>
                 {
                     new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
@@ -158,6 +179,7 @@ namespace LigaManagement.Web.Pages
                     new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
                     new DisplayCLRunde("F", Localizer["Finale"].Value),
                 };
+                }
 
 
                 if (Globals.currentClRunde != null)
@@ -443,8 +465,45 @@ namespace LigaManagement.Web.Pages
         public async void RundeChange(ChangeEventArgs e)
         {
             int BisSpieltag = 6;
+
             if (e.Value != null)
             {
+                if (Globals.CLSaisonID > 64)
+                {
+                    RundeList = new List<DisplayCLRunde>
+                {
+                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 7),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 8),
+                    new DisplayCLRunde("Zw", Localizer["Zwischenrunde"].Value),
+                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayCLRunde("F", Localizer["Finale"].Value),
+                };
+                }
+                else
+                {
+                    RundeList = new List<DisplayCLRunde>
+                {
+                    new DisplayCLRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayCLRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
+                    new DisplayCLRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
+                    new DisplayCLRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayCLRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
+                    new DisplayCLRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
+                    new DisplayCLRunde("AF", Localizer["Achtelfinale"].Value),
+                    new DisplayCLRunde("VF", Localizer["Viertelfinale"].Value),
+                    new DisplayCLRunde("HF", Localizer["Halbfinale"].Value),
+                    new DisplayCLRunde("F", Localizer["Finale"].Value),
+                };
+                }
+
                 RundeChoosed = e.Value.ToString();
                 Globals.currentClRunde = RundeChoosed;
 

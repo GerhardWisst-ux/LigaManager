@@ -6,6 +6,7 @@ using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -14,7 +15,6 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using static LigaManagement.Web.Pages.ChartData;
-using static Ligamanager.Components.Globals;
 
 namespace LigaManagerManagement.Web.Services
 {
@@ -3909,5 +3909,50 @@ namespace LigaManagerManagement.Web.Services
                 }
             }
         }
+        
+       
+
+        async Task<List<ToreProSaison>> ITabelleService.ToreProSaison()
+        {
+            var toreProSaisonList = new List<ToreProSaison>();
+            try
+            {
+
+                using (var conn = new SqlConnection(Globals.connstring))
+                {
+                    await conn.OpenAsync();
+
+                    using var command = new SqlCommand("sp_toreprosaison", conn);
+                    using var reader = await command.ExecuteReaderAsync();
+                    {
+                        while (await reader.ReadAsync())
+                        {
+
+                            var toreProSaison = new ToreProSaison
+                            {
+                                Saison = reader["saison"]?.ToString(),
+                                AnzahlSpiele = int.TryParse(reader["AnzahlSpiele"]?.ToString(), out var spiele) ? spiele : 0,
+                                AnzahlTore = int.TryParse(reader["AnzahlTore"]?.ToString(), out var tore) ? tore : 0,
+                                ToreAVG = double.TryParse(reader["ToreAVG"]?.ToString(), out var avg) ? avg : 0
+                            };
+
+                            toreProSaisonList.Add(toreProSaison);
+                        }
+                    }
+                }
+               
+            }
+            catch (SqlException sqlEx)
+            {
+                ErrorLogger.WriteToErrorLog(sqlEx.Message, sqlEx.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
+            return toreProSaisonList;
+        }
     }
-}
+    }
+
+    

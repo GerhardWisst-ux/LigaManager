@@ -202,7 +202,10 @@ else
                     <RadzenDataGridColumn TItem="Tabelle" TextAlign="TextAlign.Right" Property="Punkte" Width="5%" Sortable=true Title="@Localizer["P"].Value" />
                 </Columns>
                 <FooterTemplate>
+                    @if (Globals.LigaID == 1)
+                    {
                     @Localizer["Legende"].Value
+                    }
                 </FooterTemplate>
             </RadzenDataGrid>
 
@@ -212,13 +215,16 @@ else
                 </RadzenColumn>
             </RadzenRow>
 
-            <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
-                <RadzenColumn Style="text-align:center;">
-                    <RadzenLabel class="col-12" Style="@DisplayEwig" Component="txtHinweis">
-                        @Localizer["Kommentar"].Value
-                    </RadzenLabel>
-                </RadzenColumn>
-            </RadzenRow>
+            
+                <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
+                    <RadzenColumn Style="text-align:center;">
+                        <RadzenLabel class="col-12" Style="@DisplayEwig" Component="txtHinweis">
+                            @Localizer["Kommentar"].Value
+                        </RadzenLabel>
+                    </RadzenColumn>
+                </RadzenRow>
+            
+            
         </RadzenCard>
     </div>
 

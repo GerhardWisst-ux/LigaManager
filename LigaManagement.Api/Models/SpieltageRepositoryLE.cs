@@ -1,19 +1,12 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace LigaManagerManagement.Api.Models
 {

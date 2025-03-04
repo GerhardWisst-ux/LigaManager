@@ -31,8 +31,8 @@ namespace LigaManagement.Web.Pages
 {
     [EnableCors]
     public class EinstiegListBase : ComponentBase
-    {
-        static HttpClient client = new HttpClient();
+    {     
+        private static readonly HttpClient client = new HttpClient();
         protected string sFilename;
         protected string DisplayErrorLiga = "none";
         protected string DisplayErrorSaison = "none";
@@ -46,7 +46,7 @@ namespace LigaManagement.Web.Pages
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
         public RadzenDataGrid<Spieltag> grid;
-        IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
+        private readonly IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
 
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
         public List<int> TabellenList;
@@ -61,66 +61,48 @@ namespace LigaManagement.Web.Pages
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
 
-        public List<DisplaySaison> SaisonenList;
-                
-        public List<DisplayLiga> LigenList;
-
-        public List<DisplayLaender> LaenderList;
+        public List<DisplaySaison> SaisonenList { get; set; } = new List<DisplaySaison>();
+        public List<DisplayLiga> LigenList { get; set; } = new List<DisplayLiga>();
+        public List<DisplayLaender> LaenderList { get; set; } = new List<DisplayLaender>();
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-                
-        public IEnumerable<Verein> Vereine { get; set; }
 
+        public IEnumerable<Verein> Vereine { get; set; }
         public IEnumerable<VereinAUS> VereineAUS { get; set; }
 
         [Inject]
         public IVereineService VereineService { get; set; }
-
         [Inject]
         public IVereinePLService VereineServicePL { get; set; }
-
         [Inject]
         public IVereineITService VereineServiceIT { get; set; }
-
         [Inject]
         public IVereineFRService VereineServiceFR { get; set; }
-
         [Inject]
         public IVereineESService VereineServiceES { get; set; }
-
         [Inject]
         public IVereineNLService VereineServiceNL { get; set; }
-
         [Inject]
         public IVereinePTService VereineServicePT { get; set; }
-
         [Inject]
         public IVereineTUService VereineServiceTU { get; set; }
-
         [Inject]
         public IVereineBEService VereineServiceBE { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
-
         [Inject]
         public ISpieltagServiceLE SpieltagServiceLE { get; set; }
-
         [Inject]
         public ILigaService LigaService { get; set; }
-
         [Inject]
         public ILandService LaenderService { get; set; }
 
         public IEnumerable<Saison> Saisonen { get; set; }
-
         public IEnumerable<Liga> Ligen { get; set; }
-
         public IEnumerable<Land> Laender { get; set; }
-
         public IEnumerable<Spieltag> Spieltage { get; set; }
-
         public IEnumerable<Spieltag> LetzteErgebnisse { get; set; }
 
         [Inject]
@@ -162,17 +144,11 @@ namespace LigaManagement.Web.Pages
                 if (TestSQLServer() == false)
                     return;
 
-                LaenderList = new List<DisplayLaender>();
-                Laender = (await LaenderService.GetLaender()).ToList();
+                Laender = (await LaenderService.GetLaender().ConfigureAwait(false)).ToList();
+                LaenderList = Laender.Select(columns => new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername)).ToList();
 
-                for (int i = 0; i < Laender.Count(); i++)
-                {
-                    var columns = Laender.ElementAt(i);
-                    LaenderList.Add(new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername));
-                }
-
-                LigenList = new List<DisplayLiga>();
-                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID);
+                Ligen = (await LigaService.GetLigen().ConfigureAwait(false)).Where(x => x.LandID == Globals.LandID).ToList();
+                LigenList = Ligen.Select(columns => new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame, columns.EMWM)).ToList();
 
                 for (int i = 0; i < Ligen.Count(); i++)
                 {

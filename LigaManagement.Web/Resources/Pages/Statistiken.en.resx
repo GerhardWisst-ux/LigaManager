@@ -168,6 +168,9 @@
   <data name="Neuanlage Liga" xml:space="preserve">
     <value>Create new league</value>
   </data>
+  <data name="Nächster Spieltag" xml:space="preserve">
+    <value>Next match day</value>
+  </data>
   <data name="Rekordspieler" xml:space="preserve">
     <value>Record player</value>
   </data>
@@ -185,9 +188,6 @@
   </data>
   <data name="Spielpaarungen" xml:space="preserve">
     <value>Match pairings</value>
-  </data>
-  <data name="Statistik Verein" xml:space="preserve">
-    <value>Statistics Club</value>
   </data>
   <data name="Statistiken" xml:space="preserve">
     <value>Statistics</value>
@@ -207,9 +207,6 @@
   <data name="Verein" xml:space="preserve">
     <value>Club</value>
   </data>
-  <data name="Verein gegen Verein" xml:space="preserve">
-    <value>Club against club</value>
-  </data>
   <data name="Verein wählen" xml:space="preserve">
     <value>Select club</value>
   </data>
@@ -221,5 +218,17 @@
   </data>
   <data name="Zurück" xml:space="preserve">
     <value>Back</value>
+  </data>
+  <data name="Zurück zu Ligen" xml:space="preserve">
+    <value>Back to leagues</value>
+  </data>
+  <data name="Verein gegen Verein" xml:space="preserve">
+    <value>Club against club</value>
+  </data>
+  <data name="ToreProSaison" xml:space="preserve">
+    <value>Goals per saison</value>
+  </data>
+  <data name="Statistik Verein" xml:space="preserve">
+    <value>Statistics club</value>
   </data>
 </root>

@@ -22,7 +22,11 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, int ewigeTabelle);
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
+        
+        Task<List<ToreProSaison>> ToreProSaison();
+
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
+        
         Task<List<int?>> CreateChartPunkte(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
 
         Task<List<int?>> CreateChartPlatz(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int ivereinnr, int currentspieltag);
@@ -40,5 +44,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<IEnumerable<Tabelle>> BerechneTabelleCL(ISpieltageCLService spieltagService, int GroupID, int BisSpieltag);
         Task<IEnumerable<Tabelle>> BerechneTabelleDEL3(ISpieltagService spieltagService, bool bAbgeschlossen, List<VereinAktSaison> verList, int iSpieltage, int gesamt);
         Task<IEnumerable<Tabelle>> BerechneTabelleEMWM(ISpieltageEMWMService spieltagService, int groupid, int bisSpieltag);
+        
+        
     }
 }
