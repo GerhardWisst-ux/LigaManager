@@ -178,7 +178,7 @@ namespace LigamanagerManagement.Web.Pages
 
         }
 
-        public async void GruppeChange(ChangeEventArgs e)
+        public void GruppeChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
@@ -193,7 +193,7 @@ namespace LigamanagerManagement.Web.Pages
             {
                 var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
-                Spiel.Verein1_Nr = int.Parse(e.Value.ToString());
+                Spiel.Verein1_Nr = Convert.ToInt32(e.Value.ToString());
                 Spiel.Ort = verein.Stadion;
                 Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
             }
@@ -206,7 +206,7 @@ namespace LigamanagerManagement.Web.Pages
             {
                 var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein2 = verein.Vereinsname1;
-                Spiel.Verein2_Nr = int.Parse(e.Value.ToString());
+                Spiel.Verein2_Nr = Convert.ToInt32(e.Value.ToString());
             }
             StateHasChanged();
         }

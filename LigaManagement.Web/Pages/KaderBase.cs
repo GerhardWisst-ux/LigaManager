@@ -1,17 +1,17 @@
 ﻿using LigaManagement.Models;
+using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Localization;
-using LigaManagement.Web.Pages;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -27,6 +27,7 @@ namespace LigaManagerManagement.Web.Pages
         public IKaderService KaderService { get; set; }
         public IEnumerable<Kader> SpielerList { get; set; }
 
+        public bool IsLoading = false;
         public string saison;
         public bool VisibleAdd;
         public List<DisplaySaison> SaisonenList = new List<DisplaySaison>();
@@ -61,32 +62,54 @@ namespace LigaManagerManagement.Web.Pages
         public IStringLocalizer<KaderList> Localizer { get; set; }
 
         private int VereinNr;
+
         protected override async Task OnInitializedAsync()
+        {
+            IsLoading = true;
+            try
+            {
+                await LoadInitialDataAsync();
+            }
+            catch (Exception ex)
+            {
+                // Fehlerbehandlung
+                Console.WriteLine($"Fehler beim Laden der Daten: {ex.Message}");
+            }
+            finally
+            {
+                IsLoading = false;
+            }
+        }
+
+        private async Task LoadInitialDataAsync()
         {
             SaisonenList = new List<DisplaySaison>();
             Saisonen = (await SaisonenService.GetSaisonen()).OrderBy(x => x.Saisonname).ToList();
 
-            for (int i = 0; i < Saisonen.Count(); i++)
+            foreach (var saison in Saisonen)
             {
-                var columns = Saisonen.ElementAt(i);
-                if (columns.Liganame == "Bundesliga")
-                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
+                if (saison.LigaID ==1) // Bundesliga
+                {
+                    SaisonenList.Add(new DisplaySaison(saison.SaisonID, saison.Saisonname));
+                }
             }
 
             SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == Globals.KaderSaisonID).ToList();
 
-            var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.SaisonID == Globals.KaderSaisonID).First();
-
-            var vereineSaison = await VereineSaisonService.GetVereineSaison();
-            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == saison.SaisonID).ToList();
-
-            for (int i = 0; i < verList.Count(); i++)
+            var aktuelleSaison = Saisonen.FirstOrDefault(x => x.SaisonID == Globals.KaderSaisonID);
+            if (aktuelleSaison != null)
             {
-                var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1));
+                var vereineSaison = await VereineSaisonService.GetVereineSaison();
+                var verList = vereineSaison.Where(x => x.SaisonID == aktuelleSaison.SaisonID).ToList();
+
+                foreach (var ver in verList)
+                {
+                    var verein = await VereineService.GetVerein(ver.VereinNr);
+                    VereineList.Add(new DisplayVerein(ver.VereinNr.ToString(), verein.Vereinsname1));
+                }
             }
 
-            SpielerList = SpielerList.OrderByDescending(x => x.Tore);
+            SpielerList = SpielerList.OrderByDescending(x => x.PositionsNr).ToList();
 
             DisplayErrorVerein = "none";
             DisplayErrorSaison = "none";
@@ -98,10 +121,11 @@ namespace LigaManagerManagement.Web.Pages
             DisplayTopButton = "none";
 
             if (Globals.KaderVereinNr > 0)
-                OnClickHandler();
+            {
+                await OnClickHandlerAsync();
+            }
 
             VereinNr = Globals.KaderVereinNr;
-
             Globals.bVisibleNavMenuElements = true;
         }
 
@@ -109,7 +133,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                Globals.KaderSaisonID = Convert.ToInt32(e.Value);                
+                Globals.KaderSaisonID = Convert.ToInt32(e.Value);
                 bChangedSaison = true;
             }
         }
@@ -118,60 +142,79 @@ namespace LigaManagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
-                if (e.Value.ToString() == "")
+                if (string.IsNullOrEmpty(e.Value.ToString()))
+                {
                     e.Value = 0;
+                }
 
                 Globals.KaderVereinNr = Convert.ToInt32(e.Value);
                 VereinNr = Convert.ToInt32(e.Value);
                 bChangedVerein = true;
 
                 if (VereinNr > 0)
+                {
                     VisibleAdd = false;
+                }
             }
         }
 
-        public async void OnClickHandler()
+        public async Task OnClickHandlerAsync()
         {
+            IsLoading = true;
             busy = true;
-            if (Globals.currentSaison == null & Globals.currentLiga == null)
+            try
             {
-                DisplayErrorVerein = "block";
-                DisplayErrorSaison = "block";
-                return;
-            }
+                if (Globals.currentSaison == null && Globals.currentLiga == null)
+                {
+                    DisplayErrorVerein = "block";
+                    DisplayErrorSaison = "block";
+                    return;
+                }
 
-            if (Globals.currentSaison == null)
+                if (Globals.currentSaison == null)
+                {
+                    DisplayErrorSaison = "block";
+                    return;
+                }
+
+                if (Globals.KaderVereinNr == 0)
+                {
+                    DisplayErrorVerein = "block";
+                    return;
+                }
+
+                DisplayErrorVerein = "none";
+                DisplayErrorSaison = "none";
+
+                bShowSpieler = true;
+                VisibleAdd = true;
+
+                DisplayTopButton = "block";
+                SpielerList = (await KaderService.GetAllSpieler())
+                    .OrderBy(x => x.PositionsNr).ThenByDescending(x => x.Einsaetze)
+                    .Where(x => x.SaisonId == Globals.KaderSaisonID && x.VereinID == Globals.KaderVereinNr)                    
+                    .ToList();
+
+                IsLoading = false;
+            }
+            catch (Exception ex)
             {
-                DisplayErrorSaison = "block";
-                return;
+                // Fehlerbehandlung
+                Console.WriteLine($"Fehler beim Laden des Spielers: {ex.Message}");
             }
-
-            if (Globals.KaderVereinNr == 0)
+            finally
             {
-                DisplayErrorVerein = "block";
-                return;
+                busy = false;
+                IsLoading = false;
+                StateHasChanged();
             }
-
-            DisplayErrorVerein = "none";
-            DisplayErrorSaison = "none";
-
-            bShowSpieler = true;
-            VisibleAdd = true;
-
-            DisplayTopButton = "block";
-            SpielerList = (await KaderService.GetAllSpieler()).Where(x => x.SaisonId == Globals.KaderSaisonID).Where(x => x.VereinID == Globals.KaderVereinNr).ToList();
-
-            busy = false;
-            StateHasChanged();
         }
-
 
         public void OnFilter(DataGridColumnFilterEventArgs<Kader> args)
         {
-            //
+            // Filterlogik hier implementieren
         }
     }
-
 
     public class DisplaySaison
     {
@@ -195,5 +238,4 @@ namespace LigaManagerManagement.Web.Pages
         public string VereinID { get; set; }
         public string Vereinname1 { get; set; }
     }
-
 }

@@ -19,7 +19,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 for (int i = 0; i <= vereineSaison.Count - 1; i++)
                 {
@@ -31,7 +31,7 @@ namespace LigaManagerManagement.Api.Models
                     cmd.Parameters.AddWithValue("@VereinNr", vereineSaison[i].VereinNr);
                     cmd.Parameters.AddWithValue("@SaisonID", vereineSaison[i].SaisonID);
                     cmd.Parameters.AddWithValue("@LigaID", vereineSaison[i].LigaID);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                 }
 
                 conn.Close();
@@ -58,13 +58,13 @@ namespace LigaManagerManagement.Api.Models
                 List<VereineSaison> vereineSaison = new List<VereineSaison>();
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison]", conn);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         VereineSaison verein = new VereineSaison();
                         verein.VereinNr = (int)reader["VereinNr"];

@@ -31,7 +31,7 @@ namespace LigaManagement.Api.Models
                     bAbgeschlossen = 1;
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -50,7 +50,7 @@ namespace LigaManagement.Api.Models
                 cmd.Parameters.AddWithValue("@AnzahlEL_Plaetze", saison.EL_League);
                 cmd.Parameters.AddWithValue("@AnzahlCF_Plaetze", saison.CF_League);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -88,7 +88,7 @@ namespace LigaManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where SaisonID= " + SaisonId, conn);
                 Saison saison = null;
@@ -133,14 +133,14 @@ namespace LigaManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen]", conn);
                 Saison saison = null;
                 List<Saison> saisonenList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         saison = new Saison();
 
@@ -179,14 +179,14 @@ namespace LigaManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Where Saison= '" + saisonname + "'", conn);
                 Saison saison = null;
                 List<Saison> peList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         saison = new Saison();
 
@@ -214,7 +214,7 @@ namespace LigaManagement.Api.Models
             {
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 
@@ -238,7 +238,7 @@ namespace LigaManagement.Api.Models
                           ",[Abgeschlossen] =" + bAbgeschlossen +
                           " WHERE  [SaisonID] = " + saison.SaisonID;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

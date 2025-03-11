@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -51,7 +51,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Liga2", false);
                 cmd.Parameters.AddWithValue("@Hyperlink", "");
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -91,7 +91,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<VereinAUS> DeleteVerein(int vereinId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -99,7 +99,7 @@ namespace LigaManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Id", vereinId);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -112,14 +112,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereineTU] Where VereinNr =" + vereinnr, conn);
                 VereinAUS verein = null;
                 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAUS();
 
@@ -154,7 +154,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereineTU]", conn);
                 VereinAUS verein = null;
@@ -197,7 +197,7 @@ namespace LigaManagerManagement.Api.Models
             List<VereinAktSaisonAUS> vereineSaison = new List<VereinAktSaisonAUS>();
 
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
 
@@ -229,7 +229,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -250,7 +250,6 @@ namespace LigaManagerManagement.Api.Models
                     bLiga2 = 1;
 
 
-
                 cmd.CommandText = "UPDATE [dbo].[VereineTU] SET " +
                         "[VereinNr] = " + verein.VereinNr +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
@@ -264,7 +263,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Liga2] =" + bLiga2 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

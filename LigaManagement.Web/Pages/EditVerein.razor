@@ -247,8 +247,7 @@ else
 
     private Verein Verein { get; set; } = new Verein();
     private VereinAUS VereinAus { get; set; } = new VereinAUS();
-    private string Titel { get; set; }
-    public bool IsLoading { get; set; }
+    private string Titel { get; set; }    
     public IEnumerable<Verein> VereineMax { get; set; }
     public IEnumerable<VereinAUS> VereineAusMax { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)

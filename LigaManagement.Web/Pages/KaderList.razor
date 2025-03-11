@@ -9,157 +9,7 @@
 @attribute [Authorize]
 
 <head>
-
-
-</head>
-
-<style type="text/css">
-
-    .rz-datatable tr {
-        min-height: 8%;
-        word-break: break-all;
-    }
-</style>
-
-@if (SpielerList == null)
-{
-    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
-        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
-    </RadzenStack>
-}
-else
-{
-
-    <div class="container">
-        <div class="form-group row">
-            <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
-                    <div class="d-flex flex-row">
-                        <div class="card-body">
-                            <span style="background-color:#1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
-                            <br />
-                            <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                            <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                            <h2 style="display:inline-block;">@Localizer["Kader"].Value</h2>
-                            <span class="ml-3">
-                                @* <RadzenLink Path="createkaderspieler" Visible="@VisibleAdd" style="width:40px;" title="Neuer Spieler" class="btn btn-primary btn-sm"><span class="glyphicon">&#x2b;</span></RadzenLink> *@
-
-                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Visible="@VisibleAdd" Icon="add_circle_outline" title="@Localizer["Neuer Spieler"].Value" ButtonStyle="ButtonStyle.Primary" />
-                            </span>
-                        </div>
-                    </div>
-                </RadzenCard>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="cboSaison" class="col-sm-1 control-label">@Localizer["Saison"].Value</label>
-            <div class="col-sm-4 m-0">
-                <select id="cboSaison" style="display:inline-block; " class="form-control dropdown" @onchange="SaisonChange">
-                    <option selected="selected">@Localizer["Saison auswählen"].Value</option>
-                    @if (SaisonenList != null)
-                    {
-                        @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                        {
-                            @if (saison.Saisonname == Globals.currentSaison)
-                            {
-                                <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
-                            }
-                            else
-                            {
-                                <option value="@saison.SaisonID"> @saison.Saisonname </option>
-                            }
-                        }
-                    }
-                    <label title="@Localizer["Bitte Saison wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Saison wählen"].Value</label>
-                </select>
-            </div>
-
-            <label for="cboVerein" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
-            <div class="col-sm-4 col-xs-12 m-0">
-                <select id="cboVerein" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
-                    <option value="" selected>@Localizer["Verein auswählen"].Value</option>
-                    @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
-                    {
-                        @if (verein.VereinID == Globals.KaderVereinNr.ToString())
-                        {
-                            <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
-                        }
-                        else
-                        {
-                            <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                        }
-                    }
-                    
-                </select>
-                <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
-            </div>
-            <div class="col-sm-2 col-xs-12 pull-right">
-
-                <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" Icon="account_circle" style="margin-left:5px;width:100px;" id="btnUebernehmen" Click="OnClickHandler" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
-                    @Localizer["Auswählen"].Value
-                </RadzenButton>
-            </div>
-
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-12">
-                @if (bShowSpieler)
-                {
-                    var spielerList = SpielerList.OrderByDescending(x => x.Tore).ThenBy(x => x.PositionsNr);
-
-
-                    <RadzenDataGrid @ref="grid" Data="@spielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="15"
-                                    AllowPaging="true" Responsive=true AllowSorting="true" AllowFiltering="true"
-                                    TItem="Kader" Visible="true" AllowColumnResize="true"
-                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                    LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter">
-                        <Columns>
-                            <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
-                            </RadzenDataGridColumn>
-                            <RadzenDataGridColumn TItem="Kader" Property="PositionsNr" Width="8%" TextAlign="TextAlign.Right" SortOrder="SortOrder.Ascending" Sortable=true Title="Pos" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Nr" />
-                            <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="20%" Sortable=true SortOrder="SortOrder.Ascending"
-                                                  SortProperty="SpielerName" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="20%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
-                                                  SortProperty="Vorname" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Alter" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Alter"].Value" Sortable=true SortProperty="Alter" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Spiele"].Value" Sortable=true SortProperty="Einsaetze" />
-                            <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="@Localizer["Tore"].Value" Sortable=true SortProperty="Tore" />
-                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Kader" Property="Id" Width="5%" Filterable="false" Sortable="false">
-                                <Template Context="data">
-                                    <NavLink href="@($"Ligamanager/editkaderspieler/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
-                                </Template>
-                            </RadzenDataGridColumn>
-
-                        </Columns>
-                        <FooterTemplate>
-                        </FooterTemplate>
-                        <FooterTemplate>
-                            @Localizer["Anzahl Spieler"].Value: <b>@spielerList.Count()</b>
-                        </FooterTemplate>
-                    </RadzenDataGrid>
-
-                    <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
-                        <RadzenColumn Offset="11" Style="text-align:right;">
-                            <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
-                        </RadzenColumn>
-                    </RadzenRow>
-
-                }
-            </div>
-        </div>
-    </div>
-
-    @code {
-    private void OnClick(string text)
-    {
-        _navigationManager.NavigateTo("Ligamanager/createkaderspieler");
-    }
-    }
-
-    <script>
+    <script type="text/javascript">
 
         let mybutton = document.getElementById("btnTop");
 
@@ -180,5 +30,151 @@ else
             document.documentElement.scrollTop = 0;
         }
     </script>
+
+    <style type="text/css">
+
+        .rz-datatable tr {
+            min-height: 8%;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                <div class="d-flex flex-row">
+                    <div class="card-body">
+                        <span style="background-color:#1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                        <br />
+                        <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                        <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                        <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                        <h2 style="display:inline-block;">@Localizer["Kader"].Value</h2>
+                        <span class="ml-3">
+                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuer Spieler"].Value" ButtonStyle="ButtonStyle.Primary" />
+                        </span>
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="cboSaison" class="col-sm-1 control-label">@Localizer["Saison"].Value</label>
+        <div class="col-sm-4 m-0">
+            <select id="cboSaison" style="display:inline-block; " class="form-control dropdown" @onchange="SaisonChange">
+                <option selected="selected">@Localizer["Saison auswählen"].Value</option>
+                @if (SaisonenList != null)
+                {
+                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                    {
+                        @if (saison.SaisonID == Globals.KaderSaisonID)
+                        {
+                            <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                        }
+                        else
+                        {
+                            <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                        }
+                    }
+                }
+                <label title="@Localizer["Bitte Saison wählen"].Value" style="display:@DisplayErrorSaison;color:red;" id="lblErrorLiga">@Localizer["Bitte Saison wählen"].Value</label>
+            </select>
+        </div>
+
+        <label for="cboVerein" class="col-sm-1 control-label m-0">@Localizer["Verein"].Value</label>
+        <div class="col-sm-4 col-xs-12 m-0">
+            <select id="cboVerein" style="display:inline-block;" class="form-control dropdown" @onchange="VereinChange">
+                <option value="" selected>@Localizer["Verein auswählen"].Value</option>
+                @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
+                {
+                    @if (verein.VereinID == Globals.KaderVereinNr.ToString())
+                    {
+                        <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                    }
+                    else
+                    {
+                        <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                    }
+                }
+            </select>
+            <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
+        </div>
+        <div class="col-sm-2 col-xs-12 pull-right">
+
+            <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" Icon="account_circle" style="margin-left:5px;width:100px;" id="btnUebernehmen" Click="OnClickHandlerAsync" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
+                @Localizer["Auswählen"].Value
+            </RadzenButton>
+        </div>
+
+    </div>
+</div>
+
+@if (IsLoading)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+
+    <div class="form-group row">
+        <div class="col-sm-12">
+            @if (bShowSpieler)
+            {
+                var spielerList = SpielerList;
+
+
+                <RadzenDataGrid @ref="grid" Data="@spielerList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                AllowPaging="true" Responsive=true AllowSorting="true" AllowFiltering="true"
+                                TItem="Kader" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" Filter="@OnFilter">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Kader" Property="Position" Width="8%" SortProperty="PositionsNr" TextAlign="TextAlign.Right" Title="Pos" Sortable=true SortOrder="SortOrder.Ascending" />
+                        <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="20%" Sortable=true SortOrder="SortOrder.Ascending"/>
+                        <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="20%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
+                                              SortProperty="Vorname" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Rueckennummer" Width="8%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="@Localizer["Rückennummer"].Value" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Alter" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Alter"].Value" Sortable=true SortProperty="Alter" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Einsaetze" Width="8%" TextAlign="TextAlign.Right" Title="@Localizer["Spiele"].Value" Sortable=true SortProperty="Einsaetze" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Tore" Width="7%" TextAlign="TextAlign.Right" Title="@Localizer["Tore"].Value" Sortable=true SortProperty="Tore" />
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Kader" Property="Id" Width="5%" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"Ligamanager/editkaderspieler/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                        </RadzenDataGridColumn>
+
+                    </Columns>
+                    <FooterTemplate>
+                    </FooterTemplate>
+                    <FooterTemplate>
+                        @Localizer["Anzahl Spieler"].Value: <b>@spielerList.Count()</b>
+                        @Localizer["Tore Gesamt"]: <b>@spielerList.Where(x => x.SaisonId == Globals.KaderSaisonID).Sum(x => x.Tore)</b>
+                    </FooterTemplate>
+                </RadzenDataGrid>
+
+                <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
+                    <RadzenColumn Offset="11" Style="text-align:right;">
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+                    </RadzenColumn>
+                </RadzenRow>
+
+            }
+        </div>
+    </div>
+
+
+    @code
+    {
+    private void OnClick(string text)
+    {
+        _navigationManager.NavigateTo("Ligamanager/createkaderspieler");
+    }
+    }
 
 }

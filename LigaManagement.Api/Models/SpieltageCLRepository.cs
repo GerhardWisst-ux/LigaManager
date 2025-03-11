@@ -18,7 +18,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -43,7 +43,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Runde", spieltag.Runde);
                 cmd.Parameters.AddWithValue("@Elfmeterschiessen", spieltag.Elfmeterschiessen);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -81,14 +81,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageCL] WHERE SpieltagId =" + spieltagId, conn);
                 PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
@@ -135,14 +135,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageCL] ", conn);
                 PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<PokalergebnisCL_EM_WMSpieltag> Spieltaglist = new List<PokalergebnisCL_EM_WMSpieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
@@ -217,7 +217,7 @@ namespace LigaManagerManagement.Api.Models
                 int bElfmeterschiessen;
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -254,7 +254,7 @@ namespace LigaManagerManagement.Api.Models
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
              
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -274,7 +274,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where groupID = " + iGroupID, conn);
 
@@ -282,7 +282,7 @@ namespace LigaManagerManagement.Api.Models
                 List<Verein> vereineList = new List<Verein>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new Verein();                        
                         verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());

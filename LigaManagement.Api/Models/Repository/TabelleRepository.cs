@@ -4,7 +4,7 @@ using LigamanagerManagement.Api.Models.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace LigaManagerManagement.Api.Models
+namespace LigaManagement.Api.Models.Repository
 {
     public class TabelleRepository : ITabelleRepository
     {

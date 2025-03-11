@@ -93,7 +93,7 @@ namespace ToreManagerManagement.Api.Models
                     ",[Aufstellungen] =" + bAufstellungen +
                     ",[TabellenAnlegenVisible] =" + bTabellenAnlegenVisible;                
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
 
                 if (einstellungen.SaisonIDVon > 0 && einstellungen.SaisonIDNach > 0)

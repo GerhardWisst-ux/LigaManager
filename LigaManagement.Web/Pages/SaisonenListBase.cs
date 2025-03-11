@@ -48,7 +48,7 @@ namespace LigaManagerManagement.Web.Pages
         public ILigaService LigenService { get; set; }
 
         public List<DisplayLiga> LigenList;
-
+        public bool IsLoading = false;
         public List<Verein> Vereine { get; set; }
 
         public IEnumerable<Liga> Ligen { get; set; }
@@ -87,6 +87,7 @@ namespace LigaManagerManagement.Web.Pages
                 NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
             }
 
+            IsLoading = true;
             LigenList = new List<DisplayLiga>();
             Ligen = (await LigaService.GetLigen()).ToList();
 
@@ -135,6 +136,8 @@ namespace LigaManagerManagement.Web.Pages
             DisplayErrorLiga = "none";
             
             Globals.bVisibleNavMenuElements = true;
+
+            IsLoading = false;
         }
 
         [Bind]

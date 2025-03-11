@@ -187,7 +187,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 currentspieltag = Convert.ToInt32(e.Value);                
                 
-                PrepareChart();
+               PrepareChart();
 
              
             }
@@ -367,40 +367,24 @@ namespace LigaManagerManagement.Web.Pages
             chartDataList = chartData.GetChartData(vereinnr);
             return chartDataList;
         }
-        public class DisplaySaison
+        public class DisplaySaison(int saisonID, int ligaID, string saisonname)
         {
-            public DisplaySaison(int saisonID, int ligaID, string saisonname)
-            {
-                SaisonID = saisonID;
-                LigaID = ligaID;
-                Saisonname = saisonname;
-            }
-            public int SaisonID { get; set; }
-            public int LigaID { get; set; }
-            public string Saisonname { get; set; }
+            public int SaisonID { get; set; } = saisonID;
+            public int LigaID { get; set; } = ligaID;
+            public string Saisonname { get; set; } = saisonname;
         }
 
-        public class DisplaySpieltag
+        public class DisplaySpieltag(string nummer, string name)
         {
-            public DisplaySpieltag(string nummer, string name)
-            {
-                Nummer = nummer;
-                Name = name;
-            }
-            public string Nummer { get; set; }
-            public string Name { get; set; }
+            public string Nummer { get; set; } = nummer;
+            public string Name { get; set; } = name;
 
         }
 
-        public class DisplayChartVerein
+        public class DisplayChartVerein(string vereinID, string vereinname)
         {
-            public DisplayChartVerein(string vereinID, string vereinname)
-            {
-                VereinID = vereinID;
-                Vereinname1 = vereinname;
-            }
-            public string VereinID { get; set; }
-            public string Vereinname1 { get; set; }
+            public string VereinID { get; set; } = vereinID;
+            public string Vereinname1 { get; set; } = vereinname;
         }
     }
 

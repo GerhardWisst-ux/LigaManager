@@ -32,6 +32,7 @@ namespace LigamanagerManagement.Web.Pages
         public string Liganame;
         public int TabArt;
         public int LigaID;
+        public bool IsLoading = false;
 
         public RadzenDataGrid<Tabelle> grid;
 
@@ -147,6 +148,7 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
+                IsLoading = true;
                 LigenList = new List<DisplayLiga>();
                 Ligen = (await LigaService.GetLigen()).ToList();
 
@@ -190,7 +192,9 @@ namespace LigamanagerManagement.Web.Pages
 
                 saisonFormat = await SaisonenService.GetSaison(Globals.SaisonID);
 
-                Liganame = liga.Liganame;                
+                Liganame = liga.Liganame;
+
+                IsLoading = false;
 
             }
             catch (Exception ex)
@@ -371,6 +375,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (e.Value != null)
                 {
+                    IsLoading = true;
                     saison = e.Value.ToString();
                     Globals.currentSaison = saison;
                     SpieltagList = new List<DisplaySpieltag>();
@@ -412,6 +417,7 @@ namespace LigamanagerManagement.Web.Pages
 
                     DisplayErrorLiga = "display:none;";
 
+                    IsLoading = false;
                     StateHasChanged();
 
                 }
@@ -427,6 +433,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
+                IsLoading = true;
                 currentspieltag = Convert.ToInt32(e.Value);
                 iSpieltage = currentspieltag;
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
@@ -437,14 +444,16 @@ namespace LigamanagerManagement.Web.Pages
 
                 TabArt = 1;
 
+                IsLoading = false;
                 StateHasChanged();
             }
         }
 
         public async Task SpieltagZurueck()
         {
+            IsLoading = true;
             if (currentspieltag > 1)
-                currentspieltag = currentspieltag - 1;
+                currentspieltag--;
 
             iSpieltage = currentspieltag;
 
@@ -453,13 +462,15 @@ namespace LigamanagerManagement.Web.Pages
             await TabelleBerechnen(1);
 
             DisplayElements = "block";
+            IsLoading = false;
             StateHasChanged();
         }
 
         public async Task SpieltagVor()
         {
+            IsLoading = true;
             if (currentspieltag < Globals.maxSpieltag)
-                currentspieltag = currentspieltag + 1;
+                currentspieltag++;
 
             iSpieltage = currentspieltag;
 
@@ -468,7 +479,7 @@ namespace LigamanagerManagement.Web.Pages
             await TabelleBerechnen(1);
 
             DisplayElements = "block";
-
+            IsLoading = false;
             StateHasChanged();
         }
 
@@ -500,6 +511,7 @@ namespace LigamanagerManagement.Web.Pages
             {
                 if (Globals.LigaNummer < 3)
                 {
+                    IsLoading = true;
                     var vereineSaison = await VereineSaisonService.GetVereineSaison();
                     Vereine = await VereineService.GetVereine();
                     List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
@@ -719,6 +731,7 @@ namespace LigamanagerManagement.Web.Pages
                         item.Verein = verein.Vereinsname1;
                     }
                 }
+                IsLoading = false;
             }
             catch (Exception ex)
             {
@@ -727,28 +740,17 @@ namespace LigamanagerManagement.Web.Pages
             }
         }
 
-        public class DisplaySpieltag
+        public class DisplaySpieltag(string nummer, string name)
         {
-            public DisplaySpieltag(string nummer, string name)
-            {
-                Nummer = nummer;
-                Name = name;
-            }
-            public string Nummer { get; set; }
-            public string Name { get; set; }
+            public string Nummer { get; set; } = nummer;
+            public string Name { get; set; } = name;
         }
 
-        public class DisplaySaison
+        public class DisplaySaison(int saisonID, int ligaID, string saisonname)
         {
-            public DisplaySaison(int saisonID, int ligaID, string saisonname)
-            {
-                SaisonID = saisonID;
-                LigaID = ligaID;
-                Saisonname = saisonname;
-            }
-            public int SaisonID { get; set; }
-            public int LigaID { get; set; }
-            public string Saisonname { get; set; }
+            public int SaisonID { get; set; } = saisonID;
+            public int LigaID { get; set; } = ligaID;
+            public string Saisonname { get; set; } = saisonname;
         }
     }
 }

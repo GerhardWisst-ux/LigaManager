@@ -29,6 +29,7 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<VereinAUS> gridTU;
         public RadzenDataGrid<VereinAUS> gridBE;
 
+        public bool IsLoading = false;
         public Density Density = Density.Compact;
         public int LandID;
         public int LigaID;
@@ -118,6 +119,7 @@ namespace LigaManagerManagement.Web.Pages
                 NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
             }
 
+            IsLoading = true;
             VereineList = (await VereineService.GetVereine()).ToList();
 
             VereineListPL = (await VereinePLService.GetVereine()).ToList();
@@ -149,6 +151,8 @@ namespace LigaManagerManagement.Web.Pages
             Liganame = liga.Liganame;
 
             LigaID = (Globals.LigaID);
+
+            IsLoading = false;
         }
 
         public async Task LandChangeAsync(ChangeEventArgs e)

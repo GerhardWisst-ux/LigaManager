@@ -18,7 +18,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -50,7 +50,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@TeamIconUrl1", "");
                 cmd.Parameters.AddWithValue("@TeamIconUrl2", "");
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -69,7 +69,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -77,7 +77,7 @@ namespace LigaManagerManagement.Api.Models
 
                 cmd.Parameters.AddWithValue("@SpieltagId", SpieltagId);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -101,14 +101,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageEMWM] WHERE SpieltagId =" + spieltagId, conn);
                 PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
@@ -172,14 +172,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageEMWM] ", conn);
                 PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<PokalergebnisCL_EM_WMSpieltag> Spieltaglist = new List<PokalergebnisCL_EM_WMSpieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
@@ -281,7 +281,7 @@ namespace LigaManagerManagement.Api.Models
                 int bElfmeterschiessen;
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -320,7 +320,7 @@ namespace LigaManagerManagement.Api.Models
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -342,7 +342,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand();
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 if (Globals.currentEMWMSaison == "EM 2024")
                     command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[LandID], [Hyperlink], [GroupID2024],[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004]," +
@@ -468,7 +468,7 @@ namespace LigaManagerManagement.Api.Models
                 List<VereinEMWM> vereineList = new List<VereinEMWM>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinEMWM();
                         verein.VereinNr = int.Parse(reader["MannschaftNr"].ToString());

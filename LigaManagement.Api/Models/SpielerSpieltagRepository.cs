@@ -18,7 +18,7 @@ namespace LigaManagement.Api.Models
         public async Task<SpielerSpieltag> AddSpieler(SpielerSpieltag SpielerSpieltag)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -38,7 +38,7 @@ namespace LigaManagement.Api.Models
             cmd.Parameters.AddWithValue("@RoteKarten", SpielerSpieltag.RoteKarten);
             cmd.Parameters.AddWithValue("@Spielminuten", SpielerSpieltag.Spielminuten);            
          
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -74,13 +74,13 @@ namespace LigaManagement.Api.Models
         public async Task<SpielerSpieltag> GetSpieler(int Id)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand command = new SqlCommand("SELECT * FROM [SpielerSpieltag] where ID =" + Id, conn);
             SpielerSpieltag spielerspieltag = null;
             using (SqlDataReader reader = command.ExecuteReader())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     spielerspieltag = new SpielerSpieltag();
                     spielerspieltag.Id = (int)reader["Id"];
@@ -105,7 +105,7 @@ namespace LigaManagement.Api.Models
         public async Task<SpielerSpieltag> UpdateSpieler(SpielerSpieltag SpielerSpieltag)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE SpielerSpieltag(Tore, Einsatz, SaisonID, KaderID, SpieltagID, Eingewechselt,EingewechseltMin,Spielminuten,Ausgewechselt,AusgewechseltMin,GelbeKarten,RoteKarten,Spielminuten)" +
@@ -124,7 +124,7 @@ namespace LigaManagement.Api.Models
             cmd.Parameters.AddWithValue("@RoteKarten", SpielerSpieltag.RoteKarten);
             cmd.Parameters.AddWithValue("@Spielminuten", SpielerSpieltag.Spielminuten);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();        
 

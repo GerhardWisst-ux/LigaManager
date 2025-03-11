@@ -24,7 +24,7 @@ namespace LigaManagerManagement.Models
                 
 
         [Required(ErrorMessage = "Geburtsdatum erforderlich.")]
-        public DateTime? Geburtsdatum { get; set; }
+        public DateTime Geburtsdatum { get; set; }
 
         public int Alter { get; set; }
 
@@ -38,20 +38,21 @@ namespace LigaManagerManagement.Models
 
         public int Einsaetze { get; set; }
 
-        public int Spielminuten { get; set; }              
+        public int? Spielminuten { get; set; }              
 
         public int Tore { get; set; }
-
-        public decimal Abloesesumme { get; set; }
-        
+                
         int Vorlagen { get; set; }
 
         [Required(ErrorMessage = "Gültiges Datum erforderlich.")]
-        public DateTime? ImVereinSeit { get; set; }
+        public DateTime ImVereinSeit { get; set; }
 
         public bool Aktiv { get; set; }
-
-        public Object Image { get; set; }        
-
+        public Object Image { get; set; }
+        public int Groesse { get; set; }
+        public int Gewicht { get; set; }
+        public int Laenderspiele { get; set; }
+        public int LaenderspieleTore { get; set; }
+        public int Abloesesumme { get; set; }
     }
 }

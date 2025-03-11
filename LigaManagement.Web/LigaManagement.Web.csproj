@@ -35,6 +35,7 @@
 		<Compile Remove="Migrations\20231106123348_Identity.Designer.cs" />
 		<Compile Remove="Migrations\20231118082923_Identity.cs" />
 		<Compile Remove="Migrations\20231118082923_Identity.Designer.cs" />
+		<Compile Remove="Tests\SpieltageListBaseTests.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -82,6 +83,7 @@
 	<ItemGroup>
 		<Folder Include="Classes\" />
 		<Folder Include="Errors\" />
+		<Folder Include="Tests\" />
 		<Folder Include="wwwroot\fonts\" />
 	</ItemGroup>
 

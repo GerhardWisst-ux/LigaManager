@@ -9,14 +9,9 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VereineCLController : ControllerBase
+    public class VereineCLController(IVereinRepository VereinRepository) : ControllerBase
     {
-        private readonly IVereinRepository VereinRepository;
-
-        public VereineCLController(IVereinRepository VereinRepository)
-        {
-            this.VereinRepository = VereinRepository;
-        }
+        private readonly IVereinRepository VereinRepository = VereinRepository;
 
         [HttpGet]
         public async Task<ActionResult> GetVereine()
@@ -31,12 +26,7 @@ namespace LigaManagement.Api.Controllers
                     "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
             }
         }
-
-        [HttpGet("{saison}")]
-        public async Task<ActionResult> GetVereineSaison()
-        {
-           throw new NotImplementedException("vereineCLController");
-        }
+      
 
         [HttpGet("{Id:int}")]
         public async Task<ActionResult<Verein>> GetVerein(int Id)

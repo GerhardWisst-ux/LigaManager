@@ -416,8 +416,7 @@
                 <RadzenCard Style="height:75vh;" class="m-0">
                     <div class="content">
                         <div class="form-group row">
-                            <div class="col-sm-6">
-                                <label style="display:inline-block;" class="col-sm-2 pl-0">@Localizer["Verein"].Value</label>
+                            <div class="col-sm-6">                                
                     <option selected="selected">@Localizer["Verein wählen"].Value</option>
                     <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="EinzelVereinChange">
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
@@ -785,7 +784,7 @@
                             <RadzenColumn Size="5" SizeXS="5">
                                 <RadzenText TextStyle="TextStyle.Body1">Spielername</RadzenText>
                             </RadzenColumn>
-                            <RadzenColumn Size="4" SizeXS="4">
+                            <RadzenColumn Size="5" SizeXS="5">
                                 <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein</RadzenText>
                             </RadzenColumn>
                             <RadzenColumn Size="2" SizeXS="2">
@@ -801,17 +800,12 @@
                                     <RadzenRow Gap="0">
                                         <RadzenColumn Size="5" SizeXS="5">
                                             <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Spielername)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenDataGridColumn TItem="Torjaeger" Title="" Sortable="false" Width="74px" MinWidth="74px">
-                                            <Template Context="data">
-                                                <RadzenImage Path="@($"/Images/{data.Vereinsname}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Vereinsname" AlternateText="@(data.Vereinsname)" />
-                                            </Template>
-                                        </RadzenDataGridColumn>
-                                        <RadzenColumn Size="4" SizeXS="4">
+                                        </RadzenColumn>                                        
+                                        <RadzenColumn Size="5" SizeXS="5">
                                             <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Vereinsname)</RadzenText>
                                         </RadzenColumn>
                                         <RadzenColumn Size="2" SizeXS="2">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">@(Torjaeger.Tore)</RadzenText>
+                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">@(Torjaeger.Tore)</RadzenText>
                                         </RadzenColumn>
                                     </RadzenRow>
                                 </RadzenCard>

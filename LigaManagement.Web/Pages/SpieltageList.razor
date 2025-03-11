@@ -12,7 +12,8 @@
 <style type="text/css">
 
 
-    .NewBtn {
+    .NewBtn
+    {
         gap: 1px;
         margin-right: 2px;
         align-self: end;
@@ -20,52 +21,106 @@
         margin-right: 0px !important;
     }
 
-    #btnVor, #btnZurueck {
+    #btnVor, #btnZurueck 
+    {
         text-decoration: none;
         display: inline-block;
         padding: 8px 16px;
     }
 
-    a:hover {
+    a:hover 
+    {
         background-color: #ddd;
         color: black;
     }
 
-    .previous {
+    .previous 
+    {
         background-color: #1b6ec2;
         border-color: #1861ac;
         color: white;
     }
 
-    .next {
+    .next 
+    {
         background-color: #1b6ec2;
         border-color: #1861ac;
         color: white;
     }
 
-    .round {
+    .round 
+    {
         border-radius: 50%;
     }
 
-    .VereinMinWidth {
+    .VereinMinWidth 
+    {
         min-width: 80px;
         font-weight: normal;
     }
 
-    .ToreMinWidth {
-        min-width: 80px;
-        /* font-weight: bold !important;         */
-        /* border-color: wheat !important ; */
-        /* background-color:black !important;
-                                        color: white !important;  */
+    .Doublepoint {        
+        font-weight: bold !important;
+        background: black;
+        background-color: black !important;
+        
+        color: white !important;
     }
 
-    .rz-datatable td {
-        padding: 3.5px;
+    /* .rz-cell-data {
+        font-weight:700;
+        min-width: 80px !important;
+        font-weight: bold !important;
+        background: black;
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .rz-cell-data > Doublepoint, {
+        font-weight: 700;
+        min-width: 80px !important;
+        font-weight: bold !important;
+        background: black;
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .ToreMinWidth 
+    {
+        font-weight: 700;
+        min-width: 80px !important;        
+        font-weight: bold !important;
+        background: black;
+        background-color: black !important;
+        color: white !important;
+    } */
+
+    .rz-data-grid-data
+    {
+        border-collapse: revert !important;
+        
+    }
+
+    .FarbeTorePunkt 
+    {        
+        color: white !important;
+        vertical-align:top;
+        width: auto !important;
+        border-top-color:  black !important;
+        border-bottom-color: black !important;
+        border-left-color: black !important;
+        border-right-color: black !important;
+        background-color: black !important;
+        --rz-grid-cell-color: white;
+    }
+
+    .rz-datatable td 
+    {
+        padding: 3.5px !important;
     }
 </style>
 
-@if (Spieltage == null)
+@if (IsLoading)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
@@ -197,9 +252,9 @@ else
                                     </Template>
                                 </RadzenDataGridColumn>
                             }
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
-                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="3%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="3%" Sortable=true Title="" />
 
                             @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
@@ -279,7 +334,7 @@ else
     }
 
     private void AnzeigenChart()
-    {        
+    {
         _navigationManager.NavigateTo($"Ligamanager/chartPunkte");
     }
 

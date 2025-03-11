@@ -48,7 +48,7 @@ namespace LigamanagerManagement.Web.Pages
             NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
 
-        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
+        protected Task ConfirmDelete_Click(bool deleteConfirmed)
         {
             //if (deleteConfirmed)
             //{
@@ -56,6 +56,7 @@ namespace LigamanagerManagement.Web.Pages
             //    await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
             //}
 
+            return null;
             //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
         }
 

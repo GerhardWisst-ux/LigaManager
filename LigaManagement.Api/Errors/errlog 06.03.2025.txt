@@ -1,0 +1,8 @@
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: System error.
+StackTrace:    at System.Diagnostics.Debugger.CustomNotification(ICustomDebuggerNotification data)
+   at System.Diagnostics.Debugger.NotifyOfCrossThreadDependencySlow()
+   at System.Runtime.CompilerServices.AsyncTaskMethodBuilder`1.GetStateMachineBox[TStateMachine](TStateMachine& stateMachine, Task`1& taskField)
+   at LigaManagement.Api.Models.KaderRepository.GetAllSpieler() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\KaderRepository.cs:line 96
+Datum/Uhrzeit: 06.03.2025 13:28:25
+============================================

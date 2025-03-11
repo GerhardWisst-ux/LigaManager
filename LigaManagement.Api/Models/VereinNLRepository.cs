@@ -23,7 +23,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -52,7 +52,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Liga2", false);
                 cmd.Parameters.AddWithValue("@Hyperlink", "");
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -93,7 +93,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<VereinAUS> DeleteVerein(int vereinId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -101,7 +101,7 @@ namespace LigaManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Id", vereinId);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -114,14 +114,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereineNL] Where VereinNr =" + vereinnr, conn);
                 VereinAUS verein = null;
                 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAUS();
 
@@ -156,14 +156,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [VereineNL]", conn);
                 VereinAUS verein = null;
                 List<VereinAUS> vereinelist = new List<VereinAUS>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAUS();
 
@@ -199,13 +199,13 @@ namespace LigaManagerManagement.Api.Models
             List<VereinAktSaisonAUS> vereineSaison = new List<VereinAktSaisonAUS>();
 
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     VereinAktSaisonAUS verein = new VereinAktSaisonAUS();
                     verein.VereinNr = (int)reader["VereinNr"];
@@ -231,7 +231,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -266,7 +266,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Liga2] =" + bLiga2 +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

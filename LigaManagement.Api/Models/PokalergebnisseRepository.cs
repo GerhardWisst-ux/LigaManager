@@ -1,11 +1,9 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 using ToremanagerManagement.Api.Models.Repository;
@@ -19,7 +17,7 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -43,7 +41,7 @@ namespace ToreManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Runde", pokalspiel.Runde);
                 cmd.Parameters.AddWithValue("@Elfmeterschiessen", pokalspiel.Elfmeterschiessen);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -57,10 +55,10 @@ namespace ToreManagerManagement.Api.Models
             }
         }       
 
-        public Task<PokalergebnisSpieltag> DeletePokalergebnis(int SpieltagID)
+        public async Task<PokalergebnisSpieltag> DeletePokalergebnis(int SpieltagID)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -68,7 +66,7 @@ namespace ToreManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@SpieltagId", SpieltagID);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -80,13 +78,13 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Pokalergebnisse] where SpieltagId =" + SpieltagID, conn);
                 PokalergebnisSpieltag pe = null;
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         pe = new PokalergebnisSpieltag();
 
@@ -124,14 +122,14 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Pokalergebnisse]", conn);
                 PokalergebnisSpieltag pe = null;
                 List<PokalergebnisSpieltag> peList = new List<PokalergebnisSpieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         pe = new PokalergebnisSpieltag();
 
@@ -174,7 +172,7 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
              
@@ -207,7 +205,7 @@ namespace ToreManagerManagement.Api.Models
                       ",[Elfmeterschiessen] = " + bElfmeterschiessen +
                       " WHERE [SpieltagId] = " + pokalspiel.SpieltagId;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

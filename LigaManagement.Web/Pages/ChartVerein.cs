@@ -46,6 +46,8 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<DisplayChartVerein> VereineList = new List<DisplayChartVerein>();
 
+        public bool IsLoading = false;
+
         [Inject]
         public IStringLocalizer<ChartPunkte> Localizer { get; set; }
 
@@ -85,6 +87,7 @@ namespace LigaManagerManagement.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            IsLoading = true;
             Saisonen = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.LigaID == Globals.LigaID);
             SaisonenList = new List<DisplaySaison>();
 
@@ -128,6 +131,7 @@ namespace LigaManagerManagement.Web.Pages
             ChartArt = "Punkte";
             ChartSaisonId = Globals.SaisonID;
 
+            IsLoading = false;
             StateHasChanged();
         }
         private int ErmittlenAktSpieltag()
@@ -211,7 +215,7 @@ namespace LigaManagerManagement.Web.Pages
 
         }
 
-        public async Task ArtChange(ChangeEventArgs e)
+        public void ArtChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
@@ -230,15 +234,13 @@ namespace LigaManagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
-        public async Task SpieltagChange(ChangeEventArgs e)
+        public void SpieltagChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 currentspieltag = Convert.ToInt32(e.Value);
 
                 PrepareChartPunkte();
-
-
             }
         }
         public async Task SaisonChange(ChangeEventArgs e)

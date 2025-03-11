@@ -30,7 +30,8 @@ namespace LigaManagement.Web.Pages
         public string Titel { get; set; }
         protected string DisplayErrorRunde = "none";
         protected string DisplayErrorSaison = "none";
-                
+
+        public bool IsLoading = false;
         public int SaisonChoosed = 0;
         public string RundeChoosed;
 
@@ -82,6 +83,7 @@ namespace LigaManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
+                IsLoading = true;
                 SaisonenList = new List<DisplaySaison>();
 
 
@@ -126,10 +128,12 @@ namespace LigaManagement.Web.Pages
                 };
 
                 Globals.bVisibleNavMenuElements = true;
+
+                IsLoading = false;
             }
             catch (Exception ex)
             {
-
+                IsLoading = false;
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }

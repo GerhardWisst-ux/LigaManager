@@ -20,7 +20,7 @@ namespace LigamanagerManagement.Api.Models.Repository
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -43,7 +43,7 @@ namespace LigamanagerManagement.Api.Models.Repository
 
                 cmd.Parameters.AddWithValue("@UserID", newId);
                 cmd.Parameters.AddWithValue("@RoleID", UserGroup.Gast);                
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -70,7 +70,7 @@ namespace LigamanagerManagement.Api.Models.Repository
 
                 cmd.Parameters.AddWithValue("@Id", UserId);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -90,13 +90,13 @@ namespace LigamanagerManagement.Api.Models.Repository
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("[user].ID, NormalizedName,[FirstName],[LastName],[Username],[Password],[Location],[Mail]\r\n  FROM [dbo].[UserRoles] inner join [User] on UserRoles.UserId = [User].Id inner join Roles on UserRoles.RoleId = Roles.Id where ID =" + UserId, conn);
                 User user = null;
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         user = new User();
                         user = new User();
@@ -125,14 +125,14 @@ namespace LigamanagerManagement.Api.Models.Repository
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT [user].ID, NormalizedName,[FirstName],[LastName],[Username],[Password],[Location],[Mail] FROM [dbo].[UserRoles] inner join [User] on UserRoles.UserId = [User].Id inner join Roles on UserRoles.RoleId = Roles.Id", conn);
                 List<User> User = new List<User>();
                 User user;
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {                        
                         user = new User();
                         user.Password = reader["Password"].ToString();
@@ -160,7 +160,7 @@ namespace LigamanagerManagement.Api.Models.Repository
         public async Task<User> UpdateUser(User User)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE [User] (Username,Password)" +
@@ -170,7 +170,7 @@ namespace LigamanagerManagement.Api.Models.Repository
             cmd.Parameters.AddWithValue("@Password", User.Password);
             
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 

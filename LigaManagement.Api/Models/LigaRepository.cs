@@ -5,8 +5,6 @@ using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -32,10 +30,10 @@ namespace LigaManagerManagement.Api.Models
                 else
                     sEMWM = "FALSE";
 
-                SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                SqlConnection conn = new(Globals.connstring);
+                await conn.OpenAsync();
 
-                SqlCommand cmd = new SqlCommand
+                SqlCommand cmd = new()
                 {
                     Connection = conn,
                     CommandText = "INSERT INTO [Ligen] (Liganame, Verband, Erstaustragung, Saisonen,Liganummer,Aktiv,LandID,Rekordspieler,Spiele_Rekordspieler, EMWM,AusrichterLand)" +
@@ -58,9 +56,9 @@ namespace LigaManagerManagement.Api.Models
                 else
                     cmd.Parameters.AddWithValue("@Rekordspieler", "");
                 cmd.Parameters.AddWithValue("@Spiele_Rekordspieler", liga.Spiele_Rekordspieler);
-                cmd.Parameters.AddWithValue("@EMWM", sEMWM);
+                cmd.Parameters.AddWithValue("@EMWM", string.Empty);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -77,7 +75,7 @@ namespace LigaManagerManagement.Api.Models
         public Task<Liga> DeleteLiga(int LigaId)
         {
 
-            SqlConnection conn = new SqlConnection(Globals.connstring);
+            SqlConnection conn = new(Globals.connstring);
             conn.Open();
 
             SqlCommand cmd = new SqlCommand();
@@ -98,15 +96,15 @@ namespace LigaManagerManagement.Api.Models
         {
             try
             {
-                SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                SqlConnection conn = new(Globals.connstring);
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Ligen] WHERE ID =" + LigaId, conn);
-                Liga liga = new Liga();
+                Liga liga = new();
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         liga = new Liga();
 
@@ -142,14 +140,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Ligen]", conn);
+                SqlCommand command = new("SELECT * FROM [Ligen]", conn);
                 Liga liga = null;
-                List<Liga> peList = new List<Liga>();
+                List<Liga> peList = [];
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         liga = new Liga();
 
@@ -187,11 +185,13 @@ namespace LigaManagerManagement.Api.Models
             string sEMWM;
             try
             {
-                SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                SqlConnection conn = new(Globals.connstring);
+                await conn.OpenAsync();
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;               
+                SqlCommand cmd = new()
+                {
+                    Connection = conn
+                };
 
                 if (liga.Aktiv == true)
                     sAktiv = "TRUE";
@@ -217,7 +217,7 @@ namespace LigaManagerManagement.Api.Models
                       ",[EMWM] = '" + sEMWM + "'" +
                       " WHERE [Id] = " + liga.Id;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

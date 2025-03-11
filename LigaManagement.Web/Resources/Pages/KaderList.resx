@@ -181,7 +181,7 @@
     <value>Position wählen</value>
   </data>
   <data name="Rückennummer" xml:space="preserve">
-    <value>Rückennummer</value>
+    <value>R-Nr</value>
   </data>
   <data name="Saison" xml:space="preserve">
     <value>Saison</value>
@@ -202,7 +202,7 @@
     <value>Spiele</value>
   </data>
   <data name="Spielername" xml:space="preserve">
-    <value>Spielername</value>
+    <value>Name</value>
   </data>
   <data name="Tore" xml:space="preserve">
     <value>Tore</value>
@@ -221,5 +221,14 @@
   </data>
   <data name="Zurück zu Kaderübersicht" xml:space="preserve">
     <value>Zurück zu Kaderübersicht</value>
+  </data>
+  <data name="Höchste Auswärtssiege" xml:space="preserve">
+    <value>Höchste Auswärtssiege</value>
+  </data>
+  <data name="Höchste Heimsiege" xml:space="preserve">
+    <value>Höchste Heimsiege</value>
+  </data>
+  <data name="SpielerVorname" xml:space="preserve">
+    <value>Vorname</value>
   </data>
 </root>

@@ -11,8 +11,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Kader> GetSpieler(int id);
         Task<Kader> UpdateSpieler(Kader updatedSpieler);
         Task<Kader> CreateSpieler(Kader newSpieler);
-        Task DeleteSpieler(int id);
-
+        Task DeleteSpieler(int id);        
     }
 
 }

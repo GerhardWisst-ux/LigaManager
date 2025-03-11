@@ -30,6 +30,7 @@ namespace LigaManagerManagement.Web.Pages
 
         public Liga Ligen { get; set; } = new Liga();
 
+        public bool IsLoading = false;
         public RadzenDataGrid<Liga> grid;
         IList<Tuple<Liga, RadzenDataGridColumn<Liga>>> selectedCellData = new List<Tuple<Liga, RadzenDataGridColumn<Liga>>>();
 
@@ -58,14 +59,16 @@ namespace LigaManagerManagement.Web.Pages
                 NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
             }
 
+            IsLoading = true;
             LigenList = (await LigaService.GetLigen()).ToList();
 
             var liga = (await LigaService.GetLiga(Globals.LigaID));
 
-            Liganame = liga.Liganame;
-            
+            Liganame = liga.Liganame;            
 
             Globals.bVisibleNavMenuElements = true;
+
+            IsLoading = false;
 
         }
 

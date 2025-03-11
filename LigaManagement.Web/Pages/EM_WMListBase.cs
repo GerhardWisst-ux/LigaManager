@@ -45,6 +45,7 @@ namespace LigaManagement.Web.Pages
 
         public List<DisplayRunde> RundeList;
 
+        public bool IsLoading = false;
         public int SaisonChoosed = 0;
         int BisSpieltag = 3;
         public string RundeChoosed;
@@ -111,6 +112,8 @@ namespace LigaManagement.Web.Pages
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
+
+                IsLoading = true;
 
                 SaisonenList = new List<DisplaySaison>();
 
@@ -181,7 +184,8 @@ namespace LigaManagement.Web.Pages
 
                 TableVisible();
                 Globals.bVisibleNavMenuElements = true;
-                
+                IsLoading = false;
+
             }
             catch (Exception ex)
             {

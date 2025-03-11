@@ -40,6 +40,7 @@ namespace LigaManagerManagement.Web.Pages
         public List<string> DensityValues = new List<string> { "Standard", "Kompakt" };
 
         public int iSpieltage;
+        public bool IsLoading = false;
         public List<DisplaySaison> SaisonenList;
 
         [Inject]
@@ -132,6 +133,7 @@ namespace LigaManagerManagement.Web.Pages
                 if (SpieltagNr == "0")
                     SpieltagNr = Globals.maxSpieltag.ToString();
 
+                IsLoading = true;
                 await DisplaySpieltagAkt();
 
                 var liga = await LigaService.GetLiga(Globals.LigaID);
@@ -146,7 +148,8 @@ namespace LigaManagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-             
+                IsLoading = false;
+
             }
             catch (Exception ex)
             {

@@ -83,7 +83,7 @@
         text-align: center;
         background-color: #6495ED;
         color: lightgray
-        
+
     } */
 </style>
 
@@ -96,7 +96,7 @@
                     <h1>@Localizer["Über Ligamanager"].Value</h1>                    
                     <p>@Localizer["Purpose2"].Value</p>
                 </div>
-                                
+
                 <div class="row">
                     <div class="column">
                         <div class="card">
@@ -164,10 +164,7 @@
         Globals.bVisibleNavMenuElements = true;
     }
 
-    public async void OnClickHandler()
-    {
-        SendMail("g.wisst@web.de", "Kontakt über Ligamanager", "Anfrage");
-    }
+    public async void OnClickHandler() => SendMail("g.wisst@web.de", "Kontakt über Ligamanager", "Anfrage");
 
     public void SendMail(string To, string Subject, string Body)
     {

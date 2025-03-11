@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 SqlCommand command = new SqlCommand();
                 List<VereineSaisonAus> vereineSaisonAus = new List<VereineSaisonAus>();
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 if (LigaId < 3)
@@ -64,7 +64,7 @@ namespace LigaManagerManagement.Api.Models
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         VereineSaisonAus vereinAus = new VereineSaisonAus();
                         vereinAus.VereinNr = (int)reader["Verein1_Nr"];
@@ -85,7 +85,7 @@ namespace LigaManagerManagement.Api.Models
                     cmd.Parameters.AddWithValue("@VereinNr", vereineSaisonAus[i].VereinNr);
                     cmd.Parameters.AddWithValue("@SaisonID", vereineSaisonAus[i].SaisonID);
                     cmd.Parameters.AddWithValue("@LigaID", vereineSaisonAus[i].LigaID);
-                    cmd.ExecuteNonQuery();
+                    await cmd.ExecuteNonQueryAsync();
                 }
 
                 conn.Close();
@@ -113,13 +113,13 @@ namespace LigaManagerManagement.Api.Models
                 List<VereineSaisonAus> vereineSaisonAus = new List<VereineSaisonAus>();
 
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 command = new SqlCommand("SELECT [Id],[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaisonAus] where saisonID =" + SaisonID, conn);
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         VereineSaisonAus vereinAus = new VereineSaisonAus();
                         vereinAus.VereinNr = (int)reader["VereinNr"];
@@ -146,7 +146,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
 
                 SqlCommand cmd = new SqlCommand();
@@ -155,7 +155,7 @@ namespace LigaManagerManagement.Api.Models
 
                 cmd.Parameters.AddWithValue("@SaisonID", SaisonID);
                 cmd.Parameters.AddWithValue("@LigaID", LigaID);
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
 
                 conn.Close();
@@ -174,14 +174,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "Delete from VereineSaisonAus";
                 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
                 conn.Close();
 
                 return true;

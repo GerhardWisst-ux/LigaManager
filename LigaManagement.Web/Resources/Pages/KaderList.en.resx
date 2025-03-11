@@ -150,17 +150,14 @@
   <data name="Geburtsdatum" xml:space="preserve">
     <value>Birth Date</value>
   </data>
-  <data name="Höchste Auswärtssiege" xml:space="preserve">
-    <value>Hightest Awayvictories</value>
-  </data>
-  <data name="Höchste Heimsiege" xml:space="preserve">
-    <value>Hightest Homevictories</value>
-  </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
   <data name="Kader" xml:space="preserve">
     <value>Squad</value>
+  </data>
+  <data name="Kader Spieler" xml:space="preserve">
+    <value>Squad player</value>
   </data>
   <data name="Logout" xml:space="preserve">
     <value>Logout</value>
@@ -184,7 +181,7 @@
     <value>Select position</value>
   </data>
   <data name="Rückennummer" xml:space="preserve">
-    <value>Rückennummer</value>
+    <value>Ba.Nr.</value>
   </data>
   <data name="Saison" xml:space="preserve">
     <value>Saison</value>
@@ -198,17 +195,14 @@
   <data name="Speichern" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="Speichert Speiler ab" xml:space="preserve">
+  <data name="Speichert Spieler ab" xml:space="preserve">
     <value>Saves player</value>
   </data>
   <data name="Spiele" xml:space="preserve">
     <value>Games</value>
   </data>
-  <data name="SpielerName" xml:space="preserve">
+  <data name="Spielername" xml:space="preserve">
     <value>Name of plaayer</value>
-  </data>
-  <data name="SpielerVorname" xml:space="preserve">
-    <value>Prename</value>
   </data>
   <data name="Tore" xml:space="preserve">
     <value>Goals</value>
@@ -227,5 +221,14 @@
   </data>
   <data name="Zurück zu Kaderübersicht" xml:space="preserve">
     <value>Back to List of Squad</value>
+  </data>
+  <data name="Höchste Auswärtssiege" xml:space="preserve">
+    <value>Hightest Awayvictories</value>
+  </data>
+  <data name="Höchste Heimsiege" xml:space="preserve">
+    <value>Hightest Homevictories</value>
+  </data>
+  <data name="SpielerVorname" xml:space="preserve">
+    <value>Prename</value>
   </data>
 </root>

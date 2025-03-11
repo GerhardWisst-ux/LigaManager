@@ -129,11 +129,9 @@
 
 @code {
     [Parameter]
-    public string Id { get; set; }
-    public string Ausrichterland = "";
+    public string Id { get; set; }    
     private Liga Liga { get; set; } = new Liga();
-    private string Titel { get; set; }
-    public bool IsLoading { get; set; }
+    private string Titel { get; set; }    
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)

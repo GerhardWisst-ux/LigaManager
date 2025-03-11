@@ -7,17 +7,12 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace LigaManagerManagement.Web.Services
+namespace LigaManagement.Web.Services
 {
-    public class VereineAUSService : IVereineAusService
+    public class VereineAUSService(HttpClient httpClient) : IVereineAusService
 
     {
-        private readonly HttpClient httpClient;
-
-        public VereineAUSService(HttpClient httpClient)
-        {
-            this.httpClient = httpClient;
-        }
+        private readonly HttpClient httpClient = httpClient;
 
         public async Task<VereinAUS> CreateVerein(VereinAUS newVerein)
         {

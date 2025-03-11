@@ -22,7 +22,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -49,7 +49,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Pokal", bPokal);
                 cmd.Parameters.AddWithValue("@Bundesliga", bBundesliga);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -89,7 +89,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<Verein> DeleteVerein(int vereinId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -97,7 +97,7 @@ namespace LigaManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Id", vereinId);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -111,14 +111,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Vereine] Where VereinNr =" + vereinnr, conn);
                 Verein verein = null;
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new Verein();
 
@@ -152,14 +152,14 @@ namespace LigaManagerManagement.Api.Models
             {
                 int i = 1;
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageCL Where Verein1_Nr = " + Id, conn);
                 VereinAktSaison verein = null;
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
@@ -195,14 +195,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Vereine]", conn);
                 Verein verein = null;
                 List<Verein> vereinelist = new List<Verein>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new Verein();
 
@@ -239,14 +239,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1 from SpieltageCL", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
@@ -285,7 +285,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
                     "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
@@ -295,7 +295,7 @@ namespace LigaManagerManagement.Api.Models
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
@@ -369,7 +369,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 
                 SqlCommand command = new SqlCommand("SELECT Vereine.Vereinsname1,VereineSaison.[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison] inner join vereine on Vereine.VereinNr = VereineSaison.VereinNr order by Vereine.Vereinsname1", conn);
@@ -377,7 +377,7 @@ namespace LigaManagerManagement.Api.Models
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;                        
@@ -449,7 +449,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT DISTINCT [Id],[MannschaftNr],[MannschaftName1],[MannschaftName2],[Erfolge],[Gegruendet],[Hyperlink],[LandID],[GroupID2024]," +
                   "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
@@ -460,7 +460,7 @@ namespace LigaManagerManagement.Api.Models
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
                         verein.Id = i;
@@ -514,13 +514,13 @@ namespace LigaManagerManagement.Api.Models
             List<VereinAktSaison> vereineSaison = new List<VereinAktSaison>();
 
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr", conn);
 
             using (SqlDataReader reader = command.ExecuteReader())
             {
-                while (reader.Read())
+                while (await reader.ReadAsync())
                 {
                     VereinAktSaison verein = new VereinAktSaison();
                     verein.VereinNr = (int)reader["VereinNr"];
@@ -543,14 +543,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT SaisonID, Vereinsname1, Vereinsname2, Stadion, VereineSaison.VereinNr FROM VereineSaison inner Join Vereine on Vereine.VereinNr = VereineSaison.VereinNr Where VereineSaison.VereinNr=" + intvereinnr, conn);
                 Verein verein = null;
 
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         verein = new Verein();
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
@@ -587,7 +587,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -602,7 +602,6 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bBundesliga = 1;
 
-
                 cmd.CommandText = "UPDATE [dbo].[Vereine] SET " +
                         "[VereinNr] = '" + verein.VereinNr + "'" +
                         ",[Vereinsname1] = '" + verein.Vereinsname1 + "'" +
@@ -616,7 +615,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Bundesliga] =" + bBundesliga +
                         " WHERE  [VereinNr] = " + verein.VereinNr;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 

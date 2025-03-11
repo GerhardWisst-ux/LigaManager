@@ -17,7 +17,7 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -44,7 +44,7 @@ namespace ToreManagerManagement.Api.Models
 
                 cmd.Parameters.AddWithValue("@Torart", "");
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -63,7 +63,7 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -71,7 +71,7 @@ namespace ToreManagerManagement.Api.Models
 
                 cmd.Parameters.AddWithValue("@SaisonID", ToreId);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -91,13 +91,13 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [tore] where ID =" + ToreId, conn);
                 Tore tor = null;
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         tor = new Tore();
                         tor.Id = (int)reader["Id"];
@@ -129,14 +129,14 @@ namespace ToreManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [tore]", conn);
                 List<Tore> tore = new List<Tore>();
                 Tore tor;
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         tor = new Tore();
                         tor.Id = (int)reader["Id"];
@@ -168,7 +168,7 @@ namespace ToreManagerManagement.Api.Models
         public async Task<Tore> UpdateTor(Tore Tore)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
             cmd.CommandText = "UPDATE Tore(SaisonID,LigaID, SpieltagNr,Spielminute,SpielerID, Spielstand,SpieltagId,Eigentor,Torart,Elfmeter)" +
@@ -194,7 +194,7 @@ namespace ToreManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Torart", "");
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 

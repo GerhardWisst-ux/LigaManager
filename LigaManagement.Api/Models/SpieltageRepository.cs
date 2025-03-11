@@ -1,17 +1,13 @@
-﻿using LigaManagement.Api.Models;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
-using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml;
 
 namespace LigaManagerManagement.Api.Models
 {
@@ -22,7 +18,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -43,9 +39,9 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
-                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);                
+                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -65,7 +61,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -73,11 +69,11 @@ namespace LigaManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Id", SpieltagId);
 
-          //  cmd.ExecuteNonQuery();
+            //  await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
-            return null;            
+            return null;
         }
 
         public Task<Spieltag> GetAktSpieltag()
@@ -90,14 +86,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] WHERE SpieltagId =" + spieltagId, conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new Spieltag();
 
@@ -127,12 +123,12 @@ namespace LigaManagerManagement.Api.Models
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }            
+            }
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltage()
         {
-            
+
             try
             {
 
@@ -179,36 +175,9 @@ namespace LigaManagerManagement.Api.Models
                     }
 
 
-                    //{
-                    //    while (reader.Read())
-                    //    {
-                    //        spieltag = new Spieltag();
-
-                    //        spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                    //        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                    //        spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
-                    //        spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
-                    //        spieltag.Saison = reader["Saison"].ToString();
-                    //        spieltag.Verein1 = reader["Verein1"].ToString();
-                    //        spieltag.Verein2 = reader["Verein2"].ToString();
-                    //        spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
-                    //        spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
-                    //        spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                    //        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
-                    //        spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
-                    //        spieltag.Ort = reader["Ort"].ToString();
-                    //        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
-                    //        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
-                    //        spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-                    //        spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
-                    //        spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
-
-                    //        Spieltaglist.Add(spieltag);
-                    //    }
-                    //}
                     return Spieltaglist;
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -237,7 +206,7 @@ namespace LigaManagerManagement.Api.Models
                             iMaxSpieltag = 1;
                     }
 
-                } 
+                }
                 else if (Globals.LigaNummer == 4 || Globals.LigaNummer == 15)
                 {
                     SqlCommand command = new SqlCommand("SELECT Max([SpieltagNr] +0) AS MAXSPIELTAG FROM [SpieltagePL] WHERE Datum<GETDATE() and SaisonID = '" + SaisonID + "' and LigaID = '" + LigaID + "'", conn);
@@ -251,7 +220,7 @@ namespace LigaManagerManagement.Api.Models
                                 iMaxSpieltag = 1;
                         }
                     }
-                }                             
+                }
 
                 else if (Globals.LigaNummer == 5)
                 {
@@ -383,7 +352,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -432,7 +401,7 @@ namespace LigaManagerManagement.Api.Models
                 //cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 //cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -446,19 +415,60 @@ namespace LigaManagerManagement.Api.Models
 
         }
 
+        public async Task<int> GetAnzahlSpiele()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("SELECT COUNT([SpieltagId]) AS GesamtanzahlFROM (SELECT [SpieltagId] " +
+                                                    "FROM [dbo].[Spieltage] UNION ALLSELECT [SpieltagId]  " +
+                                                    "FROM [dbo].[SpieltageL3] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageBE] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageCL] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageEMWM] UNION ALL Select SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageES] UNION ALLSELECT SpieltagId " +
+                                                    "FROM [dbo].[SpieltageFR] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageNL] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltageNL] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltagePL] UNION ALLSELECT SpieltagId  " +
+                                                    "FROM [dbo].[SpieltagePT]UNION ALLSELECT SpieltagId " +
+                                                    "FROM [dbo].[SpieltageTU]) AS Combined;] ", conn)
+                {
+
+                };
+                int iGesamtanzahl = 0;
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        iGesamtanzahl = int.Parse(reader["Gesamtanzahl"].ToString());
+                    }
+                }
+                conn.Close();
+                return iGesamtanzahl;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return 0;
+            }
+        }
+
         public async Task<IEnumerable<Spieltag>> GetSpieltageL3()
         {
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageL3] ", conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new Spieltag();
 
@@ -499,14 +509,14 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageL3] WHERE SpieltagId =" + spieltagId, conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())
+                    while (await reader.ReadAsync())
                     {
                         spieltag = new Spieltag();
 
@@ -537,7 +547,7 @@ namespace LigaManagerManagement.Api.Models
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-            
+
         }
 
         public async Task<Spieltag> AddSpieltagL3(Spieltag spieltag)
@@ -545,7 +555,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -568,7 +578,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -587,7 +597,7 @@ namespace LigaManagerManagement.Api.Models
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
-                conn.Open();
+                await conn.OpenAsync();
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
@@ -618,9 +628,9 @@ namespace LigaManagerManagement.Api.Models
                         ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
                         ",[Zuschauer] =" + spieltag.Zuschauer +
-                        " WHERE  [SpieltagId] = " + spieltag.SpieltagId;               
+                        " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
-                cmd.ExecuteNonQuery();
+                await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
 
@@ -636,7 +646,7 @@ namespace LigaManagerManagement.Api.Models
         public async Task<Spieltag> DeleteSpieltagL3(int SpieltagId)
         {
             SqlConnection conn = new SqlConnection(Globals.connstring);
-            conn.Open();
+            await conn.OpenAsync();
 
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = conn;
@@ -644,7 +654,7 @@ namespace LigaManagerManagement.Api.Models
 
             cmd.Parameters.AddWithValue("@Id", SpieltagId);
 
-            cmd.ExecuteNonQuery();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
