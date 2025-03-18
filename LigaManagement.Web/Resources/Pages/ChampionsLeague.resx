@@ -151,7 +151,7 @@
     <value>Halbfinale</value>
   </data>
   <data name="Heim" xml:space="preserve">
-    <value>Home</value>
+    <value>Heim</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
@@ -194,5 +194,11 @@
   </data>
   <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
     <value>Zurück zu Pokalergebnisse</value>
+  </data>
+  <data name="Neuanlage CL-Spiel" xml:space="preserve">
+    <value>Neuanlage CL-Spiel</value>
+  </data>
+  <data name="Vereine CL" xml:space="preserve">
+    <value>Vereine CL</value>
   </data>
 </root>

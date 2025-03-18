@@ -132,6 +132,9 @@
   <data name="Import" xml:space="preserve">
     <value>Import</value>
   </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="KaderKopieren" xml:space="preserve">
     <value>Kader kopieren</value>
   </data>

@@ -171,4 +171,10 @@
   <data name="Voriger Spieltag" xml:space="preserve">
     <value>Voriger Spieltag</value>
   </data>
+  <data name="Gast" xml:space="preserve">
+    <value>Gat</value>
+  </data>
+  <data name="Keine Ergebnisse zum Anzeigen" xml:space="preserve">
+    <value>Keine Ergebnisse zum Anzeigen</value>
+  </data>
 </root>

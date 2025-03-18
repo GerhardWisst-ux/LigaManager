@@ -1,0 +1,179 @@
+﻿@page "/Ligamanager/ChartPLatz"
+@using LigaManagerManagement.Web.Pages
+@using Microsoft.Extensions.Localization
+
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject DialogService DialogService
+@inject NavigationManager _navigationManager
+@inherits LigaManagerManagement.Web.Pages.ChartPlatz
+
+<html>
+
+<body>
+    @if (isLoading)
+    {
+        <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+            <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+        </RadzenStack>
+    }
+    else
+    {
+        <div class="container">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                        <div class="d-flex flex-row">
+                            <div class="card-body">
+                                <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                                <br />
+                                <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                                <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                                <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                                <h2 style="display:inline-block;">@Localizer["Chart"].Value @Localizer["Saisonverlauf Plätze"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+
+                            </div>
+                        </div>
+                    </RadzenCard>
+                </div>
+            </div>
+
+            <RadzenCard style="margin-bottom:4px;height:80px;">
+                <div class="form-group row">
+                    <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
+                        <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
+                            <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
+                            @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
+                            {
+                                @if (saison.SaisonID == Globals.SaisonID)
+                                {
+                                    <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                                else
+                                {
+                                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="dropdown" style="display:inline">
+                        <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="VereinChange">
+                            <option value="0" selected required>@Localizer["Verein wählen"].Value</option>
+                            @foreach (var verein in VereineList)
+                            {
+                                <option value="@verein.VereinNr"> @verein.Vereinname1 </option>
+                            }
+                        </select>
+                    </div>
+                    <div Style="display:inline-block;" class="row">
+                        <div Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Chart Punkte"].Value" Click=@(args => AnzeigenChartPunkte()) Style="margin-left: 3px;width:200px;display:inline-block;" Text="@Localizer["Chart Punkte"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Chart Punkte"].Value
+                            </RadzenButton>
+                        </div>
+                    </div>
+                    <div Style="display:inline-block;" class="row">
+                        <div Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Spieltage"].Value
+                            </RadzenButton>
+                        </div>
+                    </div>
+                </div>
+            </RadzenCard>
+        </div>
+
+    }
+
+    <div class="container">
+        
+            <RadzenCard style="margin-left: 4px; margin-right: 4px; margin-bottom:4px;height:600px;">
+                <canvas id="myChart" style="width:100%;max-width:1900px;"></canvas>
+            </RadzenCard>
+        
+    </div>
+
+    <script>
+        let chart;
+
+        let xValues = [];
+        let yValues = [];
+
+        function renderChart() {
+            const ctx = document.getElementById("myChart").getContext("2d");
+            if (chart) {
+                chart.destroy();
+            }
+
+            chart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                        fill: false,
+                        lineTension: 0,
+                        backgroundColor: "rgba(0,0,255,1.0)",
+                        borderColor: "rgba(0,0,255,0.1)",
+                        data: yValues
+                    }]
+                },
+                options: {
+                    legend: { display: false },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: 
+                            {
+                                display: true,
+                                labelString: "Spieltage", // Beschriftung der X-Achse
+                                color: '#911',
+                                fontsize: 18,                   
+                                fontfamily: 'Comic Sans MS',                                
+                            }
+                        }],
+                        yAxes: [{
+                            ticks: 
+                            {
+                                min: 1,
+                                max: 18,
+                                reverse: true // Y-Achse umkehren
+                            },
+                            scaleLabel:
+                            {
+                                display: true,
+                                labelString: "Platz", // Beschriftung der Y-Achse
+                                fontsize : 18,
+                                fontfamily: 'Comic Sans MS',
+                                fontsize: 20,
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+
+        window.updateChartXYValues = (newXValues, newYValues) => {
+            xValues = newXValues;
+            yValues = newYValues;
+            renderChart();
+        };
+
+        // Initialer Aufruf
+        renderChart();
+    </script>
+
+
+
+</body>
+</html>
+
+@code
+{
+    private void AnzeigenSpieltage()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/2024/spieltage/1");
+    }
+
+    private void AnzeigenChartPunkte()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/ChartPunkte");
+    }
+}

@@ -214,4 +214,13 @@
   <data name="Vorrunde" xml:space="preserve">
     <value>Vorrunde</value>
   </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Nächster</value>
+  </data>
+  <data name="Tore Durchschnitt" xml:space="preserve">
+    <value>Tore Durchschnitt</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Voriger</value>
+  </data>
 </root>

@@ -207,4 +207,13 @@
   <data name="Zurück zu Vereine" xml:space="preserve">
     <value>Zurück zu Vereine</value>
   </data>
+  <data name="Land" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Nächster</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Voriger</value>
+  </data>
 </root>

@@ -157,7 +157,7 @@ In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfur
   <data name="Nach oben" xml:space="preserve">
     <value>Go to Top</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
+  <data name="Nächster Spieltag" xml:space="preserve">
     <value>Next Match day</value>
   </data>
   <data name="P" xml:space="preserve">
@@ -199,9 +199,6 @@ In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfur
   <data name="Tore" xml:space="preserve">
     <value>Goals</value>
   </data>
-  <data name="Tore Durchschnitt" xml:space="preserve">
-    <value>Goals Average</value>
-  </data>
   <data name="U" xml:space="preserve">
     <value>U</value>
   </data>
@@ -211,10 +208,16 @@ In 1993/94, Dynamo Dresden was deducted 4 points, in 1999/00, Eintracht Frankfur
   <data name="Verein" xml:space="preserve">
     <value>Club</value>
   </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
-  </data>
   <data name="Vorrunde" xml:space="preserve">
     <value>First half</value>
+  </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Next Match day</value>
+  </data>
+  <data name="Tore Durchschnitt" xml:space="preserve">
+    <value>Goals Average</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Previous Match day</value>
   </data>
 </root>

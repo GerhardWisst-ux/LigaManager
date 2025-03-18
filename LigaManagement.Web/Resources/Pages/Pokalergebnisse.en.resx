@@ -123,9 +123,6 @@
   <data name="Achtelfinale" xml:space="preserve">
     <value>Rund of 16</value>
   </data>
-  <data name="Alle Pokalendspiele" xml:space="preserve">
-    <value>All German Cup finals</value>
-  </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Apply</value>
   </data>
@@ -149,6 +146,9 @@
   </data>
   <data name="Halbfinale" xml:space="preserve">
     <value>Semi final</value>
+  </data>
+  <data name="Heim" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
@@ -185,5 +185,8 @@
   </data>
   <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
     <value>Back to list of german cup results</value>
+  </data>
+  <data name="Alle Pokalendspiele" xml:space="preserve">
+    <value>All German Cup finals</value>
   </data>
 </root>

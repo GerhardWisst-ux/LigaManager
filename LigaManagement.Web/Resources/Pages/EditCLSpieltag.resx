@@ -240,4 +240,10 @@
   <data name="Übersicht Spielverlauf" xml:space="preserve">
     <value>Übersicht Spielverlauf</value>
   </data>
+  <data name="Elfmeterschiessen" xml:space="preserve">
+    <value>Elfmeterschiessen</value>
+  </data>
+  <data name="Verlängerung" xml:space="preserve">
+    <value>Verlängerung</value>
+  </data>
 </root>

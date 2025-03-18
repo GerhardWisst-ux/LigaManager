@@ -8,7 +8,6 @@
 @inherits EditCLSpieltagBase
 @inject LigaManagement.Web.Services.Contracts.ISpieltageCLService _CLErgebnisseService
 @inject LigaManagement.Web.Services.Contracts.IVereineService _VereineCLService
-@* @inject LigaManagement.Web.Services.Contracts.IToreService _ToreService *@
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
 @inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
@@ -62,9 +61,11 @@
             <!-- This will show any validation errors -->
             <ValidationSummary />
 
-            @if (Spiel == null)
+            @if (IsLoading == true)
             {
-                <div class="spinner"></div>
+                <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+                    <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+                </RadzenStack>
             }
             else
             {
@@ -76,7 +77,7 @@
                             <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                             <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                            <h2>EM @Localizer["Ergebnisse"].Value @Ligamanager.Components.Globals.currentCLSaison</h2>
+                            <h2>@Localizer["Ergebnisse"].Value @Ligamanager.Components.Globals.currentCLSaison</h2>
                         </div>
                     </div>
                 </RadzenCard>
@@ -98,6 +99,8 @@
                             }
                         }
                     </select>
+                @if (Convert.ToInt32(Globals.currentCLSaison.Substring(0, 4)) < 2024)
+                {
                     <select id="cboGruppe" style="display:inline; width:180px;height:38px;display:@GroupVisible" class="form-control dropdown" @onchange="GruppeChange">
                         <option value="0" required>@Localizer["Gruppe wählen"].Value</option>
                         @if (Gruppe.ToString() == "1")
@@ -161,7 +164,7 @@
                         }
                         else
                         {
-                            <option value="5">G</option>
+                            <option value="7">G</option>
                         }
 
                         @if (Gruppe.ToString() == "8")
@@ -173,6 +176,7 @@
                             <option value="8">H</option>
                         }
                     </select>
+                    }
                 </RadzenCard>
                 <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
                 <RadzenTabs>
@@ -182,7 +186,7 @@
                                 <div class="form-group row">
                                     <RadzenLabel Text="lblVerein1" class="col-sm-3" Component="cboVerein1">@Localizer["Verein 1"].Value</RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-sm-9" @onchange="Verein1Change">
-                                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                        @foreach (var verein in VereineList.Distinct().OrderBy(x => x.Vereinname1))
                                         {
                                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
 
@@ -215,7 +219,7 @@
                                     <RadzenLabel Text="lblVerein2" class="col-sm-3" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
                                     <select id="cboVerein2" class="form-control col-sm-9" @onchange="Verein2Change">
                                         @* <option selected Value="Spiel.Verein2_Nr"></option> *@
-                                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                        @foreach (var verein in VereineList.Distinct().OrderBy(x => x.Vereinname1))
                                         {
                                             <option value="@verein.VereinID"> @verein.Vereinname1 </option>
 
@@ -299,14 +303,14 @@
                 string[] subs = DateTime.Now.ToString().Split(':');
                 int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
                 DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
-                Spiel.Saison = Globals.currentEMWMSaison;
-                Spiel.SaisonID = Globals.EMWMSaisonID;
+                Spiel.Saison = Globals.currentCLSaison;
+                Spiel.SaisonID = Globals.CLSaisonID;
                 Spiel.Runde = RundeChoosed;
                 Spiel.Datum = SpielDateTime;
                 Spiel.GroupID = GruppeChoosed;
                 Spiel.Land1_Nr = 57;
                 Spiel.Land2_Nr = 57;
-                Spiel.LigaID = Globals.EMMWMLigaId;
+                Spiel.LigaID = Globals.LigaID;
 
                 RundeChoosed = Runde;
                 Id = "0";
@@ -380,8 +384,9 @@
         string[] subs = Time.Value.ToString().Split(':');
         int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));
         DateTime SpielDateTime = Spiel.Datum.Date.AddMinutes(spieldatetime);
-        Spiel.Saison = Globals.currentEMWMSaison;
-        Spiel.SaisonID = Globals.EMWMSaisonID;
+        Spiel.Saison = Globals.currentCLSaison;
+        Spiel.LigaID = Globals.LigaNummer;
+        Spiel.SaisonID = Globals.CLSaisonID;
         if (RundeChoosed != null)
             Spiel.Runde = RundeChoosed;
         else

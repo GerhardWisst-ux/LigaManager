@@ -7,7 +7,7 @@ namespace LigamanagerManagement.Api.Models.Repository
     public interface ISpieltageCLRepository
     {
         Task<IEnumerable<PokalergebnisCL_EM_WMSpieltag>> GetSpieltage();
-        Task<List<Verein>> GetVereine(int GroupID);
+        Task<List<Verein>> GetVereine(int GroupID, string saison);
         Task<PokalergebnisCL_EM_WMSpieltag> GetSpieltag(int spieltagId);        
         Task<PokalergebnisCL_EM_WMSpieltag> AddSpieltag(PokalergebnisCL_EM_WMSpieltag Spieltag);
         Task<PokalergebnisCL_EM_WMSpieltag> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag Spieltag);

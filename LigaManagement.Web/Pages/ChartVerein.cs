@@ -11,7 +11,9 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using LigaManagement.Web.Classes;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -87,52 +89,60 @@ namespace LigaManagerManagement.Web.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            IsLoading = true;
-            Saisonen = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.LigaID == Globals.LigaID);
-            SaisonenList = new List<DisplaySaison>();
-
-            var _saison = await SaisonenService.GetSaison(Globals.SaisonID);
-
-            ChartSaisonId = _saison.SaisonID;
-
-            iSpieltage = ErmittlenAktSpieltag();
-
-            SpieltagList = new List<DisplaySpieltag>();
-            for (int i = 1; i <= iSpieltage; i++)
+            try
             {
-                SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + "." + Localizer["Spieltag"].Value));
-            }
+                IsLoading = true;
+                Saisonen = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.LigaID == Globals.LigaID);
+                SaisonenList = new List<DisplaySaison>();
 
-            for (int i = 0; i < Saisonen.Count(); i++)
+                var _saison = await SaisonenService.GetSaison(Globals.SaisonID);
+
+                ChartSaisonId = _saison.SaisonID;
+
+                iSpieltage = ErmittlenAktSpieltag();
+
+                SpieltagList = new List<DisplaySpieltag>();
+                for (int i = 1; i <= iSpieltage; i++)
+                {
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + "." + Localizer["Spieltag"].Value));
+                }
+
+                for (int i = 0; i < Saisonen.Count(); i++)
+                {
+                    var columns = Saisonen.ElementAt(i);
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, Globals.LigaID, columns.Saisonname));
+                }
+
+                var vereineSaison = await VereineSaisonService.GetVereineSaison();
+                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == _saison.SaisonID).ToList();
+
+                VereineList.Clear();
+                for (int i = 0; i < verList.Count(); i++)
+                {
+                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                    VereineList.Add(new DisplayChartVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1));
+                }
+
+                var vereinname = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
+                Vereinsname = vereinname.Vereinsname2;
+
+                PrepareChartPunkte();
+
+                DisplayErrorSaison = "none";
+                DisplayErrorVerein = "none";
+                DisplayErrorChartArt = "none";
+
+                ChartArt = "Punkte";
+                ChartSaisonId = Globals.SaisonID;
+
+                IsLoading = false;
+                StateHasChanged();
+            }
+            catch (Exception ex)
             {
-                var columns = Saisonen.ElementAt(i);
-                SaisonenList.Add(new DisplaySaison(columns.SaisonID, Globals.LigaID, columns.Saisonname));
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                IsLoading = false;
             }
-
-            var vereineSaison = await VereineSaisonService.GetVereineSaison();
-            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == _saison.SaisonID).ToList();
-
-            VereineList.Clear();
-            for (int i = 0; i < verList.Count(); i++)
-            {
-                var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                VereineList.Add(new DisplayChartVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1));
-            }
-
-            var vereinname = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
-            Vereinsname = vereinname.Vereinsname2;
-
-            PrepareChartPunkte();
-
-            DisplayErrorSaison = "none";
-            DisplayErrorVerein = "none";
-            DisplayErrorChartArt = "none";
-
-            ChartArt = "Punkte";
-            ChartSaisonId = Globals.SaisonID;
-
-            IsLoading = false;
-            StateHasChanged();
         }
         private int ErmittlenAktSpieltag()
         {
@@ -160,30 +170,30 @@ namespace LigaManagerManagement.Web.Pages
         }
         protected async void PrepareChartPlatz()
         {
-            var vereineSaison = await VereineSaisonService.GetVereineSaison();
-            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
+            //var vereineSaison = await VereineSaisonService.GetVereineSaison();
+            //List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
 
-            Vereine = await VereineService.GetVereine();
+            //Vereine = await VereineService.GetVereine();
 
-            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            //bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
-            Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, true, verList, Vereine, currentspieltag, (int)Globals.Tabart.Gesamt);
+            //Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, true, verList, Vereine, currentspieltag, (int)Globals.Tabart.Gesamt);
 
-            List<Tabelle> tab = Tabellen.ToList();
+            //List<Tabelle> tab = Tabellen.ToList();
 
-            lstVereine.Clear();
-            for (int i = 0; i < Tabellen.Count(); i++)
-            {
-                lstVereine.Add(tab[i]);
-            }
+            //lstVereine.Clear();
+            //for (int i = 0; i < Tabellen.Count(); i++)
+            //{
+            //    lstVereine.Add(tab[i]);
+            //}
 
-            ChartVisible = "block";
+            //ChartVisible = "block";
 
-            ChartVereinNr = Convert.ToInt32(VereinNr);
-            chartData = await TabelleService.CreateChartPlatz(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
+            //ChartVereinNr = Convert.ToInt32(VereinNr);
+            //chartData = await TabelleService.CreateChartPlatz(SpieltagService, Vereine, ChartVereinNr, currentspieltag);
 
-            ProgressVisible = true;
-            StateHasChanged();
+            //ProgressVisible = true;
+            //StateHasChanged();
 
         }
         protected async void PrepareChartPunkte()
@@ -191,11 +201,11 @@ namespace LigaManagerManagement.Web.Pages
             var vereineSaison = await VereineSaisonService.GetVereineSaison();
             List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
 
-            Vereine = await VereineService.GetVereine();
+            //Vereine = await VereineService.GetVereine();
 
-            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            //bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
 
-            Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, true, verList, Vereine, currentspieltag, (int)Globals.Tabart.Gesamt);
+            //Tabellen = await TabelleService.BerechneTabelleDE(SpieltagService, true, verList, Vereine, currentspieltag, (int)Globals.Tabart.Gesamt);
 
             List<Tabelle> tab = Tabellen.ToList();
 

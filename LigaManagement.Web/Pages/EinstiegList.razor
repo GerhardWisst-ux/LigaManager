@@ -59,12 +59,23 @@
     .rz-datatable td {
         padding: 3.5px;
     }
+
+    .FarbeTorePunkt {
+        color: white !important;
+        width: auto !important;
+        border-top-color: black !important;
+        border-bottom-color: black !important;
+        border-left-color: black !important;
+        border-right-color: black !important;
+        background-color: black !important;
+        --rz-grid-cell-color: white;
+    }
 </style>
 
 @if (SaisonenList == null)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
-        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+        <RadzenProgressBarCircular Value="100" ShowValue="true" Mode="ProgressBarMode.Determinate" />
     </RadzenStack>
 }
 else
@@ -162,7 +173,6 @@ else
                                                             {
                                                                 <option value="@saison.Saisonname"> @saison.Saisonname </option>
                                                             }
-
                                                         }
                                                     }
                                                 </select>
@@ -253,9 +263,9 @@ else
                                                             </RadzenDataGridColumn>
                                                             <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
                                                             </RadzenDataGridColumn>
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="8%" Sortable=true Title="" />
-                                                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="ToreMinWidth" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="8%" Sortable=true Title="" />
+                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
                                                             <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
                                                                 <Template Context="data">
                                                                     <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />

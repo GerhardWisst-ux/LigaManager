@@ -29,7 +29,7 @@ namespace LigamanagerManagement.Web.Pages
         [Parameter]
         public string Gruppe { get; set; }
 
-
+        public bool IsLoading = false;
         public Int32 currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
         public string RundeChoosed;
@@ -91,17 +91,18 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
+                IsLoading = true;
                 var saison = (await SaisonenCLService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentCLSaison).First();
 
                 var vereineSaison = await VereineService.GetVereineCL();
-                var verList = vereineSaison.ToList(); //ToDo überarbeiten Where(x => x.SaisonID == Globals.CLSaisonID)
+                var verList = vereineSaison.Where(x => x.SaisonID == Globals.CLSaisonID).ToList(); 
 
                 for (int i = 0; i < verList.Count(); i++)
                 {
                     var verein = await VereineService.GetVereinCL(verList[i].VereinNr);
 
                     if (!VereineList.Contains(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion)))
-                        VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                         VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
                 }
 
                 if (Convert.ToInt32(Id) > 0)
@@ -116,43 +117,43 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
 
-                if (Spiel.Datum.Year > 2024 && Spiel.Datum.Month > 7)
+                if(Convert.ToInt32(Globals.currentCLSaison.Substring(0, 4)) > 2023)
                 {
                     RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayRunde("G1", Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
                     new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
-                    new DisplayRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayRunde("G4", Localizer["Gruppenphase Spieltag"].Value + 4),
                     new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
                     new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
-                    new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 7),
-                    new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 8),
+                    new DisplayRunde("G7", Localizer["Gruppenphase Spieltag"].Value + 7),
+                    new DisplayRunde("G8", Localizer["Gruppenphase Spieltag"].Value + 8),
                     new DisplayRunde("Zw", Localizer["Zwischenrunde"].Value),
                     new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
                     new DisplayRunde("HF", Localizer["Halbfinale"].Value),
-                    new DisplayRunde("F", Localizer["Finale"].Value),
+                    new DisplayRunde("F",  Localizer["Finale"].Value),
                 };
                 }
                 else
                 {
                     RundeList = new List<DisplayRunde>
                 {
-                    new DisplayRunde("G1",Localizer["Gruppenphase Spieltag"].Value + 1),
+                    new DisplayRunde("G1" ,Localizer["Gruppenphase Spieltag"].Value + 1),
                     new DisplayRunde("G2", Localizer["Gruppenphase Spieltag"].Value + 2),
                     new DisplayRunde("G3", Localizer["Gruppenphase Spieltag"].Value + 3),
-                    new DisplayRunde("G4",Localizer["Gruppenphase Spieltag"].Value + 4),
+                    new DisplayRunde("G4", Localizer["Gruppenphase Spieltag"].Value + 4),
                     new DisplayRunde("G5", Localizer["Gruppenphase Spieltag"].Value + 5),
                     new DisplayRunde("G6", Localizer["Gruppenphase Spieltag"].Value + 6),
                     new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
                     new DisplayRunde("HF", Localizer["Halbfinale"].Value),
-                    new DisplayRunde("F", Localizer["Finale"].Value),
+                    new DisplayRunde("F",  Localizer["Finale"].Value),
                 };
                 }
 
-
+                IsLoading = false;
                 if (Convert.ToInt32(Id) == 0)
                 {
                     Runde = Globals.currentClRunde;
@@ -194,7 +195,7 @@ namespace LigamanagerManagement.Web.Pages
                 var verein = await VereineService.GetVereinCL(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = Convert.ToInt32(e.Value.ToString());
-                Spiel.Ort = verein.Stadion;
+                Spiel.Ort = verein.Stadion;                
                 Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
             }
             StateHasChanged();

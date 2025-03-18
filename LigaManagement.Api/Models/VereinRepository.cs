@@ -232,16 +232,20 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
-        public async Task<IEnumerable<VereinAktSaison>> GetVereineCL()
+        public async Task<IEnumerable<VereinAktSaison>> GetVereineCL(string saison)
         {
-
+            SqlCommand command;
             int i = 1;
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-                SqlCommand command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1 from SpieltageCL", conn);
+               
+               command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
+                                                  "[TN2023],[TN2024] FROM [dbo].[VereineCL] where TN2024 = 1 Order by [Vereinsname1]", conn);
+               
+
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -251,16 +255,17 @@ namespace LigaManagerManagement.Api.Models
                         verein = new VereinAktSaison();
                         verein.Id = i;
                         //verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                        verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
-                        verein.Vereinsname1 = reader["Verein1"].ToString();
-                        verein.Vereinsname2 = reader["Verein1"].ToString();
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname2"].ToString();
                         //verein.Hyperlink = reader["Hyperlink"].ToString();
                         //verein.Fassungsvermoegen = 0;
                         //verein.Erfolge = "";
-                        //verein.Stadion = "";
+                        verein.Stadion = reader["Stadion"].ToString(); ;
                         //verein.Gegruendet = 0;
-                        //verein.Pokal = true;
-                        //verein.Bundesliga = true;
+                        verein.Bundesliga = bool.Parse(reader["TN2024"].ToString());
+                        verein.Pokal = bool.Parse(reader["TN2023"].ToString());
+                        
 
                         vereinelist.Add(verein);
 

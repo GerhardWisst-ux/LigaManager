@@ -297,4 +297,10 @@
   <data name="Zuschauer" xml:space="preserve">
     <value>Zuschauer</value>
   </data>
+  <data name="2. Runde" xml:space="preserve">
+    <value>2. Runde</value>
+  </data>
+  <data name="Diff" xml:space="preserve">
+    <value>Diff</value>
+  </data>
 </root>

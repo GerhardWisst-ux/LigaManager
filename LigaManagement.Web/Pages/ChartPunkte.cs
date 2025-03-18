@@ -52,7 +52,7 @@ namespace LigaManagerManagement.Web.Pages
         public string arrPunkteJson;
         public int SaisonID;
         public int VereinID;
-
+        public bool isLoading = false;
         public string arrSpielePunkte;
         public string Vereinsname;
         public double value = 0;
@@ -89,6 +89,7 @@ namespace LigaManagerManagement.Web.Pages
         }
         protected override async Task OnInitializedAsync()
         {
+            isLoading = true;
             Saisonen = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.LigaID == Globals.LigaID);
             SaisonenList = new List<DisplaySaison>();
 
@@ -121,7 +122,7 @@ namespace LigaManagerManagement.Web.Pages
                 VereineList.Add(new DisplayChartVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1));
             }
           
-            PrepareChart();
+            //PrepareChart();
 
             DisplayErrorSaison = "none";
             DisplayErrorVerein = "none";
@@ -129,7 +130,8 @@ namespace LigaManagerManagement.Web.Pages
 
             ChartArt = 0;
             ChartSaisonId = Globals.SaisonID;
-                       
+
+            isLoading = false;
             StateHasChanged();
         }
         private int ErmittlenAktSpieltag()
@@ -161,8 +163,7 @@ namespace LigaManagerManagement.Web.Pages
         {
             var vereineSaison = await VereineSaisonService.GetVereineSaison();            
             List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
-  
-            
+              
             Vereine = await VereineService.GetVereine();
                         
             bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;

@@ -222,4 +222,19 @@
   <data name="Zurück zu Vereine" xml:space="preserve">
     <value>Zurück zu Mannschaften</value>
   </data>
+  <data name="Bundesliga" xml:space="preserve">
+    <value>Bundesliga</value>
+  </data>
+  <data name="Land" xml:space="preserve">
+    <value>Land</value>
+  </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Nächster</value>
+  </data>
+  <data name="Pokal" xml:space="preserve">
+    <value>Pokal</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Voriger</value>
+  </data>
 </root>

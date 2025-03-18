@@ -1,4 +1,5 @@
 @page "/Ligamanager/{CurrentligaUrl}/spieltage/{SpieltagNr}"
+@page "/Ligamanager/spieltage/"
 @inherits LigaManagerManagement.Web.Pages.SpieltagListBase
 @inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 @inject DialogService DialogService
@@ -12,8 +13,7 @@
 <style type="text/css">
 
 
-    .NewBtn
-    {
+    .NewBtn {
         gap: 1px;
         margin-right: 2px;
         align-self: end;
@@ -21,92 +21,57 @@
         margin-right: 0px !important;
     }
 
-    #btnVor, #btnZurueck 
-    {
+    #btnVor, #btnZurueck {
         text-decoration: none;
         display: inline-block;
         padding: 8px 16px;
     }
 
-    a:hover 
-    {
+    a:hover {
         background-color: #ddd;
         color: black;
     }
 
-    .previous 
-    {
+    .previous {
         background-color: #1b6ec2;
         border-color: #1861ac;
         color: white;
     }
 
-    .next 
-    {
+    .next {
         background-color: #1b6ec2;
         border-color: #1861ac;
         color: white;
     }
 
-    .round 
-    {
+    .round {
         border-radius: 50%;
     }
 
-    .VereinMinWidth 
-    {
+    .VereinMinWidth {
         min-width: 80px;
         font-weight: normal;
     }
 
-    .Doublepoint {        
-        font-weight: bold !important;
-        background: black;
-        background-color: black !important;
-        
-        color: white !important;
-    }
-
-    /* .rz-cell-data {
-        font-weight:700;
-        min-width: 80px !important;
+    .Doublepoint {
         font-weight: bold !important;
         background: black;
         background-color: black !important;
         color: white !important;
     }
 
-    .rz-cell-data > Doublepoint, {
-        font-weight: 700;
-        min-width: 80px !important;
-        font-weight: bold !important;
-        background: black;
-        background-color: black !important;
-        color: white !important;
-    }
-
-    .ToreMinWidth 
-    {
-        font-weight: 700;
-        min-width: 80px !important;        
-        font-weight: bold !important;
-        background: black;
-        background-color: black !important;
-        color: white !important;
-    } */
-
-    .rz-data-grid-data
-    {
+    .rz-data-grid-data {
         border-collapse: revert !important;
-        
     }
 
-    .FarbeTorePunkt 
-    {        
-        color: white !important;
-        vertical-align:top;
+    .rz-datatable td {
+        padding: 3.5px !important;
+    }
+
+    .FarbeTorePunkt {
+        color: white !important;        
         width: auto !important;
-        border-top-color:  black !important;
+        border-top-color: black !important;
         border-bottom-color: black !important;
         border-left-color: black !important;
         border-right-color: black !important;
@@ -114,16 +79,24 @@
         --rz-grid-cell-color: white;
     }
 
-    .rz-datatable td 
-    {
-        padding: 3.5px !important;
+    .FarbeTorePunktH {
+        color: white !important;
+        vertical-align: bottom;
+        width: auto !important;
+        border-top-color: black !important;
+        border-bottom-color: black !important;
+        border-left-color: black !important;
+        border-right-color: black !important;
+        background-color: black !important;
+        --rz-grid-cell-color: white;
     }
+
 </style>
 
 @if (IsLoading)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
-        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+        <RadzenProgressBarCircular Value="100" ShowValue="true" Mode="ProgressBarMode.Determinate" />
     </RadzenStack>
 }
 else
@@ -226,7 +199,7 @@ else
                                          Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
                     </RadzenCard>
 
-                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                    <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
                                     AllowPaging="true" AllowSorting="true" AllowFiltering="false"
                                     TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -252,9 +225,14 @@ else
                                     </Template>
                                 </RadzenDataGridColumn>
                             }
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="3%" Sortable=true Title="" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="3%" Sortable=true Title="" />
+
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                           @*  <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunktH" Property="Tore1_NrH" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunktH" Property="DoppelpunktH" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunktH" Property="Tore2_NrH" TextAlign="TextAlign.Left" Width="22px" Sortable=true /> *@
 
                             @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {

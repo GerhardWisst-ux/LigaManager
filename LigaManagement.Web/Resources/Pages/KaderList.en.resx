@@ -223,10 +223,10 @@
     <value>Back to List of Squad</value>
   </data>
   <data name="Höchste Auswärtssiege" xml:space="preserve">
-    <value>Hightest Awayvictories</value>
+    <value>Hightest Away victories</value>
   </data>
   <data name="Höchste Heimsiege" xml:space="preserve">
-    <value>Hightest Homevictories</value>
+    <value>Hightest Home victories</value>
   </data>
   <data name="SpielerVorname" xml:space="preserve">
     <value>Prename</value>

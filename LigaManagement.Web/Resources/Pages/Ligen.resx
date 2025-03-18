@@ -210,4 +210,7 @@
   <data name="Zurück zu Ligen" xml:space="preserve">
     <value>Zurück zu Ligen</value>
   </data>
+  <data name="Liga" xml:space="preserve">
+    <value>Liga</value>
+  </data>
 </root>

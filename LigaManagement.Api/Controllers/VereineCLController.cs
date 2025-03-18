@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,11 @@ namespace LigaManagement.Api.Controllers
         private readonly IVereinRepository VereinRepository = VereinRepository;
 
         [HttpGet]
-        public async Task<ActionResult> GetVereine()
+        public async Task<ActionResult> GetVereine(string saison)
         {
             try
             {
-                return Ok(await VereinRepository.GetVereineCL());
+                return Ok(await VereinRepository.GetVereineCL(saison));
             }
             catch (Exception ex)
             {

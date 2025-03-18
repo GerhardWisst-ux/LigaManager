@@ -141,9 +141,6 @@
   <data name="Datum" xml:space="preserve">
     <value>Date</value>
   </data>
-  <data name="Diff" xml:space="preserve">
-    <value>Diff</value>
-  </data>
   <data name="Einlesen" xml:space="preserve">
     <value>Import</value>
   </data>
@@ -182,6 +179,9 @@
   </data>
   <data name="Löschen" xml:space="preserve">
     <value>Delete</value>
+  </data>
+  <data name="Löschen Spiel" xml:space="preserve">
+    <value>Delete game</value>
   </data>
   <data name="Löscht Spiel" xml:space="preserve">
     <value>Deletes match</value>
@@ -293,5 +293,8 @@
   </data>
   <data name="Zuschauer" xml:space="preserve">
     <value>Spectators</value>
+  </data>
+  <data name="Diff" xml:space="preserve">
+    <value>Diff</value>
   </data>
 </root>

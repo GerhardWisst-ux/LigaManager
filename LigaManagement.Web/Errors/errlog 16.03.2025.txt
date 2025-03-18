@@ -1,0 +1,12 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.ChampionsLeagueListBase.OnClickHandler()
+Datum/Uhrzeit: 16.03.2025 09:07:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The current thread is not associated with the Dispatcher. Use InvokeAsync() to switch execution to the Dispatcher when triggering rendering or component state.
+StackTrace:    at Microsoft.AspNetCore.Components.ComponentBase.StateHasChanged()
+   at LigaManagement.Web.Pages.ChampionsLeagueListBase.OnClickHandler() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChampionsLeagueListBase.cs:line 486
+Datum/Uhrzeit: 16.03.2025 09:27:01
+============================================

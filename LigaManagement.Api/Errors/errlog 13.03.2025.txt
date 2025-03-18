@@ -1,0 +1,253 @@
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@Saison nvarchar(4000),@SaisonID int,@Verein1_Nr int,@Land1_Nr " erwartet den @Saison-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Api.Models.SpieltageCLRepository.AddSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageCLRepository.cs:line 46
+Datum/Uhrzeit: 13.03.2025 13:57:33
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@Saison nvarchar(4000),@SaisonID int,@Verein1_Nr int,@Land1_Nr " erwartet den @Saison-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Api.Models.SpieltageCLRepository.AddSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageCLRepository.cs:line 46
+Datum/Uhrzeit: 13.03.2025 13:58:35
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:17:09
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:19:25
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:21:13
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:30:25
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:34:59
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:37:34
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:49:35
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 14:54:34
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 15:27:50
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 15:31:18
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 15:36:40
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:14:21
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Verein1_Nr
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineCL() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 254
+Datum/Uhrzeit: 13.03.2025 16:14:30
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:16:18
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Verein1_Nr
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineCL() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 254
+Datum/Uhrzeit: 13.03.2025 16:19:41
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:22:48
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Verein1_Nr
+StackTrace:    at Microsoft.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
+   at Microsoft.Data.SqlClient.SqlDataReader.get_Item(String name)
+   at LigaManagerManagement.Api.Models.VereinRepository.GetVereineCL() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\VereinRepository.cs:line 254
+Datum/Uhrzeit: 13.03.2025 16:23:56
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:26:01
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:29:12
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:35:40
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:36:33
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:40:30
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:42:21
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:47:23
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:49:27
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:51:01
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:51:20
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:53:34
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 16:59:07
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 21:17:22
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 22:10:31
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 22:12:06
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 22:16:50
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 22:35:27
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 22:46:21
+============================================
+Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: String '' was not recognized as a valid Boolean.
+StackTrace:    at System.Boolean.Parse(String value)
+   at LigaManagerManagement.Api.Models.SpieltageRepositoryLE.GetSpieltage() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\SpieltageRepositoryLE.cs:line 47
+Datum/Uhrzeit: 13.03.2025 23:09:44
+============================================

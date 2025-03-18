@@ -129,7 +129,7 @@
   <data name="Bundesliga" xml:space="preserve">
     <value>Bundesliga</value>
   </data>
-  <data name="Chart" xml:space="preserve">
+  <data name="Chart Punkteentwicklung" xml:space="preserve">
     <value>Chart Points-Development</value>
   </data>
   <data name="Einstellungen" xml:space="preserve">
@@ -149,9 +149,6 @@
   </data>
   <data name="Kurzname" xml:space="preserve">
     <value>Short name</value>
-  </data>
-  <data name="Land" xml:space="preserve">
-    <value>Country</value>
   </data>
   <data name="Liga1" xml:space="preserve">
     <value>Liga 1</value>
@@ -177,7 +174,7 @@
   <data name="Nr" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="Nächster" xml:space="preserve">
+  <data name="Nächster Spieltag" xml:space="preserve">
     <value>Next Match day</value>
   </data>
   <data name="Pokal" xml:space="preserve">
@@ -192,8 +189,17 @@
   <data name="Spiele" xml:space="preserve">
     <value>Games</value>
   </data>
+  <data name="Spieltag" xml:space="preserve">
+    <value>match day</value>
+  </data>
   <data name="Stadion" xml:space="preserve">
     <value>Stadium</value>
+  </data>
+  <data name="Tore" xml:space="preserve">
+    <value>Goals</value>
+  </data>
+  <data name="Tore Durchschnitt" xml:space="preserve">
+    <value>Goals average</value>
   </data>
   <data name="Verein" xml:space="preserve">
     <value>Club</value>
@@ -213,16 +219,25 @@
   <data name="Vereine Premier League" xml:space="preserve">
     <value>Clubs Premier League</value>
   </data>
-  <data name="Vereine Serie A" xml:space="preserve">
-    <value>Clubs Serie A</value>
-  </data>
-  <data name="Voriger" xml:space="preserve">
-    <value>Previous Match day</value>
-  </data>
   <data name="Zurück" xml:space="preserve">
     <value>Back</value>
   </data>
   <data name="Zurück zu Vereine" xml:space="preserve">
     <value>Back to list of clubs</value>
+  </data>
+  <data name="Chart" xml:space="preserve">
+    <value>Chart Points-Development</value>
+  </data>
+  <data name="Land" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Nächster" xml:space="preserve">
+    <value>Next Match day</value>
+  </data>
+  <data name="Vereine Serie A" xml:space="preserve">
+    <value>Clubs Serie A</value>
+  </data>
+  <data name="Voriger" xml:space="preserve">
+    <value>Previous Match day</value>
   </data>
 </root>

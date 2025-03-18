@@ -13,135 +13,135 @@
 
 
         .container {
-            container-type: inline-size;
+        container-type: inline-size;
         }
 
         ol {
-            list-style-type: none;
-            padding: 0;
+        list-style-type: none;
+        padding: 0;
         }
 
         li {
-            display: grid;
-            grid-template-areas: "dimension value" "bar bar";
-            grid-template-columns: minmax(0px, 1fr) min-content;
-            position: relative;
+        display: grid;
+        grid-template-areas: "dimension value" "bar bar";
+        grid-template-columns: minmax(0px, 1fr) min-content;
+        position: relative;
         }
 
         .tick-labels {
-            grid-column: bar;
-            display: block;
-            position: relative;
-            height: 1.35em;
-            font-size: 90%;
+        grid-column: bar;
+        display: block;
+        position: relative;
+        height: 1.35em;
+        font-size: 90%;
         }
 
         .tick-label {
-            position: absolute;
-            translate: -50%;
-            &:first-child
+        position: absolute;
+        translate: -50%;
+        &:first-child
 
         {
-            translate: none;
+        translate: none;
         }
 
         &:last-child {
-            translate: -102%;
+        translate: -102%;
         }
 
         }
 
         .dimension {
-            grid-area: dimension;
-            padding-bottom: 2px;
-            padding-inline-start: 5px;
+        grid-area: dimension;
+        padding-bottom: 2px;
+        padding-inline-start: 5px;
         }
 
         .bar-container {
-            grid-area: bar;
-            padding-bottom: 10px;
+        grid-area: bar;
+        padding-bottom: 10px;
         }
 
         .barM {
-            background-color: Gold;
-            height: 20px;
+        background-color: Gold;
+        height: 20px;
         }
 
         .barCL {
-            background-color: lightgreen;
-            height: 20px;
+        background-color: lightgreen;
+        height: 20px;
         }
 
         .barEL {
-            background-color: Lightblue;
-            height: 20px;
+        background-color: Lightblue;
+        height: 20px;
         }
 
         .barCF {
-            background-color: Coral;
-            height: 20px;
+        background-color: Coral;
+        height: 20px;
         }
 
         .barRest {
-            background-color: wheat;
-            height: 20px;
+        background-color: wheat;
+        height: 20px;
         }
 
         .barRele {
-            background-color: orange;
-            height: 20px;
+        background-color: orange;
+        height: 20px;
         }
 
         .barAb {
-            background-color: lightcoral;
-            height: 20px;
+        background-color: lightcoral;
+        height: 20px;
         }
 
 
         .tick-line {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background-color: gray;
-            translate: -50%;
-            z-index: -1;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background-color: gray;
+        translate: -50%;
+        z-index: -1;
         }
 
         .value {
-            grid-area: value;
-            padding-inline-end: 5px;
+        grid-area: value;
+        padding-inline-end: 5px;
         }
 
         @@container (width > 500px) {
-            ol {
-                display: grid;
-                grid-template-areas: "dimension bar value";
-                grid-template-columns: fit-content(13rem) 1fr min-content;
-                column-gap: 20px;
-            }
+        ol {
+        display: grid;
+        grid-template-areas: "dimension bar value";
+        grid-template-columns: fit-content(13rem) 1fr min-content;
+        column-gap: 20px;
+        }
 
-            li {
-                display: grid;
-                grid-template-columns: subgrid;
-                grid-template-areas: none;
-                grid-column: 1 / -1;
-                padding-bottom: 0;
-            }
+        li {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-template-areas: none;
+        grid-column: 1 / -1;
+        padding-bottom: 0;
+        }
 
-            .dimension {
-                padding-bottom: 0;
-            }
+        .dimension {
+        padding-bottom: 0;
+        }
 
-            .bar-container {
-                position: relative;
-            }
+        .bar-container {
+        position: relative;
+        }
         }
 
     </style>
 </head>
 <body>
-    @if (SaisonenList == null)
+    @if (isLoading)
     {
         <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
             <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
@@ -160,7 +160,7 @@
                                 <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                                <h2 style="display:inline-block;">@Localizer["Chart"].Value  @Localizer["Tabelle"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+                                <h2 style="display:inline-block;">@Localizer["Chart"].Value @Localizer["Punkte"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
 
                             </div>
                         </div>
@@ -201,6 +201,20 @@
                                 }
                             }
                         </select>
+                    </div>
+                    <div Style="display:inline-block;" class="row">
+                        <div Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Chart Platzierung"].Value" Click=@(args => AnzeigenChartPlatzieung()) Style="margin-left: 3px;width:200px;display:inline-block;" Text="@Localizer["Chart Platzierung"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Chart Platzierung"].Value
+                            </RadzenButton>
+                        </div>
+                    </div>
+                    <div Style="display:inline-block;" class="row">
+                        <div Style="display:inline-block;" class="col-md-1">
+                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Spieltage"].Value
+                            </RadzenButton>
+                        </div>
                     </div>
                 </div>
             </RadzenCard>
@@ -479,3 +493,18 @@
     }
 </body>
 </html>
+
+@code {
+
+    private void AnzeigenSpieltage()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/2024/spieltage/1");
+    }
+
+    private void AnzeigenChartPlatzieung()
+    {
+        _navigationManager.NavigateTo($"Ligamanager/chartplatz");
+    }
+
+
+}

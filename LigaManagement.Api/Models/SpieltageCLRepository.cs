@@ -2,6 +2,7 @@
 using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
+using LigaManagerManagement.Models;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
@@ -22,11 +23,12 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO SpieltageCL ([Saison],[SaisonID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr],Verlängerung,Runde,Elfmeterschiessen)" +
-                    " VALUES(@Saison,@SaisonID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr,@Verlängerung,@Runde,@Elfmeterschiessen)";
-                
+                cmd.CommandText = "INSERT INTO SpieltageCL ([Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Zuschauer],[Land1_Nr],[Land2_Nr],Verlängerung,Runde,Elfmeterschiessen)" +
+                    " VALUES(@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer, @Land1_Nr, @Land2_Nr,@Verlängerung,@Runde,@Elfmeterschiessen)";
+
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
-                cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);                
+                cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
+                cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
                 cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
                 cmd.Parameters.AddWithValue("@Land1_Nr", spieltag.Land1_Nr);
                 cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
@@ -37,7 +39,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);                
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
                 cmd.Parameters.AddWithValue("@Verlängerung", spieltag.Verlängerung);
                 cmd.Parameters.AddWithValue("@Runde", spieltag.Runde);
@@ -54,7 +56,7 @@ namespace LigaManagerManagement.Api.Models
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
-            }            
+            }
         }
 
         public async Task<PokalergebnisCL_EM_WMSpieltag> DeleteSpieltag(int SpieltagId)
@@ -93,7 +95,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());                                                
+                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         spieltag.Saison = reader["Saison"].ToString();
                         spieltag.Verein1 = reader["Verein1"].ToString();
                         spieltag.Verein2 = reader["Verein2"].ToString();
@@ -102,10 +104,10 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());                        
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();                        
+                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         spieltag.Land1_Nr = int.Parse(reader["Land1_Nr"].ToString());
                         spieltag.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
@@ -147,7 +149,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag = new PokalergebnisCL_EM_WMSpieltag();
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());                        
+                        spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         spieltag.Saison = reader["Saison"].ToString();
                         spieltag.Verein1 = reader["Verein1"].ToString();
                         spieltag.Verein2 = reader["Verein2"].ToString();
@@ -156,7 +158,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());                        
+                        spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
@@ -179,9 +181,9 @@ namespace LigaManagerManagement.Api.Models
 
                 throw ex;
             }
-               
-            
-            
+
+
+
             //return await appDbContext.Spieltage                
             //    .ToListAsync();
         }
@@ -210,7 +212,7 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<PokalergebnisCL_EM_WMSpieltag> UpdateSpieltag(PokalergebnisCL_EM_WMSpieltag spieltag)
         {
-           
+
             try
             {
                 int bVerlängerung;
@@ -233,9 +235,9 @@ namespace LigaManagerManagement.Api.Models
                 else
                     bElfmeterschiessen = 1;
 
-                cmd.CommandText = "UPDATE [dbo].[SpieltageCL] SET " +                        
+                cmd.CommandText = "UPDATE [dbo].[SpieltageCL] SET " +
                         " [Saison] = '" + spieltag.Saison + "'" +
-                        ",[SaisonID] = " + spieltag.SaisonID +                        
+                        ",[SaisonID] = " + spieltag.SaisonID +
                         ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
                         ",[Land1_Nr] = '" + spieltag.Land1_Nr + "'" +
                         ",[Verein1] = '" + spieltag.Verein1 + "'" +
@@ -253,7 +255,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Elfmeterschiessen] = " + bElfmeterschiessen +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
 
-             
+
                 await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
@@ -269,14 +271,20 @@ namespace LigaManagerManagement.Api.Models
 
         }
 
-        public async Task<List<Verein>> GetVereine(int iGroupID)
+        public async Task<List<Verein>> GetVereine(int iGroupID, string saison)
         {
             try
             {
+                SqlCommand command;
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-                SqlCommand command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where groupID = " + iGroupID, conn);
+                if (iGroupID > 0)
+                    command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where groupID = " + iGroupID + " and Saison = '" + saison + "'", conn);
+                else if (iGroupID == 0) // Alle Vereine in einer Tabelle ab CL Saison 2024/25
+                    command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where Saison= '" + saison + "'", conn);
+                else 
+                    command = new SqlCommand("SELECT DISTINCT [Verein1_Nr],[Verein1] FROM [dbo].[SpieltageCL] where Saison= '" + saison + "'", conn);
 
                 Verein verein = null;
                 List<Verein> vereineList = new List<Verein>();
@@ -284,7 +292,7 @@ namespace LigaManagerManagement.Api.Models
                 {
                     while (await reader.ReadAsync())
                     {
-                        verein = new Verein();                        
+                        verein = new Verein();
                         verein.VereinNr = int.Parse(reader["Verein1_Nr"].ToString());
                         verein.Vereinsname1 = reader["Verein1"].ToString();
 
@@ -292,11 +300,11 @@ namespace LigaManagerManagement.Api.Models
                     }
                 }
                 conn.Close();
+
                 return vereineList;
             }
             catch (Exception ex)
             {
-
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }

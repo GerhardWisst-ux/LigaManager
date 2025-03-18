@@ -135,6 +135,9 @@
   <data name="Datum" xml:space="preserve">
     <value>Date</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Settings</value>
+  </data>
   <data name="Finale" xml:space="preserve">
     <value>Final</value>
   </data>
@@ -147,11 +150,20 @@
   <data name="Halbfinale" xml:space="preserve">
     <value>Half final</value>
   </data>
+  <data name="Heim" xml:space="preserve">
+    <value>Heim</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
+  </data>
   <data name="Keine Daten zum Anzeigen" xml:space="preserve">
     <value>No data to display</value>
   </data>
-  <data name="Neuanlage CL-Spiel" xml:space="preserve">
-    <value>Create new CL game</value>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="Neuanlage Pokal-Spiel" xml:space="preserve">
+    <value>Create new cup game</value>
   </data>
   <data name="Ort" xml:space="preserve">
     <value>Location</value>
@@ -182,5 +194,11 @@
   </data>
   <data name="Zurück zu Pokalergebnisse" xml:space="preserve">
     <value>Back to list of champions leaque games</value>
+  </data>
+  <data name="Neuanlage CL-Spiel" xml:space="preserve">
+    <value>Create new CL game</value>
+  </data>
+  <data name="Vereine CL" xml:space="preserve">
+    <value>Clubs CL</value>
   </data>
 </root>

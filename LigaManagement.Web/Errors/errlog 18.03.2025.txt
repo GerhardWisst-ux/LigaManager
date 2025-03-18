@@ -1,2620 +1,3068 @@
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.TabelleService.BerechneTabelleDE(ISpieltagService spieltagService, Boolean bAbgeschlossen, List`1 VereineSaison, IEnumerable`1 Vereine, Int32 Spieltag, Int32 Tabart) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\TabelleService.cs:line 147
+Datum/Uhrzeit: 18.03.2025 14:56:32
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:29
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:41
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:32
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:44
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:33
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Nachricht: Fehler
 StackTrace: Fehler
-Datum/Uhrzeit: 11.03.2025 13:07:37
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
-StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
-   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, JsonSerializerOptions options, ReadStack& state)
-   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
-   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
-   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
-   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag)
-Datum/Uhrzeit: 11.03.2025 21:50:01
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================
 Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
-StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
-   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, JsonSerializerOptions options, ReadStack& state)
-   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
-   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
-   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
-   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag)
-Datum/Uhrzeit: 11.03.2025 21:50:45
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 18.03.2025 17:05:45
 ============================================

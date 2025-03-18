@@ -150,9 +150,6 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
-  <data name="Liga" xml:space="preserve">
-    <value>League</value>
-  </data>
   <data name="Liganame" xml:space="preserve">
     <value>Name of league</value>
   </data>
@@ -183,6 +180,9 @@
   <data name="Neuanlage Liga" xml:space="preserve">
     <value>Create new league</value>
   </data>
+  <data name="Nächster Spieltag" xml:space="preserve">
+    <value>Next Match day</value>
+  </data>
   <data name="Rekordspieler" xml:space="preserve">
     <value>Record player</value>
   </data>
@@ -209,5 +209,8 @@
   </data>
   <data name="Zurück zu Ligen" xml:space="preserve">
     <value>Back to Leagues</value>
+  </data>
+  <data name="Liga" xml:space="preserve">
+    <value>League</value>
   </data>
 </root>
