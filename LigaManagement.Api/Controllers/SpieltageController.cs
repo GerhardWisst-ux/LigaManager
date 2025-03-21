@@ -1,4 +1,5 @@
 ﻿using LigaManagement.Models;
+using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -101,8 +102,8 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Spieltag>> DeleteSpieltag(int id)
+        [HttpDelete("{id:int}/{liganummer:int}")]        
+        public async Task<ActionResult<Spieltag>> DeleteSpieltag(int id, int liganummer)
         {
             try
             {
@@ -113,7 +114,13 @@ namespace LigaManagement.Api.Controllers
                     return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
                 }
 
-                return await SpieltagRepository.DeleteSpieltag(id);
+                if (liganummer < 3)
+                    return await SpieltagRepository.DeleteSpieltag(id);
+                if (liganummer== 3)
+                    return await SpieltagRepository.DeleteSpieltagL3(id);
+                else
+                    return await SpieltagRepository.DeleteSpieltag(id);
+
             }
             catch (Exception ex)
             {

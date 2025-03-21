@@ -156,7 +156,7 @@ namespace LigaManagerManagement.Web.Pages
                 currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
             }
 
-            return iSpieltageSaison;
+            return currentspieltag;
         }
 
         protected async void PrepareChart()
@@ -213,8 +213,9 @@ namespace LigaManagerManagement.Web.Pages
                     if (columns.Saisonname == saison)
                         Globals.SaisonID = columns.SaisonID;
                 }
-                ChartSaisonId = Globals.SaisonID;
 
+                ChartSaisonId = Globals.SaisonID;
+                
                 saison = Globals.currentSaison;
                 
                 Vereine = await VereineService.GetVereine();

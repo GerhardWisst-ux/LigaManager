@@ -4,6 +4,7 @@ using LigaManagement.Web.Models;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Api.Models;
+using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Data.SqlClient;
 using System;
@@ -4160,6 +4161,7 @@ namespace LigaManagerManagement.Web.Services
                                          bool bAbgeschlossen,
                                          List<VereineSaison> VereineSaison,
                                          IEnumerable<Verein> Vereine,  
+                                         int saisonid,
                                          int vereinid,
                                          int Tabart)
         {
@@ -4175,40 +4177,24 @@ namespace LigaManagerManagement.Web.Services
 
             try
             {                
-                BisSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+                BisSpieltag = rep.AktSpieltag(saisonid, Globals.LigaID);
                
-                var alleSpieltage = (await spieltagService.GetSpieltage());
+                var alleSpieltage = (await spieltagService.GetSpieltage());                            
 
-                if (Tabart == 4)
+                VonSpieltag = 1;
+                
+                int iAktSpieltag = 0;
+                if (bAbgeschlossen)
                 {
-                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-                        BisSpieltag = 15;
-                    else if (Globals.currentSaison == "1991/92")
-                        BisSpieltag = 19;
-                    else
-                        BisSpieltag = 17;
+                    iAktSpieltag = Globals.maxSpieltag;
+                }
+                else
+                {
+                    iAktSpieltag = rep.AktSpieltag(saisonid, Globals.LigaID);
                 }
 
-                if (Tabart == 5)
-                {
-                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-                        VonSpieltag = 16;
-                    else if (Globals.currentSaison == "1991/92")
-                        VonSpieltag = 20;
-                    else
-                        VonSpieltag = 18;
-
-                    int iAktSpieltag = 0;
-                    if (bAbgeschlossen)
-                    {
-                        iAktSpieltag = Globals.maxSpieltag;
-                    }
-                    else
-                    {
-                        iAktSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
-                    }
-                    BisSpieltag = iAktSpieltag;
-                }
+                BisSpieltag = iAktSpieltag;
+                
 
                 // Grundtabelle erzeugen
                 foreach (VereineSaison verein in VereineSaison)
@@ -4228,16 +4214,17 @@ namespace LigaManagerManagement.Web.Services
                     tabelleneintragV1.Platz = 0;
                     tabelleneintragV1.Tore = "0";
                     tabelleneintragV1.Diff = 0;
-                    tabelleneintragV1.Tab_Sai_Id = Globals.SaisonID;
+                    tabelleneintragV1.Tab_Sai_Id = saisonid;
                     tabelleneintragV1.Tab_Lig_Id = Globals.LigaID;
                     tabelleneintragV1.Liga = Globals.currentLiga;
 
                     TabSaisonSorted.Add(tabelleneintragV1);
                 }
 
+               
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
-                    this.Spieltag = (alleSpieltage).Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
+                    this.Spieltag = (alleSpieltage).Where(st => st.SaisonID == saisonid && st.LigaID == Globals.LigaID && st.SpieltagNr == i.ToString()).ToList();
 
                     foreach (var item in this.Spieltag)
                     {
@@ -4270,7 +4257,7 @@ namespace LigaManagerManagement.Web.Services
 
                                     tabelleneintragF.Platz = 0;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Tab_Sai_Id = saisonid;
                                     tabelleneintragF.Liga = Globals.currentLiga;
                                 }
 
@@ -4288,7 +4275,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Punkte = tabelleneintragF2.Punkte;
                                     tabelleneintragF2.Platz = 0;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF2.Tab_Sai_Id = saisonid;
                                     tabelleneintragF2.Liga = Globals.currentLiga;
                                 }
                             }
@@ -4308,7 +4295,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Punkte++;
                                     tabelleneintragF.Platz = 0;
                                     tabelleneintragF.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Tab_Sai_Id = saisonid;
                                     tabelleneintragF.Liga = Globals.currentLiga;
 
                                 }
@@ -4327,7 +4314,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF2.Punkte++;
                                     tabelleneintragF2.Platz = 0;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF2.Tab_Sai_Id = saisonid;
                                     tabelleneintragF2.Liga = Globals.currentLiga;
                                 }
                             }
@@ -4347,7 +4334,7 @@ namespace LigaManagerManagement.Web.Services
                                     tabelleneintragF.Punkte = tabelleneintragF.Punkte;
                                     tabelleneintragF.Platz = 0;
                                     tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
-                                    tabelleneintragF.Tab_Sai_Id = Globals.SaisonID;
+                                    tabelleneintragF.Tab_Sai_Id = saisonid;
                                     tabelleneintragF.Liga = Globals.currentLiga;
                                 }
                                 if (Tabart != 2)
@@ -4370,11 +4357,11 @@ namespace LigaManagerManagement.Web.Services
 
                                 tabelleneintragF2.Platz = 0;
                                 tabelleneintragF2.Tab_Lig_Id = Globals.LigaID;
-                                tabelleneintragF2.Tab_Sai_Id = Globals.SaisonID;
+                                tabelleneintragF2.Tab_Sai_Id = saisonid;
                                 tabelleneintragF2.Liga = Globals.currentLiga;
                             }
 
-                            if (Globals.SaisonID == 44 && tabelleneintragV2.Verein == "Arminia Bielefeld")
+                            if (saisonid == 44 && tabelleneintragV2.Verein == "Arminia Bielefeld")
                             {
                                 tabelleneintragF2.TorePlus = 0;
                                 tabelleneintragF2.Platz = 18;

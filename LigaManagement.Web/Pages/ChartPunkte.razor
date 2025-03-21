@@ -170,7 +170,7 @@
 
             <RadzenCard style="margin-bottom:4px;height:80px;">
                 <div class="form-group row">
-                    <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
+                    <div class="dropdown mr-2" style="display:inline-block; margin-left:4px;">
                         <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
                             <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
                             @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
@@ -187,7 +187,7 @@
                         </select>
                     </div>
                     <div class="dropdown" style="display:inline">
-                        <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
+                        <select id="cboSpieltage" style="display:inline-block;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
                             <option value="0" selected required>@Localizer["Spieltag wählen"].Value</option>
                             @foreach (var spieltag in SpieltagList)
                             {
@@ -204,14 +204,14 @@
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Chart Platzierung"].Value" Click=@(args => AnzeigenChartPlatzieung()) Style="margin-left: 3px;width:200px;display:inline-block;" Text="@Localizer["Chart Platzierung"].Value" ButtonStyle="ButtonStyle.Primary">
+                            <RadzenButton title="@Localizer["Chart Platzierung"].Value" Click=@(args => AnzeigenChartPlatzieung()) Style="margin-left: 3px;width:200px;height:38px;display:inline-block;" Text="@Localizer["Chart Platzierung"].Value" ButtonStyle="ButtonStyle.Primary">
                                 <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Chart Platzierung"].Value
                             </RadzenButton>
                         </div>
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
+                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;height:38px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
                                 <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Spieltage"].Value
                             </RadzenButton>
                         </div>

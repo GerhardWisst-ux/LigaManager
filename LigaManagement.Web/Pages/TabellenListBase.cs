@@ -127,9 +127,9 @@ namespace LigamanagerManagement.Web.Pages
         private Saison saisonFormat;
 
         int iMaxSpieltag = 0;
-        int iSpieltage = 34;
-        
+        int iSpieltage = 34;        
         bool bAbgeschlossen;
+
         protected override async Task OnInitializedAsync()
         {
             
@@ -362,8 +362,7 @@ namespace LigamanagerManagement.Web.Pages
                 SpieltageRepository rep = new SpieltageRepository();
                 currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
             }
-
-            return iSpieltage;
+            return currentspieltag;
         }
 
         public async Task SaisonChange(ChangeEventArgs e)

@@ -4,6 +4,7 @@ using LigaManagement.Web.Models;
 using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
@@ -17,7 +18,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using static Ligamanager.Components.Globals;
 
 namespace LigamanagerManagement.Web.Pages
 {
@@ -25,7 +25,7 @@ namespace LigamanagerManagement.Web.Pages
     {
         [Parameter]
         public string Id { get; set; }
-
+        public bool IsLoading = true;
         [Parameter]
         public string SpieltagNr { get; set; }
 
@@ -33,6 +33,9 @@ namespace LigamanagerManagement.Web.Pages
 
         [Inject]
         IJSRuntime JSRuntime { get; set; }
+
+        [Inject]
+        DialogService DialogService { get; set; }
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
@@ -42,6 +45,9 @@ namespace LigamanagerManagement.Web.Pages
         public bool popup;
         public bool allowVirtualization;
         public Int32 currentspieltag = Globals.Spieltag;
+        protected bool isDropdownDisabledSaison = true;
+        public List<DisplaySpieltag> SpieltagList;
+        int iSpieltage = 34;
 
         public string Vereinsname1;
 
@@ -120,8 +126,11 @@ namespace LigamanagerManagement.Web.Pages
         public List<DisplaySpieler> KaderList2 = new List<DisplaySpieler>();
         public List<DisplaySpieler> SpielerList1 = new List<DisplaySpieler>();
         public List<DisplaySpieler> SpielerList2 = new List<DisplaySpieler>();
-
         public List<DisplayTore> ToreList = new List<DisplayTore>();
+
+        public List<DisplaySaison> SaisonenList { get; set; } = new List<DisplaySaison>();
+        public IEnumerable<Saison> Saisonen { get; set; }
+        public int SaisonID;
 
         public string PageHeaderText { get; set; }
 
@@ -144,6 +153,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public bool bDeleteButtonVisible = true;
 
+
         protected async override Task OnInitializedAsync()
         {
             try
@@ -159,6 +169,35 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     string returnUrl = WebUtility.UrlEncode($"/editSpieltag/{Id}");
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
+                }
+
+                SaisonenList = new List<DisplaySaison>();
+                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
+                if (Globals.LigaNummer == 0)
+                {
+                    SaisonenList.Clear();
+                    isDropdownDisabledSaison = false;
+                }
+                else
+                {
+                    for (int i = 0; i < Saisonen.Count(); i++)
+                    {
+                        var columns = Saisonen.ElementAt(i);
+                        Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
+                        Globals.currentLigaUrl = Globals.currentLiga;
+                        SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname, true));
+                    }
+
+                    isDropdownDisabledSaison = true;
+                }
+
+                SpieltagList = new List<DisplaySpieltag>();
+
+                iSpieltage = ErmittlenAktSpieltag();
+
+                for (int i = 1; i <= iSpieltage; i++)
+                {
+                    SpieltagList.Add(new DisplaySpieltag(i.ToString(), i.ToString() + "." + Localizer["Spieltag"].Value));
                 }
 
                 if (Globals.LigaNummer < 3)
@@ -377,7 +416,7 @@ namespace LigamanagerManagement.Web.Pages
                         bAbgeschlossen = true;
                     else
                         bAbgeschlossen = false;
-                }              
+                }
 
                 if (LMSettings.GetSpielverlaufVisible() == false)
                     SpielverlaufVisible = false;
@@ -396,7 +435,128 @@ namespace LigamanagerManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
 
             }
+        }
+        private int ErmittlenAktSpieltag()
+        {
+            int iSpieltage = 34;
+            if (Globals.LigaNummer == 1)
+            {
+                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
+                    iSpieltage = 30;
+                else if (Globals.currentSaison.Substring(0, 4) == "1991")
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 2)
+            {
+                if (Globals.currentSaison.Substring(0, 4) == "1993")
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 3)
+            {
+                iSpieltage = 38;
 
+            }
+            else if (Globals.LigaNummer == 4)
+            {
+                if (Globals.currentSaison.Substring(0, 4) == "1993" || Globals.currentSaison.Substring(0, 4) == "1994")
+                    iSpieltage = 42;
+                else
+                    iSpieltage = 38;
+            }
+            else if (Globals.LigaNummer == 5)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2003)
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 6)
+            {
+                if (Globals.currentSaison.Substring(0, 4) == "1993" || Globals.currentSaison.Substring(0, 4) == "1994")
+                    iSpieltage = 42;
+                else
+                    iSpieltage = 38;
+
+            }
+            else if (Globals.LigaNummer == 7)
+            {
+                if (Globals.currentSaison.Substring(0, 4) == "1995" || Globals.currentSaison.Substring(0, 4) == "1996")
+                    iSpieltage = 42;
+                else
+                    iSpieltage = 38;
+            }
+            else if (Globals.LigaNummer == 8)
+            {
+                iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 9)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2013)
+                    iSpieltage = 34;
+                else
+                    iSpieltage = 30;
+            }
+            else if (Globals.LigaNummer == 10)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2019)
+                    iSpieltage = 38;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 11)
+            {
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2022)
+                    iSpieltage = 30;
+                else if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2020)
+                    iSpieltage = 34;
+                if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2008)
+                    iSpieltage = 30;
+                else
+                    iSpieltage = 34;
+            }
+            else if (Globals.LigaNummer == 12)
+                iSpieltage = 46;
+            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                iSpieltage = 34;
+
+            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+            if (bAbgeschlossen)
+                currentspieltag = iSpieltage;
+            else
+            {
+                SpieltageRepository rep = new SpieltageRepository();
+                currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+            }
+
+            return currentspieltag;
+        }
+        public async Task SpieltagChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                IsLoading = true;
+                currentspieltag = Convert.ToInt32(e.Value);
+
+                bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
+
+                IsLoading = false;
+                StateHasChanged();
+            }
+        }
+        public void SaisonChange(ChangeEventArgs e)
+        {
+            if (e.Value != null)
+            {
+                if (e.Value.ToString() == "0")
+                    return;
+
+
+                StateHasChanged();
+            }
         }
         protected async override void OnAfterRender(bool firstRender)
         {
@@ -667,6 +827,13 @@ namespace LigamanagerManagement.Web.Pages
         }
 
         [Bind]
+        public class DisplaySpieltag(string nummer, string name)
+        {
+            public string Nummer { get; set; } = nummer;
+            public string Name { get; set; } = name;
+        }
+
+        [Bind]
         public class DisplayVerein
         {
             public DisplayVerein(string vereinID, string vereinname, string ort)
@@ -717,6 +884,40 @@ namespace LigamanagerManagement.Web.Pages
 
         protected ConfirmBase DeleteConfirmation { get; set; }
 
+        public async Task<bool> OnDeleteClick()
+        {
+            try
+            {
+                string message;
+                if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+                {
+                    message = "Sie können dieses Spiel nicht löschen";
+                    await JSRuntime.InvokeVoidAsync("alert", message);
+                    return false;
+                }
+
+                var result = await DialogService.Confirm("Möchten Sie dieses Spiel tatsächlich löschen?", "Löschen Spiel",
+                    new ConfirmOptions() { OkButtonText = "Ja", CancelButtonText = "Nein" });
+
+                if (result.HasValue && result.Value)
+                {
+                    // Die Bestätigung war positiv, führe die Lösch-Logik aus
+                    DeleteItem();
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return false;
+            }
+        }
+        private void DeleteItem()
+        {
+            // Deine Logik zum Löschen
+            Console.WriteLine("Das Spiel wurde gelöscht.");
+        }
         protected async Task<bool> Confirm()
         {
             string message;
@@ -736,6 +937,7 @@ namespace LigamanagerManagement.Web.Pages
 
             if (result)
             {
+
                 await SpieltagService.DeleteSpieltag(Convert.ToInt32(Id));
 
                 //NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Spiel"].Value, Detail = Localizer["Gelöscht"].Value });

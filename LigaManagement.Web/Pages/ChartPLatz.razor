@@ -29,7 +29,7 @@
                                 <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
                                 <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                                <h2 style="display:inline-block;">@Localizer["Chart"].Value @Localizer["Saisonverlauf Plätze"].Value @Globals.currentLiganame @Globals.currentSaison</h2>
+                                <h2 style="display:inline-block;">@Localizer["Chart"].Value @Localizer["Saisonverlauf Plätze"].Value @Globals.currentLiganame @Saison</h2>
 
                             </div>
                         </div>
@@ -44,13 +44,13 @@
                             <option value="0" selected required>@Localizer["Saison wählen"].Value</option>
                             @foreach (var saison in SaisonenList.Where(x => x.LigaID == Globals.LigaID).OrderByDescending(o => o.Saisonname))
                             {
-                                @if (saison.SaisonID == Globals.SaisonID)
+                                @if (saison.SaisonID == SaisonID)
                                 {
-                                    <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                    <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
                                 }
                                 else
                                 {
-                                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
                                 }
                             }
                         </select>
@@ -66,14 +66,14 @@
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Chart Punkte"].Value" Click=@(args => AnzeigenChartPunkte()) Style="margin-left: 3px;width:200px;display:inline-block;" Text="@Localizer["Chart Punkte"].Value" ButtonStyle="ButtonStyle.Primary">
+                            <RadzenButton title="@Localizer["Chart Punkte"].Value" Click=@(args => AnzeigenChartPunkte()) Style="margin-left: 3px;width:150px;height:38px;display:inline-block;" Text="@Localizer["Chart Punkte"].Value" ButtonStyle="ButtonStyle.Primary">
                                 <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Chart Punkte"].Value
                             </RadzenButton>
                         </div>
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
+                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;height:38px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
                                 <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Spieltage"].Value
                             </RadzenButton>
                         </div>
@@ -81,15 +81,12 @@
                 </div>
             </RadzenCard>
         </div>
-
     }
 
     <div class="container">
-        
-            <RadzenCard style="margin-left: 4px; margin-right: 4px; margin-bottom:4px;height:600px;">
-                <canvas id="myChart" style="width:100%;max-width:1900px;"></canvas>
-            </RadzenCard>
-        
+        <RadzenCard style="margin-left: 4px; margin-right: 4px; margin-bottom:4px;height:600px;">
+            <canvas id="myChart" style="width:100%;max-width:1900px;"></canvas>
+        </RadzenCard>
     </div>
 
     <script>
@@ -118,35 +115,24 @@
                 },
                 options: {
                     legend: { display: false },
-                    scales: {
-                        xAxes: [{
-                            scaleLabel: 
-                            {
-                                display: true,
-                                labelString: "Spieltage", // Beschriftung der X-Achse
-                                color: '#911',
-                                fontsize: 18,                   
-                                fontfamily: 'Comic Sans MS',                                
-                            }
-                        }],
-                        yAxes: [{
-                            ticks: 
-                            {
-                                min: 1,
-                                max: 18,
-                                reverse: true // Y-Achse umkehren
-                            },
-                            scaleLabel:
-                            {
-                                display: true,
-                                labelString: "Platz", // Beschriftung der Y-Achse
-                                fontsize : 18,
-                                fontfamily: 'Comic Sans MS',
-                                fontsize: 20,
-                            }
-                        }]
-                    }
-                }
+                           scales: {
+                                y: {
+                                    reverse: true, // Y-Achse umkehren
+                                    min: 1,
+                                    max: 18,
+                                    title: {
+                                        display: true,
+                                        text: "Platz"
+                                    }
+                                },
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: "Spieltage"
+                                    }
+                                    }
+                                }
+                                        }
             });
         }
 
@@ -159,6 +145,7 @@
         // Initialer Aufruf
         renderChart();
     </script>
+
 
 
 

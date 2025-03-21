@@ -29,7 +29,7 @@ namespace LigaManagement.Web.Services.Contracts
         
         Task<List<int?>> CreateChartPunkte(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);
         Task<List<int?>> CreateChartPlatz(ISpieltagService spieltagService, IEnumerable<Verein> vereine, int ivereinnr, int currentspieltag);
-        Task<List<Tuple<int, int?>>> BerechnePlaetzeDE(ISpieltagService spieltagService, bool Abgeschlossen, List<VereineSaison> vereineAktSaison, IEnumerable<Verein> vereine, int vereinid, int tabart);
+        Task<List<Tuple<int, int?>>> BerechnePlaetzeDE(ISpieltagService spieltagService, bool Abgeschlossen, List<VereineSaison> vereineAktSaison, IEnumerable<Verein> vereine, int saisonid, int vereinid, int tabart);
         Task<IEnumerable<Tabelle>> BerechneTabelleDE(ISpieltagService spieltagService, bool Abgeschlossen, List<VereineSaison> vereineAktSaison, IEnumerable<Verein> vereine, int currentspieltag, int tabart);
         Task<IEnumerable<Tabelle>> BerechneTabellePL(ISpieltageENService spieltagENService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereine, int count, int tabart);        
         Task<IEnumerable<Tabelle>> BerechneTabelleIT(ISpieltageITService spieltagITService, bool bAbgeschlossen, IEnumerable<VereinAUS> vereineAus, int count, int tabart);

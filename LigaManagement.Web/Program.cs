@@ -25,7 +25,7 @@ namespace LigaManagement.Web
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseWebRoot("wwwroot");
                     webBuilder.UseStaticWebAssets();
-
+                    
                     if (LMSettings.GetSprache_LandKZ() == "DE")
                     {
                         CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");

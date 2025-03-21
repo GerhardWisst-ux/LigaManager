@@ -1,0 +1,39 @@
+﻿@inject IJSRuntime JSRuntime
+
+<div class="modal fade" tabindex="-1" role="dialog" id="confirmModal" @ref="ModalElement">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">@Title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>@Message</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="() => Confirm(true)">OK</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @onclick="() => Confirm(false)">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private ElementReference ModalElement;
+    private TaskCompletionSource<bool> _taskCompletionSource;
+
+    [Parameter] public string Title { get; set; } = "Confirm";
+    [Parameter] public string Message { get; set; } = "Are you sure?";
+
+    public async Task<bool> ShowAsync()
+    {
+        _taskCompletionSource = new TaskCompletionSource<bool>();
+        await JSRuntime.InvokeVoidAsync("bootstrap.Modal", ModalElement, "show");
+        return await _taskCompletionSource.Task;
+    }
+
+    private void Confirm(bool result)
+    {
+        _taskCompletionSource?.SetResult(result);
+    }
+} 

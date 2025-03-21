@@ -3,6 +3,7 @@ using LigaManagement.Web.Classes;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -133,6 +134,19 @@ namespace LigaManagerManagement.Api.Models
                         verein.Bundesliga = bool.Parse(reader["Bundesliga"].ToString());
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
                         verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.Ort = reader["Ort"].ToString();
+                        verein.Strasse = reader["Strasse"].ToString();
+                        verein.EMail = reader["EMail"].ToString();
+                        verein.Fax = reader["Fax"].ToString();
+                        verein.Telefon = reader["Telefon"].ToString();
+                        if (!string.IsNullOrEmpty(reader["Latitude"].ToString()))
+                            verein.Latitude = decimal.Parse(reader["Latitude"].ToString());
+                        else
+                            verein.Latitude = 0;
+                        if (!string.IsNullOrEmpty(reader["Longitude"].ToString()))
+                            verein.Longitude = decimal.Parse(reader["Longitude"].ToString());
+                        else
+                            verein.Longitude = 0;
                     }
                 }
                 conn.Close();
@@ -217,6 +231,19 @@ namespace LigaManagerManagement.Api.Models
                         verein.Bundesliga = bool.Parse(reader["Bundesliga"].ToString());
                         verein.Pokal = bool.Parse(reader["Pokal"].ToString());
                         verein.Hyperlink = reader["Hyperlink"].ToString();
+                        verein.Ort = reader["Ort"].ToString();
+                        verein.Strasse = reader["Strasse"].ToString();
+                        verein.EMail = reader["EMail"].ToString();
+                        verein.Fax = reader["Fax"].ToString();
+                        verein.Telefon = reader["Telefon"].ToString();
+                        if (!string.IsNullOrEmpty(reader["Latitude"].ToString()))
+                            verein.Latitude = decimal.Parse(reader["Latitude"].ToString());
+                        else
+                            verein.Latitude = 0;
+                        if (!string.IsNullOrEmpty(reader["Longitude"].ToString()))
+                            verein.Longitude = decimal.Parse(reader["Longitude"].ToString());
+                        else
+                            verein.Longitude = 0;
 
                         vereinelist.Add(verein);
                     }
@@ -241,10 +268,10 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-               
-               command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
-                                                  "[TN2023],[TN2024] FROM [dbo].[VereineCL] where TN2024 = 1 Order by [Vereinsname1]", conn);
-               
+
+                command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
+                                                   "[TN2023],[TN2024] FROM [dbo].[VereineCL] where TN2024 = 1 Order by [Vereinsname1]", conn);
+
 
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
@@ -265,7 +292,7 @@ namespace LigaManagerManagement.Api.Models
                         //verein.Gegruendet = 0;
                         verein.Bundesliga = bool.Parse(reader["TN2024"].ToString());
                         verein.Pokal = bool.Parse(reader["TN2023"].ToString());
-                        
+
 
                         vereinelist.Add(verein);
 
@@ -376,7 +403,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-                
+
                 SqlCommand command = new SqlCommand("SELECT Vereine.Vereinsname1,VereineSaison.[VereinNr],[SaisonID],[LigaID] FROM [dbo].[VereineSaison] inner join vereine on Vereine.VereinNr = VereineSaison.VereinNr order by Vereine.Vereinsname1", conn);
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
@@ -385,13 +412,13 @@ namespace LigaManagerManagement.Api.Models
                     while (await reader.ReadAsync())
                     {
                         verein = new VereinAktSaison();
-                        verein.Id = i;                        
+                        verein.Id = i;
                         verein.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
                         verein.Vereinsname1 = reader["Vereinsname1"].ToString();
                         verein.Vereinsname2 = reader["Vereinsname1"].ToString();
 
-                        
+
                         //verein.Hyperlink = reader["Hyperlink"].ToString();
                         verein.Fassungsvermoegen = 0;
                         verein.Erfolge = "";
@@ -409,7 +436,7 @@ namespace LigaManagerManagement.Api.Models
 
                 if (bFound == false)
                 {
-                    
+
                     verein = null;
                     vereinelist = new List<VereinAktSaison>();
                     command = new SqlCommand("SELECT Distinct Verein1_Nr,Verein1,SaisonID from SpieltageL3", conn);
@@ -436,7 +463,7 @@ namespace LigaManagerManagement.Api.Models
                         }
                     }
                 }
-                
+
                 conn.Close();
                 return vereinelist;
             }
@@ -460,7 +487,7 @@ namespace LigaManagerManagement.Api.Models
                   "[GroupID2022],[GroupID2020],[GroupID2018],[GroupID2016],[GroupID2014],[GroupID2012],[GroupID2010],[GroupID2008],[GroupID2006],[GroupID2004],[GroupID2002],[GroupID2000]," +
                   "[GroupID1998],[GroupID1996],[GroupID1994],[GroupID1992],[GroupID1990],[GroupID1988], [GroupID1986], [GroupID1984], [GroupID1984],[GroupID1980] FROM [LigaDB].[dbo].[MannschaftEMWM] Where MannschaftNr = " + Id, conn);
 
-                
+
                 VereinAktSaison verein = null;
                 List<VereinAktSaison> vereinelist = new List<VereinAktSaison>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -493,7 +520,7 @@ namespace LigaManagerManagement.Api.Models
                         verein.GroupID2000 = int.Parse(reader["GroupID2000"].ToString());
                         verein.GroupID1996 = int.Parse(reader["GroupID1996"].ToString());
                         verein.GroupID1994 = int.Parse(reader["GroupID1994"].ToString());
-                        verein.GroupID1992 = int.Parse(reader["GroupID1992"].ToString());                        
+                        verein.GroupID1992 = int.Parse(reader["GroupID1992"].ToString());
                         verein.GroupID1990 = int.Parse(reader["GroupID1990"].ToString());
                         verein.GroupID1988 = int.Parse(reader["GroupID1988"].ToString());
                         verein.GroupID1986 = int.Parse(reader["GroupID1986"].ToString());
@@ -633,7 +660,7 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
         }
-       
+
     }
 }
 

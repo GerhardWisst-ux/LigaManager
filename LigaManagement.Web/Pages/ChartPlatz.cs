@@ -12,6 +12,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Pages
@@ -51,6 +52,7 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
 
         public string arrPunkteJson;
+        public string Saison;
         public int SaisonID;
         public int VereinID;
 
@@ -107,6 +109,7 @@ namespace LigaManagerManagement.Web.Pages
             }
                         
             ChartSaisonId = Globals.SaisonID;
+            Saison = Globals.currentSaison;
 
             iSpieltage = ErmittlenAktSpieltag();
 
@@ -118,8 +121,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 var verein = await VereineService.GetVerein(verList[i].VereinNr);
                 VereineList.Add(new DisplayChartVerein(verein.VereinNr, verein.Vereinsname1));
-            }                       
-                       
+            }          
             
             DisplayErrorSaison = "none";
             DisplayErrorVerein = "none";
@@ -159,22 +161,27 @@ namespace LigaManagerManagement.Web.Pages
        
         [JSInvokable]
         private async Task SetXYAxisValues(List<Tuple<int, int?>> xyAxisValues)
-        {            
-            var spieltage = xyAxisValues.Select(_ => _.Item1).ToList();
-            var plaetze = xyAxisValues.Select(_ => _.Item2).ToList();
+        {
+            try
+            {
+                var spieltage = xyAxisValues.Select(_ => _.Item1).ToList();
+                var plaetze = xyAxisValues.Select(_ => _.Item2).ToList();
 
-            // JavaScript Interop Aufruf zum Setzen der Werte
-            await JSRuntime.InvokeVoidAsync("updateChartXYValues", spieltage, plaetze);
+                // JavaScript Interop Aufruf zum Setzen der Werte
+                await JSRuntime.InvokeVoidAsync("updateChartXYValues", spieltage, plaetze);
+            }
+            catch (Exception ex)
+            {
+                //ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
         }
 
         public async Task SaisonChange(ChangeEventArgs e)
-        {
-            string saison;
+        {            
             if (e.Value != null)
-            {
-                isLoading = true;
-                saison = e.Value.ToString();
-                Globals.currentSaison = saison;
+            {                
+                SaisonID = Convert.ToInt32(e.Value.ToString());
+                
                 SaisonenList = new List<DisplaySaison>();
 
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
@@ -183,22 +190,29 @@ namespace LigaManagerManagement.Web.Pages
                 for (int i = 0; i < Saisonen.Count(); i++)
                 {
                     var columns = Saisonen.ElementAt(i);
-                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, Globals.LigaID, columns.Saisonname));
-
-                    if (columns.Saisonname == saison)
-                        Globals.SaisonID = columns.SaisonID;
+                    SaisonenList.Add(new DisplaySaison(columns.SaisonID, Globals.LigaID, columns.Saisonname));                    
                 }
-                ChartSaisonId = Globals.SaisonID;
 
-                saison = Globals.currentSaison;
-                               
+                var vereineSaison = await VereineSaisonService.GetVereineSaison();
+                List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == SaisonID).ToList();
+
+                VereineList.Clear();
+                for (int i = 0; i < verList.Count(); i++)
+                {
+                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                    VereineList.Add(new DisplayChartVerein(verein.VereinNr, verein.Vereinsname1));
+                }
+                                
+                var aktsaison = await SaisonenService.GetSaison(SaisonID);
+                                
+                Saison = aktsaison.Saisonname;
+
                 DisplayErrorSaison = "none";
                 DisplayErrorVerein = "none";
                 DisplayErrorChartArt = "none";
 
                 ChartArt = 0;
-                ChartSaisonId = Globals.SaisonID;
-                isLoading = false;
+                ChartSaisonId = SaisonID;               
 
                 StateHasChanged();
             }
@@ -226,7 +240,7 @@ namespace LigaManagerManagement.Web.Pages
                 var vereineSaison = await VereineSaisonService.GetVereineSaison();
                 List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == ChartSaisonId).ToList();
 
-                var tab = await TabelleService.BerechnePlaetzeDE(SpieltagService, true, verList, Vereine, VereinID, (int)Globals.Tabart.Gesamt);
+                var tab = await TabelleService.BerechnePlaetzeDE(SpieltagService, bAbgeschlossen, verList, Vereine, ChartSaisonId, VereinID, (int)Globals.Tabart.Gesamt);
 
                 // Senden der Daten an das JavaScript
                 await InvokeAsync(() => SetXYAxisValues(tab));                               
@@ -245,12 +259,14 @@ namespace LigaManagerManagement.Web.Pages
             XAxisValues = Enumerable.Range(1, iSpieltage).ToList();
             YAxisValues = Enumerable.Range(1, iSpieltage).Select(x => new Random().Next(1, 18)).ToList();
 
+            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.SaisonID == ChartSaisonId).Abgeschlossen;
+
             Vereine = await VereineService.GetVereine();
 
             var vereineSaison = await VereineSaisonService.GetVereineSaison();
-            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
+            List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == ChartSaisonId).ToList();
 
-            var tab = await TabelleService.BerechnePlaetzeDE(SpieltagService, true, verList, Vereine, VereinID, (int)Globals.Tabart.Gesamt);
+            var tab = await TabelleService.BerechnePlaetzeDE(SpieltagService, bAbgeschlossen, verList, Vereine, ChartSaisonId, VereinID, (int)Globals.Tabart.Gesamt);
             // Senden der Daten an das JavaScript
             await InvokeAsync(() => SetXYAxisValues(tab));
 

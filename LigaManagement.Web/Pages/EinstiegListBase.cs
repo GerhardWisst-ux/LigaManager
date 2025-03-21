@@ -199,7 +199,7 @@ namespace LigaManagement.Web.Pages
 
                     isDropdownDisabledLiga = false;
                     isDropdownDisabledSaison = false;
-                }                               
+                }
 
 
                 if (Globals.SaisonID == 0)
@@ -240,6 +240,21 @@ namespace LigaManagement.Web.Pages
         public void ValidateItems(IEnumerable args)
         {
             TabellenList = (List<int>)args;
+        }
+
+        private ConfirmDialog ConfirmDialog;
+
+        public async Task ShowDialog()
+        {
+            var result = await ConfirmDialog.ShowAsync();
+            if (result)
+            {
+                Console.WriteLine("Confirmed!");
+            }
+            else
+            {
+                Console.WriteLine("Canceled!");
+            }
         }
 
         public void SaisonChange(ChangeEventArgs e)
@@ -601,6 +616,7 @@ namespace LigaManagement.Web.Pages
                 return;
             }
 
+            
             Vereine = await VereineService.GetVereine();
             if (Globals.LigaNummer != 3)
                 Spieltage = await SpieltagService.GetSpieltage();

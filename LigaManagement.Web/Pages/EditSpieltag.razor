@@ -19,6 +19,8 @@
 @inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 @inject NavigationManager _navigationManager
 @inject NotificationService NotificationService
+@inject IJSRuntime JSRuntime
+
 
 <head>
 
@@ -119,12 +121,53 @@ else
                                     <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-md-9 col-xs-12"></InputText>
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>                                    
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboSaison">@Localizer["Saison"].Value </RadzenLabel>
+                                    <select id="cboSaison" Disabled=true class="form-control col-md-9 col-xs-12" @onchange="SaisonChange">
+                                        <option value="" selected required>@Localizer["Saison wählen"].Value</option>
+                                        @if (SaisonenList != null)
+                                        {
+                                            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                                            {
+                                                @if (saison.SaisonID == Globals.SaisonID)
+                                                {
+                                                    <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@saison.Saisonname"> @saison.Saisonname </option>
+                                                }
+                                            }
+                                        }
+                                    </select>                                    
+                                </div>
+
+                                <div class="form-group row">
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboSpieltage">@Localizer["Spieltag"].Value </RadzenLabel>
+                                    <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
+                                        <option value="0" selected required>@Localizer["Spieltag wählen"].Value</option>
+                                        @if (SpieltagList != null)
+                                        {
+                                            @foreach (var spieltag in SpieltagList)
+                                            {
+                                                @if (spieltag.Nummer == currentspieltag.ToString())
+                                                {
+                                                    <option selected value="@spieltag.Nummer"> @spieltag.Name </option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@spieltag.Nummer"> @spieltag.Name </option>
+                                                }
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group row">
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
                                     <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-md-9 col-xs-12 pl-2" />
                                     <ValidationMessage class="form-control col-md-9 col-xs-12" For="@(() => Spiel.Tore1_Nr)" />
                                 </div>
                                 <div class="form-group row">
-                                    <RadzenLabel Text="lblTore2" class="col-md-3 col-xs-12" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>                                  
+                                    <RadzenLabel Text="lblTore2" class="col-md-3 col-xs-12" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
                                     <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-md-9 col-xs-12 pl-2" />
                                     <ValidationMessage class="form-control col-md-9 col-xs-12" For="@(() => Spiel.Tore2_Nr)" />
                                 </div>
@@ -144,7 +187,7 @@ else
                                             }
                                         }
                                     </select>
-                                    <RadzenTextBox  style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
+                                    <RadzenTextBox style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Datum" class="col-md-3 col-xs-12" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
@@ -191,7 +234,11 @@ else
                                     <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
                                         <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                                     </RadzenButton>
-
+                                    
+                                @*     <RadzenButton Text="Löschen" ButtonStyle="ButtonStyle.Secondary"
+                                                  Click=@(args => OnDeleteClick()) /> *@
+                                    
+                                 
                                     <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                                         <span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value
                                     </RadzenButton>
@@ -370,6 +417,7 @@ else
                 </RadzenTabs>
             </EditForm>
         </div>
+        
     </div>
 }
 @code {

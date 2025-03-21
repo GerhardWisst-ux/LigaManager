@@ -31,6 +31,14 @@ namespace LigaManagement.Models
 
         public string Hyperlink { get; set; }
 
+        public string Fax { get; set; }
+        public string Telefon { get; set; }
+        public string Ort { get; set; }
+        public string Strasse { get; set; }
+        public string EMail { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
+
     }
 
     public class VereinAktSaison: Verein

@@ -67,9 +67,9 @@ namespace LigaManagerManagement.Api.Models
             cmd.Connection = conn;
             cmd.CommandText = "DELETE FROM [dbo].[Spieltage] Where SpieltagId= @SpieltagId";
 
-            cmd.Parameters.AddWithValue("@Id", SpieltagId);
+            cmd.Parameters.AddWithValue("@SpieltagId", SpieltagId);
 
-            //  await cmd.ExecuteNonQueryAsync();
+            await cmd.ExecuteNonQueryAsync();
 
             conn.Close();
 
@@ -645,20 +645,29 @@ namespace LigaManagerManagement.Api.Models
 
         public async Task<Spieltag> DeleteSpieltagL3(int SpieltagId)
         {
-            SqlConnection conn = new SqlConnection(Globals.connstring);
-            await conn.OpenAsync();
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[SpieltageL3] Where SpieltagId= @SpieltagId";
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM [dbo].[SpieltageL3] Where SpieltagId= @SpieltagId";
 
-            cmd.Parameters.AddWithValue("@Id", SpieltagId);
+                cmd.Parameters.AddWithValue("@SpieltagId", SpieltagId);
 
-            await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();
 
-            conn.Close();
+                conn.Close();
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+
         }
     }
 }

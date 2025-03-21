@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
+using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -78,7 +79,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task DeleteSpieltag(int? id)
         {
-            await httpClient.DeleteAsync($"api/spieltage/{id}");
+            await httpClient.DeleteAsync($"api/spieltage/{id}/{Globals.LigaNummer}");
         }
 
         public async Task<IEnumerable<Spieltag>> GetSpieltageL3()
