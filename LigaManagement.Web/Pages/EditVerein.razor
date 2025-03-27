@@ -336,25 +336,25 @@ else
 
         if (LandKz == "DE")
         {
-            if (Verein.Vereinsname1 == null || Verein.Vereinsname1 =="")
+            if ((string.IsNullOrEmpty(Verein.Vereinsname1)))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (Verein.Vereinsname2 == null || Verein.Vereinsname2 == "")
+            else if ((string.IsNullOrEmpty(Verein.Vereinsname2)))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel , Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            if (Verein.Stadion == null || Verein.Stadion == "")
+            else if ((string.IsNullOrEmpty(Verein.Stadion)))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel , Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
-            else if (Verein.Erfolge == null || Verein.Erfolge == "")
+            else if ((string.IsNullOrEmpty(Verein.Erfolge)))
             {
                 NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel , Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
                 bError = true;
@@ -370,31 +370,31 @@ else
         {
             if (VereinAus.Vereinsname1 == null || VereinAus.Vereinsname1 == "")
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Vereinsname nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
             else if (VereinAus.Vereinsname2 == null || VereinAus.Vereinsname2 == "")
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Anzeigename nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
             else if (VereinAus.Stadion == null || VereinAus.Stadion == "")
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Stadion nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
             else if (VereinAus.Erfolge == null || VereinAus.Erfolge == "")
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Erfolge nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
 
             else if (VereinAus.Gegruendet == 0)
             {
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Bearbeiten Verein", Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
+                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Gegründet nicht angegeben.Speichern nicht möglich." });
                 bError = true;
             }
         }
@@ -520,7 +520,7 @@ else
             else if (LandKz == "BE")
                 await _VereineBEService.UpdateVerein(VereinAus);
 
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Bearbeiten Verein", Detail = "Abgespeichert" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Titel, Detail = "Abgespeichert" });
         }
 
     }

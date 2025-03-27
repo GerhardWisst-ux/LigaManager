@@ -138,6 +138,12 @@
   <data name="Info" xml:space="preserve">
     <value>Info</value>
   </data>
+  <data name="Lage" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="Langzeitstatistik" xml:space="preserve">
+    <value>Long time statistics</value>
+  </data>
   <data name="Legende" xml:space="preserve">
     <value>Gold: Meister, Grün: Champions League, Blau: Europa-Liga, Orange: Relegation, Rot: Absteiger</value>
   </data>
@@ -171,6 +177,9 @@
   <data name="Saison wählen" xml:space="preserve">
     <value>Select saison</value>
   </data>
+  <data name="Spiele" xml:space="preserve">
+    <value>Matches</value>
+  </data>
   <data name="Spieltag" xml:space="preserve">
     <value>Match day</value>
   </data>
@@ -179,6 +188,9 @@
   </data>
   <data name="Spieltage" xml:space="preserve">
     <value>Match days</value>
+  </data>
+  <data name="Statistik" xml:space="preserve">
+    <value>Statistics</value>
   </data>
   <data name="T" xml:space="preserve">
     <value>T</value>
@@ -197,5 +209,8 @@
   </data>
   <data name="Verein" xml:space="preserve">
     <value>Club</value>
+  </data>
+  <data name="Vereinsinfo" xml:space="preserve">
+    <value>Club Info</value>
   </data>
 </root>

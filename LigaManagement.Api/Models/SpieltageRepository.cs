@@ -22,12 +22,13 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO Spieltage ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
-                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
+                cmd.CommandText = "INSERT INTO Spieltage ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer],[StadionID])" +
+                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer,@StadionID)";
 
                 cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
                 cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
+                cmd.Parameters.AddWithValue("@StadionID", spieltag.StadionID);
                 cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
                 cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
                 cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
@@ -39,7 +40,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
-                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
+                cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);                
 
                 await cmd.ExecuteNonQueryAsync();
 
@@ -99,6 +100,7 @@ namespace LigaManagerManagement.Api.Models
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
                         spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
                         spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
                         spieltag.Saison = reader["Saison"].ToString();
@@ -153,6 +155,7 @@ namespace LigaManagerManagement.Api.Models
 
                             spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                             spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                            spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
                             spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
                             spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
                             spieltag.Saison = reader["Saison"].ToString();
@@ -371,6 +374,7 @@ namespace LigaManagerManagement.Api.Models
                         " [SpieltagNr] = " + spieltag.SpieltagNr +
                         ",[Saison] = '" + spieltag.Saison + "'" +
                         ",[SaisonID] = " + spieltag.SaisonID +
+                        ",[StadionID] = " + spieltag.StadionID +
                         ",[LigaID] = " + spieltag.LigaID +
                         ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
                         //",[Verein1] = '" + spieltag.Verein1 + "'" +
@@ -474,6 +478,7 @@ namespace LigaManagerManagement.Api.Models
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
+                        spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
                         spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
                         spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
                         spieltag.Saison = reader["Saison"].ToString();
@@ -523,6 +528,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
                         spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
+                        spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
                         spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
                         spieltag.Saison = reader["Saison"].ToString();
                         spieltag.Verein1 = reader["Verein1"].ToString();
@@ -559,12 +565,13 @@ namespace LigaManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO SpieltageL3 ([SpieltagNr],[Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
-                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
+                cmd.CommandText = "INSERT INTO SpieltageL3 ([SpieltagNr],[Saison],[SaisonID],[StadionID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer])" +
+                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@StadionID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer)";
 
                 cmd.Parameters.AddWithValue("@SpieltagNr", spieltag.SpieltagNr);
                 cmd.Parameters.AddWithValue("@Saison", spieltag.Saison);
                 cmd.Parameters.AddWithValue("@SaisonID", spieltag.SaisonID);
+                cmd.Parameters.AddWithValue("@StadionID", spieltag.StadionID);
                 cmd.Parameters.AddWithValue("@LigaID", spieltag.LigaID);
                 cmd.Parameters.AddWithValue("@Verein1_Nr", spieltag.Verein1_Nr);
                 cmd.Parameters.AddWithValue("@Verein2_Nr", spieltag.Verein2_Nr);
@@ -616,6 +623,7 @@ namespace LigaManagerManagement.Api.Models
                         " [SpieltagNr] = " + spieltag.SpieltagNr +
                         ",[Saison] = '" + spieltag.Saison + "'" +
                         ",[SaisonID] = " + spieltag.SaisonID +
+                        ",[StadionID] = " + spieltag.StadionID +
                         ",[LigaID] = " + spieltag.LigaID +
                         ",[Verein1_Nr] = '" + spieltag.Verein1_Nr + "'" +
                         ",[Verein1] = '" + spieltag.Verein1 + "'" +

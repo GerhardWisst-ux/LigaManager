@@ -61,6 +61,7 @@ namespace LigaManagement.Models
 
         public string TeamIconUrl1 { get; set; }
         public string TeamIconUrl2 { get; set; }
+        public int? StadionID { get; set; }
     }
 
     public class PokalergebnisCL_EM_WMSpieltag : PokalergebnisSpieltag
@@ -77,4 +78,8 @@ namespace LigaManagement.Models
         public string FontWeight2 { get; set; }
     }
 
+    public class Spielplan : Spieltag
+    {
+        public string DatumString { get; set; }
+    }
 }

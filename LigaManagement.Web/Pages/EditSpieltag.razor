@@ -29,47 +29,47 @@
 <style type="text/css">
 
     details {
-        border: 1px solid #aaa;
-        border-radius: 4px;
-        padding: 0.5em 0.5em 0;
-        width: 100%;
-        margin-bottom: 0.5rem;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    padding: 0.5em 0.5em 0;
+    width: 100%;
+    margin-bottom: 0.5rem;
     }
 
     summary {
-        font-weight: bold;
-        margin: -0.5em -0.5em 0;
-        padding: 0.5em;
+    font-weight: bold;
+    margin: -0.5em -0.5em 0;
+    padding: 0.5em;
     }
 
     details[open] {
-        padding: 0.5em;
+    padding: 0.5em;
     }
 
     .CardTore {
-        padding: 0;
-        margin: 0;
+    padding: 0;
+    margin: 0;
     }
 
     .rz-chkbox-box {
-        border-color: darkgray !important;
+    border-color: darkgray !important;
     }
 
     .rz-label {
-        margin-left: 0px !important;
-        padding-left: 20px !important;
+    margin-left: 0px !important;
+    padding-left: 20px !important;
     }
 
     @@media (max-width: 767px) {
-        .rz-label {
-            margin-left: 0px !important;
-            padding-left: 0px !important;
-        }
+    .rz-label {
+    margin-left: 0px !important;
+    padding-left: 0px !important;
+    }
     }
 
 </style>
 
-@if (Spiel == null)
+@if (IsLoading)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
@@ -103,26 +103,8 @@ else
                         <RadzenTabsItem Text="@Localizer["Spielinfo"].Value">
                             <div class="content">
                                 <div class="form-group row">
-                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
-                                    <select id="cboVerein1" class="form-control col-md-9 col-xs-12" @onchange="Verein1Change">
-                                        <option value="" selected required>@Localizer["Verein wählen"].Value</option>
-                                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
-                                        {
-                                            @if (verein.VereinID == Spiel.Verein1_Nr)
-                                            {
-                                                <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
-                                            }
-                                            else
-                                            {
-                                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
-                                            }
-                                        }
-                                    </select>
-                                    <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-md-9 col-xs-12"></InputText>
-                                </div>
-                                <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboSaison">@Localizer["Saison"].Value </RadzenLabel>
-                                    <select id="cboSaison" Disabled=true class="form-control col-md-9 col-xs-12" @onchange="SaisonChange">
+                                    <select id="cboSaison" style="display:inline;max-width:170px;height:38px;margin-right:2px;" Disabled=true class="form-control col-md-9 col-xs-12" @onchange="SaisonChange">
                                         <option value="" selected required>@Localizer["Saison wählen"].Value</option>
                                         @if (SaisonenList != null)
                                         {
@@ -138,9 +120,8 @@ else
                                                 }
                                             }
                                         }
-                                    </select>                                    
+                                    </select>
                                 </div>
-
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboSpieltage">@Localizer["Spieltag"].Value </RadzenLabel>
                                     <select id="cboSpieltage" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control dropdown" @onchange="SpieltagChange">
@@ -162,18 +143,43 @@ else
                                     </select>
                                 </div>
                                 <div class="form-group row">
+                                    <RadzenLabel Text="Datum" class="col-md-3 col-xs-12" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
+                                    <InputDate required id="txtDatum" style="display:inline;max-width:170px;height:38px;margin-right:2px;" @oninput="DatumChange" @bind-Value="Spiel.Datum" class="form-control col-md-3 col-xs-12"></InputDate>
+                                    <ValidationMessage For="(()=>Spiel.Datum)"></ValidationMessage>
+                                    <input id="txtZeit" type="time" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control col-md-3 col-xs-12" required @bind-value="Time" />
+                                </div>
+                                <div class="form-group row">
+                                    <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
+                                    <select id="cboVerein1" disabled="@DisabledVereine" class="form-control col-md-9 col-xs-12" @onchange="Verein1Change">
+                                        <option value="" selected required>@Localizer["Verein wählen"].Value</option>
+                                        @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
+                                        {
+                                            @if (verein.VereinID == Spiel.Verein1_Nr)
+                                            {
+                                                <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                            }
+                                            else
+                                            {
+                                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                                            }
+                                        }
+                                    </select>
+                                    <InputText style="display:none;" id="txtVerein1_Nr" @bind-Value="Spiel.Verein1_Nr" class="form-control col-md-9 col-xs-12"></InputText>
+                                </div>
+
+                                <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="txtTore1">@Localizer["Tore 1"].Value</RadzenLabel>
-                                    <RadzenNumeric style="display: block" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-md-9 col-xs-12 pl-2" />
+                                    <RadzenNumeric style="display:block;max-width:170px;height:38px;" Min="0" Max="20" Name="txtTore1" @bind-Value=@Spiel.Tore1_Nr class="form-control col-md-9 col-xs-12 pl-2" />
                                     <ValidationMessage class="form-control col-md-9 col-xs-12" For="@(() => Spiel.Tore1_Nr)" />
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="lblTore2" class="col-md-3 col-xs-12" Component="txtTore2">@Localizer["Tore 2"].Value</RadzenLabel>
-                                    <RadzenNumeric style="display: block" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-md-9 col-xs-12 pl-2" />
+                                    <RadzenNumeric style="display:block;max-width:170px;height:38px;" Min="0" Max="20" Name="txtTore2" @bind-Value=@Spiel.Tore2_Nr class="form-control col-md-9 col-xs-12 pl-2" />
                                     <ValidationMessage class="form-control col-md-9 col-xs-12" For="@(() => Spiel.Tore2_Nr)" />
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="cboVerein2">@Localizer["Verein 2"].Value</RadzenLabel>
-                                    <select id="cboVerein1" class="form-control col-md-9 col-xs-12" @onchange="Verein2Change">
+                                    <select id="cboVerein1" disabled="@DisabledVereine" class="form-control col-md-9 col-xs-12" @onchange="Verein2Change">
                                         <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                         @foreach (var verein in VereineList.OrderBy(x => x.Vereinname1))
                                         {
@@ -188,13 +194,7 @@ else
                                         }
                                     </select>
                                     <RadzenTextBox style="display:none;" id="txtVerein2Nr" @bind-Value="Spiel.Verein2_Nr" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
-                                </div>
-                                <div class="form-group row">
-                                    <RadzenLabel Text="Datum" class="col-md-3 col-xs-12" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
-                                    <InputDate required id="txtDatum" @bind-Value="Spiel.Datum" class="form-control col-md-3 col-xs-12"></InputDate>
-                                    <ValidationMessage For="(()=>Spiel.Datum)"></ValidationMessage>
-                                    <input id="txtZeit" type="time" class="form-control col-md-3 col-xs-12" required @bind-value="Time" />
-                                </div>
+                                </div>                                
                                 <div class="form-group row">
                                     <RadzenLabel Text="Ort" class="col-md-3 col-xs-12" Component="cboStadion">@Localizer["Ort"].Value</RadzenLabel>
                                     <select id="cboStadion" bind-value="@Spiel.Ort" class="form-control col-md-9 col-xs-12" @onchange="StadionChange">
@@ -209,10 +209,10 @@ else
                                         }
                                         else
                                         {
-                                            <option selected="selected">@Spiel.Ort</option>
+                                            <option selected="selected">@Stadionname</option>
                                         }
                                     </select>
-                                    <InputText style="display:none;" id="txtOrt" @bind-Value="Spiel.Ort" class="form-control col-md-9 col-xs-12"></InputText>
+                                    <InputText style="display:none;" id="txtOrt" @bind-Value="@Stadionname" class="form-control col-md-9 col-xs-12"></InputText>
                                     <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
                                 </div>
                                 <div class="form-group row">
@@ -223,8 +223,7 @@ else
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Zuschauer" class="col-md-3 col-xs-12" Component="txtZuschauer">@Localizer["Zuschauer"].Value</RadzenLabel>
-                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-md-9 col-xs-12 pl-2" />
-                                    @* <RadzenNumericRangeValidator Component="txtZuschauer" Min="100" Max="1000000" Text="Zuschauer zwischen 100 und 100000" Style="position: absolute" /> *@
+                                    <RadzenNumeric style="display: block" Name="txtZuschauer" @bind-Value=@Spiel.Zuschauer class="form-control col-md-9 col-xs-12 pl-2" />                                    
                                     <ValidationMessage For="()=>Spiel.Zuschauer"></ValidationMessage>
                                 </div>
                                 <div class="form-group py-2">
@@ -233,12 +232,9 @@ else
                                     </RadzenButton>
                                     <RadzenButton title="@Localizer["Löscht Spiel"].Value" style="margin-left:5px;" Visible="@bDeleteButtonVisible" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="Löschen">
                                         <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
-                                    </RadzenButton>
-                                    
-                                @*     <RadzenButton Text="Löschen" ButtonStyle="ButtonStyle.Secondary"
-                                                  Click=@(args => OnDeleteClick()) /> *@
-                                    
-                                 
+                                    </RadzenButton>                                   
+
+
                                     <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                                         <span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value
                                     </RadzenButton>
@@ -311,8 +307,8 @@ else
                                             var ToreList2 = ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
 
                                             <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
-                                                            WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                            Data="@ToreList2" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
+                                            WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                            Data="@ToreList2" TItem="DisplayTore" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
                                                 <Template Context="Tor">
                                                     <RadzenCard Style="width:100%; padding:0;">
                                                         <RadzenRow Gap="0">
@@ -417,13 +413,12 @@ else
                 </RadzenTabs>
             </EditForm>
         </div>
-        
+
     </div>
 }
 @code {
 
-    private string Titel { get; set; }
-    public bool IsLoading { get; set; }
+    private string Titel { get; set; }    
     public IEnumerable<Verein> VereineMax { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -433,36 +428,16 @@ else
             {
                 //Neuanlage
                 Titel = @Localizer["Neuanlage"].Value;
-                Id = "0";
-                IsLoading = false;
+                Id = "0";                
             }
             else
             {
                 //Bearbeiten
-                Titel = @Localizer["Bearbeiten"].Value;
-                await LoadSpiel();
+                Titel = @Localizer["Bearbeiten"].Value;                
             }
         }
     }
 
-    private async Task LoadSpiel()
-    {
-        IsLoading = true;
-
-        // if (Globals.LigaID < 4)
-        //     Spiel = await _SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-        // else if (Globals.LigaID == 4)
-        //     Spiel = await _SpieltagPLService.GetSpieltag(Convert.ToInt32(Id));
-        // else if (Globals.LigaID == 6)
-        //     Spiel = await _SpieltagITService.GetSpieltag(Convert.ToInt32(Id));
-        // else if (Globals.LigaID == 7)
-        //     Spiel = await _SpieltagFRService.GetSpieltag(Convert.ToInt32(Id));
-        // else if (Globals.LigaID == 8)
-        //     Spiel = await _SpieltagESService.GetSpieltag(Convert.ToInt32(Id));
-
-        IsLoading = false;
-        StateHasChanged();
-    }
     private async Task Upsert()
     {
         Spieltag spieltag = new Spieltag();
@@ -512,16 +487,16 @@ else
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
-        else if (Spiel.Datum.Year < 1930 || Spiel.Datum.Month == 0 || Spiel.Datum.Day == 0)
-        {
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
-            bError = true;
-        }
         else if (!LigaManagement.Models.ExtensionMethos.IsDate(Spiel.Datum.ToString()))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt.Speichern nicht möglich." });
             bError = true;
         }
+        else if (!(Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) || Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) +1))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
+            bError = true;
+        }        
         else if (Spiel.Ort == null || Spiel.Ort == "")
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Ort nicht angegeben.Speichern nicht möglich." });
@@ -538,9 +513,17 @@ else
         if (Id == "0")
         {
             Spiel.Datum = SpielDateTime;
-
             if (Globals.LigaID < 3)
+            {
+                var stadien = await StadionService.GetStadien();
+                var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spiel.Verein1_Nr.ToString()) && x.JahrVonDate < Spiel.Datum && x.JahrBisDate > Spiel.Datum).ToList();
+                if (stadion.Count() == 1)  // genau ein Stadion gefunden
+                    Spiel.StadionID = stadion[0].Id;
+                else
+                    Spiel.StadionID = 0;
+
                 spieltag = await _SpieltagService.CreateSpieltag(Spiel);
+            }
             else if (Globals.LigaID == 3)
                 spieltag = await _SpieltagService.CreateSpieltagL3(Spiel);
             else if (Globals.LigaID == 4)
@@ -568,8 +551,17 @@ else
         else
         {
             //update
-            if (Globals.LigaID < 3)
+            if (Globals.LigaID < 3)                
+            {
+                var stadien = await StadionService.GetStadien();
+                var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spiel.Verein1_Nr.ToString()) && x.JahrVonDate < Spiel.Datum && x.JahrBisDate > Spiel.Datum).ToList();
+                if (stadion.Count() == 1)  // genau ein Stadion gefunden
+                    Spiel.StadionID = stadion[0].Id;
+                else
+                    Spiel.StadionID = 0;
+
                 spieltag = await _SpieltagService.UpdateSpieltag(Spiel);
+            }                
             else if (Globals.LigaID == 3)
                 spieltag = await _SpieltagService.UpdateSpieltagL3(Spiel);
             else if (Globals.LigaID == 4)
@@ -631,6 +623,6 @@ else
     private void GoBack()
     {
         _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
-    }
+    }    
 }
 

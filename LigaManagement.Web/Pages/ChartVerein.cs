@@ -4,6 +4,7 @@ using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
@@ -19,7 +20,8 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class ChartVerein : ComponentBase
     {
-        public RadzenDataGrid<Verein> grid;      
+        public RadzenDataGrid<Verein> grid;
+        public RadzenDataGrid<Spieltag> gridSpieltage;
 
         public bool IsLoading = false;
         public Density Density = Density.Compact;
@@ -28,6 +30,7 @@ namespace LigaManagerManagement.Web.Pages
         double prozentuntentschieden = 0;
         double prozentniederlagen = 0;
         public string VisibleChart = "none";
+        
         [Parameter]
         public string VereinNr { get; set; }
 
@@ -49,6 +52,8 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<Mannschaftsstatistik> StatistikAktSaison = new List<Mannschaftsstatistik>();
 
+        public IEnumerable<Spieltag> Spieltage { get; set; }
+
         public List<LVereinsinfo> Vereinsinfo = new List<LVereinsinfo>();
 
         [Inject]
@@ -57,8 +62,7 @@ namespace LigaManagerManagement.Web.Pages
         
         public List<int?> chartData = new List<int?>();
 
-        public int SaisonID;
-        
+        public int SaisonID;       
         
         public string Vereinsname;
         
@@ -67,17 +71,17 @@ namespace LigaManagerManagement.Web.Pages
         {
             try
             {
-                IsLoading = true;
+               IsLoading = true;
 
                await ErzeugeVereinsinfo();
                await ErzeugeStatistik();
-               await ErzeugeLangZeitStatistik();
-                               
+               await ErzeugeLangZeitStatistik();               
                 var verein = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
                 Vereinsname = verein.Vereinsname2;
 
                 IsLoading = false;
                 StateHasChanged();
+                OnTabChange(0);
             }
             catch (Exception ex)
             {
@@ -134,6 +138,7 @@ namespace LigaManagerManagement.Web.Pages
         private async Task ErzeugeStatistik()
         {
             var spieltage = await SpieltagService.GetSpieltage();
+            Spieltage = spieltage.Where(x => x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr));
 
             int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
             int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
@@ -179,20 +184,24 @@ namespace LigaManagerManagement.Web.Pages
 
             int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
             int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
+                        
+            int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
+            int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
 
             item = new Mannschaftsstatistik();
             item.StatText = "Tore : Gegentore";
-            item.Gesamt = (toreheim + toreauswaerts).ToString();
-            item.Heim = toreheim.ToString();
-            item.Auswaerts = toreauswaerts.ToString();
+            item.Gesamt = (toreheim + toreauswaerts).ToString() + ": " + (gegentoreheim + gegentoreauswaerts).ToString();
+            item.Heim = toreheim.ToString() + ": " + gegentoreheim.ToString();
+            item.Auswaerts = toreauswaerts.ToString() + ": " + gegentoreauswaerts.ToString();
             StatistikAktSaison.Add(item);
 
             item = new Mannschaftsstatistik();
             int? toregesamt = toreheim + toreauswaerts;
+            int? gegentoregesamt = gegentoreheim + gegentoreauswaerts;
             item.StatText = "Tore : Gegentore (Durchschn.)";
-            item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString();
-            item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString();
-            item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString();
+            item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString() + ": " + Math.Round((decimal)(gegentoregesamt * 1.0 / spielegesamt), 2).ToString();
+            item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString() + ": " + Math.Round((decimal)(gegentoreheim * 1.0 / spieleheim), 2).ToString();
+            item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString() + ": " + Math.Round((decimal)(gegentoreauswaerts * 1.0 / spieleheim), 2).ToString();
             StatistikAktSaison.Add(item);
 
             prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);
@@ -203,15 +212,40 @@ namespace LigaManagerManagement.Web.Pages
 
         public async void OnTabChange(int index)
         {
-            // Index des Tabs prüfen (Langzeitstatistik ist z. B. das 2. Tab mit Index 2)
-            if (index == 2)
+            try
             {
-                VisibleChart = "block";
-                await JSRuntime.InvokeVoidAsync("renderChart");                
+                // Index des Tabs prüfen (Langzeitstatistik ist z. B. das 2. Tab mit Index 2)
+                if (index == 2)
+                {
+                    VisibleChart = "block";
+                    await JSRuntime.InvokeVoidAsync("renderChart");
+                }
+                else
+                {
+                    VisibleChart = "none";
+                }
+
+                if (index == 0)
+                {
+                    var verein = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
+
+                    decimal? latitude = verein.Latitude;
+                    decimal? longitude = verein.Longitude;
+
+                    if (latitude.HasValue && longitude.HasValue)
+                    {
+                        await JSRuntime.InvokeVoidAsync("renderMap", latitude.Value, longitude.Value);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Latitude oder Longitude sind null.");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                VisibleChart = "none";
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                IsLoading = false;
             }
         }
 
@@ -266,19 +300,23 @@ namespace LigaManagerManagement.Web.Pages
                 int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore1_Nr);
                 int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore2_Nr);
 
+                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore2_Nr);
+                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore1_Nr);
+
                 item = new Mannschaftsstatistik();
                 item.StatText = "Tore : Gegentore";
-                item.Gesamt = (toreheim + toreauswaerts).ToString();
-                item.Heim = toreheim.ToString();
-                item.Auswaerts = toreauswaerts.ToString();
+                item.Gesamt = (toreheim + toreauswaerts).ToString() + ": " + (gegentoreheim + gegentoreauswaerts).ToString();
+                item.Heim = toreheim.ToString() + ": " + gegentoreheim.ToString();
+                item.Auswaerts = toreauswaerts.ToString() + ": " + gegentoreauswaerts.ToString();
                 Statistik.Add(item);
 
                 item = new Mannschaftsstatistik();
                 int? toregesamt = toreheim + toreauswaerts;
+                int? gegentoregesamt = gegentoreheim + gegentoreauswaerts;
                 item.StatText = "Tore : Gegentore (Durchschn.)";
-                item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString();
-                item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString();
-                item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString();
+                item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString() + ": " + Math.Round((decimal)(gegentoregesamt * 1.0 / spielegesamt), 2).ToString();
+                item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString() + ": " + Math.Round((decimal)(gegentoreheim * 1.0 / spieleheim), 2).ToString();
+                item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString() + ": " + Math.Round((decimal)(gegentoreauswaerts * 1.0 / spieleheim), 2).ToString();
                 Statistik.Add(item);
 
                 prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);

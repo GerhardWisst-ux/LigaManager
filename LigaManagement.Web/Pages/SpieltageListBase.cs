@@ -11,11 +11,11 @@ using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -45,6 +45,7 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
+                
         public bool VisibleBtnNew { get; set; }
 
         public RadzenDataGrid<Spieltag> grid;
@@ -63,6 +64,9 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
+
+        [Inject]
+        public ISpielplanService SpielplanService { get; set; }
 
         [Inject]
         public IVereinePLService VereinePLService { get; set; }
@@ -106,8 +110,13 @@ namespace LigaManagerManagement.Web.Pages
         public ILigaService LigaService { get; set; }
 
         [Inject]
+        public IStadionService StadionService { get; set; }
+
+        [Inject]
         public IStringLocalizer<SpieltageList> Localizer { get; set; }
         public IEnumerable<Spieltag> Spieltage { get; set; }
+
+        public IEnumerable<Spielplan> Spielplaene { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
@@ -255,6 +264,7 @@ namespace LigaManagerManagement.Web.Pages
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
+                
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
@@ -697,19 +707,76 @@ namespace LigaManagerManagement.Web.Pages
 
         public async Task SpieltagVor()
         {
-            if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
-                SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
+            try
+            {
+                if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
+                    SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
 
-            Globals.Spieltag = Convert.ToInt32(SpieltagNr);
+                Globals.Spieltag = Convert.ToInt32(SpieltagNr);
 
-            await DisplaySpieltagAkt();
+                var Spielplaene = (await SpielplanService.GetSpielplaene()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+                for (int i = 0; i < Spielplaene.Count(); i++)
+                {
+                    Spieltag spieltag = new Spieltag();
 
-            if (Spieltage.Any())
-                VisibleVorZurueck = true;
-            else
-                VisibleVorZurueck = false;
+                   
 
-            StateHasChanged();
+                    spieltag.SpieltagId = 0;
+                    spieltag.Saison = Spielplaene[i].Saison;
+                    spieltag.SaisonID = Spielplaene[i].SaisonID;
+                    spieltag.LigaID = Spielplaene[i].LigaID;                    
+                    spieltag.Doppelpunkt = ":";
+                    spieltag.SpieltagNr = Spielplaene[i].SpieltagNr;
+                    spieltag.Verein1 = Spielplaene[i].Verein1;
+                    spieltag.Verein1Anzeige = Spielplaene[i].Verein1Anzeige;
+                    spieltag.Verein2Anzeige = Spielplaene[i].Verein2Anzeige;
+                    spieltag.Verein1_Nr = Spielplaene[i].Verein1_Nr;
+                    spieltag.Verein2 = Spielplaene[i].Verein2;
+                    spieltag.Verein2_Nr = Spielplaene[i].Verein2_Nr;
+                    spieltag.Tore1_Nr = Spielplaene[i].Tore1_Nr;
+                    spieltag.Tore2_Nr = Spielplaene[i].Tore2_Nr;                    
+                    spieltag.Schiedrichter = Spielplaene[i].Schiedrichter;
+                    spieltag.Datum = DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1).AddMinutes(930);
+                    spieltag.Abgeschlossen = Spielplaene[i].Abgeschlossen;
+                    spieltag.Zuschauer = Spielplaene[i].Zuschauer;
+                    spieltag.TeamIconUrl1 = Spielplaene[i].TeamIconUrl1;
+                    spieltag.TeamIconUrl2 = Spielplaene[i].TeamIconUrl2;
+
+                    var stadien = await StadionService.GetStadien();
+                    var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spielplaene[i].Verein1_Nr?.ToString()) && x.JahrVonDate < DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1) && x.JahrBisDate > DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1)).ToList();
+
+                    if (stadion.Count == 1)  // genau ein Stadion gefunden
+                    {
+                        spieltag.StadionID = stadion[0].Id;
+                        spieltag.Ort = stadion[0].Stadionname;
+                    }
+
+                    else
+                    {
+                        spieltag.StadionID = 0;
+                        spieltag.Ort = "Stadion nicht gefunden";
+                    }
+
+
+                    var Spieltag = await SpieltagService.CreateSpieltag(spieltag);
+                }
+
+                
+                await DisplaySpieltagAkt();                            
+
+
+                if (Spieltage.Any())
+                    VisibleVorZurueck = true;
+                else
+                    VisibleVorZurueck = false;
+
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+                throw;
+            }
         }
         public class DisplaySpieltag
         {

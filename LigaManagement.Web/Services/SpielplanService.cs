@@ -5,37 +5,36 @@ using Microsoft.AspNetCore.Components;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 
 namespace LigaManagerManagement.Web.Services
 {
-    public class SpieltagService : ISpieltagService
+    public class SpielplanService : ISpielplanService
     {
         private string URL => "https://services.odata.org/Northwind/Northwind.svc/";
 
         private readonly HttpClient httpClient;
         public int TotalCount { get; set; }
-        public SpieltagService(HttpClient httpClient)
+        public SpielplanService(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
 
-        public async Task<Spieltag> GetSpieltag(int id)
+        public async Task<Spielplan> GetSpielplan(int id)
         {
-            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltage/{id}");
+            return await httpClient.GetJsonAsync<Spielplan>($"api/Spielplaene/{id}");
         }
 
-        public async Task<Spieltag> GetSpieltagL3(int id)
+        public async Task<Spielplan> GetSpielplanL3(int id)
         {
-            return await httpClient.GetJsonAsync<Spieltag>($"api/spieltageL3/{id}");
+            return await httpClient.GetJsonAsync<Spielplan>($"api/SpielplaeneL3/{id}");
         }
 
-        public async Task<IEnumerable<Spieltag>> GetSpieltage()
+        public async Task<IEnumerable<Spielplan>> GetSpielplaene()
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltage");
+                return await httpClient.GetJsonAsync<Spielplan[]>("api/Spielplaene");
             }
             catch (System.Exception ex)
             {
@@ -49,7 +48,7 @@ namespace LigaManagerManagement.Web.Services
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spielergebnisse[]>("api/spieltage");
+                return await httpClient.GetJsonAsync<Spielergebnisse[]>("api/Spielplaene");
             }
             catch (System.Exception ex)
             {
@@ -59,42 +58,35 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<Spieltag> CreateSpieltag(Spieltag spiel)
+        public async Task<Spielplan> CreateSpielplan(Spielplan Spielplan)
         {
             try
             {
-                var response = await httpClient.PostAsJsonAsync("api/spieltage", spiel);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadFromJsonAsync<Spieltag>();
-            }
-            catch (HttpRequestException ex)
-            {
-                
-                Debug.Print($"HTTP Error: {ex.Message}");
-                return null;
+                return await httpClient.PostJsonAsync<Spielplan>("api/Spielplaene", Spielplan);
             }
             catch (System.Exception ex)
             {
-                Debug.Print($"General Error: {ex.Message}");
+
+                Debug.Print(ex.StackTrace);
                 return null;
             }
         }
 
-        public async Task<Spieltag> UpdateSpieltag(Spieltag updatedSpieltag)
+        public async Task<Spielplan> UpdateSpielplan(Spielplan updatedSpielplan)
         {
-            return await httpClient.PutJsonAsync<Spieltag>("api/spieltage", updatedSpieltag);
+            return await httpClient.PutJsonAsync<Spielplan>("api/Spielplaene", updatedSpielplan);
         }
 
-        public async Task DeleteSpieltag(int? id)
+        public async Task DeleteSpielplan(int? id)
         {
-            await httpClient.DeleteAsync($"api/spieltage/{id}/{Globals.LigaNummer}");
+            await httpClient.DeleteAsync($"api/Spielplaene/{id}/{Globals.LigaNummer}");
         }
 
-        public async Task<IEnumerable<Spieltag>> GetSpieltageL3()
+        public async Task<IEnumerable<Spielplan>> GetSpielplaeneL3()
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltageL3");
+                return await httpClient.GetJsonAsync<Spielplan[]>("api/SpielplaeneL3");
                 
             }
             catch (System.Exception ex)
@@ -120,16 +112,16 @@ namespace LigaManagerManagement.Web.Services
             }
         }
 
-        public async Task<Spieltag> UpdateSpieltagL3(Spieltag updatedSpieltag)
+        public async Task<Spielplan> UpdateSpielplanL3(Spielplan updatedSpielplan)
         {
-            return await httpClient.PutJsonAsync<Spieltag>("api/spieltageL3", updatedSpieltag);
+            return await httpClient.PutJsonAsync<Spielplan>("api/SpielplaeneL3", updatedSpielplan);
         }
 
-        public async Task<Spieltag> CreateSpieltagL3(Spieltag newSpieltag)
+        public async Task<Spielplan> CreateSpielplanL3(Spielplan newSpielplan)
         {
             try
             {
-                return await httpClient.PostJsonAsync<Spieltag>("api/spieltageL3", newSpieltag);
+                return await httpClient.PostJsonAsync<Spielplan>("api/SpielplaeneL3", newSpielplan);
             }
             catch (System.Exception ex)
             {

@@ -64,8 +64,8 @@ else
                         <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Title="SaisonID" Visible=false>                        
                         </RadzenDataGridColumn>
                         <RadzenDataGridColumn TItem="Saison" Property="SaisonID" Width="10%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="ID" />
-                        <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="30%" Sortable=true Title="@Localizer["Liganame"].Value" />
-                        <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="30%" Sortable=true Title="@Localizer["Saisonname"].Value" />                        
+                        <RadzenDataGridColumn TItem="Saison" Property="Liganame" Width="28%" Sortable=true Title="@Localizer["Liganame"].Value" />
+                        <RadzenDataGridColumn TItem="Saison" Property="Saisonname" Width="28%" Sortable=true Title="@Localizer["Saisonname"].Value" />                        
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="Abgeschlossen" title="@Localizer["Abgeschlossen"].Value" Width="15%" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 <RadzenCheckBox @bind-Value=@data.Abgeschlossen TValue="bool" Name="chkAbgeschlossen" />
@@ -77,7 +77,7 @@ else
                             </Template>
                         </RadzenDataGridColumn>
 
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="SaisonID" Width="100px" Filterable="false" Sortable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Saison" Property="SaisonID" Width="130px" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 @if (data.LandID == 57)
                                 {
@@ -87,7 +87,7 @@ else
                                 {
                                     <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
                                 }
-
+                                <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>

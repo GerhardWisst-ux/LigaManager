@@ -1,0 +1,117 @@
+﻿@page "/StadionList"
+@using LigaManagerManagement.Web.Pages
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject DialogService DialogService
+@inject NavigationManager _navigationManager
+
+@inherits StadionListBase
+
+<head>
+ 
+</head>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
+    }
+
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
+
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
+
+    .rz-datatable td {
+        padding: 2.5px;
+    }
+</style>
+
+@if (IsLoading)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+    <div class="container">
+
+        <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+            <div class="d-flex flex-row">
+                <div class="card-body">
+                    <span style="background-color: #1151f3; color:white" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                    <br />
+                    <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
+                    <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
+                    <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                    <h2 style="display:inline-block;">@Localizer["Stadien"].Value</h2>
+                    <span class="ml-3">                        
+                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Stadion"].Value" ButtonStyle="ButtonStyle.Primary" />
+                    </span>
+                </div>
+            </div>
+        </RadzenCard>
+         
+
+         <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+         </RadzenCard>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenDataGrid @ref="grid" Data="@StadionList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="10"
+                                AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
+                                TItem="Stadion" Visible="true" AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Stadion" Property="Id" Title="Id" Visible=false>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Stadion" Property="Id" Width="5%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
+                        <RadzenDataGridColumn TItem="Stadion" Property="Stadionname" Width="40%" Sortable=true Title="@Localizer["Stadionname"].Value" />
+                        <RadzenDataGridColumn TItem="Stadion" Property="Ort" Width="20%" Sortable=true Title="@Localizer["Ort"].Value" />
+                        <RadzenDataGridColumn TItem="Stadion" Property="Kapazitaet"  Width="10%" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Kapazität"].Value" />
+                        <RadzenDataGridColumn TItem="Stadion" Property="JahrVon" Width="10%" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Jahr Von"].Value" />
+                        <RadzenDataGridColumn TItem="Stadion" Property="JahrBis" Width="10%" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Jahr Bis"].Value" />
+                                                
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Stadion" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"Ligamanager/editstadion/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                    <FooterTemplate>
+                    </FooterTemplate>
+                    <FooterTemplate>
+                        @Localizer["Anzahl Stadien"].Value: <b>@StadionList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGrid>
+                <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
+                    <RadzenColumn Offset="11" Style="text-align:right;">
+                        <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>
+                    </RadzenColumn>
+                </RadzenRow>
+            </div>
+        </div>
+    </div>       
+}
+@code {
+    private void OnClick(string text)
+    {
+       
+         _navigationManager.NavigateTo("Ligamanager/createstadion");
+    }
+}

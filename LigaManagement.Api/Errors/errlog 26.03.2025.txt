@@ -1,10 +1,20 @@
 Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: Unable to cast object of type 'System.Decimal' to type 'System.Int32'.
-StackTrace:    at LigaManagement.Api.Models.KaderRepository.GetAllSpieler() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\KaderRepository.cs:line 127
-Datum/Uhrzeit: 10.03.2025 11:33:41
+Nachricht: Falsche Syntax in der Nähe von ".2023".
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at StadionManagerManagement.Api.Models.StadionRepository.UpdateStadion(Stadion Stadion) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\StadionRepository.cs:line 178
+Datum/Uhrzeit: 26.03.2025 13:42:06
 ============================================
 Titel: LigaManagement.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: Die @VereinNr-Skalarvariable muss deklariert werden.
+Nachricht: Die @Wert-Skalarvariable muss deklariert werden.
 StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
    at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
@@ -17,6 +27,6 @@ StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException ex
    at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
    at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
 --- End of stack trace from previous location ---
-   at LigaManagement.Api.Models.KaderRepository.UpdateSpieler(Kader Spieler) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\KaderRepository.cs:line 235
-Datum/Uhrzeit: 10.03.2025 11:36:08
+   at StadionManagerManagement.Api.Models.StadionRepository.UpdateStadion(Stadion Stadion) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Api\Models\StadionRepository.cs:line 187
+Datum/Uhrzeit: 26.03.2025 13:49:00
 ============================================

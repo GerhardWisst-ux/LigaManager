@@ -248,7 +248,7 @@
     {
         string message = string.Empty;
 
-        if (Globals.iUserGroup == (int)Globals.UserGroup.Gast || Globals.iUserGroup == 0)
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
         {
             message = "Sie können diese Liga nicht löschen?";
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Liga", Detail = "Löschen" });

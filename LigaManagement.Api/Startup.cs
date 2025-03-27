@@ -11,6 +11,7 @@ using System.Reflection;
 using System;
 using ToremanagerManagement.Api.Models.Repository;
 using ToreManagerManagement.Api.Models;
+using StadionManagerManagement.Api.Models;
 
 namespace LigaManagement.Api
 {
@@ -76,6 +77,8 @@ namespace LigaManagement.Api
                 services.AddScoped<ILaenderRepository, LandRepository>();
                 services.AddScoped<IEinstellungenRepository, EinstellungenRepository>();
                 services.AddScoped<IUserRepository, UserRepository>();
+                services.AddScoped<IStadionRepository, StadionRepository>();
+                services.AddScoped<ISpielplaeneRepository, SpielplaeneRepository>();
 
                 services.AddControllers();
 

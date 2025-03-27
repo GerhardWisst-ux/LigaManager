@@ -12,9 +12,14 @@
 
         .rz-column-title-content {
             font-weight: bold !important;
+        }               
+     
+        #mapid {
+            width: 100%;
+            height: 400px; /* Festgelegte Höhe für korrekte Anzeige */
         }
     </style>
-
+    
 
 </head>
 <body>
@@ -54,16 +59,15 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-12">
-
                     <RadzenTabs Change="OnTabChange">
                         <Tabs>
-                            <RadzenTabsItem Text="Vereinsinfo">
+                            <RadzenTabsItem Text=@Localizer["Vereinsinfo"].Value>
                                 <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
                                     <RadzenColumn Size="6" SizeXS="6">
                                         <RadzenText TextStyle="TextStyle.Body1"></RadzenText>
                                     </RadzenColumn>
                                     <RadzenColumn Size="6" SizeXS="6">
-                                        <RadzenText class="rz-column-title-content" TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">Gesamt</RadzenText>
+                                        <RadzenText class="rz-column-title-content" TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1"></RadzenText>
                                     </RadzenColumn>
                                 </RadzenRow>                               
                                 <RadzenDataList AllowVirtualization=@allowVirtualization
@@ -83,7 +87,8 @@
                                     </Template>
                                 </RadzenDataList>                                
                             </RadzenTabsItem>
-                            <RadzenTabsItem Text="Statistik">
+                            <RadzenTabsItem Text=@Localizer["Statistik"].Value>
+                                <RadzenLabel Text="Statistik" Style="font-weight:bold;" />
                                 <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
                                     <RadzenColumn Size="3" SizeXS="3">
                                         <RadzenText TextStyle="TextStyle.Body1"></RadzenText>
@@ -120,8 +125,73 @@
                                         </RadzenCard>
                                     </Template>
                                 </RadzenDataList>
+
+                                <RadzenLabel Text=@Localizer["Spiele"].Value Style="font-weight:bold;" />
+
+                                <RadzenDataGrid @ref="gridSpieltage" Data="@Spieltage" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="34"
+                                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                    <Columns>
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+
+                                        </RadzenDataGridColumn>
+                                        @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                                        {
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                        }
+                                        else
+                                        {
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                        }
+
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="44px" Sortable=true />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="44px" Sortable=true />                                                                               
+
+                                        @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
+                                        {
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                        }
+                                        else
+                                        {
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                        }
+
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+
+                                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+                                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                                            <Template Context="data">
+                                                <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                            </Template>
+                                        </RadzenDataGridColumn>
+                                        
+                                    </Columns>
+                                   
+                                </RadzenDataGrid>
                             </RadzenTabsItem>
-                            <RadzenTabsItem Text="Langzeitstatistik">
+                            <RadzenTabsItem Text=@Localizer["Langzeitstatistik"].Value>
                                 
                                 <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
                                     <RadzenColumn Size="3" SizeXS="3">
@@ -164,10 +234,12 @@
                         </Tabs>
                     </RadzenTabs>
                     <div style="display:@VisibleChart" class="container">
+                        <RadzenLabel Text=@Localizer["Lage"].Value Style="font-weight:bold;" />
                         <RadzenCard style="margin-left: 0px; margin-right: 0px; margin-bottom:4px; height:600px;">
                             <canvas id="myChart" width="400" height="200"></canvas>
-                        </RadzenCard>
-                    </div>  
+                        </RadzenCard>                        
+                    </div>
+                    <div id="mapid"></div>
                 </div>
             </div>
         </div>
@@ -181,56 +253,70 @@
      let xValues = ["Siege", "Unentschieden", "Niederlagen"];
      let yValues = [0, 0, 0]; // Initialwerte
 
-     function renderChart() {
-         const ctx = document.getElementById("myChart").getContext("2d");
+     function renderMap(latitude, longitude) {
 
-         // Zerstöre den alten Chart, falls vorhanden
-          if (chart) {
-             console.log("Chart exists, destroying...");
-              chart.destroy();
-         }
+         //  if (mymap) {
+         //     console.log("Map exists, destroying...");
+         //      mymap.destroy();
+         // }
 
-         // Erstelle den neuen Chart
+         mymap = new L.Map('mapid');
+        // OpenStreetMap-Karte einfügen
+        var osmUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var osmAtt = '<a href="https://openstreetmap.org ">OpenStreetMap</a>';
+        var args = {
+            minZoom: 4,
+            maxZoom: 20,
+            attribution: osmAtt
+        }
+        var osm = new L.TileLayer(osmUrl, args);
+        mymap.setView([latitude, longitude], 15);
+        mymap.addLayer(osm);
+    }
+
+    function zoomAnzeige() {
+        var z = mymap.getZoom();
+        alert("Zoomfaktor: " + z);
+    }
+
          chart = new Chart(ctx, {
-             type: "bar",
-             data: {
-                 labels: xValues,
-                 datasets: [{
-                     backgroundColor: ["green", "yellow", "red"],
-                     data: yValues
-                 }]
-             },
-             options: {
-                 indexAxis: 'y', // Balken horizontal ausrichten
-                 scales: {
-                     x: { // X-Achse (Werte) beginnt bei 0
-                         beginAtZero: true
-                     },
-                     y: { // Y-Achse (Kategorien) bleibt unverändert
-                         ticks: {
-                             beginAtZero: true // Wird für Y-Kategorien ignoriert, bleibt hier nur aus Konsistenz
-                         }
-                     }
-                 },
-                 plugins: {
-                     title: {
-                         display: true,
-                         text: "Siege - Unentschieden - Niederlagen"
-                     }
-                 },
-                 legend: { display: true }
-             }
-         });
-     }
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                label: "Ergebnisse", // Legende wird hiermit definiert
+                backgroundColor: ["green", "yellow", "red"],
+                data: yValues
+            }]
+        },
+        options: {
+            indexAxis: 'y', // Balken horizontal ausrichten
+            scales: {
+                x: { // X-Achse (Werte) beginnt bei 0
+                    beginAtZero: true
+                },
+                y: { // Y-Achse (Kategorien) bleibt unverändert
+                    ticks: {
+                        beginAtZero: true // Wird für Y-Kategorien ignoriert, bleibt hier nur aus Konsistenz
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: "Siege - Unentschieden - Niederlagen"
+                },
+                legend: {
+                    display: true // Legende anzeigen
+                }
+            }
+        }
+    });
 
-     // Funktion zum Aktualisieren der Chart-Werte
-     window.updateChartValues = (siege, unentschieden, niederlagen) => {
-         yValues = [siege, unentschieden, niederlagen]; // Werte aktualisieren
-         renderChart(); // Chart neu rendern
-     };
+     
+     
 
-     // Initialer Aufruf
-     renderChart();
+   
 </script>
 
 

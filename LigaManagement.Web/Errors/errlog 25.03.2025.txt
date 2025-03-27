@@ -1,0 +1,54 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+Error: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 326
+Datum/Uhrzeit: 25.03.2025 14:36:56
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+Error: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 326
+Datum/Uhrzeit: 25.03.2025 14:38:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+Error: Could not find 'updateChartValues' ('updateChartValues' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 326
+Datum/Uhrzeit: 25.03.2025 14:39:53
+============================================

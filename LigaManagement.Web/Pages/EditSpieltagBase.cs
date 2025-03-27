@@ -8,12 +8,14 @@ using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -49,11 +51,16 @@ namespace LigamanagerManagement.Web.Pages
         public List<DisplaySpieltag> SpieltagList;
         int iSpieltage = 34;
 
+        public bool DisabledVereine;
         public string Vereinsname1;
 
         public string Vereinsname2;
 
-        public string Stadion;
+        public string Stadionname { get; set; }
+        public IEnumerable<Stadion> StadionList { get; set; }
+
+        [Inject]
+        public IStadionService StadionService { get; set; }
 
         public string Spielername;
 
@@ -171,6 +178,7 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
+                IsLoading = true;
                 SaisonenList = new List<DisplaySaison>();
                 Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
                 if (Globals.LigaNummer == 0)
@@ -410,7 +418,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 var saison = await SaisonenService.GetSaison(Globals.SaisonID);
 
-                if (saison == null)
+                if (saison != null)
                 {
                     if (saison.Abgeschlossen)
                         bAbgeschlossen = true;
@@ -418,17 +426,24 @@ namespace LigamanagerManagement.Web.Pages
                         bAbgeschlossen = false;
                 }
 
-                if (LMSettings.GetSpielverlaufVisible() == false)
-                    SpielverlaufVisible = false;
-                else if (LMSettings.GetSpielverlaufVisible() == true)
-                    SpielverlaufVisible = true;
+                SpielverlaufVisible = LMSettings.GetSpielverlaufVisible();
+                AufstellungenVisible = LMSettings.GetAufstellungenVisible();
 
-                if (LMSettings.GetAufstellungenVisible() == false)
-                    AufstellungenVisible = false;
-                else if (LMSettings.GetAufstellungenVisible() == true)
-                    AufstellungenVisible = true;
+                Stadion stadion = null;
+                if (Globals.LigaNummer < 4)
+                {
+                    stadion = await StadionService.GetStadion(Convert.ToInt32(Spiel.StadionID));
+                    Stadionname = stadion?.Stadionname;
+                    Spiel.StadionID = stadion?.Id;
+                    Id = Spiel.SpieltagId.ToString();
+                }
+                else
+                    Stadionname = Spiel.Ort;
 
+                DisabledVereine = true;
+                IsLoading = false;
 
+                StateHasChanged();
             }
             catch (Exception ex)
             {
@@ -532,9 +547,12 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
             }
 
+            if (Convert.ToInt32(SpieltagNr) > currentspieltag)
+                currentspieltag = Convert.ToInt32(SpieltagNr);
+
             return currentspieltag;
         }
-        public async Task SpieltagChange(ChangeEventArgs e)
+        public void SpieltagChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
@@ -558,23 +576,7 @@ namespace LigamanagerManagement.Web.Pages
                 StateHasChanged();
             }
         }
-        protected async override void OnAfterRender(bool firstRender)
-        {
 
-            //if (Id != null)
-            //{
-            //    SpielCombo = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-            //    Vereinsname1 = SpielCombo.Verein1;
-            //    Vereinsname2 = SpielCombo.Verein2;
-            //    Stadion = SpielCombo.Ort;
-            //    //VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
-            //}
-            //else
-            //{
-            //    Vereinsname1 = null;
-            //    Vereinsname2 = null;
-            //}
-        }
 
         public void TorartChange(ChangeEventArgs e)
         {
@@ -622,6 +624,17 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Verein1_Nr = e.Value.ToString();
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
+
+                    var stadien = await StadionService.GetStadien();
+                    var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spiel.Verein1_Nr?.ToString()) && x.JahrVonDate < Spiel.Datum && x.JahrBisDate > Spiel.Datum).ToList();
+                    if (stadion.Count == 1)  // genau ein Stadion gefunden
+                    {
+                        Stadionname = stadion[0].Stadionname;
+                        Spiel.StadionID = stadion[0].Id;
+                    }
+
+                    else
+                        Spiel.StadionID = 0;
                 }
                 if (Globals.LigaID == 3)
                 {
@@ -761,26 +774,24 @@ namespace LigamanagerManagement.Web.Pages
             }
             StateHasChanged();
         }
-        public void StadionChange(ChangeEventArgs e)
+        protected void StadionChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 int index = VereineList.FindIndex(x => x.VereinID == e.Value.ToString());
                 Spiel.Ort = VereineList[index].Ort;
             }
+
             StateHasChanged();
         }
 
-        public async void KaderChange1(ChangeEventArgs e)
+        protected async void KaderChange1(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
                 var Spieler = await KaderService.GetSpieler(Convert.ToInt32(e.Value));
                 SpielerList1.Add(new DisplaySpieler(Convert.ToInt32(e.Value), Spieler.SpielerName + ", " + Spieler.Vorname)); ;
 
-                //SpielerList1.Verein2_Nr = e.Value.ToString();
-                //int index = VereineList.FindIndex(x => x.VereinID == Spiel.Verein2_Nr);
-                //Spiel.Verein2 = VereineList[index].Vereinname1;
             }
             StateHasChanged();
         }
@@ -793,6 +804,28 @@ namespace LigamanagerManagement.Web.Pages
                 Tor.SpielerID = Spieler.Id;
             }
             StateHasChanged();
+        }
+
+        protected void DatumChange(ChangeEventArgs args)
+        {
+            DateTime datum;
+            DateTime dateValue;
+            CultureInfo deDE = new CultureInfo("de-DE");
+
+            DateTime.TryParse(args.Value.ToString(), out dateValue);
+
+            if (1== 2)
+            {
+                datum = Convert.ToDateTime(args.Value);
+                {
+                    if ((datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) || Convert.ToInt32(datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) + 1)
+                        DisabledVereine = false;
+                    else
+                        DisabledVereine = true;
+
+                    StateHasChanged();
+                }
+            }
         }
 
         public async void btnSpeichernTorV2_Click(ChangeEventArgs e)
@@ -948,4 +981,6 @@ namespace LigamanagerManagement.Web.Pages
             return result;
         }
     }
+
+
 }

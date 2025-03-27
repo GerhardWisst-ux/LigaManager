@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Radzen;
-using Radzen.Blazor;
 using Radzen.Blazor.Rendering;
+using StadionManagerManagement.Web.Services;
 using System;
 using System.Reflection;
 using ToreManagerManagement.Web.Services;
@@ -206,6 +206,16 @@ namespace LigaManagement.Web
                 });
 
                 services.AddHttpClient<IUserService, UserService>(client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:44355/");
+                });
+
+                services.AddHttpClient<IStadionService, StadionService>(client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:44355/");
+                });
+
+                services.AddHttpClient<ISpielplanService, SpielplanService>(client =>
                 {
                     client.BaseAddress = new Uri("https://localhost:44355/");
                 });
