@@ -2,6 +2,7 @@
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -14,9 +15,12 @@ namespace LigaManagement.Api.Controllers
     {
         private readonly ISpielplaeneRepository SpielplanRepository;
 
-        public SpielplaeneController(ISpielplaeneRepository SpielplanRepository)
+        private readonly ILogger<SpielplaeneController> _logger;
+
+        public SpielplaeneController(ISpielplaeneRepository SpielplanRepository, ILogger<SpielplaeneController> logger)
         {
             this.SpielplanRepository = SpielplanRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -24,11 +28,12 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Made call to Spielplaene Endpoint");
                 return Ok(await SpielplanRepository.GetSpielplaene());
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
+                _logger.LogError(ex, "Fatal Error Occurred");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
             }
@@ -40,6 +45,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
+               _logger.LogInformation("Made call to getSpielplan Endpoint");
                 var result = await SpielplanRepository.GetSpielplan(id);
 
                 if (result == null)
@@ -51,6 +57,7 @@ namespace LigaManagement.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Fatal Error Occurred");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
             }
@@ -66,7 +73,8 @@ namespace LigaManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-               
+
+                _logger.LogInformation("Made call to CreateSpielplan Endpoint");
                 var createdSpielplan = await SpielplanRepository.AddSpielplan(Spielplan);
 
                 return CreatedAtAction(nameof(CreateSpielplan), new { id = createdSpielplan.SpieltagId },
@@ -74,6 +82,7 @@ namespace LigaManagement.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Fatal Error Occurred");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                    "Fehler bei der Neuanlage der Daten:" + ex.Message);
             }
@@ -84,6 +93,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Made call to UpdateSpielplan Endpoint");
                 var VereinToUpdate = await SpielplanRepository.GetSpielplan((int)Spielplan.SpieltagId);
 
                 if (VereinToUpdate == null)
@@ -95,7 +105,7 @@ namespace LigaManagement.Api.Controllers
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
+                _logger.LogError(ex, "Fatal Error Occurred");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Updaten der Daten:" + ex.Message);
             }
@@ -106,6 +116,7 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
+                _logger.LogInformation("Made call to DeleteSpielplan Endpoint");
                 var SpielplanToDelete = await SpielplanRepository.GetSpielplan(id);
 
                 if (SpielplanToDelete == null)
@@ -123,6 +134,7 @@ namespace LigaManagement.Api.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Fatal Error Occurred");
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Fehler beim Löschen der Daten:" + ex.Message);
             }

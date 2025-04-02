@@ -1,0 +1,9 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.SpielplanService.GetSpielplan(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\SpielplanService.cs:line 25
+   at LigamanagerManagement.Web.Pages.EditSpielplanBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditSpielplan.cs:line 131
+Datum/Uhrzeit: 01.04.2025 09:20:40
+============================================

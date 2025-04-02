@@ -5,7 +5,7 @@
     using System.IO;
 
     using System.Text;
-    public class ErrorLogger
+    public static class ErrorLogger
     {
 
         public static void WriteToErrorLog(string msg, string stkTrace, string title)

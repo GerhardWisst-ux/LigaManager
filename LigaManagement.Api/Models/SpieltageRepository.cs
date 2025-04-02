@@ -478,7 +478,15 @@ namespace LigaManagerManagement.Api.Models
 
                         spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
                         spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                        spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
+                        try
+                        {
+                            spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
+                        }
+                        catch (Exception)
+                        {
+
+                            spieltag.StadionID = 0;
+                        }
                         spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
                         spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
                         spieltag.Saison = reader["Saison"].ToString();

@@ -1,0 +1,110 @@
+﻿@page "/InfoTexteList"
+@using LigaManagerManagement.Web.Pages
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject DialogService DialogService
+@inject NavigationManager _navigationManager
+
+@inherits InfoListBase
+
+<head>
+ 
+</head>
+
+<script>
+    function scrollToTop() {
+        window.scrollTo(0, 0);
+    }
+</script>
+
+<style type="text/css">
+
+    .rz-datatable tr {
+        min-height: 8%;
+        word-break: break-all;
+    }
+
+    tr.separated td {
+        /* set border style for separated rows */
+        border-bottom: 1px solid black;
+    }
+
+    table {
+        /* make the border continuous (without gaps between columns) */
+        border-collapse: collapse;
+    }
+
+    .rz-datatable td {
+        padding: 2.5px;
+    }
+</style>
+
+@if (IsLoading)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+    <div class="container">
+
+        <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+            <div class="d-flex flex-row">
+                <div class="card-body">
+                    <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                    <br />
+                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /></div></NavLink>
+                    <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /></div></NavLink>
+                    <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /></div></NavLink>
+                    <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /></div></NavLink>
+                    <h2 style="display:inline-block;">@Localizer["Infotexte"].Value</h2>
+                    <span class="ml-3">
+                        <NavLink href="@($"Ligamanager/createInfoText")" style="margin-top:6px;" title="@Localizer["Neuanlage InfoText"].Value"  class="btn btn-primary btn-sm"><div><RadzenIcon Icon="add" /></div></NavLink>
+                    </span>
+                </div>
+            </div>
+        </RadzenCard>
+         
+
+         <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+         </RadzenCard>
+
+        <div class="form-group row">
+            <div class="col-sm-12">
+
+                <RadzenDataGrid @ref="grid" Data="@InfoTexteList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="10"
+                                AllowPaging="true" AllowSorting="true" Density="@Density" AllowFiltering="false"
+                                TItem="InfoText" Visible="true" Responsive=true AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="InfoText" Property="Id" Title="Id" Visible=false></RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="InfoText" Property="Title" Width="30%" Sortable=true Title="@Localizer["Titel"].Value" />
+                        <RadzenDataGridColumn TItem="InfoText" Property="NewsContent" Width="30%" Sortable=true Title="@Localizer["Inhalt"].Value" />
+                        <RadzenDataGridColumn TItem="InfoText" Property="Vereinsname" Width="20%" Sortable=true Title="@Localizer["Verein"].Value" />
+                        <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center" Width="18%" FormatString="{0:dd.MM.yyyy}" Sortable=true Title=@Localizer["Erstellt am"].Value />
+                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="InfoText" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                            <Template Context="data">
+                                <NavLink href="@($"Ligamanager/editInfoText/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                            </Template>
+                        </RadzenDataGridColumn>
+                    </Columns>
+                    <FooterTemplate>
+                    </FooterTemplate>
+                    <FooterTemplate>
+                        @Localizer["Anzahl Texte"].Value: <b>@InfoTexteList.Count()</b>
+                    </FooterTemplate>
+                </RadzenDataGrid> 
+            </div>
+        </div>
+    </div>       
+}
+@code {
+    private void OnClick(string text)
+    {
+       
+         _navigationManager.NavigateTo("Ligamanager/createInfoText");
+    }
+}

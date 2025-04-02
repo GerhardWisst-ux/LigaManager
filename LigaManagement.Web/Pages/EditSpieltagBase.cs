@@ -51,7 +51,6 @@ namespace LigamanagerManagement.Web.Pages
         public List<DisplaySpieltag> SpieltagList;
         int iSpieltage = 34;
 
-        public bool DisabledVereine;
         public string Vereinsname1;
 
         public string Vereinsname2;
@@ -440,7 +439,6 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     Stadionname = Spiel.Ort;
 
-                DisabledVereine = true;
                 IsLoading = false;
 
                 StateHasChanged();
@@ -632,9 +630,11 @@ namespace LigamanagerManagement.Web.Pages
                         Stadionname = stadion[0].Stadionname;
                         Spiel.StadionID = stadion[0].Id;
                     }
-
                     else
+                    {
+                        Spiel.Ort = "kein Stadion gefunden";
                         Spiel.StadionID = 0;
+                    }
                 }
                 if (Globals.LigaID == 3)
                 {
@@ -643,6 +643,20 @@ namespace LigamanagerManagement.Web.Pages
                     Spiel.Verein1_Nr = e.Value.ToString();
                     Spiel.Ort = verein.Stadion;
                     Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
+
+                    var stadien = await StadionService.GetStadien();
+                    var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spiel.Verein1_Nr?.ToString()) && x.JahrVonDate < Spiel.Datum && x.JahrBisDate > Spiel.Datum).ToList();
+                    if (stadion.Count == 1)  // genau ein Stadion gefunden
+                    {
+                        Stadionname = stadion[0].Stadionname;
+                        Spiel.StadionID = stadion[0].Id;
+                    }
+                    else
+                    {
+                        Spiel.Ort = "kein Stadion gefunden";
+                        Spiel.StadionID = 0;
+                    }
+                        
                 }
                 else if (Globals.LigaNummer == 4)
                 {
@@ -805,28 +819,7 @@ namespace LigamanagerManagement.Web.Pages
             }
             StateHasChanged();
         }
-
-        protected void DatumChange(ChangeEventArgs args)
-        {
-            DateTime datum;
-            DateTime dateValue;
-            CultureInfo deDE = new CultureInfo("de-DE");
-
-            DateTime.TryParse(args.Value.ToString(), out dateValue);
-
-            if (1== 2)
-            {
-                datum = Convert.ToDateTime(args.Value);
-                {
-                    if ((datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) || Convert.ToInt32(datum.Year) == Convert.ToInt32(Globals.currentSaison.ToString().Substring(0, 4)) + 1)
-                        DisabledVereine = false;
-                    else
-                        DisabledVereine = true;
-
-                    StateHasChanged();
-                }
-            }
-        }
+              
 
         public async void btnSpeichernTorV2_Click(ChangeEventArgs e)
         {

@@ -1,0 +1,245 @@
+﻿@page "/Ligamanager/CreateInfoText"
+@page "/Ligamanager/EditInfoText/{Id}"
+@using LigaManagement.Web.Services.Contracts;
+
+@inherits LigaManagerManagement.Web.Pages.EditInfoTextListBase
+@inject IInfoTexteService _InfoTextService
+@inject NavigationManager _navigationManager
+@inject NotificationService NotificationService
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
+
+</head>
+
+<style type="text/css">
+
+    .rz-chkbox-box {
+        border-color: darkgray !important;
+    }
+
+    .rz-label {
+        margin-left: 0px !important;
+        padding-left: 20px !important;
+    }
+
+    @@media (max-width: 767px) {
+        .rz-label {
+            margin-left: 0px !important;
+            padding-left: 0px !important;
+        }
+    }
+</style>
+
+@if (IsLoading)
+{
+    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+    </RadzenStack>
+}
+else
+{
+    <div class="container">
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <br />
+                            <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
+                            <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
+                            <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /></div></NavLink>
+                            <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help"/></div></NavLink>
+                            <h2>@Titel</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <EditForm Model="InfoText" OnValidSubmit="UpsertInfoText">
+                <div class="form-group row">
+                    <RadzenLabel Text="VereinNr" class="col-md-3 col-xs-12" Component="txtTitel">@Localizer["Verein"].Value</RadzenLabel>
+                    <select id="cboVerein" style="display:inline-block;" class="form-control dropdown col-md-9 col-xs-12" @onchange="VereinChange">
+                        <option value="" selected>@Localizer["Verein auswählen"].Value</option>
+                        @foreach (var verein in VereineList.OrderBy(o => o.Vereinname1))
+                        {
+                            @if (verein.VereinID == VereinNr.ToString())
+                            {
+                                <option selected value="@verein.VereinID"> @verein.Vereinname1 </option>
+                            }
+                            else
+                            {
+                                <option value="@verein.VereinID"> @verein.Vereinname1 </option>
+                            }
+                        }
+                    </select>
+                    <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
+                </div>
+                <div class="form-group row">
+                    <DataAnnotationsValidator />
+                    <RadzenLabel Text="Titel" class="col-md-3 col-xs-12" Component="txtTitel">@Localizer["Titel"].Value</RadzenLabel>
+                    <InputText required id="txtTitel" @bind-Value="InfoText.Title" class="form-control  col-md-9 col-xs-12"></InputText>
+                    <ValidationMessage col-md-9 col-xs-12 For="(()=>InfoText.Title)"></ValidationMessage>
+                </div>
+                
+                <div class="form-group row">
+                    <DataAnnotationsValidator />
+                    <RadzenLabel Text="Inhalt" class="col-md-3 col-xs-12" Component="txtInhalt">@Localizer["Inhalt"].Value</RadzenLabel>
+                    <RadzenTextArea style="height:120px;" mu required id="Inhalt" Name="Inhalt" @bind-Value="InfoText.NewsContent" class="form-control col-md-9 col-xs-12"></RadzenTextArea>
+                    <ValidationMessage col-md-9 col-xs-12 For="(()=>InfoText.NewsContent)"></ValidationMessage>
+                </div>
+                <div class="form-group row">
+                    <DataAnnotationsValidator />
+                    <RadzenLabel Text="PublishedAt" class="col-md-3 col-xs-12" Component="txtPublishedAt">@Localizer["Erstellt am"].Value</RadzenLabel>
+                    <InputDate required id="txtPublishedAt" @bind-Value="InfoText.PublishedAt" class="form-control  col-md-9 col-xs-12"></InputDate>
+                    <ValidationMessage col-md-9 col-xs-12 For="(()=>InfoText.PublishedAt)"></ValidationMessage>
+                </div>
+
+                <div class="form-group row">
+                    <RadzenButton title="@Localizer["Speichert InfoText ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertInfoText" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
+                        <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
+                    </RadzenButton>
+                    <RadzenButton title="@Localizer["Löscht Infotext"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                    </RadzenButton>
+                    <RadzenButton title="@Localizer["Zurück zur Übersicht InfoTexte"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+                    </RadzenButton>
+                </div>
+            </EditForm>
+        </div>
+    </div>
+}
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+    private InfoText InfoText { get; set; } = new InfoText();
+    private string Titel { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id == "0" || Id is null)
+            {
+                IsLoading = true;
+                Id = "0";
+                Titel = @Localizer["Neuanlage InfoText"].Value;
+                IsLoading = false;
+                InfoText = await _InfoTextService.GetText(Convert.ToInt32(Id));  
+                
+            }
+            else
+            {
+                IsLoading = true;
+                Titel = @Localizer["Bearbeiten InfoText"].Value;
+                var InfoText = await _InfoTextService.GetText(Convert.ToInt32(Id));                              
+                InfoText = await _InfoTextService.GetText(Convert.ToInt32(Id));
+                VereinNr = InfoText.VereinID;
+                PublishedAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                IsLoading = false;
+
+                
+            }
+
+            StateHasChanged();
+        }
+    }
+
+    private async Task LoadInfoText()
+    {
+        
+    }
+    private async Task UpsertInfoText()
+    {
+        bool bError = false;
+
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Sie haben nicht das Recht Stadien zu ändern bzw. neu anzulegen." });
+            return;
+        }
+
+        if ((string.IsNullOrEmpty(InfoText.Title)))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Titel nicht angegeben. Speichern nicht möglich." });
+            bError = true;
+        }
+        else if ((string.IsNullOrEmpty(InfoText.NewsContent)))
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Inhalt nicht angegeben. Speichern nicht möglich." });
+            bError = true;
+        }
+        else if (InfoText.VereinID == 0)
+        {
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Verein nicht ausgewählt. Speichern nicht möglich." });
+            bError = true;
+        }
+
+        if (bError == true)
+            return;
+
+        if (Id == "0")
+        {
+            var texte = await _InfoTextService.GetTexte();
+            List<InfoText> texteList = texte.OrderBy(x => x.PublishedAt).ToList();
+                        
+            InfoText.SaisonID = Globals.SaisonID;
+            InfoText.LigaID = Globals.LigaID;
+            InfoText.PublishedAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            InfoText.ChangedAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            InfoText.VereinID = VereinNr;
+            await _InfoTextService.CreateText(InfoText);
+        }
+        else
+        {
+            var texte = await _InfoTextService.GetTexte();
+            List<InfoText> texteList = texte.OrderBy(x => x.PublishedAt).ToList();            
+            InfoText.SaisonID = Globals.SaisonID;
+            InfoText.LigaID = Globals.LigaID;
+            InfoText.ChangedAt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            InfoText.VereinID = VereinNr;
+            await _InfoTextService.UpdateText(InfoText);
+        }
+
+        NotificationService.Notify(new NotificationMessage
+        {
+            Severity = NotificationSeverity.Info,
+            Summary = Localizer["Bearbeiten InfoText"].Value,
+            Detail = Localizer["Abgespeichert"].Value
+        });
+    }
+    protected async Task<bool> Confirm()
+    {
+        string message = string.Empty;
+
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            message = "Sie können diesen InfoText nicht löschen?";
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen InfoText:" + message, Detail = "Löschen" });
+            return false;
+        }
+        message = Localizer["MessageDelete"].Value;
+
+        var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
+
+        if (result)
+        {
+            await _InfoTextService.DeleteText(Convert.ToInt32(Id));
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen InfoText"].Value, Detail = Localizer["Gelöscht"].Value });
+        }
+
+        return false;
+    }
+
+    private void Zurueck_Click()
+    {
+        _navigationManager.NavigateTo("/InfoTexteList");
+    }
+}

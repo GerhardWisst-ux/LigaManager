@@ -12,30 +12,70 @@
 
 <script>
     function scrollToTop() {
-        window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     }
 </script>
 
-<style type="text/css">
 
-    .rz-datatable tr {
-        min-height: 8%;
-        word-break: break-all;
+<style type="text/css" >
+
+
+    .NewBtn {
+        gap: 1px;
+        margin-right: 2px;
+        align-self: end;
+        justify-content: end;
+        margin-right: 0px !important;
     }
 
-    tr.separated td {
-        /* set border style for separated rows */
-        border-bottom: 1px solid black;
+    #btnVor, #btnZurueck {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
     }
 
-    table {
-        /* make the border continuous (without gaps between columns) */
-        border-collapse: collapse;
+    a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .previous {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white;
+    }
+
+    .next {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
+
+    .VereinMinWidth {
+        min-width: 80px;
+        font-weight: normal;
+    }
+
+    .Doublepoint {
+        font-weight: bold !important;
+        background: black;
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .rz-data-grid-data {
+        border-collapse: revert !important;
     }
 
     .rz-datatable td {
-        padding: 2.5px;
+        padding: 3.5px !important;
     }
+   
+
 </style>
 
 @if (IsLoading)
@@ -51,102 +91,108 @@ else
         <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
             <div class="d-flex flex-row">
                 <div class="card-body">
-                    <span style="background-color: #1151f3; color:white" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                    <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                     <br />
-                    <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
-                    <h2 style="display:inline-block;">@Localizer["Spielpläne"].Value</h2>
+                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
+                    <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
+                    <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
+                    <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>n>
+                    <h2 style="display:inline-block;">@Titel</h2>
                     <span class="ml-3">
-                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Spielplan"].Value" ButtonStyle="ButtonStyle.Primary" />
+                        <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Spiel"].Value" ButtonStyle="ButtonStyle.Primary" />
                     </span>
                 </div>
             </div>
         </RadzenCard>
 
-        <RadzenCard style="flex:1;margin-right:0px; height:auto;">
-            <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
-                <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                 Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
-            </RadzenCard>
-
-            <RadzenDataGrid @ref="grid" Data="@Spielplaene" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="9"
-                            AllowPaging="true" AllowSorting="true" AllowFiltering="false"
-                            TItem="Spielplan" Visible="true" Responsive=true AllowColumnResize="true"
-                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                            SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
-                <Columns>
-                    <RadzenDataGridColumn TItem="Spielplan" Property="SpieltagNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title="SpieltagNr" />
-                    <RadzenDataGridColumn TItem="Spielplan" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
-
-                    </RadzenDataGridColumn>
-                    @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
-                    {
-                        <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                            <Template Context="data">
-                                <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                            </Template>
-                        </RadzenDataGridColumn>
-                    }
-                    else
-                    {
-                        <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                            <Template Context="data">
-                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                            </Template>
-                        </RadzenDataGridColumn>
-                    }
-
-                    <RadzenDataGridColumn TItem="Spielplan" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
-                    <RadzenDataGridColumn TItem="Spielplan" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                    <RadzenDataGridColumn TItem="Spielplan" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
-                                      
-                    @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
-                    {
-                        <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                            <Template Context="data">
-                                <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                            </Template>
-                        </RadzenDataGridColumn>
-                    }
-                    else
-                    {
-                        <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                            <Template Context="data">
-                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                            </Template>
-                        </RadzenDataGridColumn>
-                    }
-
-                    <RadzenDataGridColumn TItem="Spielplan" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
-
-                    <RadzenDataGridColumn TItem="Spielplan" FormatString="{0:dd.MM.yyyy}" Property="DatumString" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
-                    <RadzenDataGridColumn TItem="Spielplan" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
-
-                    <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spielplan" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
-                        <Template Context="data">
-                            <NavLink href="@($"Ligamanager/editspielplantag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
-                        </Template>
-                    </RadzenDataGridColumn>
-                    <hr style="border:5px;" />
-                </Columns>
-            </RadzenDataGrid>
-
-            <div class="row">
-                <div class="col-md-1">
-                    <a type="button" id="btnZurueck" Style="text-align:left;display:inline-block;" data-toggle=@Localizer["Voriger Spieltag"] title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
-                </div>
-                <div class="col-md-11 text-right">
-                    <a type="button" id="btnVor" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+        <RadzenCard style="margin-bottom:4px;height:80px;">
+            <div class="form-group row">
+                <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
+                    <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
+                        <option value="0" selected="selected">@Localizer["Spieltag wählen"].Value</option>
+                        if (@SpielplanList != null)
+                            {
+                            @foreach (var spieltag in SpielplanList)
+                            {
+                                @if (spieltag.Nummer == @SpieltagNr)
+                                {
+                                    <option selected value="@spieltag.Nummer"> @spieltag.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@spieltag.Nummer"> @spieltag.Name</option>
+                                }
+                            }
+                        }
+                    </select> 
                 </div>
             </div>
         </RadzenCard>
+                
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard style="flex:1;margin-right:0px; height:auto;">
+                    <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
+                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
+                    </RadzenCard>
+
+                    <RadzenDataGrid @ref="grid" Data="@Spielplaene" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="9"
+                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                    TItem="Spielplan" Visible="true" Responsive=true AllowColumnResize="true"
+                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    SelectionMode="DataGridSelectionMode.Single" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
+                        <Columns>
+                           
+                            <RadzenDataGridColumn TItem="Spielplan" Property="SpieltagNr" Width="10%" TextAlign="TextAlign.Left" Filterable="false" Visible=true Sortable=false Title="SpieltagNr" />
+                            <RadzenDataGridColumn TItem="Spielplan" CssClass="VereinMinWidth" Property="Verein1Anzeige" Width="23%" Sortable=true Title="@Localizer["Heim"].Value">
+                            </RadzenDataGridColumn>
+
+                            <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <Template Context="data">
+                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                </Template>
+                            </RadzenDataGridColumn>
+
+                            <RadzenDataGridColumn TItem="Spielplan" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <Template Context="data">
+                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spielplan" CssClass="VereinMinWidth" Property="Verein2Anzeige" Width="23%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+
+                            <RadzenDataGridColumn TItem="Spielplan" Property="DatumString" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                            <RadzenDataGridColumn TItem="Spielplan" Property="Ort" Width="15%" Sortable=true Title=@Localizer["Ort"].Value />
+
+                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spielplan" Property="SpieltagId" Width="20%" Filterable="false" Sortable="false">
+                                <Template Context="data">
+                                    <NavLink href="@($"Ligamanager/editspielplan/{data.SaisonID}/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                </Template>
+                            </RadzenDataGridColumn>
+                        </Columns>
+                    </RadzenDataGrid>
+                    <div class="row">
+                        <div class="col-md-1">
+                            <a type="button" id="btnZurueck" Style="text-align:left;display:inline-block;" data-toggle=@Localizer["Voriger Spieltag"] title="@Localizer["Voriger Spieltag"]" @onclick="SpieltagZurueck" class="previous round">&laquo;</a>
+                        </div>
+                        <div class="col-md-11 text-right">
+                            <a type="button" id="btnVor" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächster Spieltag"]" @onclick="SpieltagVor" style="width: auto; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                        </div>
+                    </div>
+                </RadzenCard>
+                @* </div> *@
+            </div>
+        </div>
     </div>
+
+   
 }
-@code {    
+@code {
     private void OnClick(string text)
     {
 
-        _navigationManager.NavigateTo("Ligamanager/createstadion");
+        _navigationManager.NavigateTo($"Ligamanager/createSpielplan/{SaisonID}/{SpieltagNr}");
     }
+
+    
 }

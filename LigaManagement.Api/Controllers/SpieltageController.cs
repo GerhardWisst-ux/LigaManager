@@ -3,8 +3,8 @@ using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
@@ -13,11 +13,13 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SpieltageController : ControllerBase
     {
-        private readonly ISpieltageRepository SpieltagRepository;
+        private readonly ISpieltageRepository _spieltagRepository;
+        private readonly ILogger<SpieltageController> _logger;
 
-        public SpieltageController(ISpieltageRepository SpieltagRepository)
+        public SpieltageController(ISpieltageRepository spieltagRepository, ILogger<SpieltageController> logger)
         {
-            this.SpieltagRepository = SpieltagRepository;
+            _spieltagRepository = spieltagRepository;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -25,107 +27,75 @@ namespace LigaManagement.Api.Controllers
         {
             try
             {
-                return Ok(await SpieltagRepository.GetSpieltage());
+                var spieltage = await _spieltagRepository.GetSpieltage(); // Nutzung von AsNoTracking
+                return Ok(spieltage);
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
+                _logger.LogError(ex, "Fehler beim Abrufen der Spieltage");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Lesen der Daten aus der Datenbank.");
             }
         }
-               
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Spieltag>> GetSpieltag(int id)
         {
             try
             {
-                var result = await SpieltagRepository.GetSpieltag(id);
-
-                if (result == null)
-                {
-                    return NotFound();
-                }
-
+                var result = await _spieltagRepository.GetSpieltag(id); // Nutzung von AsNoTracking
                 return result;
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
+                _logger.LogError(ex, "Fehler beim Abrufen des Spieltags");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Lesen der Daten aus der Datenbank.");
             }
         }
 
-       
         [HttpPost]
         public async Task<ActionResult<Spieltag>> CreateSpieltag(Spieltag spieltag)
         {
+            if (spieltag == null) return BadRequest();
             try
             {
-                if (spieltag == null)
-                {
-                    return BadRequest();
-                }
-               
-                var createdSpieltag = await SpieltagRepository.AddSpieltag(spieltag);
-
-                return CreatedAtAction(nameof(CreateSpieltag), new { id = createdSpieltag.SpieltagId },
-                    createdSpieltag);
+                var createdSpieltag = await _spieltagRepository.AddSpieltag(spieltag);
+                return CreatedAtAction(nameof(GetSpieltag), new { id = createdSpieltag.SpieltagId }, createdSpieltag);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Fehler bei der Neuanlage der Daten:" + ex.Message);
+                _logger.LogError(ex, "Fehler bei der Neuanlage des Spieltags");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler bei der Neuanlage der Daten.");
             }
         }
 
-        [HttpPut()]        
-        public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag Spieltag)
+        [HttpPut]
+        public async Task<ActionResult<Spieltag>> UpdateSpieltag(Spieltag spieltag)
         {
+            if (spieltag == null) return BadRequest("Ungültige Daten.");
             try
             {
-                var VereinToUpdate = await SpieltagRepository.GetSpieltag((int)Spieltag.SpieltagId);
-
-                if (VereinToUpdate == null)
-                {
-                    return NotFound($"Spieltag mit der Id = {Spieltag.SpieltagId} nicht gefunden");
-                }
-
-                return await SpieltagRepository.UpdateSpieltag(Spieltag);
+                return await _spieltagRepository.UpdateSpieltag(spieltag);
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Updaten der Daten:" + ex.Message);
+                _logger.LogError(ex, "Fehler beim Updaten des Spieltags");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Updaten der Daten.");
             }
         }
 
-        [HttpDelete("{id:int}/{liganummer:int}")]        
+        [HttpDelete("{id:int}/{liganummer:int}")]
         public async Task<ActionResult<Spieltag>> DeleteSpieltag(int id, int liganummer)
         {
             try
             {
-                var spieltagToDelete = await SpieltagRepository.GetSpieltag(id);
-
-                if (spieltagToDelete == null)
-                {
-                    return NotFound($"Spieltag mit der Id = {id} nicht gefunden");
-                }
-
-                if (liganummer < 3)
-                    return await SpieltagRepository.DeleteSpieltag(id);
-                if (liganummer== 3)
-                    return await SpieltagRepository.DeleteSpieltagL3(id);
-                else
-                    return await SpieltagRepository.DeleteSpieltag(id);
-
+                return liganummer == 3
+                    ? await _spieltagRepository.DeleteSpieltagL3(id)
+                    : await _spieltagRepository.DeleteSpieltag(id);
             }
             catch (Exception ex)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Löschen der Daten:" + ex.Message);
+                _logger.LogError(ex, "Fehler beim Löschen des Spieltags");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Löschen der Daten.");
             }
         }
     }

@@ -12,7 +12,8 @@ using System;
 using ToremanagerManagement.Api.Models.Repository;
 using ToreManagerManagement.Api.Models;
 using StadionManagerManagement.Api.Models;
-
+using Serilog;
+using InfoTextManagerManagement.Api.Models;
 namespace LigaManagement.Api
 {
     public class Startup
@@ -78,16 +79,16 @@ namespace LigaManagement.Api
                 services.AddScoped<IEinstellungenRepository, EinstellungenRepository>();
                 services.AddScoped<IUserRepository, UserRepository>();
                 services.AddScoped<IStadionRepository, StadionRepository>();
+                services.AddScoped<IInfoTexteRepository, InfoTexteRepository>();
                 services.AddScoped<ISpielplaeneRepository, SpielplaeneRepository>();
 
                 services.AddControllers();
-
-                services.AddCors(options =>
-                {
-                    options.AddPolicy("NewPolicy", builder =>
-                    builder.AllowAnyOrigin()
-                        .AllowAnyMethod()
-                        .AllowAnyHeader());
+                
+                services.AddCors(options => {
+                    options.AddPolicy("AllowAll",
+                        b => b.AllowAnyMethod()
+                        .AllowAnyHeader()                        
+                        .AllowAnyOrigin());
                 });
             }
             catch (Exception ex)
@@ -113,7 +114,7 @@ namespace LigaManagement.Api
 
                 app.UseRouting();
 
-                app.UseCors("NewPolicy");
+                app.UseCors("AllowAll");
 
                 app.UseAuthorization();
 

@@ -86,204 +86,206 @@ else
         <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
             <div class="d-flex flex-row">
                 <div class="card-body">
-                    <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                    <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                     <br />
-                    <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>                    
+                    <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
                     <h2 style="display:inline-block;"> @Localizer["Start"].Value Ligamanager</h2>
                 </div>
             </div>
         </RadzenCard>
 
-          @if (IsLoading == true)
-                {
-                    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
-                        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
-                    </RadzenStack>
-                }
-         else
-         {
-            <RadzenCard Style="height:100vh;" class="m-0 mt-2">
-
-
+        @if (IsLoading == true)
+        {
+            <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+                <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+            </RadzenStack>
+        }
+        else
+        {
+            <RadzenCard Style="height:100vh;" class="m-0 mt-2 mb-2">
                 <RadzenTabs>
                     <Tabs>
                         <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
-                            <RadzenAccordion Style="margin-left:">
-                                <Items>
-                                    <RadzenAccordionItem Selected=true Text="@Localizer["Nationale Wettbewerbe"].Value" CollapseTitle="@Localizer["Nationale Wettbewerbe zuklappen"].Value"
-                                                         ExpandTitle="@Localizer["Nationale Wettbewerbe aufklappen"].Value" CollapseAriaLabel="@Localizer["Nationale Wettbewerbe zuklappen"].Value"
-                                                         ExpandAriaLabel="@Localizer["Nationale Wettbewerbe aufklappen"].Value">
 
-
-                                        <div class="form-group row">
-                                            <div class="dropdown mr-2" style="display:inline;">
+                            <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
+                                <ChildContent>
+                                    <h3>@Localizer["Nationale Wettbewerbe"].Value</h3>
+                                    <div class="container">
+                                        <div class="row mt-1">
+                                            <div class="col-12 col-sm-3">
                                                 <select value="@LandID" id="cboLand" class="form-control dropdown" @onchange="LandChangeAsync">
                                                     <option value="0" required>@Localizer["Land"].Value</option>
                                                     @if (LaenderList != null)
                                                     {
                                                         @foreach (var land in LaenderList.Where(x => x.Aktiv == true).OrderBy(o => o.Laendername))
                                                         {
-                                                            @if (land.LandID == Globals.LandID)
-                                                            {
-                                                                <option selected value="@land.LandID"> @land.Laendername </option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@land.LandID"> @land.Laendername </option>
-                                                            }
+                                                            <option value="@land.LandID" selected="@(land.LandID == Globals.LandID)">@land.Laendername</option>
                                                         }
                                                     }
                                                 </select>
-                                                <label for="cboLand" title=@Localizer["Bitte Land wählen"].Value style="display:@DisplayErrorLand;color:red;" id="lblErrorLiga">@Localizer["Bitte Land wählen"].Value</label>
+                                                <label for="cboLand" style="color:red;" class="@DisplayErrorLand">@Localizer["Bitte Land wählen"].Value</label>
                                             </div>
-                                            <div class="dropdown mr-2" style="display:inline;">
-                                                <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" style="width:200px;" class="form-control dropdown" @onchange="LigaChangeAsync">
+
+                                            <div class="col-12 col-sm-3">
+                                                <select value="@LigaID" id="cboLiga" Disabled="@isDropdownDisabledLiga" class="form-control dropdown" @onchange="LigaChangeAsync">
                                                     <option value="0" required>@Localizer["Liga"].Value</option>
                                                     @if (LigenList != null)
                                                     {
                                                         @foreach (var liga in LigenList.Where(x => x.Aktiv == true && x.EMWM == false).OrderBy(o => o.LigaID))
                                                         {
-                                                            @if (liga.LigaID == Globals.LigaID)
-                                                            {
-                                                                <option selected value="@liga.LigaID"> @liga.Liganame </option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@liga.LigaID"> @liga.Liganame </option>
-                                                            }
+                                                            <option value="@liga.LigaID" selected="@(liga.LigaID == Globals.LigaID)">@liga.Liganame</option>
                                                         }
                                                     }
                                                 </select>
-                                                <label for="cboLiga" title=@Localizer["Bitte Liga wählen"].Value style="display:@DisplayErrorLiga;color:red;" id="lblErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
+                                                <label for="cboLiga" style="color:red;" class="@DisplayErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
                                             </div>
-                                            <div class="dropdown" style="display:inline;">
+
+                                            <div class="col-12 col-sm-3">
                                                 <select value="@SaisonID" id="cboSaison" Disabled="@isDropdownDisabledSaison" class="form-control dropdown" @onchange="SaisonChange">
                                                     <option value="0" required>@Localizer["Saison"].Value</option>
                                                     @if (SaisonenList != null)
                                                     {
                                                         @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
                                                         {
-                                                            @if (saison.SaisonID == Globals.SaisonID)
-                                                            {
-                                                                <option selected value="@saison.Saisonname"> @saison.Saisonname </option>
-                                                            }
-                                                            else
-                                                            {
-                                                                <option value="@saison.Saisonname"> @saison.Saisonname </option>
-                                                            }
+                                                            <option value="@saison.Saisonname" selected="@(saison.SaisonID == Globals.SaisonID)">@saison.Saisonname</option>
                                                         }
                                                     }
                                                 </select>
-                                                <label for="cboSaison" title=@Localizer["Bitte Saison wählen"].Value style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Bitte Saison wählen"].Value</label>
+                                                <label for="cboSaison" style="color:red;" class="@DisplayErrorSaison">@Localizer["Bitte Saison wählen"].Value</label>
                                             </div>
-                                            <div class="dropdown" style="display:inline">
-                                                <RadzenButton title="@Localizer["ToolTipButton"].Value" BusyText="Bitte warten..." style="margin-left:4px;" id="btnAuswaehlen" class="btn btn-primary pull-right" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler">
-                                                </RadzenButton>
+
+                                            <div class="col-12 col-sm-3">
+                                                <RadzenButton id="btnAuswaehlen" class="btn btn-primary" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler"></RadzenButton>
                                             </div>
                                         </div>
-                                        <div class="col-md-12 ml-sm-auto col-lg-12 px-3 content">
-                                            <!-- KPIs -->
-                                            <div class="row mt-3">
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                                    <div class="card mb-3">
-                                                        <div class="card-body">
-                                                            <span class="kpi-icon">
-                                                                <h2><i class="fa-solid fa-signal"></i></h2>
-                                                            </span>
-                                                            <span class="kpi-text">
-                                                                <h4 class="card-title mb-0">@AnzahlLigen</h4>
-                                                                <p class="text-muted card-text">@Localizer["Ligen"].Value</p>
-                                                            </span>
-                                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12 ml-sm-auto col-lg-12 px-3 content">
+                                        <!-- KPIs -->
+                                        <div class="row mt-3">
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <span class="kpi-icon">
+                                                            <h2><i class="fa-solid fa-signal"></i></h2>
+                                                        </span>
+                                                        <span class="kpi-text">
+                                                            <h4 class="card-title mb-0">@AnzahlLigen</h4>
+                                                            <p class="text-muted card-text">@Localizer["Ligen"].Value</p>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                                    <div class="card mb-3">
-                                                        <div class="card-body">
-                                                            <span class="kpi-icon">
-                                                                <h2><i class="fas fa-futbol text-primary"></i></h2>
-                                                            </span>
-                                                            <span class="kpi-text">
-                                                                <h4 class="card-title mb-0">@sAnzahlErgebnisse</h4>
-                                                                <p class="text-muted card-text">@Localizer["Ergebnisse"].Value</p>
-                                                            </span>
-                                                        </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <span class="kpi-icon">
+                                                            <h2><i class="fas fa-futbol text-primary"></i></h2>
+                                                        </span>
+                                                        <span class="kpi-text">
+                                                            <h4 class="card-title mb-0">@sAnzahlErgebnisse</h4>
+                                                            <p class="text-muted card-text">@Localizer["Ergebnisse"].Value</p>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                                    <div class="card mb-3">
-                                                        <div class="card-body">
-                                                            <span class="kpi-icon">
-                                                                <h2><i class="fas fa-braille"></i></h2>
-                                                            </span>
-                                                            <span class="kpi-text">
-                                                                <h4 class="card-title mb-0">@AnzahlVereine</h4>
-                                                                <p class="text-muted card-text">@Localizer["Vereine"].Value</p>
-                                                            </span>
-                                                        </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <span class="kpi-icon">
+                                                            <h2><i class="fas fa-braille"></i></h2>
+                                                        </span>
+                                                        <span class="kpi-text">
+                                                            <h4 class="card-title mb-0">@AnzahlVereine</h4>
+                                                            <p class="text-muted card-text">@Localizer["Vereine"].Value</p>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 col-md-6 col-sm-12">
-                                                    <div class="card mb-3">
-                                                        <div class="card-body">
-                                                            <span class="kpi-icon">
-                                                                <h2><i class="fas fa-walking text-info"></i></h2>
-                                                            </span>
-                                                            <span class="kpi-text">
-                                                                <h4 class="card-title mb-0">@AnzahlSpieler</h4>
-                                                                <p class="text-muted card-text">@Localizer["Spieler"].Value</p>
-                                                            </span>
-                                                        </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-6 col-sm-12">
+                                                <div class="card mb-3">
+                                                    <div class="card-body">
+                                                        <span class="kpi-icon">
+                                                            <h2><i class="fas fa-walking text-info"></i></h2>
+                                                        </span>
+                                                        <span class="kpi-text">
+                                                            <h4 class="card-title mb-0">@AnzahlSpieler</h4>
+                                                            <p class="text-muted card-text">@Localizer["Spieler"].Value</p>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
 
-                                    </RadzenAccordionItem>
-                                    <RadzenAccordionItem Selected=true Text="@Localizer["Letze Ergebnisse"].Value" CollapseTitle="@Localizer["Letze ErgebnisseCollapse"].Value"
-                                                         ExpandTitle="@Localizer["Letze ErgebnisseExpand"].Value" CollapseAriaLabel="@Localizer["Letze ErgebnisseCollapse"].Value"
-                                                         ExpandAriaLabel="@Localizer["Letze ErgebnisseExpand"].Value">
-                                        <div class="form-group row">
-
-                                            <div class="col-sm-12">
-                                                <RadzenCard style="flex:1;margin-right:0px; height:auto;">
-                                                    <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
-                                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
-                                                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                </ChildContent>
+                            </RadzenCard>
+                            <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
+                                        <ChildContent>
+                                            <h3>@Localizer["Infos"].Value</h3>
+                                            <div class="form-group row">
+                                                <div class="col-sm-12">
+                                                    <RadzenDataGrid @ref="gridTexte" Data="@InfoTexte" class="table table-striped" FilterMode="FilterMode.Simple"
+                                                                    PageSize="10" AllowPaging="true" AllowSorting="true" Density="@Density"
+                                                                    AllowFiltering="false" TItem="InfoText" Visible="true" AllowColumnResize="true"
                                                                     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                                    SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                                    LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single">
                                                         <Columns>
-                                                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                            <RadzenDataGridColumn TItem="InfoText" Property="Id" Title="Id" Visible=false></RadzenDataGridColumn>
+                                                            <RadzenDataGridColumn TItem="InfoText" Property="Title" Width="30%" Sortable=true Title="@Localizer["Titel"].Value" />
+                                                            <RadzenDataGridColumn TItem="InfoText" Property="NewsContent" Width="30%" Sortable=true Title="@Localizer["Inhalt"].Value" />
+                                                            <RadzenDataGridColumn TItem="InfoText" Property="Vereinsname" Width="20%" Sortable=true Title="@Localizer["Verein"].Value" />
+                                                            <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center"
+                                                                                  Width="18%" FormatString="{0:dd.MM.yyyy}" Sortable=true Title=@Localizer["Erstellt am"].Value />
+                                                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="InfoText" Property="Id" Width="100px" Filterable="false" Sortable="false">
                                                                 <Template Context="data">
-                                                                    <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                                    <NavLink href="@($"Ligamanager/editInfoText/{data.Id}")"
+                                                                             title="@Localizer["Anzeigen"].Value"
+                                                                             class="btn btn-primary btn-sm">
+                                                                        <RadzenIcon Icon="help" />
+                                                                    </NavLink>
                                                                 </Template>
                                                             </RadzenDataGridColumn>
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
-                                                            </RadzenDataGridColumn>
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
-                                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                                                                <Template Context="data">
-                                                                    <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                                                </Template>
-                                                            </RadzenDataGridColumn>
-                                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
-                                                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
-                                                            <hr style="border:5px;" />
                                                         </Columns>
-
                                                     </RadzenDataGrid>
-
-                                                </RadzenCard>
-                                                @* </div> *@
+                                                </div>
                                             </div>
-                                        </div>
+                                        </ChildContent>
+                                    </RadzenCard>
 
-                                    </RadzenAccordionItem>
+                            <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
+                                        <ChildContent>
+                                            <h3>@Localizer["Letze Ergebnisse"].Value</h3>
+                                            <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                            AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                            TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                            SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                <Columns>
+                                                    <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                        <Template Context="data">
+                                                            <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                        <Template Context="data">
+                                                            <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                                    <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                                </Columns>
+                                            </RadzenDataGrid>
+                                        </ChildContent>
+                                    </RadzenCard>
+                                    
 
 
                                     @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
@@ -314,11 +316,6 @@ else
                             </RadzenButton>
                             </div>
                             </RadzenAccordionItem> *@
-
-
-                                </Items>
-                            </RadzenAccordion>
-
                         </RadzenTabsItem>
                         <RadzenTabsItem Visible="@ImportVisible" Text="@Localizer["Import"].Value">
                             <div class="form-group row">
@@ -379,9 +376,9 @@ else
                     </Tabs>
                 </RadzenTabs>
             </RadzenCard>
-}
+        }
 
-    
+
 
 
 
@@ -400,7 +397,7 @@ else
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 
-  
+
 </script>
 
 @code {

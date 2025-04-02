@@ -22,8 +22,7 @@ namespace LigaManagerManagement.Web.Pages
     {
         [Parameter]
         public string SaisonID { get; set; }
-
-        [Parameter]
+               
         public string SpieltagNr { get; set; }
         public bool VisibleFooter;
 
@@ -33,8 +32,8 @@ namespace LigaManagerManagement.Web.Pages
         public RadzenDataGrid<Spielplan> spielplanGrid;
         public IList<Spieltag> orders;
 
-        public string Liganame;
-        public string curentsaison;
+        public string Titel;
+        public Saison saison;
         public Density Density = Density.Default;
         public List<string> DensityValues = new List<string> { "Standard", "Kompakt" };
 
@@ -75,14 +74,12 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
-
         protected async override Task OnInitializedAsync()
         {
 
             try
             {
                 var authenticationState = await authenticationStateTask;
-
                 if (authenticationState.User.Identity == null)
                 {
                     return;
@@ -94,15 +91,12 @@ namespace LigaManagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
-                if (SpieltagNr == "0")
-                    SpieltagNr = Globals.maxSpieltag.ToString();
-
                 IsLoading = true;
-                await DisplaySpielplanAkt();
 
-                var liga = await LigaService.GetLiga(Globals.LigaID);
-                Liganame = liga.Liganame + " " + Globals.currentSaison;
+                SpieltagNr = "1";
 
+                saison = await SaisonenService.GetSaison(Convert.ToInt32(SaisonID));
+                                
                 SaisonenList = new List<DisplaySaison>();
 
                 Saisonen = (await SaisonenService.GetSaisonen()).ToList();
@@ -111,32 +105,35 @@ namespace LigaManagerManagement.Web.Pages
                     var columns = Saisonen.ElementAt(i);
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
+                await DisplaySpielplanAkt();
+
+                Titel = Localizer["Spielplan"].Value + " " + saison.Saisonname + " " + SpieltagNr + ". " + Localizer["Spieltag"].Value;
 
                 IsLoading = false;
-
+                StateHasChanged();
             }
             catch (Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-
+                IsLoading = false;
             }
         }
 
-        private async Task DisplaySpielplanAkt()
+        protected async Task DisplaySpielplanAkt()
         {
 
             if (Globals.LigaNummer == 1)
             {
-                if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
+                if (saison.Saisonname == "1963/64" || saison.Saisonname == "1964")
                     iSpieltage = 30;
-                else if (Globals.currentSaison.Substring(0, 4) == "1991")
+                else if (saison.Saisonname == "1991/92")
                     iSpieltage = 38;
                 else
                     iSpieltage = 34;
             }
             else if (Globals.LigaNummer == 2)
             {
-                if (Globals.currentSaison.Substring(0, 4) == "1993")
+                if (saison.Saisonname == "1993/94")
                     iSpieltage = 38;
                 else
                     iSpieltage = 34;
@@ -146,14 +143,7 @@ namespace LigaManagerManagement.Web.Pages
                 iSpieltage = 38;
 
             }
-            else if (Globals.LigaNummer == 4)
-            {
-                if (Globals.currentSaison.StartsWith("1993") || Globals.currentSaison.StartsWith("1994"))
-                    iSpieltage = 42;
-                else
-                    iSpieltage = 38;            }
-           
-
+         
             SpielplanList = new List<DisplaySpielplan>();
 
             for (int i = 1; i <= iSpieltage; i++)
@@ -165,9 +155,9 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Vereine = await VereineService.GetVereine();
 
-                Spielplaene = (await SpielplanService.GetSpielplaene()).Where(st => st.SaisonID == Globals.SaisonID).ToList();
+                Spielplaene = (await SpielplanService.GetSpielplaene()).Where(st => st.SaisonID == Convert.ToInt32(SaisonID)  && st.SpieltagNr == SpieltagNr).ToList();
                 Spielplaene = Spielplaene.OrderBy(o => Convert.ToInt32(o.SpieltagNr));
-
+                
                 for (int i = 0; i < Spielplaene.Count(); i++)
                 {
                     var columns = Spielplaene.ElementAt(i);
@@ -176,7 +166,7 @@ namespace LigaManagerManagement.Web.Pages
                         throw new Exception("Vereine sind null");
 
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
-                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;                    
                     columns.Verein1Anzeige = columns.Verein1;
                     columns.Verein2Anzeige = columns.Verein2;
                     columns.Doppelpunkt = ":";
@@ -186,7 +176,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 Vereine = await VereineService.GetVereineL3();
 
-                Spielplaene = (await SpielplanService.GetSpielplaeneL3()).Where(st => st.SaisonID == Globals.SaisonID).ToList();
+                Spielplaene = (await SpielplanService.GetSpielplaeneL3()).Where(st => st.SaisonID == Convert.ToInt32(SaisonID)).ToList();
                 Spielplaene = Spielplaene.OrderBy(o => o.Datum);
 
                 for (int i = 0; i < Spielplaene.Count(); i++)
@@ -197,15 +187,14 @@ namespace LigaManagerManagement.Web.Pages
                         throw new Exception("Vereine sind null");
 
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
-                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
+                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;                    
                     columns.Verein1Anzeige = columns.Verein1;
                     columns.Verein2Anzeige = columns.Verein2;
                     columns.Doppelpunkt = ":";
                 }
-            }            
+            }                      
 
-            SpieltagNr = Globals.Spieltag.ToString();
-
+            
             if (Globals.LigaNummer == 1)
             {
                 if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
@@ -253,17 +242,7 @@ namespace LigaManagerManagement.Web.Pages
                     VisibleBtnNew = false;
                 else
                     VisibleBtnNew = true;
-            }
-
-            else if (Globals.LigaNummer == 4)
-            {
-
-                if (Spielplaene.Count() >= 10)
-                    VisibleBtnNew = false;
-                else
-                    VisibleBtnNew = true;
-
-            }           
+            }          
             else
                 VisibleBtnNew = true;
 
@@ -278,6 +257,11 @@ namespace LigaManagerManagement.Web.Pages
                 VisibleVorZurueck = true;
             }
 
+            if (Spielplaene.Any())
+                VisibleVorZurueck = true;
+            else
+                VisibleVorZurueck = false;
+
         }
         public async Task SpieltagChange(ChangeEventArgs e)
         {
@@ -285,20 +269,19 @@ namespace LigaManagerManagement.Web.Pages
             {
                 if (e.Value != null)
                 {
+                    IsLoading = true;
                     SpieltagNr = e.Value.ToString();
-
-                    int SpieltagNr2 = Convert.ToInt32(e.Value);
-                    Globals.Spieltag = SpieltagNr2;
+                    currentspieltag = Convert.ToInt32(e.Value);
 
                     await DisplaySpielplanAkt();
 
+                    Titel = Localizer["Spielplan"].Value + " " + saison.Saisonname + " " + SpieltagNr + ". " + Localizer["Spieltag"].Value;
                     if (Spielplaene.Any())
                         VisibleVorZurueck = true;
                     else
                         VisibleVorZurueck = false;
 
-                    currentspieltag = Convert.ToInt32(e.Value);
-
+                    IsLoading = false;
                     StateHasChanged();
                 }
             }
@@ -308,42 +291,43 @@ namespace LigaManagerManagement.Web.Pages
 
             }
         }
+        public async Task SpieltagVor()
+        {
+            IsLoading = true;
+            if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
+                SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
+
+            SpieltagNr = SpieltagNr.ToString();
+
+            await DisplaySpielplanAkt();
+
+            Titel = Localizer["Spielplan"].Value + " " + saison.Saisonname + " " + SpieltagNr + ". " + Localizer["Spieltag"].Value;
+
+            IsLoading = false;
+            StateHasChanged();
+        }
+
 
         public async Task SpieltagZurueck()
         {
+            IsLoading = true;
             if (Convert.ToInt32(SpieltagNr) > 1)
                 SpieltagNr = (Convert.ToInt32(SpieltagNr) - 1).ToString();
             else
                 return;
 
-            Globals.Spieltag = Convert.ToInt32(SpieltagNr);
+            SpieltagNr = SpieltagNr.ToString();
 
             await DisplaySpielplanAkt();
 
-            if (Spielplaene.Any())
-                VisibleVorZurueck = true;
-            else
-                VisibleVorZurueck = false;
+            Titel = Localizer["Spielplan"].Value + " " + saison.Saisonname + " " + SpieltagNr + ". " + Localizer["Spieltag"].Value;
 
+            IsLoading = false;
             StateHasChanged();
         }
 
-        public async Task SpieltagVor()
-        {
-            if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
-                SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
 
-            Globals.Spieltag = Convert.ToInt32(SpieltagNr);
 
-            await DisplaySpielplanAkt();
-
-            if (Spielplaene.Any())
-                VisibleVorZurueck = true;
-            else
-                VisibleVorZurueck = false;
-
-            StateHasChanged();
-        }
         public class DisplaySpielplan
         {
             public DisplaySpielplan(string nummer, string name)

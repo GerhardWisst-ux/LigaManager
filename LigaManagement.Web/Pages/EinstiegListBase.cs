@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Radzen;
@@ -26,7 +27,6 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LigaManagement.Web.Pages
 {
@@ -35,10 +35,14 @@ namespace LigaManagement.Web.Pages
     {     
         private static readonly HttpClient client = new HttpClient();
         protected string sFilename;
-        protected string DisplayErrorLiga = "none";
-        protected string DisplayErrorSaison = "none";
-        protected string DisplayErrorSaisonEMWM = "none";
-        protected string DisplayErrorLand = "none";
+        protected string DisplayErrorLiga = "d-none";
+        protected string DisplayErrorSaison = "d-none";
+        protected string DisplayErrorSaisonEMWM = "d-none";
+        protected string DisplayErrorLand = "d-none";
+        protected bool isAccordionOpen = true;
+        protected bool isNationaleWettbewerbeOpen = true;
+        protected bool isAccordionInfoOpen = true;
+        protected bool isAccordionLEOpen = true;
 
         protected bool ImportVisible = true;
         protected bool TabellenAnlegenVisible = false;
@@ -47,7 +51,7 @@ namespace LigaManagement.Web.Pages
 
         public bool IsLoading = false;
         public int AnzahlLigen = 12;
-
+        public Density Density = Density.Compact;
         public static int AnzahlErgebnisse = 104766;
         public string sAnzahlErgebnisse = AnzahlErgebnisse.ToString("#,##0");
 
@@ -56,6 +60,7 @@ namespace LigaManagement.Web.Pages
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
         public RadzenDataGrid<Spieltag> grid;
+        public RadzenDataGrid<InfoText> gridTexte;
         private readonly IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
 
         public IEnumerable<int> values = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
@@ -77,10 +82,8 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
         public IEnumerable<Verein> Vereine { get; set; }
         public IEnumerable<VereinAUS> VereineAUS { get; set; }
-
         [Inject]
         public IVereineService VereineService { get; set; }
         [Inject]
@@ -99,7 +102,6 @@ namespace LigaManagement.Web.Pages
         public IVereineTUService VereineServiceTU { get; set; }
         [Inject]
         public IVereineBEService VereineServiceBE { get; set; }
-
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
         [Inject]
@@ -108,16 +110,16 @@ namespace LigaManagement.Web.Pages
         public ILigaService LigaService { get; set; }
         [Inject]
         public ILandService LaenderService { get; set; }
-
         [Inject]
         public IKaderService KaderService { get; set; }
-
+        [Inject]
+        public IInfoTexteService InfoTexteService { get; set; }
         public IEnumerable<Saison> Saisonen { get; set; }
         public IEnumerable<Liga> Ligen { get; set; }
         public IEnumerable<Land> Laender { get; set; }
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public IEnumerable<Spieltag> LetzteErgebnisse { get; set; }
-
+        public IEnumerable<InfoText> InfoTexte { get; set; }
         [Inject]
         public IStringLocalizer<EinstiegList> Localizer { get; set; }
 
@@ -189,6 +191,7 @@ namespace LigaManagement.Web.Pages
                 }
                 else
                 {
+                    SaisonenList.Clear();
                     for (int i = 0; i < Saisonen.Count(); i++)
                     {
                         var columns = Saisonen.ElementAt(i);
@@ -220,10 +223,18 @@ namespace LigaManagement.Web.Pages
 
                 LetzteErgebnisse = await SpieltagServiceLE.GetSpieltage();
 
-                DisplayErrorLiga = "none";
-                DisplayErrorSaison = "none";
-                DisplayErrorSaisonEMWM = "none";
-                DisplayErrorLand = "none";
+                InfoTexte = await InfoTexteService.GetTexte();
+                InfoTexte = InfoTexte.Where(x => x.PublishedAt > DateTime.Now.AddDays(-30)).ToList().OrderByDescending(x=> x.PublishedAt);
+
+                foreach (var infotext in InfoTexte)
+                {
+                    infotext.Vereinsname = VereineService.GetVerein(infotext.VereinID).Result.Vereinsname2; 
+                }
+
+                DisplayErrorLiga = "d-none";
+                DisplayErrorSaison = "d-none";
+                DisplayErrorSaisonEMWM = "d-none";
+                DisplayErrorLand = "d-none";
 
                 IsLoading = false;
 
@@ -291,6 +302,7 @@ namespace LigaManagement.Web.Pages
             }
         }
 
+        
         public async Task LandChangeAsync(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -299,8 +311,9 @@ namespace LigaManagement.Web.Pages
                 var land = await LaenderService.GetLand(Globals.LandID);
                 Globals.currentLand = land.Laendername;
 
+                LigenList.Clear();
                 LigenList = new List<DisplayLiga>();
-                Ligen = (await LigaService.GetLigen()).ToList().Where(x => x.LandID == Globals.LandID && x.EMWM == false);
+                Ligen = (await LigaService.GetLigen()).ToList().Distinct().Where(x => x.LandID == Globals.LandID && x.EMWM == false);
 
                 for (int i = 0; i < Ligen.Count(); i++)
                 {
@@ -321,7 +334,6 @@ namespace LigaManagement.Web.Pages
                 string sCurrentliga = "";
                 if (e.Value != null)
                 {
-
                     Globals.LigaID = Convert.ToInt32(e.Value);
 
                     SaisonenList = new List<DisplaySaison>();
@@ -334,9 +346,9 @@ namespace LigaManagement.Web.Pages
 
                     sCurrentliga = liga.Liganame;
 
+                    SaisonenList.Clear();
                     if (Globals.LigaID == 0)
-                    {
-                        SaisonenList.Clear();
+                    {                        
                         isDropdownDisabledSaison = false;
                     }
                     else
@@ -578,9 +590,9 @@ namespace LigaManagement.Web.Pages
         public void OnClickHandlerEMWM()
         {
             if (Globals.currentEMWMSaison == null)
-                DisplayErrorSaisonEMWM = "block";
+                DisplayErrorSaisonEMWM = "text-danger d-block";
             else
-                DisplayErrorSaisonEMWM = "none";
+                DisplayErrorSaisonEMWM = "text-danger d-block d-none";
 
             if (Globals.currentEMWMSaison == null)
                 return;
@@ -594,25 +606,27 @@ namespace LigaManagement.Web.Pages
             bool? bAbgeschlossen = false;
             int iAktSpieltag;
 
-
             IsLoading = true;
-            if (Globals.LandID == 0)
-                DisplayErrorLand = "block";
+            IsLoading = true;
+
+            if (Globals.currentLand == null)
+                DisplayErrorLand = "text-danger d-block";
             else
-                DisplayErrorLand = "none";
+                DisplayErrorLand = "d-none";
 
             if (Globals.currentLiga == null)
-                DisplayErrorLiga = "block";
+                DisplayErrorLiga = "text-danger d-block";
             else
-                DisplayErrorLiga = "none";
+                DisplayErrorLiga = "d-none";
 
             if (Globals.currentSaison == null)
-                DisplayErrorSaison = "block";
+                DisplayErrorSaison = "text-danger d-block";
             else
-                DisplayErrorSaison = "none";
+                DisplayErrorSaison = "d-none";
 
             if (Globals.currentSaison == null || Globals.currentLiga == null || Globals.LandID == 0)
             {
+                IsLoading = false;
                 return;
             }
 

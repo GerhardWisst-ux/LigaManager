@@ -33,11 +33,12 @@ else
         <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
             <div class="d-flex flex-row">
                 <div class="card-body">
-                    <span style="background-color: #1151f3; color:white;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                    <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                     <br />
-                    <span class="float-right"><a href="Ligamanager/account/logout"><img style="height:25px;margin-top:8px;" title="@Localizer["Logout"].Value" src="images/Logout.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/einstellungen"><img style="width:25px; height:25px;margin-top:8px;" title="@Localizer["Einstellungen"].Value" src="images/settings.png" /></a></span>
-                    <span class="float-right mr-2"><a href="/Ligamanager/info"><img style="height:25px;margin-top:8px;" title="@Localizer["Info"].Value" src="images/info.png" /></a></span>
+                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
+                    <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
+                    <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
+                    <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                     <h2 style="display:inline-block;">@Localizer["Saisonen"].Value</h2>
                     <span class="ml-3">
                         @* <a href="Ligamanager/createsaison" style="width:35px; height:30px;" title="Neuanlage Saison" class="btn btn-primary btn-sm form-control"><span class="glyphicon">&#x2b;</span></a> *@
@@ -81,11 +82,11 @@ else
                             <Template Context="data">
                                 @if (data.LandID == 57)
                                 {
-                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
                                 }
                                 else
                                 {
-                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="launch" /><span></span></div></NavLink>
+                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
                                 }
                                 <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
                             </Template>
