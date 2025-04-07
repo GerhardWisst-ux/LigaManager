@@ -57,7 +57,7 @@
     }
 </style>
 
-@if (IsLoading == null)
+@if (IsLoading)
 {
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
@@ -108,52 +108,73 @@ else
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-md-3 col-xs-12" Component="txtVereinsname1">@Localizer["Verein"].Value</RadzenLabel>
                         <InputText required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Vereinsname1)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-md-3 col-xs-12" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
                         <InputText required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Vereinsname1" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Erfolge" class="col-md-3 col-xs-12" Component="txtStadion">@Localizer["Erfolge"].Value</RadzenLabel>
                         <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="7" class="form-control col-md-9 col-xs-12" aria-label="Textfeld " />
-                        <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Erfolge" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Gegründet" class="col-md-3 col-xs-12" Component="txtStadion">@Localizer["Gegruendet"].Value</RadzenLabel>
                         <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Gegruendet" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Stadion" class="col-md-3 col-xs-12" Component="txtStadion">@Localizer["Stadion"].Value</RadzenLabel>
                         <InputText required id="txtStadion" @bind-Value="Verein.Stadion" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>Verein.Stadion"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Stadion" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Fassungsvermögen" class="col-md-3 col-xs-12" Component="txtVereinsname1">@Localizer["Fassungsvermoegen"].Value</RadzenLabel>
                         <InputNumber required id="txtFassungsvermoegen" @bind-Value="Verein.Fassungsvermoegen" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>Verein.Fassungsvermoegen"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Fassungsvermoegen" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Hyperlink" class="col-md-3 col-xs-12" Component="txtHyperlink">Hyperlink</RadzenLabel>
                         <InputText required id="txtHyperlink" @bind-Value="Verein.Hyperlink" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Hyperlink" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="chkBundesliga">@Localizer["Bundesliga"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="Verein.Bundesliga" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-12" Name="chkBundesliga" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>Verein.Bundesliga"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Bundesliga" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Label" class="col-md-3 col-xs-12" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="Verein.Pokal" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-12" Name="chkPokal" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>Verein.Pokal"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Verein.Pokal" />
+                        </div>
                     </div>
+                    <DataAnnotationsValidator />
+                    <!-- This will show any validation errors -->
+                    <ValidationSummary />
                     <div class="form-group row my-2">
                         <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                         </RadzenButton>
@@ -170,59 +191,82 @@ else
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-md-3 col-xs-12" Component="txtVereinsname1">@Localizer["Verein"].Value</RadzenLabel>
                         <InputText required id="txtVereinsname1" @bind-Value="VereinAus.Vereinsname1" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>VereinAus.Vereinsname1"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Vereinsname1" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-md-3 col-xs-12" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
                         <InputText required id="txtVereinsname2" @bind-Value="VereinAus.Vereinsname2" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>VereinAus.Vereinsname2"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Vereinsname2" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Erfolge" class="col-md-3 col-xs-12" Component="txtErfolge">@Localizer["Erfolge"].Value</RadzenLabel>
                         <RadzenTextArea @bind-Value=@VereinAus.Erfolge Cols="105" Rows="7" class="form-control col-md-9 col-xs-12" aria-label="Textfeld " />
-                        <ValidationMessage For="()=>VereinAus.Erfolge"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Erfolge" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Gegründet" class="col-md-3 col-xs-12" Component="txtGegründet">@Localizer["Gegruendet"].Value</RadzenLabel>
                         <InputNumber required id="txtGegründet" @bind-Value="VereinAus.Gegruendet" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>VereinAus.Gegruendet"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Gegruendet" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Stadion" class="col-md-3 col-xs-12" Component="txtStadion">@Localizer["Stadion"].Value</RadzenLabel>
                         <InputText required id="txtStadion" @bind-Value="VereinAus.Stadion" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>VereinAus.Stadion"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Stadion" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Fassungsvermögen" class="col-md-3 col-xs-12" Component="txtVereinsname1">@Localizer["Fassungsvermoegen"].Value</RadzenLabel>
                         <InputText required id="txtVereinsname" @bind-Value="VereinAus.Fassungsvermoegen" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>VereinAus.Fassungsvermoegen"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Fassungsvermoegen" />
+                        </div>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Hyperlink" class="col-md-3 col-xs-12" Component="txtHyperlink">Hyperlink</RadzenLabel>
                         <InputText required id="txtHyperlink" @bind-Value="VereinAus.Hyperlink" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>VereinAus.Hyperlink"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Hyperlink" />
+                        </div>
                     </div>
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblLiga1" class="col-md-3 col-xs-12" Component="chkLiga1">@Localizer["Liga1"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="VereinAus.Liga1" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-12" Name="chkLiga1" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>VereinAus.Liga1"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Liga1" />
+                        </div>
                     </div>
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblLiga2" class="col-md-3 col-xs-12" Component="chkLiga2">@Localizer["Liga2"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="VereinAus.Liga2" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-12" Name="chkLiga2" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>VereinAus.Liga2"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Liga2" />
+                        </div>
                     </div>
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblPokal" class="col-md-3 col-xs-12" Component="chkPokal">@Localizer["Pokal"].Value</RadzenLabel>
                         <RadzenCheckBox @bind-Value="VereinAus.Pokal" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-md-9 col-xs-12" Name="chkPokal" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>VereinAus.Pokal"></ValidationMessage>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => VereinAus.Pokal" />
+                        </div>
                     </div>
+                    <DataAnnotationsValidator />
+                    <!-- This will show any validation errors -->
+                    <ValidationSummary />
                     <div class="form-group row my-2">
                         <RadzenButton title="@Localizer["Speichert Verein ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click=UpsertVerein class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                         </RadzenButton>

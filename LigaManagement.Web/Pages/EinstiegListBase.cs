@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using Radzen;
@@ -27,12 +26,13 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TextManagerManagement.Web.Services;
 
 namespace LigaManagement.Web.Pages
 {
     [EnableCors]
     public class EinstiegListBase : ComponentBase
-    {     
+    {
         private static readonly HttpClient client = new HttpClient();
         protected string sFilename;
         protected string DisplayErrorLiga = "d-none";
@@ -117,12 +117,16 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<Saison> Saisonen { get; set; }
         public IEnumerable<Liga> Ligen { get; set; }
         public IEnumerable<Land> Laender { get; set; }
-        public IEnumerable<Spieltag> Spieltage { get; set; }
+        public IEnumerable<Spieltag> gSpieltage { get; set; }
         public IEnumerable<Spieltag> LetzteErgebnisse { get; set; }
         public IEnumerable<InfoText> InfoTexte { get; set; }
+        
         [Inject]
         public IStringLocalizer<EinstiegList> Localizer { get; set; }
 
+        [Inject]
+        public IInfoTexteService InfoTextService { get; set; }
+        
         public bool TestSQLServer()
         {
             try
@@ -204,13 +208,12 @@ namespace LigaManagement.Web.Pages
                     isDropdownDisabledSaison = false;
                 }
 
-
                 if (Globals.SaisonID == 0)
                     isDropdownDisabledSaison = true;
                 else
                     isDropdownDisabledSaison = false;
 
-                
+
                 if (LMSettings.GetImportVisible() == false)
                     ImportVisible = false;
                 else if (LMSettings.GetImportVisible() == true)
@@ -224,11 +227,11 @@ namespace LigaManagement.Web.Pages
                 LetzteErgebnisse = await SpieltagServiceLE.GetSpieltage();
 
                 InfoTexte = await InfoTexteService.GetTexte();
-                InfoTexte = InfoTexte.Where(x => x.PublishedAt > DateTime.Now.AddDays(-30)).ToList().OrderByDescending(x=> x.PublishedAt);
+                InfoTexte = InfoTexte.Where(x => x.PublishedAt > DateTime.Now.AddDays(-30)).ToList().OrderByDescending(x => x.PublishedAt);
 
                 foreach (var infotext in InfoTexte)
                 {
-                    infotext.Vereinsname = VereineService.GetVerein(infotext.VereinID).Result.Vereinsname2; 
+                    infotext.Vereinsname = VereineService.GetVerein(infotext.VereinID).Result.Vereinsname2;
                 }
 
                 DisplayErrorLiga = "d-none";
@@ -237,13 +240,13 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorLand = "d-none";
 
                 IsLoading = false;
-
+                
                 await this.InvokeAsync(this.StateHasChanged);
                 //var result = await GetDataFromOpenLgaDB();
             }
             catch (Exception ex)
             {
-
+                IsLoading = false;
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
@@ -302,7 +305,7 @@ namespace LigaManagement.Web.Pages
             }
         }
 
-        
+
         public async Task LandChangeAsync(ChangeEventArgs e)
         {
             if (e.Value != null)
@@ -348,7 +351,7 @@ namespace LigaManagement.Web.Pages
 
                     SaisonenList.Clear();
                     if (Globals.LigaID == 0)
-                    {                        
+                    {
                         isDropdownDisabledSaison = false;
                     }
                     else
@@ -508,7 +511,7 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString()?.Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString()?.Trim());
 
-                        int? iVerein1= 0;
+                        int? iVerein1 = 0;
                         int? iVerein2 = 0;
                         int? iFassungsvermoegen = 0;
                         string sStadion = "";
@@ -566,14 +569,14 @@ namespace LigaManagement.Web.Pages
                         cmd.Parameters.AddWithValue("@Datum", dt);
                         cmd.Parameters.AddWithValue("@Abgeschlossen", true);
 
-                       
+
                         cmd.ExecuteNonQuery();
 
                         int mod = i % 9;
 
                         if (mod == 0)
                             spieltag++;
-                       
+
 
                         i++;
                     }
@@ -630,27 +633,27 @@ namespace LigaManagement.Web.Pages
                 return;
             }
 
-            
+
             Vereine = await VereineService.GetVereine();
             if (Globals.LigaNummer != 3)
-                Spieltage = await SpieltagService.GetSpieltage();
+                gSpieltage = await SpieltagService.GetSpieltage();
             else
-                Spieltage = await SpieltagService.GetSpieltageL3();
+                gSpieltage = await SpieltagService.GetSpieltageL3();
 
-            Spieltage = Spieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
+            gSpieltage = gSpieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
 
             if (Globals.LigaID != 3)
             {
-                for (int j = 0; j < Spieltage.Count(); j++)
+                for (int j = 0; j < gSpieltage.Count(); j++)
                 {
-                    var columns = Spieltage.ElementAt(j);
+                    var columns = gSpieltage.ElementAt(j);
                     columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
                     columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname2;
                 }
             }
 
             int i = 1;
-            foreach (var spieltag in Spieltage)
+            foreach (var spieltag in gSpieltage)
             {
 
                 if (!Globals.VereinAktSaison.ContainsKey(spieltag.Verein1_Nr))
@@ -743,7 +746,7 @@ namespace LigaManagement.Web.Pages
             if (Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison) != null)
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison)?.Abgeschlossen;
             else
-                bAbgeschlossen = false;            
+                bAbgeschlossen = false;
 
             if (bAbgeschlossen == true)
             {

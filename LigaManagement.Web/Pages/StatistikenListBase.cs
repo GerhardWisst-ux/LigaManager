@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,11 @@ namespace LigaManagerManagement.Web.Pages
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
+        public RadzenDataGrid<Spieltag> grid;
 
+        public RadzenDataGrid<Torjaeger> gridtorjaeger;
+        public RadzenDataGrid<ToreProSaison> gridtoreprosaison;
+        
         public bool allowVirtualization;
         public int selectedIndex = 0;
 
@@ -102,9 +107,16 @@ namespace LigaManagerManagement.Web.Pages
         {
             Vereine = (await VereineService.GetVereine()).ToList();
             Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == 1);
+
+            
             torelist = (await ToreService.GetTore()).ToList();
 
             await Task.WhenAll(GetVereineList(), GetTorjaegerList(), GetToreProSaisonList());
+
+            foreach (var spieltag in Spieltage)
+            {
+                spieltag.Doppelpunkt = ":";
+            }
 
             StateHasChanged();
         }
@@ -114,6 +126,7 @@ namespace LigaManagerManagement.Web.Pages
             try
             {
                 ToreProSaisonList = await TabelleService.ToreProSaison();
+                
                 return ToreProSaisonList;
             }
             catch (Exception ex)

@@ -505,7 +505,7 @@ else
 
                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"Ligamanager/editverein/{data.VereinNr}/{"BE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                <NavLink href="@($"editverein/{data.VereinNr}/{"BE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
                             </Template>
                 </RadzenDataGridColumn>
             </Columns>

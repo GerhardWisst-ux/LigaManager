@@ -135,7 +135,7 @@ namespace LigaManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-                SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen]", conn);
+                SqlCommand command = new SqlCommand("SELECT * FROM [Saisonen] Order by LigaID, Saisonname DESC ", conn);
                 Saison saison = null;
                 List<Saison> saisonenList = new List<Saison>();
                 using (SqlDataReader reader = command.ExecuteReader())

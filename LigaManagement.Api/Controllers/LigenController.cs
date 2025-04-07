@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    [ApiController]  
     public class LigenController : ControllerBase
     {
         private readonly ILigenRepository ligaRepository;

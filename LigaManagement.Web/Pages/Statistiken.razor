@@ -62,7 +62,7 @@
                         <div class="form-group row">
                             <div class="col-sm-6">
                                 <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
-                                <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein1Change">
+                                <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-12" @onchange="Verein1Change">
                                     <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                     {
@@ -73,7 +73,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <label style="display:inline-block;" class="col-sm-2 pl-0">Verein</label>
-                                <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-10" @onchange="Verein2Change">
+                                <select id="cboSaison" style="display:inline-block;" class="form-control dropdown col-sm-12" @onchange="Verein2Change">
                                     <option value="" selected required>@Localizer["Verein wählen"].Value</option>
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
                                     {
@@ -91,7 +91,7 @@
                         <div class="form-group row">
                             <div class="col-sm-12">
 
-                                 @if (IsLoading == true || Spielergebnisse == null)
+                                @if (IsLoading == true || Spielergebnisse == null)
                                 {
                                     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
                                         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
@@ -101,75 +101,45 @@
                                 {
                                     var SpieltageVV = Spielergebnisse.OrderByDescending(x => x.Datum);
 
-                                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
-                                        <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                        <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
-                                    </RadzenStack>
+                                    foreach (var spieltag in SpieltageVV)
+                                    {
+                                        spieltag.Doppelpunkt = ":";
+                                    }
 
-                                    <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                                        <RadzenColumn Size="3" SizeXS="3">
-                                            <RadzenText TextStyle="TextStyle.Body1">Verein 1</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="3" SizeXS="4">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein 2</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                                        </RadzenColumn>
-                                    </RadzenRow>
+                                    <RadzenDataGrid @ref="grid" Data="@SpieltageVV" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                    SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                        <Columns>
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
-                                    <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                                    WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                    Data="@SpieltageVV" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" PageSizeText="Größe" ShowPagingSummary="true">
-                                        <Template Context="Spieltag">
-                                            <RadzenCard Style="width:100%; padding:0;">
-                                                <RadzenRow Gap="0">
-                                                    <RadzenColumn Size="3" SizeXS="3">
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
-                                                        <Template Context="data">
-                                                            <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                                        </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText title="@Localizer["Statistiken"].Value" TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="74px" MinWidth="74px">
-                                                        <Template Context="data">
-                                                            <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                                        </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenColumn Size="3" SizeXS="3">
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="false" Width="240px" MinWidth="240px">
-                                                        <Template Context="data">
-                                                            <RadzenImage Path="@($"/editverein/{data.Verein2_Nr}")" style="width: 40px; height: 40px; border-radius: 8px; margin-right: 8px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                                        </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                                    </RadzenColumn>
-                                                </RadzenRow>
-                                            </RadzenCard>
-                                        </Template>
-                                    </RadzenDataList>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                                        </Columns>
+
+                                    </RadzenDataGrid>
+
+
                                 }
                             </div>
                         </div>
@@ -193,66 +163,38 @@
                                 }
                                 else
                                 {
-                                    <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
-                                        <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                        <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
-                                    </RadzenStack>
+                                    <RadzenDataGrid @ref="grid" Data="@SpieltageHH" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                    SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                        <Columns>
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
-                                    <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc;">
-                                        <RadzenColumn Size="4" SizeXS="4">
-                                            <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="4">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="1" SizeXS="1">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                                        </RadzenColumn>
-                                    </RadzenRow>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
 
-                                    <RadzenDataList AllowVirtualization=@allowVirtualization style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                                    WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                    Data="@SpieltageHH" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                                        <Template Context="Spieltag">
-                                            <RadzenCard Style="width:100%; padding:0;">
-                                                <RadzenRow Gap="0">
-                                                    <RadzenColumn Size="4" SizeXS="4">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="1" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="4" SizeXS="4">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="0" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                                    </RadzenColumn>
-                                                    <RadzenColumn Size="0" SizeXS="1">
-                                                        @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                                    </RadzenColumn>
-                                                </RadzenRow>
-                                            </RadzenCard>
-                                        </Template>
-                                    </RadzenDataList>
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                                        </Columns>
+
+                                    </RadzenDataGrid>
                                 }
                             }
                         </div>
@@ -268,66 +210,38 @@
                             {
                                 var SpieltageHA = Spieltage.Where(x => x.Tore1_Nr < x.Tore2_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
 
-                                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
-                                    <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                    <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
-                                </RadzenStack>
+                                <RadzenDataGrid @ref="grid" Data="@SpieltageHA" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                    <Columns>
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
-                                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc;">
-                                    <RadzenColumn Size="4" SizeXS="4">
-                                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="2" SizeXS="4">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                                    </RadzenColumn>
-                                </RadzenRow>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                            <Template Context="data">
+                                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                            </Template>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
 
-                                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                Data="@SpieltageHA" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                                    <Template Context="Spieltag">
-                                        <RadzenCard Style="width:100%; padding:0;">
-                                            <RadzenRow Gap="0">
-                                                <RadzenColumn Size="4" SizeXS="4">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="4" SizeXS="4">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="0" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="0" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                                </RadzenColumn>
-                                            </RadzenRow>
-                                        </RadzenCard>
-                                    </Template>
-                                </RadzenDataList>
+                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                            <Template Context="data">
+                                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                            </Template>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                                    </Columns>
+
+                                </RadzenDataGrid>
                             }
                             }
                         </div>
@@ -342,66 +256,38 @@
                             {
                                 var SpieltageTS = Spieltage.OrderByDescending(x => x.Tore1_Nr + x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(50).ToList();
 
-                                <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" Gap="0.5rem" Class="rz-p-2">
-                                    <RadzenCheckBox @bind-Value="@allowVirtualization" Name="allowVirtualization" />
-                                    <RadzenLabel Text="@Localizer["Alle auf einer Seite"].Value" Component="allowVirtualization" />
-                                </RadzenStack>
+                                <RadzenDataGrid @ref="grid" Data="@SpieltageTS" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                    <Columns>
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
-                                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc;">
-                                    <RadzenColumn Size="4" SizeXS="4">
-                                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="2" SizeXS="4">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                                    </RadzenColumn>
-                                </RadzenRow>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                            <Template Context="data">
+                                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                            </Template>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
 
-                                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : "")"
-                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                                Data="@SpieltageTS" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                                    <Template Context="Spieltag">
-                                        <RadzenCard Style="width:100%; padding:0;">
-                                            <RadzenRow Gap="0">
-                                                <RadzenColumn Size="4" SizeXS="4">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="4" SizeXS="4">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="0" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="0" SizeXS="1">
-                                                    @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                                </RadzenColumn>
-                                            </RadzenRow>
-                                        </RadzenCard>
-                                    </Template>
-                                </RadzenDataList>
+                                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                            <Template Context="data">
+                                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                            </Template>
+                                        </RadzenDataGridColumn>
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                                    </Columns>
+
+                                </RadzenDataGrid>
                                 <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
                                     <RadzenColumn Offset="11" Style="text-align:right;">
                                         <button onclick="topFunction()" id="btnTop" class="btn btn-primary" title="Nach oben" style='font-size:14px; display:true;'><span class="glyphicon glyphicon-arrow-up"></span></button>
@@ -417,7 +303,7 @@
                 <RadzenCard Style="height:75vh;" class="m-0">
                     <div class="content">
                         <div class="form-group row">
-                            <div class="col-sm-6">                                
+                            <div class="col-sm-6">
                     <option selected="selected">@Localizer["Verein wählen"].Value</option>
                     <select id="cboSaison" style="display:inline-block; " class="form-control dropdown col-sm-10" @onchange="EinzelVereinChange">
                                     @foreach (var verein in VereineList.Where(x => x.Bundesliga = true).OrderBy(x => x.Vereinname1))
@@ -445,244 +331,117 @@
                                         var SpieltageVH = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).Where(x => x.Tore1_Nr > x.Tore2_Nr).OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList(); ; //Spielergebnisse.OrderByDescending(x => x.Datum);
 
                 <RadzenLabel Text="Höchte Heimsiege"></RadzenLabel>
+                <RadzenDataGrid @ref="grid" Data="@SpieltageVH" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
 
-                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc;">
-                    <RadzenColumn Size="4" SizeXS="4">
-                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="2" SizeXS="4">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                Data="@SpieltageVH" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                    <Template Context="Spieltag">
-                        <RadzenCard Style="width:100%; padding:0;">
-                            <RadzenRow Gap="0">
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                </RadzenColumn>
-                            </RadzenRow>
-                        </RadzenCard>
-                    </Template>
-                </RadzenDataList>
-                <br />
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                    </Columns>
+
+                </RadzenDataGrid>
                                     }
 
                                     @if (DisplayElements == "block")
                                     {
                                         var SpieltageAS = Spieltage.Where(x => x.Verein2_Nr == Spiel.Verein1_Nr).Where(x => x.Tore2_Nr > x.Tore1_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
                 <RadzenLabel Text="Höchte Auswärtssiege"></RadzenLabel>
-                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 10px 10px 10px; border-bottom: 1px solid #ccc;">
-                    <RadzenColumn Size="4" SizeXS="4">
-                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="2" SizeXS="4">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                Data="@SpieltageAS" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                    <Template Context="Spieltag">
-                        <RadzenCard Style="width:100%; padding:0;">
-                            <RadzenRow Gap="0">
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                </RadzenColumn>
-                            </RadzenRow>
-                        </RadzenCard>
-                    </Template>
-                </RadzenDataList>
-                <br />
+                <RadzenDataGrid @ref="grid" Data="@SpieltageAS" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+                    </Columns>
+                </RadzenDataGrid>
+
                                     }
                                     @if (DisplayElements == "block")
                                     {
                                         var SpieltageVA = Spieltage.Where(x => x.Verein1_Nr == Spiel.Verein1_Nr).Where(x => x.Tore1_Nr < x.Tore2_Nr).OrderByDescending(x => x.Tore2_Nr - x.Tore1_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
                 <RadzenLabel Text="Höchte Heimiederlagen"></RadzenLabel>
-                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                    <RadzenColumn Size="4" SizeXS="4">
-                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="2" SizeXS="4">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                Data="@SpieltageVA" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                    <Template Context="Spieltag">
-                        <RadzenCard Style="width:100%; padding:0;">
-                            <RadzenRow Gap="0">
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                </RadzenColumn>
-                            </RadzenRow>
-                        </RadzenCard>
-                    </Template>
-                </RadzenDataList>
-                <br />
+                <RadzenDataGrid @ref="grid" Data="@SpieltageVA" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                    <Columns>
+                        <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                        <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                            <Template Context="data">
+                                <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                        <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                        <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+
+
+                    </Columns>
+
+                </RadzenDataGrid>
                                     }
 
                                     @if (DisplayElements == "block")
                                     {
                                         var SpieltageAN = Spieltage.Where(x => x.Verein2_Nr == Spiel.Verein1_Nr).OrderByDescending(x => x.Tore1_Nr - x.Tore2_Nr).ThenByDescending(x => x.Datum).Take(10).ToList();
-                <RadzenLabel Text="Höchte Auswärtsniederlagen"></RadzenLabel>
-                <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                    <RadzenColumn Size="4" SizeXS="4">
-                        <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="2" SizeXS="4">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                    </RadzenColumn>
-                    <RadzenColumn Size="1" SizeXS="1">
-                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                    </RadzenColumn>
-                </RadzenRow>
-                <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                Data="@SpieltageAN" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                    <Template Context="Spieltag">
-                        <RadzenCard Style="width:100%; padding:0;">
-                            <RadzenRow Gap="0">
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="1" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="4" SizeXS="4">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                </RadzenColumn>
-                                <RadzenColumn Size="0" SizeXS="1">
-                                                            @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                    <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                </RadzenColumn>
-                            </RadzenRow>
-                        </RadzenCard>
-                    </Template>
-                </RadzenDataList>
-                <br />
+
                                     }
 
                                     @if (DisplayElements == "block")
@@ -693,61 +452,35 @@
                                         {
 
                     <RadzenLabel Text="Torreichste Spiele"></RadzenLabel>
-                    <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                        <RadzenColumn Size="4" SizeXS="4">
-                            <RadzenText TextStyle="TextStyle.Body1">Verein1</RadzenText>
-                        </RadzenColumn>
-                        <RadzenColumn Size="1" SizeXS="1">
-                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 1</RadzenText>
-                        </RadzenColumn>
-                        <RadzenColumn Size="1" SizeXS="1">
-                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore 2</RadzenText>
-                        </RadzenColumn>
-                        <RadzenColumn Size="2" SizeXS="4">
-                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein2</RadzenText>
-                        </RadzenColumn>
-                        <RadzenColumn Size="1" SizeXS="1">
-                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Datum</RadzenText>
-                        </RadzenColumn>
-                        <RadzenColumn Size="1" SizeXS="1">
-                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">ST</RadzenText>
-                        </RadzenColumn>
-                    </RadzenRow>
-                    <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                    WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
-                                    Data="@SpieltageTS" TItem="Spieltag" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" ShowPagingSummary="true">
-                        <Template Context="Spieltag">
-                            <RadzenCard Style="width:100%; padding:0;">
-                                <RadzenRow Gap="0">
-                                    <RadzenColumn Size="0" SizeXS="1">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                        <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(Spieltag.SpieltagNr)</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="4" SizeXS="4">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 1</RadzenText> *@
-                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein1)</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 1</RadzenText> *@
-                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore1_Nr)</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="1" SizeXS="1">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">T 2</RadzenText> *@
-                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Tore2_Nr)</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="4" SizeXS="4">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Verein2)</RadzenText>
-                                    </RadzenColumn>
-                                    <RadzenColumn Size="0" SizeXS="1">
-                                                                @* <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Verein 2</RadzenText> *@
-                                        <RadzenText TextStyle="TextStyle.Body2">@(Spieltag.Datum)</RadzenText>
-                                    </RadzenColumn>
-                                </RadzenRow>
-                            </RadzenCard>
-                        </Template>
-                    </RadzenDataList>
-                    <br />
+                    <RadzenDataGrid @ref="grid" Data="@SpieltageTS" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                    SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                        <Columns>
+                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <Template Context="data">
+                                    <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+
+                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <Template Context="data">
+                                    <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                </Template>
+                            </RadzenDataGridColumn>
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                            <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
+                        </Columns>
+                    </RadzenDataGrid>
                                         }
                                     }
                                 }
@@ -768,7 +501,6 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-12">
-
                                 @if (TorjaegerList.Count() == 0)
                                 {
                         <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
@@ -777,44 +509,22 @@
                                 }
                                 else
                                 {
-
-                                    var TorjaegerList2 = TorjaegerList.Where(x => x.Tore > 4).OrderByDescending(x => x.Tore).ToList();
+                                    var TorjaegerListOrdered = TorjaegerList.Where(x => x.Tore > 4).OrderByDescending(x => x.Tore).ToList();
                         <RadzenLabel Text="Torjägerliste "></RadzenLabel>
+                        <RadzenDataGrid @ref="gridtorjaeger" Data="@TorjaegerListOrdered" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="20"
+                                        AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                        TItem="Torjaeger" Visible="true" Responsive=true AllowColumnResize="true"
+                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                            <Columns>
+                                <RadzenDataGridColumn TItem="Torjaeger" Width="30%" Property="Spielername" TextAlign="TextAlign.Left" Filterable="false" Sortable=true Title="@Localizer["Spielername"].Value"></RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="Torjaeger" Width="30%" Property="Vereinsname" Sortable=true Title="@Localizer["Vereinsname"].Value"></RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="Torjaeger" Width="30%" Property="Tore" TextAlign=TextAlign.Right Sortable=true Title="@Localizer["Tore"].Value"></RadzenDataGridColumn>
 
-                        <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                            <RadzenColumn Size="5" SizeXS="5">
-                                <RadzenText TextStyle="TextStyle.Body1">Spielername</RadzenText>
-                            </RadzenColumn>
-                            <RadzenColumn Size="5" SizeXS="5">
-                                <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Verein</RadzenText>
-                            </RadzenColumn>
-                            <RadzenColumn Size="2" SizeXS="2">
-                                <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Tore</RadzenText>
-                            </RadzenColumn>
-                        </RadzenRow>
+                            </Columns>
 
-                        <RadzenDataList Data="@TorjaegerList2" TItem="Torjaeger" AllowVirtualization=@allowVirtualization style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="10"
-                                        PagerHorizontalAlign="HorizontalAlign.Left" pagerText ShowPagingSummary="true">
-                            <Template Context="Torjaeger">
-                                <RadzenCard Style="width:100%; padding:0;">
-                                    <RadzenRow Gap="0">
-                                        <RadzenColumn Size="5" SizeXS="5">
-                                            <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Spielername)</RadzenText>
-                                        </RadzenColumn>                                        
-                                        <RadzenColumn Size="5" SizeXS="5">
-                                            <RadzenText TextStyle="TextStyle.Body1">@(Torjaeger.Vereinsname)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="2">
-                                            <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">@(Torjaeger.Tore)</RadzenText>
-                                        </RadzenColumn>
-                                    </RadzenRow>
-                                </RadzenCard>
-                            </Template>
-                        </RadzenDataList>
+                        </RadzenDataGrid>
 
-
-                        <br />
                                 }
                 </div>
             </div>
@@ -833,7 +543,6 @@
             </div>
             <div class="form-group row">
                 <div class="col-sm-12">
-
                                 @if (IsLoading == true)
                                 {
                         <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
@@ -843,47 +552,24 @@
                                 else
                                 {
                                     var ToreProSaisonList2 = ToreProSaisonList.ToList();
+                                    ToreProSaisonList2.OrderBy(x => x.Saison);
                         <RadzenLabel Text="Tore pro Saison "></RadzenLabel>
-                        <RadzenRow Gap="0" style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
-                            <RadzenColumn Size="6" SizeXS="6">
-                                <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body1">Saison</RadzenText>
-                            </RadzenColumn>
-                            <RadzenColumn Size="2" SizeXS="2">
-                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">Anzahl Spiele</RadzenText>
-                            </RadzenColumn>
-                            <RadzenColumn Size="2" SizeXS="2">
-                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">Anzahl Tore</RadzenText>
-                            </RadzenColumn>
-                            <RadzenColumn Size="2" SizeXS="2">
-                                <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">AVG Tore</RadzenText>
-                            </RadzenColumn>
-                        </RadzenRow>
-                        <RadzenDataList Data="@ToreProSaisonList2" TItem="ToreProSaison" AllowVirtualization=@allowVirtualization style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="100"
-                                        PagerHorizontalAlign="HorizontalAlign.Left" pagerText ShowPagingSummary="true">
-                            <Template Context="ToreProSaison">
-                                <RadzenCard Style="width:100%; padding:0;">
-                                    <RadzenRow Gap="0">
-                                        <RadzenColumn Size="6" SizeXS="6">
-                                            <RadzenText TextStyle="TextStyle.Body1">@(ToreProSaison.Saison)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="2">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">@(ToreProSaison.AnzahlSpiele)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="2">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">@(ToreProSaison.AnzahlTore)</RadzenText>
-                                        </RadzenColumn>
-                                        <RadzenColumn Size="2" SizeXS="2">
-                                            <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1">@(ToreProSaison.ToreAVG)</RadzenText>
-                                        </RadzenColumn>
-                                    </RadzenRow>
-                                </RadzenCard>
-                            </Template>
-                        </RadzenDataList>
+
+                        <RadzenDataGrid @ref="gridtoreprosaison" Data="@ToreProSaisonList2" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="20"
+                                        AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                        TItem="ToreProSaison" Visible="true" Responsive=true AllowColumnResize="true"
+                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                        SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                            <Columns>
+                                <RadzenDataGridColumn TItem="ToreProSaison" Width="50%" Property="Saison" TextAlign="TextAlign.Left" Filterable="false" Sortable=true Title="@Localizer["Saison"].Value"></RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="ToreProSaison" Width="15%" Property="AnzahlSpiele" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["AnzahlSpiele"].Value"></RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="ToreProSaison" Width="15%" Property="AnzahlTore" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["AnzahlTore"].Value"></RadzenDataGridColumn>
+                                <RadzenDataGridColumn TItem="ToreProSaison" Width="15%" Property="ToreAVG" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["ToreAVG"].Value"></RadzenDataGridColumn>
+
+                            </Columns>
+
+                        </RadzenDataGrid>                               
                                 }
-
-
-                    <br />
                     }
                 </div>
             </div>

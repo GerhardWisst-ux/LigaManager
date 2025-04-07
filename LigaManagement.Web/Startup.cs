@@ -39,9 +39,16 @@ namespace LigaManagement.Web
 
                 services.AddRazorPages();
                 services.AddServerSideBlazor();
+
+                //services.AddServerSideBlazor().AddCircuitOptions(o =>
+                //{
+                //    //only add details when debugging
+                //    o.DetailedErrors = true;
+                //});
+
                 services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-                services.AddAutoMapper(typeof(Startup));
+                //services.AddAutoMapper(typeof(Startup));
                                 
                 services.AddHttpClient<IVereineService, VereineService>(client =>
                 {

@@ -88,72 +88,106 @@ else
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname1">@Localizer["Mannschaft"].Value</RadzenLabel>
                         <RadzenTextBox required id="txtVereinsname" @bind-Value="Verein.Vereinsname1" class="form-control col-sm-9"></RadzenTextBox>
-                        <ValidationMessage For="()=>Verein.Vereinsname1"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Vereinsname1)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Vereinsname" class="col-sm-3" Component="txtVereinsname2">@Localizer["Anzeigename"].Value</RadzenLabel>
                         <RadzenTextBox required id="txtVereinsname2" @bind-Value="Verein.Vereinsname2" class="form-control col-sm-9"></RadzenTextBox>
-                        <ValidationMessage For="()=>Verein.Vereinsname2"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Vereinsname2)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Erfolge" class="col-sm-3" Component="txtStadion">@Localizer["Erfolge"].Value</RadzenLabel>
                         <RadzenTextArea @bind-Value=@Verein.Erfolge Cols="105" Rows="3" class="form-control col-sm-9" aria-label="Textfeld " />
-                        <ValidationMessage For="()=>Verein.Erfolge"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Erfolge)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Gegründet" class="col-sm-3" Component="txtStadion">@Localizer["Gegruendet"].Value</RadzenLabel>
                         <InputNumber required id="txtGegründet" @bind-Value="Verein.Gegruendet" class="form-control col-sm-9"></InputNumber>
-                        <ValidationMessage For="()=>Verein.Gegruendet"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Gegruendet)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>                    
                     <div class="form-group row my-4">
                         <RadzenLabel Text="Hyperlink" class="col-sm-3" Component="txtHyperlink">Hyperlink</RadzenLabel>
                         <InputText required id="txtHyperlink" @bind-Value="Verein.Hyperlink" class="form-control col-sm-9"></InputText>
-                        <ValidationMessage For="()=>Verein.Hyperlink"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.Hyperlink)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblGroupID2024" class="col-sm-3" Component="txt2024">@Localizer["EM2024"].Value</RadzenLabel>
                         <InputNumber id="txt2024" @bind-Value="Verein.GroupID2024" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2024"></ValidationMessage>                    
+                        <ValidationMessage For="(() => Verein.GroupID2024)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2022" class="col-sm-1" Component="txt2022">@Localizer["WM2022"].Value</RadzenLabel>
                         <InputNumber id="txt2022" @bind-Value="Verein.GroupID2022" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2022"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2022)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2020" class="col-sm-1" Component="txt2020">@Localizer["EM2020"].Value</RadzenLabel>
                         <InputNumber id="txt2020" @bind-Value="Verein.GroupID2020" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2020"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2020)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row my-4">
                       
                         <RadzenLabel Text="lblGroupID2018" class="col-sm-3" Component="txt2018">@Localizer["WM2018"].Value</RadzenLabel>
                         <InputNumber id="txt2018" @bind-Value="Verein.GroupID2018" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2018"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2018)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2016" class="col-sm-1" Component="txt2016">@Localizer["EM2016"].Value</RadzenLabel>
                         <InputNumber id="txt2018" @bind-Value="Verein.GroupID2016" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2016"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2016)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2014" class="col-sm-1" Component="txt2014">@Localizer["WM2014"].Value</RadzenLabel>
                         <InputNumber id="txt2014" @bind-Value="Verein.GroupID2014" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2014"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2014)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>             
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblGroupID2012" class="col-sm-3" Component="txt2012">@Localizer["EM2012"].Value</RadzenLabel>
                         <InputNumber id="txt2012" @bind-Value="Verein.GroupID2012" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2012"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2012)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2010" class="col-sm-1" Component="txt2014">@Localizer["WM2010"].Value</RadzenLabel>
                         <InputNumber id="txt2010" @bind-Value="Verein.GroupID2010" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2010"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2010)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2010" class="col-sm-1" Component="txt2014">@Localizer["WM2008"].Value</RadzenLabel>
                         <InputNumber id="txt2008" @bind-Value="Verein.GroupID2008" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2008"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2008)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row my-4">
                         <RadzenLabel Text="lblGroupID2006" class="col-sm-3" Component="txt2006">@Localizer["WM2006"].Value</RadzenLabel>
                         <InputNumber id="txt2006" @bind-Value="Verein.GroupID2006" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2000"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2006)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2004" class="col-sm-1" Component="txt2014">@Localizer["EM2004"].Value</RadzenLabel>
                         <InputNumber id="txt2004" @bind-Value="Verein.GroupID2004" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2004"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2004)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                         <RadzenLabel Text="lblGroupID2000" class="col-sm-1" Component="txt2000">@Localizer["EM2000"].Value</RadzenLabel>
                         <InputNumber id="txt2000" @bind-Value="Verein.GroupID2000" class="form-control col-sm-1"></InputNumber>
-                        <ValidationMessage For="()=>Verein.GroupID2000"></ValidationMessage>
+                        <ValidationMessage For="(() => Verein.GroupID2000)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                    
                     <div class="form-group row my-2">

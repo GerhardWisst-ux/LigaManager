@@ -117,91 +117,74 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Abgespeichert" xml:space="preserve">
+    <value>Abgespeichert</value>
+  </data>
+  <data name="Anzahl Infotexte" xml:space="preserve">
+    <value>Anzahl Infotexte</value>
+  </data>
   <data name="Ausloggen" xml:space="preserve">
-    <value>Logout</value>
+    <value>Ausloggen</value>
   </data>
-  <data name="Auswählen" xml:space="preserve">
-    <value>Apply</value>
+  <data name="Bearbeiten Infotext" xml:space="preserve">
+    <value>Bearbeiten Infotext</value>
   </data>
-  <data name="Auswärts" xml:space="preserve">
-    <value>Away</value>
-  </data>
-  <data name="Bearbeiten" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="Bitte Land wählen" xml:space="preserve">
-    <value>Please select country</value>
-  </data>
-  <data name="Bitte Liga wählen" xml:space="preserve">
-    <value>Please select league</value>
-  </data>
-  <data name="Bitte Saison wählen" xml:space="preserve">
-    <value>Please select season</value>
-  </data>
-  <data name="Datum" xml:space="preserve">
-    <value>Date</value>
+  <data name="Bitte Verein wählen" xml:space="preserve">
+    <value>Bitte Verein wählen</value>
   </data>
   <data name="Eingeloggter Benutzer" xml:space="preserve">
-    <value>Logged in User</value>
+    <value>Eingeloggter Benutzer</value>
   </data>
   <data name="Einstellungen" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
-  <data name="Heim" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Import" xml:space="preserve">
-    <value>Import</value>
+  <data name="Grunddaten" xml:space="preserve">
+    <value>Grunddaten</value>
   </data>
   <data name="Info" xml:space="preserve">
     <value>Info</value>
+    <comment>Info</comment>
   </data>
-  <data name="Land" xml:space="preserve">
-    <value>Select Country</value>
+  <data name="Inhalt" xml:space="preserve">
+    <value>Inhalt</value>
   </data>
-  <data name="Letze Ergebnisse" xml:space="preserve">
-    <value>Last added results</value>
+  <data name="Liganame" xml:space="preserve">
+    <value>Liganame</value>
   </data>
-  <data name="Letze ErgebnisseCollapse" xml:space="preserve">
-    <value>Collapse last results</value>
+  <data name="Löschen Infotext" xml:space="preserve">
+    <value>Löschen Infotext</value>
   </data>
-  <data name="Letze ErgebnisseExpand" xml:space="preserve">
-    <value>Expand last results</value>
+  <data name="Löscht Infotext" xml:space="preserve">
+    <value>Löscht Infotext</value>
   </data>
-  <data name="Liga" xml:space="preserve">
-    <value>Select League</value>
+  <data name="Nächster Schritt" xml:space="preserve">
+    <value>Nächster Schritt</value>
   </data>
-  <data name="Nationale Wettbewerbe" xml:space="preserve">
-    <value>National Competitions</value>
+  <data name="Relegation" xml:space="preserve">
+    <value>Relegation</value>
   </data>
-  <data name="Ort" xml:space="preserve">
-    <value>Location</value>
+  <data name="Saisonname" xml:space="preserve">
+    <value>Saisonname</value>
   </data>
-  <data name="Saison" xml:space="preserve">
-    <value>Select Saison</value>
+  <data name="Speichern" xml:space="preserve">
+    <value>Speichern</value>
   </data>
-  <data name="Spiele" xml:space="preserve">
-    <value>Games</value>
+  <data name="Speichert InfoText ab" xml:space="preserve">
+    <value>Speichert Infotext ab</value>
   </data>
-  <data name="Spieltag" xml:space="preserve">
-    <value>Match Day</value>
+  <data name="Titel" xml:space="preserve">
+    <value>Titel</value>
   </data>
-  <data name="Start" xml:space="preserve">
-    <value>Start</value>
+  <data name="Verein auswählen" xml:space="preserve">
+    <value>Verein auswählen</value>
   </data>
-  <data name="Tabelle" xml:space="preserve">
-    <value>Table</value>
+  <data name="Voriger Schritt" xml:space="preserve">
+    <value>Voriger Schritt</value>
   </data>
-  <data name="Tabellen anlegen" xml:space="preserve">
-    <value>Create Tables</value>
+  <data name="Zurück zur Übersicht Infotexte" xml:space="preserve">
+    <value>Zurück zur Übersicht Infotexte</value>
   </data>
-  <data name="ToolTipButton" xml:space="preserve">
-    <value>Select Country, League and Saison</value>
-  </data>
-  <data name="Tore" xml:space="preserve">
-    <value>Goals</value>
-  </data>
-  <data name="Turnier wählen" xml:space="preserve">
-    <value>Select tournament</value>
+  <data name="Zusammenfassung" xml:space="preserve">
+    <value>Zusammenfassung</value>
   </data>
 </root>

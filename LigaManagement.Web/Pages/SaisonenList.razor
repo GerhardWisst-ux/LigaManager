@@ -9,7 +9,7 @@
 @attribute [Authorize]
 
 <head>
-    
+
 </head>
 
 <style type="text/css">
@@ -27,7 +27,7 @@
 }
 else
 {
-    
+
     <div class="container">
 
         <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
@@ -51,12 +51,16 @@ else
         <div class="form-group row">
             <div class="col-sm-12">
 
-                   <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
-                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
-                    </RadzenCard>
+                <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
+                    <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                    Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+                </RadzenCard>
 
-                <RadzenDataGrid @ref="grid" Data="@SaisonenList" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                @if (SaisonenList != null)
+                {
+                    var saisonenlist = SaisonenList.OrderBy(x => x.LigaID);  //.OrderByDescending(x => x.Saisonname);
+
+                    <RadzenDataGrid @ref="grid" Data="@saisonenlist" class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                 AllowPaging="true" AllowSorting="true" Responsive=true Density="@Density" AllowFiltering="true"
                                 TItem="Saison" Visible="true" AllowColumnResize="true"
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -83,12 +87,14 @@ else
                                 @if (data.LandID == 57)
                                 {
                                     <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                    <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
                                 }
                                 else
                                 {
                                     <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                    <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm disabled"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
                                 }
-                                <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
+                                
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
@@ -98,6 +104,7 @@ else
                         @Localizer["Anzahl Saisonen"].Value: <b>@SaisonenList.Count()</b>
                     </FooterTemplate>
                 </RadzenDataGrid>
+                }
                 <RadzenRow Wrap="FlexWrap.NoWrap" Gap="10px" class="rz-white">
                     <RadzenColumn Offset="11" Style="text-align:right;">
                         <button onclick="topFunction()" id="btnTop" class="btn btn-primary btn-sm" title="@Localizer["Nach oben"].Value" style='font-size:12px'><div><RadzenIcon Icon="open_in_browser" /><span></span></div></button>

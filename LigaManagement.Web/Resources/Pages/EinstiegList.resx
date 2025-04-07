@@ -117,8 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Auswahl" xml:space="preserve">
-    <value>Auswahl</value>
+  <data name="Ausloggen" xml:space="preserve">
+    <value>Ausloggen</value>
   </data>
   <data name="Auswählen" xml:space="preserve">
     <value>Auswählen</value>
@@ -144,11 +144,17 @@
   <data name="Eingeloggter Benutzer" xml:space="preserve">
     <value>Eingeloggter Benutzer</value>
   </data>
+  <data name="Einstellungen" xml:space="preserve">
+    <value>Einstellungen</value>
+  </data>
   <data name="Heim" xml:space="preserve">
     <value>Heim</value>
   </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>Info</value>
   </data>
   <data name="Land" xml:space="preserve">
     <value>Land wählen</value>
@@ -167,12 +173,6 @@
   </data>
   <data name="Nationale Wettbewerbe" xml:space="preserve">
     <value>Nationale Wettbewerbe</value>
-  </data>
-  <data name="Nationale Wettbewerbe aufklappen" xml:space="preserve">
-    <value>Nationale Wettbewerbe aufklappen</value>
-  </data>
-  <data name="Nationale Wettbewerbe zuklappen" xml:space="preserve">
-    <value>Nationale Wettbewerbe zuklappen</value>
   </data>
   <data name="Ort" xml:space="preserve">
     <value>Ort</value>

@@ -71,10 +71,7 @@ else
 {
     <div class="row my-2">
         <div class="col-12">
-            <EditForm Model="EditSpieltagModel" OnValidSubmit="Upsert">
-                <DataAnnotationsValidator />
-                <!-- This will show any validation errors -->
-                <ValidationSummary />
+            <EditForm Model="EditSpieltagModel" OnValidSubmit="Upsert">            
                 <RadzenCard class="m-0 rz-shadow-3" style="height:170px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
@@ -138,14 +135,18 @@ else
                                 <div class="form-group row">
                                     <RadzenLabel Text="@Localizer["Datum geplant"].Value" class="col-md-3 col-xs-12" Component="txtDatumString">@Localizer["Datum geplant"].Value</RadzenLabel>
                                     <InputText required id="txtDatumString" style="display:inline;max-width:170px;height:38px;margin-right:2px;" @bind-Value="Spiel.DatumString" class="form-control col-md-3 col-xs-12"></InputText>
-                                    <ValidationMessage For="(()=>Spiel.DatumString)"></ValidationMessage>
+                                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                                        <ValidationMessage For="() => Spiel.DatumString" />
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="@Localizer["Datum"].Value" class="col-md-3 col-xs-12" Component="txtDatum">@Localizer["Datum"].Value</RadzenLabel>
                                     <InputDate required id="txtDatum" style="display:inline;max-width:170px;height:38px;margin-right:2px;" @bind-Value="Spiel.Datum" class="form-control col-md-3 col-xs-12"></InputDate>
-                                    <ValidationMessage For="(()=>Spiel.Datum)"></ValidationMessage>
+                                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                                        <ValidationMessage For="() => Spiel.Datum" />
+                                    </div>
                                     <input id="txtZeit" type="time" style="display:inline;max-width:170px;height:38px;margin-right:2px;" class="form-control col-md-3 col-xs-12" required @bind-value="Time" />
-                                </div>                                
+                                </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="@Localizer["Verein 1"].Value" class="col-md-3 col-xs-12 ml-3" Component="cboVerein1">@Localizer["Verein 1"].Value </RadzenLabel>
                                     <select id="cboVerein1" class="form-control col-md-9 col-xs-12" @onchange="Verein1Change">
@@ -199,13 +200,20 @@ else
                                         }
                                     </select>
                                     <InputText style="display:none;" id="txtOrt" @bind-Value="@Stadionname" class="form-control col-md-9 col-xs-12"></InputText>
-                                    <ValidationMessage For="()=>Spiel.Ort"></ValidationMessage>
+                                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                                        <ValidationMessage For="() => Spiel.Ort" />
+                                    </div>
                                 </div>
                                 <div class="form-group row">
                                     <RadzenLabel Text="Schiedrichter" class="col-md-3 col-xs-12" Component="txtSchiedrichter">@Localizer["Schiedrichter"].Value</RadzenLabel>
                                     <RadzenTextBox required id="txtSchiedrichter" @bind-Value="Spiel.Schiedrichter" class="form-control col-md-9 col-xs-12 pl-3"></RadzenTextBox>
-                                    <ValidationMessage For="()=>Spiel.Schiedrichter"></ValidationMessage>
+                                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                                        <ValidationMessage For="() => Spiel.Schiedrichter" />
+                                    </div>
                                 </div>
+                                <DataAnnotationsValidator />
+                                <!-- This will show any validation errors -->
+                                <ValidationSummary />
 
                                 <div class="form-group py-2">
                                     <RadzenButton title="@Localizer["Speichert Spielplan ab"].Value" style="margin-left:5px;" id="btnsave" Click="Upsert" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
@@ -315,7 +323,7 @@ else
         if (SpielplanID == "0")
         {
             Spiel.Datum = SpielDateTime;
-            
+
             if (Globals.LigaID < 3)
             {
                 var stadien = await StadionService.GetStadien();

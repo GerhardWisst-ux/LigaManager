@@ -23,6 +23,11 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class EditInfoTextListBase : ComponentBase
     {
+        [Parameter]
+        public string Id { get; set; }
+        protected InfoText InfoTexte { get; set; } = new InfoText();
+        protected string Titel { get; set; }
+
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
         public NavigationManager NavigationManager { get; set; }
@@ -92,7 +97,20 @@ namespace LigaManagerManagement.Web.Pages
                         VereineList.Add(new DisplayVerein(ver.VereinNr.ToString(), verein.Vereinsname2));
                     }
                 }
-                                                
+
+                if (Id == "0" || Id is null)
+                {                    
+                    Id = "0";
+                    Titel = @Localizer["Neuanlage InfoText"].Value;
+                    InfoTexte = await InfoTextService.GetText(Convert.ToInt32(Id));
+                }
+                else
+                {                 
+                    Titel = @Localizer["Bearbeiten InfoText"].Value;
+                    InfoTexte = await InfoTextService.GetText(Convert.ToInt32(Id));
+                    VereinNr = InfoTexte.VereinID;
+                }
+
                 Globals.bVisibleNavMenuElements = true;
 
                 IsLoading = false;

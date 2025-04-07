@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
 using LigaManagement.Web.Models;
 using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,25 +21,36 @@ namespace LigamanagerManagement.Web.Pages
 {
     public class EditPokalspieltagBase : ComponentBase
     {
+        [Parameter]
+        public string Id { get; set; }
+
+        [Parameter]
+        public string Runde { get; set; }
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
+
         public bool allowVirtualization;
-        public Int32 currentspieltag = Globals.Spieltag;
+        public int currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
+        
+
+        public string RundeChoosed;
+        public bool IsLoading = false;
+        public bool Collapsed = true;
+        public bool bDeleteButtonVisible = true;
+        public string Stadion;
+
+        public string Spielername;
         public string Vereinsname1;
 
         public string Vereinsname2;
 
-        public string Stadion;
-
-        public string Spielername;
-
-        public string RundeChoosed;
+       
+        public string Titel { get; set; }
 
         public List<DisplayRunde> RundeList;
 
         public DateTime? Time { get; set; }
-
-        [CascadingParameter]
-        public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         [Inject]
         public IPokalergebnisseService PokalergebnisseService { get; set; }
@@ -77,16 +86,7 @@ namespace LigamanagerManagement.Web.Pages
         public PokalergebnisSpieltag SpielCombo { get; set; } = new PokalergebnisSpieltag();
 
         public IEnumerable<Verein> Vereine { get; set; }
-
-        [Parameter]
-        public string Id { get; set; }
-
-        [Parameter]
-        public string Runde { get; set; }
-
-        [Inject]
-        public IMapper Mapper { get; set; }
-
+        
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
@@ -98,9 +98,7 @@ namespace LigamanagerManagement.Web.Pages
 
         NotificationService NotificationService = new NotificationService();
 
-        public bool Collapsed = true;
-        public bool bDeleteButtonVisible = true;
-
+       
         protected async override Task OnInitializedAsync()
         {
             try
@@ -118,6 +116,31 @@ namespace LigamanagerManagement.Web.Pages
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
 
+                if (Id == "0" || Id is null)
+                {
+                    //Neuanlage
+                    Titel = "Pokal Neuanlage";
+                    Id = "0";
+                    RundeChoosed = Runde;
+                    if (Runde == "2")
+                        Titel = "Pokalspiel Neuanlage 2. Runde";
+                    else if (Runde == "AF")
+                        Titel = "Pokalspiel Neuanlage Achtelfinale";
+                    else if (Runde == "VF")
+                        Titel = "Pokalspiel Neuanlage Viertelfinale";
+                    else if (Runde == "HF")
+                        Titel = "Pokalspiel Neuanlage Halbfinale";
+                    else
+                        Titel = "Pokalspiel Neuanlage Finale";
+                }
+                else
+                {
+                    //Bearbeiten
+                    Titel = "Pokal Bearbeiten";
+                    Spiel = await PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
+                }
+
+                IsLoading = true;
 
                 var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
 
@@ -155,6 +178,8 @@ namespace LigamanagerManagement.Web.Pages
                     new DisplayRunde("F", Localizer["Finale"].Value),
                 };
 
+                IsLoading = false;
+
                 if (Convert.ToInt32(Id) == 0)
                 {
                     Runde = Globals.currentPokalRunde;
@@ -175,34 +200,11 @@ namespace LigamanagerManagement.Web.Pages
             {
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                IsLoading = false;
             }
 
-
-
-
         }
-        protected async override void OnAfterRender(bool firstRender)
-        {
-
-            //if (Id != null)
-            //{
-            //    SpielCombo = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
-            //    Vereinsname1 = SpielCombo.Verein1;
-            //    Vereinsname2 = SpielCombo.Verein2;
-            //    Stadion = SpielCombo.Ort;
-            //    //VereineList.Add(new DisplayVerein("0", "Verein wählen", ""));
-            //}
-            //else
-            //{
-            //    Vereinsname1 = null;
-            //    Vereinsname2 = null;
-            //}
-        }
-
-        public void Change(object value, string name, string action)
-        {
-            Console.WriteLine($"{name} item with index {value} {action}");
-        }
+      
 
         public async void Verein1Change(ChangeEventArgs e)
         {

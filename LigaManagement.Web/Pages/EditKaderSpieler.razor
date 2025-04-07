@@ -91,22 +91,30 @@ else
                     <div class="form-group row">
                         <RadzenLabel Text="Rückennummer" class="col-md-3 col-xs-12" Component="txtRueckennummer">@Localizer["Rückennummer"].Value</RadzenLabel>
                         <InputNumber required id="txtRueckennummer" @bind-Value="Kader.Rueckennummer" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>Kader.Rueckennummer"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Rueckennummer)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="SpielerName" class="col-md-3 col-xs-12" Component="txtSpielerName">@Localizer["Spielername"].Value</RadzenLabel>
                         <InputText required id="txtSpielerName" @bind-Value="Kader.SpielerName" class="form-control col-md-9 col-xs-6"></InputText>
-                        <ValidationMessage For="()=>Kader.SpielerName"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.SpielerName)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Vorname" class="col-md-3 col-xs-12" Component="txtVorname">@Localizer["Vorname"].Value</RadzenLabel>
                         <InputText required id="txtVorname" @bind-Value="Kader.Vorname" class="form-control col-md-9 col-xs-12"></InputText>
-                        <ValidationMessage For="()=>Kader.Vorname"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Vorname)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Geburtsdatum" class="col-md-3 col-xs-12" Component="txtGeburtsdatum">@Localizer["Geburtsdatum"].Value</RadzenLabel>
                         <InputDate required id="txtGeburtsdatum" onchange="DatumChange" @bind-Value="Kader.Geburtsdatum" class="form-control col-md-9 col-xs-12"></InputDate>
-                        <ValidationMessage For="()=>Kader.Geburtsdatum"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Geburtsdatum)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Alter" class="col-md-3 col-xs-12" Component="txtAlter">@Localizer["Alter"].Value</RadzenLabel>
@@ -154,17 +162,23 @@ else
                     <div class="form-group row">
                         <RadzenLabel Text="Einsätze" class="col-md-3 col-xs-12" Component="txtEinsaetze">@Localizer["Einsätze"].Value</RadzenLabel>
                         <InputNumber required id="txtEinsaetze" @bind-Value="Kader.Einsaetze" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>Kader.Einsaetze"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Einsaetze)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="tore" class="col-md-3 col-xs-12" Component="txtTore">@Localizer["Tore"].Value</RadzenLabel>
                         <InputNumber required id="txtTore" @bind-Value="Kader.Tore" class="form-control col-md-9 col-xs-12"></InputNumber>
-                        <ValidationMessage For="()=>Kader.Tore"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Tore)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Im Verein seit" class="col-md-3 col-xs-12" Component="txtImVereinSeit">@Localizer["Im Verein seit"].Value</RadzenLabel>
                         <InputDate required id="txtImVereinSeit" @bind-Value="Kader.ImVereinSeit" class="form-control col-md-9 col-xs-12"></InputDate>
-                        <ValidationMessage For="()=>Kader.ImVereinSeit"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.ImVereinSeit)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group row">
                         <RadzenLabel Text="Ablösesumme" class="col-md-3 col-xs-12" Component="txtAbloesesumme">@Localizer["Ablösesumme"].Value</RadzenLabel>
@@ -175,7 +189,9 @@ else
                         <RadzenCheckBox @bind-Value="Kader.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control col-sm-9" Name="chkAktiv" />
                         <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
                         </RadzenColumn>
-                        <ValidationMessage For="()=>Kader.Aktiv"></ValidationMessage>
+                        <ValidationMessage For="(() => Kader.Aktiv)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
                     </div>
                     <div class="form-group py-2">                    
                         <button title="@Localizer["Speichert Spieler ab"].Value" class="btn btn-primary" onclick="UpsertKader()" id="btnSave">

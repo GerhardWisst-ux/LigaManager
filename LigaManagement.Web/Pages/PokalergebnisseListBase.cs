@@ -217,6 +217,7 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorRunde = "none";
 
                 PokalergebnisseSpieltage = await PokalergebnisseService.GetPokalergebnisseSpieltag();
+                            
 
                 if (PokalergebnisseSpieltage == null)
                     return;

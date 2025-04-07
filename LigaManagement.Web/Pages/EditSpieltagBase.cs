@@ -8,14 +8,12 @@ using LigaManagerManagement.Api.Models;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -243,7 +241,7 @@ namespace LigamanagerManagement.Web.Pages
                 }
                 if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                 {
-                    if (Id != null)
+                    if (Id != null  && Convert.ToInt32(Id) > 0)
                         Spiel = await SpieltagService.GetSpieltagL3(Convert.ToInt32(Id));
 
                     var vereineSaison = await SpieltagService.GetVereineL3();
@@ -446,7 +444,7 @@ namespace LigamanagerManagement.Web.Pages
             catch (Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-
+                IsLoading = false;
             }
         }
         private int ErmittlenAktSpieltag()

@@ -347,8 +347,6 @@ namespace LigaManagerManagement.Web.Services
             var alleSpieltage = (await spieltagService.GetSpielergebnisse());
             var Spielergebnisse = (alleSpieltage).Where(st => st.Verein1 == spiel.Verein1 && st.Verein2 == spiel.Verein2 || st.Verein1 == spiel.Verein2 && st.Verein2 == spiel.Verein1).ToList();
 
-
-
             return Spielergebnisse;
         }
         public async Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel)

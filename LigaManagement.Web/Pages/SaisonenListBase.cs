@@ -97,7 +97,7 @@ namespace LigaManagerManagement.Web.Pages
                 LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Id, columns.Liganame, columns.EMWM));
             }
 
-            SaisonenList = (await SaisonenService.GetSaisonen()).ToList().OrderByDescending(x => x.Saisonname);
+            SaisonenList = (await SaisonenService.GetSaisonen()).ToList();
 
             VereineList = new List<DisplayVerein>();
 
@@ -119,19 +119,7 @@ namespace LigaManagerManagement.Web.Pages
                         VereineList.Add(new DisplayVerein(Vereine[i].VereinNr.ToString(), Vereine[i].Vereinsname1, true));
                 }
             }
-
-            Saison saison;
-            //if (Id == "0")
-            //{
-            //    LigaID = 1;
-            //    Liganame = "Bundesliga";
-            //}                
-            //else
-            //{
-            //    saison = await SaisonenService.GetSaison(Convert.ToInt32(Id));
-            //    LigaID = saison.LigaID;
-            //    Liganame = saison.Liganame;
-            //}                
+                       
 
             DisplayErrorLiga = "none";
             

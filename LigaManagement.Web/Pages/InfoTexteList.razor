@@ -84,7 +84,7 @@ else
                         <RadzenDataGridColumn TItem="InfoText" Property="Title" Width="30%" Sortable=true Title="@Localizer["Titel"].Value" />
                         <RadzenDataGridColumn TItem="InfoText" Property="NewsContent" Width="30%" Sortable=true Title="@Localizer["Inhalt"].Value" />
                         <RadzenDataGridColumn TItem="InfoText" Property="Vereinsname" Width="20%" Sortable=true Title="@Localizer["Verein"].Value" />
-                        <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center" Width="18%" FormatString="{0:dd.MM.yyyy}" Sortable=true Title=@Localizer["Erstellt am"].Value />
+                        <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center" Width="18%" FormatString="{0:dd.MM.yyyy HH:mm}" Sortable=true Title=@Localizer["Erstellt am"].Value />
                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="InfoText" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 <NavLink href="@($"Ligamanager/editInfoText/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>

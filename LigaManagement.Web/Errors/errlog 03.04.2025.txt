@@ -1,0 +1,10 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 03.04.2025 10:15:09
+============================================

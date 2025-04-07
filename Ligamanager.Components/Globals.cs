@@ -1,8 +1,5 @@
-﻿using LigaManagement.Web.Classes;
-using Microsoft.Data.SqlClient;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace Ligamanager.Components
 {
@@ -22,6 +19,8 @@ namespace Ligamanager.Components
         public static string currentEMWMSaison;
         public static string currentClRunde;
         public static string currentEMWMRunde;
+        //public static IEnumerable<Spieltag> Spieltage { get; set; }
+
         public static int Spieltag;
         public static int LandID;
         public static int LandIDVerein;
@@ -45,7 +44,6 @@ namespace Ligamanager.Components
             Gast = 3,
         }
         public static int iUserGroup;
-
 
         public static Dictionary<string, string> VereinAktSaison = new Dictionary<string, string>();
         public static int currentVereinID;

@@ -96,6 +96,7 @@ namespace ToreManagerManagement.Api.Models
                         pe.Verein1_Nr = int.Parse(reader["Verein1_Nr"].ToString());
                         pe.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         pe.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        pe.Doppelpunkt = ":";
                         pe.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         pe.Runde = reader["Runde"].ToString();
                         pe.Ort = reader["Ort"].ToString();
@@ -141,6 +142,7 @@ namespace ToreManagerManagement.Api.Models
                         pe.Verein1_Nr = int.Parse(reader["Verein1_Nr"].ToString());
                         pe.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         pe.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        pe.Doppelpunkt = ":";
                         pe.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         pe.Runde = reader["Runde"].ToString();                        
                         pe.Ort = reader["Ort"].ToString();

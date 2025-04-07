@@ -83,37 +83,45 @@ else
                     <ValidationMessage For="(()=>Stadion.VereinNr)"></ValidationMessage>
                 </div>
 
-                <div class="form-group row">
-                    <DataAnnotationsValidator />
+                <div class="form-group row">                    
                     <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12" Component="txtStadionname">@Localizer["Stadionname"].Value</RadzenLabel>
                     <InputText required id="txtStadionname" @bind-Value="Stadion.Stadionname" class="form-control  col-md-9 col-xs-12"></InputText>
-                    <ValidationMessage col-md-9 col-xs-12 For="(()=>Stadion.Stadionname)"></ValidationMessage>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Stadion.Stadionname" />
+                    </div>
                 </div>
-                <div class="form-group row">
-                    <DataAnnotationsValidator />
+                <div class="form-group row">                    
                     <RadzenLabel Text="Ort" class="col-md-3 col-xs-12" Component="txtOrt">@Localizer["Ort"].Value</RadzenLabel>
                     <InputText required id="txtOrt" Name="txtOrt" @bind-Value="Stadion.Ort" class="form-control  col-md-9 col-xs-12"></InputText>
-                    <ValidationMessage col-md-9 col-xs-12 For="(()=>Stadion.Ort)"></ValidationMessage>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Stadion.Ort" />
+                    </div>
                 </div>
-                <div class="form-group row">
-                    <DataAnnotationsValidator />
+                <div class="form-group row">                   
                     <RadzenLabel Text="Kapazitaet" class="col-md-3 col-xs-12" Component="txtKapazitaet">@Localizer["Kapazität"].Value</RadzenLabel>
                     <InputNumber required id="txtKapazitaet" @bind-Value="Stadion.Kapazitaet" class="form-control col-md-9 col-xs-12"></InputNumber>
-                    <ValidationMessage col-md-9 col-xs-12 For="(()=>Stadion.Kapazitaet)"></ValidationMessage>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Stadion.Kapazitaet" />
+                    </div>
                 </div>
-                <div class="form-group row">
-                    <DataAnnotationsValidator />
+                <div class="form-group row">                    
                     <RadzenLabel Text="JahrVon" class="col-md-3 col-xs-12" Component="txtJahrVon">@Localizer["Jahr Von"].Value</RadzenLabel>
                     <InputNumber required id="txtJahrVon"  @bind-Value="Stadion.JahrVon" class="form-control  col-md-9 col-xs-12"></InputNumber>
-                    <ValidationMessage col-md-9 col-xs-12 For="(()=>Stadion.JahrVon)"></ValidationMessage>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Stadion.JahrVon" />
+                    </div>
                 </div>
-                <div class="form-group row">
-                    <DataAnnotationsValidator />
+                <div class="form-group row">                    
                     <RadzenLabel Text="JahrBis" class="col-md-3 col-xs-12" Component="txtJahrBis">@Localizer["Jahr bis"].Value</RadzenLabel>
                     <InputNumber required id="txtJahrBis" @bind-Value="Stadion.JahrBis" class="form-control  col-md-9 col-xs-12"></InputNumber>
-                    <ValidationMessage col-md-9 col-xs-12 For="(()=>Stadion.JahrBis)"></ValidationMessage>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Stadion.JahrBis" />
+                    </div>
                 </div>
 
+                <DataAnnotationsValidator />
+                <!-- This will show any validation errors -->
+                <ValidationSummary />
                 <div class="form-group row">
                     <RadzenButton title="@Localizer["Speichert Stadion ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertStadion" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                         <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value

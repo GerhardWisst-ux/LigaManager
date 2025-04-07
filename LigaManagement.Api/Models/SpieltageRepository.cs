@@ -109,13 +109,13 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
                         spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        spieltag.Doppelpunkt = ":";
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-
                     }
                 }
                 conn.Close();
@@ -164,6 +164,7 @@ namespace LigaManagerManagement.Api.Models
                             spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
                             spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
                             spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                            spieltag.Doppelpunkt = ":";
                             spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                             spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                             spieltag.Ort = reader["Ort"].ToString();

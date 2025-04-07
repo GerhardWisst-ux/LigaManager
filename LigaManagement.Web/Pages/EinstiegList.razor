@@ -88,7 +88,7 @@ else
                 <div class="card-body">
                     <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
                     <br />
-                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>                    
+                    <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
                     <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
                     <h2 style="display:inline-block;"> @Localizer["Start"].Value Ligamanager</h2>
                 </div>
@@ -106,7 +106,7 @@ else
             <RadzenCard Style="height:100vh;" class="m-0 mt-2 mb-2">
                 <RadzenTabs>
                     <Tabs>
-                        <RadzenTabsItem class="p-0" Text="@Localizer["Auswahl"].Value">
+                        <RadzenTabsItem class="p-0" Text="@Localizer["Start"].Value">
 
                             <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
                                 <ChildContent>
@@ -218,77 +218,68 @@ else
                                             </div>
                                         </div>
                                     </div>
-
                                 </ChildContent>
                             </RadzenCard>
                             <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
-                                        <ChildContent>
-                                            <h3>@Localizer["Infos"].Value</h3>
-                                            <div class="form-group row">
-                                                <div class="col-sm-12">
-                                                    <RadzenDataGrid @ref="gridTexte" Data="@InfoTexte" class="table table-striped" FilterMode="FilterMode.Simple"
-                                                                    PageSize="10" AllowPaging="true" AllowSorting="true" Density="@Density"
-                                                                    AllowFiltering="false" TItem="InfoText" Visible="true" AllowColumnResize="true"
-                                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                                    LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single">
-                                                        <Columns>
-                                                            <RadzenDataGridColumn TItem="InfoText" Property="Id" Title="Id" Visible=false></RadzenDataGridColumn>
-                                                            <RadzenDataGridColumn TItem="InfoText" Property="Title" Width="30%" Sortable=true Title="@Localizer["Titel"].Value" />
-                                                            <RadzenDataGridColumn TItem="InfoText" Property="NewsContent" Width="30%" Sortable=true Title="@Localizer["Inhalt"].Value" />
-                                                            <RadzenDataGridColumn TItem="InfoText" Property="Vereinsname" Width="20%" Sortable=true Title="@Localizer["Verein"].Value" />
-                                                            <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center"
-                                                                                  Width="18%" FormatString="{0:dd.MM.yyyy}" Sortable=true Title=@Localizer["Erstellt am"].Value />
-                                                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="InfoText" Property="Id" Width="100px" Filterable="false" Sortable="false">
-                                                                <Template Context="data">
-                                                                    <NavLink href="@($"Ligamanager/editInfoText/{data.Id}")"
-                                                                             title="@Localizer["Anzeigen"].Value"
-                                                                             class="btn btn-primary btn-sm">
-                                                                        <RadzenIcon Icon="help" />
-                                                                    </NavLink>
-                                                                </Template>
-                                                            </RadzenDataGridColumn>
-                                                        </Columns>
-                                                    </RadzenDataGrid>
-                                                </div>
-                                            </div>
-                                        </ChildContent>
-                                    </RadzenCard>
-
-                            <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
-                                        <ChildContent>
-                                            <h3>@Localizer["Letze Ergebnisse"].Value</h3>
-                                            <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
-                                                            AllowPaging="true" AllowSorting="true" AllowFiltering="false"
-                                                            TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                <ChildContent>
+                                    <h3>@Localizer["Infos"].Value</h3>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <RadzenDataGrid @ref="gridTexte" Data="@InfoTexte" class="table table-striped" FilterMode="FilterMode.Simple"
+                                                            PageSize="10" AllowPaging="true" AllowSorting="true" Density="@Density"
+                                                            AllowFiltering="false" TItem="InfoText" Visible="true" AllowColumnResize="true"
                                                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                            SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                            LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single">
                                                 <Columns>
-                                                    <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
-                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                                                        <Template Context="data">
-                                                            <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                                        </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
-                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
-                                                    <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
-                                                        <Template Context="data">
-                                                            <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                                        </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
-                                                    <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                                    <RadzenDataGridColumn TItem="InfoText" Property="Id" Title="Id" Visible=false></RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="InfoText" Property="Title" Width="30%" Sortable=true Title="@Localizer["Titel"].Value" />
+                                                    <RadzenDataGridColumn TItem="InfoText" Property="NewsContent" Width="30%" Sortable=true Title="@Localizer["Inhalt"].Value" />
+                                                    <RadzenDataGridColumn TItem="InfoText" Property="Vereinsname" Width="20%" Sortable=true Title="@Localizer["Verein"].Value" />
+                                                    <RadzenDataGridColumn TItem="InfoText" Property="PublishedAt" TextAlign="TextAlign.Center"
+                                                                          Width="18%" FormatString="{0:dd.MM.yyyy HH.mm}" Sortable=true Title=@Localizer["Erstellt am"].Value />
+                                                    
                                                 </Columns>
                                             </RadzenDataGrid>
-                                        </ChildContent>
-                                    </RadzenCard>
-                                    
+                                        </div>
+                                    </div>
+                                </ChildContent>
+                            </RadzenCard>
+
+                            <RadzenCard class="m-0 mt-2 mb-2" Style="flex:1;">
+                                <ChildContent>
+                                    <h3>@Localizer["Letze Ergebnisse"].Value</h3>
+                                    <RadzenDataGrid @ref="grid" Data="@LetzteErgebnisse" EmptyText="Keine Ergebnisse zum Anzeigen" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
+                                                    AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                    TItem="Spieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                    SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                        <Columns>
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="SpieltagId" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Visible=false Sortable=false Title="SpieltagId" />
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"{data.TeamIconUrl1}")" style="height: 30px; width: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein1" Width="30%" Sortable=true Title="@Localizer["Heim"].Value">
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+                                            <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                                <Template Context="data">
+                                                    <RadzenImage Path="@($"{data.TeamIconUrl2}")" style="height: 30px; width: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                </Template>
+                                            </RadzenDataGridColumn>
+                                            <RadzenDataGridColumn TItem="Spieltag" CssClass="VereinMinWidth" Property="Verein2" Width="25%" Sortable=true Title="@Localizer["Auswärts"].Value" />
+                                            <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
+                                        </Columns>
+                                    </RadzenDataGrid>
+                                </ChildContent>
+                            </RadzenCard>
 
 
-                                    @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
+
+                            @*  <RadzenAccordionItem Text="Internationale Wettbewerbe" CollapseTitle="Internationale Wettbewerbe zuklappen."
                             ExpandTitle="Internationale Wettbewerbe aufklappen." CollapseAriaLabel="Internationale Wettbewerbe zuklappen."
                             ExpandAriaLabel="Internationale Wettbewerbe aufklappen.">
                             <div class="dropdown mr-2" style="display:inline">
