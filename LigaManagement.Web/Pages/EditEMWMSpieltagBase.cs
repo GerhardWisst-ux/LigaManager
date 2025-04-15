@@ -37,7 +37,7 @@ namespace LigamanagerManagement.Web.Pages
         protected string GroupVisible = "none;";
 
         public List<DisplayRunde> RundeList;
-
+        public bool IsLoading = false;
         public DateTime? Time { get; set; }
 
         [CascadingParameter]
@@ -83,6 +83,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             try
             {
+                IsLoading = true;
                 List<VereinAktSaison> verList = new List<VereinAktSaison>();
                 var authenticationState = await authenticationStateTask;
 
@@ -250,11 +251,13 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
                 ShowRunden();
+
+                IsLoading = false;
             }
             catch (Exception ex)
             {
-
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                IsLoading = false;
             }
         }
 
@@ -304,6 +307,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
+                IsLoading = true;
                 var verein = await VereineService.GetVereinEMWM(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein1 = verein.Vereinsname1;
                 Spiel.Verein1_Nr = int.Parse(e.Value.ToString());
@@ -311,6 +315,7 @@ namespace LigamanagerManagement.Web.Pages
                 Spiel.Land1_Nr = 57;
                 Spiel.Zuschauer = Convert.ToInt32(verein.Fassungsvermoegen);
 
+                IsLoading = false;
                 StateHasChanged();
             }
 
@@ -320,11 +325,13 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
+                IsLoading = true;
                 var verein = await VereineService.GetVereinEMWM(Convert.ToInt32(e.Value.ToString()));
                 Spiel.Verein2 = verein.Vereinsname1;
                 Spiel.Land2_Nr = 57;
                 Spiel.Verein2_Nr = int.Parse(e.Value.ToString());
 
+                IsLoading = false;
                 StateHasChanged();
             }
 
@@ -335,6 +342,7 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (e.Value != null)
             {
+                IsLoading = true;
                 RundeChoosed = e.Value.ToString();
 
                 Globals.currentEMWMRunde = RundeChoosed;
@@ -345,7 +353,7 @@ namespace LigamanagerManagement.Web.Pages
                 else
                     GroupVisible = "none;";
 
-
+                IsLoading = false;
                 StateHasChanged();
             }
         }

@@ -39,16 +39,10 @@
         color: black;
     }
 
-    .previous {
+    .previous, .next {
         background-color: #1b6ec2;
         border-color: #1861ac;
-        color: white;
-    }
-
-    .next {
-        background-color: #1b6ec2;
-        border-color: #1861ac;
-        color: white;
+        color: white !important;
     }
 
     .round {
@@ -96,7 +90,7 @@ else
                     <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
                     <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
                     <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
-                    <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>n>
+                    <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                     <h2 style="display:inline-block;">@Titel</h2>
                     <span class="ml-3">
                         <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Spiel"].Value" ButtonStyle="ButtonStyle.Primary" />
@@ -170,6 +164,11 @@ else
                                 </Template>
                             </RadzenDataGridColumn>
                         </Columns>
+                        <FooterTemplate>
+                        </FooterTemplate>
+                        <FooterTemplate>
+                            @Localizer["Anzahl Spiele"]: <b>@Spielplaene.Count()</b>
+                        </FooterTemplate>
                     </RadzenDataGrid>
                     <div class="row">
                         <div class="col-md-1">

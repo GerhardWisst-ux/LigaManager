@@ -37,7 +37,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedsrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
@@ -107,7 +107,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
@@ -154,7 +154,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
@@ -224,7 +224,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
                         ",[Datum] = '" + spieltag.Datum + "'" +
                         ",[Ort] = '" + spieltag.Ort + "'" +
-                        ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
+                        ",[Schiedrichter] = '" + spieltag.Schiedsrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
                         ",[Zuschauer] =" + spieltag.Zuschauer +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;

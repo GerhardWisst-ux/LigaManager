@@ -1,0 +1,802 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: An error occurred while sending the request.
+StackTrace:    at System.Net.Http.HttpConnection.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpConnectionPool.SendWithVersionDetectionAndRetryAsync(HttpRequestMessage request, Boolean async, Boolean doRequestAuth, CancellationToken cancellationToken)
+   at System.Net.Http.DiagnosticsHandler.SendAsyncCore(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.RedirectHandler.SendAsync(HttpRequestMessage request, Boolean async, CancellationToken cancellationToken)
+   at System.Net.Http.HttpClient.<SendAsync>g__Core|83_0(HttpRequestMessage request, HttpCompletionOption completionOption, CancellationTokenSource cts, Boolean disposeCts, CancellationTokenSource pendingRequestsCts, CancellationToken originalCancellationToken)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path)
+Datum/Uhrzeit: 10.04.2025 12:45:04
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=18769; handshake=6; 
+StackTrace:    at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ThrowExceptionAndWarning(Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   at Microsoft.Data.SqlClient.TdsParserStateObject.ReadSniSyncOverAsync()
+   at Microsoft.Data.SqlClient.TdsParserStateObject.TryReadNetworkPacket()
+   at Microsoft.Data.SqlClient.TdsParser.ConsumePreLoginHandshake(SqlConnectionEncryptOption encrypt, Boolean trustServerCert, Boolean integratedSecurity, Boolean& marsCapable, Boolean& fedAuthRequired, Boolean tlsFirst, String serverCert)
+   at Microsoft.Data.SqlClient.TdsParser.Connect(ServerInfo serverInfo, SqlInternalConnectionTds connHandler, Boolean ignoreSniOpenTimeout, Int64 timerExpire, SqlConnectionString connectionOptions, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean ignoreSniOpenTimeout, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.WaitForPendingOpen()
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail)
+Datum/Uhrzeit: 10.04.2025 13:01:06
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Connection Timeout Expired.  The timeout period elapsed while attempting to consume the pre-login handshake acknowledgement.  This could be because the pre-login handshake failed or the server was unable to respond back in time.  The duration spent while attempting to connect to this server was - [Pre-Login] initialization=18769; handshake=6; 
+StackTrace:    at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.InternalOpenAsync(CancellationToken cancellationToken)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail)
+Datum/Uhrzeit: 10.04.2025 13:01:08
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:16
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:16
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:16
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:16
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 758
+Datum/Uhrzeit: 10.04.2025 13:02:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(10),@StadionID i" erwartet den @Zuschauer-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 777
+Datum/Uhrzeit: 10.04.2025 13:24:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Index was out of range. Must be non-negative and less than the size of the collection. (Parameter 'index')
+StackTrace:    at System.Collections.Generic.List`1.get_Item(Int32 index)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr)
+Datum/Uhrzeit: 10.04.2025 13:31:22
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Verein1_Nr-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr)
+Datum/Uhrzeit: 10.04.2025 13:43:03
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt()
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync()
+Datum/Uhrzeit: 10.04.2025 13:43:03
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Verein1_Nr-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 811
+Datum/Uhrzeit: 10.04.2025 13:43:52
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Verein1_Nr-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 811
+Datum/Uhrzeit: 10.04.2025 13:55:36
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Verein1_Nr-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 812
+Datum/Uhrzeit: 10.04.2025 14:05:32
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Verein1-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 812
+Datum/Uhrzeit: 10.04.2025 14:12:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 10.04.2025 14:30:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 10.04.2025 14:55:57
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 10.04.2025 14:57:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 10.04.2025 14:57:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 10.04.2025 14:59:35
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 10.04.2025 15:55:24
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 10.04.2025 16:17:32
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.DisplaySpielplanAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 159
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 110
+Datum/Uhrzeit: 10.04.2025 17:34:59
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.DisplaySpielplanAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 158
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 109
+Datum/Uhrzeit: 10.04.2025 17:44:08
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input string '' was not in a correct format.
+StackTrace:    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s, NumberStyles style, IFormatProvider provider)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.<>c__DisplayClass79_0.<DisplaySpielplanAkt>b__5(Verein v) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.DisplaySpielplanAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 109
+Datum/Uhrzeit: 10.04.2025 17:50:57
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input string '' was not in a correct format.
+StackTrace:    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s, NumberStyles style, IFormatProvider provider)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.<>c__DisplayClass79_0.<DisplaySpielplanAkt>b__5(Verein v) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.DisplaySpielplanAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.SpieltagChange(ChangeEventArgs e) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 208
+Datum/Uhrzeit: 10.04.2025 17:51:03
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input string '' was not in a correct format.
+StackTrace:    at System.Number.ThrowFormatException[TChar](ReadOnlySpan`1 value)
+   at System.Int32.Parse(String s, NumberStyles style, IFormatProvider provider)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.<>c__DisplayClass79_0.<DisplaySpielplanAkt>b__5(Verein v) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at System.Linq.Enumerable.TryGetFirst[TSource](IEnumerable`1 source, Func`2 predicate, Boolean& found)
+   at System.Linq.Enumerable.FirstOrDefault[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.DisplaySpielplanAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 170
+   at LigaManagerManagement.Web.Pages.SpielplanListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpielplanListBase.cs:line 109
+Datum/Uhrzeit: 10.04.2025 17:51:13
+============================================

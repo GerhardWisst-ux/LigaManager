@@ -11,12 +11,12 @@ namespace LigaManagement.Web.Services.Contracts
 {
     public interface ITabelleService
     {
-        Task<IEnumerable<Tabelle>> GetTabellen();
-        Task<Tabelle> GetTabelle(int id);        
+       
+
+        Task<IEnumerable<Tabelle>> GetTabellen();       
         Task<Tabelle> UpdateTabelle(Tabelle updatedTabelle);
-        Task<Tabelle> CreateTabelle(Tabelle newTabelle);
         Task DeleteTabelle(int? id);
-        Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);               
+        Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);              
 
         Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
@@ -24,7 +24,7 @@ namespace LigaManagement.Web.Services.Contracts
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         
         Task<List<ToreProSaison>> ToreProSaison();
-
+        Task<List<Spielergebnisse>> HeimSerieVerein(ISpieltagService spieltagService);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         
         Task<List<int?>> CreateChartPunkte(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);

@@ -1,0 +1,1589 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.GetPokalergebnisSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 65
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.InitializeData() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 152
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 117
+Datum/Uhrzeit: 14.04.2025 10:59:04
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.GetPokalergebnisSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 65
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.InitializeData() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 152
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 117
+Datum/Uhrzeit: 14.04.2025 10:59:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 404 (Not Found).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.GetPokalergebnisSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 65
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.InitializeData() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 152
+   at LigamanagerManagement.Web.Pages.EditPokalspieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditPokalspieltagBase.cs:line 117
+Datum/Uhrzeit: 14.04.2025 11:00:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:53:21
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:55:14
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:56:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 400 (Bad Request).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:56:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:57:51
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:58:30
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:59:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 12:59:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:00:28
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:07:04
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:08:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:15:00
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:15:41
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:16:30
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:17:27
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:19:24
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:23:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:24:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:25:05
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:25:29
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:25:55
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:26:40
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:27:05
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:27:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:27:56
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:28:40
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:29:09
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:29:35
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:30:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:30:57
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:31:26
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\PokalergebnisseService.cs:line 27
+Datum/Uhrzeit: 14.04.2025 13:32:06
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.SendJsonAsync[T](HttpClient httpClient, HttpMethod method, String requestUri, Object content)
+   at ToreManagerManagement.Web.Services.PokalergebnisseService.CreatePokalergebnisSpieltag(PokalergebnisSpieltag pokalergebnisSpieltag)
+Datum/Uhrzeit: 14.04.2025 14:06:43
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 708
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 268
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 150
+Datum/Uhrzeit: 14.04.2025 15:59:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path 'matchDateTime', line 1, position 37.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 694
+Datum/Uhrzeit: 14.04.2025 16:11:11
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Datum-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 821
+Datum/Uhrzeit: 14.04.2025 16:11:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 708
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 268
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 150
+Datum/Uhrzeit: 14.04.2025 16:20:27
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Fehler
+StackTrace: Fehler
+Datum/Uhrzeit: 14.04.2025 16:24:45
+============================================

@@ -22,17 +22,12 @@
                 color: black;
             }
 
-        .previous {
+        .previous, .next {
             background-color: #1b6ec2;
             border-color: #1861ac;
-            color: white;
+            color: white !important;
         }
-
-        .next {
-            background-color: #1b6ec2;
-            border-color: #1861ac;
-            color: white;
-        }
+        
 
         .round {
             border-radius: 50%;
@@ -135,38 +130,40 @@ else
                         }
                     </select>
                 </div>
-                <div Style="display:inline-block;" class="row ml-1">
-                    <div Style="display:inline-block;" class="col-md-1">
-                        <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
-                            <span class="oi oi-calendar" aria-hidden="true"></span> @Localizer["Spieltage"].Value
-                        </RadzenButton>
-                    </div>
-                </div>
-                @if (Globals.currentLiganame == "Bundesliga")
-                {
-                    <div Style="display:inline-block;" class="row">
+                <div class="btn-group" role="group">
+                    <div Style="display:inline-block;" class="row ml-1">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Kader"].Value" Click=@(args => AnzeigenKader()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
+                            <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-calendar" aria-hidden="true"></span>
                             </RadzenButton>
                         </div>
                     </div>
+                    @if (Globals.currentLiganame == "Bundesliga")
+                    {
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Kader"].Value" Click=@(args => AnzeigenKader()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-person" aria-hidden="true"></span>
+                                </RadzenButton>
+                            </div>
+                        </div>
 
-                    <div Style="display:inline-block;" class="row">
-                        <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Chart"].Value" Click=@(args => AnzeigenChart()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Chart"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-aperture" aria-hidden="true"></span>@Localizer["Chart"].Value
-                            </RadzenButton>
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Chart"].Value" Click=@(args => AnzeigenChart()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Chart"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-aperture" aria-hidden="true"></span>
+                                </RadzenButton>
+                            </div>
                         </div>
-                    </div>
-                    <div Style="display:inline-block;" class="row">
-                        <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Statistiken"].Value" Click=@(args => AnzeigenStatistiken()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Statistiken"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
-                            </RadzenButton>
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Statistiken"].Value" Click=@(args => AnzeigenStatistiken()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Statistiken"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-bar-chart" aria-hidden="true"></span>
+                                </RadzenButton>
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </div>
         </RadzenCard>
         <RadzenCard style="flex:1;margin:0px;">
@@ -205,7 +202,7 @@ else
                 <FooterTemplate>
                     @if (Globals.LigaID == 1)
                     {
-                    @Localizer["Legende"].Value
+                        @Localizer["Legende"].Value
                     }
                 </FooterTemplate>
             </RadzenDataGrid>
@@ -216,16 +213,16 @@ else
                 </RadzenColumn>
             </RadzenRow>
 
-            
-                <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
-                    <RadzenColumn Style="text-align:center;">
-                        <RadzenLabel class="col-12" Style="@DisplayEwig" Component="txtHinweis">
-                            @Localizer["Kommentar"].Value
-                        </RadzenLabel>
-                    </RadzenColumn>
-                </RadzenRow>
-            
-            
+
+            <RadzenRow Wrap="FlexWrap.NoWrap" class="rz-white">
+                <RadzenColumn Style="text-align:center;">
+                    <RadzenLabel class="col-12" Style="@DisplayEwig" Component="txtHinweis">
+                        @Localizer["Kommentar"].Value
+                    </RadzenLabel>
+                </RadzenColumn>
+            </RadzenRow>
+
+
         </RadzenCard>
     </div>
 
@@ -251,7 +248,7 @@ else
         Globals.KaderVereinNr = 0;
         _navigationManager.NavigateTo($"Ligamanager/kader");
     }
-    
+
 
     }
 

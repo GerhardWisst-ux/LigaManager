@@ -1,0 +1,100 @@
+﻿@page "/Ligamanager/Liste"
+@using LigaManagerManagement.Web.Pages
+@using Microsoft.Extensions.Localization
+
+@inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
+@inject DialogService DialogService
+@inject NavigationManager _navigationManager
+@inherits LigaManagerManagement.Web.Pages.Liste
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vereine Auswahl</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .list-container {
+            flex: 1;
+        }
+
+        .list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .list-item {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .selected {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+
+        .search {
+            margin-bottom: 10px;
+        }
+
+        </style>
+</head>
+<body>
+    <div class="container">
+        <div class="list-container">
+            <h1>Vereine Auswahl</h1>
+            <h2>Alle Vereine</h2>
+            <div class="form-group row align-items-center">
+                <div class="col-auto">
+                    <RadzenLabel for="txtSearch" Text="Suche" Component="txtSearch">@Localizer["Suche"].Value</RadzenLabel>
+                </div>
+                <div class="col">                    
+                    <div class="input-group">
+                        <input type="text" @bind="searchfeld" id="txtSearch" class="form-control search" />
+                        <span class="input-group-append">                            
+                                <button class="btn btn-outline-secondary" type="button" id="button-addon2">X</button>                            
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div id="allVereine" class="list">
+                @foreach (var verein in VereineList.Where(v => string.IsNullOrEmpty(searchfeld) ||
+                v.Vereinname1.StartsWith(searchfeld, StringComparison.OrdinalIgnoreCase))
+                .OrderBy(v => v.Vereinname1))
+                {
+                    <div class="list-item @GetSelectedClass(verein)" @onclick="() => ToggleSelection(verein)">
+                        @verein.Vereinname1
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="list-container">
+            <h1>&nbsp;</h1>
+            <h2>Ausgewählte Vereine (@SelectedVereine.Count/20)</h2>
+            <div class="list">
+                @foreach (var verein in SelectedVereine.OrderBy(v => v.Vereinname1))
+                {
+                    <div class="list-item" @onclick="() => ToggleSelection(verein)">
+                        @verein.Vereinname1
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

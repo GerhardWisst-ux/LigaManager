@@ -15,6 +15,7 @@ using System.Net.Http;
 using System.Reflection;
 using System.Threading.Tasks;
 using static LigaManagement.Web.Pages.ChartData;
+using static Ligamanager.Components.Globals;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LigaManagerManagement.Web.Services
@@ -35,19 +36,10 @@ namespace LigaManagerManagement.Web.Services
 
         private readonly HttpClient httpClient = httpClient;
 
-        public Task<Tabelle> CreateTabelle(Tabelle newTabelle)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task DeleteTabelle(int? id)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<Tabelle> GetTabelle(int id)
-        {
-            return await httpClient.GetJsonAsync<Tabelle>($"api/Tabellen/{id}");
         }
 
         public async Task<IEnumerable<Tabelle>> GetTabellen()
@@ -89,54 +81,59 @@ namespace LigaManagerManagement.Web.Services
             Tabelle tabelleneintragV2;
             DateTime dtGrenze_2_3 = DateTime.Parse("01/07/1995");
 
-            int BisSpieltag;
+            int BisSpieltag = 34;
             SpieltageRepository rep = new SpieltageRepository();
             var TabSaisonSorted = new List<Tabelle>();
             int VonSpieltag = 1;
 
             try
             {
-                if (bAbgeschlossen)
-                    BisSpieltag = Spieltag;
-                else
+                // Initialisierung
+                var tabellenEintraege = VereineSaison.Select(v => new Tabelle
                 {
-                    if (Spieltag < rep.AktSpieltag(Globals.SaisonID, Globals.LigaID))
-                        BisSpieltag = Spieltag;
-                    else
-                        BisSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
-                }
+                    VereinNr = v.VereinNr,
+                    Verein = Vereine.FirstOrDefault(a => a.VereinNr == v.VereinNr)?.Vereinsname1,
+                    Anzeigename = Vereine.FirstOrDefault(a => a.VereinNr == v.VereinNr)?.Vereinsname2,
+                    TorePlus = 0,
+                    ToreMinus = 0,
+                    Spiele = 0,
+                    Punkte = 0,
+                    Gewonnen = 0,
+                    Untentschieden = 0,
+                    Verloren = 0,
+                    Platz = 0,
+                    Tore = "0",
+                    Diff = 0,
+                    Tab_Sai_Id = Globals.SaisonID,
+                    Tab_Lig_Id = Globals.LigaID,
+                    Liga = Globals.currentLiga
+                }).ToList();
 
-                var alleSpieltage = (await spieltagService.GetSpieltage());
+                // Spieltage bestimmen
+                int bisSpieltag = bAbgeschlossen
+                    ? Spieltag
+                    : Math.Min(Spieltag, new SpieltageRepository().AktSpieltag(Globals.SaisonID, Globals.LigaID));
 
                 if (Tabart == 4)
                 {
-                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-                        BisSpieltag = 15;
-                    else if (Globals.currentSaison == "1991/92")
-                        BisSpieltag = 19;
-                    else
-                        BisSpieltag = 17;
+                    bisSpieltag = Globals.currentSaison switch
+                    {
+                        "1963/64" or "1964/65" => 15,
+                        "1991/92" => 19,
+                        _ => 17
+                    };
                 }
 
                 if (Tabart == 5)
                 {
-                    if (Globals.currentSaison == "1963/64" || Globals.currentSaison == "1964/65")
-                        VonSpieltag = 16;
-                    else if (Globals.currentSaison == "1991/92")
-                        VonSpieltag = 20;
-                    else
-                        VonSpieltag = 18;
+                    int vonSpieltag = Globals.currentSaison switch
+                    {
+                        "1963/64" or "1964/65" => 16,
+                        "1991/92" => 20,
+                        _ => 18
+                    };
 
-                    int iAktSpieltag = 0;
-                    if (bAbgeschlossen)
-                    {
-                        iAktSpieltag = Globals.maxSpieltag;
-                    }
-                    else
-                    {
-                        iAktSpieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
-                    }
-                    BisSpieltag = iAktSpieltag;
+                    bisSpieltag = bAbgeschlossen ? Globals.maxSpieltag : new SpieltageRepository().AktSpieltag(Globals.SaisonID, Globals.LigaID);
                 }
 
                 // Grundtabelle erzeugen
@@ -164,7 +161,10 @@ namespace LigaManagerManagement.Web.Services
 
                     TabSaisonSorted.Add(tabelleneintragV1);
                 }
-
+                // Spieltage abrufen
+                var alleSpieltage = (await spieltagService.GetSpieltage())
+                    .Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID)
+                    .ToList();
 
                 for (int i = VonSpieltag; i <= BisSpieltag; i++)
                 {
@@ -4155,6 +4155,23 @@ namespace LigaManagerManagement.Web.Services
             return toreProSaisonList;
         }
 
+        Task<List<Spielergebnisse>> ITabelleService.HeimSerieVerein(ISpieltagService spieltagService)
+        {
+            try
+            {
+                return null;
+            }
+            catch (SqlException sqlEx)
+            {
+                ErrorLogger.WriteToErrorLog(sqlEx.Message, sqlEx.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
         public async Task<List<Tuple<int, int?>>> BerechnePlaetzeDE(ISpieltagService spieltagService,
                                          bool bAbgeschlossen,
                                          List<VereineSaison> VereineSaison,
@@ -4404,6 +4421,8 @@ namespace LigaManagerManagement.Web.Services
                 return null;
             }
         }
+
+        
     }
     }
 

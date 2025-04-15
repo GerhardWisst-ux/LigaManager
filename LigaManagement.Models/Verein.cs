@@ -10,10 +10,10 @@ namespace LigaManagement.Models
         [Required]
         public int VereinNr { get; set; }
 
-        [Required(ErrorMessage = "Vereinsanme erforderlich.")]
+        [Required(ErrorMessage = "Vereinsname erforderlich.")]
         public string Vereinsname1 { get; set; }
 
-        [Required(ErrorMessage = "Vereinsanme erforderlich.")]
+        [Required(ErrorMessage = "Anzeigename erforderlich.")]
         public string Vereinsname2 { get; set; }
 
         [Required(ErrorMessage = "Stadion erforderlich.")]
@@ -23,8 +23,10 @@ namespace LigaManagement.Models
 
         public string Erfolge { get; set; }
 
+        [Required(ErrorMessage = "Gegründet erforderlich.")]
         public int Gegruendet { get; set; }
-        
+
+        [Required(ErrorMessage = "Pokal erforderlich.")]
         public bool Pokal { get; set; }
 
         public bool Bundesliga { get; set; }

@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Services.Contracts;
+using Ligamanager.Components;
 using Microsoft.AspNetCore.Components;
 using System;
 using System.Collections.Generic;
@@ -32,8 +33,19 @@ namespace LigaManagerManagement.Web.Services
                 return null;
             }
         }
-              
-       
+        public async Task DeleteVereineSaison(int? saisonid)
+        {
+            try
+            {
+                await httpClient.DeleteAsync($"api/vereinesaison/{saisonid}");
+            }
+            catch (Exception ex)
+            {
+
+                Debug.Print(ex.Message);
+            }            
+        }       
+
         public async Task<IEnumerable<VereineSaison>> GetVereineSaison()
         {
             return await httpClient.GetJsonAsync<List<VereineSaison>>($"api/vereinesaison");

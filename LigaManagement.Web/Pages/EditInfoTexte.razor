@@ -43,7 +43,7 @@
 else
 {
     <div class="container">
-        <div class="form-group row">
+        <div class="form-group row mt-0 row mb-1">
             <div class="col-sm-12">
                 <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
                     <div class="d-flex flex-row">
@@ -63,7 +63,7 @@ else
 
         <div class="col-12">
             <EditForm Model="InfoTexte" OnValidSubmit="UpsertInfoText">
-                <div class="form-group row">
+                <div class="form-group row mt-3 row mb-1">
                     <RadzenLabel Text="VereinNr" class="col-md-3 col-xs-12" Component="txtTitel">@Localizer["Verein"].Value</RadzenLabel>
                     <select id="cboVerein" style="display:inline-block;width:180px;" class="form-control dropdown" @onchange="VereinChange">
                         <option value="" selected>@Localizer["Verein auswählen"].Value</option>
@@ -81,7 +81,7 @@ else
                     </select>
                     <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row mt-0 row mb-1">
                     <DataAnnotationsValidator />
                     <RadzenLabel Text="Titel" class="col-md-3 col-xs-12" Component="txtTitel">@Localizer["Titel"].Value</RadzenLabel>
                     <InputText required id="txtTitel" @bind-Value="InfoTexte.Title" class="form-control col-md-9 col-xs-12"></InputText>
@@ -90,7 +90,7 @@ else
                     </ValidationMessage>
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row mt-0 row mb-1">
                     <DataAnnotationsValidator />
                     <RadzenLabel Text="Inhalt" class="col-md-3 col-xs-12" Component="txtInhalt">@Localizer["Inhalt"].Value</RadzenLabel>
                     <RadzenTextArea style="height:120px;" mu required id="Inhalt" Name="Inhalt" @bind-Value="InfoTexte.NewsContent" class="form-control col-md-9 col-xs-12"></RadzenTextArea>
@@ -100,7 +100,7 @@ else
                 </div>
                 @if (!(Id == "0" || Id is null))
                 {
-                    <div class="form-group row">
+                    <div class="form-group row mt-0 row mb-1">
                         <DataAnnotationsValidator />
                         <RadzenLabel Text="PublishedAt" class="col-md-3 col-xs-12" Component="txtPublishedAt">@Localizer["Erstellt am"].Value</RadzenLabel>
                         <InputDate required id="txtPublishedAt" style="width:180px;" @bind-Value="InfoTexte.PublishedAt" class="form-control"></InputDate>
@@ -109,7 +109,10 @@ else
                         </ValidationMessage>
                     </div>
                 }
-                <div class="form-group row">
+                <DataAnnotationsValidator />
+                <!-- This will show any validation errors -->
+                <ValidationSummary />
+                <div class="form-group row mt-0 row mb-1">
                     <RadzenButton title="@Localizer["Speichert InfoText ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertInfoText" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                         <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                     </RadzenButton>

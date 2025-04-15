@@ -28,7 +28,9 @@ namespace LigaManagerManagement.Web.Pages
 
         public RadzenDataGrid<Torjaeger> gridtorjaeger;
         public RadzenDataGrid<ToreProSaison> gridtoreprosaison;
-        
+
+        public RadzenDataGrid<Spielergebnisse> gridHeimserie;
+
         public bool allowVirtualization;
         public int selectedIndex = 0;
 
@@ -62,6 +64,8 @@ namespace LigaManagerManagement.Web.Pages
         public IEnumerable<Spieltag> Spieltage { get; set; }
         public List<Torjaeger> TorjaegerList = new List<Torjaeger>();
         public List<ToreProSaison> ToreProSaisonList = new List<ToreProSaison>();
+
+        public List<Spielergebnisse> HeimSpielSerie = new List<Spielergebnisse>();
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -107,26 +111,36 @@ namespace LigaManagerManagement.Web.Pages
         {
             Vereine = (await VereineService.GetVereine()).ToList();
             Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == 1);
-
-            
+                        
             torelist = (await ToreService.GetTore()).ToList();
 
-            await Task.WhenAll(GetVereineList(), GetTorjaegerList(), GetToreProSaisonList());
-
-            foreach (var spieltag in Spieltage)
-            {
-                spieltag.Doppelpunkt = ":";
-            }
+            await Task.WhenAll(GetVereineList(), GetTorjaegerList(), GetToreProSaisonList());            
 
             StateHasChanged();
         }
 
+      
         public async Task<List<ToreProSaison>> GetToreProSaisonList()
         {
             try
             {
                 ToreProSaisonList = await TabelleService.ToreProSaison();
                 
+                return ToreProSaisonList;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        public async Task<List<ToreProSaison>> GetHeimSerieVerein()
+        {
+            try
+            {
+                HeimSpielSerie = await TabelleService.HeimSerieVerein(SpieltagService);
+
                 return ToreProSaisonList;
             }
             catch (Exception ex)

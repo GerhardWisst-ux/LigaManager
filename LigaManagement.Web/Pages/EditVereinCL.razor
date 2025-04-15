@@ -509,7 +509,7 @@ else
             else if (LandKz == "BE")
                 await _VereineBEService.CreateVerein(VereinAus);
 
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = @Titel , Detail = "Abgespeichert" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = @Titel , Detail = "Abgespeichert" });
 
         }
         else if (bError == false)

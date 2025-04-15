@@ -30,6 +30,7 @@ namespace LigaManagement.Web
                     {
                         CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("de-DE");
                         CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo("de-DE");
+
                     }
                     else if (LMSettings.GetSprache_LandKZ() == "EN")
                     {

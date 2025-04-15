@@ -14,7 +14,7 @@ namespace LigamanagerManagement.Api.Models.Repository
         //Task<Verein> GetVerein(int Id);
         //Task<Verein> AddVerein(Verein Verein);
         //Task<Verein> UpdateVerein(Verein Verein);
-        //Task<Verein> DeleteVerein(int VereinId);        
+        Task<VereineSaison> DeleteVereineSaison(int saisonId);
         Task<List<VereineSaison>> AddVereineSaison(List<VereineSaison> Vereine);
     }
 }

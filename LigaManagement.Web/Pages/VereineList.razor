@@ -89,12 +89,18 @@ else
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="240px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="240px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="190px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
-                @* <RadzenDataGridColumn TItem="Verein" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="210px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="Verein" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="210px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
+              
+                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="180px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                
 
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="15%" Filterable="false" Sortable="false">
+                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="20%" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkBundesliga" />
                     </Template>
@@ -139,6 +145,11 @@ else
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
@@ -186,6 +197,11 @@ else
             <Columns>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -232,6 +248,11 @@ else
             <Columns>
           <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -282,6 +303,11 @@ else
             <Columns>
               <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -333,6 +359,11 @@ else
             <Columns>
           <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -383,6 +414,11 @@ else
             <Columns>
           <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -433,6 +469,11 @@ else
             <Columns>
           <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 
@@ -483,6 +524,11 @@ else
             <Columns>
           <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                    <Template Context="data">
+                        <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
+                    </Template>
+                </RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
                 

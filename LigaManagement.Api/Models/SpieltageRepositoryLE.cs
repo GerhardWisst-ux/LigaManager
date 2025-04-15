@@ -43,7 +43,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = 0;
                         spieltag.TeamIconUrl1 = GetImageFromPath(reader["Verein1"].ToString(), int.Parse(reader["SpieltagNr"].ToString()));

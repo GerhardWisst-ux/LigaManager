@@ -159,35 +159,41 @@ namespace LigaManagement.Web.Pages
         {
             try
             {
-
-                if (TestSQLServer() == false)
+                if (!TestSQLServer())
                     return;
 
                 IsLoading = true;
-                Laender = (await LaenderService.GetLaender().ConfigureAwait(false)).ToList();
-                LaenderList = Laender.Select(columns => new DisplayLaender(columns.Aktiv, columns.Id, columns.Laendername)).ToList();
 
-                Ligen = (await LigaService.GetLigen().ConfigureAwait(false)).Distinct().Where(x => x.LandID == Globals.LandID).ToList();
-                LigenList = Ligen.Select(columns => new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame, columns.EMWM)).ToList();
+                // Parallelisierung von Serviceaufrufen
+                var laenderTask = LaenderService.GetLaender();
+                var ligenTask = LigaService.GetLigen();
+                var kaderspielerTask = KaderService.GetAllSpieler();
+                var saisonenTask = SaisonenService.GetSaisonen();
+                var letzteErgebnisseTask = SpieltagServiceLE.GetSpieltage();
+                var infoTexteTask = InfoTexteService.GetTexte();
 
-                LigenList.Clear();
-                for (int i = 0; i < Ligen.Count(); i++)
-                {
-                    var columns = Ligen.ElementAt(i);
-                    LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.LandID, columns.Liganame, columns.EMWM));
-                }
+                await Task.WhenAll(laenderTask, ligenTask, kaderspielerTask, saisonenTask, letzteErgebnisseTask, infoTexteTask);
 
-                var kaderspieler = await KaderService.GetAllSpieler();
-                AnzahlSpieler = kaderspieler.Select(i => new { i.Vorname, i.SpielerName }).Distinct().Count();
-                AnzahlLigen = (await LigaService.GetLigen().ConfigureAwait(false)).Where(x => x.EMWM == false).ToList().Count;
+                // Verarbeitung der Ergebnisse
+                Laender = laenderTask.Result.ToList();
+                LaenderList = Laender.Select(l => new DisplayLaender(l.Aktiv, l.Id, l.Laendername)).ToList();
 
-                if (Globals.SaisonID == 0)
-                    Globals.bVisibleNavMenuElements = false;
-                else
-                    Globals.bVisibleNavMenuElements = true;
+                var ligen = ligenTask.Result.Where(x => x.LandID == Globals.LandID).ToList();
+                LigenList = ligen.Select(l => new DisplayLiga(l.Aktiv, l.Id, l.LandID, l.Liganame, l.EMWM)).ToList();
 
-                SaisonenList = new List<DisplaySaison>();
-                Saisonen = (await SaisonenService.GetSaisonen()).Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID).ToList();
+                AnzahlSpieler = kaderspielerTask.Result
+                    .Select(i => new { i.Vorname, i.SpielerName })
+                    .Distinct()
+                    .Count();
+
+                AnzahlLigen = ligen.Count(x => !x.EMWM);
+
+                Globals.bVisibleNavMenuElements = Globals.SaisonID != 0;
+
+                Saisonen = saisonenTask.Result
+                    .Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID)
+                    .ToList();
+
                 if (Globals.LigaNummer == 0)
                 {
                     SaisonenList.Clear();
@@ -195,60 +201,44 @@ namespace LigaManagement.Web.Pages
                 }
                 else
                 {
-                    SaisonenList.Clear();
-                    for (int i = 0; i < Saisonen.Count(); i++)
-                    {
-                        var columns = Saisonen.ElementAt(i);
-                        Globals.currentLiga = Saisonen.ElementAt(0).Liganame;
-                        Globals.currentLigaUrl = Globals.currentLiga;
-                        SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
-                    }
-
+                    SaisonenList = Saisonen.Select(s => new DisplaySaison(s.SaisonID, s.Saisonname)).ToList();
                     isDropdownDisabledLiga = false;
                     isDropdownDisabledSaison = false;
                 }
 
-                if (Globals.SaisonID == 0)
-                    isDropdownDisabledSaison = true;
-                else
-                    isDropdownDisabledSaison = false;
+                isDropdownDisabledSaison = Globals.SaisonID == 0;
 
+                ImportVisible = LMSettings.GetImportVisible();
+                TabellenAnlegenVisible = LMSettings.GetTabellenAnlegenVisible();
 
-                if (LMSettings.GetImportVisible() == false)
-                    ImportVisible = false;
-                else if (LMSettings.GetImportVisible() == true)
-                    ImportVisible = true;
+                LetzteErgebnisse = await letzteErgebnisseTask;
 
-                if (LMSettings.GetTabellenAnlegenVisible() == false)
-                    TabellenAnlegenVisible = false;
-                else if (LMSettings.GetTabellenAnlegenVisible() == true)
-                    TabellenAnlegenVisible = true;
-
-                LetzteErgebnisse = await SpieltagServiceLE.GetSpieltage();
-
-                InfoTexte = await InfoTexteService.GetTexte();
-                InfoTexte = InfoTexte.Where(x => x.PublishedAt > DateTime.Now.AddDays(-30)).ToList().OrderByDescending(x => x.PublishedAt);
+                InfoTexte = infoTexteTask.Result
+                    .Where(x => x.PublishedAt > DateTime.Now.AddDays(-30))
+                    .OrderByDescending(x => x.PublishedAt)
+                    .ToList();
 
                 foreach (var infotext in InfoTexte)
                 {
-                    infotext.Vereinsname = VereineService.GetVerein(infotext.VereinID).Result.Vereinsname2;
+                    var verein = await VereineService.GetVerein(infotext.VereinID);
+                    infotext.Vereinsname = verein.Vereinsname2;
                 }
 
+                // Fehleranzeigen zurücksetzen
                 DisplayErrorLiga = "d-none";
                 DisplayErrorSaison = "d-none";
                 DisplayErrorSaisonEMWM = "d-none";
                 DisplayErrorLand = "d-none";
 
                 IsLoading = false;
-                
-                await this.InvokeAsync(this.StateHasChanged);
-                //var result = await GetDataFromOpenLgaDB();
+                await this.InvokeAsync(StateHasChanged);
             }
             catch (Exception ex)
             {
                 IsLoading = false;
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
+
         }
 
         public void ValidateItems(IEnumerable args)

@@ -40,6 +40,27 @@
     .rz-datatable td {
         padding: 2.5px;
     }
+
+    .FarbeTorePunkt {
+        color: white !important;
+        width: auto !important;
+        border-top-color: black !important;
+        border-bottom-color: black !important;
+        border-left-color: black !important;
+        border-right-color: black !important;
+        background-color: black !important;
+        --rz-grid-cell-color: white;
+    }
+
+    .previous, .next {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white !important;
+    }
+
+    .round {
+        border-radius: 50%;
+    }
 </style>
 
 @if (IsLoading)
@@ -151,9 +172,9 @@ else
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
                                                 </Template>
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 1" />
-                                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="6%" Sortable=true Title="" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 2" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 1" />
+                                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center"  CssClass="FarbeTorePunkt" Width="6%" Sortable=true Title="" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 2" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Property="Verein2" Width="23%" Sortable=false Title="@Localizer["Gast"].Value" />
                                             <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Right" Width="7%">
                                                 <Template Context="data">
@@ -185,6 +206,14 @@ else
                                         </FooterTemplate>
                                     </RadzenDataGrid>
                                 </RadzenCard>
+                                <div class="row">
+                                    <div class="col-md-1">
+                                        <a type="button" id="btnZurueck" Style="text-align:left;display:inline-block;width:40px;height:40px;" data-toggle=@Localizer["Vorige Runde"] title="@Localizer["Voriger Runde"]" @onclick="RundeZurueck" class="previous round">&laquo;</a>
+                                    </div>
+                                    <div class="col-md-11 text-right">
+                                        <a type="button" id="btnVor" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächste Runde"]" @onclick="RundeVor" style="width: 40px;height:40px; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-sm-12">
                                 @if (RundeChoosed == "G1" || RundeChoosed == "G2" || RundeChoosed == "G3" || RundeChoosed == "G4" || RundeChoosed == "G5" || RundeChoosed == "G6" || RundeChoosed == "G7" || RundeChoosed == "G8")

@@ -32,16 +32,10 @@
         color: black;
     }
 
-    .previous {
+    .previous, .next {
         background-color: #1b6ec2;
         border-color: #1861ac;
-        color: white;
-    }
-
-    .next {
-        background-color: #1b6ec2;
-        border-color: #1861ac;
-        color: white;
+        color: white !important;
     }
 
     .round {
@@ -69,7 +63,7 @@
     }
 
     .FarbeTorePunkt {
-        color: white !important;        
+        color: white !important;
         width: auto !important;
         border-top-color: black !important;
         border-bottom-color: black !important;
@@ -90,7 +84,6 @@
         background-color: black !important;
         --rz-grid-cell-color: white;
     }
-
 </style>
 
 @if (IsLoading)
@@ -101,10 +94,10 @@
 }
 else
 {
-    <div class="container">
+    <div class="container-fluid">
         <div class="form-group row">
             <div class="col-sm-12">
-                <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                <RadzenCard class="m-0 rz-shadow-3" style="min-height:120px;">
                     <div class="d-flex flex-row">
                         <div class="card-body">
                             <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
@@ -120,7 +113,7 @@ else
                 </RadzenCard>
             </div>
         </div>
-        <RadzenCard style="margin-bottom:4px;height:80px;">
+        <RadzenCard style="margin-bottom:4px;min-height:80px;">
             <div class="form-group row">
                 <div class="dropdown mr-2" style="display:inline; margin-left:4px;">
                     <select id="cboSpieltage" data-toggle="tooltip" title=@Localizer["Spieltag"].Value style="height:38px; width:180px; display:inline-block;" class="form-control" @onchange="SpieltagChange">
@@ -140,65 +133,67 @@ else
                         }
                         }
                     </select>
-                    <span class="ml-3">
-                        @if (VisibleBtnNew)
-                        {
-                            @*    <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value class="btn-primary btn"><span class="glyphicon glyphicon-plus-sign"></span></NavLink> *@
+                    
+                    <div class="btn-group" role="group">
+                        <span class="ml-3">
+                            @if (VisibleBtnNew)
+                            {
+                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Style="display:inline-block;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
-                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Style="display:inline-block;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
+                            }
+                            else
+                            {
+                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" tyle="display:none;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
 
-                        }
-                        else
-                        {
-                            @* <NavLink href="@($"Ligamanager/createspieltag/{SpieltagNr}")" title=@Localizer["Neuanlage"].Value style="display:none;" class="btn-primary btn"><span class="glyphicon">&#x2b;</span></NavLink> *@
-
-                            <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" tyle="display:none;" title="@Localizer["Neuanlage"].Value" ButtonStyle="ButtonStyle.Primary" />
-
-                        }
-                    </span>
-                    <div Style="display:inline-block;" class="row">
-                        <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Tabelle"].Value" Click=@(args => AnzeigenTabelle()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-list" aria-hidden="true"></span> @Localizer["Tabelle"].Value
-                            </RadzenButton>
+                            }
+                        </span>
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Erzeugen Spieltag aus Spielplan"].Value" Visible="@VisibleSpielplan" Click=@(args => ErzeugenSpieltag()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Erzeugen"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <i class="oi oi-data-transfer-download"></i>
+                                </RadzenButton>
+                            </div>
                         </div>
+                        <div Style="display:inline-block;" class="row">
+                            <div Style="display:inline-block;" class="col-md-1">
+                                <RadzenButton title="@Localizer["Tabelle"].Value" Click=@(args => AnzeigenTabelle()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
+                                    <span class="oi oi-list" aria-hidden="true"></span> 
+                                </RadzenButton>
+                            </div>
+                        </div>
+
+                        @if (Globals.currentLiganame == "Bundesliga")
+                        {
+                            <div Style="display:inline-block;" class="row">
+                                <div Style="display:inline-block;" class="col-md-1">
+                                    <RadzenButton title="@Localizer["Kader"].Value" Click=@(args => AnzeigenKader()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
+                                        <span class="oi oi-person" aria-hidden="true"></span>
+                                    </RadzenButton>
+                                </div>
+                            </div>
+
+                            <div Style="display:inline-block;" class="row">
+                                <div Style="display:inline-block;" class="col-md-1">
+                                    <RadzenButton title="@Localizer["Chart"].Value" Click=@(args => AnzeigenChart()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Chart"].Value" ButtonStyle="ButtonStyle.Primary">
+                                        <span class="oi oi-aperture" aria-hidden="true"></span>
+                                    </RadzenButton>
+                                </div>
+                            </div>
+                            <div Style="display:inline-block;" class="row">
+                                <div Style="display:inline-block;" class="col-md-1">
+                                    <RadzenButton title="@Localizer["Statistiken"].Value" Click=@(args => AnzeigenStatistiken()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Statistiken"].Value" ButtonStyle="ButtonStyle.Primary">
+                                        <span class="oi oi-bar-chart" aria-hidden="true"></span>
+                                    </RadzenButton>
+                                </div>
+                            </div>
+                        }
                     </div>
-                    @if (Globals.currentLiganame == "Bundesliga")
-                    {
-                        <div Style="display:inline-block;" class="row">
-                            <div Style="display:inline-block;" class="col-md-1">
-                                <RadzenButton title="@Localizer["Kader"].Value" Click=@(args => AnzeigenKader()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Tabelle"].Value" ButtonStyle="ButtonStyle.Primary">
-                                    <span class="oi oi-person" aria-hidden="true"></span>@Localizer["Kader"].Value
-                                </RadzenButton>
-                            </div>
-                        </div>
-
-                        <div Style="display:inline-block;" class="row">
-                            <div Style="display:inline-block;" class="col-md-1">
-                                <RadzenButton title="@Localizer["Chart"].Value" Click=@(args => AnzeigenChart()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Chart"].Value" ButtonStyle="ButtonStyle.Primary">
-                                    <span class="oi oi-aperture" aria-hidden="true"></span>@Localizer["Chart"].Value
-                                </RadzenButton>
-                            </div>
-                        </div>
-                        <div Style="display:inline-block;" class="row">
-                            <div Style="display:inline-block;" class="col-md-1">
-                                <RadzenButton title="@Localizer["Statistiken"].Value" Click=@(args => AnzeigenStatistiken()) Style="margin-left: 3px;display:inline-block;" Text="@Localizer["Statistiken"].Value" ButtonStyle="ButtonStyle.Primary">
-                                    <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Statistiken"].Value
-                                </RadzenButton>
-                            </div>
-                        </div>
-                    }
-
                 </div>
             </div>
         </RadzenCard>
         <div class="form-group row">
             <div class="col-sm-12">
                 <RadzenCard style="flex:1;margin-right:0px; height:auto;">
-                    <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
-                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.ExtraSmall" />
-                    </RadzenCard>
 
                     <RadzenDataGrid @ref="grid" Data="@Spieltage" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="12"
                                     AllowPaging="true" AllowSorting="true" AllowFiltering="false"
@@ -230,7 +225,7 @@ else
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
                             <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
-                                                     
+
 
                             @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
@@ -256,7 +251,7 @@ else
 
                             <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                 <Template Context="data">
-                                    <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                    <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
                                 </Template>
                             </RadzenDataGridColumn>
                             <hr style="border:5px;" />
@@ -285,6 +280,8 @@ else
     </div>
 
     @code {
+
+
 
     async Task OpenSpieltag(int? spieltagsid)
     {
@@ -317,6 +314,123 @@ else
     private void AnzeigenStatistiken()
     {
         _navigationManager.NavigateTo($"Ligamanager/statistiken");
+    }
+
+
+
+    private async void ErzeugenSpieltag()
+
+    {
+        var Spieltage = (await SpieltagService.GetSpieltage()).ToList();
+        Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+
+        if (Spieltage.Count() > 0)
+        {
+            await DialogService.OpenAsync<DialogCardPage>(string.Empty,
+             new Dictionary<string, object>() { { "SpieltagNr", Spieltage[0].SpieltagNr.ToString() } },
+             new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = false });
+
+
+        }
+
+        var Spielplaene = (await SpielplanService.GetSpielplaene()).ToList();
+
+        Spielplaene = Spielplaene.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+
+
+
+        if (Spielplaene != null)
+        {
+
+            for (int i = 0; i < Spielplaene.Count(); i++)
+
+            {
+
+                Spieltag spieltag = new Spieltag();
+
+
+
+                spieltag.SpieltagId = 0;
+
+                spieltag.Saison = Spielplaene[i].Saison;
+
+                spieltag.SaisonID = Spielplaene[i].SaisonID;
+
+                spieltag.LigaID = Spielplaene[i].LigaID;
+
+                spieltag.Doppelpunkt = ":";
+
+                spieltag.SpieltagNr = Spielplaene[i].SpieltagNr;
+
+                spieltag.Verein1 = Spielplaene[i].Verein1;
+
+                spieltag.Verein1Anzeige = Spielplaene[i].Verein1Anzeige;
+
+                spieltag.Verein2Anzeige = Spielplaene[i].Verein2Anzeige;
+
+                spieltag.Verein1_Nr = Spielplaene[i].Verein1_Nr;
+
+                spieltag.Verein2 = Spielplaene[i].Verein2;
+
+                spieltag.Verein2_Nr = Spielplaene[i].Verein2_Nr;
+
+                spieltag.Tore1_Nr = Spielplaene[i].Tore1_Nr;
+
+                spieltag.Tore2_Nr = Spielplaene[i].Tore2_Nr;
+
+                spieltag.Schiedsrichter = Spielplaene[i].Schiedsrichter;
+
+                spieltag.Datum = DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1).AddMinutes(930);
+
+                spieltag.Abgeschlossen = Spielplaene[i].Abgeschlossen;
+
+                spieltag.Zuschauer = Spielplaene[i].Zuschauer;
+
+                spieltag.TeamIconUrl1 = Spielplaene[i].TeamIconUrl1;
+
+                spieltag.TeamIconUrl2 = Spielplaene[i].TeamIconUrl2;
+
+
+
+                var stadien = await StadionService.GetStadien();
+
+                var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spielplaene[i].Verein1_Nr?.ToString()) && x.JahrVonDate < DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1) && x.JahrBisDate > DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1)).ToList();
+
+
+
+                if (stadion.Count == 1)  // genau ein Stadion gefunden
+
+                {
+
+                    spieltag.StadionID = stadion[0].Id;
+
+                    spieltag.Ort = stadion[0].Stadionname;
+
+                }
+
+
+
+                else
+
+                {
+
+                    spieltag.StadionID = 0;
+
+                    spieltag.Ort = "Stadion nicht gefunden";
+
+                }
+
+
+
+
+
+                var Spieltag = await SpieltagService.CreateSpieltag(spieltag);
+
+            }
+
+
+        }
+
     }
 
     }

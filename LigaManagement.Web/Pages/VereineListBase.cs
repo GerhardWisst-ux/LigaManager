@@ -151,7 +151,7 @@ namespace LigaManagerManagement.Web.Pages
             Liganame = liga.Liganame;
 
             LigaID = (Globals.LigaID);
-
+            
             IsLoading = false;
         }
 
@@ -184,11 +184,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 StateHasChanged();
             }
-        }
-        protected async Task VereinDeleted()
-        {
-            VereineList = (await VereineService.GetVereine()).ToList();
-        }
+        }      
 
     }
 }

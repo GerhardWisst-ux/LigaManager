@@ -156,7 +156,15 @@ else
                                             </div>
 
                                             <div class="col-12 col-sm-3">
-                                                <RadzenButton id="btnAuswaehlen" class="btn btn-primary" Text="@Localizer["Auswählen"].Value" Click="@OnClickHandler"></RadzenButton>
+                                                <RadzenButton title="@Localizer["Auswählen"].Value"
+                                                              Icon="account_circle"
+                                                              style="margin-left: 10px; width: 60px; padding: 8px;"
+                                                              id="btnUebernehmen"
+                                                              Click="OnClickHandler"
+                                                              class="btn btn-primary">
+                                                    <i class="oi oi-magnifying-glass"
+                                                       style="margin-left: 5px; vertical-align: middle;"></i>
+                                                </RadzenButton>
                                             </div>
                                         </div>
                                     </div>

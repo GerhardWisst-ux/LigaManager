@@ -41,7 +41,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Datum", Spielplan.Datum);
                 cmd.Parameters.AddWithValue("@DatumString", Spielplan.DatumString);
                 cmd.Parameters.AddWithValue("@Ort", Spielplan.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedsrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", Spielplan.Zuschauer);
                 
@@ -109,6 +109,7 @@ namespace LigaManagerManagement.Api.Models
                         Spielplan.Verein1_Nr = reader["Verein1_Nr"].ToString();
                         Spielplan.Verein2_Nr = reader["Verein2_Nr"].ToString();
                         Spielplan.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        Spielplan.Doppelpunkt = ":";
                         Spielplan.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         Spielplan.DatumString = reader["DatumString"].ToString();
 
@@ -123,7 +124,7 @@ namespace LigaManagerManagement.Api.Models
                         }
 
                         Spielplan.Ort = reader["Ort"].ToString();
-                        Spielplan.Schiedrichter = reader["Schiedrichter"].ToString();
+                        Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
                         Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
@@ -172,21 +173,14 @@ namespace LigaManagerManagement.Api.Models
                             Spielplan.Verein1_Nr = reader["Verein1_Nr"].ToString();
                             Spielplan.Verein2_Nr = reader["Verein2_Nr"].ToString();
                             Spielplan.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                            Spielplan.Doppelpunkt = ":";
                             Spielplan.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                             Spielplan.DatumString = reader["DatumString"].ToString();
-                                                       
-                            try
-                            {
-                                Spielplan.Datum = DateTime.Parse(Microsoft.VisualBasic.Strings.Right(reader["Datum"].ToString().Trim(), 10)).AddDays(-1).AddMinutes(930);
-                            }
-                            catch (Exception ex)
-                            {
-
-                                Spielplan.Datum = DateTime.Now;
-                            }
+                            
+                            Spielplan.Datum = DateTime.Now;
                             
                             Spielplan.Ort = reader["Ort"].ToString();
-                            Spielplan.Schiedrichter = reader["Schiedrichter"].ToString();
+                            Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
                             Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                             Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                             Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
@@ -273,7 +267,7 @@ namespace LigaManagerManagement.Api.Models
                          ",[DatumString] = '" + Spielplan.DatumString + "'" +
                          ",[Datum] = '" + Spielplan.Datum + "'" +
                          ",[Ort] = '" + Spielplan.Ort + "'" +
-                         ",[Schiedrichter] = '" + Spielplan.Schiedrichter + "'" +
+                         ",[Schiedrichter] = '" + Spielplan.Schiedsrichter + "'" +
                          ",[Abgeschlossen] =" + bAbgeschlossen +
                          ",[Zuschauer] =" + Spielplan.Zuschauer +
                          " WHERE  [SpieltagId] = " + Spielplan.SpieltagId;
@@ -363,7 +357,7 @@ namespace LigaManagerManagement.Api.Models
                         Spielplan.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString());
                         Spielplan.Ort = reader["Ort"].ToString();
-                        Spielplan.Schiedrichter = reader["Schiedrichter"].ToString();
+                        Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
                         Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
@@ -412,7 +406,7 @@ namespace LigaManagerManagement.Api.Models
                         Spielplan.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString());
                         Spielplan.Ort = reader["Ort"].ToString();
-                        Spielplan.Schiedrichter = reader["Schiedrichter"].ToString();
+                        Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
                         Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
@@ -453,7 +447,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", Spielplan.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", Spielplan.Datum);
                 cmd.Parameters.AddWithValue("@Ort", Spielplan.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedsrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", Spielplan.Zuschauer);
 
@@ -501,7 +495,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[DatumString] = '" + Spielplan.DatumString + "'" +
                         ",[Datum] = " + Spielplan.Datum +
                         ",[Ort] = '" + Spielplan.Ort + "'" +
-                        ",[Schiedrichter] = '" + Spielplan.Schiedrichter + "'" +
+                        ",[Schiedrichter] = '" + Spielplan.Schiedsrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
                         ",[Zuschauer] =" + Spielplan.Zuschauer +
                         " WHERE  [SpieltagId] = " + Spielplan.SpieltagId;

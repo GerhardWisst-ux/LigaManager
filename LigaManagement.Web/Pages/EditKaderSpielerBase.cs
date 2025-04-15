@@ -1,10 +1,8 @@
 ﻿using LigaManagement.Models;
 using LigaManagement.Web.Classes;
-using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
 using LigaManagerManagement.Models;
-using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Localization;
@@ -98,7 +96,7 @@ namespace LigaManagerManagement.Web.Pages
 
         private async Task LoadVereineData()
         {
-            try
+            await ExecuteWithErrorHandling(async () =>
             {
                 var verein = await VereineService.GetVerein(Globals.KaderVereinNr);
                 Vereinsname1 = verein.Vereinsname1;
@@ -115,51 +113,53 @@ namespace LigaManagerManagement.Web.Pages
                 DisplayElements = "none";
                 DisplayErrorSaison = "none";
                 Globals.bVisibleNavMenuElements = true;
+            });
+        }
+
+        private async Task<List<Saison>> GetSortedSaisonen()
+        {
+            var saisonen = (await SaisonenService.GetSaisonen()).ToList();
+            return saisonen.OrderBy(x => x.Saisonname).ToList();
+        }
+
+        private async Task ExecuteWithErrorHandling(Func<Task> action)
+        {
+            try
+            {
+                await action();
             }
             catch (Exception ex)
             {
-
                 IsLoading = false;
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
-
         private async Task LoadSaisonenData()
         {
-
-            try
+            await ExecuteWithErrorHandling(async () =>
             {
+                var saisonen = await GetSortedSaisonen();
+
                 if (Id is null or "0")
                 {
-                    var saisonen = (await SaisonenService.GetSaisonen()).ToList();
-                    saisonen = saisonen.OrderByDescending(x => x.Saisonname).ToList();
+                    SaisonenList = saisonen
+                        .Select(item => new DisplaySaison(item.SaisonID, item.Saisonname))
+                        .DistinctBy(i => i.Saisonname)
+                        .ToList();
 
-                    SaisonenList.Clear();
-                    foreach (Saison item in saisonen)
-                    {
-                        var saisonname1 = saisonen.Find(v => v.SaisonID == item.SaisonID)?.Saisonname ?? Globals.currentSaison;
-                        SaisonenList.Add(new DisplaySaison(item.SaisonID, saisonname1));
-                    }
-
-                    SaisonenList = SaisonenList.DistinctBy(i => i.Saisonname).ToList();
-
-                    System.Threading.Thread.Sleep(1000);
+                    await Task.Delay(1000);
                     Saisonname1 = saisonen.Find(v => v.SaisonID == Globals.SaisonID)?.Saisonname ?? Globals.currentSaison;
                 }
                 else
                 {
                     var spieler = await KaderService.GetSpieler(Convert.ToInt32(Id));
-                    var kaderSpieler = (await KaderService.GetAllSpieler()).ToList().Where(x => x.SpielerName == spieler.SpielerName);
-                    var saisonen = (await SaisonenService.GetSaisonen()).ToList();
+                    var kaderSpieler = (await KaderService.GetAllSpieler())
+                        .Where(x => x.SpielerName == spieler.SpielerName)
+                        .ToList();
 
-                    saisonen = saisonen.OrderBy(x => x.Saisonname).ToList();
-                    SaisonenList.Clear();
-                    foreach (Kader item in kaderSpieler)
-                    {
-                        var saisonname1 = saisonen.Find(v => v.SaisonID == item.SaisonId)?.Saisonname ?? Globals.currentSaison;
-
-                        SaisonenList.Add(new DisplaySaison(item.SaisonId, saisonname1));
-                    }
+                    SaisonenList = kaderSpieler
+                        .Select(item => new DisplaySaison(item.SaisonId, saisonen.Find(v => v.SaisonID == item.SaisonId)?.Saisonname ?? Globals.currentSaison))
+                        .ToList();
 
                     LandId = saisonen.Find(v => v.SaisonID == Globals.SaisonID)?.LandID ?? Globals.LandID;
                     Saisonname1 = saisonen.Find(v => v.SaisonID == Globals.SaisonID)?.Saisonname ?? Globals.currentSaison;
@@ -168,13 +168,7 @@ namespace LigaManagerManagement.Web.Pages
                 DisplayElements = "none";
                 DisplayErrorSaison = "none";
                 Globals.bVisibleNavMenuElements = true;
-            }
-            catch (Exception ex)
-            {
-
-                IsLoading = false;
-                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-            }
+            });
         }
 
         public void VereinChange(ChangeEventArgs e)

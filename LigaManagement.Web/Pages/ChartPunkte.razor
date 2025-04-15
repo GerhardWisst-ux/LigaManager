@@ -152,7 +152,7 @@
         <div class="container">
             <div class="form-group row">
                 <div class="col-sm-12">
-                    <RadzenCard class="m-0 rz-shadow-3" style="height:120px;">
+                    <RadzenCard class="m-0 rz-shadow-3" style="min-height:120px;">
                         <div class="d-flex flex-row">
                             <div class="card-body">
                                 <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
@@ -161,14 +161,14 @@
                                 <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
                                 <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
                                 <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
-
+                                <h2 style="display:inline-block;">@Localizer["Chart Saison"].Value</h2>
                             </div>
                         </div>
                     </RadzenCard>
                 </div>
             </div>
 
-            <RadzenCard style="margin-bottom:4px;height:80px;">
+            <RadzenCard style="margin-bottom:4px;min-height:80px;">
                 <div class="form-group row">
                     <div class="dropdown mr-2" style="display:inline-block; margin-left:4px;">
                         <select id="cboSaison" style="display:inline;max-width:170px;height:38px; margin-left:2px; margin-right:2px;" class="form-control dropdown" @onchange="SaisonChange">
@@ -204,15 +204,15 @@
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
-                            <RadzenButton title="@Localizer["Chart Platzierung"].Value" Click=@(args => AnzeigenChartPlatzieung()) Style="margin-left: 3px;width:200px;height:38px;display:inline-block;" Text="@Localizer["Chart Platzierung"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Chart Platzierung"].Value
+                            <RadzenButton title="@Localizer["Chart Platzierung"].Value" Click=@(args => AnzeigenChartPlatzieung()) Style="margin-left: 3px;height:38px;display:inline-block;" Text="@Localizer["Chart Platzierung"].Value" ButtonStyle="ButtonStyle.Primary">
+                                <span class="oi oi-bar-chart" aria-hidden="true"></span>
                             </RadzenButton>
                         </div>
                     </div>
                     <div Style="display:inline-block;" class="row">
                         <div Style="display:inline-block;" class="col-md-1">
                             <RadzenButton title="@Localizer["Spieltage"].Value" Click=@(args => AnzeigenSpieltage()) Style="margin-left: 3px;height:38px;display:inline-block;" Text="@Localizer["Spieltage"].Value" ButtonStyle="ButtonStyle.Primary">
-                                <span class="oi oi-bar-chart" aria-hidden="true"></span>@Localizer["Spieltage"].Value
+                                <span class="oi oi-calendar" aria-hidden="true"></span>
                             </RadzenButton>
                         </div>
                     </div>

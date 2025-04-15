@@ -196,43 +196,40 @@ namespace LigaManagement.Api.Models
         public async Task<Kader> UpdateSpieler(Kader Spieler)
         {
             try
-            {                
-
+            {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
+
                 SqlCommand cmd = new SqlCommand();
-                cmd.Connection = conn;
-                //cmd.CommandText = "UPDATE Kader SET (SpielerName, Vorname, Rueckennummer, Geburtstag, ImVereinSeit,Einsaetze,VereinNr)" +
-                //    " VALUES(@SpielerName,@Vorname,@Rueckennummer,@Geburtstag,@ImVereinSeit,@Einsaetze,@VereinNr) WHERE ID=@ID" + Spieler.Id;
+                cmd.Connection = conn;               
 
-                cmd.CommandText = "UPDATE Kader SET SpielerName= @SpielerName, Vorname= @Vorname, Rueckennummer= @Rueckennummer, Geburtstag= @Geburtstag," +
-                    "Tore= @Tore, Einsaetze= @Einsaetze, @Position = @Position, @Spielminuten=@Spielminuten," + // PositionsNr = @PositionsNr,
-                    "LigaID =@LigaID,SaisonId=@SaisonId,LandID=@LandID,ImVereinSeit= @ImVereinSeit, Spielminuten= @Spielminuten," +
-                    "Groesse =@Groesse,Gewicht=@Gewicht,Laenderspiele=@Laenderspiele,LaenderspieleTore=@LaenderspieleTore,Abloesesumme=@Abloesesumme,Aktiv=@Aktiv " +
-                    "WHERE ID=@ID";
+                if (Spieler.Aktiv == false)
+                    bAktiv = 0;
+                else
+                    bAktiv = -1;
 
-                cmd.Parameters.AddWithValue("@SpielerName", Spieler.SpielerName.ToString());
-                cmd.Parameters.AddWithValue("@Vorname", Spieler.Vorname.ToString());
-                cmd.Parameters.AddWithValue("@Rueckennummer", Spieler.Rueckennummer);
-                cmd.Parameters.AddWithValue("@Geburtstag", Spieler.Geburtsdatum);
-                cmd.Parameters.AddWithValue("@Tore", Spieler.Tore);
-                cmd.Parameters.AddWithValue("@Einsaetze", Spieler.Einsaetze);
-                cmd.Parameters.AddWithValue("@Position", Spieler.Position.ToString());
-                //cmd.Parameters.AddWithValue("@PositionsNr", Spieler.PositionsNr);
-                cmd.Parameters.AddWithValue("@LandID", Spieler.LandID);
-                cmd.Parameters.AddWithValue("@SaisonId", Spieler.SaisonId);
-                cmd.Parameters.AddWithValue("@LigaID", Spieler.LigaID);                
-                cmd.Parameters.AddWithValue("@ImVereinSeit", Spieler.ImVereinSeit);                
-                cmd.Parameters.AddWithValue("@Spielminuten", Spieler.Spielminuten);
-                cmd.Parameters.AddWithValue("@Groesse", 0);
-                cmd.Parameters.AddWithValue("@Gewicht", 0);
-                cmd.Parameters.AddWithValue("@Laenderspiele", 0);
-                cmd.Parameters.AddWithValue("@LaenderspieleTore", 0);
-                cmd.Parameters.AddWithValue("@Abloesesumme", 0);
-                cmd.Parameters.AddWithValue("@Aktiv", bAktiv);
-                cmd.Parameters.AddWithValue("@Id", Spieler.Id);
-
-
+                cmd.CommandText = "UPDATE [dbo].[Kader] SET " +
+                        "[Rueckennummer] = '" + Spieler.Rueckennummer + "'" +
+                        ",[SpielerName] = '" + Spieler.SpielerName + "'" +
+                        ",[Vorname] = '" + Spieler.Vorname + "'" +
+                        ",[Geburtstag] = '" + Spieler.Geburtsdatum + "'" +
+                        ",[ImVereinSeit] = '" + Spieler.ImVereinSeit + "'" +
+                        ",[Tore] = " + Spieler.Tore +
+                        ",[Position] = '" + Spieler.Position + "'" +
+                        ",[PositionsNr] = " + Spieler.PositionsNr +
+                        ",[Spielminuten] = " + Spieler.Spielminuten +
+                        ",[Laenderspiele] = " + Spieler.Laenderspiele +
+                        ",[LaenderspieleTore] = " + Spieler.LaenderspieleTore +
+                        ",[Groesse] = " + Spieler.Groesse +
+                        ",[Gewicht] = " + Spieler.Gewicht +
+                        ",[Abloesesumme] = " + Spieler.Abloesesumme +
+                        ",[SaisonID] = " + Spieler.SaisonId +
+                        ",[LigaID] = " + Spieler.LigaID +
+                        ",[Aktiv] = " + bAktiv +
+                        ",[LandID] = " + Spieler.LandID +
+                        ",[VereinNr] = " + Spieler.VereinID +                        
+                        " WHERE [Id] = " + Spieler.Id;
+                               
                 await cmd.ExecuteNonQueryAsync();
 
                 conn.Close();
@@ -241,7 +238,6 @@ namespace LigaManagement.Api.Models
             }
             catch (Exception ex)
             {
-
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }

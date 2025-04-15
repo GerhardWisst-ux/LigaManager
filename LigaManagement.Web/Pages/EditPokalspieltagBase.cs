@@ -30,6 +30,7 @@ namespace LigamanagerManagement.Web.Pages
         public Task<AuthenticationState> authenticationStateTask { get; set; }
 
         public bool allowVirtualization;
+        public bool DisabledRunde = false;
         public int currentspieltag = Globals.Spieltag;
         protected string DisplayErrorRunde = "none";
         
@@ -42,10 +43,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public string Spielername;
         public string Vereinsname1;
-
-        public string Vereinsname2;
-
-       
+        public string Vereinsname2;       
         public string Titel { get; set; }
 
         public List<DisplayRunde> RundeList;
@@ -115,86 +113,9 @@ namespace LigamanagerManagement.Web.Pages
                     string returnUrl = WebUtility.UrlEncode($"/Ligamanager");
                     NavigationManager.NavigateTo($"/Ligamanager/account/login?returnUrl={returnUrl}");
                 }
-
-                if (Id == "0" || Id is null)
-                {
-                    //Neuanlage
-                    Titel = "Pokal Neuanlage";
-                    Id = "0";
-                    RundeChoosed = Runde;
-                    if (Runde == "2")
-                        Titel = "Pokalspiel Neuanlage 2. Runde";
-                    else if (Runde == "AF")
-                        Titel = "Pokalspiel Neuanlage Achtelfinale";
-                    else if (Runde == "VF")
-                        Titel = "Pokalspiel Neuanlage Viertelfinale";
-                    else if (Runde == "HF")
-                        Titel = "Pokalspiel Neuanlage Halbfinale";
-                    else
-                        Titel = "Pokalspiel Neuanlage Finale";
-                }
-                else
-                {
-                    //Bearbeiten
-                    Titel = "Pokal Bearbeiten";
-                    Spiel = await PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
-                }
-
                 IsLoading = true;
-
-                var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
-
-                var vereineSaison = await VereineService.GetVereine();
-                List<Verein> verList = vereineSaison.ToList();
-
-                for (int i = 0; i < verList.Count(); i++)
-                {
-                    var verein = await VereineService.GetVerein(verList[i].VereinNr);
-                    VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
-                }
-
-                if (Convert.ToInt32(Id) > 0)
-                {
-                    Spiel = await PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
-                    Spiel.Saison = Globals.currentPokalSaison;
-                    Spiel.SaisonID = Globals.CLSaisonID;
-                    //Spiel.SpieltagNr = SpieltagNr;
-                }
-
-                // var spiele = await PokalergebnisseService.GetPokalergebnisseSpieltag();
-
-
-                if (Convert.ToInt32(Id) == 0)
-                    Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 0, 0, 0, DateTimeKind.Utc);
-                else
-                    Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
-
-                RundeList = new List<DisplayRunde>
-                {
-                    new DisplayRunde("2",Localizer["2. Runde"].Value),
-                    new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
-                    new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
-                    new DisplayRunde("HF", Localizer["Halbfinale"].Value),
-                    new DisplayRunde("F", Localizer["Finale"].Value),
-                };
-
+                await InitializeData();
                 IsLoading = false;
-
-                if (Convert.ToInt32(Id) == 0)
-                {
-                    Runde = Globals.currentPokalRunde;
-                    RundeChoosed = Runde;
-
-                    StateHasChanged();
-                }
-                else
-                {
-                    RundeChoosed = Spiel.Runde;
-                    Runde = RundeChoosed;
-                    Spiel.Runde = Runde;
-
-                    StateHasChanged();
-                }
             }
             catch (Exception ex)
             {
@@ -204,9 +125,91 @@ namespace LigamanagerManagement.Web.Pages
             }
 
         }
-      
+        private void SetTitelBasedOnRunde()
+        {
+            if (Id == "0" || Id is null)
+            {
+                Titel = Runde switch
+                {
+                    "2" => "Pokalspiel Neuanlage 2. Runde",
+                    "AF" => "Pokalspiel Neuanlage Achtelfinale",
+                    "VF" => "Pokalspiel Neuanlage Viertelfinale",
+                    "HF" => "Pokalspiel Neuanlage Halbfinale",
+                    _ => "Pokalspiel Neuanlage Finale"
+                };
+            }
+            else
+            {
+                Titel = "Pokal Bearbeiten";
+            }
+        }
 
-        public async void Verein1Change(ChangeEventArgs e)
+        private async Task InitializeData()
+        {          
+
+            SetTitelBasedOnRunde();
+
+            
+            IsLoading = true;
+
+            if (!(Id == "0" || Id is null))
+            {             
+                Spiel = await PokalergebnisseService.GetPokalergebnisSpieltag(Convert.ToInt32(Id));
+                Spiel.Saison = Globals.currentPokalSaison;
+                Spiel.SaisonID = Globals.CLSaisonID;            
+            }
+
+            var saison = (await SaisonenService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentSaison).First();
+
+            var vereineSaison = await VereineService.GetVereine();
+            List<Verein> verList = vereineSaison.ToList();
+
+            for (int i = 0; i < verList.Count(); i++)
+            {
+                var verein = await VereineService.GetVerein(verList[i].VereinNr);
+                VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+            }
+
+            if (Convert.ToInt32(Id) == 0)
+                Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, 0, 0, 0, DateTimeKind.Utc);
+            else
+                Time = new DateTime(Spiel.Datum.Year, Spiel.Datum.Month, Spiel.Datum.Day, Spiel.Datum.Hour, Spiel.Datum.Minute, 0, DateTimeKind.Utc);
+
+            RundeList = new List<DisplayRunde>
+                {
+                    new DisplayRunde(PokalRunden.Runde2, Localizer["2. Runde"].Value),
+                    new DisplayRunde(PokalRunden.Achtelfinale, Localizer["Achtelfinale"].Value),
+                    new DisplayRunde(PokalRunden.Viertelfinale, Localizer["Viertelfinale"].Value),
+                    new DisplayRunde(PokalRunden.Halbfinale, Localizer["Halbfinale"].Value),
+                    new DisplayRunde(PokalRunden.Finale, Localizer["Finale"].Value),
+                };
+
+            
+
+            if (Convert.ToInt32(Id) == 0)
+            {
+                Runde = Globals.currentPokalRunde;
+                RundeChoosed = Runde;
+            }
+            else
+            {
+                RundeChoosed = Spiel.Runde;
+                Runde = RundeChoosed;
+                Spiel.Runde = Runde;
+            }
+
+            IsLoading = false;
+
+            if (Id == "0" || Id is null)
+                DisabledRunde = false;
+            else
+                DisabledRunde = true;
+
+            StateHasChanged();
+        }
+
+
+        public async Task Verein1Change(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
@@ -250,16 +253,7 @@ namespace LigamanagerManagement.Web.Pages
 
                 Globals.currentPokalRunde = RundeChoosed;
 
-                //if (RundeChoosed == "2")
-                //    Titel = "Pokalspiel Neuanlage 2. Runde";
-                //else if (RundeChoosed == "AF")
-                //    Titel = "Pokalspiel Neuanlage Achtelfinale";
-                //else if (RundeChoosed == "VF")
-                //    Titel = "Pokalspiel Neuanlage Viertelfinale";
-                //else if (RundeChoosed == "HF")
-                //    Titel = "Pokalspiel Neuanlage Halbfinale";
-                //else
-                //    Titel = "Pokalspiel Neuanlage Finale";
+             
             }
         }
 
@@ -302,6 +296,15 @@ namespace LigamanagerManagement.Web.Pages
             public string Rundename { get; set; }
         }
 
+        public static class PokalRunden
+        {
+            public const string Runde2 = "2";
+            public const string Achtelfinale = "AF";
+            public const string Viertelfinale = "VF";
+            public const string Halbfinale = "HF";
+            public const string Finale = "F";
+        }
+
         protected ConfirmBase DeleteConfirmation { get; set; }
 
         protected async Task<bool> Confirm()
@@ -332,4 +335,6 @@ namespace LigamanagerManagement.Web.Pages
             return result;
         }
     }
+
+
 }

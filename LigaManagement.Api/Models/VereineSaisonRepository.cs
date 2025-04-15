@@ -51,6 +51,26 @@ namespace LigaManagerManagement.Api.Models
             throw new NotImplementedException();
         }
 
+        public async Task<VereineSaison> DeleteVereineSaison(int saisonid)
+        {
+            SqlConnection conn = new SqlConnection(Globals.connstring);
+            await conn.OpenAsync();
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = conn;
+            cmd.CommandText = "DELETE FROM [dbo].[VereineSaison] Where SaisonID= @SaisonID";
+
+            cmd.Parameters.AddWithValue("@SaisonID", saisonid);
+
+            await cmd.ExecuteNonQueryAsync();
+
+            conn.Close();
+
+            return null;
+
+
+        }
+
         public async Task<IEnumerable<VereineSaison>> GetVereineSaison()
         {
             try

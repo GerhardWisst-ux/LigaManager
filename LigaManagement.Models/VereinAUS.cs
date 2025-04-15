@@ -23,10 +23,19 @@ namespace LigaManagement.Models
 
         public string Erfolge { get; set; }
 
+        [Required(ErrorMessage = "Gegründet erforderlich.")]
         public int Gegruendet { get; set; }
-        
+
+        [Required(ErrorMessage = "Pokal erforderlich.")]
         public bool Pokal { get; set; }
         public string Hyperlink { get; set; }
+        public string Fax { get; set; }
+        public string Telefon { get; set; }
+        public string Ort { get; set; }
+        public string Strasse { get; set; }
+        public string EMail { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
         public bool Liga1 { get; set; }
         public bool Liga2 { get; set; }
 

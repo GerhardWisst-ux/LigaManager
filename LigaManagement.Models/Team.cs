@@ -8,7 +8,7 @@ namespace LigaManagement.Models
     public class Match
     {
         public int MatchID { get; set; }
-        public DateTime MatchDateTime { get; set; }
+        public DateTime? MatchDateTime { get; set; }
 
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
@@ -27,7 +27,7 @@ namespace LigaManagement.Models
     public class Match2
     {
         public int MatchID { get; set; }
-        public DateTime MatchDateTime { get; set; }
+        public DateTime? MatchDateTime { get; set; }
 
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }

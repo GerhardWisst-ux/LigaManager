@@ -42,12 +42,19 @@
         --rz-grid-cell-color: white;
     }
 
-    
+    .previous, .next {
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+        color: white !important;
+    }
+
+    .round {        
+        border-radius: 50%;
+    }
 </style>
 
 @if (IsLoading)
 {
-
     <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
     </RadzenStack>
@@ -67,148 +74,172 @@ else
                             <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
                             <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                             <h2 style="display:inline-block;">@Localizer["Pokalergebnisse"].Value @Ligamanager.Components.Globals.currentPokalSaison</h2>
-                            <span class="ml-3">                                
-                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline"  Visible=true Style="display:inline-block;" title="@Localizer["Neuanlage Pokalspiel"].Value" ButtonStyle="ButtonStyle.Primary" />
+                            <span class="ml-3">
+                                <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" Visible=true Style="display:inline-block;" title="@Localizer["Neuanlage Pokalspiel"].Value" ButtonStyle="ButtonStyle.Primary" />
                             </span>
                         </div>
                     </div>
                 </RadzenCard>
             </div>
         </div>
-        <RadzenCard style="margin-bottom:4px;">
-            <div class="form-group row">
-                <div class="dropdown mr-2  ml-3" style="display:inline">
-                    <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
-                        <option value="" selected required>@Localizer["Saison wählen"].Value</option>
-                        @if (SaisonenList != null)
-                        {
-                            @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
-                            {
-                                @if (saison.SaisonID == Globals.CLPokalSaisonID)
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <RadzenCard style="margin-bottom:4px;">
+                    <div class="form-group row">
+                        <div class="dropdown mr-2  ml-3" style="display:inline">
+                            <select id="cboSaison" class="form-control dropdown" @onchange="SaisonChange">
+                                <option value="" selected required>@Localizer["Saison wählen"].Value</option>
+                                @if (SaisonenList != null)
                                 {
-                                    <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                                    @foreach (var saison in SaisonenList.OrderByDescending(o => o.Saisonname))
+                                    {
+                                        @if (saison.SaisonID == Globals.CLPokalSaisonID)
+                                        {
+                                            <option selected value="@saison.SaisonID"> @saison.Saisonname </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                        }
+                                    }
                                 }
-                                else
+                            </select>
+                            <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Saison wählen"].Value</label>
+                        </div>
+                        <div class="dropdown" style="display:inline">
+                            <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
+                                <option value="0" required>@Localizer["Runde wählen"].Value</option>
+                                @if (RundeList != null)
                                 {
-                                    <option value="@saison.SaisonID"> @saison.Saisonname </option>
+                                    @foreach (var runde in RundeList)
+                                    {
+                                        @if (runde.RundeKurzbezeichung == RundeChoosed)
+                                        {
+                                            <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
+                                        }
+                                    }
                                 }
-                            }
-                        }
-                    </select>
-                    <label style="display:@DisplayErrorSaison;color:red;" id="lblErrorSaison">@Localizer["Saison wählen"].Value</label>
-                </div>
-                <div class="dropdown" style="display:inline">
-                    <select id="cboTableArt" style="display:inline; width:180px;height:38px;" class="form-control dropdown" @onchange="RundeChange">
-                        <option value="0" required>@Localizer["Runde wählen"].Value</option>
-                        @if (RundeList != null)
-                        {
-                            @foreach (var runde in RundeList)
-                            {
-                                @if (runde.RundeKurzbezeichung == RundeChoosed)
-                                {
-                                    <option selected value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
-                                }
-                                else
-                                {
-                                    <option value="@runde.RundeKurzbezeichung"> @runde.Rundename </option>
-                                }
-                            }
-                        }
-                    </select>
-                    <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
-                </div>
-                <div class="dropdown" style="display:inline">
-                    <RadzenButton title=@Localizer["Saison und Runde auswählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Text=@Localizer["Auswählen"].Value Click="@OnClickHandler">
+                            </select>
+                            <label style="display:@DisplayErrorRunde;color:red;" id="lblErrorSaison">@Localizer["Runde wählen"].Value</label>
+                        </div>
+                        <div class="dropdown" style="display:inline">
+                            <RadzenButton title=@Localizer["Saison und Runde auswählen"].Value style="margin-left: 5px;" id="btnUebernehmen" class="btn btn-primary pull-right" Click="@OnClickHandler">
+                                <i class="oi oi-magnifying-glass" style="margin-left: 1px;  vertical-align:text-bottom;"></i>
+                            </RadzenButton>
+                        </div>
 
-                    </RadzenButton>
-                </div>
-
+                    </div>
+                </RadzenCard>
             </div>
-        </RadzenCard>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+            <RadzenCard >
+                <RadzenTabs>
+                    <Tabs>
+                        <RadzenTabsItem class="p-0" Text=@Localizer["Begegnungen"].Value>
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <RadzenCard style="flex:1;margin:0px;">
+                                        <RadzenDataGrid @ref="grid" Data="@PokalergebnisseSpieltage" EmptyText=@Localizer["Keine Daten zum Anzeigen"].Value class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                                        AllowPaging="true" AllowSorting="false" AllowFiltering="false"
+                                                        TItem="PokalergebnisSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                        SelectionMode="DataGridSelectionMode.Single" CellRender="@CellRender" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                            <Columns>
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein1" Width="30%" Sortable=false Title=@Localizer["Heim"].Value>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
+                                                    <Template Context="data">
+                                                        <RadzenImage Path="@($"/Images//{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                    </Template>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 1" />
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 2" />
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
+                                                    <Template Context="data">
+                                                        <RadzenImage Path="@($"/Images//{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                    </Template>
+                                                </RadzenDataGridColumn>
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein2" Width="30%" Sortable=false Title=@Localizer["Gast"].Value />
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title=@Localizer["Ort"].Value />
+                                                <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title=@Localizer["Datum"].Value />
+                                                <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                                                    <Template Context="data">
+                                                        <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
+                                                    </Template>
+                                                </RadzenDataGridColumn>
+                                            </Columns>
+                                                <FooterTemplate>
+                                                </FooterTemplate>
+                                                <FooterTemplate>
+                                                    @Localizer["Anzahl Spiele"]: <b>@PokalergebnisseSpieltage?.Count()</b>
+                                                    @Localizer["Anzahl Heimerfolge"]: <b>@PokalergebnisseSpieltage?.Where(x => x.Tore1_Nr > x.Tore2_Nr)?.Count()</b>
+                                                    @Localizer["Anzahl Auswärtserfolge"]: <b>@PokalergebnisseSpieltage?.Where(x => x.Tore1_Nr < x.Tore2_Nr)?.Count()</b>
+                                                </FooterTemplate>
+                                        </RadzenDataGrid>
+                                    </RadzenCard>
+                                    <div class="row">
+                                        <div class="col-md-1">
+                                            <a type="button" id="btnZurueck" Style="text-align:left;display:inline-block;width:40px;height:40px;" data-toggle=@Localizer["Vorige Runde"] title="@Localizer["Voriger Runde"]" @onclick="RundeZurueck" class="previous round">&laquo;</a>
+                                        </div>
+                                        <div class="col-md-11 text-right">
+                                            <a type="button" id="btnVor" data-toggle="@Localizer["Nächster Spieltag"]" title="@Localizer["Nächste Runde"]" @onclick="RundeVor" style="width: 40px;height:40px; text-align:left;display:inline-block;" class="next round">&raquo;</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </RadzenTabsItem>
+                        <RadzenTabsItem class="p-0" Text="@Localizer["Alle Pokalendspiele"].Value">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <RadzenCard style="flex:1;margin:0px;">
+                                        <RadzenDataList Data="@PokalergebnisseSpieltageFinale" TItem="PokalergebnisSpieltag" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
+                                                        WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="16"
+                                                        PagerHorizontalAlign="HorizontalAlign.Left" pagerText PageSizeText="Datensätze" ShowPagingSummary="true">
+                                            <Template Context="PokalergebnisSpieltag">
+                                                <RadzenCard Style="width:100%; padding:0;">
+                                                    <RadzenRow Gap="0">
+                                                        <RadzenColumn Size="1" SizeXS="1">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Saison)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="3" SizeXS="3">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein1)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="1" SizeXS="1">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore1_Nr)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="1" SizeXS="1">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore2_Nr)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="3" SizeXS="3">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein2)</RadzenText>
+                                                        </RadzenColumn>
+                                                        <RadzenColumn Size="2" SizeXS="2">
+                                                            <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Datum)</RadzenText>
+                                                        </RadzenColumn>
+                                                    </RadzenRow>
+                                                </RadzenCard>
+                                            </Template>
+                                        </RadzenDataList>
+                                    </RadzenCard>
+                                </div>
+                            </div>
+                        </RadzenTabsItem>
+                    </Tabs>
+                </RadzenTabs>
+            </RadzenCard>
+            </div>
+        </div>
     </div>
+ 
 
-
-    <RadzenCard Style="height:70%;" class="m-0">
-        <RadzenTabs>
-            <Tabs>
-                <RadzenTabsItem class="p-0" Text=@Localizer["Begegnungen"].Value>
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <RadzenCard style="flex:1;margin:0px;">
-                                <RadzenDataGrid @ref="grid" Data="@PokalergebnisseSpieltage" EmptyText=@Localizer["Keine Daten zum Anzeigen"].Value class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
-                                                AllowPaging="true" AllowSorting="false" AllowFiltering="false"
-                                                TItem="PokalergebnisSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
-                                                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
-                                                SelectionMode="DataGridSelectionMode.Single" CellRender="@CellRender" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
-                                    <Columns>
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein1" Width="30%" Sortable=false Title=@Localizer["Heim"].Value>
-                                        </RadzenDataGridColumn>
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
-                                            <Template Context="data">
-                                                <RadzenImage Path="@($"/Images//{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
-                                            </Template>
-                                        </RadzenDataGridColumn>
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 1" />
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="8%" Sortable=false Title="T 2" />
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
-                                            <Template Context="data">
-                                                <RadzenImage Path="@($"/Images//{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
-                                            </Template>
-                                        </RadzenDataGridColumn>
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Verein2" Width="30%" Sortable=false Title=@Localizer["Gast"].Value />
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" Property="Ort" Width="25%" Sortable=false Title=@Localizer["Ort"].Value />
-                                        <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="table-row" FormatString="{0:dd.MM.yyyy H:mm}" Property="Datum" Width="22%" Sortable=false Title=@Localizer["Datum"].Value />
-                                        <RadzenDataGridColumn TextAlign="TextAlign.Right" CssClass="table-row" TItem="PokalergebnisSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
-                                            <Template Context="data">
-                                                <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
-                                            </Template>
-                                        </RadzenDataGridColumn>
-                                    </Columns>
-                                </RadzenDataGrid>
-                            </RadzenCard>
-                        </div>
-                    </div>
-                </RadzenTabsItem>
-                <RadzenTabsItem class="p-0" Text="@Localizer["Alle Pokalendspiele"].Value">
-                    <div class="form-group row">
-                        <div class="col-sm-12">
-                            <RadzenCard style="flex:1;margin:0px;">
-                                <RadzenDataList Data="@PokalergebnisseSpieltageFinale" TItem="PokalergebnisSpieltag" AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:400px;overflow:auto;" : ";")"
-                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)" PageSize="16"
-                                                PagerHorizontalAlign="HorizontalAlign.Left" pagerText PageSizeText="Datensätze" ShowPagingSummary="true">
-                                    <Template Context="PokalergebnisSpieltag">
-                                        <RadzenCard Style="width:100%; padding:0;">
-                                            <RadzenRow Gap="0">
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Saison)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="3" SizeXS="3">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein1)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore1_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="1" SizeXS="1">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Tore2_Nr)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="3" SizeXS="3">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Verein2)</RadzenText>
-                                                </RadzenColumn>
-                                                <RadzenColumn Size="2" SizeXS="2">
-                                                    <RadzenText TextStyle="TextStyle.Body1">@(PokalergebnisSpieltag.Datum)</RadzenText>
-                                                </RadzenColumn>
-                                            </RadzenRow>
-                                        </RadzenCard>
-                                    </Template>
-                                </RadzenDataList>
-                            </RadzenCard>
-                        </div>
-                    </div>
-                </RadzenTabsItem>
-            </Tabs>
-        </RadzenTabs>
-    </RadzenCard>
+    
 
 }
 
@@ -263,7 +294,7 @@ else
     private void OnClick(string text)
     {
         if (RundeChoosed != null)
-        _navigationManager.NavigateTo("/createpokalspieltag/" + RundeChoosed);
+            _navigationManager.NavigateTo("/createpokalspieltag/" + RundeChoosed);
 
 
     }

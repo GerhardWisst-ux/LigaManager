@@ -8,12 +8,6 @@
 @inject NotificationService NotificationService
 @inject LigaManagerManagement.Web.Services.LigaManagerAuthenticationStateProvider _LigaManagerAuthenticationStateProvider
 
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-darkness/jquery-ui.css' rel='stylesheet'>
-
-</head>
 
 <style type="text/css">
 
@@ -40,9 +34,9 @@
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
     </RadzenStack>
 }
-{
+else {
 <div class="container">
-    <div class="form-group row">
+    <div class="form-group row mt-0 row mb-1">
         <div class="col-sm-12">
             <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
                 <div class="d-flex flex-row">
@@ -62,28 +56,28 @@
 
     <div class="col-12">
         <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
-            <div class="form-group row">
-                <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
-                <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control  col-md-9 col-xs-12"></InputText>
+            <div class="form-group row mt-3 row mb-0">
+                <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 mt-2" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
+                <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-md-9 col-xs-12 mt-2"></InputText>
                 <ValidationMessage For="(() => Liga.Liganame)"
                                    class="col-md-9 offset-md-3 text-danger pl-3">
                 </ValidationMessage>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mt-0 row mb-1">
                 <RadzenLabel Text="Verband" class="col-md-3 col-xs-12" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
                 <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control  col-md-9 col-xs-12"></InputText>
                 <ValidationMessage For="(() => Liga.Verband)"
                                    class="col-md-9 offset-md-3 text-danger pl-3">
                 </ValidationMessage>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mt-0 row mb-1">
                 <RadzenLabel Text="Erstaustragung" class="col-md-3 col-xs-12" Component="txtErstaustragung">@Localizer["Erstaustragung"].Value</RadzenLabel>
                 <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control  col-md-9 col-xs-12"></InputDate>
                 <ValidationMessage For="(() => Liga.Erstaustragung)"
                                    class="col-md-9 offset-md-3 text-danger pl-3">
                 </ValidationMessage>
             </div>
-            <div class="form-group row">
+            <div class="form-group row mt-0 row mb-1">
                 <RadzenLabel Text="Saisonen" class="col-md-3 col-xs-12" Component="txtSaisonen">@Localizer["Saisonen"].Value</RadzenLabel>
                 <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control  col-md-9 col-xs-12"></InputNumber>
                 <ValidationMessage For="(() => Liga.Saisonen)"
@@ -92,14 +86,14 @@
             </div>
             @if (Ausrichterland.ToString().Trim() == "")
             {
-                <div class="form-group row">
+                <div class="form-group row mt-0 row mb-1">
                     <RadzenLabel Text="Rekordspieler" class="col-md-3 col-xs-12" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
                     <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputText>
                     <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
                                        class="col-md-9 offset-md-3 text-danger pl-3">
                     </ValidationMessage>
                 </div>
-                <div class="form-group row">
+                <div class="form-group row mt-0 row mb-1">
                     <RadzenLabel Text="Spiele Rekordspieler" class="col-md-3 col-xs-12" Visible Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
                     <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputNumber>
                     <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
@@ -109,7 +103,7 @@
             }
             else
             {
-                <div class="form-group row">
+                <div class="form-group row mt-0 row mb-1">
                     <RadzenLabel Text="Ausrichterland" class="col-md-3 col-xs-12" Component="txtAusrichterland">@Localizer["Ausrichterland"].Value</RadzenLabel>
                     <InputText required id="txtAusrichterland" @bind-Value="Liga.Ausrichterland" class="form-control  col-md-9 col-xs-12"></InputText>
                     <ValidationMessage For="(() => Liga.Ausrichterland)"
@@ -119,7 +113,7 @@
             }
 
 
-            <div class="form-group row my-4">
+            <div class="form-group row mt-0 row mb-1">
                 <RadzenLabel Text="lblAktiv" class="col-md-3 col-xs-12" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
                 <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkAktiv" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
@@ -128,7 +122,7 @@
                                    class="col-md-9 offset-md-3 text-danger pl-3">
                 </ValidationMessage>
             </div>
-            <div class="form-group row my-4">
+            <div class="form-group row mt-0 row mb-1">
                 <RadzenLabel Text="lblEM" class="col-md-3 col-xs-12" Component="chkEMWM">@Localizer["EM-WM"].Value</RadzenLabel>
                 <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkEMWM" />
                 <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
@@ -137,8 +131,10 @@
                                    class="col-md-9 offset-md-3 text-danger pl-3">
                 </ValidationMessage>
             </div>
-
-            <div class="form-group row">
+                <DataAnnotationsValidator />
+                <!-- This will show any validation errors -->
+                <ValidationSummary />
+            <div class="form-group row mt-0 row mt-3">
                 <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
                     <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                 </RadzenButton>
@@ -153,7 +149,6 @@
     </div>
 </div>
 }
-
 
 @code {
     [Parameter]
@@ -256,7 +251,7 @@
         if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
         {
             message = "Sie können diese Liga nicht löschen?";
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Löschen Liga", Detail = "Löschen" });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Warning, Summary = "Löschen Liga", Detail = "Löschen" });
             return false;
         }
         message = Localizer["MessageDelete"].Value;
@@ -266,7 +261,7 @@
         if (result)
         {
             await _Ligaservice.DeleteLiga(Convert.ToInt32(Id));
-            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = Localizer["Löschen Liga"].Value, Detail = Localizer["Gelöscht"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = Localizer["Löschen Liga"].Value, Detail = Localizer["Gelöscht"].Value });
         }
 
         return false;

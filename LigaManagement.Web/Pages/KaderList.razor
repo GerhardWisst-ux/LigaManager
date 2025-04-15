@@ -103,9 +103,14 @@
             <label title="@Localizer["Bitte Verein wählen"].Value" style="display:@DisplayErrorVerein;color:red;" id="lblErrorLiga">@Localizer["Bitte Verein wählen"].Value</label>
         </div>
         <div class="col-sm-2 col-xs-12 pull-right">
-
-            <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value" Icon="account_circle" style="margin-left:5px;width:100px;" id="btnUebernehmen" Click="OnClickHandlerAsync" class="btn btn-primary" Text="@Localizer["Bitte Verein wählen"].Value">
-                @Localizer["Auswählen"].Value
+            <RadzenButton title="@Localizer["Saison und Verein auswählen"].Value"
+                          Icon="account_circle"
+                          style="margin-left: 10px; width: 60px; padding: 8px;"
+                          id="btnUebernehmen"
+                          Click="OnClickHandlerAsync"
+                          class="btn btn-primary">
+                <i class="oi oi-magnifying-glass"
+                   style="margin-left: 5px; vertical-align: middle;"></i>
             </RadzenButton>
         </div>
 
@@ -120,7 +125,6 @@
 }
 else
 {
-
     <div class="form-group row">
         <div class="col-sm-12">
             @if (bShowSpieler)
@@ -136,7 +140,7 @@ else
                     <Columns>
                         <RadzenDataGridColumn TItem="Saison" Property="ID" Title="ID">
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Kader" Property="Position" Width="8%" SortProperty="PositionsNr" TextAlign="TextAlign.Right" Title="Pos" Sortable=true SortOrder="SortOrder.Ascending" />
+                        <RadzenDataGridColumn TItem="Kader" Property="Position" Width="8%" SortProperty="PositionsNr" TextAlign="TextAlign.Left" Title="Pos" Sortable=true SortOrder="SortOrder.Ascending" />
                         <RadzenDataGridColumn TItem="Kader" Property="SpielerName" Title="@Localizer["SpielerName"].Value" Width="20%" Sortable=true SortOrder="SortOrder.Ascending"/>
                         <RadzenDataGridColumn TItem="Kader" Property="Vorname" Width="20%" Sortable=true Title="@Localizer["SpielerVorname"].Value" SortOrder="SortOrder.Ascending"
                                               SortProperty="Vorname" />
@@ -155,7 +159,7 @@ else
                     </FooterTemplate>
                     <FooterTemplate>
                         @Localizer["Anzahl Spieler"].Value: <b>@spielerList.Count()</b>
-                        @Localizer["Tore Gesamt"]: <b>@spielerList.Where(x => x.SaisonId == Globals.KaderSaisonID).Sum(x => x.Tore)</b>
+                        @Localizer["Gesamtzahl Tore"]: <b>@spielerList.Where(x => x.SaisonId == Globals.KaderSaisonID).Sum(x => x.Tore)</b>
                     </FooterTemplate>
                 </RadzenDataGrid>
 

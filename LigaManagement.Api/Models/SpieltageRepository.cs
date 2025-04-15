@@ -38,7 +38,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedsrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);                
 
@@ -113,7 +113,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                     }
@@ -133,55 +133,51 @@ namespace LigaManagerManagement.Api.Models
 
             try
             {
-
                 using (var conn = new SqlConnection(Globals.connstring))
                 {
                     await conn.OpenAsync();
 
-                    SqlCommand command = new SqlCommand("sp_spieltage", conn);
-                    command.CommandType = CommandType.StoredProcedure;
-                    Spieltag spieltag = null;
-                    List<Spieltag> Spieltaglist = new List<Spieltag>();
-                    await using (SqlDataReader reader = command.ExecuteReader())
+                    var command = new SqlCommand("sp_spieltage", conn)
+                    {
+                        CommandType = CommandType.StoredProcedure
+                    };
 
-                    ////SqlCommand command = new SqlCommand("SELECT * FROM [Spieltage] ", conn);
-                    ////Spieltag spieltag = null;
-                    ////List<Spieltag> Spieltaglist = new List<Spieltag>();
-                    ////using (SqlDataReader reader = command.ExecuteReader())
+                    var spieltagList = new List<Spieltag>();
+
+                    await using (var reader = await command.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
-                            spieltag = new Spieltag();
+                            var spieltag = new Spieltag
+                            {
+                                SpieltagId = reader.GetInt32(reader.GetOrdinal("SpieltagId")),
+                                SaisonID = reader.GetInt32(reader.GetOrdinal("SaisonID")),
+                                StadionID = reader.GetInt32(reader.GetOrdinal("StadionID")),
+                                LigaID = reader.GetInt32(reader.GetOrdinal("LigaID")),
+                                SpieltagNr = reader.GetString(reader.GetOrdinal("SpieltagNr")),
+                                Saison = reader.GetString(reader.GetOrdinal("Saison")),
+                                Verein1 = reader.GetString(reader.GetOrdinal("Verein1")),
+                                Verein2 = reader.GetString(reader.GetOrdinal("Verein2")),
+                                Verein1_Nr = reader.GetString(reader.GetOrdinal("Verein1_Nr")),
+                                Verein2_Nr = reader.GetString(reader.GetOrdinal("Verein2_Nr")),
+                                Tore1_Nr = reader.GetInt32(reader.GetOrdinal("Tore1_Nr")),
+                                Doppelpunkt = ":",
+                                Tore2_Nr = reader.GetInt32(reader.GetOrdinal("Tore2_Nr")),
+                                Datum = reader.GetDateTime(reader.GetOrdinal("Datum")),
+                                Ort = reader.GetString(reader.GetOrdinal("Ort")),
+                                Schiedsrichter = reader.GetString(reader.GetOrdinal("Schiedrichter")),
+                                Abgeschlossen = reader.GetBoolean(reader.GetOrdinal("Abgeschlossen")),
+                                Zuschauer = reader.GetInt32(reader.GetOrdinal("Zuschauer")),
+                                TeamIconUrl1 = "",  //reader.GetString(reader.GetOrdinal("TeamIconUrl1")),
+                                TeamIconUrl2 = "" //reader.GetString(reader.GetOrdinal("TeamIconUrl2"))
+                            }; //
 
-                            spieltag.SpieltagId = int.Parse(reader["SpieltagId"].ToString());
-                            spieltag.SaisonID = int.Parse(reader["SaisonID"].ToString());
-                            spieltag.StadionID = int.Parse(reader["StadionID"].ToString());
-                            spieltag.LigaID = int.Parse(reader["LigaID"].ToString());
-                            spieltag.SpieltagNr = reader["SpieltagNr"].ToString();
-                            spieltag.Saison = reader["Saison"].ToString();
-                            spieltag.Verein1 = reader["Verein1"].ToString();
-                            spieltag.Verein2 = reader["Verein2"].ToString();
-                            spieltag.Verein1_Nr = reader["Verein1_Nr"].ToString();
-                            spieltag.Verein2_Nr = reader["Verein2_Nr"].ToString();
-                            spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
-                            spieltag.Doppelpunkt = ":";
-                            spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
-                            spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
-                            spieltag.Ort = reader["Ort"].ToString();
-                            spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
-                            spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
-                            spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
-                            spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
-                            spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
-
-                            Spieltaglist.Add(spieltag);
+                            spieltagList.Add(spieltag);
                         }
                     }
 
-
-                    return Spieltaglist;
+                    return spieltagList;
                 }
-
             }
             catch (Exception ex)
             {
@@ -189,7 +185,6 @@ namespace LigaManagerManagement.Api.Models
                 return null;
             }
         }
-
         public int AktSpieltag(int SaisonID, int LigaID)
         {
             int iMaxSpieltag = 0;
@@ -385,7 +380,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
                         ",[Datum] = '" + spieltag.Datum + "'" +
                         ",[Ort] = '" + spieltag.Ort + "'" +
-                        ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
+                        ",[Schiedrichter] = '" + spieltag.Schiedsrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
                         ",[Zuschauer] =" + spieltag.Zuschauer +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;
@@ -499,7 +494,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
@@ -548,7 +543,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
-                        spieltag.Schiedrichter = reader["Schiedrichter"].ToString();
+                        spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
                         spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
@@ -590,7 +585,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
-                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedrichter);
+                cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedsrichter);
                 cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
@@ -642,7 +637,7 @@ namespace LigaManagerManagement.Api.Models
                         ",[Tore2_Nr] = " + spieltag.Tore2_Nr +
                         ",[Datum] = '" + spieltag.Datum + "'" +
                         ",[Ort] = '" + spieltag.Ort + "'" +
-                        ",[Schiedrichter] = '" + spieltag.Schiedrichter + "'" +
+                        ",[Schiedrichter] = '" + spieltag.Schiedsrichter + "'" +
                         ",[Abgeschlossen] =" + bAbgeschlossen +
                         ",[Zuschauer] =" + spieltag.Zuschauer +
                         " WHERE  [SpieltagId] = " + spieltag.SpieltagId;

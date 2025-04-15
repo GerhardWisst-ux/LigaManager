@@ -37,7 +37,7 @@ namespace LigaManagement.Models
         [Range(0, 100, ErrorMessage = "Tore 1 darf nicht größer als 100 sein.")]
         public int? Tore1_Nr { get; set; }
 
-        public string Doppelpunkt { get; set; }
+        public string Doppelpunkt  { get; set; }
 
         [Required(ErrorMessage = "Tore 2 muß angegeben werden")]
         [Range(0, 100, ErrorMessage = "Tore 2 darf nicht größer als 100 sein.")]
@@ -51,7 +51,7 @@ namespace LigaManagement.Models
         public string Ort { get; set; }
 
         [Required(ErrorMessage = "Schiedrichter muß angegeben werden.")]
-        public string Schiedrichter { get; set; }
+        public string Schiedsrichter { get; set; }
 
         public bool Abgeschlossen { get; set; }
 

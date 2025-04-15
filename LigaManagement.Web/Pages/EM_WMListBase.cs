@@ -21,6 +21,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
+using ToreManagerManagement.Web.Services;
 using static LigamanagerManagement.Web.Pages.EditPokalspieltagBase;
 
 namespace LigaManagement.Web.Pages
@@ -661,6 +662,64 @@ namespace LigaManagement.Web.Pages
                 VisibleTableWM = "none;";
             }
         }
+
+        public async Task RundeZurueck()
+        {
+            IsLoading = true;
+
+            var currentIndex = RundeList.FindIndex(r => r.RundeKurzbezeichung == RundeChoosed);
+            DisplayRunde previous = currentIndex > 0 ? RundeList[currentIndex - 1] : null;
+            if (previous == null)
+            {
+                IsLoading = false;
+                return;
+            }
+
+            Globals.currentEMWMRunde = previous?.RundeKurzbezeichung;
+            RundeChoosed = previous?.RundeKurzbezeichung;
+
+            EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
+
+            if (EMWMSpieltage == null)
+                return;
+
+            EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.Saison == Globals.currentEMWMSaison).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
+
+            VisibleBtnNew = NewButtonVisible();
+
+            TableVisible();
+            OnClickHandler();
+            IsLoading = false;
+        }
+
+        public async Task RundeVor()
+        {
+            IsLoading = true;
+
+            var currentIndex = RundeList.FindIndex(r => r.RundeKurzbezeichung == RundeChoosed);
+            DisplayRunde next = currentIndex < RundeList.Count - 1 ? RundeList[currentIndex + 1] : null;
+            if (next == null)
+            {
+                IsLoading = false;
+                return;
+            }
+            Globals.currentEMWMRunde = next?.RundeKurzbezeichung;
+            RundeChoosed = next?.RundeKurzbezeichung;
+
+            EMWMSpieltage = await SpieltageEMWMService.GetSpielergebnisse();
+
+            if (EMWMSpieltage == null)
+                return;
+
+            EMWMSpieltage = EMWMSpieltage.ToList().Where(x => x.Saison == Globals.currentEMWMSaison).Where(x => x.Runde == RundeChoosed).OrderBy(x => x.Datum);
+
+            VisibleBtnNew = NewButtonVisible();
+
+            TableVisible();
+            OnClickHandler();
+            IsLoading = false;
+        }
+
 
         private string NewButtonVisible()
         {

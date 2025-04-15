@@ -576,6 +576,51 @@
         </div>
     </RadzenCard>
 </RadzenTabsItem>
+<RadzenTabsItem Text="@Localizer["Serien"].Value">
+    <RadzenCard Style="height:75vh;" class="m-0">
+        <div class="content">
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label style="display:@DisplayElements;">@Localizer["Spielpaarungen"].Value: @Spielergebnisse.Count() </label>
+                    <label style="display:@DisplayElements;">@Localizer["Statistiken"].Value : @Statistik</label>
+
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-12">
+                                @if (IsLoading == true)
+                                {
+                                    <RadzenStack AlignItems="AlignItems.Center" Class="rz-m-12" Gap="2rem">
+                                        <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
+                                    </RadzenStack>
+                                }
+                                else
+                                {
+                                    var SerieHeimspiele = ToreProSaisonList.ToList();
+                                    SerieHeimspiele.OrderBy(x => x.Saison);
+                                        <RadzenLabel Text="Tore pro Saison "></RadzenLabel>
+
+                        <RadzenDataGrid @ref="gridHeimserie" Data="@HeimSpielSerie" EmptyText="@Localizer["Keine Ergebnisse zum Anzeigen"].Value" class="table table-striped" FilterMode="FilterMode.Advanced" PageSize="20"
+                                                        AllowPaging="true" AllowSorting="true" AllowFiltering="false"
+                                                        TItem="Spielergebnisse" Visible="true" Responsive=true AllowColumnResize="true"
+                                                        FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                        SelectionMode="DataGridSelectionMode.Single" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                            <Columns>
+                                                        <RadzenDataGridColumn TItem="Spielergebnisse" Width="50%" Property="Verein1" TextAlign="TextAlign.Left" Filterable="false" Sortable=true Title="@Localizer["Verein 1"].Value"></RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spielergebnisse" Width="15%" Property="Tore1" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Tore1"].Value"></RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spielergebnisse" Width="15%" Property="Tore2" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Tore2"].Value"></RadzenDataGridColumn>
+                                                        <RadzenDataGridColumn TItem="Spielergebnisse" Width="50%" Property="Verein12 TextAlign="TextAlign.Left" Filterable="false" Sortable=true Title="@Localizer["Verein 2"].Value"></RadzenDataGridColumn>
+
+                                            </Columns>
+
+                                        </RadzenDataGrid>
+                                }
+                    }
+                </div>
+            </div>
+        </div>
+    </RadzenCard>
+</RadzenTabsItem>
 
         </Tabs>
     </RadzenTabs>

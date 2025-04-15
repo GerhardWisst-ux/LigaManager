@@ -1,0 +1,148 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 07:43:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 08:16:38
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 11.04.2025 09:01:54
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 09:36:53
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 11.04.2025 10:24:38
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path '[0].matchDateTime', line 1, position 38.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateList(IList list, JsonReader reader, JsonArrayContract contract, JsonProperty containerProperty, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateList(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, Object existingValue, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchesAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 670
+Datum/Uhrzeit: 11.04.2025 10:31:34
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Error converting value {null} to type 'System.DateTime'. Path 'matchDateTime', line 1, position 37.
+StackTrace:    at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.EnsureType(JsonReader reader, Object value, CultureInfo culture, JsonContract contract, Type targetType)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.SetPropertyValue(JsonProperty property, JsonConverter propertyConverter, JsonContainerContract containerContract, JsonProperty containerProperty, JsonReader reader, Object target)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.PopulateObject(Object newObject, JsonReader reader, JsonObjectContract contract, JsonProperty member, String id)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateObject(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.CreateValueInternal(JsonReader reader, Type objectType, JsonContract contract, JsonProperty member, JsonContainerContract containerContract, JsonProperty containerMember, Object existingValue)
+   at Newtonsoft.Json.Serialization.JsonSerializerInternalReader.Deserialize(JsonReader reader, Type objectType, Boolean checkAdditionalContent)
+   at Newtonsoft.Json.JsonSerializer.DeserializeInternal(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonSerializer.Deserialize(JsonReader reader, Type objectType)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject(String value, Type type, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value, JsonSerializerSettings settings)
+   at Newtonsoft.Json.JsonConvert.DeserializeObject[T](String value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetMatchAsync(String path) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 688
+Datum/Uhrzeit: 11.04.2025 10:55:08
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Die parametrisierte Abfrage "(@SpieltagNr int,@SaisonID int,@Saison nvarchar(7),@StadionID in" erwartet den @Datum-Parameter, der nicht bereitgestellt wurde.
+StackTrace:    at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.CompleteAsyncExecuteReader(Boolean isInternal, Boolean forDescribeParameterEncryption)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.SaveImportDataToDatabase(Match match, MatchDetail matchdetail, Int32 SpieltagNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 815
+Datum/Uhrzeit: 11.04.2025 10:55:08
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 11:05:44
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 13:50:39
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: This instance has already started one or more requests. Properties can only be modified before sending the first request.
+StackTrace:    at System.Net.Http.HttpClient.CheckDisposedOrStarted()
+   at System.Net.Http.HttpClient.set_BaseAddress(Uri value)
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.GetDataFromOpenLgaDB() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 702
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.DisplaySpieltagAkt() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 259
+   at LigaManagerManagement.Web.Pages.SpieltagListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\SpieltageListBase.cs:line 152
+Datum/Uhrzeit: 11.04.2025 14:09:08
+============================================

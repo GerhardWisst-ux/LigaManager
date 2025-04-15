@@ -36,6 +36,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Verein1", spieltag.Verein1);
                 cmd.Parameters.AddWithValue("@Verein2", spieltag.Verein2);
                 cmd.Parameters.AddWithValue("@Tore1_Nr", spieltag.Tore1_Nr);
+                
                 cmd.Parameters.AddWithValue("@Tore2_Nr", spieltag.Tore2_Nr);
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
@@ -158,6 +159,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        spieltag.Doppelpunkt = ":";
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();

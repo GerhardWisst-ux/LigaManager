@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace LigaManagement.Api.Controllers
@@ -13,130 +12,124 @@ namespace LigaManagement.Api.Controllers
     [ApiController]
     public class SpielplaeneController : ControllerBase
     {
-        private readonly ISpielplaeneRepository SpielplanRepository;
-
+        private readonly ISpielplaeneRepository _spielplanRepository;
         private readonly ILogger<SpielplaeneController> _logger;
 
-        public SpielplaeneController(ISpielplaeneRepository SpielplanRepository, ILogger<SpielplaeneController> logger)
+        public SpielplaeneController(ISpielplaeneRepository spielplanRepository, ILogger<SpielplaeneController> logger)
         {
-            this.SpielplanRepository = SpielplanRepository;
+            _spielplanRepository = spielplanRepository;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetSpielplaene()
+        public async Task<IActionResult> GetSpielplaene()
         {
             try
             {
-                _logger.LogInformation("Made call to Spielplaene Endpoint");
-                return Ok(await SpielplanRepository.GetSpielplaene());
+                _logger.LogInformation("Fetching all Spielplaene.");
+                var spielplaene = await _spielplanRepository.GetSpielplaene();
+                return Ok(spielplaene);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fatal Error Occurred");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
+                _logger.LogError(ex, "Error fetching Spielplaene.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Abrufen der Spielpläne.");
             }
         }
-               
 
         [HttpGet("{id:int}")]
-        public async Task<ActionResult<Spielplan>> GetSpielplan(int id)
+        public async Task<IActionResult> GetSpielplan(int id)
         {
             try
             {
-               _logger.LogInformation("Made call to getSpielplan Endpoint");
-                var result = await SpielplanRepository.GetSpielplan(id);
+                _logger.LogInformation($"Fetching Spielplan with ID {id}.");
+                var spielplan = await _spielplanRepository.GetSpielplan(id);
 
-                if (result == null)
+                if (spielplan == null)
                 {
-                    return NotFound();
+                    _logger.LogWarning($"Spielplan with ID {id} not found.");
+                    return NotFound($"Spielplan mit der ID {id} wurde nicht gefunden.");
                 }
 
-                return result;
+                return Ok(spielplan);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fatal Error Occurred");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
+                _logger.LogError(ex, $"Error fetching Spielplan with ID {id}.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Abrufen des Spielplans.");
             }
         }
 
-       
         [HttpPost]
-        public async Task<ActionResult<Spielplan>> CreateSpielplan(Spielplan Spielplan)
+        public async Task<IActionResult> CreateSpielplan([FromBody] Spielplan spielplan)
         {
             try
             {
-                if (Spielplan == null)
+                if (spielplan == null)
                 {
-                    return BadRequest();
+                    _logger.LogWarning("Invalid Spielplan object received.");
+                    return BadRequest("Ungültige Daten.");
                 }
 
-                _logger.LogInformation("Made call to CreateSpielplan Endpoint");
-                var createdSpielplan = await SpielplanRepository.AddSpielplan(Spielplan);
-
-                return CreatedAtAction(nameof(CreateSpielplan), new { id = createdSpielplan.SpieltagId },
-                    createdSpielplan);
+                var createdSpielplan = await _spielplanRepository.AddSpielplan(spielplan);
+                return CreatedAtAction(nameof(GetSpielplan), new { id = createdSpielplan.SpieltagId }, createdSpielplan);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fatal Error Occurred");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                   "Fehler bei der Neuanlage der Daten:" + ex.Message);
+                _logger.LogError(ex, "Error creating Spielplan.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Erstellen des Spielplans.");
             }
         }
 
-        [HttpPut()]        
-        public async Task<ActionResult<Spielplan>> UpdateSpielplan(Spielplan Spielplan)
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateSpielplan(int id, [FromBody] Spielplan spielplan)
         {
             try
             {
-                _logger.LogInformation("Made call to UpdateSpielplan Endpoint");
-                var VereinToUpdate = await SpielplanRepository.GetSpielplan((int)Spielplan.SpieltagId);
-
-                if (VereinToUpdate == null)
+                if (spielplan == null || id != spielplan.SpieltagId)
                 {
-                    return NotFound($"Spielplan mit der Id = {Spielplan.SpieltagId} nicht gefunden");
+                    _logger.LogWarning("Invalid Spielplan object or ID mismatch.");
+                    return BadRequest("Ungültige Daten.");
                 }
 
-                return await SpielplanRepository.UpdateSpielplan(Spielplan);
+                var existingSpielplan = await _spielplanRepository.GetSpielplan(id);
+                if (existingSpielplan == null)
+                {
+                    _logger.LogWarning($"Spielplan with ID {id} not found.");
+                    return NotFound($"Spielplan mit der ID {id} wurde nicht gefunden.");
+                }
+
+                await _spielplanRepository.UpdateSpielplan(spielplan);
+                return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fatal Error Occurred");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Updaten der Daten:" + ex.Message);
+                _logger.LogError(ex, $"Error updating Spielplan with ID {id}.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Aktualisieren des Spielplans.");
             }
         }
 
-        [HttpDelete("{id:int}/{liganummer:int}")]        
-        public async Task<ActionResult<Spielplan>> DeleteSpielplan(int id, int liganummer)
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> DeleteSpielplan(int id)
         {
             try
             {
-                _logger.LogInformation("Made call to DeleteSpielplan Endpoint");
-                var SpielplanToDelete = await SpielplanRepository.GetSpielplan(id);
+                _logger.LogInformation($"Deleting Spielplan with ID {id}.");
+                var existingSpielplan = await _spielplanRepository.GetSpielplan(id);
 
-                if (SpielplanToDelete == null)
+                if (existingSpielplan == null)
                 {
-                    return NotFound($"Spielplan mit der Id = {id} nicht gefunden");
+                    _logger.LogWarning($"Spielplan with ID {id} not found.");
+                    return NotFound($"Spielplan mit der ID {id} wurde nicht gefunden.");
                 }
 
-                if (liganummer < 3)
-                    return await SpielplanRepository.DeleteSpielplan(id);
-                if (liganummer== 3)
-                    return await SpielplanRepository.DeleteSpielplanL3(id);
-                else
-                    return await SpielplanRepository.DeleteSpielplan(id);
-
+                await _spielplanRepository.DeleteSpielplan(id);
+                return NoContent();
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Fatal Error Occurred");
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Löschen der Daten:" + ex.Message);
+                _logger.LogError(ex, $"Error deleting Spielplan with ID {id}.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Löschen des Spielplans.");
             }
         }
     }

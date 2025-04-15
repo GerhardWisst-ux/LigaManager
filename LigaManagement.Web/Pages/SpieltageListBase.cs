@@ -6,7 +6,9 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Localization;
+using Newtonsoft.Json;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -14,8 +16,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -26,10 +31,13 @@ namespace LigaManagerManagement.Web.Pages
 
         [Parameter]
         public string SpieltagNr { get; set; }
-        public bool VisibleFooter;
+
+        public bool VisibleSpielplan { get; set; }
+        public bool VisibleBtnNew { get; set; }
 
         [CascadingParameter]
         public Task<AuthenticationState> authenticationStateTask { get; set; }
+        private static readonly HttpClient client = new HttpClient();
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
         public IList<Spieltag> orders;
@@ -45,8 +53,6 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
-                
-        public bool VisibleBtnNew { get; set; }
 
         public RadzenDataGrid<Spieltag> grid;
         IList<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>> selectedCellData = new List<Tuple<Spieltag, RadzenDataGridColumn<Spieltag>>>();
@@ -116,11 +122,9 @@ namespace LigaManagerManagement.Web.Pages
         public IStringLocalizer<SpieltageList> Localizer { get; set; }
         public IEnumerable<Spieltag> Spieltage { get; set; }
 
-        public IEnumerable<Spielplan> Spielplaene { get; set; }
         public IEnumerable<Verein> Vereine { get; set; }
         public NavigationManager NavigationManager { get; set; }
 
-     
         protected async override Task OnInitializedAsync()
         {
 
@@ -157,19 +161,30 @@ namespace LigaManagerManagement.Web.Pages
                     SaisonenList.Add(new DisplaySaison(columns.SaisonID, columns.Saisonname));
                 }
 
-                IsLoading = false;
+                if (Globals.LigaID < 4)
+                {
+                    var spielplanVorhanden = await SpielplanService.GetSpielplaene();
+
+                    spielplanVorhanden = spielplanVorhanden.Where(st => st.SaisonID == Globals.SaisonID && st.LigaID == Globals.LigaID).ToList();
+
+                    if (spielplanVorhanden.Count() == 0)
+                        VisibleSpielplan = false;
+                    else
+                        VisibleSpielplan = true;
+
+                    IsLoading = false;
+                }
 
             }
             catch (Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-
+                IsLoading = false;
             }
         }
 
         private async Task DisplaySpieltagAkt()
         {
-
             if (Globals.LigaNummer == 1)
             {
                 if (Globals.currentSaison.Substring(0, 4) == "1963" || Globals.currentSaison.Substring(0, 4) == "1964")
@@ -219,9 +234,9 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     iSpieltage = 38;
             }
-            else if (Globals.LigaNummer == 8)            
+            else if (Globals.LigaNummer == 8)
                 iSpieltage = 38;
-            
+
             else if (Globals.LigaNummer == 9)
             {
                 iSpieltage = 34;
@@ -232,7 +247,7 @@ namespace LigaManagerManagement.Web.Pages
                     iSpieltage = 38;
                 else
                     iSpieltage = 34;
-            }              
+            }
             else if (Globals.LigaNummer == 11)
             {
                 if (Convert.ToInt32(Globals.currentSaison.Substring(0, 4)) > 2022)
@@ -244,12 +259,14 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     iSpieltage = 34;
             }
-            else if (Globals.LigaNummer == 12)            
-                iSpieltage = 46;            
-            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)           
+            else if (Globals.LigaNummer == 12)
+                iSpieltage = 46;
+            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                 iSpieltage = 34;
 
-           
+
+            //await GetDataFromOpenLgaDB();
+
             SpieltagList = new List<DisplaySpieltag>();
 
             for (int i = 1; i <= iSpieltage; i++)
@@ -264,7 +281,7 @@ namespace LigaManagerManagement.Web.Pages
                     throw new Exception("Vereine sind null");
 
                 Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
-                Spieltage = Spieltage.OrderBy(o => o.Datum);                
+                Spieltage = Spieltage.OrderBy(o => o.Datum);
                 for (int i = 0; i < Spieltage.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
@@ -276,7 +293,7 @@ namespace LigaManagerManagement.Web.Pages
                     columns.Doppelpunkt = ":";
                 }
             }
-           else if (Globals.LigaNummer ==3)
+            else if (Globals.LigaNummer == 3)
             {
                 Vereine = await VereineService.GetVereineL3();
 
@@ -300,7 +317,7 @@ namespace LigaManagerManagement.Web.Pages
             else if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
             {
                 var vereineSaison = await SpieltagService.GetVereineL3();
-                               
+
                 Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
                 Spieltage = Spieltage.OrderBy(o => o.Datum);
 
@@ -309,19 +326,19 @@ namespace LigaManagerManagement.Web.Pages
                     var columns = Spieltage.ElementAt(i);
 
                     if (vereineSaison == null)
-                        throw new Exception("VereineSaison sind null");                    
+                        throw new Exception("VereineSaison sind null");
 
                     if (columns.Verein1 != "" && columns.Verein2 != "")
                     {
                         columns.Verein1Anzeige = columns.Verein1;
-                        columns.Verein2Anzeige = columns.Verein2;                        
+                        columns.Verein2Anzeige = columns.Verein2;
                     }
                     else
                     {
                         columns.Verein1 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
                         columns.Verein2 = vereineSaison.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname1;
                         columns.Verein1Anzeige = columns.Verein1;
-                        columns.Verein2Anzeige = columns.Verein2;                        
+                        columns.Verein2Anzeige = columns.Verein2;
                     }
 
                 }
@@ -629,7 +646,7 @@ namespace LigaManagerManagement.Web.Pages
                 else
                     VisibleBtnNew = true;
             }
-            else if (Globals.LigaNummer == 20  || Globals.LigaNummer == 21)
+            else if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
             {
                 if (Spieltage.Count() >= 9)
                     VisibleBtnNew = false;
@@ -642,14 +659,175 @@ namespace LigaManagerManagement.Web.Pages
             if (Spieltage.Count() == 0)
             {
                 VisibleVorZurueck = false;
-                VisibleFooter = false;
             }
             else
             {
-                VisibleFooter = true;
                 VisibleVorZurueck = true;
             }
+        }
+        static async Task<List<LigaManagement.Models.Match>> GetMatchesAsync(string path)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(path).ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    string matchstring = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<List<Match>>(matchstring);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+        static async Task<MatchDetail> GetMatchAsync(string path)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.GetAsync(path).ConfigureAwait(false);
+                if (response.IsSuccessStatusCode)
+                {
+                    string matchstring = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                    return JsonConvert.DeserializeObject<MatchDetail>(matchstring);
+                }
+                return null;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
 
+        protected async Task<int> GetDataFromOpenLgaDB()
+        {
+            int ret = 0;
+            client.BaseAddress = new Uri("https://api.openligadb.de/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            while (true)
+            {
+                try
+                {
+                    var matches = await GetMatchesAsync("getmatchdata/bl3/2019").ConfigureAwait(false);
+
+                    if (matches == null)
+                    {
+                        return ret;
+                    }
+
+                    int SpieltagNr = 0;
+                    int ii = 0;
+                    foreach (var match in matches)
+                    {
+                        int mod = ii % 10;
+
+                        if (mod == 0)
+                            SpieltagNr = SpieltagNr + 1;
+
+                        Debug.Print($"{match.MatchDateTime}: {match.Team1.TeamName} : {match.Team2.TeamName}");
+
+                        var matchDetail = await GetMatchAsync($"getmatchdata/{match.MatchID}").ConfigureAwait(false);
+
+                        //if (ii == 209)
+                        //{
+                        //    Debug.Print("Halt");
+                        //}
+                        SaveImportDataToDatabase(match, matchDetail, SpieltagNr);
+
+                        ii++;
+
+                    }
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    return ret;
+                }
+            }
+        }
+
+        private async void SaveImportDataToDatabase(LigaManagement.Models.Match match, MatchDetail matchdetail, int SpieltagNr)
+        {
+            try
+            {
+                if (match.MatchResults == null)
+                    return;
+
+                if (match.MatchResults.Count() == 0)
+                    return;
+
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "INSERT INTO Spielplaene ([SpieltagNr], [Saison],[SaisonID],[LigaID],[Verein1_Nr],[Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum],[DatumString],[Ort],[Schiedrichter],[Abgeschlossen],[Zuschauer],[StadionID])" +
+                    " VALUES(@SpieltagNr,@Saison,@SaisonID,@LigaID,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@DatumString,@Ort,@Schiedrichter,@Abgeschlossen,@Zuschauer,@StadionID)";
+
+                cmd.Parameters.AddWithValue("@SpieltagNr", SpieltagNr);
+                cmd.Parameters.AddWithValue("@SaisonID", 418);
+                cmd.Parameters.AddWithValue("@Saison", "2019/20");
+                cmd.Parameters.AddWithValue("@StadionID", 0);
+                cmd.Parameters.AddWithValue("@LigaID", 3);
+                try
+                {
+                    cmd.Parameters.AddWithValue("@Verein1_Nr", match.Team1.TeamId);
+                    cmd.Parameters.AddWithValue("@Verein2_Nr", match.Team2.TeamId);
+                }
+                catch (Exception)
+                {
+
+                    cmd.Parameters.AddWithValue("@Verein1", "kein Verein gefunden");
+                    cmd.Parameters.AddWithValue("@Verein2", "kein Verein gefunden");
+                }
+
+                try
+                {
+                    cmd.Parameters.AddWithValue("@Verein1", match.Team1.TeamName);
+                    cmd.Parameters.AddWithValue("@Verein2", match.Team2.TeamName);
+                }
+                catch (Exception)
+                {
+
+                    cmd.Parameters.AddWithValue("@Verein1", "kein Verein-Nr gefunden");
+                    cmd.Parameters.AddWithValue("@Verein2", "kein Verein-Nr gefunden");
+                }
+                try
+                {
+                    cmd.Parameters.AddWithValue("@Tore1_Nr", match.MatchResults[1].PointsTeam1);
+                    cmd.Parameters.AddWithValue("@Tore2_Nr", match.MatchResults[1].PointsTeam2);
+                }
+                catch (Exception)
+                {
+
+                    cmd.Parameters.AddWithValue("@Tore1_Nr", 0);
+                    cmd.Parameters.AddWithValue("@Tore2_Nr", 0);
+                }
+                cmd.Parameters.AddWithValue("@Datum", match.MatchDateTime);
+                cmd.Parameters.AddWithValue("@DatumString", match.MatchDateTime.ToString());
+                cmd.Parameters.AddWithValue("@Ort", "k.A.");
+                cmd.Parameters.AddWithValue("@Schiedrichter", "SR");
+                cmd.Parameters.AddWithValue("@Abgeschlossen", 1);
+                if (match.NumberOfViewers != null)
+                    cmd.Parameters.AddWithValue("@Zuschauer", match.NumberOfViewers);
+                else
+                    cmd.Parameters.AddWithValue("@Zuschauer", 0);
+                await cmd.ExecuteNonQueryAsync();
+
+                conn.Close();
+
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+
+            }
         }
         public async Task SpieltagChange(ChangeEventArgs e)
         {
@@ -657,6 +835,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 if (e.Value != null)
                 {
+                    IsLoading = true;
                     SpieltagNr = e.Value.ToString();
 
                     int SpieltagNr2 = Convert.ToInt32(e.Value);
@@ -671,18 +850,20 @@ namespace LigaManagerManagement.Web.Pages
 
                     currentspieltag = Convert.ToInt32(e.Value);
 
+                    IsLoading = false;
                     StateHasChanged();
                 }
             }
             catch (Exception ex)
             {
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
-
+                IsLoading = false;
             }
         }
 
         public async Task SpieltagZurueck()
         {
+            IsLoading = true;
             if (Convert.ToInt32(SpieltagNr) > 1)
                 SpieltagNr = (Convert.ToInt32(SpieltagNr) - 1).ToString();
             else
@@ -697,81 +878,30 @@ namespace LigaManagerManagement.Web.Pages
             else
                 VisibleVorZurueck = false;
 
+            IsLoading = false;
             StateHasChanged();
         }
 
         public async Task SpieltagVor()
         {
-            try
-            {
-                if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
-                    SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
+            IsLoading = true;
+            if (Convert.ToInt32(SpieltagNr) < Globals.maxSpieltag)
+                SpieltagNr = (Convert.ToInt32(SpieltagNr) + 1).ToString();
 
-                Globals.Spieltag = Convert.ToInt32(SpieltagNr);
+            Globals.Spieltag = Convert.ToInt32(SpieltagNr);
 
-                var Spielplaene = (await SpielplanService.GetSpielplaene()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
-                for (int i = 0; i < Spielplaene.Count(); i++)
-                {
-                    Spieltag spieltag = new Spieltag();
-
-                   
-
-                    spieltag.SpieltagId = 0;
-                    spieltag.Saison = Spielplaene[i].Saison;
-                    spieltag.SaisonID = Spielplaene[i].SaisonID;
-                    spieltag.LigaID = Spielplaene[i].LigaID;                    
-                    spieltag.Doppelpunkt = ":";
-                    spieltag.SpieltagNr = Spielplaene[i].SpieltagNr;
-                    spieltag.Verein1 = Spielplaene[i].Verein1;
-                    spieltag.Verein1Anzeige = Spielplaene[i].Verein1Anzeige;
-                    spieltag.Verein2Anzeige = Spielplaene[i].Verein2Anzeige;
-                    spieltag.Verein1_Nr = Spielplaene[i].Verein1_Nr;
-                    spieltag.Verein2 = Spielplaene[i].Verein2;
-                    spieltag.Verein2_Nr = Spielplaene[i].Verein2_Nr;
-                    spieltag.Tore1_Nr = Spielplaene[i].Tore1_Nr;
-                    spieltag.Tore2_Nr = Spielplaene[i].Tore2_Nr;                    
-                    spieltag.Schiedrichter = Spielplaene[i].Schiedrichter;
-                    spieltag.Datum = DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1).AddMinutes(930);
-                    spieltag.Abgeschlossen = Spielplaene[i].Abgeschlossen;
-                    spieltag.Zuschauer = Spielplaene[i].Zuschauer;
-                    spieltag.TeamIconUrl1 = Spielplaene[i].TeamIconUrl1;
-                    spieltag.TeamIconUrl2 = Spielplaene[i].TeamIconUrl2;
-
-                    var stadien = await StadionService.GetStadien();
-                    var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spielplaene[i].Verein1_Nr?.ToString()) && x.JahrVonDate < DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1) && x.JahrBisDate > DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1)).ToList();
-
-                    if (stadion.Count == 1)  // genau ein Stadion gefunden
-                    {
-                        spieltag.StadionID = stadion[0].Id;
-                        spieltag.Ort = stadion[0].Stadionname;
-                    }
-
-                    else
-                    {
-                        spieltag.StadionID = 0;
-                        spieltag.Ort = "Stadion nicht gefunden";
-                    }
+            await DisplaySpieltagAkt();
 
 
-                    var Spieltag = await SpieltagService.CreateSpieltag(spieltag);
-                }
+            if (Spieltage.Any())
+                VisibleVorZurueck = true;
+            else
+                VisibleVorZurueck = false;
 
-                
-                await DisplaySpieltagAkt();                            
+            IsLoading = false;
 
+            StateHasChanged();
 
-                if (Spieltage.Any())
-                    VisibleVorZurueck = true;
-                else
-                    VisibleVorZurueck = false;
-
-                StateHasChanged();
-            }
-            catch (Exception ex)
-            {
-                Debug.Print(ex.Message);
-                throw;
-            }
         }
         public class DisplaySpieltag
         {
@@ -782,66 +912,7 @@ namespace LigaManagerManagement.Web.Pages
             }
             public string Nummer { get; set; }
             public string Name { get; set; }
-
         }
-
-        //public void OnCellRender(DataGridCellRenderEventArgs<Spieltag> args)
-        //{
-        //    if (selectedCellData.Any(i => i.Item1 == args.Data && i.Item2 == args.Column))
-        //    {
-        //        args.Attributes.Add("style", $"background-color: var(--rz-secondary-lighter);");
-        //    }
-        //}
-
-       
-        protected async Task Delete_Click()
-        {
-            //DeleteConfirmation.Show();
-
-            //await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
-            //await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
-
-            //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
-        }
-
-        protected async Task ConfirmDelete_Click(bool deleteConfirmed)
-        {
-            //if (deleteConfirmed)
-            //{
-            //    await SpieltagService.DeleteSpieltag(Spieltag.SpieltagId);
-            //    await OnSpieltagDeleted.InvokeAsync((int)Spieltag.SpieltagId);
-            //}
-
-            //NavigationManager.NavigateTo(($"/spieltage?spieltag={Globals.Spieltag}"));
-        }
-
-        public bool doesImageExistRemotely(string uriToImage)
-        {
-            if (uriToImage == "")
-                return false;
-
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uriToImage);
-            request.Method = "HEAD";
-
-            try
-            {
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode == HttpStatusCode.OK)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
     }
 
 }

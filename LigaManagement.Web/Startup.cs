@@ -40,11 +40,11 @@ namespace LigaManagement.Web
                 services.AddRazorPages();
                 services.AddServerSideBlazor();
 
-                //services.AddServerSideBlazor().AddCircuitOptions(o =>
-                //{
-                //    //only add details when debugging
-                //    o.DetailedErrors = true;
-                //});
+                services.AddServerSideBlazor().AddCircuitOptions(o =>
+                {
+                    //only add details when debugging
+                    o.DetailedErrors = true;
+                });
 
                 services.AddLocalization(options => options.ResourcesPath = "Resources");
 

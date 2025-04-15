@@ -5,7 +5,6 @@ using Ligamanager.Components;
 using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Radzen;
@@ -15,10 +14,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
-using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
-using static LigamanagerManagement.Web.Pages.EditPokalspieltagBase;
 
 namespace LigaManagement.Web.Pages
 {
@@ -66,6 +63,9 @@ namespace LigaManagement.Web.Pages
 
         [Inject]
         public IStringLocalizer<Pokalergebnisse> Localizer { get; set; }
+
+     
+
         protected override async Task OnInitializedAsync()
         {
             try
@@ -105,7 +105,6 @@ namespace LigaManagement.Web.Pages
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
 
-
                 VisibleBtnNew = "hidden";
 
                 if (Globals.currentPokalRunde == null)
@@ -113,7 +112,7 @@ namespace LigaManagement.Web.Pages
                 else
                     RundeChoosed = Globals.currentPokalRunde;
 
-                SaisonChoosed = Globals.CLSaisonID;
+                SaisonChoosed = Globals.CLPokalSaisonID;
 
                 if (Globals.currentPokalRunde != null)
                     OnClickHandler();
@@ -138,6 +137,70 @@ namespace LigaManagement.Web.Pages
             }
         }
 
+        public async Task RundeZurueck()
+        {
+            IsLoading = true;
+
+            var currentIndex = RundeList.FindIndex(r => r.RundeKurzbezeichung == RundeChoosed);
+            DisplayRunde previous = currentIndex > 0 ? RundeList[currentIndex - 1] : null;
+            if (previous == null)
+            {
+                IsLoading = false;
+                return;
+            }
+
+            Globals.currentPokalRunde = previous?.RundeKurzbezeichung;
+            RundeChoosed = previous?.RundeKurzbezeichung;            
+
+            PokalergebnisseSpieltage = await PokalergebnisseService.GetPokalergebnisseSpieltag();
+
+            if (PokalergebnisseSpieltage == null)
+                return;
+
+            PokalergebnisseSpieltage = PokalergebnisseSpieltage.ToList();
+            PokalergebnisseSpieltage = PokalergebnisseSpieltage.Where(x => x.SaisonID == SaisonChoosed && x.Runde == RundeChoosed).OrderBy(x => x.Datum);
+
+            VisibleBtnNew = NewButtonVisible();
+
+            OnClickHandler();
+            IsLoading = false;
+            StateHasChanged();
+        }
+
+        public async Task RundeVor()
+        {
+            IsLoading = true;
+
+            var currentIndex = RundeList.FindIndex(r => r.RundeKurzbezeichung == RundeChoosed);
+            DisplayRunde next = currentIndex < RundeList.Count - 1 ? RundeList[currentIndex + 1] : null;
+            if (next == null)
+            {
+                IsLoading = false;
+                return;
+            }
+
+            Globals.currentPokalRunde = next?.RundeKurzbezeichung;
+            RundeChoosed = next?.RundeKurzbezeichung;
+            
+                
+
+            PokalergebnisseSpieltage = await PokalergebnisseService.GetPokalergebnisseSpieltag();
+
+            if (PokalergebnisseSpieltage == null)
+                return;
+
+            PokalergebnisseSpieltage = PokalergebnisseSpieltage.ToList();
+            PokalergebnisseSpieltage = PokalergebnisseSpieltage.Where(x => x.SaisonID == SaisonChoosed && x.Runde == RundeChoosed).OrderBy(x => x.Datum);
+
+            VisibleBtnNew = NewButtonVisible();
+                        
+            OnClickHandler();
+
+            IsLoading = false;
+
+            StateHasChanged();
+
+        }
         public void CellRender(DataGridCellRenderEventArgs<PokalergebnisSpieltag> args)
         {
             if (args.Column.Property == "Verein1")
@@ -158,13 +221,14 @@ namespace LigaManagement.Web.Pages
             {
                 SaisonChoosed = Convert.ToInt32(e.Value);
 
-                Globals.CLSaisonID = SaisonChoosed;
+                Globals.CLPokalSaisonID = SaisonChoosed;
 
                 var saison = await SaisonenService.GetSaison(Convert.ToInt32(SaisonChoosed));
 
                 Globals.currentPokalSaison = saison.Saisonname;
-
+                Globals.CLPokalSaisonID = saison.SaisonID;
                 OnClickHandler();
+                StateHasChanged();
             }
         }
         public async void RundeChange(ChangeEventArgs e)
