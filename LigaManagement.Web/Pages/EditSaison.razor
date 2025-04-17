@@ -86,9 +86,9 @@ else
         <RadzenSteps Change="@OnChange" CanChange="@CanChange">
             <Steps>
                 <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
-                    <RadzenRow>
-                        <RadzenLabel Text="Grunddaten" class="col-md-3 col-xs-12">@Localizer["Grunddaten"].Value</RadzenLabel>
-                    </RadzenRow>
+                    <h2>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h2>
+                    <h3>@Localizer["Grunddaten"].Value</h3>
+                    <br />
                     <br />
                     <div class="form-group row mt-0 row mb-1">
 
@@ -212,9 +212,10 @@ else
 
                 </RadzenStepsItem>
                 <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
-                    <h1>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h1>
-                    <h2>@Localizer["Vereine zuordnen"].Value</h2>
-                    
+                    <h2>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h2>
+                    <h3>@Localizer["Vereine zuordnen"].Value</h3>
+                    <br />
+                    <br />
                     <div class="containervereine">
                         <div class="list-container">
                             <div class="form-group row align-items-center">
@@ -257,10 +258,8 @@ else
                     </div>
                 </RadzenStepsItem>
                 <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
-                    <h1>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h1>
-                    <RadzenRow>
-                        <RadzenLabel Text="@Localizer["Zusammenfassung"].Value" class="col-sm-3 pl-0">@Localizer["Zusammenfassung"].Value</RadzenLabel>
-                    </RadzenRow>
+                    <h2>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h2>
+                    <h3>@Localizer["Zusammenfassung"].Value</h3>                  
                     <br />
                     <br />
                     <div class="form-group row mt-0 row mb-1">
@@ -391,8 +390,14 @@ else
                     </div>
                     <div class="form-group row mt-0 row mb-1">
                          <RadzenButton title="@Localizer["Speichert Saison ab"].Value" id="btnSpeichern" Click="SaveSaison" class="btn btn-primary ml-3" Text="@Localizer["Speichern"].Value">
-                             @Localizer["Speichern"].Value
+                             <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
                          </RadzenButton>
+                           <RadzenButton title="@Localizer["Löscht Liga"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                            <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                        </RadzenButton>
+                        <RadzenButton title="@Localizer["Zurück zu Saisonen"].Value" style="margin-left:5px;" Click="GoBack" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+
+                        </RadzenButton>
                     </div>
                 </RadzenStepsItem>
             </Steps>
@@ -582,5 +587,28 @@ else
     {
         _navigationManager.NavigateTo($"Ligamanager/saisonen", true);
     }
+
+     protected async Task<bool> Confirm()
+    {
+        string message = string.Empty;
+
+        if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
+        {
+            message = "Sie können diese Saison nicht löschen!";
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Warning, Summary = "Löschen Saison", Detail = "Löschen" });
+            return false;
+        }
+        message = Localizer["MessageDelete"].Value;
+
+        var result = await jsr.InvokeAsync<bool>("confirm", new[] { message });
+
+        if (result)
+        {
+            await SaisonenService.DeleteSaison(Convert.ToInt32(SaisonId));
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = Localizer["Löschen Saison"].Value, Detail = Localizer["Gelöscht"].Value });
+        }
+
+        return false;
+    }    
 }
 

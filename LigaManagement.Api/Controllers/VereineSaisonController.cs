@@ -1,6 +1,7 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class VereineSaisonController : ControllerBase
     {
         private readonly IVereineSaisonRepository VereineSaisonRepository;
@@ -57,25 +59,18 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<VereineSaison>> DeleteVereineSaison(int SaisonId)
+        [HttpDelete("{saisonid:int}")]
+        public async Task<ActionResult<VereineSaison>> DeleteVereineSaison(int saisonid)
         {
             try
-            {
-                var VereineToDelete = await VereineSaisonRepository.DeleteVereineSaison(SaisonId);
+            {                
 
-                if (VereineToDelete == null)
-                {
-                    return NotFound($"VereineSaison mit der saisonId = {SaisonId} nicht gefunden");
-                }
-
-                return VereineToDelete;
+                return await VereineSaisonRepository.DeleteVereineSaison(saisonid);
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.StackTrace);
                 return StatusCode(StatusCodes.Status500InternalServerError,
-                    "Fehler beim Löschen der Daten:" + ex.Message);
+                    "Error deleting data:" + ex.Message);
             }
         }
     }

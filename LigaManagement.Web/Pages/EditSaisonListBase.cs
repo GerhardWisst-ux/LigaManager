@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -50,6 +51,10 @@ namespace LigaManagerManagement.Web.Pages
 
         [Inject]
         public ILigaService LigenService { get; set; }
+
+        [Inject]
+        public IJSRuntime jsr { get; set; }
+
 
         public List<DisplayLiga> LigenList;
         public bool IsLoading = false;

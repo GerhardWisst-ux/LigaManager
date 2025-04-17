@@ -150,6 +150,9 @@
   <data name="Liganame" xml:space="preserve">
     <value>Name of league</value>
   </data>
+  <data name="MessageDelete" xml:space="preserve">
+    <value>Do you really want to delete this saison?</value>
+  </data>
   <data name="Nächster Schritt" xml:space="preserve">
     <value>Next Step</value>
   </data>

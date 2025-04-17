@@ -24,7 +24,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task DeleteLiga(int id)
         {
-            await httpClient.DeleteAsync($"api/Ligas/{id}");
+            await httpClient.DeleteAsync($"api/ligen/{id}");
         }
 
         public async Task<Liga> GetLiga(int id)

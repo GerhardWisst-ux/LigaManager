@@ -26,8 +26,6 @@ namespace LigaManagerManagement.Web.Services
 
         public User? LookupUserInDatabase(string username, string password)
         {
-
-
             var usersFromDatabase = GetUsers();
 
             var foundUser = usersFromDatabase.SingleOrDefault(u => u.Username == username && u.Password == password);

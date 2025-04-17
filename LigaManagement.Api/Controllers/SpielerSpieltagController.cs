@@ -1,6 +1,7 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
 using LigaManagerManagement.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ namespace SpielerManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class SpielerSpieltagController : ControllerBase
     {
         private readonly ISpielerSpieltagRepository SpielerSpieltagRepository;

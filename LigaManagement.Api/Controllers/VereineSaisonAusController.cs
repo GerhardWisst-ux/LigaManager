@@ -1,6 +1,7 @@
 ﻿using LigaManagement.Models;
 using Ligamanager.Components;
 using LigamanagerManagement.Api.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class VereineSaisonAusController : ControllerBase
     {
         private readonly IVereineSaisonAusRepository VereineSaisonAusRepository;

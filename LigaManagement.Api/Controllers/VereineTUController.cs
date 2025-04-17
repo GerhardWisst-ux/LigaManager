@@ -1,5 +1,6 @@
 ﻿using LigaManagement.Models;
 using LigamanagerManagement.Api.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,6 +11,7 @@ namespace LigaManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class VereinePTController : ControllerBase
     {
         private readonly IVereinePTRepository VereinRepository;
