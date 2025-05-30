@@ -125,7 +125,7 @@ else
                                         {
                                             @foreach (var spieltag in SpieltagList)
                                             {
-                                                @if (spieltag.Nummer == currentspieltag.ToString())
+                                                @if (spieltag.Nummer == SpieltagNr.ToString())
                                                 {
                                                     <option selected value="@spieltag.Nummer"> @spieltag.Name </option>
                                                 }
@@ -429,6 +429,8 @@ else
 }
 @code {
 
+
+
     private string Titel { get; set; }
     public IEnumerable<Verein> VereineMax { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -599,7 +601,7 @@ else
                 spieltag = await _SpieltagPLService.CreateSpieltag(Spiel);
 
             // if (spieltag != null)
-                NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Neuanlage Spieltag", Detail = Localizer["Abgespeichert"].Value });
+            NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Neuanlage Spieltag", Detail = Localizer["Abgespeichert"].Value });
         }
         else
         {
@@ -607,15 +609,28 @@ else
             //update
             if (Globals.LigaID < 3)
             {
-                var spielplaene = await _SpielplanService.GetSpielplaene();
-                var spielplan = spielplaene.Where(x => x.SpieltagNr == SpieltagNr && x.Saison == Globals.currentSaison && x.LigaID == Globals.LigaID && x.Verein1_Nr == Spiel.Verein1_Nr && x.Verein2_Nr == Spiel.Verein2_Nr).ToList();
 
-                if (spielplan.Count() == 0)
+                if (Globals.LigaID == 1)
+
                 {
-                    NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Spiel nicht im Spielplan. Speichern nicht möglich." });
-                    return;
-                }
 
+                    var spielplaene = await _SpielplanService.GetSpielplaene();
+
+                    var spielplan = spielplaene.Where(x => x.SpieltagNr == SpieltagNr && x.Saison == Globals.currentSaison && x.LigaID == Globals.LigaID && x.Verein1_Nr == Spiel.Verein1_Nr && x.Verein2_Nr == Spiel.Verein2_Nr).ToList();
+
+
+
+                    if (spielplan.Count() == 0)
+
+                    {
+
+                        NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Spiel nicht im Spielplan. Speichern nicht möglich." });
+
+                        return;
+
+                    }
+
+                }
                 var stadien = await StadionService.GetStadien();
                 var stadion = stadien.Where(x => x.VereinNr == Convert.ToInt32(Spiel.Verein1_Nr.ToString()) && x.JahrVonDate < Spiel.Datum && x.JahrBisDate > Spiel.Datum).ToList();
                 if (stadion.Count() == 1)  // genau ein Stadion gefunden

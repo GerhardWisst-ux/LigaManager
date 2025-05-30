@@ -92,12 +92,20 @@ else
                         </div>
                     </div>
                     <div class="form-group row m-0 row mb-1">
-                        <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
-                        <RadzenTextBox required name="txtLiganame" id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
-
-                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
-                            <ValidationMessage For="() => Saison.Liganame" />
-                        </div>
+                        
+                            <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 " Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
+                            <select value="@LigaID" id="cboLiga" class="form-control col-md-9 col-xs-12 dropdown" @onchange="LigaChange">
+                                <option value="0" required>@Localizer["Liga wählen"].Value</option>
+                                @if (LigenList != null)
+                                {
+                                    @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
+                                    {
+                                        <option value="@liga.LigaID" selected="@(liga.LigaID == Globals.LigaID)">@liga.Liganame</option>
+                                    }
+                                }
+                            </select>
+                        <label for="cboLiga" class="col-md-9 col-xs-12 offset-md-3" style="color:red;@DisplayErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
+                        
                     </div>
                     <div class="form-group row m-0 row mb-1">
                         <RadzenLabel Text="AnzahlVereine" class="col-md-3 col-xs-12" Component="txtVereinsname2">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
@@ -132,6 +140,20 @@ else
                         <InputNumber id="txtRelegation" @bind-Value="Saison.Relegation" class="form-control col-md-9 col-xs-12"></InputNumber>
                         <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
                             <ValidationMessage For="() => Saison.Relegation" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-0 row mb-1">
+                        <RadzenLabel Text="@Localizer["Aufsteiger"].Value" class="col-md-3 col-xs-12" Component="txtAufsteiger">@Localizer["Aufsteiger"].Value</RadzenLabel>
+                        <InputNumber id="txtAufsteiger" @bind-Value="Saison.Aufsteiger" class="form-control col-md-9 col-xs-12"></InputNumber>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Saison.Aufsteiger" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-0 row mb-1">
+                        <RadzenLabel Text="@Localizer["Absteiger"].Value" class="col-md-3 col-xs-12" Component="txtAbsteiger">@Localizer["Absteiger"].Value</RadzenLabel>
+                        <InputNumber id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-md-9 col-xs-12"></InputNumber>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Saison.Absteiger" />
                         </div>
                     </div>
                     <div class="form-group row m-0 row mb-1">
@@ -268,6 +290,20 @@ else
                         <InputNumber required id="txtAnzahlEL_Plaetze" @bind-Value="Saison.CF_League" class="form-control col-sm-9"></InputNumber>
                         <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
                             <ValidationMessage For="() => Saison.CF_League" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-0 row mb-1">
+                        <RadzenLabel Text="@Localizer["Aufsteiger"].Value" class="col-md-3 col-xs-12" Component="txtAufsteiger">@Localizer["Aufsteiger"].Value</RadzenLabel>
+                        <InputNumber id="txtAufsteiger" @bind-Value="Saison.Aufsteiger" class="form-control col-md-9 col-xs-12"></InputNumber>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Saison.Aufsteiger" />
+                        </div>
+                    </div>
+                    <div class="form-group row m-0 row mb-1">
+                        <RadzenLabel Text="@Localizer["Absteiger"].Value" class="col-md-3 col-xs-12" Component="txtAbsteiger">@Localizer["Absteiger"].Value</RadzenLabel>
+                        <InputNumber id="txtAbsteiger" @bind-Value="Saison.Absteiger" class="form-control col-md-9 col-xs-12"></InputNumber>
+                        <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                            <ValidationMessage For="() => Saison.Absteiger" />
                         </div>
                     </div>
                     <div class="form-group row m-0 row mb-1">
@@ -461,8 +497,8 @@ else
         LigaManagerManagement.Models.Saison SaisonenServiceCreated;
 
         var liga = await LigaService.GetLiga(LigaID);
-        var land = await LandService.GetLand(liga.LandID);
-        Saison.LandID = land.Id;
+        
+        Saison.LandID = LandID;
 
         if (SaisonId == "0" || SaisonId is null)
         {

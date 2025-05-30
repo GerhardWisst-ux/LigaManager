@@ -11,6 +11,7 @@ namespace LigamanagerManagement.Api.Models.Repository
     public interface IVereinRepository
     {
         Task<IEnumerable<Verein>> GetVereine();
+        Task<IEnumerable<Verein>> GetVereineALL();
         Task<IEnumerable<VereinAktSaison>> GetVereineL3();
         Task<IEnumerable<VereinAktSaison>> GetVereineCL(string saison);
         Task<IEnumerable<VereinAktSaison>> GetVereineEMWM();

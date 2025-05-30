@@ -67,7 +67,7 @@ namespace LigaManagerManagement.Web.Services
 
         public async Task<IEnumerable<Verein>> GetVereine()
         {
-            return await httpClient.GetJsonAsync<Verein[]>("api/vereine");
+            return await httpClient.GetJsonAsync<Verein[]>("api/vereine/GetVereine");
         }
 
         public async Task<IEnumerable<VereinAktSaison>> GetVereineCL()
@@ -102,6 +102,11 @@ namespace LigaManagerManagement.Web.Services
         public async Task<IEnumerable<VereinAktSaison>> GetVereineL3()
         {
             return await httpClient.GetJsonAsync<VereinAktSaison[]>("api/vereineL3");
+        }
+
+        public async Task<IEnumerable<Verein>> GetVereineAll()
+        {
+            return await httpClient.GetJsonAsync<Verein[]>("api/vereine/GetVereineALL");
         }
     }
 }

@@ -22,9 +22,10 @@ namespace LigaManagerManagement.Web.Pages
 {
     public class CreateSaisonListBase : ComponentBase
     {
-        protected string DisplayErrorLiga = "none";
+        protected string DisplayErrorLiga = "display:none;";
         public string Liganame = "Bundesliga";
-        protected int LigaID;
+        public int LandID = 0;
+        protected int LigaID = 0;
         public Density Density = Density.Compact;
         public string searchfeld = string.Empty;
 
@@ -36,7 +37,7 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public ISaisonenService SaisonenService { get; set; }
         public IEnumerable<Saison> SaisonenList { get; set; }
-        
+
 
         [Inject]
         public ILandService LandService { get; set; }
@@ -84,7 +85,7 @@ namespace LigaManagerManagement.Web.Pages
         protected override async Task OnInitializedAsync()
         {
             try
-            {                
+            {
 
                 var authenticationState = await authenticationStateTask;
 
@@ -126,9 +127,9 @@ namespace LigaManagerManagement.Web.Pages
                         VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
                     }
                 }
-                
 
-                DisplayErrorLiga = "none";
+
+                DisplayErrorLiga = "display:none;";
 
                 Globals.bVisibleNavMenuElements = true;
 
@@ -241,12 +242,28 @@ namespace LigaManagerManagement.Web.Pages
 
         public async void LigaChange(ChangeEventArgs e)
         {
-            if (e.Value != null)
+            try
             {
-                LigaID = Convert.ToInt32(e.Value);
+                if (e.Value != null)
+                {
+                    LigaID = Convert.ToInt32(e.Value);
 
-                var liga = await LigaService.GetLiga(LigaID);
-                Liganame = liga.Liganame;
+                    var liga = await LigaService.GetLiga(LigaID);
+                    Liganame = liga.Liganame;
+                    LandID = liga.LandID;
+
+                    if (LigaID == 0)
+                        DisplayErrorLiga = "display:block;";
+                    else
+                        DisplayErrorLiga = "display:none;";
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+
             }
         }
     }

@@ -33,8 +33,9 @@ namespace LigaManagerManagement.Web.Services
                 return null;
             }
         }
+        
 
-        public async Task DeleteVereineSaison(int saisonid)
+        public async Task DeleteVereineSaison(int? saisonid)
         {
             try
             {
@@ -42,7 +43,7 @@ namespace LigaManagerManagement.Web.Services
             }
             catch (Exception ex)
             {
-                Debug.Print(ex.Message);                
+                Debug.Print(ex.Message);
             }
         }
 

@@ -19,12 +19,26 @@ namespace LigaManagement.Api.Controllers
             this.VereinRepository = VereinRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetVereine")]
         public async Task<ActionResult> GetVereine()
         {
             try
             {
                 return Ok(await VereinRepository.GetVereine());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Fehler beim Lesen der Daten aus der Datenbank:" + ex.Message);
+            }
+        }
+
+        [HttpGet("GetVereineALL")]
+        public async Task<ActionResult> GetVereineALL()
+        {
+            try
+            {
+                return Ok(await VereinRepository.GetVereineALL());
             }
             catch (Exception ex)
             {

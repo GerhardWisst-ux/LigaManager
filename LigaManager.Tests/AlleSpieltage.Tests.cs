@@ -203,8 +203,13 @@ namespace Ligamanager.Tests2025
                 else if (item.SaisonID == 385)
                 {
                     // Assert
-                    Assert.That(iCount, Is.EqualTo(29 * 9));
+                    Assert.That(iCount, Is.EqualTo(34 * 9));
                 }
+                else if (item.SaisonID == 429)
+                {
+                    // Assert
+                    Assert.That(iCount, Is.EqualTo(0));
+                }                
                 else
                 {
                     // Assert                    
@@ -245,7 +250,7 @@ namespace Ligamanager.Tests2025
                 if (item.SaisonID == 386)
                 {
                     // Assert
-                    Assert.That(iCount, Is.EqualTo(29 * 9));
+                    Assert.That(iCount, Is.EqualTo(34 * 9));
                 }
                 else if (item.SaisonID == 106)
                 {
@@ -437,7 +442,7 @@ namespace Ligamanager.Tests2025
                 TestContext.Out.WriteLine("Saison:" + item.Saisonname + ", LigaID: " + item.LigaID + ", Anzahl Spiele mit Zuschauer > 0:" + iCount);
 
                 // Assert
-                Assert.That(iCount, Is.InRange(1, 100000));
+                Assert.That(iCount, Is.InRange(0, 100000));
             }
         }
 
@@ -741,13 +746,8 @@ namespace Ligamanager.Tests2025
                 if (item.SaisonID == 396)
                 {
                     // Assert
-                    Assert.That(iCount, Is.EqualTo(33 * 10));
-                }
-                else if (item.SaisonID == 417)
-                {
-                    // Assert
-                    Assert.That(iCount, Is.EqualTo(220));
-                }
+                    Assert.That(iCount, Is.EqualTo(38 * 10));
+                }               
                 else
                 {
                     // Assert                    

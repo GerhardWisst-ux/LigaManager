@@ -456,6 +456,44 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
+        public async Task<int> GetSpieltageCount()
+        {
+            try
+            {
+                int iGesamtAnzahl = 0;
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("SELECT SUM(Anzahl) AS Gesamtanzahl FROM (" +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[Spieltage] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageBE] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageES] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageFR] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageIT] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageL3] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageNL] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltagePL] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltagePT] UNION ALL     " +
+                    "SELECT COUNT(*) AS Anzahl FROM [dbo].[SpieltageTU] ) AS Gesamt ", conn);                
+                
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        iGesamtAnzahl = int.Parse(reader["Gesamtanzahl"].ToString());
+
+                    }
+                }
+                conn.Close();
+                return iGesamtAnzahl;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return 0;
+            }
+        }
+
         public async Task<IEnumerable<Spieltag>> GetSpieltageL3()
         {
             try

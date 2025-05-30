@@ -1,0 +1,57 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 405 (Method Not Allowed).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineService.GetVereine() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\VereineService.cs:line 70
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 176
+Datum/Uhrzeit: 30.05.2025 10:03:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 405 (Method Not Allowed).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineService.GetVereineAll() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\VereineService.cs:line 109
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 176
+Datum/Uhrzeit: 30.05.2025 10:05:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Response status code does not indicate success: 405 (Method Not Allowed).
+StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineService.GetVereineAll() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\VereineService.cs:line 109
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 176
+Datum/Uhrzeit: 30.05.2025 10:05:58
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The input does not contain any JSON tokens. Expected the input to start with a valid JSON token, when isFinalBlock is true. Path: $ | LineNumber: 0 | BytePositionInLine: 0.
+StackTrace:    at System.Text.Json.ThrowHelper.ReThrowWithPath(ReadStack& state, JsonReaderException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.ReadCore(Utf8JsonReader& reader, T& value, JsonSerializerOptions options, ReadStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonTypeInfo`1.Deserialize(Utf8JsonReader& reader, ReadStack& state)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 utf8Json, JsonTypeInfo`1 jsonTypeInfo, Nullable`1 actualByteCount)
+   at System.Text.Json.JsonSerializer.ReadFromSpan[TValue](ReadOnlySpan`1 json, JsonTypeInfo`1 jsonTypeInfo)
+   at System.Text.Json.JsonSerializer.Deserialize[TValue](String json, JsonSerializerOptions options)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.VereineService.GetVereineAll() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\VereineService.cs:line 109
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 176
+Datum/Uhrzeit: 30.05.2025 10:08:28
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The request was canceled due to the configured HttpClient.Timeout of 100 seconds elapsing.
+StackTrace:    at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagerManagement.Web.Services.LandService.GetLaender() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\LandService.cs:line 45
+Datum/Uhrzeit: 30.05.2025 10:17:37
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: The request was canceled due to the configured HttpClient.Timeout of 100 seconds elapsing.
+StackTrace:    at System.Net.Http.HttpClient.HandleFailure(Exception e, Boolean telemetryStarted, HttpResponseMessage response, CancellationTokenSource cts, CancellationToken cancellationToken, CancellationTokenSource pendingRequestsCts)
+   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
+   at LigaManagement.Web.Services.KaderService.GetAllSpieler() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\KaderService.cs:line 28
+   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 176
+Datum/Uhrzeit: 30.05.2025 10:17:37
+============================================

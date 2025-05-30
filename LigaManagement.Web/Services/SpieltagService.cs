@@ -35,7 +35,7 @@ namespace LigaManagerManagement.Web.Services
         {
             try
             {
-                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltage");
+                return await httpClient.GetJsonAsync<Spieltag[]>("api/spieltage/GetSpieltage");
             }
             catch (System.Exception ex)
             {
@@ -56,6 +56,20 @@ namespace LigaManagerManagement.Web.Services
 
                 Debug.Print(ex.StackTrace);
                 return null;
+            }
+        }
+
+        public async Task<int> GetSpieltageCount()
+        {
+            try
+            {
+                return await httpClient.GetJsonAsync<int>("api/spieltage/GetSpieltageCount");
+            }
+            catch (System.Exception ex)
+            {
+
+                Debug.Print(ex.StackTrace);
+                return 0;
             }
         }
 

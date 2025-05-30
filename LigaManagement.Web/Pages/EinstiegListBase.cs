@@ -50,13 +50,12 @@ namespace LigaManagement.Web.Pages
         protected bool isDropdownDisabledSaison = true;
 
         public bool IsLoading = false;
-        public int AnzahlLigen = 12;
+        public int AnzahlLigen = 0;
         public Density Density = Density.Compact;
-        public static int AnzahlErgebnisse = 104766;
-        public string sAnzahlErgebnisse = AnzahlErgebnisse.ToString("#,##0");
-
-        public int AnzahlVereine = 488;
-        public int AnzahlSpieler = 288;
+        
+        public int AnzahlVereine = 0;
+        public int AnzahlSpieler = 0;
+        public int AnzahlErgebnisse = 0;        
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
         public RadzenDataGrid<Spieltag> grid;
@@ -171,14 +170,17 @@ namespace LigaManagement.Web.Pages
                 var saisonenTask = SaisonenService.GetSaisonen();
                 var letzteErgebnisseTask = SpieltagServiceLE.GetSpieltage();
                 var infoTexteTask = InfoTexteService.GetTexte();
+                var vereineTask = VereineService.GetVereineAll();
+                var ergbnisseTask = SpieltagService.GetSpieltageCount();
 
-                await Task.WhenAll(laenderTask, ligenTask, kaderspielerTask, saisonenTask, letzteErgebnisseTask, infoTexteTask);
+                await Task.WhenAll(laenderTask, ligenTask, kaderspielerTask, saisonenTask, letzteErgebnisseTask, infoTexteTask, vereineTask, ergbnisseTask);
 
                 // Verarbeitung der Ergebnisse
                 Laender = laenderTask.Result.ToList();
                 LaenderList = Laender.Select(l => new DisplayLaender(l.Aktiv, l.Id, l.Laendername)).ToList();
 
-                var ligen = ligenTask.Result.Where(x => x.LandID == Globals.LandID).ToList();
+                var ligen = ligenTask.Result.ToList();
+                var vereine = vereineTask.Result.ToList();
                 LigenList = ligen.Select(l => new DisplayLiga(l.Aktiv, l.Id, l.LandID, l.Liganame, l.EMWM)).ToList();
 
                 AnzahlSpieler = kaderspielerTask.Result
@@ -188,8 +190,11 @@ namespace LigaManagement.Web.Pages
 
                 AnzahlLigen = ligen.Count(x => !x.EMWM);
 
-                Globals.bVisibleNavMenuElements = Globals.SaisonID != 0;
+                AnzahlVereine = vereine.Count();
 
+                AnzahlErgebnisse = ergbnisseTask.Result;
+                
+        
                 Saisonen = saisonenTask.Result
                     .Where(x => x.LigaID == Globals.LigaID && x.LandID == Globals.LandID)
                     .ToList();
@@ -208,7 +213,7 @@ namespace LigaManagement.Web.Pages
 
                 isDropdownDisabledSaison = Globals.SaisonID == 0;
 
-                ImportVisible = LMSettings.GetImportVisible();
+                ImportVisible = true; // LMSettings.GetImportVisible();
                 TabellenAnlegenVisible = LMSettings.GetTabellenAnlegenVisible();
 
                 LetzteErgebnisse = await letzteErgebnisseTask;
@@ -392,7 +397,7 @@ namespace LigaManagement.Web.Pages
         {
             DataTable importedData = new DataTable();
 
-            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager\Data\2024_TU.csv";
+            string sFilename = @"C:\Users\gwiss\source\repos\Ligamanager-Sicherung\Data\2024_CH.csv";
             if (File.Exists(sFilename))
                 Console.WriteLine("Datei existiert");
             else
@@ -493,31 +498,30 @@ namespace LigaManagement.Web.Pages
                     conn.Open();
                     foreach (DataRow importRow in imported_data.Rows)
                     {
-
-                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltageTU(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
+                        SqlCommand cmd = new SqlCommand("INSERT INTO spieltagePL(Saison,SpieltagNr,Verein1,Verein2,Verein1_Nr,Verein2_Nr, Tore1_Nr, Tore2_Nr, Ort,Datum,Abgeschlossen,SaisonID,LigaID,Zuschauer,Schiedrichter) " +
                                                           "VALUES (@Saison,@SpieltagNr,@Verein1,@Verein2,@Verein1_Nr,@Verein2_Nr,@Tore1_Nr,@Tore2_Nr,@Ort,@Datum,@Abgeschlossen,@SaisonID,@LigaID,@Zuschauer,@Schiedrichter)", conn);
                         cmd.Parameters.AddWithValue("@Saison", "2024/25");
                         cmd.Parameters.AddWithValue("@SpieltagNr", spieltag);
                         cmd.Parameters.AddWithValue("@Verein1", importRow["Hometeam"].ToString()?.Trim());
                         cmd.Parameters.AddWithValue("@Verein2", importRow["AwayTeam"].ToString()?.Trim());
 
-                        int? iVerein1 = 0;
-                        int? iVerein2 = 0;
+                        int? iVerein1Nr = 0;
+                        int? iVerein2Nr = 0;
                         int? iFassungsvermoegen = 0;
                         string sStadion = "";
                         for (int j = 0; j < VereineAUS.Count(); j++)
                         {
                             var columns = VereineAUS.ElementAt(j);
 
-                            iVerein1 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString()?.Trim()))?.VereinNr;
-                            iVerein2 = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString()?.Trim()))?.VereinNr;
+                            iVerein1Nr = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString()?.Trim()))?.VereinNr;
+                            iVerein2Nr = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["AwayTeam"].ToString()?.Trim()))?.VereinNr;
                             sStadion = VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString()?.Trim()))?.Stadion;
                             iFassungsvermoegen = Convert.ToInt32(VereineAUS.FirstOrDefault(a => a.Vereinsname1 == (importRow["Hometeam"].ToString()?.Trim()))?.Fassungsvermoegen);
                             break;
                         }
 
-                        cmd.Parameters.AddWithValue("@Verein1_Nr", iVerein1);
-                        cmd.Parameters.AddWithValue("@Verein2_Nr", iVerein2);
+                        cmd.Parameters.AddWithValue("@Verein1_Nr", iVerein1Nr);
+                        cmd.Parameters.AddWithValue("@Verein2_Nr", iVerein2Nr);
 
                         cmd.Parameters.AddWithValue("@Tore1_Nr", Convert.ToInt32(importRow["FTHG"]));
                         cmd.Parameters.AddWithValue("@Tore2_Nr", Convert.ToInt32(importRow["FTAG"]));
@@ -541,8 +545,8 @@ namespace LigaManagement.Web.Pages
 
                         string time = importRow["Time"].ToString();
 
-                        cmd.Parameters.AddWithValue("@SaisonID", 406);
-                        cmd.Parameters.AddWithValue("@LigaID", 11);
+                        cmd.Parameters.AddWithValue("@SaisonID", 430);
+                        cmd.Parameters.AddWithValue("@LigaID", 15);
 
                         //string time = importRow["Time"].ToString();
 
@@ -562,7 +566,7 @@ namespace LigaManagement.Web.Pages
 
                         cmd.ExecuteNonQuery();
 
-                        int mod = i % 9;
+                        int mod = i % 12;
 
                         if (mod == 0)
                             spieltag++;

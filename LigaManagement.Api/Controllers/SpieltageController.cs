@@ -22,13 +22,28 @@ namespace LigaManagement.Api.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
+        [HttpGet("GetSpieltage")]
         public async Task<ActionResult> GetSpieltage()
         {
             try
             {
                 var spieltage = await _spieltagRepository.GetSpieltage(); // Nutzung von AsNoTracking
                 return Ok(spieltage);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Fehler beim Abrufen der Spieltage");
+                return StatusCode(StatusCodes.Status500InternalServerError, "Fehler beim Lesen der Daten aus der Datenbank.");
+            }
+        }
+
+        [HttpGet("GetSpieltageCount")]
+        public async Task<ActionResult> GetSpieltageCount()
+        {
+            try
+            {
+                var spieltageCount = await _spieltagRepository.GetSpieltageCount(); // Nutzung von AsNoTracking
+                return Ok(spieltageCount);
             }
             catch (Exception ex)
             {

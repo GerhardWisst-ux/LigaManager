@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>ChartjsDemo</title>
+    <base href="/" />
+    <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="ChartjsDemo.styles.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+
+    <link href="css/loading.css" rel="stylesheet" rel="stylesheet" />
+    <link href="css/open-iconic/font/css/open-iconic-bootstrap.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="app">
+        <link href="css/loading.css" rel="stylesheet" />
+        <div style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          min-height: 420px;
+          height: 100%;">
+            <h3>Chart.js for Blazor</h3>
+            <div class="page-loading-warp">
+                <div class="ant-spin ant-spin-lg ant-spin-spinning">
+                    <span class="ant-spin-dot ant-spin-dot-spin">
+                        <i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i>
+                    </span>
+                </div>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <a href="https://www.puresourcecode.com/" target="_blank">
+                    <img src="./psc_logo.png" width="50"
+                         style="margin-right: 8px;" />
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+
+    <script src="_content/PSC.Blazor.Components.Chartjs/lib/Chart.js/chart.js"></script>
+    <script src="_content/PSC.Blazor.Components.Chartjs/lib/hammer.js/hammer.js"></script>
+    <script src="_content/PSC.Blazor.Components.Chartjs/lib/chartjs-plugin-zoom/chartjs-plugin-zoom.js"></script>
+    <script src="_content/PSC.Blazor.Components.Chartjs/lib/chartjs-plugin-datalabels/chartjs-plugin-datalabels.js"></script>
+
+    <script src="_content/PSC.Blazor.Components.Chartjs/Chart.js"></script>
+    <script src="/_content/PSC.Blazor.Components.CodeSnippet/codesnippet.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-51944269-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-51944269-3');
+    </script>
+</body>
+
+</html>

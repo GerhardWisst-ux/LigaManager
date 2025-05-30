@@ -9,6 +9,7 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using Radzen;
@@ -207,8 +208,12 @@ namespace LigamanagerManagement.Web.Pages
 
                 if (Globals.LigaNummer < 3)
                 {
-                    if (Id != null)
-                        Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
+                    if (Id == null)
+                    {
+
+                    }
+                    else
+                       Spiel = await SpieltagService.GetSpieltag(Convert.ToInt32(Id));
 
                     var vereineSaison = await VereineSaisonService.GetVereineSaison();
                     List<VereineSaison> verList = vereineSaison.Where(x => x.SaisonID == Globals.SaisonID).ToList();
@@ -241,7 +246,7 @@ namespace LigamanagerManagement.Web.Pages
                 }
                 if (Globals.LigaNummer == 3 || Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                 {
-                    if (Id != null  && Convert.ToInt32(Id) > 0)
+                    if (Id != null && Convert.ToInt32(Id) > 0)
                         Spiel = await SpieltagService.GetSpieltagL3(Convert.ToInt32(Id));
 
                     var vereineSaison = await SpieltagService.GetVereineL3();
@@ -654,7 +659,7 @@ namespace LigamanagerManagement.Web.Pages
                         Spiel.Ort = "kein Stadion gefunden";
                         Spiel.StadionID = 0;
                     }
-                        
+
                 }
                 else if (Globals.LigaNummer == 4)
                 {
@@ -817,7 +822,7 @@ namespace LigamanagerManagement.Web.Pages
             }
             StateHasChanged();
         }
-              
+
 
         public async void btnSpeichernTorV2_Click(ChangeEventArgs e)
         {

@@ -259,6 +259,48 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
+        public async Task<IEnumerable<Verein>> GetVereineALL()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[Vereine] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineBE]  union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineES] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineFR] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineIT] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineNL] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereinePL] union all " +
+                    "SELECT TOP (1000) [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereinePT] union all " +
+                    "SELECT [VereinNr],[Vereinsname1],[Vereinsname2] FROM [LigaDB].[dbo].[VereineTU]", conn);
+                Verein verein = null;
+                List<Verein> vereinelist = new List<Verein>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        verein = new Verein();
+                                                
+                        verein.VereinNr = int.Parse(reader["VereinNr"].ToString());
+                        verein.Vereinsname1 = reader["Vereinsname1"].ToString();
+                        verein.Vereinsname2 = reader["Vereinsname2"].ToString();                     
+
+                        vereinelist.Add(verein);
+                    }
+                }
+                conn.Close();
+                return vereinelist;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
         public async Task<IEnumerable<VereinAktSaison>> GetVereineCL(string saison)
         {
             SqlCommand command;

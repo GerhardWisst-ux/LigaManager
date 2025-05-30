@@ -6,7 +6,8 @@ namespace LigamanagerManagement.Api.Models.Repository
 {
     public interface ISpieltageRepository
     {
-        Task<IEnumerable<Spieltag>> GetSpieltage();        
+        Task<IEnumerable<Spieltag>> GetSpieltage();
+        Task<int> GetSpieltageCount();
         Task<IEnumerable<Spieltag>> GetSpieltageL3();
                
         Task<Spieltag> GetSpieltag(int spieltagId);

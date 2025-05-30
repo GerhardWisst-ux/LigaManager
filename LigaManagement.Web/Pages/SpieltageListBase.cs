@@ -170,10 +170,10 @@ namespace LigaManagerManagement.Web.Pages
                     if (spielplanVorhanden.Count() == 0)
                         VisibleSpielplan = false;
                     else
-                        VisibleSpielplan = true;
-
-                    IsLoading = false;
+                        VisibleSpielplan = true;                    
                 }
+
+                IsLoading = false;
 
             }
             catch (Exception ex)
@@ -713,7 +713,7 @@ namespace LigaManagerManagement.Web.Pages
             {
                 try
                 {
-                    var matches = await GetMatchesAsync("getmatchdata/bl3/2019").ConfigureAwait(false);
+                    var matches = await GetMatchesAsync("getmatchdata/bl3/2024").ConfigureAwait(false);
 
                     if (matches == null)
                     {
