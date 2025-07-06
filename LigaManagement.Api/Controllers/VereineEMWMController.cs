@@ -33,7 +33,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpGet("{saison}")]
-        public async Task<ActionResult> GetVereineSaison()
+        public Task<ActionResult> GetVereineSaison()
         {
            throw new NotImplementedException("vereineCLController");
         }
@@ -60,19 +60,19 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Verein>> CreateVerein(VereinAUS Verein)
+        public Task<ActionResult<Verein>> CreateVerein(VereinAUS Verein)
         {
             throw new NotImplementedException("vereineCLController");
         }
 
         [HttpPut()]
-        public async Task<ActionResult<VereinAUS>> UpdateVerein(VereinAUS Verein)
+        public Task<ActionResult<VereinAUS>> UpdateVerein(VereinAUS Verein)
         {
             throw new NotImplementedException("vereineCLController");
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<VereinAUS>> DeleteVerein(int Id)
+        public Task<ActionResult<VereinAUS>> DeleteVerein(int Id)
         {
             throw new NotImplementedException("vereineCLController");
         }

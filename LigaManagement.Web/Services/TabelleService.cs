@@ -28,9 +28,7 @@ namespace LigaManagerManagement.Web.Services
 
         public IEnumerable<Spielergebnisse> Spielergebnisse { get; set; }
 
-
-        [Inject]
-        public ISaisonenCLService SaisonenEMWMService { get; set; }
+               
 
         public IEnumerable<Verein> Verein { get; set; }
 

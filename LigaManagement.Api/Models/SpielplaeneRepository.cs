@@ -92,7 +92,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT * FROM [Spielplaene] WHERE [SpieltagId] =" + SpieltagId, conn);
                 Spielplan Spielplan = null;
                 List<Spielplan> Spielplanlist = new List<Spielplan>();
-                using (SqlDataReader reader = command.ExecuteReader())
+                await using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (await reader.ReadAsync())
                     {
@@ -117,7 +117,7 @@ namespace LigaManagerManagement.Api.Models
                         {
                             Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString()).AddDays(-1).AddMinutes(930);
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
 
                             Spielplan.Datum = DateTime.Now;
@@ -175,10 +175,18 @@ namespace LigaManagerManagement.Api.Models
                             Spielplan.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
                             Spielplan.Doppelpunkt = ":";
                             Spielplan.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
-                            Spielplan.DatumString = reader["DatumString"].ToString();
-                            
-                            Spielplan.Datum = DateTime.Now;
-                            
+
+                            try
+                            {
+                                Spielplan.DatumString = reader["DatumString"].ToString();
+                                Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString());
+                            }
+                            catch (Exception ex)
+                            {
+
+                                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                            }
+
                             Spielplan.Ort = reader["Ort"].ToString();
                             Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
                             Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());

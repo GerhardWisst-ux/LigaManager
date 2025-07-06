@@ -22,6 +22,7 @@ namespace LigaManagement.Web.Pages
     public class PokalergebnisseListBase : ComponentBase
     {
         public RadzenDataGrid<PokalergebnisSpieltag> grid;
+        public RadzenDataGrid<PokalergebnisStatistik> gridstat;
         public Density Density = Density.Compact;
         public bool allowVirtualization;
         public string Titel { get; set; }
@@ -60,6 +61,8 @@ namespace LigaManagement.Web.Pages
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltage { get; set; }
 
         public IEnumerable<PokalergebnisSpieltag> PokalergebnisseSpieltageFinale { get; set; }
+
+        public IEnumerable<PokalergebnisStatistik> PokalergebnisseSpieltageStatistik { get; set; }
 
         [Inject]
         public IStringLocalizer<Pokalergebnisse> Localizer { get; set; }
@@ -102,6 +105,12 @@ namespace LigaManagement.Web.Pages
 
                 PokalergebnisseSpieltageFinale = PokalergebnisseSpieltageFinale.ToList().Where(x => x.Runde == "F").OrderByDescending(x => x.Datum);
 
+                PokalergebnisseSpieltageStatistik = await PokalergebnisseService.GetPokalergebnisseStatistik(true);
+
+                if (PokalergebnisseSpieltageStatistik == null)
+                    return;
+
+                
                 DisplayErrorRunde = "none";
                 DisplayErrorSaison = "none";
 
@@ -298,6 +307,25 @@ namespace LigaManagement.Web.Pages
 
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
+        }
+
+        public string EntscheidungsSymbol(PokalergebnisSpieltag spiel)
+        {
+            if (spiel.Elfmeterschiessen == true)
+                return "🎯";
+            else if (spiel.Verlängerung == true)
+                return "🕒";
+            else
+                return "";
+        }
+        public string EntscheidungsText(PokalergebnisSpieltag spiel)
+        {
+            if (spiel.Elfmeterschiessen == true)
+                return "Entschieden im Elfmeterschießen";
+            else if (spiel.Verlängerung == true)
+                return "Entschieden in der Verlängerung";
+            else
+                return "";
         }
 
         private string NewButtonVisible()

@@ -34,6 +34,34 @@ namespace LigaManagement.Api.Controllers
             }
         }
 
+        [HttpGet("{all:bool}")]
+        public async Task<ActionResult> GetPokalergebnisse(bool all)
+        {
+            try
+            {
+                return Ok(await pokalergebnisseRepository.GetPokalergebnisseStatistik());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database:" + ex.Message);
+            }
+        }
+
+        [HttpGet("historie/{vereinid}")]
+        public async Task<ActionResult> GetPokalergebnisseHistorie(string vereinid)
+        {
+            try
+            {
+                return Ok(await pokalergebnisseRepository.GetPokalergebnisseHistorie(vereinid));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database:" + ex.Message);
+            }
+        }
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<PokalergebnisSpieltag>> GetPokalergebnis(int id)
         {

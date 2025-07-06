@@ -59,7 +59,7 @@ namespace LigaManagerManagement.Api.Models
             //return result.Entity;
         }
 
-        public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
+        public Task<Spieltag> DeleteSpieltag(int SpieltagId)
         {
             //var result = await appDbContext.Spieltage
             //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
@@ -70,7 +70,7 @@ namespace LigaManagerManagement.Api.Models
             //    return result;
             //}
 
-            return null;
+            return Task.FromResult<Spieltag>(null);
         }
 
         public Task<Spieltag> GetAktSpieltag()

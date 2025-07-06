@@ -35,7 +35,7 @@ namespace LigaManagement.Api.Controllers
 
                 return Ok(vereine);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Optional: Logging hinzufügen, z. B. mit einem Logger-Service
                 // _logger.LogError(ex, "Fehler beim Abrufen der Vereine");
@@ -48,7 +48,7 @@ namespace LigaManagement.Api.Controllers
 
 
         [HttpGet("{saison}")]
-        public async Task<ActionResult> GetVereineSaison()
+        public Task<ActionResult> GetVereineSaison()
         {
             throw new NotImplementedException("VereineL3Controller");
         }
@@ -72,7 +72,7 @@ namespace LigaManagement.Api.Controllers
 
                 return Ok(result);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Optional: Logging hinzufügen, z. B. mit einem Logger-Service
                 // _logger.LogError(ex, "Fehler beim Abrufen des Vereins mit ID {id}", id);
@@ -84,19 +84,19 @@ namespace LigaManagement.Api.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult<Verein>> CreateVerein(Verein Verein)
+        public Task<ActionResult<Verein>> CreateVerein(Verein Verein)
         {
-            throw new NotImplementedException("VereineL3Controller");
+             throw new NotImplementedException("VereineL3Controller");
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Verein>> UpdateVerein(Verein Verein)
+        public Task<ActionResult<Verein>> UpdateVerein(Verein Verein)
         {
             throw new NotImplementedException("VereineL3Controller");
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<ActionResult<Verein>> DeleteVerein(int Id)
+        public Task<ActionResult<Verein>> DeleteVerein(int Id)
         {
             throw new NotImplementedException("VereineL3Controller");
         }

@@ -24,7 +24,7 @@ namespace LigaManagerManagement.Web.Services
             _protectedLocalStorage = protectedLocalStorage;
         }
 
-        public User? LookupUserInDatabase(string username, string password)
+        public User LookupUserInDatabase(string username, string password)
         {
             var usersFromDatabase = GetUsers();
 
@@ -161,25 +161,25 @@ namespace LigaManagerManagement.Web.Services
             await _protectedLocalStorage.SetAsync(_LigamanagerStorageKey, userJson);
         }
 
-        public async Task<User?> FetchUserFromBrowserAsync()
-        {
-            try
-            {
-                var storedUserResult = await _protectedLocalStorage.GetAsync<string>(_LigamanagerStorageKey);
+        //public async Task<User?> FetchUserFromBrowserAsync()
+        //{
+        //    try
+        //    {
+        //        var storedUserResult = await _protectedLocalStorage.GetAsync<string>(_LigamanagerStorageKey);
 
-                if (storedUserResult.Success && !string.IsNullOrEmpty(storedUserResult.Value))
-                {
-                    var user = JsonConvert.DeserializeObject<User>(storedUserResult.Value);
+        //        if (storedUserResult.Success && !string.IsNullOrEmpty(storedUserResult.Value))
+        //        {
+        //            var user = JsonConvert.DeserializeObject<User>(storedUserResult.Value);
 
-                    return user;
-                }
-            }
-            catch (InvalidOperationException)
-            {
-            }
+        //            return user;
+        //        }
+        //    }
+        //    catch (InvalidOperationException)
+        //    {
+        //    }
 
-            return null;
-        }
+        //    return null;
+        //}
 
         public async Task ClearBrowserUserDataAsync() => await _protectedLocalStorage.DeleteAsync(_LigamanagerStorageKey);
 

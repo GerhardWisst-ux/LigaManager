@@ -24,7 +24,7 @@ namespace LigaManagement.Web.Services
         {
             try
             {
-                return await httpClient.PostJsonAsync<List<VereineSaison>>("api/vereinesaison", vereine);
+                return await httpClient.PostJsonAsync<List<VereineSaison>>("api/VereineSaisonAus", vereine);
             }
             catch (Exception ex)
             {

@@ -1,0 +1,31 @@
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: db
+    environment:
+      SA_PASSWORD: "YourStrong!Passw0rd"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  web:
+    build: .
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=LigaDB;User=sa;Password=YourStrong!Passw0rd;
+
+  db_init:
+    image: mcr.microsoft.com/mssql-tools
+    container_name: db_init
+    depends_on:
+      - db
+    volumes:
+      - ./setup.sql:/setup.sql
+    entrypoint: >
+      /bin/bash -c "
+      sleep 15;
+      /opt/mssql-tools/bin/sqlcmd -S db -U sa -P 'YourStrong!Passw0rd' -i /setup.sql;
+      exit 0"

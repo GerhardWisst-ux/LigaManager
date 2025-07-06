@@ -95,7 +95,7 @@ else
                                 }
                                 else
                                 {
-                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm disabled"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                    <NavLink href="@($"Ligamanager/editsaison/{data.SaisonID}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
                                     @if (data.SpielplanVorhanden)
                                     {
                                         <NavLink id="btnSpielplan" style="height:36px;" href="@($"Ligamanager/SpielplanList/{data.SaisonID}")" title="@Localizer["Spielplan Saison"].Value" class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>

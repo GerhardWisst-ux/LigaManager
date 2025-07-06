@@ -3,6 +3,7 @@
 @inherits LigaManagerManagement.Web.Pages.CreateSaisonListBase
 @inject LigaManagement.Web.Services.Contracts.ISaisonenService _SaisonenService
 @inject LigaManagement.Web.Services.Contracts.IVereineSaisonService _VereineSaisonService
+@inject LigaManagement.Web.Services.Contracts.IVereineAusService _VereineSaisonAusService
 
 @inject DialogService DialogService
 @inject NavigationManager _navigationManager
@@ -78,9 +79,9 @@ else
     <EditForm Model="Saison" OnValidSubmit="SaveSaison">
         <RadzenSteps Change="@OnChange" CanChange="@CanChange">
             <Steps>
-                <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">                    
+                <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
                     <h3>@Localizer["Grunddaten"].Value</h3>
-                    
+
                     <br />
                     <div class="form-group row m-0 row mb-1">
 
@@ -92,20 +93,20 @@ else
                         </div>
                     </div>
                     <div class="form-group row m-0 row mb-1">
-                        
-                            <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 " Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
-                            <select value="@LigaID" id="cboLiga" class="form-control col-md-9 col-xs-12 dropdown" @onchange="LigaChange">
-                                <option value="0" required>@Localizer["Liga wählen"].Value</option>
-                                @if (LigenList != null)
+
+                        <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 " Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
+                        <select value="@LigaID" id="cboLiga" class="form-control col-md-9 col-xs-12 dropdown" @onchange="LigaChange">
+                            <option value="0" required>@Localizer["Liga wählen"].Value</option>
+                            @if (LigenList != null)
+                            {
+                                @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
                                 {
-                                    @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
-                                    {
-                                        <option value="@liga.LigaID" selected="@(liga.LigaID == Globals.LigaID)">@liga.Liganame</option>
-                                    }
+                                    <option value="@liga.LigaID" selected="@(liga.LigaID == Globals.LigaID)">@liga.Liganame</option>
                                 }
-                            </select>
+                            }
+                        </select>
                         <label for="cboLiga" class="col-md-9 col-xs-12 offset-md-3" style="color:red;@DisplayErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
-                        
+
                     </div>
                     <div class="form-group row m-0 row mb-1">
                         <RadzenLabel Text="AnzahlVereine" class="col-md-3 col-xs-12" Component="txtVereinsname2">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
@@ -219,8 +220,8 @@ else
                             </div>
                             <div id="allVereine" class="list">
                                 @foreach (var verein in VereineList.Where(v => string.IsNullOrEmpty(searchfeld) ||
-                               v.Vereinname1.StartsWith(searchfeld, StringComparison.OrdinalIgnoreCase))
-                               .OrderBy(v => v.Vereinname1))
+                                                            v.Vereinname1.StartsWith(searchfeld, StringComparison.OrdinalIgnoreCase))
+                                                            .OrderBy(v => v.Vereinname1))
                                 {
                                     <div class="list-item @GetSelectedClass(verein)" @onclick="() => ToggleSelection(verein)">
                                         @verein.Vereinname1
@@ -244,25 +245,33 @@ else
                 </RadzenStepsItem>
                 <RadzenStepsItem PreviousText="@Localizer["Voriger Schritt"].Value" NextText="@Localizer["Nächster Schritt"].Value">
                     <h2>@Localizer["Saison"].Value @Saison.Saisonname @Saison.Liganame</h2>
-                    <h3>@Localizer["Zusammenfassung"].Value</h3>                    
+                    <h3>@Localizer["Zusammenfassung"].Value</h3>
                     <br />
                     <br />
-                    <div class="form-group row m-0 row mb-1">                      
+                    <div class="form-group row m-0 row mb-1">
+
                         <RadzenLabel Text="Saisonname" class="col-md-3 col-xs-12" Component="txtSaisonname">@Localizer["Saisonname"].Value</RadzenLabel>
                         <RadzenTextBox required name="txtSaisonname" id="txtSaisonname" @bind-Value="Saison.Saisonname" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
-                      
-                        <ValidationMessage For="(() => Saison.Saisonname)"
-                                           class="col-md-9 offset-md-3 text-danger pl-3">
-                        </ValidationMessage>
-                    </div>
-                    <div class="form-group row m-0 row mb-1">
-                        <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
-                        <RadzenTextBox required name="txtLiganame" id="txtLiganame" @bind-Value="Saison.Liganame" class="form-control col-md-9 col-xs-12"></RadzenTextBox>
 
                         <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
-                            <ValidationMessage For="() => Saison.Liganame" />
+                            <ValidationMessage For="() => Saison.Saisonname" />
                         </div>
-                      
+                    </div>
+                    <div class="form-group row m-0 row mb-1">
+
+                        <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 " Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
+                        <select value="@LigaID" id="cboLiga" class="form-control col-md-9 col-xs-12 dropdown" @onchange="LigaChange">
+                            <option value="0" required>@Localizer["Liga wählen"].Value</option>
+                            @if (LigenList != null)
+                            {
+                                @foreach (var liga in LigenList.Where(x => x.Aktiv == true).OrderBy(o => o.LigaID))
+                                {
+                                    <option value="@liga.LigaID" selected="@(liga.LigaID == Globals.LigaID)">@liga.Liganame</option>
+                                }
+                            }
+                        </select>
+                        <label for="cboLiga" class="col-md-9 col-xs-12 offset-md-3" style="color:red;@DisplayErrorLiga">@Localizer["Bitte Liga wählen"].Value</label>
+
                     </div>
                     <div class="form-group row m-0 row mb-1">
                         <RadzenLabel Text="AnzahlVereine" class="col-md-3 col-xs-12" Component="txtVereinsname2">@Localizer["Anzahl Vereine"].Value</RadzenLabel>
@@ -371,8 +380,8 @@ else
     private string liganame;
     private string savedliganame;
 
-    private string aboutMe;
-    private string savedAboutMe;
+    // private string aboutMe;
+    //private string savedAboutMe;
 
 
     private void OnChange()
@@ -387,7 +396,7 @@ else
         {
 
             //Neuanlage
-            SaisonId = "0";
+            SaisonId = "";
             Titel = @Localizer["Neuanlage Saison"].Value;
             await LoadSaison();
             IsLoading = false;
@@ -395,91 +404,163 @@ else
         }
     }
 
-    private async Task LoadSaison()
-    {
-        IsLoading = true;
-        Saison = await _SaisonenService.GetSaison(1);
-        Saison.SaisonID = 0;
-        Saison.LigaID = 1;
-        Saison.Saisonname = "";
-        Saison.Liganame = "";
-        Saison.AnzahlVereine = 0;
-        Saison.CL_League = 0;
-        Saison.EL_League = 0;
-        Saison.CF_League = 0;
-        Saison.Relegation = 0;
-        Saison.LandID = 0;
-        Saison.Aktuell = true;
-        Saison.Abgeschlossen = false;
-        Saison.SpielplanVorhanden = false;
-        IsLoading = false;
-        StateHasChanged();
+    @code {
+        private async Task LoadSaison()
+        {
+            IsLoading = true;
+            int parsedSaisonId;
+            if (int.TryParse(SaisonId, out parsedSaisonId))
+            {
+                Saison = await _SaisonenService.GetSaison(parsedSaisonId);
+            }
+            else
+            {
+                Saison = new LigaManagerManagement.Models.Saison();
+            }
+
+            Saison.SaisonID = 0;
+            Saison.LigaID = 1;
+            Saison.Saisonname = "";
+            Saison.Liganame = "";
+            Saison.AnzahlVereine = 0;
+            Saison.CL_League = 0;
+            Saison.EL_League = 0;
+            Saison.CF_League = 0;
+            Saison.Relegation = 0;
+            Saison.LandID = 0;
+            Saison.Aktuell = true;
+            Saison.Abgeschlossen = false;
+            Saison.SpielplanVorhanden = false;
+            IsLoading = false;
+            StateHasChanged();
+        }
     }
+
+
+
+
+
+
 
     private void CanChange(StepsCanChangeEventArgs args)
     {
-        if ((Saison.Saisonname == "" || Saison.Saisonname == null))
+        if (string.IsNullOrEmpty(Saison.Saisonname))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Saisonnamen angegeben.Fortfahren nicht möglich." });
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Sie haben keinen gültigen Saisonnamen angegeben. Fortfahren nicht möglich."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
             return;
         }
 
-        if ((Liganame == "" || Saison.Liganame == null))
+        if (string.IsNullOrEmpty(Liganame))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Liganamen angegeben.Fortfahren nicht möglich." });
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Sie haben keinen gültigen Liganamen angegeben. Fortfahren nicht möglich."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
             return;
         }
 
-        if ((Saison.AnzahlVereine < 8))
+        if (Saison.AnzahlVereine < 8)
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Anzahl der Vereine für eine Saison muß mindestens 8 sein." });
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Anzahl der Vereine für eine Saison muß mindestens 8 sein."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
             return;
         }
 
-        if ((Saison.Abgeschlossen == false && Saison.Aktuell == false))
+        if (Saison.Absteiger == 0)
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden.Fortfahren nicht möglich." });
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Anzahl der Absteiger darf nicht 0 sein."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
+            return;
+        }
+
+        if (!Saison.Abgeschlossen && !Saison.Aktuell)
+        {
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden. Fortfahren nicht möglich."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
+            return;
+        }
+
+        if (Saison.Abgeschlossen && Saison.Aktuell)
+        {
+            _NotificationService.Notify(new NotificationMessage
+            {
+                Severity = NotificationSeverity.Error,
+                Summary = Titel,
+                Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden. Fortfahren nicht möglich."
+            });
+            args.SelectedIndex = 0; // Schrittwechsel abbrechen
+            args.PreventDefault();
             return;
         }
 
         if (args.SelectedIndex == 1)
         {
-            if ((SelectedVereine.Count() != Saison.AnzahlVereine))
+            if (SelectedVereine.Count() != Saison.AnzahlVereine)
             {
-                _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Es sind keine " + Saison.AnzahlVereine + " Vereine angegeben. Speichern nicht möglich." });
+                _NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = Titel,
+                    Detail = $"Es sind keine {Saison.AnzahlVereine} Vereine angegeben. Speichern nicht möglich."
+                });
+                args.SelectedIndex = 0; // Schrittwechsel abbrechen
+                args.PreventDefault();
                 return;
             }
         }
-
-        return;
     }
+
 
     private void SaveGrunddaten()
     {
-        bool bError = false;
 
         if ((Saison.Saisonname == "" || Saison.Saisonname == null))
         {
             _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Saisonnamen angegeben.Fortfahren nicht möglich." });
-            bError = true;
         }
 
         if ((Saison.Liganame == "" || Saison.Liganame == null))
         {
             _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Liganamen angegeben.Fortfahren nicht möglich." });
-            bError = true;
         }
 
         else if ((Saison.AnzahlVereine < 10 && Saison.AnzahlVereine > 30))
         {
             _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "AnzahlVereine muß zwischen 10 und 30 liegen.Fortfahren nicht möglich." });
-            bError = true;
         }
 
         else if ((Saison.Abgeschlossen == false && Saison.Aktuell == false))
         {
             _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden.Fortfahren nicht möglich." });
-            bError = true;
         }
 
         savedSaison = saison;
@@ -497,10 +578,10 @@ else
         LigaManagerManagement.Models.Saison SaisonenServiceCreated;
 
         var liga = await LigaService.GetLiga(LigaID);
-        
+
         Saison.LandID = LandID;
 
-        if (SaisonId == "0" || SaisonId is null)
+        if (SaisonId == "" || SaisonId is null)
         {
             Saison.SaisonID = 0;
             Saison.LigaID = LigaID;
@@ -511,7 +592,6 @@ else
         {
             Saison.SaisonID = Convert.ToInt32(SaisonId);
             Saison.Ligahoehe = Saison.LigaID;
-            Saison.Liganame = Saison.Liganame;
         }
 
         // ToDo Transaction
@@ -521,7 +601,8 @@ else
         SaisonenServiceCreated.SaisonID = Saisonen.OrderBy(x => x.SaisonID).Last().SaisonID;
 
         List<VereineSaison> lstVereineSaison = new List<VereineSaison>();
-                
+        SaisonenServiceCreated.SaisonID = 500;
+
         if (SaisonenServiceCreated.SaisonID > 0)
         {
             for (int i = 0; i <= SelectedVereine.Count - 1; i++)
@@ -530,13 +611,23 @@ else
 
                 item.Id = i + 1;
                 item.VereinNr = Convert.ToInt32(SelectedVereine[i].VereinID);
-                item.LandID = SaisonenServiceCreated.LandID;
-                item.SaisonID = SaisonenServiceCreated.SaisonID;
+                item.LandID = 75; // SaisonenServiceCreated.LandID;
+                item.SaisonID = 500; // SaisonenServiceCreated.SaisonID;
                 item.LigaID = Saison.LigaID;
                 lstVereineSaison.Add(item);
             }
 
-            var resultCreateVereineSaison = await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
+
+
+            List<VereineSaison> resultCreateVereineSaison = null;
+            List<VereineSaison> resultCreateVereineAusSaison = null;
+
+            if (LigaID < 4)
+                resultCreateVereineSaison = await _VereineSaisonService.CreateVereineSaison(lstVereineSaison);
+            else if (LigaID >= 4)
+                resultCreateVereineAusSaison = await _VereineSaisonAusService.CreateVereineSaison(lstVereineSaison);
+
+
 
             if (resultCreateVereineSaison != null)
 

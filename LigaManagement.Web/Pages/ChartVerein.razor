@@ -12,14 +12,14 @@
 
         .rz-column-title-content {
             font-weight: bold !important;
-        }               
-     
+        }
+
         #mapid {
             width: 100%;
             height: 400px; /* Festgelegte Höhe für korrekte Anzeige */
         }
     </style>
-    
+
 
 </head>
 <body>
@@ -69,7 +69,7 @@
                                     <RadzenColumn Size="6" SizeXS="6">
                                         <RadzenText class="rz-column-title-content" TextAlign="TextAlign.Right" TextStyle="TextStyle.Body1"></RadzenText>
                                     </RadzenColumn>
-                                </RadzenRow>                               
+                                </RadzenRow>
                                 <RadzenDataList AllowVirtualization=@allowVirtualization
                                                 WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
                                                 Data="@Vereinsinfo" TItem="LVereinsinfo" PageSize="10" PagerHorizontalAlign="HorizontalAlign.Left" PageSizeText="Größe" ShowPagingSummary="true">
@@ -81,11 +81,11 @@
                                                 </RadzenColumn>
                                                 <RadzenColumn Size="8" SizeXS="8">
                                                     <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2">@(LVereinsinfo.Eigenschaft)</RadzenText>
-                                                </RadzenColumn>                                                
+                                                </RadzenColumn>
                                             </RadzenRow>
                                         </RadzenCard>
                                     </Template>
-                                </RadzenDataList>                                
+                                </RadzenDataList>
                             </RadzenTabsItem>
                             <RadzenTabsItem Text=@Localizer["Statistik"].Value>
                                 <RadzenLabel Text="Statistik" Style="font-weight:bold;" />
@@ -157,7 +157,7 @@
 
                                         <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="44px" Sortable=true />
                                         <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="44px" Sortable=true />                                                                               
+                                        <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="44px" Sortable=true />
 
                                         @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                                         {
@@ -183,16 +183,15 @@
 
                                         <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                             <Template Context="data">
-                                                <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                                <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
                                             </Template>
                                         </RadzenDataGridColumn>
-                                        
+
                                     </Columns>
-                                   
+
                                 </RadzenDataGrid>
                             </RadzenTabsItem>
                             <RadzenTabsItem Text=@Localizer["Langzeitstatistik"].Value>
-                                
                                 <RadzenRow Gap="0" Style="font-weight: bold; padding: 0 0 10px 0; border-bottom: 1px solid #ccc;">
                                     <RadzenColumn Size="3" SizeXS="3">
                                         <RadzenText TextStyle="TextStyle.Body1"></RadzenText>
@@ -228,16 +227,84 @@
                                             </RadzenRow>
                                         </RadzenCard>
                                     </Template>
+                                </RadzenDataList>                              
+                            </RadzenTabsItem>
+                            <RadzenTabsItem Text=@Localizer["Serien"].Value>
+                                <RadzenDataList AllowVirtualization=@allowVirtualization
+                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                                Data="@SerienStatistik" TItem="SerienStatistik" PageSize="20" PagerHorizontalAlign="HorizontalAlign.Left" PageSizeText="Größe" ShowPagingSummary="true">
+                                    <Template Context="SerienStatistik">
+                                        <RadzenCard Style="width:100%; padding:0;">
+                                            <RadzenRow Gap="0">                                                
+                                                <RadzenColumn Size="1" SizeXS="2">
+                                                    <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2">@(SerienStatistik.StatText)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="2" SizeXS="1">
+                                                    <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2">@(SerienStatistik.SaisonText)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="1" SizeXS="1">
+                                                    <RadzenText TextAlign="TextAlign.Right" TextStyle="TextStyle.Body2">@(SerienStatistik.AnzahlText)</RadzenText>
+                                                </RadzenColumn>
+                                            </RadzenRow>
+                                        </RadzenCard>
+                                    </Template>
                                 </RadzenDataList>
-                               
-                            </RadzenTabsItem>                           
+                            </RadzenTabsItem>
+                            <RadzenTabsItem Text=@Localizer["Pokalhistorie"].Value>
+                                <RadzenDataList AllowVirtualization=@allowVirtualization
+                                                WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
+                                                Data="@PokalHistorieStatistik" TItem="PokalHistorieStatistik" PageSize="20" PagerHorizontalAlign="HorizontalAlign.Left" PageSizeText="Größe" ShowPagingSummary="true">
+                                    <Template Context="PokalHistorieStatistik">
+                                        <RadzenCard Style="width:100%; padding:0;">
+                                            <RadzenRow Gap="0">
+                                                <RadzenColumn Size="2" SizeXS="2">
+                                                    <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2">@(PokalHistorieStatistik.Saison)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="3" SizeXS="3">
+                                                    <RadzenText TextAlign="TextAlign.Left"
+                                                                TextStyle="TextStyle.Body2"
+                                                                Style="@(PokalHistorieStatistik.ErreichteRunde == "Finale" ? "color: green; font-weight: bold;" : "")">
+                                                        @(PokalHistorieStatistik.ErreichteRunde)
+                                                    </RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="6" SizeXS="6">
+                                                    <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2">@(PokalHistorieStatistik.Gegner)</RadzenText>
+                                                </RadzenColumn>
+                                                <RadzenColumn Size="1" SizeXS="1">
+                                                    @{
+
+                                                        var ergebnis = PokalHistorieStatistik.Ergebnis;
+                                                        var farbe = "";
+
+                                                        if (!string.IsNullOrWhiteSpace(ergebnis) && ergebnis.Contains(":"))
+                                                        {
+                                                            var teile = ergebnis.Split(':');
+                                                            if (int.TryParse(teile[0], out var tore1) && int.TryParse(teile[1], out var tore2))
+                                                            {
+                                                                farbe = tore1 > tore2 ? "green" : tore1 < tore2 ? "red" : "black";
+                                                            }
+                                                        }
+
+                                                        var style = $"color: {farbe};";
+                                                    }
+
+                                                    <RadzenText TextAlign="TextAlign.Left" TextStyle="TextStyle.Body2" Style="@style">
+                                                        @ergebnis
+                                                    </RadzenText>
+                                                </RadzenColumn>
+                                            </RadzenRow>
+                                        </RadzenCard>
+                                    </Template>
+                                </RadzenDataList>
+                            </RadzenTabsItem>
                         </Tabs>
                     </RadzenTabs>
+                     
                     <div style="display:@VisibleChart" class="container">
                         <RadzenLabel Text=@Localizer["Lage"].Value Style="font-weight:bold;" />
                         <RadzenCard style="margin-left: 0px; margin-right: 0px; margin-bottom:4px; height:600px;">
                             <canvas id="myChart" width="400" height="200"></canvas>
-                        </RadzenCard>                        
+                        </RadzenCard>
                     </div>
                     <div id="mapid"></div>
                 </div>
@@ -313,10 +380,10 @@
         }
     });
 
-     
-     
 
-   
+
+
+
 </script>
 
 

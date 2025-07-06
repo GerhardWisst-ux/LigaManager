@@ -60,7 +60,7 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
-        public async Task<PokalergebnisCL_EM_WMSpieltag> DeleteSpieltag(int SpieltagId)
+        public Task<PokalergebnisCL_EM_WMSpieltag> DeleteSpieltag(int SpieltagId)
         {
             //var result = await appDbContext.Spieltage
             //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
@@ -143,7 +143,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageCL] ", conn);
                 PokalergebnisCL_EM_WMSpieltag spieltag = null;
                 List<PokalergebnisCL_EM_WMSpieltag> Spieltaglist = new List<PokalergebnisCL_EM_WMSpieltag>();
-                using (SqlDataReader reader = command.ExecuteReader())
+                await using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (await reader.ReadAsync())
                     {
@@ -179,9 +179,9 @@ namespace LigaManagerManagement.Api.Models
                 return Spieltaglist;
             }
             catch (Exception ex)
-            {
-
-                throw ex;
+            {                
+                Debug.Print(ex.Message);
+                return null;
             }
 
 

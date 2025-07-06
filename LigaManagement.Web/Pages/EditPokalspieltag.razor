@@ -226,6 +226,8 @@
 
 @code {
 
+
+
     private bool ValidateSpiel()
     {
         if (Globals.CurrentRole == "USER" || Globals.CurrentRole == "GUEST")
@@ -270,11 +272,19 @@
             return false;
         }
 
-        if (!(Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentPokalSaison.ToString().Substring(0, 4)) || Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentPokalSaison.ToString().Substring(0, 4)) + 1))
+        if (Spiel.SaisonID == 433)
         {
-            NotifyError("Datum liegt nicht in der Saison. Speichern nicht möglich.");
-            return false;
+            
         }
+        else
+        {
+            if (!(Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentPokalSaison.ToString().Substring(0, 4)) || Convert.ToInt32(Spiel.Datum.Year) == Convert.ToInt32(Globals.currentPokalSaison.ToString().Substring(0, 4)) + 1))
+            {
+                NotifyError("Datum liegt nicht in der Saison. Speichern nicht möglich.");
+                return false;
+            }
+        }
+        
 
         if (string.IsNullOrWhiteSpace(Spiel.Ort))
         {
@@ -317,7 +327,8 @@
 
         if (Id == "0" || Id == null)
         {
-            await _PokalergebnisseService.CreatePokalergebnisSpieltag(Spiel);
+            Spiel = await _PokalergebnisseService.CreatePokalergebnisSpieltag(Spiel);
+            Id = Spiel.SpieltagId.ToString();
         }
         else
         {

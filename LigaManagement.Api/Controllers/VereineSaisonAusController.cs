@@ -45,11 +45,19 @@ namespace LigaManagement.Api.Controllers
                 {
                     return BadRequest();
                 }
-                               
-                var createdVereine = await VereineSaisonAusRepository.AddVereineSaison(Globals.LigaID, Globals.SaisonID);
 
-                return CreatedAtAction(nameof(CreateVereineSaison), new { id = 87777 },
-                   createdVereine);               
+                List<VereineSaisonAus> createdVereine =null;
+
+                foreach (var verein in vereineSaison)
+                {
+                    createdVereine = await VereineSaisonAusRepository.AddVereineSaison(verein.LigaID, verein.SaisonID);
+
+                    break;
+                }
+
+                
+
+                return CreatedAtAction(nameof(CreateVereineSaison), new { id = 87777 }, createdVereine);               
             }
             catch (Exception ex)
             {

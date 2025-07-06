@@ -20,7 +20,7 @@ namespace LigamanagerManagement.Web.Pages
         [Parameter]
         public int Zaehler { get; set; }
 
-        string filterText = "";
+       // string filterText = "";
 
         public int SpieltagNr { get; set; }
 

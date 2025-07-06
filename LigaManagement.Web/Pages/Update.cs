@@ -28,7 +28,7 @@ namespace LigaManagement.Web.Pages
             }
 
             //let's try and download update information from the web
-            updateChecked = webdata.downloadFromWeb(downloadsURL, versionFile, resourceDownloadFolder);
+            updateChecked = Webdata.downloadFromWeb(downloadsURL, versionFile, resourceDownloadFolder);
 
             //if the download of the file was successful
             if (updateChecked)
@@ -59,7 +59,7 @@ namespace LigaManagement.Web.Pages
         public static void installUpdateNow(string downloadsURL, string filename, string downloadTo, bool unzip)
         {
 
-            bool downloadSuccess = webdata.downloadFromWeb(downloadsURL, filename, downloadTo);
+            bool downloadSuccess = Webdata.downloadFromWeb(downloadsURL, filename, downloadTo);
 
             if (unzip)
             {
@@ -106,7 +106,7 @@ namespace LigaManagement.Web.Pages
 
             List<string> tempList = new List<string>();
             int ln;
-            int i;
+            //int i;
 
             ln = 0;
 

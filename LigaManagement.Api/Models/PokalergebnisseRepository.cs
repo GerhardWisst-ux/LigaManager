@@ -22,7 +22,7 @@ namespace ToreManagerManagement.Api.Models
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                 cmd.CommandText = "INSERT INTO Pokalergebnisse (SaisonID,Saison,Verein1_Nr,Verein1,Verein2_Nr,Verein2,Tore1_Nr,Tore2_Nr,Datum,Ort,Schiedrichter,Zuschauer,Verlängerung,Elfmeterschiessen,Runde)" +
-                    " VALUES(@SaisonID,@Saison,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer,@Verlängerung,@Elfmeterschiessen,@Runde)";
+                    " VALUES(@SaisonID,@Saison,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer,@Verlängerung,@Elfmeterschiessen,@Runde); SELECT SCOPE_IDENTITY();"; 
 
                 //cmd.Parameters.AddWithValue("@SpieltagId", pokalspiel.SpieltagId);
                 cmd.Parameters.AddWithValue("@SaisonID", pokalspiel.SaisonID);
@@ -41,11 +41,13 @@ namespace ToreManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Runde", pokalspiel.Runde);
                 cmd.Parameters.AddWithValue("@Elfmeterschiessen", pokalspiel.Elfmeterschiessen);
 
-                await cmd.ExecuteNonQueryAsync();
+                var result = await cmd.ExecuteScalarAsync();                
+
+                pokalspiel.SpieltagId = Convert.ToInt32(result);
 
                 conn.Close();
 
-                return null;
+                return pokalspiel;
             }
             catch (Exception ex)
             {
@@ -165,8 +167,96 @@ namespace ToreManagerManagement.Api.Models
                 return null;
             }
         }
-      
-      
+
+        public async  Task<IEnumerable<PokalHistorieStatistik>> GetPokalergebnisseHistorie(string vereinid)
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("WITH SpieleMitNummer AS (SELECT [SpieltagId],[Saison], [SaisonID], [Verein1_Nr], [Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum], [Ort],        [Schiedrichter],        [Runde],        [Zuschauer],        [Verlängerung],        [Elfmeterschiessen],        ROW_NUMBER() OVER (PARTITION BY Saison ORDER BY Datum DESC) AS rn    FROM [dbo].[Pokalergebnisse]  WHERE Verein1_Nr = " +  vereinid  + " OR Verein2_Nr =  +  " + vereinid  + ") SELECT * FROM SpieleMitNummer WHERE rn = 1 ORDER BY Saison DESC;", conn);
+                PokalHistorieStatistik pe = null;
+                List<PokalHistorieStatistik> phList = new List<PokalHistorieStatistik>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        pe = new PokalHistorieStatistik();
+
+                        if (reader["Verein1_Nr"].ToString() == vereinid)
+                            pe.Gegner = reader["Verein2"].ToString();
+                        else
+                            pe.Gegner = reader["Verein1"].ToString();
+
+                        if (reader["Runde"].ToString() == "F")
+                            pe.ErreichteRunde = "Finale";
+                        else if (reader["Runde"].ToString() == "HF")
+                            pe.ErreichteRunde = "Halbfinale";
+                        else if (reader["Runde"].ToString() == "VF")
+                            pe.ErreichteRunde = "Viertelfinale";
+                        else if (reader["Runde"].ToString() == "AF")
+                            pe.ErreichteRunde = "Achtelfinale";
+                        else if (reader["Runde"].ToString() == "2")
+                            pe.ErreichteRunde = "2. Runde";
+
+                        if (reader["Verein1_Nr"].ToString() == vereinid)
+                            pe.Ergebnis = reader["Tore1_Nr"].ToString() + " : " + reader["Tore2_Nr"].ToString();
+                        else
+                            pe.Ergebnis = reader["Tore2_Nr"].ToString() + " : " + reader["Tore1_Nr"].ToString();
+
+                        pe.Saison = reader["Saison"].ToString();
+
+                        phList.Add(pe);
+                    }
+                }
+                conn.Close();
+                return phList;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+        
+        public async Task<IEnumerable<PokalergebnisStatistik>> GetPokalergebnisseStatistik()
+        {
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("WITH Pokalstatistik AS (SELECT Verein, SUM(CASE WHEN Verein = Verein1 THEN 1 ELSE 0 END) AS Siege,COUNT(*) AS Finalteilnahmen,  ROUND(100.0 * SUM(CASE WHEN Verein = Verein1 THEN 1 ELSE 0 END) / COUNT(*), 1) AS Siegquote FROM (SELECT Verein1 AS Verein, Verein1, Verein2 FROM [LigaDB].[dbo].[Pokalergebnisse] WHERE Runde = 'F' UNION ALL SELECT Verein2 AS Verein, Verein1, Verein2 FROM [LigaDB].[dbo].[Pokalergebnisse] WHERE Runde = 'F') AS Finals GROUP BY Verein) SELECT ROW_NUMBER() OVER (ORDER BY Siege DESC, Finalteilnahmen DESC) AS Platz, Verein,Siege,Finalteilnahmen,Siegquote FROM Pokalstatistik ORDER BY Platz;", conn);
+                PokalergebnisStatistik pe = null;
+                List<PokalergebnisStatistik> peList = new List<PokalergebnisStatistik>();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        pe = new PokalergebnisStatistik();
+
+                        pe.Platz = int.Parse(reader["Platz"].ToString());
+                        pe.Verein = reader["Verein"].ToString();
+                        pe.Siege = int.Parse(reader["Siege"].ToString());
+                        pe.Finalteilnahmen = int.Parse(reader["Finalteilnahmen"].ToString());
+                        pe.Siegquote = double.Parse(reader["Siegquote"].ToString());
+
+                        peList.Add(pe);
+                    }
+                }
+                conn.Close();
+                return peList;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
         public async Task<PokalergebnisSpieltag> UpdatePokalergebnis(PokalergebnisSpieltag pokalspiel)
         {
             int bVerlängerung;

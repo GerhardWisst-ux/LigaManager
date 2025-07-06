@@ -94,7 +94,7 @@ else
                             <div class="content">
                                <div class="form-group row mt-0 row mb-1">
                                     <RadzenLabel Text="Label" class="col-md-3 col-xs-12 ml-3" Component="cboSaison">@Localizer["Saison"].Value </RadzenLabel>
-                                    <select id="cboSaison" style="display:inline;max-width:170px;height:38px;margin-right:2px;" Disabled=true class="form-control col-md-9 col-xs-12">
+                                    <select id="cboSaison" style="display:inline;max-width:170px;height:38px;margin-right:2px;" disabled class="form-control col-md-9 col-xs-12">
                                         <option value="" selected required>@Localizer["Saison wählen"].Value</option>
                                         @if (SaisonenList != null)
                                         {
@@ -247,7 +247,7 @@ else
             {
                 //Neuanlage
                 //Titel = @Localizer["Neuanlage"].Value;
-                SpielplanID = "0";
+               SpielplanID = "0";
             }
             else
             {

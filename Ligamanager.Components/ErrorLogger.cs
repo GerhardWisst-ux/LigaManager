@@ -10,36 +10,41 @@
 
         public static void WriteToErrorLog(string msg, string stkTrace, string title)
         {
-            string StartupPath = Directory.GetCurrentDirectory();
+            return; // Temporarily disable error logging
 
-            if (!(Directory.Exists(StartupPath + "\\Errors\\")))
-                Directory.CreateDirectory(StartupPath + "\\Errors\\");
-            
-            FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
-            StreamWriter s = new StreamWriter(fs);
+            //string StartupPath = Directory.GetCurrentDirectory();
 
-            s.Close();
+            //if (!(Directory.Exists(AppContext.BaseDirectory + "\\Errors\\")))
+            //    Directory.CreateDirectory(AppContext.BaseDirectory + "\\Errors\\");
 
-            fs.Close();
+            //var path = Path.Combine(AppContext.BaseDirectory, "Errors", $"errlog {DateTime.Now:MM-dd-yyyy}.txt");
+            ////FileStream fs = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            //FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.ReadWrite);
 
-            FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.Append, FileAccess.Write);
+            //StreamWriter s = new StreamWriter(fs);
 
-            StreamWriter s1 = new StreamWriter(fs1);
+            //s.Close();
 
-            s1.Write("Titel: " + title + Environment.NewLine);
+            //fs.Close();
 
-            s1.Write("Nachricht: " + msg + Environment.NewLine);
+            //FileStream fs1 = new FileStream(StartupPath + "\\Errors\\errlog " + DateTime.Now.Date.ToShortDateString() + ".txt", FileMode.Append, FileAccess.Write);
 
-            s1.Write("StackTrace: " + stkTrace + Environment.NewLine);
+            //StreamWriter s1 = new StreamWriter(fs1);
 
-            s1.Write("Datum/Uhrzeit: " + DateTime.Now.ToString() + Environment.NewLine);
+            //s1.Write("Titel: " + title + Environment.NewLine);
 
-            s1.Write("============================================" + Environment.NewLine);
+            //s1.Write("Nachricht: " + msg + Environment.NewLine);
 
-            s1.Close();
+            //s1.Write("StackTrace: " + stkTrace + Environment.NewLine);
 
-            fs1.Close();
+            //s1.Write("Datum/Uhrzeit: " + DateTime.Now.ToString() + Environment.NewLine);
+
+            //s1.Write("============================================" + Environment.NewLine);
+
+            //s1.Close();
+
+            //fs1.Close();
 
         }
 

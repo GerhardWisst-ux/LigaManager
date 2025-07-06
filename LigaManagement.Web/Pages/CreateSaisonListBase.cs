@@ -46,6 +46,9 @@ namespace LigaManagerManagement.Web.Pages
         public IVereineService VereineService { get; set; }
 
         [Inject]
+        public IVereineAusService VereineAusService { get; set; }
+
+        [Inject]
         public ILigaService LigaService { get; set; }
 
         [Inject]
@@ -57,6 +60,8 @@ namespace LigaManagerManagement.Web.Pages
         public List<DisplayLiga> LigenList;
         public bool IsLoading = false;
         public List<Verein> Vereine { get; set; }
+
+        public List<VereinAUS> VereineAus { get; set; }
 
         public IEnumerable<Liga> Ligen { get; set; }
         public Verein Verein { get; set; }
@@ -110,24 +115,54 @@ namespace LigaManagerManagement.Web.Pages
                     LigenList.Add(new DisplayLiga(columns.Aktiv, columns.Id, columns.Id, columns.Liganame, columns.EMWM));
                 }
 
-                SaisonenList = (await SaisonenService.GetSaisonen()).ToList();
-
                 VereineList = new List<DisplayVerein>();
 
-                Vereine = (await VereineService.GetVereine()).ToList();
-
-
-
-                foreach (var item in Vereine)
+                if (LigaID < 4)
                 {
-                    if (SaisonId == "0")
-                        VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, false));
-                    else
+                    Vereine = (await VereineService.GetVereine()).ToList();
+
+                    foreach (var item in Vereine)
                     {
-                        VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
+                        if (SaisonId == "0")
+                            VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, false));
+                        else
+                        {
+                            VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
+                        }
+                    }
+                }
+                else
+                {
+                    if (LigaID == 4 || LigaID == 12)
+                        VereineAus = (await VereineAusService.GetVereinePL()).ToList();
+                    else if (LigaID == 5)
+                        VereineAus = (await VereineAusService.GetVereineIT()).ToList();
+                    else if (LigaID == 6)
+                        VereineAus = (await VereineAusService.GetVereineFR()).ToList();
+                    else if (LigaID == 7)
+                        VereineAus = (await VereineAusService.GetVereineES()).ToList();
+                    else if (LigaID == 8)
+                        VereineAus = (await VereineAusService.GetVereineNL()).ToList();
+                    else if (LigaID == 9)
+                        VereineAus = (await VereineAusService.GetVereinePT()).ToList();
+                    else if (LigaID == 10)
+                        VereineAus = (await VereineAusService.GetVereineTU()).ToList();
+                    else if (LigaID == 11)
+                        VereineAus = (await VereineAusService.GetVereineBE()).ToList();
+
+
+                    foreach (var item in VereineAus)
+                    {
+                        if (SaisonId == "0")
+                            VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, false));
+                        else
+                        {
+                            VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
+                        }
                     }
                 }
 
+                SaisonenList = (await SaisonenService.GetSaisonen()).ToList();
 
                 DisplayErrorLiga = "display:none;";
 
@@ -252,12 +287,59 @@ namespace LigaManagerManagement.Web.Pages
                     Liganame = liga.Liganame;
                     LandID = liga.LandID;
 
+                    VereineList = new List<DisplayVerein>();
+
+                    if (LigaID < 4)
+                    {
+                        Vereine = (await VereineService.GetVereine()).ToList();
+
+                        foreach (var item in Vereine)
+                        {
+                            if (SaisonId == "0")
+                                VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, false));
+                            else
+                            {
+                                VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (LigaID == 4 || LigaID == 12)
+                            VereineAus = (await VereineAusService.GetVereinePL()).ToList();
+                        else if (LigaID == 6)
+                            VereineAus = (await VereineAusService.GetVereineIT()).ToList();
+                        else if (LigaID == 7)
+                            VereineAus = (await VereineAusService.GetVereineFR()).ToList();
+                        else if (LigaID == 8)
+                            VereineAus = (await VereineAusService.GetVereineES()).ToList();
+                        else if (LigaID == 9)
+                            VereineAus = (await VereineAusService.GetVereineNL()).ToList();
+                        else if (LigaID == 10)
+                            VereineAus = (await VereineAusService.GetVereinePT()).ToList();
+                        else if (LigaID == 11)
+                            VereineAus = (await VereineAusService.GetVereineTU()).ToList();
+                        else if (LigaID == 14)
+                            VereineAus = (await VereineAusService.GetVereineBE()).ToList();
+
+
+                        foreach (var item in VereineAus)
+                        {
+                            if (SaisonId == "0")
+                                VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, false));
+                            else
+                            {
+                                VereineList.Add(new DisplayVerein(item.VereinNr.ToString(), item.Vereinsname1, true));
+                            }
+                        }
+                    }
+
                     if (LigaID == 0)
                         DisplayErrorLiga = "display:block;";
                     else
                         DisplayErrorLiga = "display:none;";
 
-
+                    StateHasChanged();
                 }
             }
             catch (Exception ex)

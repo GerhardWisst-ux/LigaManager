@@ -11,5 +11,8 @@ namespace ToremanagerManagement.Api.Models.Repository
         Task<PokalergebnisSpieltag> CreatePokalergebnis(PokalergebnisSpieltag SpieltagID);
         Task<PokalergebnisSpieltag> UpdatePokalergebnis(PokalergebnisSpieltag SpieltagID);
         Task<PokalergebnisSpieltag> DeletePokalergebnis(int SpieltagID);
+        Task<IEnumerable<PokalergebnisStatistik>> GetPokalergebnisseStatistik();
+        Task<IEnumerable<PokalHistorieStatistik>> GetPokalergebnisseHistorie(string vereinid); 
+        
     }
 }

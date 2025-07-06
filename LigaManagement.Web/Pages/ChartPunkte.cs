@@ -256,7 +256,7 @@ namespace LigaManagerManagement.Web.Pages
             }
         }
 
-        public async void OnClickHandler()
+        public void OnClickHandler()
         {
             //if (saisonId == 0)
             //    DisplayErrorSaison = "block";

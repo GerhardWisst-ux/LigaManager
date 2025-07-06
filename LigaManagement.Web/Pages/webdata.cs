@@ -40,7 +40,7 @@ namespace LigaManagement.Web.Pages
 
     }
 
-    class webdata
+    class Webdata
     {
 
         public static event BytesDownloadedEventHandler bytesDownloaded;

@@ -413,8 +413,8 @@ else
     private string liganame;
     private string savedliganame;
 
-    private string aboutMe;
-    private string savedAboutMe;
+    //private string aboutMe;
+    //private string savedAboutMe;
 
 
     private void OnChange()
@@ -447,6 +447,7 @@ else
     {
         IsLoading = true;
         Saison = await _SaisonenService.GetSaison(Convert.ToInt32(SaisonId));
+        LigaID = Saison.LigaID;
         IsLoading = false;
         StateHasChanged();
     }
@@ -489,31 +490,26 @@ else
     }
 
     private void SaveGrunddaten()
-    {
-        bool bError = false;
+    {        
 
         if ((Saison.Saisonname == "" || Saison.Saisonname == null))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Saisonnamen angegeben.Fortfahren nicht möglich." });
-            bError = true;
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Saisonnamen angegeben.Fortfahren nicht möglich." });            
         }
 
         if ((Saison.Liganame == "" || Saison.Liganame == null))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Liganamen angegeben.Fortfahren nicht möglich." });
-            bError = true;
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Sie haben keinen gültigen Liganamen angegeben.Fortfahren nicht möglich." });          
         }
 
         else if ((Saison.AnzahlVereine < 10 && Saison.AnzahlVereine > 30))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "AnzahlVereine muß zwischen 10 und 30 liegen.Fortfahren nicht möglich." });
-            bError = true;
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "AnzahlVereine muß zwischen 10 und 30 liegen.Fortfahren nicht möglich." });            
         }
 
         else if ((Saison.Abgeschlossen == false && Saison.Aktuell == false))
         {
-            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden.Fortfahren nicht möglich." });
-            bError = true;
+            _NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = Titel, Detail = "Entweder Abgeschlossen oder Aktuell muß angegeben werden.Fortfahren nicht möglich." });            
         }
 
         savedSaison = saison;

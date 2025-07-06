@@ -10,7 +10,7 @@ namespace LigaManagement.Api.Models.Repository
     {
       
 
-        public async Task<Tabelle> AddTabelle(Tabelle Tabelle)
+        public Task<Tabelle> AddTabelle(Tabelle Tabelle)
         {
             //var result = await appDbContext.Tabellen.AddAsync(Tabelle);
             //await appDbContext.SaveChangesAsync();
@@ -18,7 +18,7 @@ namespace LigaManagement.Api.Models.Repository
             return null;
         }
 
-        public async Task<Tabelle> DeleteTabelle(int TabelleId)
+        public Task<Tabelle> DeleteTabelle(int TabelleId)
         {
             //var result = await appDbContext.Tabellen
             //   .FirstOrDefaultAsync(e => e.Id == TabelleId);
@@ -32,7 +32,7 @@ namespace LigaManagement.Api.Models.Repository
             return null;
         }
 
-        public async Task<Tabelle> GetTabelle(int TabelleId)
+        public Task<Tabelle> GetTabelle(int TabelleId)
         {
             //return await appDbContext.Tabellen
             //    .Include(e => e.Verein)
@@ -41,7 +41,7 @@ namespace LigaManagement.Api.Models.Repository
             return null;
         }
 
-        public async Task<IEnumerable<Tabelle>> GetTabellen()
+        public Task<IEnumerable<Tabelle>> GetTabellen()
         {
             //return await appDbContext.Tabellen
             //    .Include(e => e.Verein).ToListAsync();
@@ -49,7 +49,7 @@ namespace LigaManagement.Api.Models.Repository
             return null;
         }
 
-        public async Task<Tabelle> UpdateTabelle(Tabelle Tabelle)
+        public Task<Tabelle> UpdateTabelle(Tabelle Tabelle)
         {
             //var result = await appDbContext.Tabellen.AddAsync(Tabelle);
             //await appDbContext.SaveChangesAsync();

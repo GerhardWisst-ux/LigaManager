@@ -12,6 +12,7 @@ using Radzen;
 using Radzen.Blazor;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -187,17 +188,20 @@ namespace LigamanagerManagement.Web.Pages
         {
             if (saisonFormat.Ligahoehe == 1)
             {
+                //if (args.Data.Platz == 6)
+                //    Debug.Print("EL");
+
                 if (args.Data.Platz > saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
                 {
                     args.Attributes.Add("style", $"background-color:lightcoral;");
                 }
                 else if (args.Data.Platz == saisonFormat.AnzahlVereine - saisonFormat.Absteiger && saisonFormat.Relegation > 0)
                     args.Attributes.Add("style", $"background-color:orange;");
-                else if (args.Data.Platz > 1 && args.Data.Platz <= saisonFormat.CL_League + 1)
+                else if (args.Data.Platz > 1 && args.Data.Platz <= saisonFormat.CL_League)
                 {
                     args.Attributes.Add("style", $"background-color:springgreen;");
                 }
-                else if (args.Data.Platz == saisonFormat.CL_League + saisonFormat.EL_League)
+                else if (args.Data.Platz > saisonFormat.CL_League && args.Data.Platz <= saisonFormat.CL_League  + saisonFormat.EL_League)
                 {
                     args.Attributes.Add("style", $"background-color:lightblue;");
                 }
@@ -216,8 +220,8 @@ namespace LigamanagerManagement.Web.Pages
                 {
                     args.Attributes.Add("style", $"background-color:lightcoral;");
                 }
-                else if (args.Data.Platz == saisonFormat.Aufsteiger + saisonFormat.Relegation)
-                    args.Attributes.Add("style", $"background-color:orange;");
+                else if (args.Data.Platz == 3 || (args.Data.Platz == saisonFormat.AnzahlVereine - (saisonFormat.Absteiger + saisonFormat.Relegation) && saisonFormat.Relegation > 0))
+                    args.Attributes.Add("style", $"background-color:lightgreen;");
                 else if (args.Data.Platz == saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
                     args.Attributes.Add("style", $"background-color:orange;");
                 else if (args.Data.Platz == 1 || args.Data.Platz == 2)
@@ -226,19 +230,18 @@ namespace LigamanagerManagement.Web.Pages
                     args.Attributes.Add("style", $"background-color:wheat;");
 
             }
-            else if (saisonFormat.Ligahoehe > 2)
+            else if (saisonFormat.Ligahoehe == 3)
             {
                 if (args.Data.Platz > saisonFormat.AnzahlVereine - saisonFormat.Absteiger)
                 {
                     args.Attributes.Add("style", $"background-color:lightcoral;");
                 }
-                else if (args.Data.Platz == saisonFormat.Aufsteiger + saisonFormat.Relegation)
-                    args.Attributes.Add("style", $"background-color:orange;");
+                else if (args.Data.Platz == 3 || (args.Data.Platz == saisonFormat.AnzahlVereine - (saisonFormat.Absteiger + saisonFormat.Relegation) && saisonFormat.Relegation > 0))
+                    args.Attributes.Add("style", $"background-color:lightgreen;");                
                 else if (args.Data.Platz == 1 || args.Data.Platz == 2)
                     args.Attributes.Add("style", $"background-color:gold;");
                 else
                     args.Attributes.Add("style", $"background-color:wheat;");
-
             }
 
             //args.Attributes.Add("style", $"background-color: coral: {(args.Data.Platz > 1 && args.Data.Platz < 6 ? "blue" : "white")};");

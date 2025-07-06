@@ -3,6 +3,7 @@ using LigaManagement.Web.Classes;
 using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;
+using LigaManagerManagement.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Localization;
@@ -15,6 +16,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Xml;
+using ToreManagerManagement.Web.Services;
 
 namespace LigaManagerManagement.Web.Pages
 {
@@ -30,25 +32,30 @@ namespace LigaManagerManagement.Web.Pages
         double prozentuntentschieden = 0;
         double prozentniederlagen = 0;
         public string VisibleChart = "none";
-        
+
         [Parameter]
         public string VereinNr { get; set; }
 
         [Inject]
-        public IJSRuntime JSRuntime { get; set; }      
+        public IJSRuntime JSRuntime { get; set; }
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
 
         [Inject]
+        public IPokalergebnisseService PokalergebnisseService { get; set; }
+
+        [Inject]
         public IVereineService VereineService { get; set; }
 
-        
         public List<DisplaySpieltag> SpieltagList;
 
         public List<DisplaySaison> SaisonenList;
 
         public List<Mannschaftsstatistik> Statistik = new List<Mannschaftsstatistik>();
+
+        public List<SerienStatistik> SerienStatistik = new List<SerienStatistik>();
+        public List<PokalHistorieStatistik> PokalHistorieStatistik = new List<PokalHistorieStatistik>();
 
         public List<Mannschaftsstatistik> StatistikAktSaison = new List<Mannschaftsstatistik>();
 
@@ -59,23 +66,25 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IStringLocalizer<ChartPunkte> Localizer { get; set; }
 
-        
+
         public List<int?> chartData = new List<int?>();
 
-        public int SaisonID;       
-        
+        public int SaisonID;
+
         public string Vereinsname;
-        
+
 
         protected override async Task OnInitializedAsync()
         {
             try
             {
-               IsLoading = true;
+                IsLoading = true;
 
-               await ErzeugeVereinsinfo();
-               await ErzeugeStatistik();
-               await ErzeugeLangZeitStatistik();               
+                await ErzeugeVereinsinfo();
+                await ErzeugeStatistik();
+                await ErzeugeLangZeitStatistik();
+                await ErzeugeSerienStatistik();
+                await ErzeugePokalhistorie();
                 var verein = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
                 Vereinsname = verein.Vereinsname2;
 
@@ -90,6 +99,21 @@ namespace LigaManagerManagement.Web.Pages
             }
         }
 
+        private async Task ErzeugePokalhistorie()
+        {
+            try
+            {
+                var pokalHistorieStatistik = await PokalergebnisseService.GetPokalergebnisseHistorie(VereinNr);
+                PokalHistorieStatistik = pokalHistorieStatistik.ToList();
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                IsLoading = false;
+            }
+
+        }
 
         private async Task ErzeugeVereinsinfo()
         {
@@ -132,82 +156,89 @@ namespace LigaManagerManagement.Web.Pages
             Vereinsinfo.Add(item);
         }
 
-               
-        
+
+
 
         private async Task ErzeugeStatistik()
         {
-            var spieltage = await SpieltagService.GetSpieltage();
-            Spieltage = spieltage.Where(x => x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr));
+            try
+            {
+                var spieltage = await SpieltagService.GetSpieltage();
+                Spieltage = spieltage.Where(x => x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr));
 
-            int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
-            int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
-            int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
+                int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
+                int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
+                int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
 
-            Mannschaftsstatistik item = new Mannschaftsstatistik();
-            item.StatText = "Spiele insgesamt";
-            item.Gesamt = spielegesamt.ToString();
-            item.Heim = spieleheim.ToString();
-            item.Auswaerts = spieleausw.ToString();
+                Mannschaftsstatistik item = new Mannschaftsstatistik();
+                item.StatText = "Spiele insgesamt";
+                item.Gesamt = spielegesamt.ToString();
+                item.Heim = spieleheim.ToString();
+                item.Auswaerts = spieleausw.ToString();
 
-            StatistikAktSaison.Add(item);
+                StatistikAktSaison.Add(item);
 
-            int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 &&  x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr ))).Count();
-            int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID &&  (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
 
-            item = new Mannschaftsstatistik();
-            item.StatText = "Siege";
-            item.Gesamt = (siegeheim + siegeaus).ToString();
-            item.Heim = siegeheim.ToString();
-            item.Auswaerts = siegeaus.ToString();
-            StatistikAktSaison.Add(item);
+                item = new Mannschaftsstatistik();
+                item.StatText = "Siege";
+                item.Gesamt = (siegeheim + siegeaus).ToString();
+                item.Heim = siegeheim.ToString();
+                item.Auswaerts = siegeaus.ToString();
+                StatistikAktSaison.Add(item);
 
-            int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
-            int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
 
-            item = new Mannschaftsstatistik();
-            item.StatText = "Unentschieden";
-            item.Gesamt = (unentschiedenheim + unentschiedenauswaerts).ToString();
-            item.Heim = unentschiedenheim.ToString();
-            item.Auswaerts = unentschiedenauswaerts.ToString();
-            StatistikAktSaison.Add(item);
+                item = new Mannschaftsstatistik();
+                item.StatText = "Unentschieden";
+                item.Gesamt = (unentschiedenheim + unentschiedenauswaerts).ToString();
+                item.Heim = unentschiedenheim.ToString();
+                item.Auswaerts = unentschiedenauswaerts.ToString();
+                StatistikAktSaison.Add(item);
 
-            int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
-            int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
 
-            item = new Mannschaftsstatistik();
-            item.StatText = "Niederlagen";
-            item.Gesamt = (niederlagenheim + niederlagenauswaerts).ToString();
-            item.Heim = niederlagenheim.ToString();
-            item.Auswaerts = niederlagenauswaerts.ToString();
-            StatistikAktSaison.Add(item);
+                item = new Mannschaftsstatistik();
+                item.StatText = "Niederlagen";
+                item.Gesamt = (niederlagenheim + niederlagenauswaerts).ToString();
+                item.Heim = niederlagenheim.ToString();
+                item.Auswaerts = niederlagenauswaerts.ToString();
+                StatistikAktSaison.Add(item);
 
-            int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
-            int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
-                        
-            int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
-            int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
+                int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
+                int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
 
-            item = new Mannschaftsstatistik();
-            item.StatText = "Tore : Gegentore";
-            item.Gesamt = (toreheim + toreauswaerts).ToString() + ": " + (gegentoreheim + gegentoreauswaerts).ToString();
-            item.Heim = toreheim.ToString() + ": " + gegentoreheim.ToString();
-            item.Auswaerts = toreauswaerts.ToString() + ": " + gegentoreauswaerts.ToString();
-            StatistikAktSaison.Add(item);
+                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
+                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
 
-            item = new Mannschaftsstatistik();
-            int? toregesamt = toreheim + toreauswaerts;
-            int? gegentoregesamt = gegentoreheim + gegentoreauswaerts;
-            item.StatText = "Tore : Gegentore (Durchschn.)";
-            item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString() + ": " + Math.Round((decimal)(gegentoregesamt * 1.0 / spielegesamt), 2).ToString();
-            item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString() + ": " + Math.Round((decimal)(gegentoreheim * 1.0 / spieleheim), 2).ToString();
-            item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString() + ": " + Math.Round((decimal)(gegentoreauswaerts * 1.0 / spieleheim), 2).ToString();
-            StatistikAktSaison.Add(item);
+                item = new Mannschaftsstatistik();
+                item.StatText = "Tore : Gegentore";
+                item.Gesamt = (toreheim + toreauswaerts).ToString() + ": " + (gegentoreheim + gegentoreauswaerts).ToString();
+                item.Heim = toreheim.ToString() + ": " + gegentoreheim.ToString();
+                item.Auswaerts = toreauswaerts.ToString() + ": " + gegentoreauswaerts.ToString();
+                StatistikAktSaison.Add(item);
 
-            prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);
-            prozentuntentschieden = Math.Round((unentschiedenheim + unentschiedenauswaerts * 1.0) / spielegesamt * 100, 2);
-            prozentniederlagen = Math.Round((niederlagenheim + niederlagenauswaerts * 1.0) / spielegesamt * 100, 2);
-            
+                item = new Mannschaftsstatistik();
+                int? toregesamt = toreheim + toreauswaerts;
+                int? gegentoregesamt = gegentoreheim + gegentoreauswaerts;
+                item.StatText = "Tore : Gegentore (Durchschn.)";
+                item.Gesamt = Math.Round((decimal)(toregesamt * 1.0 / spielegesamt), 2).ToString() + ": " + Math.Round((decimal)(gegentoregesamt * 1.0 / spielegesamt), 2).ToString();
+                item.Heim = Math.Round((decimal)(toreheim * 1.0 / spieleheim), 2).ToString() + ": " + Math.Round((decimal)(gegentoreheim * 1.0 / spieleheim), 2).ToString();
+                item.Auswaerts = Math.Round((decimal)(toreauswaerts * 1.0 / spieleausw), 2).ToString() + ": " + Math.Round((decimal)(gegentoreauswaerts * 1.0 / spieleheim), 2).ToString();
+                StatistikAktSaison.Add(item);
+
+                prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);
+                prozentuntentschieden = Math.Round((unentschiedenheim + unentschiedenauswaerts * 1.0) / spielegesamt * 100, 2);
+                prozentniederlagen = Math.Round((niederlagenheim + niederlagenauswaerts * 1.0) / spielegesamt * 100, 2);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
+
         }
 
         public async void OnTabChange(int index)
@@ -322,8 +353,245 @@ namespace LigaManagerManagement.Web.Pages
                 prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);
                 prozentuntentschieden = Math.Round((unentschiedenheim + unentschiedenauswaerts * 1.0) / spielegesamt * 100, 2);
                 prozentniederlagen = Math.Round((niederlagenheim + niederlagenauswaerts * 1.0) / spielegesamt * 100, 2);
+                                
+              
+                //await JSRuntime.InvokeVoidAsync("updateChartValues", prozentsiege, prozentuntentschieden, prozentniederlagen);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+            }
+        }
 
-                await JSRuntime.InvokeVoidAsync("updateChartValues", prozentsiege, prozentuntentschieden, prozentniederlagen);
+        private async Task ErzeugeSerienStatistik()
+        {
+            try
+            {
+                var spieltage = await SpieltagService.GetSpieltage();               
+
+                var meisteSiege = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr < s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                SerienStatistik serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Siege: ";
+                serie.SaisonText = "Saison " + meisteSiege.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteSiege.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteUntentschieden = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr == s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Unentschieden = group.Count()
+                })
+                .OrderByDescending(x => x.Unentschieden)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Unentschieden: ";
+                serie.SaisonText = "Saison " + meisteUntentschieden.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteUntentschieden.FirstOrDefault()?.Unentschieden.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteNiederlagen = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr > s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Niederlagen = group.Count()
+                })
+                .OrderByDescending(x => x.Niederlagen)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Niederlagen: ";
+                serie.SaisonText = "Saison " + meisteNiederlagen.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteNiederlagen.FirstOrDefault()?.Niederlagen.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var wenigsteSiege = spieltage.Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr < s.Tore2_Nr)))
+                    .GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderBy(x => x.Siege)
+                .ThenBy(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Wenigste Siege: ";
+                serie.SaisonText = "Saison " + wenigsteSiege.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = wenigsteSiege.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var wenigsteUntentschieden = spieltage
+                .Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr == s.Tore2_Nr)))
+                .GroupBy(s => s.Saison)
+                .Select(group => new
+                {
+                    Saison = group.Key,
+                    Unentschieden = group.Count()
+                })
+                .OrderBy(x => x.Unentschieden)
+                .ThenBy(x => x.Saison)
+                .ToList()
+                .Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Wenigste Unentschieden: ";
+                serie.SaisonText = "Saison " + wenigsteUntentschieden.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = wenigsteUntentschieden.FirstOrDefault()?.Unentschieden.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var wenigsteNiederlagen = spieltage
+                .Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr > s.Tore2_Nr)))
+                .GroupBy(s => s.Saison)
+                .Select(group => new
+                {
+                    Saison = group.Key,
+                    Niederlagen = group.Count()
+                })
+                .OrderBy(x => x.Niederlagen)
+                .ThenBy(x => x.Saison)
+                .ToList()
+                .Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Wenigste Niederlagen: ";
+                serie.SaisonText = "Saison " + wenigsteNiederlagen.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = wenigsteNiederlagen.FirstOrDefault()?.Niederlagen.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteheimSiege = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Heimsiege: ";
+                serie.SaisonText = "Saison " + meisteheimSiege.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteheimSiege.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteheimunentschieden = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Heim-Unentschieden: ";
+                serie.SaisonText = "Saison " + meisteheimunentschieden.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteheimunentschieden.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteheimniederlagen = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Heimniederlagen: ";
+                serie.SaisonText = "Saison " + meisteheimniederlagen.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteheimniederlagen.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteAuswaertsSiege = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) && s.LigaID == 1)
+                .GroupBy(s => s.Saison)
+                .Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList()
+                .Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Auswärtssiege: ";
+                serie.SaisonText = "Saison " + meisteAuswaertsSiege.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteAuswaertsSiege.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteAuswaertsUnentschieden = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) && s.LigaID == 1)
+                    .GroupBy(s => s.Saison)
+                    .Select(group => new
+                    {
+                        Saison = group.Key,
+                        Unentschieden = group.Count()
+                    })
+
+                .OrderByDescending(x => x.Unentschieden)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Auswärts-Unentschieden: ";
+                serie.SaisonText = "Saison " + meisteAuswaertsUnentschieden.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteAuswaertsUnentschieden.FirstOrDefault()?.Unentschieden.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                var meisteauswaertsniederlagen = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) &&
+                s.LigaID == 1).GroupBy(s => s.Saison).
+                Select(group => new
+                {
+                    Saison = group.Key,
+                    Siege = group.Count()
+                })
+                .OrderByDescending(x => x.Siege)
+                .ThenByDescending(x => x.Saison)
+                .ToList().Take(1);
+
+                serie = new SerienStatistik();
+                serie.Verein = (await VereineService.GetVerein(Convert.ToInt32(VereinNr))).ToString();
+                serie.StatText = "Meiste Auswärtsniederlagen: ";
+                serie.SaisonText = "Saison " + meisteauswaertsniederlagen.FirstOrDefault()?.Saison.ToString() ?? "0";
+                serie.AnzahlText = meisteauswaertsniederlagen.FirstOrDefault()?.Siege.ToString() ?? "0";
+                SerienStatistik.Add(serie);
+
+                //await JSRuntime.InvokeVoidAsync("updateChartValues", prozentsiege, prozentuntentschieden, prozentniederlagen);
             }
             catch (Exception ex)
             {
@@ -335,9 +603,9 @@ namespace LigaManagerManagement.Web.Pages
 }
 
 public class LVereinsinfo
-{   
+{
     public string StatText { get; set; }
     public string Eigenschaft { get; set; }
-    
+
 }
 

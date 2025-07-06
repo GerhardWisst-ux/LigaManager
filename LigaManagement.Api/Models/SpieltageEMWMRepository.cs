@@ -241,7 +241,8 @@ namespace LigaManagerManagement.Api.Models
             catch (Exception ex)
             {
 
-                throw ex;
+                Debug.Print(ex.Message);
+                return null;
             }
 
 

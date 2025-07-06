@@ -78,7 +78,6 @@ namespace LigaManagerManagement.Web.Pages
         bool bAbgeschlossen;
 
         public static bool bLoad = false;
-        SqlConnection conn;
 
         public IEnumerable<Saison> Saisonen { get; set; }
 
@@ -146,13 +145,22 @@ namespace LigaManagerManagement.Web.Pages
                     iSpieltageSaison = 34;
             }
 
-            bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-            if (bAbgeschlossen)
-                currentspieltag = iSpieltageSaison;
+            var currentSaison = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison);
+            if (currentSaison != null)
+            {
+                bAbgeschlossen = currentSaison.Abgeschlossen;
+                if (bAbgeschlossen)
+                    currentspieltag = iSpieltageSaison;
+                else
+                {
+                    SpieltageRepository rep = new SpieltageRepository();
+                    currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+                }
+            }
             else
             {
-                SpieltageRepository rep = new SpieltageRepository();
-                currentspieltag = rep.AktSpieltag(Globals.SaisonID, Globals.LigaID);
+                // Handle the case where currentSaison is null
+                currentspieltag = 0; // Default value or appropriate fallback
             }
 
             return currentspieltag;
@@ -170,7 +178,7 @@ namespace LigaManagerManagement.Web.Pages
                 // JavaScript Interop Aufruf zum Setzen der Werte
                 await JSRuntime.InvokeVoidAsync("updateChartXYValues", spieltage, plaetze);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }

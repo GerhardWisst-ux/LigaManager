@@ -51,4 +51,33 @@ namespace LigaManagement.Models
     
         public string Runde { get; set; }              
     }
+
+    public class PokalergebnisStatistik
+    {
+
+        public int Platz { get; set; }
+
+        [Required(ErrorMessage = "Verein muß angegeben werden")]
+        public string Verein { get; set; }
+
+        [Required(ErrorMessage = "Anzahl muß angegeben werden")]
+        public int Siege { get; set; }
+
+        public int Finalteilnahmen { get; set; }
+
+        public double Siegquote { get; set; }
+
+    }
+
+    public class PokalHistorieStatistik
+    {
+        public string Saison { get; set; }
+
+        public string ErreichteRunde { get; set; }
+
+        public string Gegner { get; set; }
+
+        public string Ergebnis { get; set; }
+
+    }
 }

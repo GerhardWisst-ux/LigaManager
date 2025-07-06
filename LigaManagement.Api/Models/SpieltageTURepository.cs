@@ -55,7 +55,7 @@ namespace LigaManagerManagement.Api.Models
             }
         }
 
-        public async Task<Spieltag> DeleteSpieltag(int SpieltagId)
+        public Task<Spieltag> DeleteSpieltag(int SpieltagId)
         {
             //var result = await appDbContext.Spieltage
             //   .FirstOrDefaultAsync(e => e.SpieltagId == SpieltagId);
@@ -84,7 +84,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageTU] WHERE SpieltagId =" + spieltagId, conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
-                using (SqlDataReader reader = command.ExecuteReader())
+                await using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (await reader.ReadAsync())
                     {
@@ -131,7 +131,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT * FROM [SpieltageTU] ", conn);
                 Spieltag spieltag = null;
                 List<Spieltag> Spieltaglist = new List<Spieltag>();
-                using (SqlDataReader reader = command.ExecuteReader())
+               await using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (await reader.ReadAsync())
                     {

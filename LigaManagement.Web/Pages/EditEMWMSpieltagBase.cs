@@ -338,7 +338,7 @@ namespace LigamanagerManagement.Web.Pages
         }
 
 
-        public async void RundeChange(ChangeEventArgs e)
+        public void RundeChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {
@@ -358,7 +358,7 @@ namespace LigamanagerManagement.Web.Pages
             }
         }
 
-        public async void GruppeChange(ChangeEventArgs e)
+        public void GruppeChange(ChangeEventArgs e)
         {
             if (e.Value != null)
             {

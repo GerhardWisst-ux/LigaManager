@@ -233,6 +233,11 @@ namespace LigaManagement.Web
                     client.BaseAddress = new Uri("https://localhost:44353/");
                 });
 
+                services.AddHttpClient<IStatistikService, StatistikService>(client =>
+                {
+                    client.BaseAddress = new Uri("https://localhost:44353/");
+                });
+
                 services.AddScoped<LigamanagerUserService>();
                 services.AddScoped<LigaManagerAuthenticationStateProvider>();
                 services.AddScoped<AuthenticationStateProvider>(sp => sp.GetRequiredService<LigaManagerAuthenticationStateProvider>());

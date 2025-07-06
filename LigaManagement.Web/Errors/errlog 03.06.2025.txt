@@ -1,0 +1,221 @@
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value was either too large or too small for a Decimal.
+StackTrace:    at System.Number.ThrowOverflowException(String message)
+   at System.Decimal.DecCalc.VarDecFromR8(Double input, DecCalc& result)
+   at System.Decimal.op_Explicit(Double value)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 202
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 77
+Datum/Uhrzeit: 03.06.2025 11:56:46
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 221
+Datum/Uhrzeit: 03.06.2025 11:56:49
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.StatistikService.AnzahlSiegeSaison(ISpieltagService spieltagService, Int32 SaisonId, Int32 VereinNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\StatistikService.cs:line 54
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 330
+Datum/Uhrzeit: 03.06.2025 14:38:28
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 224
+Datum/Uhrzeit: 03.06.2025 14:38:31
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Map container is already initialized.
+Error: Map container is already initialized.
+    at e._initContainer (https://localhost:44323/js/leaflet.js:5:45167)
+    at e.initialize (https://localhost:44323/js/leaflet.js:5:32052)
+    at new e (https://localhost:44323/js/leaflet.js:5:3211)
+    at renderMap (<anonymous>:13:18)
+    at https://localhost:44323/_framework/blazor.server.js:1:3047
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 240
+Datum/Uhrzeit: 03.06.2025 14:38:33
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.StatistikService.AnzahlSiegeSaison(ISpieltagService spieltagService, Int32 SaisonId, Int32 VereinNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\StatistikService.cs:line 54
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 330
+Datum/Uhrzeit: 03.06.2025 14:39:07
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Map container is already initialized.
+Error: Map container is already initialized.
+    at e._initContainer (https://localhost:44323/js/leaflet.js:5:45167)
+    at e.initialize (https://localhost:44323/js/leaflet.js:5:32052)
+    at new e (https://localhost:44323/js/leaflet.js:5:3211)
+    at renderMap (<anonymous>:13:18)
+    at https://localhost:44323/_framework/blazor.server.js:1:3047
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 240
+Datum/Uhrzeit: 03.06.2025 14:39:10
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.StatistikService.AnzahlSiegeSaison(ISpieltagService spieltagService, Int32 SaisonId, Int32 VereinNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\StatistikService.cs:line 54
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 330
+Datum/Uhrzeit: 03.06.2025 14:48:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Map container not found.
+Error: Map container not found.
+    at e._initContainer (https://localhost:44323/js/leaflet.js:5:45103)
+    at e.initialize (https://localhost:44323/js/leaflet.js:5:32052)
+    at new e (https://localhost:44323/js/leaflet.js:5:3211)
+    at renderMap (<anonymous>:13:18)
+    at https://localhost:44323/_framework/blazor.server.js:1:3047
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 240
+Datum/Uhrzeit: 03.06.2025 14:48:50
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value cannot be null. (Parameter 'source')
+StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
+   at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)
+   at LigaManagerManagement.Web.Services.StatistikService.AnzahlSiegeSaison(ISpieltagService spieltagService, Int32 SaisonId, Int32 VereinNr) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\StatistikService.cs:line 54
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeLangZeitStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 330
+Datum/Uhrzeit: 03.06.2025 14:49:32
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value was either too large or too small for a Decimal.
+StackTrace:    at System.Number.ThrowOverflowException(String message)
+   at System.Decimal.DecCalc.VarDecFromR8(Double input, DecCalc& result)
+   at System.Decimal.op_Explicit(Double value)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 202
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 77
+Datum/Uhrzeit: 03.06.2025 17:01:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 221
+Datum/Uhrzeit: 03.06.2025 17:01:15
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Value was either too large or too small for a Decimal.
+StackTrace:    at System.Number.ThrowOverflowException(String message)
+   at System.Decimal.DecCalc.VarDecFromR8(Double input, DecCalc& result)
+   at System.Decimal.op_Explicit(Double value)
+   at LigaManagerManagement.Web.Pages.ChartVerein.ErzeugeStatistik() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 202
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 77
+Datum/Uhrzeit: 03.06.2025 17:02:12
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 221
+Datum/Uhrzeit: 03.06.2025 17:02:17
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 228
+Datum/Uhrzeit: 03.06.2025 17:08:18
+============================================
+Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Nachricht: Could not find 'renderChart' ('renderChart' was undefined).
+Error: Could not find 'renderChart' ('renderChart' was undefined).
+    at https://localhost:44323/_framework/blazor.server.js:1:537
+    at Array.forEach (<anonymous>)
+    at l.findFunction (https://localhost:44323/_framework/blazor.server.js:1:505)
+    at _ (https://localhost:44323/_framework/blazor.server.js:1:5248)
+    at https://localhost:44323/_framework/blazor.server.js:1:3041
+    at new Promise (<anonymous>)
+    at y.beginInvokeJSFromDotNet (https://localhost:44323/_framework/blazor.server.js:1:3004)
+    at Xt._invokeClientMethod (https://localhost:44323/_framework/blazor.server.js:1:60890)
+    at Xt._processIncomingData (https://localhost:44323/_framework/blazor.server.js:1:58279)
+    at Xt.connection.onreceive (https://localhost:44323/_framework/blazor.server.js:1:51920)
+StackTrace:    at Microsoft.JSInterop.JSRuntime.InvokeAsync[TValue](Int64 targetInstanceId, String identifier, Object[] args)
+   at Microsoft.JSInterop.JSRuntimeExtensions.InvokeVoidAsync(IJSRuntime jsRuntime, String identifier, Object[] args)
+   at LigaManagerManagement.Web.Pages.ChartVerein.OnTabChange(Int32 index) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\ChartVerein.cs:line 228
+Datum/Uhrzeit: 03.06.2025 22:08:26
+============================================

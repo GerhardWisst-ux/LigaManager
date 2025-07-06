@@ -50,7 +50,7 @@ namespace LigaManagerManagement.Web.Pages
         public List<DisplayVerein> VereineList = new List<DisplayVerein>();
 
         private bool bChangedSaison;
-        private bool bChangedVerein;
+        //private bool bChangedVerein;
 
         [Inject]
         public ISpieltagService SpieltagService { get; set; }
@@ -115,7 +115,6 @@ namespace LigaManagerManagement.Web.Pages
             DisplayErrorSaison = "none";
             VisibleAdd = false;
 
-            bChangedVerein = false;
             bShowSpieler = false;
 
             DisplayTopButton = "none";
@@ -149,8 +148,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 Globals.KaderVereinNr = Convert.ToInt32(e.Value);
                 VereinNr = Convert.ToInt32(e.Value);
-                bChangedVerein = true;
-
+                
                 if (VereinNr > 0)
                 {
                     VisibleAdd = false;

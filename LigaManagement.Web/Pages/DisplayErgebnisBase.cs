@@ -11,7 +11,7 @@ namespace LigamanagerManagement.Web.Pages
         [Parameter]
         public Spielergebnisse spielergebnis { get; set; }
 
-        string filterText = "";
+        //string filterText = "";
        
         public int SpieltagNr { get; set; }
 

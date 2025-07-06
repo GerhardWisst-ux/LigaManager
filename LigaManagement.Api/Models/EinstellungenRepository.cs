@@ -22,7 +22,7 @@ namespace ToreManagerManagement.Api.Models
                 SqlCommand command = new SqlCommand("SELECT * FROM [Einstellungen]", conn);
 
                 EinstellungenLM einstellung = new EinstellungenLM();
-                using (SqlDataReader reader = command.ExecuteReader())
+                await using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {

@@ -45,6 +45,20 @@ namespace ToreManagerManagement.Web.Services
             throw new System.NotImplementedException();
         }
 
+        public async Task<IEnumerable<PokalHistorieStatistik>> GetPokalergebnisseHistorie(string vereinid)
+        {
+            try
+            {
+                return await httpClient.GetJsonAsync<PokalHistorieStatistik[]>($"api/pokalergebnisse/historie/{vereinid}");
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+
+            }
+        }
+
         public async Task<IEnumerable<PokalergebnisSpieltag>> GetPokalergebnisseSpieltag()
         {
             try
@@ -59,6 +73,12 @@ namespace ToreManagerManagement.Web.Services
 
             }
         }
+
+        public async Task<IEnumerable<PokalergebnisStatistik>> GetPokalergebnisseStatistik(bool all)
+        {
+            return await httpClient.GetJsonAsync<PokalergebnisStatistik[]>($"api/pokalergebnisse/{all}");
+        }
+       
 
         public async Task<PokalergebnisSpieltag> GetPokalergebnisSpieltag(int id)
         {
