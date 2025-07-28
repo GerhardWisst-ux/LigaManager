@@ -131,6 +131,7 @@ namespace LigamanagerManagement.Web.Pages
             {
                 Titel = Runde switch
                 {
+                    "1" => "Pokalspiel Neuanlage 1. Runde",
                     "2" => "Pokalspiel Neuanlage 2. Runde",
                     "AF" => "Pokalspiel Neuanlage Achtelfinale",
                     "VF" => "Pokalspiel Neuanlage Viertelfinale",
@@ -177,6 +178,7 @@ namespace LigamanagerManagement.Web.Pages
 
             RundeList = new List<DisplayRunde>
                 {
+                    new DisplayRunde(PokalRunden.Runde1, Localizer["1. Runde"].Value),
                     new DisplayRunde(PokalRunden.Runde2, Localizer["2. Runde"].Value),
                     new DisplayRunde(PokalRunden.Achtelfinale, Localizer["Achtelfinale"].Value),
                     new DisplayRunde(PokalRunden.Viertelfinale, Localizer["Viertelfinale"].Value),
@@ -251,9 +253,7 @@ namespace LigamanagerManagement.Web.Pages
             {
                 RundeChoosed = e.Value.ToString();
 
-                Globals.currentPokalRunde = RundeChoosed;
-
-             
+                Globals.currentPokalRunde = RundeChoosed;             
             }
         }
 
@@ -298,6 +298,7 @@ namespace LigamanagerManagement.Web.Pages
 
         public static class PokalRunden
         {
+            public const string Runde1 = "1";
             public const string Runde2 = "2";
             public const string Achtelfinale = "AF";
             public const string Viertelfinale = "VF";

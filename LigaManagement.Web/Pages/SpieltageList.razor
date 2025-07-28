@@ -207,7 +207,7 @@ else
                             </RadzenDataGridColumn>
                             @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="50px" MinWidth="50px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
@@ -215,21 +215,21 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="50px" MinWidth="50px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                     </Template>
                                 </RadzenDataGridColumn>
                             }
 
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Right" Width="22px" Sortable=true />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Left" Width="22px" Sortable=true />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="27px" Sortable=true />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="20px" Sortable=false />
+                            <RadzenDataGridColumn TItem="Spieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="27px" Sortable=true />
 
 
                             @if (Globals.LigaNummer == 20 || Globals.LigaNummer == 21)
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="50px" MinWidth="50px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/NoImage.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>
@@ -237,7 +237,7 @@ else
                             }
                             else
                             {
-                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                                <RadzenDataGridColumn TItem="Spieltag" Title="" Sortable="true" Width="50px" MinWidth="50px">
                                     <Template Context="data">
                                         <RadzenImage Path="@($"/Images/{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                     </Template>
@@ -249,7 +249,7 @@ else
                             <RadzenDataGridColumn TItem="Spieltag" FormatString="{0:dd.MM.yyyy}" Property="Datum" Width="18%" Sortable=true Title=@Localizer["Datum"].Value />
                             <RadzenDataGridColumn TItem="Spieltag" Property="Ort" Width="30%" Sortable=true Title=@Localizer["Ort"].Value />
 
-                            <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                            <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="Spieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
                                 <Template Context="data">
                                     <NavLink href="@($"Ligamanager/editspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
                                 </Template>
@@ -320,15 +320,24 @@ else
 
     private async void ErzeugenSpieltag()
 
-    {
-        var Spieltage = (await SpieltagService.GetSpieltage()).ToList();
-        Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
+    {        
+        if (Globals.LigaNummer < 3)
+        {
+            Spieltage = (await SpieltagService.GetSpieltage()).ToList();
+            Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();    
+        }
+        else
+        {
+            Spieltage = (await SpieltagService.GetSpieltageL3()).ToList();
+            Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();    
+        }
+
 
         if (Spieltage.Count() > 0)
         {
-            await DialogService.OpenAsync<DialogCardPage>(string.Empty,
-             new Dictionary<string, object>() { { "SpieltagNr", Spieltage[0].SpieltagNr.ToString() } },
-             new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = false });
+            // await DialogService.OpenAsync<DialogCardPage>(string.Empty,
+            //  new Dictionary<string, object>() { { "SpieltagNr", Spieltage[0].SpieltagNr.ToString() } },
+            //  new DialogOptions() { Width = "700px", Height = "512px", Resizable = true, Draggable = false });
 
 
         }
@@ -399,19 +408,13 @@ else
 
 
                 if (stadion.Count == 1)  // genau ein Stadion gefunden
-
                 {
-
                     spieltag.StadionID = stadion[0].Id;
 
                     spieltag.Ort = stadion[0].Stadionname;
-
                 }
 
-
-
                 else
-
                 {
 
                     spieltag.StadionID = 0;
@@ -421,14 +424,27 @@ else
                 }
 
 
+                var created =  await SpieltagService.CreateSpieltag(spieltag);
 
 
 
-                var Spieltag = await SpieltagService.CreateSpieltag(spieltag);
+                // Spieltage.Add(Spieltag);
 
             }
 
+            if (Globals.LigaNummer < 3)
+            {
+                Spieltage = (await SpieltagService.GetSpieltage()).ToList();
+                Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();    
+            }
+            else
+            {
+                Spieltage = (await SpieltagService.GetSpieltageL3()).ToList();
+                Spieltage = Spieltage.Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();    
+            }
 
+            _navigationManager.NavigateTo(_navigationManager.Uri, true);
+            // StateHasChanged();
         }
 
     }

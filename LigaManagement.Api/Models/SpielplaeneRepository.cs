@@ -170,6 +170,8 @@ namespace LigaManagerManagement.Api.Models
                             Spielplan.Saison = reader["Saison"].ToString();
                             Spielplan.Verein1 = reader["Verein1"].ToString();
                             Spielplan.Verein2 = reader["Verein2"].ToString();
+                            Spielplan.Verein1Anzeige = reader["Verein1"].ToString();
+                            Spielplan.Verein2Anzeige = reader["Verein2"].ToString();
                             Spielplan.Verein1_Nr = reader["Verein1_Nr"].ToString();
                             Spielplan.Verein2_Nr = reader["Verein2_Nr"].ToString();
                             Spielplan.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());

@@ -6,6 +6,7 @@ using LigaManagerManagement.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
+using Microsoft.VisualBasic;
 using Radzen;
 using Radzen.Blazor;
 using System;
@@ -22,6 +23,9 @@ namespace LigaManagerManagement.Web.Pages
         protected string DisplayErrorSaison = "none";
         protected string DisplayErrorVerein = "none";
         public string DisplayTopButton = "none";
+
+        [Inject]
+        public DialogService DialogService { get; set; } // Ensure DialogService is properly injected
 
         [Inject]
         public IKaderService KaderService { get; set; }
@@ -190,7 +194,94 @@ namespace LigaManagerManagement.Web.Pages
                 DisplayTopButton = "block";
                 SpielerList = (await KaderService.GetAllSpieler())
                     .OrderBy(x => x.PositionsNr).ThenByDescending(x => x.Einsaetze)
-                    .Where(x => x.SaisonId == Globals.KaderSaisonID && x.VereinID == Globals.KaderVereinNr)                    
+                    .Where(x => x.SaisonId == Globals.KaderSaisonID && x.VereinID == Globals.KaderVereinNr)
+                    .ToList();
+
+                IsLoading = false;
+            }
+            catch (Exception ex)
+            {
+                // Fehlerbehandlung
+                Console.WriteLine($"Fehler beim Laden des Spielers: {ex.Message}");
+            }
+            finally
+            {
+                busy = false;
+                IsLoading = false;
+                StateHasChanged();
+            }
+        }
+        
+
+        public async Task OnClickHandlerAsyncCopy()
+        {
+            IsLoading = true;
+            busy = true;
+            try
+            {
+                if (Globals.currentSaison == null && Globals.currentLiga == null)
+                {
+                    DisplayErrorVerein = "block";
+                    DisplayErrorSaison = "block";
+                    return;
+                }
+
+                if (Globals.currentSaison == null)
+                {
+                    DisplayErrorSaison = "block";
+                    return;
+                }
+
+                if (Globals.KaderVereinNr == 0)
+                {
+                    DisplayErrorVerein = "block";
+                    return;
+                }
+
+                DisplayErrorVerein = "none";
+                DisplayErrorSaison = "none";
+
+                bShowSpieler = true;
+                VisibleAdd = true;
+
+                DisplayTopButton = "block";
+
+                var saison = await SaisonenService.GetSaison(Globals.SaisonID);
+                if (saison != null)
+                {
+                    string saisonname = saison.Saisonname;
+                    int jahr = Convert.ToInt32(Strings.Left(saisonname, 4));
+                    int jahrvorher = jahr - 1;
+
+                    var saisonenall = await SaisonenService.GetSaisonen();
+                    var saisonvorher = saisonenall.FirstOrDefault(x => x.Saisonname.StartsWith(jahrvorher.ToString()) && x.LigaID == 1);
+
+                    if (saisonvorher != null) 
+                    {
+                        var kader = await KaderService.GetAllSpieler();
+                        var kaderVorher = kader
+                            .Where(x => x.SaisonId == saisonvorher.SaisonID && x.VereinID == Globals.KaderVereinNr)
+                            .ToList();
+                        if (kaderVorher.Count > 0)
+                        {
+                            var copy = await KaderService.GetSpielerKopiere(Globals.SaisonID, saisonvorher.SaisonID, VereinNr);
+
+                            if (copy.Count() > 0)
+                            {
+                               // await DialogService.OpenAsync<DialogCardPage>($"Spieler wurden in die neue Saison übernommen");
+                            }
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Vorherige Saison konnte nicht gefunden werden.");
+                    }
+                }
+
+                DisplayTopButton = "block";
+                SpielerList = (await KaderService.GetAllSpieler())
+                    .OrderBy(x => x.PositionsNr).ThenByDescending(x => x.Einsaetze)
+                    .Where(x => x.SaisonId == Globals.KaderSaisonID && x.VereinID == Globals.KaderVereinNr)
                     .ToList();
 
                 IsLoading = false;

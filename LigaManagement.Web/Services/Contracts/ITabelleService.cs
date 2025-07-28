@@ -18,13 +18,15 @@ namespace LigaManagement.Web.Services.Contracts
         Task DeleteTabelle(int? id);
         Task<DateTime> GetAktSpieltag(ISpieltagService spieltagService);              
 
-        Task<IEnumerable<Spielergebnisse>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
+        Task<IEnumerable<Spieltag>> VereinGegenVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Spielergebnisse>> StatistikVerein(ISpieltagService spieltagService, Spielergebnisse spiel);
         Task<IEnumerable<Tabelle>> BerechneTabelleEwig(ISpieltagService spieltagService, ISaisonenService saisonenservice, IEnumerable<Verein> vereine, int currentspieltag, int ewigeTabelle);
         Task<Spielstatistik> VereinGegenVereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         
         Task<List<ToreProSaison>> ToreProSaison();
-        Task<List<Spielergebnisse>> HeimSerieVerein(ISpieltagService spieltagService);
+        Task<List<SpieltageSerien>> SerieSiegeVerein(ISpieltagService spieltagService, int vereinid);
+        Task<List<SpieltageSerien>> SerieNiederlagenVerein(ISpieltagService spieltagService, int vereinid);
+        Task<List<SpieltageSerien>> SerieUnentschiedenVerein(ISpieltagService spieltagService, int vereinid);
         Task<Spielstatistik> VereinSum(ISpieltagService spieltagService, Spielergebnisse spiel);
         
         Task<List<int?>> CreateChartPunkte(ISpieltagService spieltagService, IEnumerable<Verein> vereine,int ivereinnr, int currentspieltag);

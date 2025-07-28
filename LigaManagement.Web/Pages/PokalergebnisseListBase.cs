@@ -128,6 +128,7 @@ namespace LigaManagement.Web.Pages
 
                 RundeList = new List<DisplayRunde>
                 {
+                    new DisplayRunde("1",Localizer["1. Runde"].Value),
                     new DisplayRunde("2",Localizer["2. Runde"].Value),
                     new DisplayRunde("AF", Localizer["Achtelfinale"].Value),
                     new DisplayRunde("VF", Localizer["Viertelfinale"].Value),
@@ -341,6 +342,8 @@ namespace LigaManagement.Web.Pages
             else if (RundeChoosed == "AF" && PokalergebnisseSpieltage.Count() >= 8)
                 sButtonVisible = "hidden";
             else if (RundeChoosed == "2" && PokalergebnisseSpieltage.Count() >= 16)
+                sButtonVisible = "hidden";
+            else if (RundeChoosed == "1" && PokalergebnisseSpieltage.Count() >= 32)
                 sButtonVisible = "hidden";
             else
                 sButtonVisible = "visible";

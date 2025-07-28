@@ -1,5 +1,4 @@
-﻿using BootstrapBlazor.Components;
-using LigaManagement.Models;
+﻿using LigaManagement.Models;
 using LigaManagement.Web.Pages;
 using LigaManagement.Web.Services.Contracts;
 using Ligamanager.Components;

@@ -199,6 +199,8 @@ namespace ToreManagerManagement.Api.Models
                             pe.ErreichteRunde = "Achtelfinale";
                         else if (reader["Runde"].ToString() == "2")
                             pe.ErreichteRunde = "2. Runde";
+                        else if (reader["Runde"].ToString() == "1")
+                            pe.ErreichteRunde = "1. Runde";
 
                         if (reader["Verein1_Nr"].ToString() == vereinid)
                             pe.Ergebnis = reader["Tore1_Nr"].ToString() + " : " + reader["Tore2_Nr"].ToString();

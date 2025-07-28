@@ -11,6 +11,7 @@ using Microsoft.JSInterop;
 using Radzen;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -92,17 +93,34 @@ namespace LigamanagerManagement.Web.Pages
                 }
 
                 IsLoading = true;
+                Globals.CLSaisonID = 65;
                 var saison = (await SaisonenCLService.GetSaisonen()).ToList().Where(x => x.Saisonname == Globals.currentCLSaison).First();
 
                 var vereineSaison = await VereineService.GetVereineCL();
-                var verList = vereineSaison.Where(x => x.SaisonID == Globals.CLSaisonID).ToList(); 
 
-                for (int i = 0; i < verList.Count(); i++)
+                if (vereineSaison == null || vereineSaison.Count() == 0)
                 {
-                    var verein = await VereineService.GetVereinCL(verList[i].VereinNr);
+                    NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Keine Vereine gefunden", Detail = "Bitte fügen Sie Vereine hinzu" });
+                    string message = "Keine Vereine gefunden. Bitte fügen Sie Vereine hinzu.";
+                    await JSRuntime.InvokeVoidAsync("alert", message);
+                    return;
+                }
+                var verList = vereineSaison.ToList(); 
 
-                    if (!VereineList.Contains(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion)))
-                         VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                for (int i = 0; i < verList.Count() - 1; i++)
+                {
+                    try
+                    {
+                        var verein = await VereineService.GetVereinCL(verList[i].VereinNr);
+
+                        if (!VereineList.Contains(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion)))
+                            VereineList.Add(new DisplayVerein(verList[i].VereinNr.ToString(), verein.Vereinsname1, verein.Stadion));
+                    }
+                    catch (Exception ex )
+                    {
+
+                        Debug.Print(ex.Message);
+                    }
                 }
 
                 if (Convert.ToInt32(Id) > 0)

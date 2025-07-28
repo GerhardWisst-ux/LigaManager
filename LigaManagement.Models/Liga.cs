@@ -20,7 +20,7 @@ namespace LigaManagement.Models
         public int LandID { get; set; }
 
         [Required]
-        public DateTime Erstaustragung { get; set; }
+        public DateTime? Erstaustragung { get; set; }
 
         [Required]
         public int Saisonen { get; set; }

@@ -40,8 +40,7 @@ namespace LigaManagerManagement.Web.Pages
         private static readonly HttpClient client = new HttpClient();
 
         public RadzenDataGrid<Spieltag> spieltageGrid;
-        public IList<Spieltag> orders;
-
+        
         public string Liganame;
         public string curentsaison;
         public Density Density = Density.Default;
@@ -280,9 +279,9 @@ namespace LigaManagerManagement.Web.Pages
                 if (Vereine == null)
                     throw new Exception("Vereine sind null");
 
-                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
-                Spieltage = Spieltage.OrderBy(o => o.Datum);
-                for (int i = 0; i < Spieltage.Count(); i++)
+                Spieltage = (await SpieltagService.GetSpieltage()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID)?.ToList();
+                Spieltage = Spieltage?.OrderBy(o => o.Datum);
+                for (int i = 0; i < Spieltage?.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
 
@@ -295,12 +294,12 @@ namespace LigaManagerManagement.Web.Pages
             }
             else if (Globals.LigaNummer == 3)
             {
-                Vereine = await VereineService.GetVereineL3();
+                Vereine = await VereineService.GetVereine();
 
-                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID).ToList();
-                Spieltage = Spieltage.OrderBy(o => o.Datum);
+                Spieltage = (await SpieltagService.GetSpieltageL3()).Where(st => st.SpieltagNr == SpieltagNr.ToString() && st.SaisonID == Globals.SaisonID)?.ToList();
+                Spieltage = Spieltage?.OrderBy(o => o.Datum);
 
-                for (int i = 0; i < Spieltage.Count(); i++)
+                for (int i = 0; i < Spieltage?.Count(); i++)
                 {
                     var columns = Spieltage.ElementAt(i);
 

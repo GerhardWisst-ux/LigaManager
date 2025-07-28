@@ -123,75 +123,83 @@ namespace LigaManagerManagement.Web.Pages
 
         protected async Task DisplaySpielplanAkt()
         {
-            // Einstellen der Spieltage basierend auf LigaNummer und Saisonname
-            iSpieltage = Globals.LigaNummer switch
+            try
             {
-                1 => saison.Saisonname switch
+                // Einstellen der Spieltage basierend auf LigaNummer und Saisonname
+                iSpieltage = saison.LigaID switch
                 {
-                    "1963/64" or "1964" => 30,
-                    "1991/92" => 38,
+                    1 => saison.Saisonname switch
+                    {
+                        "1963/64" or "1964" => 30,
+                        "1991/92" => 38,
+                        _ => 34
+                    },
+                    2 => saison.Saisonname == "1993/94" ? 38 : 34,
+                    3 => 38,
                     _ => 34
-                },
-                2 => saison.Saisonname == "1993/94" ? 38 : 34,
-                3 => 38,
-                _ => 34
-            };
+                };
 
-            // Spielplan erstellen
-            SpielplanList = Enumerable
-                .Range(1, iSpieltage)
-                .Select(i => new DisplaySpielplan(i.ToString(), $"{i}. {Localizer["Spieltag"].Value}"))
-                .ToList();
-
-            // Vereine und Spielpläne laden
-            if (Globals.LigaNummer < 3)
-            {
-                Vereine = await VereineService.GetVereine();
-                Spielplaene = (await SpielplanService.GetSpielplaene())
-                    .Where(st => st.SaisonID == Convert.ToInt32(SaisonID) && st.SpieltagNr == SpieltagNr)
-                    .OrderBy(st => Convert.ToInt32(st.SpieltagNr))
+                // Spielplan erstellen
+                SpielplanList = Enumerable
+                    .Range(1, iSpieltage)
+                    .Select(i => new DisplaySpielplan(i.ToString(), $"{i}. {Localizer["Spieltag"].Value}"))
                     .ToList();
+
+                // Vereine und Spielpläne laden
+                if (saison.LigaID < 3)
+                {
+                    Vereine = await VereineService.GetVereine();
+                    Spielplaene = (await SpielplanService.GetSpielplaene())
+                        .Where(st => st.SaisonID == Convert.ToInt32(SaisonID) && st.SpieltagNr == SpieltagNr)
+                        .OrderBy(st => Convert.ToInt32(st.SpieltagNr))
+                        .ToList();
+                }
+                else
+                {
+                    Vereine = await VereineService.GetVereine();
+                    Spielplaene = (await SpielplanService.GetSpielplaene())
+                        .Where(st => st.SaisonID == Convert.ToInt32(SaisonID))
+                        .OrderBy(st => st.Datum)
+                        .ToList();
+                }
+
+                // Vereine zuordnen
+                if (Vereine == null)
+                    throw new Exception("Vereine sind null");
+
+                foreach (var spiel in Spielplaene)
+                {
+                    spiel.Verein1 = Vereine.FirstOrDefault(v => v.VereinNr == Convert.ToInt32(spiel.Verein1_Nr))?.Vereinsname1;
+                    spiel.Verein2 = Vereine.FirstOrDefault(v => v.VereinNr == Convert.ToInt32(spiel.Verein2_Nr))?.Vereinsname1;
+                    spiel.Verein1Anzeige = spiel.Verein1;
+                    spiel.Verein2Anzeige = spiel.Verein2;
+                    spiel.Doppelpunkt = ":";
+                }
+
+                // Sichtbarkeit des Buttons "Neu" einstellen
+                int maxSpieltage = saison.LigaID switch
+                {
+                    1 when Globals.currentSaison is "1963/64" or "1964/65" => 8,
+                    1 when Globals.currentSaison == "1991/92" => 10,
+                    1 => 9,
+                    2 when Globals.currentSaison == "1993/94" => 10,
+                    2 => 9,
+                    3 => 10,
+                    _ => 0
+                };
+
+                VisibleBtnNew = Spielplaene.Count() < maxSpieltage;
+
+                // Sichtbarkeit von Footer und Navigationselementen
+                bool hatSpielplaene = Spielplaene.Any();
+                VisibleFooter = hatSpielplaene;
+                VisibleVorZurueck = hatSpielplaene;
             }
-            else
+            catch (Exception ex)
             {
-                Vereine = await VereineService.GetVereineL3();
-                Spielplaene = (await SpielplanService.GetSpielplaeneL3())
-                    .Where(st => st.SaisonID == Convert.ToInt32(SaisonID))
-                    .OrderBy(st => st.Datum)
-                    .ToList();
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+
             }
-
-            // Vereine zuordnen
-            if (Vereine == null)
-                throw new Exception("Vereine sind null");
-
-            foreach (var spiel in Spielplaene)
-            {
-                spiel.Verein1 = Vereine.FirstOrDefault(v => v.VereinNr == Convert.ToInt32(spiel.Verein1_Nr))?.Vereinsname1;
-                spiel.Verein2 = Vereine.FirstOrDefault(v => v.VereinNr == Convert.ToInt32(spiel.Verein2_Nr))?.Vereinsname1;
-                spiel.Verein1Anzeige = spiel.Verein1;
-                spiel.Verein2Anzeige = spiel.Verein2;
-                spiel.Doppelpunkt = ":";
-            }
-
-            // Sichtbarkeit des Buttons "Neu" einstellen
-            int maxSpieltage = Globals.LigaNummer switch
-            {
-                1 when Globals.currentSaison is "1963/64" or "1964/65" => 8,
-                1 when Globals.currentSaison == "1991/92" => 10,
-                1 => 9,
-                2 when Globals.currentSaison == "1993/94" => 10,
-                2 => 9,
-                3 => 10,
-                _ => 0
-            };
-
-            VisibleBtnNew = Spielplaene.Count() < maxSpieltage;
-
-            // Sichtbarkeit von Footer und Navigationselementen
-            bool hatSpielplaene = Spielplaene.Any();
-            VisibleFooter = hatSpielplaene;
-            VisibleVorZurueck = hatSpielplaene;
         }
         
 

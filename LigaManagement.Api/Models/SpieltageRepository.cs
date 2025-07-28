@@ -595,7 +595,6 @@ namespace LigaManagerManagement.Api.Models
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
                 return null;
             }
-
         }
 
         public async Task<Spieltag> AddSpieltagL3(Spieltag spieltag)

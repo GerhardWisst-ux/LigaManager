@@ -67,6 +67,116 @@ namespace LigaManagement.Api.Models
             }
         }
 
+        public async Task<IEnumerable<Kader>> CopySpielerSaison(int saisonid, int vorsaisonid, int vereinid)
+        {
+            try
+            {
+                List<Kader> allspieler = new List<Kader>();
+                List<Kader> allspielernew = new List<Kader>();
+
+                
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
+
+                SqlCommand command = new SqlCommand("SELECT * FROM [Kader] where SaisonID =" + vorsaisonid + " AND VereinNr = " + vereinid, conn);
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        var kaderspieler = new Kader();
+                        kaderspieler.Id = (int)reader["Id"];
+                        kaderspieler.SaisonId = (int)reader["SaisonID"];
+                        kaderspieler.VereinID = (int)reader["VereinNr"];
+                        kaderspieler.LandID = (int)reader["LandID"];
+                        kaderspieler.SpielerName = reader["SpielerName"].ToString();
+                        kaderspieler.Vorname = reader["Vorname"].ToString();
+                        kaderspieler.Rueckennummer = (int)reader["Rueckennummer"];
+                        kaderspieler.Geburtsdatum = (DateTime)reader["Geburtstag"];
+                        kaderspieler.Alter = Globals.GetAgeFromDate((DateTime)reader["Geburtstag"]);
+                        kaderspieler.ImVereinSeit = (DateTime)reader["ImVereinSeit"];
+                        kaderspieler.Einsaetze = (int)reader["Einsaetze"];
+                        kaderspieler.Tore = (int)reader["Tore"];
+                        kaderspieler.Aktiv = (bool)reader["Aktiv"];
+                        kaderspieler.PositionsNr = (int)reader["PositionsNr"];
+                        kaderspieler.Position = (string)reader["Position"].ToString();
+                        //kaderspieler.Groesse = (int)reader["Groesse"];
+                        //kaderspieler.Gewicht = (int)reader["Gewicht"];
+                        //kaderspieler.Laenderspiele = (int)reader["Laenderspiele"];
+                        //kaderspieler.LaenderspieleTore = (int)reader["LaenderspieleTore"];
+                        //kaderspieler.Abloesesumme = (int)reader["Abloesesumme"];
+
+                        allspieler.Add(kaderspieler);
+                    }
+                }
+
+                foreach (var item in allspieler)
+                {
+                    var kaderspielernew = new Kader();
+                    kaderspielernew.SaisonId = saisonid;
+                    kaderspielernew.LigaID = 1;
+                    kaderspielernew.VereinID = (int)item.VereinID;
+                    kaderspielernew.LandID = (int)item.LandID;
+                    kaderspielernew.SpielerName = item.SpielerName;
+                    kaderspielernew.Vorname = item.Vorname;
+                    kaderspielernew.Rueckennummer = item.Rueckennummer;
+                    kaderspielernew.Geburtsdatum = (DateTime)item.Geburtsdatum;
+                    kaderspielernew.Alter = Globals.GetAgeFromDate((DateTime)item.Geburtsdatum);
+                    kaderspielernew.ImVereinSeit = (DateTime)item.ImVereinSeit;
+                    kaderspielernew.Einsaetze = item.Einsaetze;
+                    kaderspielernew.Tore = item.Tore;
+                    kaderspielernew.Aktiv = item.Aktiv;
+                    kaderspielernew.PositionsNr = item.PositionsNr;
+                    kaderspielernew.Position = item.Position;
+                    //kaderspieler.Groesse = item.Groesse"];
+                    //kaderspieler.Gewicht = item.Gewicht"];
+                    //kaderspieler.Laenderspiele = (int)reader["Laenderspiele"];
+                    //kaderspieler.LaenderspieleTore = (int)reader["LaenderspieleTore"];
+                    //kaderspieler.Abloesesumme = (int)reader["Abloesesumme"];
+
+                    allspielernew.Add(kaderspielernew);
+                }
+                
+
+                foreach (var spieler in allspielernew)
+                {
+                    using (SqlCommand cmd = new SqlCommand(@"
+                        INSERT INTO Kader 
+                        (SpielerName, Vorname, Geburtstag, VereinNr, LandID, SaisonID, LigaID, Rueckennummer, ImVereinSeit,Einsaetze,Tore,Aktiv,Position,PositionsNr,Spielminuten)
+                        VALUES 
+                        (@SpielerName, @Vorname, @Geburtstag, @VereinNr, @LandID, @SaisonID, @LigaID,@Rueckennummer,@ImVereinSeit,@Einsaetze,@Tore,@Aktiv,@Position,@PositionsNr,@Spielminuten)
+                    ", conn))
+                    {
+                        cmd.Parameters.AddWithValue("@SpielerName", spieler.SpielerName ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Vorname", spieler.Vorname ?? (object)DBNull.Value);
+                        cmd.Parameters.AddWithValue("@Geburtstag", (object?)spieler.Geburtsdatum ?? DBNull.Value);
+                        cmd.Parameters.AddWithValue("@VereinNr", spieler.VereinID);
+                        cmd.Parameters.AddWithValue("@LandID", spieler.LandID);
+                        cmd.Parameters.AddWithValue("@SaisonID", spieler.SaisonId);
+                        cmd.Parameters.AddWithValue("@LigaID", spieler.LigaID);
+                        cmd.Parameters.AddWithValue("@Rueckennummer", spieler.Rueckennummer);
+                        cmd.Parameters.AddWithValue("@Einsaetze", 0);
+                        cmd.Parameters.AddWithValue("@Tore", 0);
+                        cmd.Parameters.AddWithValue("@Spielminuten", 0);
+                        cmd.Parameters.AddWithValue("@Aktiv", spieler.Aktiv ? 1 : 0);
+                        cmd.Parameters.AddWithValue("@Position", spieler.Position);
+                        cmd.Parameters.AddWithValue("@PositionsNr", spieler.PositionsNr);
+                        cmd.Parameters.AddWithValue("@ImVereinSeit", spieler.ImVereinSeit);
+
+                        await cmd.ExecuteNonQueryAsync();
+                    }
+                }
+                conn.Close();
+                return allspielernew;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
         public async Task<Kader> DeleteSpieler(int SpielerId)
         {
             try

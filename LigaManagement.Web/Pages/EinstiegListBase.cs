@@ -184,7 +184,7 @@ namespace LigaManagement.Web.Pages
                 LigenList = ligen.Select(l => new DisplayLiga(l.Aktiv, l.Id, l.LandID, l.Liganame, l.EMWM)).ToList();
 
                 AnzahlSpieler = kaderspielerTask.Result
-                    .Select(i => new { i.Vorname, i.SpielerName })
+                    .Select(i => new { i.Vorname, i.SpielerName, i.SaisonId, i.Geburtsdatum })
                     .Distinct()
                     .Count();
 
@@ -634,36 +634,40 @@ namespace LigaManagement.Web.Pages
             else
                 gSpieltage = await SpieltagService.GetSpieltageL3();
 
-            gSpieltage = gSpieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
-
-            if (Globals.LigaID != 3)
+            if (gSpieltage != null)
             {
-                for (int j = 0; j < gSpieltage.Count(); j++)
+                gSpieltage = gSpieltage.Where(st => st.Saison == Globals.currentSaison && st.LigaID == Globals.LigaID).ToList();
+
+                if (Globals.LigaID != 3)
                 {
-                    var columns = gSpieltage.ElementAt(j);
-                    columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
-                    columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname2;
+                    for (int j = 0; j < gSpieltage.Count(); j++)
+                    {
+                        var columns = gSpieltage.ElementAt(j);
+                        columns.Verein1 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein1_Nr))?.Vereinsname1;
+                        columns.Verein2 = Vereine.FirstOrDefault(a => a.VereinNr == Convert.ToInt32(columns.Verein2_Nr))?.Vereinsname2;
+                    }
+                }
+
+                int i = 1;
+                foreach (var spieltag in gSpieltage)
+                {
+
+                    if (!Globals.VereinAktSaison.ContainsKey(spieltag.Verein1_Nr))
+                    {
+                        Globals.VereinAktSaison.Add(spieltag.Verein1_Nr, spieltag.Verein1);
+                    }
+
+                    var Verein2 = Globals.VereinAktSaison.FirstOrDefault(x => x.Value == spieltag.Verein2_Nr).Key;
+
+                    if (!Globals.VereinAktSaison.ContainsKey(spieltag.Verein2_Nr))
+                    {
+                        Globals.VereinAktSaison.Add(spieltag.Verein2_Nr, spieltag.Verein2);
+                    }
+
+                    i++;
                 }
             }
-
-            int i = 1;
-            foreach (var spieltag in gSpieltage)
-            {
-
-                if (!Globals.VereinAktSaison.ContainsKey(spieltag.Verein1_Nr))
-                {
-                    Globals.VereinAktSaison.Add(spieltag.Verein1_Nr, spieltag.Verein1);
-                }
-
-                var Verein2 = Globals.VereinAktSaison.FirstOrDefault(x => x.Value == spieltag.Verein2_Nr).Key;
-
-                if (!Globals.VereinAktSaison.ContainsKey(spieltag.Verein2_Nr))
-                {
-                    Globals.VereinAktSaison.Add(spieltag.Verein2_Nr, spieltag.Verein2);
-                }
-
-                i++;
-            }
+           
 
             if (Globals.LigaNummer < 3)
             {

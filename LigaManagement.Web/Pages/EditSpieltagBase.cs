@@ -415,7 +415,7 @@ namespace LigamanagerManagement.Web.Pages
                         }
 
                     }
-                    ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc).Sort("Spielminute", BootstrapBlazor.Components.SortOrder.Asc);
+                    ToreList.Sort();
                 }
 
                 var saison = await SaisonenService.GetSaison(Globals.SaisonID);

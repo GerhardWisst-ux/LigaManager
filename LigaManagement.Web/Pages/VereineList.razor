@@ -88,34 +88,84 @@ else
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="Verein" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" Width="210px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
-                  <RadzenDataGridColumn TItem="Verein" Title="" Sortable="true" Width="44px" MinWidth="44px">
+                 <RadzenDataGridColumn TItem="Verein" Property="VereinNr" TextAlign="TextAlign.Left" Width="50px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Nr"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.VereinNr
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="Verein" Property="Vereinsname1" TextAlign="TextAlign.Left" Width="25%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Kurzname"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname1
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="Verein" Title="" Sortable="true" Width="44px" MinWidth="44px">
                     <Template Context="data">
                         <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" Width="210px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
-              
-                <RadzenDataGridColumn TItem="Verein" Property="Stadion" Width="180px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
-                
-
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="Bundesliga" Width="20%" Filterable="false" Sortable="false">
+                 <RadzenDataGridColumn TItem="Verein" Property="Vereinsname2" TextAlign="TextAlign.Left" Width="35%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Anzeigename"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname2
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>              
+                 <RadzenDataGridColumn TItem="Verein" Property="Stadion" TextAlign="TextAlign.Left" Filterable=true Width="180px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Stadion"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Stadion
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>               
+                <RadzenDataGridColumn TItem="Verein" Property="Bundesliga" TextAlign="TextAlign.Center" Filterable=true Width="7%" Sortable="false">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Bundesliga"].Value
+                        </div>
+                    </HeaderTemplate>
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkBundesliga" />
                     </Template>
-                 </RadzenDataGridColumn>                
-
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title=@Localizer["Pokal"].Value Width="15%" Filterable="false" Sortable="false">
+                </RadzenDataGridColumn>
+                   <RadzenDataGridColumn TItem="Verein" Property="Pokal" TextAlign="TextAlign.Center" Width="7%" Sortable="false">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Pokal"].Value
+                        </div>
+                    </HeaderTemplate>
                     <Template Context="data">
                         <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
                     </Template>
-                 </RadzenDataGridColumn>
+                </RadzenDataGridColumn>
                 
                 <RadzenDataGridColumn TItem="Verein" Property="ID" Title="ID" Visible=false>                   
                 </RadzenDataGridColumn Context="data" >
 
-                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Id" Width="140px" Filterable="false" Sortable="false">
+                <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="Verein" Property="Id" Width="140px" Filterable="false" Sortable="false">
                     <Template Context="data">
                         <NavLink id="btnEdit" style="height:36px;width:36px;" href="@($"editverein/{data.VereinNr}/{"DE"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>                        
                         <NavLink id="btnChart" style="height:36px;" href="@($"Ligamanager/ChartVerein/{data.VereinNr}")" title="@Localizer["Verein Statistik"].Value"  class="btn btn-primary btn-sm"><div><span class="oi oi-aperture" aria-hidden="true"></span></div></NavLink>
@@ -143,15 +193,59 @@ else
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" TextAlign="TextAlign.Left" Width="50px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Nr"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.VereinNr
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" TextAlign="TextAlign.Left" Width="25%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Kurzname"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname1
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
                     <Template Context="data">
                         <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" TextAlign="TextAlign.Left" Width="35%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Anzeigename"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname2
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>              
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" TextAlign="TextAlign.Left" Filterable=true Width="180px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Stadion"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Stadion
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
                 @* <RadzenDataGridColumn TItem="VereinAUS" Property="Erfolge" Width="250px" HeaderTooltip="Europäische und nationale Titel"  TextAlign="TextAlign.Left" Filterable="true" Sortable=true Title="Erfolge" /> *@
 
                  <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga" Width="10%" Filterable="false" Sortable="false">
@@ -195,32 +289,62 @@ else
                         FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                         LogicalFilterOperator="LogicalFilterOperator.Or" SelectionMode="DataGridSelectionMode.Single" >
             <Columns>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" Width="50px" TextAlign="TextAlign.Right" Filterable="false" Sortable=false Title=@Localizer["Nr"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" Width="300px" Sortable=true Title=@Localizer["Kurzname"].Value></RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="VereinNr" TextAlign="TextAlign.Left" Width="50px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Nr"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.VereinNr
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname1" TextAlign="TextAlign.Left" Width="25%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Kurzname"].Value
+                        </div>
+                    </HeaderTemplate>
+                    <Template Context="data">
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname1
+                        </div>
+                    </Template>
+                </RadzenDataGridColumn>
                  <RadzenDataGridColumn TItem="VereinAUS" Title="" Sortable="true" Width="44px" MinWidth="44px">
                     <Template Context="data">
                         <RadzenImage Path="@($"/Images/{data.Vereinsname1}.webp")" style="width: 30px; height: 30px;" title="@data.Vereinsname1" AlternateText="@(data.Vereinsname1)" />
                     </Template>
                 </RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" Width="300px" Sortable=true Title=@Localizer["Anzeigename"].Value></RadzenDataGridColumn>
-                <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" Width="200px" Sortable=true Title=@Localizer["Stadion"].Value></RadzenDataGridColumn>
-                
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Bundesliga" Title="1.Liga"  Width="10%" Filterable="false" Sortable="false">
+                  <RadzenDataGridColumn TItem="VereinAUS" Property="Vereinsname2" TextAlign="TextAlign.Left" Width="35%" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Anzeigename"].Value
+                        </div>
+                    </HeaderTemplate>
                     <Template Context="data">
-                        <RadzenCheckBox @bind-Value=@data.Bundesliga TValue="bool" Name="chkLiga1" />
+                        <div style="padding: 4px 8px;">
+                            @data.Vereinsname2
+                        </div>
                     </Template>
-                 </RadzenDataGridColumn>                
-
-                 <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Verein" Property="Pokal" Title="Pokal" Width="10%" Filterable="false" Sortable="false">
+                </RadzenDataGridColumn>              
+                 <RadzenDataGridColumn TItem="VereinAUS" Property="Stadion" TextAlign="TextAlign.Left" Filterable=true Width="180px" Sortable="true">
+                    <HeaderTemplate>
+                        <div style="padding: 4px 8px;">
+                            @Localizer["Stadion"].Value
+                        </div>
+                    </HeaderTemplate>
                     <Template Context="data">
-                        <RadzenCheckBox @bind-Value=@data.Pokal TValue="bool" Name="chkPokal" />
+                        <div style="padding: 4px 8px;">
+                            @data.Stadion
+                        </div>
                     </Template>
-                 </RadzenDataGridColumn>
-                
+                </RadzenDataGridColumn>               
                 <RadzenDataGridColumn TItem="VereinAUS" Property="ID" Title="ID" Visible=false>               
                 </RadzenDataGridColumn Context="data" >
-
-                <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="VereinAUS" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
                                 <NavLink href="@($"editverein/{data.VereinNr}/{"IT"}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
                             </Template>
@@ -590,13 +714,12 @@ else
     }
 }
 <script>
-
-    let mybutton = document.getElementById("btnTop");
-
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () { scrollFunction() };
+    window.onscroll = function () { scrollFunction(); };
 
     function scrollFunction() {
+        const mybutton = document.getElementById("btnTop");
+        if (!mybutton) return;  // Sicherstellen, dass Element da ist
+
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             mybutton.style.display = "block";
         } else {
@@ -604,10 +727,8 @@ else
         }
     }
 
-    // When the user clicks on the button, scroll to the top of the document
     function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 </script>
 

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using ToreManagerManagement.Api.Models;
 
 namespace SpielerManagement.Api.Controllers
 {
@@ -26,6 +27,20 @@ namespace SpielerManagement.Api.Controllers
             try
             {
                 return Ok(await SpielerRepository.GetAllSpieler());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database:" + ex.Message);
+            }
+        }
+
+        [HttpGet("kopiere/{saisonid}/{vorsaisonid}/{vereinid}")]
+        public async Task<ActionResult> GetSpielerKopiere(int saisonid, int vorsaisonid, int vereinid)
+        {
+            try
+            {
+                return Ok(await SpielerRepository.CopySpielerSaison(saisonid, vorsaisonid, vereinid));
             }
             catch (Exception ex)
             {

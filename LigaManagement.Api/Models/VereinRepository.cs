@@ -311,8 +311,16 @@ namespace LigaManagerManagement.Api.Models
                 await conn.OpenAsync();
 
 
-                command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
+                if (Globals.CLSaisonID == 65)
+                {
+                    command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
                                                    "[TN2023],[TN2024] FROM [dbo].[VereineCL] where TN2024 = 1 Order by [Vereinsname1]", conn);
+                }
+                else
+                {
+                    command = new SqlCommand("SELECT [Id],[VereinNr],[Vereinsname1],[Vereinsname2],[Stadion],[Fassungsvermoegen],[Erfolge],[Gegruendet],[LandID]," +
+                                                "[TN2023],[TN2024] FROM [dbo].[VereineCL] where TN2023 = 1 Order by [Vereinsname1]", conn);
+                }
 
 
                 VereinAktSaison verein = null;
@@ -334,7 +342,6 @@ namespace LigaManagerManagement.Api.Models
                         //verein.Gegruendet = 0;
                         verein.Bundesliga = bool.Parse(reader["TN2024"].ToString());
                         verein.Pokal = bool.Parse(reader["TN2023"].ToString());
-
 
                         vereinelist.Add(verein);
 

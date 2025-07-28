@@ -70,10 +70,15 @@ namespace LigaManagement.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Spieltag>> CreateSpieltag(Spieltag spieltag)
         {
+            Spieltag createdSpieltag;
             if (spieltag == null) return BadRequest();
             try
             {
-                var createdSpieltag = await _spieltagRepository.AddSpieltag(spieltag);
+                if (spieltag.LigaID < 3)
+                    createdSpieltag = await _spieltagRepository.AddSpieltag(spieltag);
+                else                
+                    createdSpieltag = await _spieltagRepository.AddSpieltagL3(spieltag);
+                
                 return CreatedAtAction(nameof(GetSpieltag), new { id = createdSpieltag.SpieltagId }, createdSpieltag);
             }
             catch (Exception ex)

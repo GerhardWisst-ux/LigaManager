@@ -175,7 +175,7 @@ else
                                                             <RadzenImage Path="@($"/Images//{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                                         </Template>
                                                     </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" TextAlign="TextAlign.Center" Width="35px" Sortable="false" Title="">
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" TextAlign="TextAlign.Center" Width="27px" Sortable="false" Title="">
                                                         <Template Context="data">
                                                             <div style="line-height: 1.2;">
                                                                 <div>@data.Tore1_Nr</div>
@@ -184,9 +184,10 @@ else
                                                                 </div>
                                                             </div>
                                                         </Template>
-                                                    </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
-                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="" />
+                                                    </RadzenDataGridColumn>                                                    
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="20px" Sortable=false />
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="27px" Sortable=true />
+
                                                     <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
                                                         <Template Context="data">
                                                             <RadzenImage Path="@($"/Images//{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />

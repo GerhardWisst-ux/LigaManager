@@ -88,7 +88,10 @@ else
                             <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                             <h2 style="display:inline-block;">@Titel</h2>
                             <h3 class="card-title">@SpieltagNr . @Localizer["Spieltag"].Value  Saison @Globals.currentSaison</h3>
-                            <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a>
+                            @* <a href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a> *@
+                            <a href="javascript:history.back()" class="card-link">
+                                <span class="glyphicon glyphicon-arrow-left"></span> Zurück
+                            </a>
                         </div>
                     </div>
                 </RadzenCard>
@@ -244,7 +247,7 @@ else
                                         <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
                                     </RadzenButton>
 
-                                    <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBack" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+                                    <RadzenButton title="@Localizer["Zurück zu Spieltagsübersicht"].Value" style="margin-left:5px;" Click="GoBackAsync" id="btnSpeichern" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
                                         <span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value
                                     </RadzenButton>
                                 </div>
@@ -303,7 +306,7 @@ else
                                         <button onclick="SpeichernSpieler" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value</button>
                                         <NavLink href="@($"Ligamanager/{Globals.currentLigaUrl}/spieltage")" class="btn btn-secondary"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</NavLink>
 
-                                        <button onclick="GoBack" class="btn btn-primary"><span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value</button>
+                                        <button onclick="GoBackAsync" class="btn btn-primary"><span class="glyphicon glyphicon-left"></span>@Localizer["Zurück"].Value</button>
                                     </div>
                                 </div>
                             </div>
@@ -315,7 +318,7 @@ else
                                     <p>
                                         @if (ToreList != null)
                                         {
-                                            var ToreList2 = ToreList.Sort("Spielstand", BootstrapBlazor.Components.SortOrder.Asc);
+                                            var ToreList2 = ToreList;
 
                                             <RadzenDataList AllowVirtualization=@allowVirtualization Style="@(allowVirtualization ? "height:700px;overflow:auto;" : ";")"
                                             WrapItems="@(!allowVirtualization)" AllowPaging="@(!allowVirtualization)"
@@ -718,9 +721,14 @@ else
         NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = @Titel, Detail = Localizer["Abgespeichert"].Value });
     }
 
-    private void GoBack()
+    // private void GoBack()
+    // {
+    //     _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
+    // }
+
+    public async Task GoBackAsync()
     {
-        _navigationManager.NavigateTo($"Ligamanager/{Globals.currentLigaUrl}/spieltage/{SpieltagNr}", true);
+        await JSRuntime.InvokeVoidAsync("history.back");
     }
 }
 

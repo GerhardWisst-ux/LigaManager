@@ -193,6 +193,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Verein2_Nr = int.Parse(reader["Verein2_Nr"].ToString());
                         spieltag.Land2_Nr = int.Parse(reader["Land2_Nr"].ToString());
                         spieltag.Tore1_Nr = int.Parse(reader["Tore1_Nr"].ToString());
+                        spieltag.Doppelpunkt = ":";
                         spieltag.Tore2_Nr = int.Parse(reader["Tore2_Nr"].ToString());
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();

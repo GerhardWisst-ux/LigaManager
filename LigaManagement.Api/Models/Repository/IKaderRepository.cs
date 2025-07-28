@@ -9,9 +9,11 @@ namespace LigamanagerManagement.Api.Models.Repository
     public interface IKaderRepository
     {
         Task<IEnumerable<Kader>> GetAllSpieler();
+        Task<IEnumerable<Kader>> CopySpielerSaison(int iSaisonID, int vorsaisonid, int vereinid);
         Task<Kader> GetSpieler(int Id);
         Task<Kader> AddSpieler(Kader Spieler);
         Task<Kader> UpdateSpieler(Kader Spieler);
         Task<Kader> DeleteSpieler(int SpielerId);
+        
     }
 }

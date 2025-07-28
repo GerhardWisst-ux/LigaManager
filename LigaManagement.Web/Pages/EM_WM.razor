@@ -166,17 +166,18 @@ else
                                             </RadzenDataGridColumn>
                                             <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Property="Verein1" Width="23%" Sortable=false Title="@Localizer["Heim"].Value">
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="7%">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="50px">
                                                 <Template Context="data">
                                                     <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein1}.webp")" style="width: 30px; height: 30px;border-width:1px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
                                                     @* <RadzenImage Path="@($"{data.Hyperlink}")" style="width: 30px; height: 30px;" title="@data.Hyperlink" AlternateText="@(data.Hyperlink)" /> *@
                                                 </Template>
                                             </RadzenDataGridColumn>
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 1" />
-                                            <RadzenDataGridColumn TItem="Spieltag" Property="Doppelpunkt" TextAlign="TextAlign.Center"  CssClass="FarbeTorePunkt" Width="6%" Sortable=true Title="" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="T 2" />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore1_Nr" TextAlign="TextAlign.Center" Width="27px" Sortable=true />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="20px" Sortable=false />
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="27px" Sortable=true />
+
                                             <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Property="Verein2" Width="23%" Sortable=false Title="@Localizer["Gast"].Value" />
-                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Right" Width="7%">
+                                            <RadzenDataGridColumn TItem="PokalergebnisCL_EM_WMSpieltag" CssClass="table-row" Title="" Sortable="true" TextAlign="TextAlign.Right" Width="50px">
                                                 <Template Context="data">
                                                     <RadzenImage Path="@($"/Images/Nationalmannschaften/{data.Verein2}.webp")" style="width: 30px; height: 30px;border-width:1px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
                                                 </Template>

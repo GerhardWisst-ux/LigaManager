@@ -7,7 +7,7 @@
 @attribute [Authorize]
 
 <head>
- 
+
 </head>
 
 <script>
@@ -58,18 +58,18 @@ else
                     <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
                     <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                     <h2 style="display:inline-block;">@Localizer["Ligen"].Value</h2>
-                    <span class="ml-3">                        
+                    <span class="ml-3">
                         <RadzenButton Click=@(args => OnClick("Primary icon button")) Icon="add_circle_outline" title="@Localizer["Neuanlage Liga"].Value" ButtonStyle="ButtonStyle.Primary" />
                     </span>
                 </div>
             </div>
         </RadzenCard>
-         
 
-         <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">                        
-                        <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
-                                         Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
-         </RadzenCard>
+
+        <RadzenCard class="my-4" style="display: flex; align-items: center; gap: 0.5rem">
+            <RadzenSelectBar @bind-Value="@Density" TextProperty="Text" ValueProperty="Value"
+                             Data="@(Enum.GetValues(typeof(Density)).Cast<Density>().Select(t => new { Text = $"{t}", Value = t }))" Size="ButtonSize.Medium" />
+        </RadzenCard>
 
         <div class="form-group row">
             <div class="col-sm-12">
@@ -79,29 +79,91 @@ else
                                 FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
                                 LogicalFilterOperator="LogicalFilterOperator.Or">
                     <Columns>
-                        <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>                         
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" Title="Id" Visible=false>
                         </RadzenDataGridColumn>
-                        <RadzenDataGridColumn TItem="Liga" Property="Id" Width="10%" TextAlign="TextAlign.Right" Filterable="false" Sortable=true Title="Id" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" Width="30%" Sortable=true Title="@Localizer["Liganame"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" Width="5%" TextAlign="TextAlign.Right" Sortable=true Title="@Localizer["Saisonen"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Verband" Width="10%" Sortable=true Title="@Localizer["Verband"].Value" />
-                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" FormatString={0:dd.MM.yyyy} TextAlign="TextAlign.Center" Filterable="false" Sortable=true Title="@Localizer["Erstaustragung"].Value" />
-
-                        <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="Liga" Property="Aktiv" title="@Localizer["Aktiv"].Value" Width="100px" Filterable="false">
+                        <RadzenDataGridColumn TItem="Liga" Property="Id" TextAlign="TextAlign.Right" Width="8%" Sortable="false">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["ID"].Value
+                                </div>
+                            </HeaderTemplate>
                             <Template Context="data">
-                              <RadzenCheckBox @bind-Value=@data.Aktiv TValue="bool" Name="chkBundesliga" /> 
+                                <div style="padding: 4px 8px;">
+                                    @data.Id
+                                </div>
                             </Template>
                         </RadzenDataGridColumn>
-
-                        <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="Liga" Property="EMWM" title="@Localizer["EMWM"].Value" Width="100px" Filterable="false">
+                        <RadzenDataGridColumn TItem="Liga" Property="Liganame" TextAlign="TextAlign.Left" Width="25%" Sortable="true">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["Liganame"].Value
+                                </div>
+                            </HeaderTemplate>
+                            <Template Context="data">
+                                <div style="padding: 4px 8px;">
+                                    @data.Liganame
+                                </div>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="Saisonen" TextAlign="TextAlign.Right" Width="10%" Sortable="true">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["Saisonen"].Value
+                                </div>
+                            </HeaderTemplate>
+                            <Template Context="data">
+                                <div style="padding: 4px 8px;">
+                                    @data.Saisonen
+                                </div>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="Verband" TextAlign="TextAlign.Left" Width="15%" Sortable="true">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["Verband"].Value
+                                </div>
+                            </HeaderTemplate>
+                            <Template Context="data">
+                                <div style="padding: 4px 8px;">
+                                    @data.Verband
+                                </div>
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="Erstaustragung" Width="150px" TextAlign="TextAlign.Center" Filterable="false" Sortable=true>
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["Erstaustragung"].Value
+                                </div>
+                            </HeaderTemplate>
+                            <Template Context="data">
+                                <div style="padding: 4px 8px;">
+                                    @data.Erstaustragung?.ToString("dd.MM.yyyy")
+                                </div>
+                            </Template>                            
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="Aktiv" TextAlign="TextAlign.Center" Width="7%" Sortable="false">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["Aktiv"].Value
+                                </div>
+                            </HeaderTemplate>
+                            <Template Context="data">
+                                <RadzenCheckBox @bind-Value=@data.Aktiv TValue="bool" Name="chkAktiv" />
+                            </Template>
+                        </RadzenDataGridColumn>
+                        <RadzenDataGridColumn TItem="Liga" Property="EMWM" TextAlign="TextAlign.Center" Width="7%" Sortable="false">
+                            <HeaderTemplate>
+                                <div style="padding: 4px 8px;">
+                                    @Localizer["EMWM"].Value
+                                </div>
+                            </HeaderTemplate>
                             <Template Context="data">
                                 <RadzenCheckBox @bind-Value=@data.EMWM TValue="bool" Name="chkEMWM" />
                             </Template>
                         </RadzenDataGridColumn>
-
-                        <RadzenDataGridColumn TextAlign="TextAlign.Right" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
+                        <RadzenDataGridColumn TextAlign="TextAlign.Center" TItem="Liga" Property="Id" Width="100px" Filterable="false" Sortable="false">
                             <Template Context="data">
-                                <NavLink href="@($"Ligamanager/editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value"  /></div></NavLink>
+                                <NavLink href="@($"Ligamanager/editliga/{data.Id}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
                             </Template>
                         </RadzenDataGridColumn>
                     </Columns>
@@ -118,15 +180,15 @@ else
                 </RadzenRow>
             </div>
         </div>
-    </div>   
+    </div>
     <script>
 
-        let mybutton = document.getElementById("btnTop");
-
-        // When the user scrolls down 20px from the top of the document, show the button
-        window.onscroll = function () { scrollFunction() };
+             window.onscroll = function () { scrollFunction(); };
 
         function scrollFunction() {
+            const mybutton = document.getElementById("btnTop");
+            if (!mybutton) return;  // Sicherstellen, dass Element da ist
+
             if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
                 mybutton.style.display = "block";
             } else {
@@ -134,10 +196,8 @@ else
             }
         }
 
-        // When the user clicks on the button, scroll to the top of the document
         function topFunction() {
-            document.body.scrollTop = 0;
-            document.documentElement.scrollTop = 0;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 }

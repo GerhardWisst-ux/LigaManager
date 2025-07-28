@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml;
 using ToreManagerManagement.Web.Services;
@@ -23,7 +24,9 @@ namespace LigaManagerManagement.Web.Pages
     public class ChartVerein : ComponentBase
     {
         public RadzenDataGrid<Verein> grid;
+        public RadzenDataGrid<PokalHistorieStatistik> gridPokalHistorie;
         public RadzenDataGrid<Spieltag> gridSpieltage;
+        public RadzenDataGrid<Spieltag> gridSpieltageSerien;
 
         public bool IsLoading = false;
         public Density Density = Density.Compact;
@@ -31,6 +34,7 @@ namespace LigaManagerManagement.Web.Pages
         double prozentsiege = 0;
         double prozentuntentschieden = 0;
         double prozentniederlagen = 0;
+        int vereinligaid = 1;
         public string VisibleChart = "none";
 
         [Parameter]
@@ -48,6 +52,9 @@ namespace LigaManagerManagement.Web.Pages
         [Inject]
         public IVereineService VereineService { get; set; }
 
+        [Inject]
+        public ITabelleService TabelleService { get; set; }
+
         public List<DisplaySpieltag> SpieltagList;
 
         public List<DisplaySaison> SaisonenList;
@@ -58,6 +65,38 @@ namespace LigaManagerManagement.Web.Pages
         public List<PokalHistorieStatistik> PokalHistorieStatistik = new List<PokalHistorieStatistik>();
 
         public List<Mannschaftsstatistik> StatistikAktSaison = new List<Mannschaftsstatistik>();
+        
+        public List<SpieltageSerien> SerieSiegeVerein = new List<SpieltageSerien>();
+        public List<SpieltageSerien> SerieNiederlagenVerein = new List<SpieltageSerien>();
+        public List<SpieltageSerien> SerieUnentschiedenVerein = new List<SpieltageSerien>();
+
+        public List<Spieltag> SerieSiegeVerein2 = new List<Spieltag>();
+        public List<Spieltag> SerieNiederlagenVerein2 = new List<Spieltag>();
+        public List<Spieltag> SerieUnentschiedenVerein2 = new List<Spieltag>();
+
+        public List<Spieltag> AlleSpieltage = new();
+        public List<Spieltag> AlleSpieltageNL = new();
+        public List<Spieltag> AlleSpieltageUS = new();
+
+        public List<SpieltageSerieGruppe> Gruppen = new();
+        public List<SpieltageSerieGruppeNL> GruppenNL = new();
+        public List<SpieltageSerieGruppeNL> GruppenUS = new();
+
+        public SpieltageSerieGruppe AktuelleGruppeSi;
+        public SpieltageSerieGruppeNL AktuelleGruppeNL;
+
+
+        public List<SpieltageSerieGruppe> SpieltageSerienGruppen = new();
+        public List<SpieltageSerieGruppeNL> SpieltageSerienGruppenNL = new();
+        public List<SpieltageSerieGruppeUS> SpieltageSerienGruppenUS = new();
+
+        public SpieltageSerieGruppe AktuelleSiegesSerie;
+        public SpieltageSerieGruppeNL AktuelleNiederlagenSerie;
+        public SpieltageSerieGruppeUS AktuelleUnentschiedenSerie;
+
+        public int AktuelleGruppeIndex = 0;
+        public int AktuelleGruppeIndexNL = 0;
+        public int AktuelleGruppeIndexUS = 0;
 
         public IEnumerable<Spieltag> Spieltage { get; set; }
 
@@ -73,7 +112,6 @@ namespace LigaManagerManagement.Web.Pages
 
         public string Vereinsname;
 
-
         protected override async Task OnInitializedAsync()
         {
             try
@@ -85,12 +123,17 @@ namespace LigaManagerManagement.Web.Pages
                 await ErzeugeLangZeitStatistik();
                 await ErzeugeSerienStatistik();
                 await ErzeugePokalhistorie();
+                await ErzeugeSerienStatistik();
+                await GetSiegeSerienVerein();
+                await GetNiederlagenSerienVerein();
+                await GetUnentschiedenSerienVerein();
+
                 var verein = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
                 Vereinsname = verein.Vereinsname2;
 
                 IsLoading = false;
-                StateHasChanged();
                 OnTabChange(0);
+                               
             }
             catch (Exception ex)
             {
@@ -98,6 +141,8 @@ namespace LigaManagerManagement.Web.Pages
                 IsLoading = false;
             }
         }
+
+ 
 
         private async Task ErzeugePokalhistorie()
         {
@@ -164,11 +209,11 @@ namespace LigaManagerManagement.Web.Pages
             try
             {
                 var spieltage = await SpieltagService.GetSpieltage();
-                Spieltage = spieltage.Where(x => x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr));
+                Spieltage = spieltage.Where(x => x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr));
 
-                int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
-                int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
-                int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Count();
+                int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Count();
+                int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Count();
+                int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Count();
 
                 Mannschaftsstatistik item = new Mannschaftsstatistik();
                 item.StatText = "Spiele insgesamt";
@@ -178,8 +223,8 @@ namespace LigaManagerManagement.Web.Pages
 
                 StatistikAktSaison.Add(item);
 
-                int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
-                int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Siege";
@@ -188,8 +233,8 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = siegeaus.ToString();
                 StatistikAktSaison.Add(item);
 
-                int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
-                int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr == x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Unentschieden";
@@ -198,8 +243,8 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = unentschiedenauswaerts.ToString();
                 StatistikAktSaison.Add(item);
 
-                int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
-                int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID && (x.Tore1_Nr > x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Niederlagen";
@@ -208,11 +253,11 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = niederlagenauswaerts.ToString();
                 StatistikAktSaison.Add(item);
 
-                int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
-                int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
+                int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
+                int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
 
-                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
-                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1 && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
+                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore2_Nr);
+                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && x.SaisonID == Globals.SaisonID).Sum(x => x.Tore1_Nr);
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Tore : Gegentore";
@@ -246,16 +291,6 @@ namespace LigaManagerManagement.Web.Pages
             try
             {
                 // Index des Tabs prüfen (Langzeitstatistik ist z. B. das 2. Tab mit Index 2)
-                if (index == 2)
-                {
-                    VisibleChart = "block";
-                    await JSRuntime.InvokeVoidAsync("renderChart");
-                }
-                else
-                {
-                    VisibleChart = "none";
-                }
-
                 if (index == 0)
                 {
                     var verein = await VereineService.GetVerein(Convert.ToInt32(VereinNr));
@@ -272,6 +307,17 @@ namespace LigaManagerManagement.Web.Pages
                         Console.WriteLine("Latitude oder Longitude sind null.");
                     }
                 }
+                else if (index == 2)
+                {
+                    VisibleChart = "block";
+                    await JSRuntime.InvokeVoidAsync("renderChart");
+                }              
+                else
+                {
+                    VisibleChart = "none";
+                }
+
+                
             }
             catch (Exception ex)
             {
@@ -286,9 +332,9 @@ namespace LigaManagerManagement.Web.Pages
             {
                 var spieltage = await SpieltagService.GetSpieltage();
 
-                int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == 1).Count();
-                int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == 1).Count();
-                int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == 1).Count();
+                int spielegesamt = spieltage.Where(x => (x.Verein1_Nr == VereinNr || x.Verein2_Nr == VereinNr) && x.LigaID == vereinligaid).Count();
+                int spieleheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr) && x.LigaID == vereinligaid).Count();
+                int spieleausw = spieltage.Where(x => (x.Verein2_Nr == VereinNr) && x.LigaID == vereinligaid).Count();
 
                 Mannschaftsstatistik item = new Mannschaftsstatistik();
                 item.StatText = "Spiele insgesamt";
@@ -298,8 +344,8 @@ namespace LigaManagerManagement.Web.Pages
 
                 Statistik.Add(item);
 
-                int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr > x.Tore2_Nr))).Count();
-                int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int siegeheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int siegeaus = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr < x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Siege";
@@ -308,8 +354,8 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = siegeaus.ToString();
                 Statistik.Add(item);
 
-                int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr == x.Tore2_Nr))).Count();
-                int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr == x.Tore2_Nr))).Count();
+                int unentschiedenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr == x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Unentschieden";
@@ -318,8 +364,8 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = unentschiedenauswaerts.ToString();
                 Statistik.Add(item);
 
-                int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr < x.Tore2_Nr))).Count();
-                int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == 1 && (x.Tore1_Nr > x.Tore2_Nr))).Count();
+                int niederlagenheim = spieltage.Where(x => (x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr < x.Tore2_Nr))).Count();
+                int niederlagenauswaerts = spieltage.Where(x => (x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid && (x.Tore1_Nr > x.Tore2_Nr))).Count();
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Niederlagen";
@@ -328,11 +374,11 @@ namespace LigaManagerManagement.Web.Pages
                 item.Auswaerts = niederlagenauswaerts.ToString();
                 Statistik.Add(item);
 
-                int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore1_Nr);
-                int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore2_Nr);
+                int? toreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid).Sum(x => x.Tore1_Nr);
+                int? toreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid).Sum(x => x.Tore2_Nr);
 
-                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore2_Nr);
-                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == 1).Sum(x => x.Tore1_Nr);
+                int? gegentoreheim = spieltage.Where(x => x.Verein1_Nr == VereinNr && x.LigaID == vereinligaid).Sum(x => x.Tore2_Nr);
+                int? gegentoreauswaerts = spieltage.Where(x => x.Verein2_Nr == VereinNr && x.LigaID == vereinligaid).Sum(x => x.Tore1_Nr);
 
                 item = new Mannschaftsstatistik();
                 item.StatText = "Tore : Gegentore";
@@ -353,8 +399,8 @@ namespace LigaManagerManagement.Web.Pages
                 prozentsiege = Math.Round((siegeheim + siegeaus * 1.0) / spielegesamt * 100, 2);
                 prozentuntentschieden = Math.Round((unentschiedenheim + unentschiedenauswaerts * 1.0) / spielegesamt * 100, 2);
                 prozentniederlagen = Math.Round((niederlagenheim + niederlagenauswaerts * 1.0) / spielegesamt * 100, 2);
-                                
-              
+
+
                 //await JSRuntime.InvokeVoidAsync("updateChartValues", prozentsiege, prozentuntentschieden, prozentniederlagen);
             }
             catch (Exception ex)
@@ -367,10 +413,10 @@ namespace LigaManagerManagement.Web.Pages
         {
             try
             {
-                var spieltage = await SpieltagService.GetSpieltage();               
+                var spieltage = await SpieltagService.GetSpieltage();
 
                 var meisteSiege = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr < s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -388,7 +434,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteUntentschieden = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr == s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -406,7 +452,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteNiederlagen = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr > s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -423,7 +469,7 @@ namespace LigaManagerManagement.Web.Pages
                 serie.AnzahlText = meisteNiederlagen.FirstOrDefault()?.Niederlagen.ToString() ?? "0";
                 SerienStatistik.Add(serie);
 
-                var wenigsteSiege = spieltage.Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr < s.Tore2_Nr)))
+                var wenigsteSiege = spieltage.Where(s => s.LigaID == vereinligaid && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr < s.Tore2_Nr)))
                     .GroupBy(s => s.Saison).
                 Select(group => new
                 {
@@ -442,7 +488,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var wenigsteUntentschieden = spieltage
-                .Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr == s.Tore2_Nr)))
+                .Where(s => s.LigaID == vereinligaid && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr == s.Tore2_Nr)))
                 .GroupBy(s => s.Saison)
                 .Select(group => new
                 {
@@ -462,7 +508,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var wenigsteNiederlagen = spieltage
-                .Where(s => s.LigaID == 1 && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr > s.Tore2_Nr)))
+                .Where(s => s.LigaID == vereinligaid && (((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) || (s.Verein2_Nr == VereinNr.ToString() && s.Tore1_Nr > s.Tore2_Nr)))
                 .GroupBy(s => s.Saison)
                 .Select(group => new
                 {
@@ -482,7 +528,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteheimSiege = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -500,7 +546,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteheimunentschieden = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -518,7 +564,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteheimniederlagen = spieltage.Where(s => ((s.Verein1_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -535,7 +581,7 @@ namespace LigaManagerManagement.Web.Pages
                 serie.AnzahlText = meisteheimniederlagen.FirstOrDefault()?.Siege.ToString() ?? "0";
                 SerienStatistik.Add(serie);
 
-                var meisteAuswaertsSiege = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) && s.LigaID == 1)
+                var meisteAuswaertsSiege = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr < s.Tore2_Nr) && s.LigaID == vereinligaid)
                 .GroupBy(s => s.Saison)
                 .Select(group => new
                 {
@@ -554,7 +600,7 @@ namespace LigaManagerManagement.Web.Pages
                 serie.AnzahlText = meisteAuswaertsSiege.FirstOrDefault()?.Siege.ToString() ?? "0";
                 SerienStatistik.Add(serie);
 
-                var meisteAuswaertsUnentschieden = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) && s.LigaID == 1)
+                var meisteAuswaertsUnentschieden = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr == s.Tore2_Nr) && s.LigaID == vereinligaid)
                     .GroupBy(s => s.Saison)
                     .Select(group => new
                     {
@@ -574,7 +620,7 @@ namespace LigaManagerManagement.Web.Pages
                 SerienStatistik.Add(serie);
 
                 var meisteauswaertsniederlagen = spieltage.Where(s => ((s.Verein2_Nr == VereinNr.ToString()) && s.Tore1_Nr > s.Tore2_Nr) &&
-                s.LigaID == 1).GroupBy(s => s.Saison).
+                s.LigaID == vereinligaid).GroupBy(s => s.Saison).
                 Select(group => new
                 {
                     Saison = group.Key,
@@ -598,8 +644,280 @@ namespace LigaManagerManagement.Web.Pages
                 ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
             }
         }
-    }
 
+        public async Task<List<Spieltag>> GetUnentschiedenSerienVerein()
+        {
+            List<Spieltag> SpieltageSerie = null;
+            IsLoading = true;
+            try
+            {
+                SerieUnentschiedenVerein = await TabelleService.SerieUnentschiedenVerein(SpieltagService, Convert.ToInt32(VereinNr));
+
+                var Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == vereinligaid);
+                SpieltageSerie = new List<Spieltag>();
+                foreach (var serie in SerieUnentschiedenVerein)
+                {
+                    foreach (string id in serie.SpieltagIDs.Split(',').Select(s => s.Trim()))
+                    {
+                        var spieltag = Spieltage.FirstOrDefault(s => s.SpieltagId.ToString() == id);
+
+                        if (spieltag != null)
+                        {
+                            spieltag.AnzahlUnentschieden = serie.AnzahlUnentschieden;
+                            SpieltageSerie.Add(spieltag);
+                        }
+                    }
+
+                }
+                SerieUnentschiedenVerein2 = SpieltageSerie;
+                var gruppen = new List<SpieltageSerieGruppeUS>();
+
+                foreach (var serie in SerieUnentschiedenVerein)
+                {
+                    var spieltagIds = serie.SpieltagIDs.Split(',').Select(s => s.Trim());
+                    var idSet = new HashSet<string>(spieltagIds);
+
+                    var zugeordneteSpieltage = Spieltage
+                        .Where(s => idSet.Contains(s.SpieltagId.ToString()))
+                        .Where(s => s.LigaID == vereinligaid)
+                        .ToList();
+
+                    if (zugeordneteSpieltage.Any())
+                    {
+                        gruppen.Add(new SpieltageSerieGruppeUS
+                        {
+                            Saison = serie.Saison,
+                            AnzahlUntentschieden = serie.AnzahlUnentschieden,
+                            Spieltage = zugeordneteSpieltage
+                        });
+                    }
+                }
+
+                SpieltageSerienGruppenUS = gruppen
+                    .OrderByDescending(g => g.AnzahlUntentschieden)
+                    .ThenByDescending(g => g.Saison)
+                    .ToList();
+
+                AktuelleGruppeIndexUS = 0;
+                AktuelleUnentschiedenSerie = SpieltageSerienGruppenUS.FirstOrDefault();
+                AlleSpieltageUS = SerieUnentschiedenVerein2;
+
+                return SerieUnentschiedenVerein2;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+        
+
+        public async Task<List<Spieltag>> GetSiegeSerienVerein()
+        {
+            List<Spieltag> SpieltageSerie = null;
+            IsLoading = true;
+            try
+            {
+                SerieSiegeVerein = await TabelleService.SerieSiegeVerein(SpieltagService, Convert.ToInt32(VereinNr));
+
+                var Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == vereinligaid);
+                SpieltageSerie = new List<Spieltag>();
+                foreach (var serie in SerieSiegeVerein)
+                {                    
+                    foreach (string id in serie.SpieltagIDs.Split(',').Select(s => s.Trim()))
+                    {
+                        var spieltag = Spieltage.FirstOrDefault(s => s.SpieltagId.ToString() == id);
+
+                        if (spieltag != null)
+                        {
+                            spieltag.AnzahlSiege = serie.AnzahlSiege;                            
+                            SpieltageSerie.Add(spieltag);
+                        }
+                    }
+                    
+                }
+                SerieSiegeVerein2 = SpieltageSerie;
+                var gruppen = new List<SpieltageSerieGruppe>();
+
+                foreach (var serie in SerieSiegeVerein)
+                {
+                    var spieltagIds = serie.SpieltagIDs.Split(',').Select(s => s.Trim());
+                    var idSet = new HashSet<string>(spieltagIds);
+
+                    var zugeordneteSpieltage = Spieltage
+                        .Where(s => idSet.Contains(s.SpieltagId.ToString()))
+                        .Where(s => s.LigaID == vereinligaid)
+                        .ToList();
+
+                    if (zugeordneteSpieltage.Any())
+                    {
+                        gruppen.Add(new SpieltageSerieGruppe
+                        {
+                            Saison = serie.Saison,
+                            AnzahlSiege = serie.AnzahlSiege,
+                            Spieltage = zugeordneteSpieltage
+                        });
+                    }
+                }
+
+                SpieltageSerienGruppen = gruppen
+                    .OrderByDescending(g => g.AnzahlSiege)
+                    .ThenByDescending(g => g.Saison)                    
+                    .ToList();
+
+                AktuelleGruppeIndex = 0;
+                AktuelleSiegesSerie = SpieltageSerienGruppen.FirstOrDefault();
+                AlleSpieltage = SerieSiegeVerein2;
+
+               
+                return SerieSiegeVerein2;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+        public async Task<List<Spieltag>> GetNiederlagenSerienVerein()
+        {
+            List<Spieltag> SpieltageSerie = null;
+            IsLoading = true;
+            try
+            {
+                SerieNiederlagenVerein = await TabelleService.SerieNiederlagenVerein(SpieltagService, Convert.ToInt32(VereinNr));
+
+                var Spieltage = (await SpieltagService.GetSpieltage()).Where(x => x.LigaID == vereinligaid);
+                SpieltageSerie = new List<Spieltag>();
+                foreach (var serie in SerieNiederlagenVerein)
+                {
+                    foreach (string id in serie.SpieltagIDs.Split(',').Select(s => s.Trim()))
+                    {
+                        var spieltag = Spieltage.FirstOrDefault(s => s.SpieltagId.ToString() == id);
+
+                        if (spieltag != null)
+                        {
+                            spieltag.AnzahlNiederlagen = serie.AnzahlNiederlagen;
+                            SpieltageSerie.Add(spieltag);
+                        }
+                    }
+
+                }
+                SerieNiederlagenVerein2 = SpieltageSerie;
+                var gruppen = new List<SpieltageSerieGruppeNL>();
+
+                foreach (var serie in SerieNiederlagenVerein)
+                {
+                    var spieltagIds = serie.SpieltagIDs.Split(',').Select(s => s.Trim());
+                    var idSet = new HashSet<string>(spieltagIds);
+
+                    var zugeordneteSpieltage = Spieltage
+                        .Where(s => idSet.Contains(s.SpieltagId.ToString()))
+                        .Where(s => s.LigaID == vereinligaid)
+                        .ToList();
+
+                    if (zugeordneteSpieltage.Any())
+                    {
+                        gruppen.Add(new SpieltageSerieGruppeNL
+                        {
+                            Saison = serie.Saison,
+                            AnzahlNiederlagen = serie.AnzahlNiederlagen,
+                            Spieltage = zugeordneteSpieltage
+                        });
+                    }
+                }
+
+                SpieltageSerienGruppenNL = gruppen
+                    .OrderByDescending(g => g.AnzahlNiederlagen)
+                    .ThenByDescending(g => g.Saison)
+                    .ToList();
+
+                AktuelleGruppeIndex = 0;
+                AktuelleNiederlagenSerie = SpieltageSerienGruppenNL.FirstOrDefault();
+                AlleSpieltageNL = SerieNiederlagenVerein2;
+
+                return SerieNiederlagenVerein2;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+        protected IEnumerable<Spieltag> GefilterteSpieltage => AlleSpieltage
+        .Where(s => s.Saison == AktuelleGruppeSi.Saison && s.AnzahlSiege == AktuelleGruppeSi.AnzahlSiege);
+
+        
+        protected async Task NächsteGruppe()
+        {
+            if (AktuelleGruppeIndex < SpieltageSerienGruppen.Count - 1)
+            {
+                AktuelleGruppeIndex++;
+                AktuelleSiegesSerie = SpieltageSerienGruppen[AktuelleGruppeIndex];
+            }
+        }
+
+        protected async Task VorherigeGruppe()
+        {
+            if (AktuelleGruppeIndex > 0)
+            {
+                AktuelleGruppeIndex--;
+                AktuelleSiegesSerie = SpieltageSerienGruppen[AktuelleGruppeIndex];
+            }
+        }
+
+        protected async Task NächsteGruppeNL()
+        {
+            if (AktuelleGruppeIndexNL < SpieltageSerienGruppen.Count - 1)
+            {
+                AktuelleGruppeIndexNL++;
+                AktuelleNiederlagenSerie = SpieltageSerienGruppenNL[AktuelleGruppeIndexNL];
+            }
+        }
+
+        protected async Task VorherigeGruppeNL()
+        {
+            if (AktuelleGruppeIndexNL > 0)
+            {
+                AktuelleGruppeIndexNL--;
+                AktuelleNiederlagenSerie = SpieltageSerienGruppenNL[AktuelleGruppeIndexNL];
+            }
+        }
+
+        protected async Task NächsteGruppeUS()
+        {
+            if (AktuelleGruppeIndexUS < SpieltageSerienGruppen.Count - 1)
+            {
+                AktuelleGruppeIndexUS++;
+                AktuelleUnentschiedenSerie = SpieltageSerienGruppenUS[AktuelleGruppeIndexUS];
+            }
+        }
+
+        protected async Task VorherigeGruppeUS()
+        {
+            if (AktuelleGruppeIndexUS > 0)
+            {
+                AktuelleGruppeIndexUS--;
+                AktuelleUnentschiedenSerie = SpieltageSerienGruppenUS[AktuelleGruppeIndexUS];
+            }
+        }
+
+        public async Task<List<SpieltageSerien>> SerieSiegeVereinList()
+        {
+            try
+            {
+                SerieSiegeVerein = await TabelleService.SerieSiegeVerein(SpieltagService, Convert.ToInt32(VereinNr));
+
+                return SerieSiegeVerein;
+            }
+            catch (Exception ex)
+            {
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
+        }
+
+    }
 }
 
 public class LVereinsinfo

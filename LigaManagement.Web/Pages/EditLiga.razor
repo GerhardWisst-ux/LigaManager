@@ -34,120 +34,122 @@
         <RadzenProgressBarCircular Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" />
     </RadzenStack>
 }
-else {
-<div class="container">
-    <div class="form-group row mt-0 row mb-1">
-        <div class="col-sm-12">
-            <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
-                <div class="d-flex flex-row">
-                    <div class="card-body">
-                        <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
-                        <br />
-                        <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
-                        <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
-                        <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
-                        <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
-                        <h2>@Titel</h2>
+else
+{
+    <div class="container">
+        <div class="form-group row mt-0 row mb-1">
+            <div class="col-sm-12">
+                <RadzenCard class="m-0 rz-shadow-3" style="height:auto;">
+                    <div class="d-flex flex-row">
+                        <div class="card-body">
+                            <span style="color:#1151f3; background-color:transparent;" class="float-right">@Localizer["Eingeloggter Benutzer"].Value: @_LigaManagerAuthenticationStateProvider.CurrentUser.Username</span>
+                            <br />
+                            <NavLink href="@($"Ligamanager/account/logout")" style="margin-top:8px;" title="@Localizer["Ausloggen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="logout" /><span></span></div></NavLink>
+                            <NavLink href="@($"Ligamanager/einstellungen")" style="margin-top:8px;" title="@Localizer["Einstellungen"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="settings" /><span></span></div></NavLink>
+                            <NavLink href="@($"Ligamanager/info")" style="margin-top:8px;" title="@Localizer["Info"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="info" /><span></span></div></NavLink>
+                            <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
+                            <h2>@Titel</h2>
+                        </div>
+                    </div>
+                </RadzenCard>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
+                <div class="form-group row mt-3 row mb-0">
+                    <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 mt-2" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
+                    <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-md-9 col-xs-12 mt-2"></InputText>
+                    <ValidationMessage For="(() => Liga.Liganame)"
+                                       class="col-md-9 offset-md-3 text-danger pl-3">
+                    </ValidationMessage>
+                </div>
+                <div class="form-group row mt-0 row mb-1">
+                    <RadzenLabel Text="Verband" class="col-md-3 col-xs-12" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
+                    <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control  col-md-9 col-xs-12"></InputText>
+                    <ValidationMessage For="(() => Liga.Verband)"
+                                       class="col-md-9 offset-md-3 text-danger pl-3">
+                    </ValidationMessage>
+                </div>
+                <div class="form-group row mt-0 row mb-1">
+                    <RadzenLabel Text="Erstaustragung" class="col-md-3 col-xs-12" Component="txtErstaustragung">@Localizer["Erstaustragung"].Value</RadzenLabel>
+                    <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control  col-md-9 col-xs-12"></InputDate>
+                    <ValidationMessage For="(() => Liga.Erstaustragung)"
+                                       class="col-md-9 offset-md-3 text-danger pl-3">
+                    </ValidationMessage>
+                </div>
+                <div class="form-group row mt-0 row mb-1">
+                    <RadzenLabel Text="Saisonen" class="col-md-3 col-xs-12" Component="txtSaisonen">@Localizer["Saisonen"].Value</RadzenLabel>
+                    <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control  col-md-9 col-xs-12"></InputNumber>
+                    <ValidationMessage For="(() => Liga.Saisonen)"
+                                       class="col-md-9 offset-md-3 text-danger pl-3">
+                    </ValidationMessage>
+                </div>
+                @if (Ausrichterland.ToString().Trim() == "")
+                {
+                    <div class="form-group row mt-0 row mb-1">
+                        <RadzenLabel Text="Rekordspieler" class="col-md-3 col-xs-12" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
+                        <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputText>
+                        <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
+                    </div>
+                    <div class="form-group row mt-0 row mb-1">
+                        <RadzenLabel Text="Spiele Rekordspieler" class="col-md-3 col-xs-12" Visible Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
+                        <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputNumber>
+                        <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group row mt-0 row mb-1">
+                        <RadzenLabel Text="Ausrichterland" class="col-md-3 col-xs-12" Component="txtAusrichterland">@Localizer["Ausrichterland"].Value</RadzenLabel>
+                        <InputText required id="txtAusrichterland" @bind-Value="Liga.Ausrichterland" class="form-control  col-md-9 col-xs-12"></InputText>
+                        <ValidationMessage For="(() => Liga.Ausrichterland)"
+                                           class="col-md-9 offset-md-3 text-danger pl-3">
+                        </ValidationMessage>
+                    </div>
+                }
+
+
+                <div class="form-group row mt-0 row mb-1">
+                    <RadzenLabel Text="lblEM" class="col-md-3 col-xs-6" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-wi
+dth:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkVerlängerung" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+                    </RadzenColumn>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Liga.Aktiv" />
                     </div>
                 </div>
-            </RadzenCard>
-        </div>
-    </div>
-
-    <div class="col-12">
-        <EditForm Model="Liga" OnValidSubmit="UpsertLiga">
-            <div class="form-group row mt-3 row mb-0">
-                <RadzenLabel Text="Liganame" class="col-md-3 col-xs-12 mt-2" Component="txtLiganame">@Localizer["Liganame"].Value</RadzenLabel>
-                <InputText required id="txtTore1" @bind-Value="Liga.Liganame" class="form-control col-md-9 col-xs-12 mt-2"></InputText>
-                <ValidationMessage For="(() => Liga.Liganame)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
-            <div class="form-group row mt-0 row mb-1">
-                <RadzenLabel Text="Verband" class="col-md-3 col-xs-12" Component="txtVerband">@Localizer["Verband"].Value</RadzenLabel>
-                <InputText required id="txtTore1" @bind-Value="Liga.Verband" class="form-control  col-md-9 col-xs-12"></InputText>
-                <ValidationMessage For="(() => Liga.Verband)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
-            <div class="form-group row mt-0 row mb-1">
-                <RadzenLabel Text="Erstaustragung" class="col-md-3 col-xs-12" Component="txtErstaustragung">@Localizer["Erstaustragung"].Value</RadzenLabel>
-                <InputDate required id="txtErstaustragung" @bind-Value="Liga.Erstaustragung" class="form-control  col-md-9 col-xs-12"></InputDate>
-                <ValidationMessage For="(() => Liga.Erstaustragung)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
-            <div class="form-group row mt-0 row mb-1">
-                <RadzenLabel Text="Saisonen" class="col-md-3 col-xs-12" Component="txtSaisonen">@Localizer["Saisonen"].Value</RadzenLabel>
-                <InputNumber required id="txtSaisonen" @bind-Value="Liga.Saisonen" class="form-control  col-md-9 col-xs-12"></InputNumber>
-                <ValidationMessage For="(() => Liga.Saisonen)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
-            @if (Ausrichterland.ToString().Trim() == "")
-            {
                 <div class="form-group row mt-0 row mb-1">
-                    <RadzenLabel Text="Rekordspieler" class="col-md-3 col-xs-12" Component="txtRekordspieler">@Localizer["Rekordspieler"].Value</RadzenLabel>
-                    <InputText required id="txtRekordspieler" @bind-Value="Liga.Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputText>
-                    <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
-                                       class="col-md-9 offset-md-3 text-danger pl-3">
-                    </ValidationMessage>
+                    <RadzenLabel Text="lblEM" class="col-md-3 col-xs-6" Component="chkEMWM">@Localizer["EM-WM"].Value</RadzenLabel>
+                    <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkEM" />
+                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+                    </RadzenColumn>
+                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                        <ValidationMessage For="() => Liga.EMWM" />
+                    </div>
                 </div>
-                <div class="form-group row mt-0 row mb-1">
-                    <RadzenLabel Text="Spiele Rekordspieler" class="col-md-3 col-xs-12" Visible Component="txtSaisonen">@Localizer["Spiele Rekordspieler"].Value</RadzenLabel>
-                    <InputNumber required id="txtSpiele_Rekordspieler" @bind-Value="Liga.Spiele_Rekordspieler" class="form-control  col-md-9 col-xs-12"></InputNumber>
-                    <ValidationMessage For="(() => Liga.Spiele_Rekordspieler)"
-                                       class="col-md-9 offset-md-3 text-danger pl-3">
-                    </ValidationMessage>
-                </div>
-            }
-            else
-            {
-                <div class="form-group row mt-0 row mb-1">
-                    <RadzenLabel Text="Ausrichterland" class="col-md-3 col-xs-12" Component="txtAusrichterland">@Localizer["Ausrichterland"].Value</RadzenLabel>
-                    <InputText required id="txtAusrichterland" @bind-Value="Liga.Ausrichterland" class="form-control  col-md-9 col-xs-12"></InputText>
-                    <ValidationMessage For="(() => Liga.Ausrichterland)"
-                                       class="col-md-9 offset-md-3 text-danger pl-3">
-                    </ValidationMessage>
-                </div>
-            }
-
-
-            <div class="form-group row mt-0 row mb-1">
-                <RadzenLabel Text="lblAktiv" class="col-md-3 col-xs-12" Component="chkAktiv">@Localizer["Aktiv"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.Aktiv" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkAktiv" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
-                </RadzenColumn>
-                <ValidationMessage For="(() => Liga.Aktiv)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
-            <div class="form-group row mt-0 row mb-1">
-                <RadzenLabel Text="lblEM" class="col-md-3 col-xs-12" Component="chkEMWM">@Localizer["EM-WM"].Value</RadzenLabel>
-                <RadzenCheckBox @bind-Value="Liga.EMWM" Style="border-width:0px; width:40px;max-width:40px;margin-left:0px;" class="form-control  col-md-9 col-xs-12" Name="chkEMWM" />
-                <RadzenColumn Size="8" Offset="4" class="rz-white rz-p-0">
-                </RadzenColumn>
-                <ValidationMessage For="(() => Liga.EMWM)"
-                                   class="col-md-9 offset-md-3 text-danger pl-3">
-                </ValidationMessage>
-            </div>
                 <DataAnnotationsValidator />
                 <!-- This will show any validation errors -->
                 <ValidationSummary />
-            <div class="form-group row mt-0 row mt-3">
-                <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
-                    <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
-                </RadzenButton>
-                <RadzenButton title="@Localizer["Löscht Liga"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
-                    <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
-                </RadzenButton>
-                <RadzenButton title="@Localizer["Zurück zu Ligen"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
+                <div class="form-group row mt-0 row mt-3">
+                    <RadzenButton title="@Localizer["Speichert Liga ab"].Value" style="margin-left:5px;" id="btnSpeichern" Click="UpsertLiga" class="btn btn-primary" Text="@Localizer["Speichern"].Value">
+                        <span class="glyphicon glyphicon-save"></span>@Localizer["Speichern"].Value
+                    </RadzenButton>
+                    <RadzenButton title="@Localizer["Löscht Liga"].Value" style="margin-left:5px;" id="btnDelete" Click="Confirm" class="btn btn-danger" Text="@Localizer["Löschen"].Value">
+                        <span class="glyphicon glyphicon-remove"></span>@Localizer["Löschen"].Value
+                    </RadzenButton>
+                    <RadzenButton title="@Localizer["Zurück zu Ligen"].Value" style="margin-left:5px;" Click="Zurueck_Click" id="btnZurueck" class="btn btn-secodary" Text="@Localizer["Zurück"].Value">
 
-                </RadzenButton>
-            </div>
-        </EditForm>
+                    </RadzenButton>
+                </div>
+            </EditForm>
+        </div>
     </div>
-</div>
 }
 
 @code {
@@ -203,17 +205,17 @@ else {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Verband nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
-        else if (Liga.Erstaustragung.ToShortDateString() == "01.01.0001")
+        else if (Liga.Erstaustragung?.ToShortDateString() == "01.01.0001")
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht angegeben.Speichern nicht möglich." });
             bError = true;
         }
-        else if (Liga.Erstaustragung.Year < 1930 || Liga.Erstaustragung.Month == 0 || Liga.Erstaustragung.Day == 0)
+        else if (Liga.Erstaustragung?.Year < 1930 || Liga.Erstaustragung?.Month == 0 || Liga.Erstaustragung?.Day == 0)
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
             bError = true;
         }
-        else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Liga.Erstaustragung.Date.ToString())))
+        else if ((!LigaManagement.Models.ExtensionMethos.IsDate(Liga.Erstaustragung?.Date.ToString())))
         {
             NotificationService.Notify(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = @Titel, Detail = "Datum nicht korrekt angegeben.Speichern nicht möglich." });
             bError = true; ;
@@ -238,11 +240,11 @@ else {
             await _Ligaservice.UpdateLiga(Liga);
         }
         NotificationService.Notify(new NotificationMessage
-            {
-                Severity = NotificationSeverity.Info,
-                Summary = Localizer["BearbeitenLiga"].Value,
-                Detail = Localizer["Abgespeichert"].Value
-            });
+        {
+            Severity = NotificationSeverity.Info,
+            Summary = Localizer["BearbeitenLiga"].Value,
+            Detail = Localizer["Abgespeichert"].Value
+        });
     }
     protected async Task<bool> Confirm()
     {
