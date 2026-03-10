@@ -259,9 +259,9 @@ else
                         <FooterTemplate>
                         </FooterTemplate>
                         <FooterTemplate>
-                            @Localizer["Spiele"]: <b>@Spieltage.Count()</b>
-                            @Localizer["Tore"]: <b>@Spieltage.Sum(x => x.Tore1_Nr + x.Tore2_Nr)</b>
-                            @Localizer["Tore Durchschnitt"]: <b>@string.Format("{0:0.00}", @Spieltage.Average(x => x.Tore1_Nr + x.Tore2_Nr))</b>
+                            @Localizer["Spiele"]: <b>@Spieltage?.Count()</b>
+                            @Localizer["Tore"]: <b>@Spieltage?.Sum(x => x.Tore1_Nr + x.Tore2_Nr)</b>
+                            @Localizer["Tore Durchschnitt"]: <b>@string.Format("{0:0.00}", @Spieltage?.Average(x => x.Tore1_Nr + x.Tore2_Nr))</b>
                         </FooterTemplate>
                     </RadzenDataGrid>
 
@@ -387,11 +387,11 @@ else
 
                 spieltag.Tore2_Nr = Spielplaene[i].Tore2_Nr;
 
-                spieltag.Schiedsrichter = Spielplaene[i].Schiedsrichter;
+                spieltag.Schiedsrichter = "SR";
 
                 spieltag.Datum = DateTime.Parse(Microsoft.VisualBasic.Strings.Right(Spielplaene[i].DatumString, 10)).AddDays(-1).AddMinutes(930);
 
-                spieltag.Abgeschlossen = Spielplaene[i].Abgeschlossen;
+                spieltag.SpieltagAbgeschlossen = Spielplaene[i].SpieltagAbgeschlossen;
 
                 spieltag.Zuschauer = Spielplaene[i].Zuschauer;
 

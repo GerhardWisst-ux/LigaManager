@@ -83,7 +83,7 @@ else
                             <NavLink href="@($"InfoTexteList")" style="margin-top:8px;" title="@Localizer["InfoTexte"].Value" class="btn btn-primary btn-sm float-right mr-2"><div><RadzenIcon Icon="help" /><span></span></div></NavLink>
                             <h2 style="display:block;">@Titel</h2>
                             @* <h3 class="card-title">@currentsaison</h3> *@
-                            <a href="@($"Ligamanager/SpielplanList/{SaisonID}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a>
+                            <a href="@($"Ligamanager/SpielplanList/{SaisonID}/{Globals.Spieltag}")" class="card-link"><span class="glyphicon glyphicon-arrow-left"></span>@Localizer["Zurück"].Value</a>
                         </div>
                     </div>
                 </RadzenCard>

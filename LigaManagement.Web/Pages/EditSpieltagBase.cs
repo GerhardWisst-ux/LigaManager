@@ -561,7 +561,7 @@ namespace LigamanagerManagement.Web.Pages
                 currentspieltag = Convert.ToInt32(e.Value);
 
                 bAbgeschlossen = Saisonen.FirstOrDefault(x => x.Saisonname == Globals.currentSaison).Abgeschlossen;
-
+                Globals.Spieltag = currentspieltag;
                 IsLoading = false;
                 StateHasChanged();
             }

@@ -47,9 +47,14 @@ namespace LigaManagement.Models
 
         public bool Elfmeterschiessen { get; set; }
 
+        public bool Supercup { get; set; }
+
         public int? Zuschauer { get; set; }
     
-        public string Runde { get; set; }              
+        public string Runde { get; set; } 
+       
+        public bool Beendet { get; set; }
+
     }
 
     public class PokalergebnisStatistik

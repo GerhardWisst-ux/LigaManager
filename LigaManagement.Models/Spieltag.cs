@@ -54,7 +54,8 @@ namespace LigaManagement.Models
         [Required(ErrorMessage = "Schiedrichter muß angegeben werden.")]
         public string Schiedsrichter { get; set; }
 
-        public bool Abgeschlossen { get; set; }
+        public bool SpieltagAbgeschlossen { get; set; }
+        public bool SpielAbgeschlossen { get; set; }
 
         [Required(ErrorMessage = "Zuschauer müssen angegeben werden.")]
         [Range(0, 150000, ErrorMessage = "Zuschauer müssen zwischen 0 und 150000 liegen.")]
@@ -129,7 +130,7 @@ namespace LigaManagement.Models
         public string AnzeigenameNiederlagen => $"{Saison} – {AnzahlNiederlagen} Niederlagen";
     }
 
-    public class SpieltageSerieGruppeUS
+    public class SpieltageSerieGruppeUE
     {
         public string Saison { get; set; }
         public int AnzahlUntentschieden { get; set; }

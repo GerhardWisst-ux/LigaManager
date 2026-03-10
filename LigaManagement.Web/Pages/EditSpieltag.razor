@@ -92,6 +92,7 @@ else
                             <a href="javascript:history.back()" class="card-link">
                                 <span class="glyphicon glyphicon-arrow-left"></span> Zurück
                             </a>
+                            
                         </div>
                     </div>
                 </RadzenCard>
@@ -618,8 +619,7 @@ else
                 {
 
                     var spielplaene = await _SpielplanService.GetSpielplaene();
-
-                    var spielplan = spielplaene.Where(x => x.SpieltagNr == SpieltagNr && x.Saison == Globals.currentSaison && x.LigaID == Globals.LigaID && x.Verein1_Nr == Spiel.Verein1_Nr && x.Verein2_Nr == Spiel.Verein2_Nr).ToList();
+                    var spielplan = spielplaene.Where(x => x.SpieltagNr == SpieltagNr && x.SaisonID == Globals.SaisonID && x.LigaID == Globals.LigaID && x.Verein1_Nr == Spiel.Verein1_Nr && x.Verein2_Nr == Spiel.Verein2_Nr).ToList();
 
 
 

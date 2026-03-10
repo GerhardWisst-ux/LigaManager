@@ -470,7 +470,7 @@ namespace Ligamanager.Tests2025
 
             foreach (var item in saisonen)
             {
-                var spieltage = spieltageAll?.Where(x => x.SaisonID == item.SaisonID && x.LigaID == 1 && x.Abgeschlossen == true);
+                var spieltage = spieltageAll?.Where(x => x.SaisonID == item.SaisonID && x.LigaID == 1 && x.SpieltagAbgeschlossen == true);
                 int? iCount = spieltage?.Count();
 
                 TestContext.Out.WriteLine("Saison:" + item.Saisonname + ", LigaID: " + item.LigaID + ", Anzahl Spiele mit KZ Abgeschlossen= true:" + iCount);

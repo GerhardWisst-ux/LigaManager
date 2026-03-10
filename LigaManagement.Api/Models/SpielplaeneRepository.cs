@@ -42,7 +42,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@DatumString", Spielplan.DatumString);
                 cmd.Parameters.AddWithValue("@Ort", Spielplan.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedsrichter);
-                cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.Abgeschlossen);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.SpieltagAbgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", Spielplan.Zuschauer);
                 
                 await cmd.ExecuteNonQueryAsync();
@@ -125,7 +125,7 @@ namespace LigaManagerManagement.Api.Models
 
                         Spielplan.Ort = reader["Ort"].ToString();
                         Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        Spielplan.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
                         Spielplan.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
@@ -191,7 +191,7 @@ namespace LigaManagerManagement.Api.Models
 
                             Spielplan.Ort = reader["Ort"].ToString();
                             Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
-                            Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                            Spielplan.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                             Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                             Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
                             Spielplan.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
@@ -257,7 +257,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Connection = conn;
              
 
-                if (Spielplan.Abgeschlossen == false)
+                if (Spielplan.SpieltagAbgeschlossen == false)
                     bAbgeschlossen = 0;
                 else
                     bAbgeschlossen = -1;
@@ -368,7 +368,7 @@ namespace LigaManagerManagement.Api.Models
                         Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString());
                         Spielplan.Ort = reader["Ort"].ToString();
                         Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        Spielplan.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         Spielplan.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
                         Spielplan.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
@@ -417,7 +417,7 @@ namespace LigaManagerManagement.Api.Models
                         Spielplan.Datum = DateTime.Parse(reader["Datum"].ToString());
                         Spielplan.Ort = reader["Ort"].ToString();
                         Spielplan.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        Spielplan.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        Spielplan.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         Spielplan.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
                     }
@@ -458,7 +458,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Datum", Spielplan.Datum);
                 cmd.Parameters.AddWithValue("@Ort", Spielplan.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", Spielplan.Schiedsrichter);
-                cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.Abgeschlossen);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", Spielplan.SpieltagAbgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", Spielplan.Zuschauer);
 
                 await cmd.ExecuteNonQueryAsync();
@@ -485,7 +485,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
                
-                if (Spielplan.Abgeschlossen == false)
+                if (Spielplan.SpieltagAbgeschlossen == false)
                     bAbgeschlossen = 0;
                 else
                     bAbgeschlossen = -1;

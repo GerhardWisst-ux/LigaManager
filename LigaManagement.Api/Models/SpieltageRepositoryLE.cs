@@ -44,7 +44,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        spieltag.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = 0;
                         spieltag.TeamIconUrl1 = GetImageFromPath(reader["Verein1"].ToString(), int.Parse(reader["SpieltagNr"].ToString()));
                         spieltag.TeamIconUrl2 = GetImageFromPath(reader["Verein2"].ToString(), int.Parse(reader["SpieltagNr"].ToString()));

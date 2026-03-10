@@ -1,3 +1,4 @@
+using InfoTextManagerManagement.Api.Models;
 using LigaManagement.Api.Models;
 using LigaManagement.Web.Classes;
 using LigamanagerManagement.Api.Models.Repository;
@@ -7,13 +8,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Reflection;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using StadionManagerManagement.Api.Models;
 using System;
+using System.Reflection;
 using ToremanagerManagement.Api.Models.Repository;
 using ToreManagerManagement.Api.Models;
-using StadionManagerManagement.Api.Models;
-using Serilog;
-using InfoTextManagerManagement.Api.Models;
 namespace LigaManagement.Api
 {
     public class Startup
@@ -59,12 +60,7 @@ namespace LigaManagement.Api
 
                 services.AddScoped<IVereinePTRepository, VereinPTRepository>();
                 services.AddScoped<IVereineTURepository, VereinTURepository>();
-
-                services.AddScoped<IVereinePTRepository, VereinPTRepository>();
-                services.AddScoped<IVereineTURepository, VereinTURepository>();
-                services.AddScoped<IVereineBERepository, VereinBERepository>();
-                services.AddScoped<IVereinRepository, VereinRepository>();
-                services.AddScoped<IVereineBERepository, VereinBERepository>();
+                services.AddScoped<IVereineBERepository, VereinBERepository>();                                
 
                 services.AddScoped<ISaisonenRepository, SaisonenRepository>();
                 services.AddScoped<ISaisonenCLRepository, SaisonenCLRepository>();
@@ -84,6 +80,27 @@ namespace LigaManagement.Api
 
                 services.AddControllers();
                 
+                services.AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "Ligamanager API",
+                        Description = "Ligamanager API",                        
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Gerhard Wißt",
+                            Email = "g.wisst@web.de",
+                            Url = new Uri("https://twitter.com/gwisst"),
+                        },
+                        License = new OpenApiLicense
+                        {
+                            Name = "GeWi Open License",
+                            Url = new Uri("https://google.de"),
+                        }
+                    });
+                });
+
                 services.AddCors(options => {
                     options.AddPolicy("AllowAll",
                         b => b.AllowAnyMethod()
@@ -111,6 +128,13 @@ namespace LigaManagement.Api
                 }
 
                 app.UseHttpsRedirection();
+
+                app.UseSwagger();
+                // This middleware serves the Swagger documentation UI
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Employee API V1");
+                });
 
                 app.UseRouting();
 

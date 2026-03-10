@@ -1,9 +1,11 @@
 ﻿@page "/Ligamanager/pokalergebnisse"
 @using LigaManagerManagement.Web.Pages;
+@using Microsoft.AspNetCore.Hosting
 @using Radzen;
 @using Radzen.Blazor;
 @using Radzen.Blazor.Rendering;
 
+@inject IWebHostEnvironment Env
 @inherits PokalergebnisseListBase
 
 @inject DialogService DialogService
@@ -170,9 +172,22 @@ else
                                                             </div>
                                                         </Template>
                                                     </RadzenDataGridColumn>
-                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="false" Width="50px" MinWidth="50px">
                                                         <Template Context="data">
-                                                            <RadzenImage Path="@($"/Images//{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                            @if (!FileExists(data.Verein1))
+                                                            {
+                                                                <RadzenImage Path="/Images/NoImage.webp"
+                                                                             style="width: 30px; height: 30px;"
+                                                                             title="@data.Verein1"
+                                                                             AlternateText="@data.Verein1" />
+                                                            }
+                                                            else
+                                                            {
+                                                                <RadzenImage Path="@($"/Images/{data.Verein1}.webp")"
+                                                                             style="width: 30px; height: 30px;"
+                                                                             title="@data.Verein1"
+                                                                             AlternateText="@data.Verein1" />
+                                                            }
                                                         </Template>
                                                     </RadzenDataGridColumn>
                                                     <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" TextAlign="TextAlign.Center" Width="27px" Sortable="false" Title="">
@@ -260,6 +275,100 @@ else
                                     <div class="col-sm-12">
                                         <RadzenCard style="flex:1;margin:0px;">
                                             <RadzenDataGrid @ref="grid" Data="@PokalergebnisseSpieltageFinale" EmptyText=@Localizer["Keine Daten zum Anzeigen"].Value class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
+                                                            AllowPaging="true" AllowSorting="false" AllowFiltering="false"
+                                                            TItem="PokalergebnisSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
+                                                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                                                            SelectionMode="DataGridSelectionMode.Single" CellRender="@CellRender" Density="@Density" LogicalFilterOperator="LogicalFilterOperator.Or">
+                                                <Columns>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Property="Verein1" TextAlign="TextAlign.Left" Width="25%" Sortable="false">
+                                                        <HeaderTemplate>
+                                                            <div style="padding: 4px 8px;">
+                                                                @Localizer["Heim"].Value
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                        <Template Context="data">
+                                                            <div style="padding: 4px 8px;">
+                                                                @data.Verein1
+                                                            </div>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
+                                                        <Template Context="data">
+                                                            <RadzenImage Path="@($"/Images//{data.Verein1}.webp")" style="width: 30px; height: 30px;" title="@data.Verein1" AlternateText="@(data.Verein1)" />
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" TextAlign="TextAlign.Center" Width="35px" Sortable="false" Title="">
+                                                        <Template Context="data">
+                                                            <div style="line-height: 1.2;">
+                                                                <div>@data.Tore1_Nr</div>
+                                                                <div class="spielentscheidung" title="@EntscheidungsText(data)">
+                                                                    @EntscheidungsSymbol(data)
+                                                                </div>
+                                                            </div>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Doppelpunkt" TextAlign="TextAlign.Center" Width="10px" Sortable=false />
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" CssClass="FarbeTorePunkt" Property="Tore2_Nr" TextAlign="TextAlign.Center" Width="22px" Sortable=false Title="" />
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Title="" Sortable="true" TextAlign="TextAlign.Left" Width="44px">
+                                                        <Template Context="data">
+                                                            <RadzenImage Path="@($"/Images//{data.Verein2}.webp")" style="width: 30px; height: 30px;" title="@data.Verein2" AlternateText="@(data.Verein2)" />
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Property="Verein2" TextAlign="TextAlign.Left" Width="25%" Sortable="false">
+                                                        <HeaderTemplate>
+                                                            <div style="padding: 4px 8px;">
+                                                                @Localizer["Gast"].Value
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                        <Template Context="data">
+                                                            <div style="padding: 4px 8px;">
+                                                                @data.Verein2
+                                                            </div>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Property="Verein2" TextAlign="TextAlign.Left" Width="25%" Sortable="false">
+                                                        <HeaderTemplate>
+                                                            <div style="padding: 4px 8px;">
+                                                                @Localizer["Ort"].Value
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                        <Template Context="data">
+                                                            <div style="padding: 4px 8px;">
+                                                                @data.Ort
+                                                            </div>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TItem="PokalergebnisSpieltag" Property="Datum" TextAlign="TextAlign.Left" Width="25%" Sortable="false">
+                                                        <HeaderTemplate>
+                                                            <div style="padding: 4px 8px;">
+                                                                @Localizer["Datum"].Value
+                                                            </div>
+                                                        </HeaderTemplate>
+                                                        <Template Context="data">
+                                                            <div style="padding: 4px 8px;">
+                                                                @string.Format("{0:dd.MM.yyyy H:mm}", data.Datum)
+                                                            </div>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                    <RadzenDataGridColumn TextAlign="TextAlign.Center" CssClass="table-row" TItem="PokalergebnisSpieltag" Property="SpieltagId" Width="80px" Filterable="false" Sortable="false">
+                                                        <Template Context="data">
+                                                            <NavLink href="@($"editpokalspieltag/{data.SpieltagId}")" title="@Localizer["Bearbeiten"].Value" class="btn btn-primary btn-sm"><div><RadzenIcon Icon="edit" title="@Localizer["Bearbeiten"].Value" /></div></NavLink>
+                                                        </Template>
+                                                    </RadzenDataGridColumn>
+                                                </Columns>
+                                                <FooterTemplate>
+                                                </FooterTemplate>
+
+                                            </RadzenDataGrid>
+                                        </RadzenCard>
+                                    </div>
+                                </div>
+                            </RadzenTabsItem>
+                            <RadzenTabsItem class="p-0" Text="@Localizer["Alle Supercupendspiele"].Value">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <RadzenCard style="flex:1;margin:0px;">
+                                            <RadzenDataGrid @ref="grid" Data="@SupercupEndspiele" EmptyText=@Localizer["Keine Daten zum Anzeigen"].Value class="table table-striped" FilterMode="FilterMode.Simple" PageSize="30"
                                                             AllowPaging="true" AllowSorting="false" AllowFiltering="false"
                                                             TItem="PokalergebnisSpieltag" Visible="true" Responsive=true AllowColumnResize="true"
                                                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
@@ -489,6 +598,13 @@ else
             _navigationManager.NavigateTo("/createpokalspieltag/" + RundeChoosed);
 
 
+    }
+
+    private bool FileExists(string fileName)
+    {
+        var path = System.IO.Path.Combine(Env.WebRootPath, "Images", $"{fileName}.webp");
+        @using System.IO
+        return System.IO.File.Exists(path);
     }
 }
 

@@ -21,8 +21,8 @@ namespace ToreManagerManagement.Api.Models
 
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
-                cmd.CommandText = "INSERT INTO Pokalergebnisse (SaisonID,Saison,Verein1_Nr,Verein1,Verein2_Nr,Verein2,Tore1_Nr,Tore2_Nr,Datum,Ort,Schiedrichter,Zuschauer,Verlängerung,Elfmeterschiessen,Runde)" +
-                    " VALUES(@SaisonID,@Saison,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer,@Verlängerung,@Elfmeterschiessen,@Runde); SELECT SCOPE_IDENTITY();"; 
+                cmd.CommandText = "INSERT INTO Pokalergebnisse (SaisonID,Saison,Verein1_Nr,Verein1,Verein2_Nr,Verein2,Tore1_Nr,Tore2_Nr,Datum,Ort,Schiedrichter,Zuschauer,Verlängerung,Elfmeterschiessen,Runde,Supercup,Closed)" +
+                    " VALUES(@SaisonID,@Saison,@Verein1_Nr,@Verein1,@Verein2_Nr,@Verein2,@Tore1_Nr,@Tore2_Nr,@Datum,@Ort,@Schiedrichter,@Zuschauer,@Verlängerung,@Elfmeterschiessen,@Runde,@Supercup,@Closed); SELECT SCOPE_IDENTITY();"; 
 
                 //cmd.Parameters.AddWithValue("@SpieltagId", pokalspiel.SpieltagId);
                 cmd.Parameters.AddWithValue("@SaisonID", pokalspiel.SaisonID);
@@ -40,6 +40,8 @@ namespace ToreManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Verlängerung", pokalspiel.Verlängerung);
                 cmd.Parameters.AddWithValue("@Runde", pokalspiel.Runde);
                 cmd.Parameters.AddWithValue("@Elfmeterschiessen", pokalspiel.Elfmeterschiessen);
+                cmd.Parameters.AddWithValue("@Supercup", pokalspiel.Supercup);
+                cmd.Parameters.AddWithValue("@Closed", pokalspiel.Beendet);
 
                 var result = await cmd.ExecuteScalarAsync();                
 
@@ -59,20 +61,29 @@ namespace ToreManagerManagement.Api.Models
 
         public async Task<PokalergebnisSpieltag> DeletePokalergebnis(int SpieltagID)
         {
-            SqlConnection conn = new SqlConnection(Globals.connstring);
-            await conn.OpenAsync();
+            try
+            {
+                SqlConnection conn = new SqlConnection(Globals.connstring);
+                await conn.OpenAsync();
 
-            SqlCommand cmd = new SqlCommand();
-            cmd.Connection = conn;
-            cmd.CommandText = "DELETE FROM [dbo].[Pokalergebnisse]  where SpieltagId = @SpieltagId";
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = conn;
+                cmd.CommandText = "DELETE FROM [dbo].[Pokalergebnisse]  where SpieltagId = @SpieltagId";
 
-            cmd.Parameters.AddWithValue("@SpieltagId", SpieltagID);
+                cmd.Parameters.AddWithValue("@SpieltagId", SpieltagID);
 
-            await cmd.ExecuteNonQueryAsync();
+                await cmd.ExecuteNonQueryAsync();
 
-            conn.Close();
+                conn.Close();
 
-            return null;
+                return null;
+            }
+            catch (Exception ex)
+            {
+
+                ErrorLogger.WriteToErrorLog(ex.Message, ex.StackTrace, Assembly.GetExecutingAssembly().FullName);
+                return null;
+            }
         }
               
         public async Task<PokalergebnisSpieltag> GetPokalergebnis(int SpieltagID)
@@ -107,6 +118,8 @@ namespace ToreManagerManagement.Api.Models
                         pe.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         pe.Verlängerung = bool.Parse(reader["Verlängerung"].ToString());
                         pe.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
+                        pe.Supercup = bool.Parse(reader["Supercup"].ToString());
+                        pe.Beendet = bool.Parse(reader["Closed"].ToString());
                     }
                 }
                 conn.Close();
@@ -153,7 +166,8 @@ namespace ToreManagerManagement.Api.Models
                         pe.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                         pe.Verlängerung = bool.Parse(reader["Verlängerung"].ToString());
                         pe.Elfmeterschiessen = bool.Parse(reader["Elfmeterschiessen"].ToString());
-
+                        pe.Supercup = bool.Parse(reader["Supercup"].ToString());
+                        pe.Beendet = false; // bool.Parse(reader["Closed"].ToString());
                         peList.Add(pe);
                     }
                 }
@@ -175,7 +189,7 @@ namespace ToreManagerManagement.Api.Models
                 SqlConnection conn = new SqlConnection(Globals.connstring);
                 await conn.OpenAsync();
 
-                SqlCommand command = new SqlCommand("WITH SpieleMitNummer AS (SELECT [SpieltagId],[Saison], [SaisonID], [Verein1_Nr], [Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum], [Ort],        [Schiedrichter],        [Runde],        [Zuschauer],        [Verlängerung],        [Elfmeterschiessen],        ROW_NUMBER() OVER (PARTITION BY Saison ORDER BY Datum DESC) AS rn    FROM [dbo].[Pokalergebnisse]  WHERE Verein1_Nr = " +  vereinid  + " OR Verein2_Nr =  +  " + vereinid  + ") SELECT * FROM SpieleMitNummer WHERE rn = 1 ORDER BY Saison DESC;", conn);
+                SqlCommand command = new SqlCommand("WITH SpieleMitNummer AS (SELECT [SpieltagId],[Saison], [SaisonID], [Verein1_Nr], [Verein1],[Verein2_Nr],[Verein2],[Tore1_Nr],[Tore2_Nr],[Datum], [Ort],        [Schiedrichter],        [Runde],        [Zuschauer],        [Verlängerung],        [Elfmeterschiessen], [Supercup], ROW_NUMBER() OVER (PARTITION BY Saison ORDER BY Datum DESC) AS rn    FROM [dbo].[Pokalergebnisse]  WHERE supercup = 0 AND (Verein1_Nr = " +  vereinid  + " OR Verein2_Nr =  +  " + vereinid  + ")) SELECT * FROM SpieleMitNummer WHERE rn = 1 ORDER BY Saison DESC;", conn);
                 PokalHistorieStatistik pe = null;
                 List<PokalHistorieStatistik> phList = new List<PokalHistorieStatistik>();
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -263,6 +277,8 @@ namespace ToreManagerManagement.Api.Models
         {
             int bVerlängerung;
             int bElfmeterschiessen;
+            int bSupercup;
+            int bBeendet;
             try
             {
                 SqlConnection conn = new SqlConnection(Globals.connstring);
@@ -281,6 +297,16 @@ namespace ToreManagerManagement.Api.Models
                 else
                     bElfmeterschiessen = 1;
 
+                if (pokalspiel.Supercup == false)
+                    bSupercup = 0;
+                else
+                    bSupercup = 1;
+
+                if (pokalspiel.Beendet == false)
+                    bBeendet = 0;
+                else
+                    bBeendet = 1;
+
                 cmd.CommandText = "UPDATE [dbo].[Pokalergebnisse] SET " +                      
                       " [Saison] = '" + pokalspiel.Saison + "'" +
                       ",[SaisonID] = " + pokalspiel.SaisonID +
@@ -296,6 +322,8 @@ namespace ToreManagerManagement.Api.Models
                       ",[Zuschauer] = " + pokalspiel.Zuschauer +                      
                       ",[Runde] = '" + pokalspiel.Runde + "'" +
                       ",[Verlängerung] = " + bVerlängerung +
+                      ",[Supercup] = " + bSupercup +
+                      ",[Closed] = " + bBeendet +
                       ",[Elfmeterschiessen] = " + bElfmeterschiessen +
                       " WHERE [SpieltagId] = " + pokalspiel.SpieltagId;
 

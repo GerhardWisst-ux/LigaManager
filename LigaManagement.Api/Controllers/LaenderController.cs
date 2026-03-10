@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace LigaManagement.Api.Controllers
 {
 
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class LaenderController : ControllerBase
     {
         private readonly ILaenderRepository laenderRepository;
@@ -18,7 +18,8 @@ namespace LigaManagement.Api.Controllers
         {
             this.laenderRepository = laenderRepository;
         }
-                
+
+        [HttpGet]
         public async Task<ActionResult> GetLaender()
         {
             try
@@ -31,7 +32,7 @@ namespace LigaManagement.Api.Controllers
                     "Error retrieving data from the database:" + ex.Message);
             }
         }
-                
+
         [HttpGet("{id:int}")]
         public async Task<ActionResult<Land>> GetLand(int id)
         {
@@ -76,7 +77,7 @@ namespace LigaManagement.Api.Controllers
         }
 
         [HttpPut()]
-        public async Task<ActionResult<Land>> UpdateLiga(Land land)
+        public async Task<ActionResult<Land>> UpdateLand(Land land)
         {
             try
             {

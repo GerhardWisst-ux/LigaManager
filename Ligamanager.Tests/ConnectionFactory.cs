@@ -136,7 +136,7 @@ public class VereineRepository
                     spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                     spieltag.Ort = reader["Ort"].ToString();
                     spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
-                    spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                    spieltag.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                     spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
                     spieltag.TeamIconUrl1 = reader["TeamIconUrl1"].ToString();
                     spieltag.TeamIconUrl2 = reader["TeamIconUrl2"].ToString();
@@ -190,7 +190,7 @@ public class VereineRepository
                             Datum = reader.GetDateTime(reader.GetOrdinal("Datum")),
                             Ort = reader.GetString(reader.GetOrdinal("Ort")),
                             Schiedsrichter = reader.GetString(reader.GetOrdinal("Schiedrichter")),
-                            Abgeschlossen = reader.GetBoolean(reader.GetOrdinal("Abgeschlossen")),
+                            SpieltagAbgeschlossen = reader.GetBoolean(reader.GetOrdinal("Abgeschlossen")),
                             Zuschauer = reader.GetInt32(reader.GetOrdinal("Zuschauer")),
                             TeamIconUrl1 = "", //reader.GetString(reader.GetOrdinal("TeamIconUrl1")),
                             TeamIconUrl2 = ""  //reader.GetString(reader.GetOrdinal("TeamIconUrl2"))
@@ -237,7 +237,7 @@ public class VereineRepository
             cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
             cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
             cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedsrichter);
-            cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
+            cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.SpieltagAbgeschlossen);
             cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
             cmd.ExecuteNonQuery();

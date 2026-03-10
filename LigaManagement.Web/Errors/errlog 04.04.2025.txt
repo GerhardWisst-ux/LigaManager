@@ -1,7 +1,0 @@
-Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: Value cannot be null. (Parameter 'source')
-StackTrace:    at System.Linq.ThrowHelper.ThrowArgumentNullException(ExceptionArgument argument)
-   at System.Linq.Enumerable.Distinct[TSource](IEnumerable`1 source, IEqualityComparer`1 comparer)
-   at LigaManagement.Web.Pages.EinstiegListBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EinstiegListBase.cs:line 170
-Datum/Uhrzeit: 04.04.2025 14:07:12
-============================================

@@ -202,6 +202,15 @@
                                         <ValidationMessage For="() => Spiel.Elfmeterschiessen" />
                                     </div>
                                 </div>
+                                <div class="form-group row mt-0 row mb-1">
+                                    <RadzenLabel Text="lblElfmeterschiessen" class="col-md-3 col-xs-6" Component="chkElfmeterschiessen">@Localizer["Beendet"].Value</RadzenLabel>
+                                    <RadzenCheckBox @bind-Value="Spiel.Beendet" Style="border-width:0px; max-width:40px;height:40px;margin-left:0px;" class="form-control rz-secondary-light col-sm-1" Name="chkElfmeterschiessen" />
+                                    <RadzenColumn Size="8" Offset="4" class="rz-secondary-light rz-pl-0">
+                                    </RadzenColumn>
+                                    <div class="col-12 col-md-9 offset-md-3 text-danger ps-3">
+                                        <ValidationMessage For="() => Spiel.Beendet" />
+                                    </div>
+                                </div>
                                 <DataAnnotationsValidator />
                                 <ValidationSummary />
                                 <div class="form-group row mt-3 row mb-1">
@@ -272,9 +281,11 @@
             return false;
         }
 
+        
+
         if (Spiel.SaisonID == 433)
         {
-            
+
         }
         else
         {
@@ -284,7 +295,7 @@
                 return false;
             }
         }
-        
+
 
         if (string.IsNullOrWhiteSpace(Spiel.Ort))
         {
@@ -319,6 +330,8 @@
         Spiel.Saison = Globals.currentPokalSaison;
         Spiel.SaisonID = Globals.CLPokalSaisonID;
         Spiel.Runde = RundeChoosed;
+        Spiel.Supercup = false;
+        Spiel.Beendet = false;
 
         string[] subs = Time.Value.ToString().Split(':');
         int spieldatetime = Convert.ToInt32(subs[0].Substring(11, 2)) * 60 + (Convert.ToInt32(subs[1].Substring(0, 2)));

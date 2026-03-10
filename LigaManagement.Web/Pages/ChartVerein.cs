@@ -88,11 +88,11 @@ namespace LigaManagerManagement.Web.Pages
 
         public List<SpieltageSerieGruppe> SpieltageSerienGruppen = new();
         public List<SpieltageSerieGruppeNL> SpieltageSerienGruppenNL = new();
-        public List<SpieltageSerieGruppeUS> SpieltageSerienGruppenUS = new();
+        public List<SpieltageSerieGruppeUE> SpieltageSerienGruppenUS = new();
 
         public SpieltageSerieGruppe AktuelleSiegesSerie;
         public SpieltageSerieGruppeNL AktuelleNiederlagenSerie;
-        public SpieltageSerieGruppeUS AktuelleUnentschiedenSerie;
+        public SpieltageSerieGruppeUE AktuelleUnentschiedenSerie;
 
         public int AktuelleGruppeIndex = 0;
         public int AktuelleGruppeIndexNL = 0;
@@ -670,7 +670,7 @@ namespace LigaManagerManagement.Web.Pages
 
                 }
                 SerieUnentschiedenVerein2 = SpieltageSerie;
-                var gruppen = new List<SpieltageSerieGruppeUS>();
+                var gruppen = new List<SpieltageSerieGruppeUE>();
 
                 foreach (var serie in SerieUnentschiedenVerein)
                 {
@@ -684,7 +684,7 @@ namespace LigaManagerManagement.Web.Pages
 
                     if (zugeordneteSpieltage.Any())
                     {
-                        gruppen.Add(new SpieltageSerieGruppeUS
+                        gruppen.Add(new SpieltageSerieGruppeUE
                         {
                             Saison = serie.Saison,
                             AnzahlUntentschieden = serie.AnzahlUnentschieden,

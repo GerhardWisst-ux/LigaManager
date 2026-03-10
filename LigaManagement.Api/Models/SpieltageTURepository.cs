@@ -38,7 +38,7 @@ namespace LigaManagerManagement.Api.Models
                 cmd.Parameters.AddWithValue("@Datum", spieltag.Datum);
                 cmd.Parameters.AddWithValue("@Ort", spieltag.Ort);
                 cmd.Parameters.AddWithValue("@Schiedrichter", spieltag.Schiedsrichter);
-                cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.Abgeschlossen);
+                cmd.Parameters.AddWithValue("@Abgeschlossen", spieltag.SpieltagAbgeschlossen);
                 cmd.Parameters.AddWithValue("@Zuschauer", spieltag.Zuschauer);
 
                 await cmd.ExecuteNonQueryAsync();
@@ -104,7 +104,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        spieltag.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
                     }
@@ -151,7 +151,7 @@ namespace LigaManagerManagement.Api.Models
                         spieltag.Datum = DateTime.Parse(reader["Datum"].ToString());
                         spieltag.Ort = reader["Ort"].ToString();
                         spieltag.Schiedsrichter = reader["Schiedrichter"].ToString();
-                        spieltag.Abgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
+                        spieltag.SpieltagAbgeschlossen = bool.Parse(reader["Abgeschlossen"].ToString());
                         spieltag.Zuschauer = int.Parse(reader["Zuschauer"].ToString());
 
                         Spieltaglist.Add(spieltag);
@@ -202,7 +202,7 @@ namespace LigaManagerManagement.Api.Models
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = conn;
               
-                if (spieltag.Abgeschlossen == false)
+                if (spieltag.SpieltagAbgeschlossen == false)
                     bAbgeschlossen = 0;
                 else
                     bAbgeschlossen = -1;

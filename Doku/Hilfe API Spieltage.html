@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spieltage API Dokumentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        .base-url {
+            background: rgba(255,255,255,0.2);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+        .content {
+            padding: 40px;
+        }
+        .endpoint {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .endpoint:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        .method {
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.85em;
+            text-transform: uppercase;
+        }
+        .method.get { background: #61affe; color: white; }
+        .method.post { background: #49cc90; color: white; }
+        .method.put { background: #fca130; color: white; }
+        .method.delete { background: #f93e3e; color: white; }
+        .endpoint-path {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            color: #333;
+            flex: 1;
+        }
+        .endpoint-description {
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        .endpoint-details {
+            display: none;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+        .endpoint.active .endpoint-details {
+            display: block;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 0.95em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .param-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .param-table th,
+        .param-table td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .param-table th {
+            background: #f1f3f5;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        .param-name {
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+            font-weight: 600;
+        }
+        .param-type {
+            font-family: 'Courier New', monospace;
+            color: #6610f2;
+            font-size: 0.9em;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+        }
+        .response-code {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 10px;
+        }
+        .response-200 { background: #d4edda; color: #155724; }
+        .response-201 { background: #d4edda; color: #155724; }
+        .response-400 { background: #fff3cd; color: #856404; }
+        .response-500 { background: #f8d7da; color: #721c24; }
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .info-box strong {
+            color: #1976D2;
+        }
+        .toggle-icon {
+            font-size: 1.2em;
+            transition: transform 0.3s ease;
+        }
+        .endpoint.active .toggle-icon {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ Spieltage API</h1>
+            <p>Liga-Management System - REST API Dokumentation</p>
+            <div class="base-url">Base URL: /api/spieltage</div>
+        </div>
+        
+        <div class="content">
+            <div class="info-box">
+                <strong>ℹ️ Über diese API:</strong> Diese API verwaltet Spieltage für ein Liga-Management-System. 
+                Sie unterstützt unterschiedliche Liga-Typen (Liga 1, 2 und 3) mit spezifischen Operationen.
+            </div>
+
+            <!-- GET Spieltage -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/spieltage/GetSpieltage</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Ruft alle Spieltage ab (AsNoTracking für bessere Performance)
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">📝 Beschreibung</div>
+                        <p>Gibt eine Liste aller Spieltage zurück. Die Abfrage nutzt AsNoTracking für optimierte Performance bei Leseoperationen.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-200">200 OK</span> Liste der Spieltage erfolgreich abgerufen</p>
+                        <p><span class="response-code response-500">500</span> Interner Serverfehler beim Datenbankzugriff</p>
+                        <div class="code-block">// Beispiel Response
+[
+  {
+    "spieltagId": 1,
+    "ligaID": 1,
+    "nummer": 1,
+    "datum": "2024-10-20T15:30:00"
+  },
+  ...
+]</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET Spieltage Count -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/spieltage/GetSpieltageCount</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Gibt die Anzahl aller Spieltage zurück
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">📝 Beschreibung</div>
+                        <p>Liefert die Gesamtanzahl der Spieltage in der Datenbank.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-200">200 OK</span> Anzahl erfolgreich abgerufen</p>
+                        <p><span class="response-code response-500">500</span> Interner Serverfehler</p>
+                        <div class="code-block">// Beispiel Response
+42</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GET Spieltag by ID -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method get">GET</span>
+                    <span class="endpoint-path">/api/spieltage/{id}</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Ruft einen spezifischen Spieltag anhand der ID ab
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">🔗 Parameter</div>
+                        <table class="param-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Typ</th>
+                                    <th>Position</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="param-name">id</span></td>
+                                    <td><span class="param-type">int</span></td>
+                                    <td>Path</td>
+                                    <td>Die eindeutige ID des Spieltags</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-200">200 OK</span> Spieltag gefunden und zurückgegeben</p>
+                        <p><span class="response-code response-500">500</span> Datenbankfehler</p>
+                        <div class="code-block">// Beispiel Response
+{
+  "spieltagId": 5,
+  "ligaID": 1,
+  "nummer": 5,
+  "datum": "2024-11-03T15:30:00",
+  "spieleList": [...]
+}</div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">💡 Beispiel Request</div>
+                        <div class="code-block">GET /api/spieltage/5</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- POST Create Spieltag -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method post">POST</span>
+                    <span class="endpoint-path">/api/spieltage</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Erstellt einen neuen Spieltag (unterschiedliche Logik für Liga 3)
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">📝 Beschreibung</div>
+                        <p>Erstellt einen neuen Spieltag. <strong>Wichtig:</strong> Für LigaID < 3 wird AddSpieltag() verwendet, für LigaID >= 3 wird AddSpieltagL3() verwendet.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📥 Request Body</div>
+                        <div class="code-block">{
+  "ligaID": 1,
+  "nummer": 10,
+  "datum": "2024-12-15T15:30:00",
+  "bemerkung": "Wichtiges Spiel"
+}</div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-201">201 Created</span> Spieltag erfolgreich erstellt</p>
+                        <p><span class="response-code response-400">400</span> Ungültige Daten (Body ist null)</p>
+                        <p><span class="response-code response-500">500</span> Fehler bei der Neuanlage</p>
+                        <div class="code-block">// Response Header
+Location: /api/spieltage/15
+
+// Response Body
+{
+  "spieltagId": 15,
+  "ligaID": 1,
+  "nummer": 10,
+  "datum": "2024-12-15T15:30:00"
+}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PUT Update Spieltag -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method put">PUT</span>
+                    <span class="endpoint-path">/api/spieltage</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Aktualisiert einen bestehenden Spieltag
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">📝 Beschreibung</div>
+                        <p>Aktualisiert die Daten eines vorhandenen Spieltags. Die SpieltagId muss im Body enthalten sein.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📥 Request Body</div>
+                        <div class="code-block">{
+  "spieltagId": 15,
+  "ligaID": 1,
+  "nummer": 10,
+  "datum": "2024-12-16T18:00:00",
+  "bemerkung": "Geändertes Datum"
+}</div>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-200">200 OK</span> Spieltag erfolgreich aktualisiert</p>
+                        <p><span class="response-code response-400">400</span> Ungültige Daten</p>
+                        <p><span class="response-code response-500">500</span> Fehler beim Update</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- DELETE Spieltag -->
+            <div class="endpoint" onclick="toggleEndpoint(this)">
+                <div class="endpoint-header">
+                    <span class="method delete">DELETE</span>
+                    <span class="endpoint-path">/api/spieltage/{id}/{liganummer}</span>
+                    <span class="toggle-icon">▶</span>
+                </div>
+                <div class="endpoint-description">
+                    Löscht einen Spieltag (spezielle Logik für Liga 3)
+                </div>
+                <div class="endpoint-details">
+                    <div class="section">
+                        <div class="section-title">📝 Beschreibung</div>
+                        <p>Löscht einen Spieltag. <strong>Wichtig:</strong> Für Liga 3 (liganummer = 3) wird DeleteSpieltagL3() verwendet, sonst DeleteSpieltag().</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">🔗 Parameter</div>
+                        <table class="param-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Typ</th>
+                                    <th>Position</th>
+                                    <th>Beschreibung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="param-name">id</span></td>
+                                    <td><span class="param-type">int</span></td>
+                                    <td>Path</td>
+                                    <td>Die ID des zu löschenden Spieltags</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="param-name">liganummer</span></td>
+                                    <td><span class="param-type">int</span></td>
+                                    <td>Path</td>
+                                    <td>Die Liganummer (3 für Liga 3, andere Werte für andere Ligen)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">📤 Response</div>
+                        <p><span class="response-code response-200">200 OK</span> Spieltag erfolgreich gelöscht</p>
+                        <p><span class="response-code response-500">500</span> Fehler beim Löschen</p>
+                    </div>
+                    
+                    <div class="section">
+                        <div class="section-title">💡 Beispiel Request</div>
+                        <div class="code-block">DELETE /api/spieltage/15/3  // Liga 3
+DELETE /api/spieltage/20/1  // Liga 1</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="margin-top: 40px;">
+                <strong>🔐 Hinweise:</strong><br>
+                • Alle Endpunkte nutzen Try-Catch für Error-Handling<br>
+                • Logging erfolgt über ILogger<br>
+                • GET-Operationen verwenden AsNoTracking für bessere Performance<br>
+                • Liga 3 hat spezielle Logik bei Create und Delete
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleEndpoint(element) {
+            element.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

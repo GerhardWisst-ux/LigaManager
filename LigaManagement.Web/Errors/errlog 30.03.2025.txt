@@ -1,9 +1,0 @@
-Titel: LigaManagement.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-Nachricht: Response status code does not indicate success: 404 (Not Found).
-StackTrace:    at System.Net.Http.HttpResponseMessage.EnsureSuccessStatusCode()
-   at System.Net.Http.HttpClient.GetStringAsyncCore(HttpRequestMessage request, CancellationToken cancellationToken)
-   at Microsoft.AspNetCore.Components.HttpClientJsonExtensions.GetJsonAsync[T](HttpClient httpClient, String requestUri)
-   at LigaManagerManagement.Web.Services.SpieltagService.GetSpieltag(Int32 id) in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Services\SpieltagService.cs:line 26
-   at LigamanagerManagement.Web.Pages.EditSpieltagBase.OnInitializedAsync() in C:\Users\gwiss\source\repos\Ligamanager-Sicherung\LigaManagement.Web\Pages\EditSpieltagBase.cs:line 214
-Datum/Uhrzeit: 30.03.2025 15:11:30
-============================================
